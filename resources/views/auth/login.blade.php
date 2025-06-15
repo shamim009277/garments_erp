@@ -3,7 +3,7 @@
     @slot('title', 'Login')
     <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
         <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+            <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
                 <div class="col mx-auto">
                     <div class="mb-4 text-center">
                         <img src="{{ asset('backend/assets/images/logo-img.png') }}" width="180" alt="" />
@@ -42,7 +42,7 @@
                                             </div>
                                         </div>
                                         @if (Route::has('password.request'))
-                                        <div class="col-md-6 text-end"> 
+                                        <div class="col-md-6 text-end">
                                             <a href="{{ route('password.request') }}">Forgot Password ?</a>
                                         </div>
                                         @endif

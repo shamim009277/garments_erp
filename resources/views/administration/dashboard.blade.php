@@ -1,8 +1,11 @@
 <x-app-layout>
-    @slot('title', 'Payrolls')
-    <x-breadcrumb title="Dashboard" subtitle="Payroll" :right="[
-        ['label' => 'Payroll', 'url' => '/payrolls'],
-    ]" />
+    @slot('title', 'Administration')
+    <x-breadcrumb
+        title="Dashboard"
+        subtitle="Administration"
+            :right="[
+            ['label' => 'Administration', 'url' => '/administration'],
+        ]" />
 
     <!--end breadcrumb-->
 

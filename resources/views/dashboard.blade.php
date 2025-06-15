@@ -48,7 +48,7 @@
                             <div class="card-body" style="padding: 0px;">
                                 <div class="d-flex align-items-center">
                                     <div class="image-wrapper">
-                                        <a href="{{ route('hrm.index') }}">	
+                                        <a href="{{ route('hrm.index') }}">
                                             <img src="{{ asset('backend/assets/images/module/hrm2.jpeg') }}" alt="HRM Module">
                                         </a>
                                     </div>
@@ -62,7 +62,7 @@
                             <div class="card-body" style="padding: 0px;">
                                 <div class="d-flex align-items-center">
                                     <div class="image-wrapper">
-                                        <a href="{{ route('payroll.index') }}">	
+                                        <a href="{{ route('payroll.index') }}">
                                             <img src="{{ asset('backend/assets/images/module/payroll.png') }}" alt="Payroll Module">
                                         </a>
                                     </div>
@@ -76,7 +76,7 @@
                             <div class="card-body" style="padding: 0px;">
                                 <div class="d-flex align-items-center">
                                     <div class="image-wrapper">
-                                        <a href="{{ route('inventory.index') }}">	
+                                        <a href="{{ route('inventory.index') }}">
                                             <img src="{{ asset('backend/assets/images/module/inventory.webp') }}" alt="Inventory Module">
                                         </a>
                                     </div>
@@ -90,7 +90,7 @@
                             <div class="card-body" style="padding: 0px;">
                                 <div class="d-flex align-items-center">
                                     <div class="image-wrapper">
-                                        <a href="#">
+                                        <a href="{{ route('administration.index') }}">
                                             <img src="{{ asset('backend/assets/images/module/administration.jpg') }}" alt="Administration Module">
                                         </a>
                                     </div>
@@ -109,7 +109,7 @@
     @include('partials.scripts')
 
     <script>
-        $(document).ready(function () { 
+        $(document).ready(function () {
 			$("html").attr("class", "semi-dark");
             $("html").addClass("color-header headercolor9");
         });
