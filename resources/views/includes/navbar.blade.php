@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand">
+    <div class="mobile-toggle-menu"><i class='bx bx-menu'></i></div>
     <div class="top-menu ms-auto">
         <ul class="navbar-nav align-items-center">
             <li class="nav-item mobile-search-icon">
@@ -305,7 +306,7 @@
             <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a></li>
             <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a></li>
             <li><div class="dropdown-divider mb-0"></div></li>
-            
+
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                <li><a class="dropdown-item" href="route('logout')" onclick="event.preventDefault();
