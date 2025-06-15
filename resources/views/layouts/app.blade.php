@@ -14,7 +14,8 @@
 	<!--wrapper-->
 	<div class="wrapper">
 		<!--sidebar wrapper -->
-		@include('includes.sidebar')
+		{{-- @include('includes.sidebar') --}}
+        @includeIf('includes.sidebar.' . ($currentModule ?? 'common'))
 		<!--end sidebar wrapper -->
 		<!--start header -->
 		<header>
@@ -42,18 +43,18 @@
 	<!--start switcher-->
 	@include('partials.customizer')
 	<!--end switcher-->
-	
+
     @include('partials.scripts')
-	<script>
-		$(document).ready(function () { 
+	{{-- <script>
+		$(document).ready(function () {
 			$("html").attr("class", "semi-dark");
 			$("html").addClass("color-header headercolor9")
-			// let sidebarColor = localStorage.getItem("sidebarColor");
-			// if (sidebarColor) {
-			// 	$("html").addClass(sidebarColor);
-			// }
+			let sidebarColor = localStorage.getItem("sidebarColor");
+			if (sidebarColor) {
+				$("html").addClass(sidebarColor);
+			}
         });
-	</script>
+	</script> --}}
 	@stack('scripts')
 </body>
 </html>
