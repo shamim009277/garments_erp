@@ -46,11 +46,6 @@
 
     @include('partials.scripts')
     <style>
-        /* Smooth transitions for topbar and sidebar */
-        .topbar,
-        .sidebar-wrapper {
-            transition: all 0.3s ease-in-out;
-        }
 
         /* Optional: transition for page content shifting */
         .page-wrapper {
@@ -67,9 +62,11 @@
     <script>
         $(function() {
             "use strict";
-
             // Force sidebar collapsed on page load
-            $(".wrapper").addClass("toggled");
+            if ($(window).width() > 1024) {
+                $(".wrapper").addClass("toggled");
+            }
+            //$(".wrapper").addClass("toggled");
 
             // Enable hover to expand sidebar
             $(".sidebar-wrapper").hover(
@@ -80,38 +77,6 @@
                     $(".wrapper").removeClass("sidebar-hovered");
                 }
             );
-
-            new PerfectScrollbar(".header-message-list");
-            new PerfectScrollbar(".header-notifications-list");
-
-            $(".mobile-search-icon").on("click", function() {
-                $(".search-bar").addClass("full-search-bar");
-            });
-
-            $(".search-close").on("click", function() {
-                $(".search-bar").removeClass("full-search-bar");
-            });
-
-            $(".mobile-toggle-menu").on("click", function() {
-                $(".wrapper").addClass("toggled");
-            });
-
-            $(".toggle-icon").click(function() {
-                if ($(".wrapper").hasClass("toggled")) {
-                    $(".wrapper").removeClass("toggled");
-                    $(".sidebar-wrapper").unbind("hover");
-                } else {
-                    $(".wrapper").addClass("toggled");
-                    $(".sidebar-wrapper").hover(
-                        function() {
-                            $(".wrapper").addClass("sidebar-hovered");
-                        },
-                        function() {
-                            $(".wrapper").removeClass("sidebar-hovered");
-                        }
-                    );
-                }
-            });
         });
 
 
@@ -121,5 +86,4 @@
         });
     </script>
 </body>
-
 </html>
