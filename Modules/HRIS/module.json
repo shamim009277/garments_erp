@@ -1,0 +1,11 @@
+{
+    "name": "HRIS",
+    "alias": "hris",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HRIS\\Providers\\HRISServiceProvider"
+    ],
+    "files": []
+}
