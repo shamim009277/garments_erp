@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/hris",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\HRIS\\": "app/",
+            "Modules\\HRIS\\Database\\Factories\\": "database/factories/",
+            "Modules\\HRIS\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\HRIS\\Tests\\": "tests/"
+        }
+    }
+}

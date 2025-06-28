@@ -10,15 +10,15 @@ class Breadcrumb extends Component
 {
     public $title;
     public $subtitle;
-    public $right;
+    public $breadcrumbs ;
     /**
      * Create a new component instance.
      */
-    public function __construct($title = null, $subtitle = null, $right = [])
+    public function __construct($title = null, $subtitle = null, $breadcrumbs = [])
     {
         $this->title = $title;
         $this->subtitle = $subtitle;
-        $this->right = $right;
+        $this->breadcrumbs = $breadcrumbs;
     }
 
     /**

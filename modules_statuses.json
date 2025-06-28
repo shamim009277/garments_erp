@@ -1,5 +1,6 @@
 {
     "Payroll": true,
+    "Inventory": true,
     "HRM": true,
-    "Inventory": true
+    "HRIS": true
 }

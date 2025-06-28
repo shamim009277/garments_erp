@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Administration\Module;
 
 class AdministrationController extends Controller
 {
@@ -12,6 +13,7 @@ class AdministrationController extends Controller
      */
     public function index()
     {
-        return view('administration.dashboard');
+        $modules = Module::active()->get();
+        return view('administration.dashboard', compact('modules'));
     }
 }

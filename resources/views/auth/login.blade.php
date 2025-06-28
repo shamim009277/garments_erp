@@ -1,64 +1,67 @@
 
 <x-guest-layout>
-    @slot('title', 'Login')
-    <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
-        <div class="container-fluid">
-            <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
-                <div class="col mx-auto">
-                    <div class="mb-4 text-center">
-                        <img src="{{ asset('backend/assets/images/logo-img.png') }}" width="180" alt="" />
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-5">
+            <div class="card shadow rounded-2 border-0">
+                <div class="card-body p-4 p-sm-5">
+                    <div class="text-center mb-4">
+                        <a href="index.html" class="d-block auth-logo">
+                            <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="28">
+                            <span class="logo-txt">Minia</span>
+                        </a>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="border p-4 rounded">
-                                <div class="text-center">
-                                    <h3 class="">Sign in</h3>
-                                    <p>Don't have an account yet? <a href="authentication-signup.html">Sign up here</a></p>
-                                </div>
+                    <div class="text-center">
+                        <h5 class="mb-0">Welcome Back!</h5>
+                        <p class="text-muted mt-2">Sign in to continue to Minia.</p>
+                    </div>
 
-                                <div class="login-separater text-center mb-4"> <span>SIGN IN WITH EMAIL</span>
-                                    <hr />
-                                </div>
-                                <div class="form-body">
-                                    <form class="row g-3" method="POST" action="{{ route('login') }}">
-                                        @csrf
-                                        <div class="col-12">
-                                            <label for="Email" class="form-label">Email Address</label>
-                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="Email" name="email" placeholder="Email Address" value="{{ old('email') }}" required autofocus autocomplete="username" />
-                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="Password" class="form-label">Enter Password</label>
-                                            <div class="input-group" id="show_hide_password">
-                                                <input type="password" class="form-control border-end-0 @error('password') is-invalid @enderror" id="Password" name="password" value="{{ old('password') }}" placeholder="Enter Password" required autocomplete="current-password" />
-                                                <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
-                                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="remember_me" name="remember" checked>
-                                                <label class="form-check-label" for="remember_me">RememberMe</label>
-                                            </div>
-                                        </div>
-                                        @if (Route::has('password.request'))
-                                        <div class="col-md-6 text-end">
-                                            <a href="{{ route('password.request') }}">Forgot Password ?</a>
-                                        </div>
-                                        @endif
-                                        <div class="col-12">
-                                            <div class="d-grid">
-                                                <button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Sign in</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                    <form id="actionForm" class="mt-4 pt-2" method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Username</label>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Enter username" required autofocus autocomplete="username">
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label class="form-label mb-2" for="password">Password</label>
+                                <a href="{{ route('password.request') }}" class="text-primary small fw-semibold">Forgot password?</a>
+                            </div>
+                            <div class="input-group auth-pass-inputgroup">
+                                <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter password"
+                                    aria-label="Password" required autocomplete="current-password">
+                                <button class="btn btn-light shadow-none" type="button" id="password-addon">
+                                    <i class="mdi mdi-eye-outline"></i>
+                                </button>
+                            </div>
+                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="checkbox" id="remember_me" name="remember">
+                            <label class="form-check-label" for="remember_me">Remember me</label>
+                        </div>
+                        <div class="mb-3">
+                            <x-primary-button type="submit" class="w-100">
+                                Log In
+                            </x-primary-button>
+                        </div>
+                    </form>
+                    <div class="mt-4 text-center">
+                        <p class="text-muted mb-0">
+                            Don't have an account? <br>
+                            <a href="#" class="text-primary fw-semibold">Unauthorized Access is Prohibited</a>
+                        </p>
                     </div>
                 </div>
+                <div class="text-center pb-4">
+                    <p class="mb-0 small text-muted">
+                        ©<script>
+                            document.write(new Date().getFullYear())
+                        </script> Minia. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                    </p>
+                </div>
             </div>
-            <!--end row-->
         </div>
     </div>
 </x-guest-layout>

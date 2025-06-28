@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Administration\Module;
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\Administration\ModuleRequest;
 
 class ModuleController extends Controller
 {
@@ -12,7 +15,8 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        //
+        $modules = Module::select('id', 'name', 'url', 'is_active')->get();
+        return view('administration.module.index', compact('modules'));
     }
 
     /**
@@ -26,9 +30,14 @@ class ModuleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ModuleRequest $request)
     {
-        //
+        try {
+            Module::create($request->validated());
+            return redirect()->back()->with('success', 'Module created successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Module creation failed: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -36,7 +45,8 @@ class ModuleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $module = Module::findOrFail($id);
+        return view('administration.module.show', compact('module'));
     }
 
     /**
@@ -44,22 +54,43 @@ class ModuleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $module = Module::findOrFail($id);
+        return view('administration.module.edit', compact('module'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ModuleRequest $request, string $id)
     {
-        //
+        try {
+            Module::findOrFail($id)->update($request->validated());
+            return redirect()->back()->with('success', 'Module updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Module update failed: ' . $e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            Module::findOrFail($request->id)->delete();
+            return response()->json(['success' => true, 'message' => 'Module deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Module deletion failed: ' . $e->getMessage()]);
+        }
+    }
+
+    public function toggleStatus(Request $request)
+    {
+        try {
+            Module::findOrFail($request->id)->update(['is_active' => $request->status]);
+            return response()->json(['success' => true, 'message' => 'Module status updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Module status update failed: ' . $e->getMessage()]);
+        }
     }
 }

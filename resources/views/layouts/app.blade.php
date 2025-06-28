@@ -1,59 +1,253 @@
+{{-- <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
+            @include('layouts.navigation')
+
+            <!-- Page Heading -->
+            @isset($header)
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endisset
+
+            <!-- Page Content -->
+            <main>
+                {{ $slot }}
+            </main>
+        </div>
+    </body>
+</html> --}}
+
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<title>Rocker || {{ $title ?? config('app.name', 'Laravel') }}</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	@include('partials.styles')
-	@stack('styles')
+    <meta charset="utf-8" />
+    <title>Minia | @yield('title', config('app.name'))</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+
+    <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
+    <!-- Choices.js -->
+    <link href="{{ asset('backend/assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- DataTables -->
+    <link href="{{ asset('backend/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}"
+        rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link
+        href="{{ asset('backend/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"rel="stylesheet"
+        type="text/css" />
+    <!-- preloader css -->
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/preloader.min.css') }}" type="text/css" />
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" id="bootstrap-style"
+        rel="stylesheet"type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <style>
+        table tr th {
+            padding: 8px !important;
+            vertical-align: middle !important;
+            font-weight: bold !important;
+        }
+
+        table tr td {
+            padding: 8px !important;
+            vertical-align: middle !important;
+        }
+
+        [class^="col-"],
+        [class*=" col-"] {
+            padding: 2px !important;
+        }
+
+        .padding-card {
+            padding: 0px !important;
+        }
+
+        .page-content {
+            background-color: #F6F9FC !important;
+            min-height: 100vh !important;
+            width: 100%;
+        }
+    </style>
+    @stack('styles')
 </head>
 
-<body>
-	<!--wrapper-->
-	<div class="wrapper">
-		<!--sidebar wrapper -->
-		@include('includes.sidebar')
-		<!--end sidebar wrapper -->
-		<!--start header -->
-		<header>
-			<div class="topbar d-flex align-items-center">
-				@include('includes.navbar')
-			</div>
-		</header>
-		<!--end header -->
-		<!--start page wrapper -->
-		<div class="page-wrapper">
-			<div class="page-content">
-				{{ $slot }}
-			</div>
-		</div>
-		<!--end page wrapper -->
-		<!--start overlay-->
-		<div class="overlay toggle-icon"></div>
-		<!--end overlay-->
-		<!--Start Back To Top Button-->
-		  <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-		<!--End Back To Top Button-->
-		@include('includes.footer')
-	</div>
-	<!--end wrapper-->
-	<!--start switcher-->
-	@include('partials.customizer')
-	<!--end switcher-->
-	
-    @include('partials.scripts')
-	<script>
-		$(document).ready(function () { 
-			$("html").attr("class", "semi-dark");
-			$("html").addClass("color-header headercolor9")
-			// let sidebarColor = localStorage.getItem("sidebarColor");
-			// if (sidebarColor) {
-			// 	$("html").addClass(sidebarColor);
-			// }
+<body data-sidebar-size='sm'>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        @include('includes.header')
+        <!-- ========== Left Sidebar Start ========== -->
+        @if (request()->segment(1) != 'dashboard')
+            @includeIf('sidebar.' . $currentModule)
+        @endif
+        <!-- Left Sidebar End -->
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content"
+            style="{{ request()->segment(1) == 'dashboard' ? 'margin-left: 0px !important' : '' }}">
+            <div class="page-content">
+                <div class="container-fluid"
+                    style="{{ request()->segment(1) == 'dashboard' ? 'padding: 0px !important' : '' }}">
+                    <!-- start page title -->
+                    @yield('content')
+                    <!-- end page title -->
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+            @include('includes.footer')
+        </div>
+        <!-- end main content-->
+    </div>
+    <!-- END layout-wrapper -->
+
+    <!-- Right Sidebar -->
+    @include('includes.right_bar')
+    <!-- /Right-bar -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+
+    <script src="{{ asset('backend/assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/feather-icons/feather.min.js') }}"></script>
+    <!-- pace js -->
+    <script src="{{ asset('backend/assets/libs/pace-js/pace.min.js') }}"></script>
+    <!-- Required datatable js -->
+    <script src="{{ asset('backend/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- Buttons examples -->
+    <script src="{{ asset('backend/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{{ asset('backend/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+
+    <script src="{{ asset('backend/assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+
+    <!-- Datatable init js -->
+    <script src="{{ asset('backend/assets/js/pages/datatables.init.js') }}"></script>
+
+    <script src="{{ asset('backend/assets/js/pages/form-advanced.init.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+
+    <!-- SweetAlert2 & Toastr -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Accept': 'application/json'
+            }
         });
-	</script>
-	@stack('scripts')
+        $(document).ready(function() {
+            let clickedButton = null;
+            $(document).on('click', '.submitBtn', function() {
+                clickedButton = $(this);
+            });
+
+            $(document).on('submit', 'form', function(e) {
+                if (!this.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
+                if (clickedButton) {
+                    clickedButton.prop('disabled', true);
+                    clickedButton.find('.spinner-border').removeClass('d-none');
+
+                    let originalText = clickedButton.find('.btn-text').text().trim();
+                    let submittingText = makeIngText(originalText);
+                    clickedButton.find('.btn-text').text(submittingText);
+                }
+            });
+
+            function makeIngText(text) {
+                const words = text.trim().split(' ');
+                let first = words[0].toLowerCase();
+
+                if (first.endsWith('e')) {
+                    first = first.slice(0, -1);
+                }
+
+                first = first.charAt(0).toUpperCase() + first.slice(1) + 'ing';
+                return first + (words.length > 1 ? ' ' + words.slice(1).join(' ') : '') + ' ...';
+            }
+        });
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+        };
+    </script>
+
+    <script>
+        @if (session('success'))
+            toastr.success("{{ session('success') }}", "Success");
+        @endif
+
+        @if (session('info'))
+            toastr.info("{{ session('info') }}", "Info");
+        @endif
+
+        @if (session('warning'))
+            toastr.warning("{{ session('warning') }}", "Warning");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}", "Error");
+        @endif
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}", "Validation Error");
+            @endforeach
+        @endif
+    </script>
+    @stack('scripts')
 </body>
+
 </html>
