@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -27,8 +28,6 @@ class Menu extends Model
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
-        'has_child' => 'boolean',
         'created_by' => 'integer',
         'updated_by' => 'integer',
     ];
@@ -48,9 +47,14 @@ class Menu extends Model
         return $this->belongsTo(Menu::class, 'parent_id', 'id');
     }
 
-    public function children() : HasMany
+    public function childs() : HasMany
     {
         return $this->hasMany(Menu::class, 'parent_id', 'id');
+    }
+
+    public function permissions() : HasMany
+    {
+        return $this->hasMany(Permission::class, 'menu_id', 'id');
     }
 
     protected static function booted()

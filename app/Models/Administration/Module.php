@@ -72,7 +72,7 @@ class Module extends Model
             $model->slug = $slug;
         });
     }
-    public function menues() : HasMany
+    public function menus() : HasMany
     {
         return $this->hasMany(Menu::class);
     }

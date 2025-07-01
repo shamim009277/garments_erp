@@ -4,33 +4,12 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             @php
-                $module = \App\Models\Administration\Module::where('is_active', 1)
-                    ->where('url', $currentModule)
-                    ->first();
-                // $menus = \App\Models\Administration\Menu::with('module','parent')->where('is_active', 1)->where('module_id',$module->id)->get();
-                $menus = \App\Models\Administration\Menu::with([
-                    'module' => function ($q) {
-                        $q->where('is_active', 1);
-                    },
-                    'parent' => function ($q) {
-                        $q->where('is_active', 1);
-                    },
-                ])
-                    ->where('is_active', 1)
-                    ->whereHas('module', function ($q) {
-                        $q->where('is_active', 1);
-                    })
-                    ->where(function ($query) {
-                        $query->whereNull('parent_id')->orWhereHas('parent', function ($q) {
-                            $q->where('is_active', 1);
-                        });
-                    })
-                    ->where('module_id', $module->id)
-                    ->get();
+                $module = \App\Models\Administration\Module::where('is_active', 1)->where('url',$currentModule)->first();
+                $menus = \App\Models\Administration\Menu::with('module','parent')->where('is_active', 1)->where('module_id',$module->id)->get();
             @endphp
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li>
-                    <a href="{{ url('administration') }}">
+                    <a href="{{ url('payroll') }}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -53,8 +32,7 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     @foreach ($menu->childs as $child)
                                         <li>
-                                            <a
-                                                href="{{ url($menu->module->url . '/' . $menu->url . '/' . $child->url) }}">
+                                            <a href="{{ url($menu->module->url . '/' . $menu->url . '/' . $child->url) }}">
                                                 <i data-feather={{ $child->icon }}></i>
                                                 <span data-key="t-role">{{ $child->title }}</span>
                                             </a>

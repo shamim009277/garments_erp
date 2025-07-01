@@ -8,9 +8,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Administration\Module;
 use App\Http\Requests\Administration\MenuRequest;
 use Yajra\DataTables\Facades\DataTables;
+use App\Traits\ToggleStatus;
 
 class MenuController extends Controller
 {
+    use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:administration.menus.view')->only('index');
+        $this->middleware('permission:administration.menus.create')->only('store');
+        $this->middleware('permission:administration.menus.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:administration.menus.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -22,16 +32,40 @@ class MenuController extends Controller
         if ($request->ajax()) {
             $data = Menu::select('menus.*')
                 ->leftJoin('modules', 'modules.id', '=', 'menus.module_id')
-                ->when($request->module_id, function ($query) use ($request) {
-                    $query->where('menus.module_id', $request->module_id);
-                })
-                ->with(['parent' => function($query) {
+                ->with(['parent' => function ($query) {
                     $query->select('id', 'title');
                 }])
                 ->addSelect('modules.name as module_name');
 
             return DataTables::of($data)
                 ->addIndexColumn()
+
+                ->filterColumn('module_name', function ($query, $keyword) {
+                    $query->where('modules.name', 'like', "%{$keyword}%");
+                })
+
+                ->filterColumn('parent_name', function ($query, $keyword) {
+                    $query->whereHas('parent', function ($q) use ($keyword) {
+                        $q->where('title', 'like', "%{$keyword}%");
+                    });
+                })
+
+                ->filter(function ($query) use ($request) {
+                    if ($request->has('search') && $request->search['value'] != '') {
+                        $search = $request->search['value'];
+                        $query->where(function ($q) use ($search) {
+                            $q->where('menus.title', 'like', "%{$search}%")
+                                ->orWhere('menus.slug', 'like', "%{$search}%")
+                                ->orWhere('menus.url', 'like', "%{$search}%")
+                                ->orWhere('modules.name', 'like', "%{$search}%");
+                        });
+                    }
+
+                    if ($request->module_id) {
+                        $query->where('menus.module_id', $request->module_id);
+                    }
+                })
+
                 ->addColumn('module_name', function ($row) {
                     return $row->module_name ?? '-';
                 })
@@ -40,33 +74,29 @@ class MenuController extends Controller
                 })
                 ->editColumn('is_active', function ($row) {
                     return '
-                        <div class="square-switch">
-                            <input type="checkbox" id="square-switch3' . $row->id . '"
-                                class="menu-toggle"
-                                data-id="' . $row->id . '"
-                                switch="bool"
-                                ' . ($row->is_active ? 'checked' : '') . ' />
-                            <label for="square-switch3' . $row->id . '"
-                                data-on-label="Yes"
-                                data-off-label="No"
-                                style="margin: 0px; vertical-align: middle;"></label>
-                        </div>
-                    ';
+                    <div class="square-switch">
+                        <input type="checkbox" id="square-switch3' . $row->id . '"
+                            class="menu-toggle"
+                            data-id="' . $row->id . '"
+                            switch="bool"
+                            ' . ($row->is_active ? 'checked' : '') . ' />
+                        <label for="square-switch3' . $row->id . '"
+                            data-on-label="Yes"
+                            data-off-label="No"
+                            style="margin: 0px; vertical-align: middle;"></label>
+                    </div>';
                 })
                 ->editColumn('has_child', function ($row) {
                     return $row->has_child ? 'Yes' : 'No';
                 })
                 ->addColumn('action', function ($row) {
                     return '
-                        <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;"
-                           data-bs-toggle="modal" data-bs-target="#editModal' . $row->id . '">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-menu"
-                           data-id="' . $row->id . '" style="padding: 4px 6px;">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    ';
+                    <a href="#" class="btn btn-soft-success waves-effect waves-light edit-menu" style="padding: 4px 6px;" data-id="' . $row->id . '">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-menu" data-id="' . $row->id . '" style="padding: 4px 6px;">
+                        <i class="fas fa-trash"></i>
+                    </a>';
                 })
                 ->rawColumns(['is_active', 'action'])
                 ->orderColumn('module_name', function ($query, $order) {
@@ -111,11 +141,13 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-
+    public function edit(string $id) {
+        $menu=Menu::findOrFail($id);
+        return response()->json([
+            'menu'=>$menu,
+            'parent'=>Menu::where('id',$menu->parent_id)->first(),
+        ]);
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -128,7 +160,6 @@ class MenuController extends Controller
             return redirect()->back()->with('error', 'Menu update failed: ' . $e->getMessage());
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -144,17 +175,18 @@ class MenuController extends Controller
 
     public function toggleStatus(Request $request)
     {
-        try {
-            Menu::findOrFail($request->id)->update(['is_active' => $request->status]);
-            return response()->json(['success' => true, 'message' => 'Menu status updated successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Menu status update failed: ' . $e->getMessage()]);
-        }
+        return $this->ToggleStatusTrait($request, Menu::class);
     }
 
     public function getMenuParents($id)
     {
-        $parents = Menu::where('module_id', $id)->get();
+        $parents = Menu::where('module_id', $id)->whereNull('parent_id')->where('has_child', true)->get();
         return response()->json($parents);
+    }
+
+    public function getMenuChilds($id)
+    {
+        $childs = Menu::where('module_id', $id)->whereNull('parent_id')->where('has_child', false)->orWhereNotNull('parent_id')->where('has_child', false)->get();
+        return response()->json($childs);
     }
 }
