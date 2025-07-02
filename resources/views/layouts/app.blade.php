@@ -1,70 +1,26 @@
-{{-- <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
-</html> --}}
-
 
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <title>Minia | @yield('title', config('app.name'))</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+    <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
+    <meta name="author" content="ERP Team" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
     <!-- Choices.js -->
     <link href="{{ asset('backend/assets/libs/choices.js/public/assets/styles/choices.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- DataTables -->
-    <link href="{{ asset('backend/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}"
-        rel="stylesheet" type="text/css" />
-    <link href="{{ asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}"
-        rel="stylesheet" type="text/css" />
-
+    <link href="{{ asset('backend/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Responsive datatable examples -->
-    <link
-        href="{{ asset('backend/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"rel="stylesheet"
-        type="text/css" />
+    <link href="{{ asset('backend/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- preloader css -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css/preloader.min.css') }}" type="text/css" />
     <!-- Bootstrap Css -->
-    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" id="bootstrap-style"
-        rel="stylesheet"type="text/css" />
+    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"type="text/css" />
     <!-- Icons Css -->
     <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
@@ -73,25 +29,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <style>
         table tr th {
-            padding: 8px !important;
+            padding: 6px !important;
             vertical-align: middle !important;
             font-weight: bold !important;
         }
-
         table tr td {
-            padding: 8px !important;
+            padding: 6px !important;
             vertical-align: middle !important;
         }
-
         [class^="col-"],
         [class*=" col-"] {
             padding: 2px !important;
         }
-
         .padding-card {
             padding: 0px !important;
         }
-
         .page-content {
             background-color: #F6F9FC !important;
             min-height: 100vh !important;
@@ -117,8 +69,7 @@
         <div class="main-content"
             style="{{ request()->segment(1) == 'dashboard' ? 'margin-left: 0px !important' : '' }}">
             <div class="page-content">
-                <div class="container-fluid"
-                    style="{{ request()->segment(1) == 'dashboard' ? 'padding: 0px !important' : '' }}">
+                <div class="container-fluid" style="{{ request()->segment(1) == 'dashboard' ? 'padding: 0px !important' : '' }}">
                     <!-- start page title -->
                     @yield('content')
                     <!-- end page title -->

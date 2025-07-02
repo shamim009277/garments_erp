@@ -7,9 +7,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Administration\Module;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Administration\ModuleRequest;
+use App\Traits\ToggleStatus;
 
 class ModuleController extends Controller
 {
+    use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:administration.module.view')->only('index');
+        $this->middleware('permission:administration.module.create')->only('store');
+        $this->middleware('permission:administration.module.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:administration.module.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -86,11 +96,6 @@ class ModuleController extends Controller
 
     public function toggleStatus(Request $request)
     {
-        try {
-            Module::findOrFail($request->id)->update(['is_active' => $request->status]);
-            return response()->json(['success' => true, 'message' => 'Module status updated successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Module status update failed: ' . $e->getMessage()]);
-        }
+        return $this->ToggleStatusTrait($request, Module::class);
     }
 }

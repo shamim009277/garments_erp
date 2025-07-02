@@ -7,6 +7,12 @@ use Illuminate\View\View;
 
 class GuestLayout extends Component
 {
+    public string $title;
+
+    public function __construct(string $title = 'Garments ERP')
+    {
+        $this->title = $title;
+    }
     /**
      * Get the view / contents that represents the component.
      */

@@ -1,5 +1,5 @@
 
-<x-guest-layout>
+<x-guest-layout :title="'Login | Garments ERP - Complete Solution for Garments Manufacturing and Management'">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-5">
             <div class="card shadow rounded-2 border-0">
@@ -54,13 +54,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="text-center pb-4">
-                    <p class="mb-0 small text-muted">
-                        ©<script>
-                            document.write(new Date().getFullYear())
-                        </script> Minia. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
-                    </p>
-                </div>
+                <x-footer-copyright />
             </div>
         </div>
     </div>
