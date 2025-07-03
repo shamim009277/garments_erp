@@ -74,8 +74,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="menu_type" class="form-label">Menu Type <span class="text-danger">*</span></label>
-                            <select name="menu_type" class="form-select @error('menu_type') is-invalid @enderror" required
-                                value="{{ old('menu_type') }}" id="menu_type" placeholder="Select Menu Type" required>
+                            <select name="menu_type" class="form-select @error('menu_type') is-invalid @enderror" required value="{{ old('menu_type') }}" id="menu_type" placeholder="Select Menu Type" required>
                                 <option value="">Select Menu Type</option>
                                 <option value="1">Main Menu</option>
                                 <option value="2">Sub Menu</option>

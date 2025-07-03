@@ -16,7 +16,7 @@ class ModuleController extends Controller
     function __construct()
     {
         $this->middleware('permission:administration.module.view')->only('index');
-        $this->middleware('permission:administration.module.create')->only('store');
+        $this->middleware('permission:administration.module.add')->only('store');
         $this->middleware('permission:administration.module.edit')->only(['edit', 'update','toggleStatus']);
         $this->middleware('permission:administration.module.delete')->only('destroy');
     }

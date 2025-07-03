@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <script>document.write(new Date().getFullYear())</script> © Minia.
+                <script>document.write(new Date().getFullYear())</script> © {{ $general->short_name }}.
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by <a href="#!" class="text-decoration-underline">Themesbrand</a>
+                    {{ $general->short_name }} <a href="#!" class="text-decoration-underline">{{ $general->footer_text }}</a>
                 </div>
             </div>
         </div>

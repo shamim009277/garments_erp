@@ -18,7 +18,7 @@ class UserController extends Controller
     function __construct()
     {
         $this->middleware('permission:administration.user.view')->only('index');
-        $this->middleware('permission:administration.user.create')->only('store');
+        $this->middleware('permission:administration.user.add')->only('store');
         $this->middleware('permission:administration.user.edit')->only(['edit', 'update','toggleStatus']);
         $this->middleware('permission:administration.user.delete')->only('destroy');
     }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
+use App\Models\Master\GeneralSetting;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view) {
+            $setting = cache()->remember('general_settings', now()->addDay(), function () {
+                return GeneralSetting::first();
+            });
+
+            $view->with('general', $setting);
+        });
     }
 }
