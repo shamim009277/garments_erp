@@ -11,11 +11,7 @@
     'type' => 'text',
 ])
 
-<input
-    type="{{ $type }}"
-    name="{{ $name }}"
-    id="{{ $name }}"
-    value="{{ old($name, $value) }}"
+<input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}" value="{{ old($name, $value) }}"
     {{ $attributes->merge(['class' => 'form-control' . ($errors->has($name) ? ' is-invalid' : '')]) }}
     @if($required) required @endif
     @if($disabled) disabled @endif
