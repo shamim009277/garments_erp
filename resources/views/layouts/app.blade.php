@@ -59,7 +59,7 @@
         @include('includes.header')
         <!-- ========== Left Sidebar Start ========== -->
         @if (request()->segment(1) != 'dashboard')
-            @includeIf('sidebar.' . $currentModule)
+            @include('includes.sidebar')
         @endif
         <!-- Left Sidebar End -->
 
