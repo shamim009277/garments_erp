@@ -17,6 +17,8 @@
     <link href="{{ asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Responsive datatable examples -->
     <link href="{{ asset('backend/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Responsive Table css -->
+    <link href="{{ asset('backend/assets/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- preloader css -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css/preloader.min.css') }}" type="text/css" />
     <!-- Bootstrap Css -->
@@ -34,7 +36,7 @@
             font-weight: bold !important;
         }
         table tr td {
-            padding: 6px !important;
+            padding: 4px !important;
             vertical-align: middle !important;
         }
         [class^="col-"],
@@ -53,7 +55,7 @@
     @stack('styles')
 </head>
 
-<body data-sidebar-size='sm'>
+<body data-sidebar-size='sm' data-topbar='dark'>
     <!-- Begin page -->
     <div id="layout-wrapper">
         @include('includes.header')
@@ -119,6 +121,11 @@
 
     <!-- Datatable init js -->
     <script src="{{ asset('backend/assets/js/pages/datatables.init.js') }}"></script>
+
+    <!-- Responsive Table js -->
+    <script src="{{ asset('backend/assets/libs/admin-resources/rwd-table/rwd-table.min.js') }}"></script>
+    <!-- Init js -->
+    <script src="{{ asset('backend/assets/js/pages/table-responsive.init.js') }}"></script>
 
     <script src="{{ asset('backend/assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ asset('backend/assets/js/app.js') }}"></script>

@@ -21,12 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', function ($view) {
-            $setting = cache()->remember('general_settings', now()->addDay(), function () {
-                return GeneralSetting::first();
-            });
-
-            $view->with('general', $setting);
-        });
+        View::share('general', cache()->remember('general_settings', now()->addDay(), function () {
+            return GeneralSetting::first();
+        }));
     }
 }
