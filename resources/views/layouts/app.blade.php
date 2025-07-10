@@ -39,17 +39,20 @@
             padding: 4px !important;
             vertical-align: middle !important;
         }
-        [class^="col-"],
-        [class*=" col-"] {
-            padding: 2px !important;
-        }
         .padding-card {
             padding: 0px !important;
         }
         .page-content {
+            padding: calc(70px + 1.5rem) 0 60px 0 !important;
             background-color: #F6F9FC !important;
             min-height: 100vh !important;
             width: 100%;
+        }
+        .pr-0 {
+            padding-right: 0px !important;
+        }
+        .navbar-header{
+            padding: 0 1.0rem 0 0 !important;
         }
     </style>
     @stack('styles')
