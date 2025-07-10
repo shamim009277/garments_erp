@@ -13,13 +13,13 @@
                 ],
             ])
         </div>
-        <div class="col-md-8 col-sm-12">
+        <div class="col-lg-8 col-sm-12 pr-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header py-2 px-3" style="padding: 12px 10px !important">
                     <div class="row w-100 align-items-center" style="margin:0 !important">
                         <!-- Title -->
                         <div class="col-12 col-md-4 mb-2 mb-md-0">
-                            <h6 class="my-0 text-primary"><i data-feather="user-plus" style="width: 16px;"></i> User List</h6>
+                            <h6 class="my-0 text-primary"><i data-feather="user-plus" width="16" height="16"></i> User List</h6>
                         </div>
                     </div>
                 </div>

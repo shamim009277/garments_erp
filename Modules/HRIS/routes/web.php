@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
 use Modules\HRIS\Http\Controllers\Setup\ThanaController;
+use Modules\HRIS\Http\Controllers\Setup\UnionController;
 use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
@@ -53,6 +54,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/thanas/toggle', [ThanaController::class, 'toggleStatus'])->name('thanas.toggle');
             Route::post('/thanas/delete', [ThanaController::class, 'destroy'])->name('thanas.delete');
             Route::resource('thanas', ThanaController::class)->names('thanas');
+
+            //Union
+            Route::post('/unions/toggle', [UnionController::class, 'toggleStatus'])->name('unions.toggle');
+            Route::post('/unions/delete', [UnionController::class, 'destroy'])->name('unions.delete');
+            Route::resource('unions', UnionController::class)->names('unions');
         });
 
 
