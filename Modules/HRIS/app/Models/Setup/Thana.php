@@ -48,6 +48,11 @@ class Thana extends Model
     {
         return $this->hasMany(Thana::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
     // protected static function newFactory(): Setup\ThanaFactory
     // {
     //     // return Setup\ThanaFactory::new();
