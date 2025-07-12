@@ -11,7 +11,7 @@ use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
-
+use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -59,6 +59,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/unions/toggle', [UnionController::class, 'toggleStatus'])->name('unions.toggle');
             Route::post('/unions/delete', [UnionController::class, 'destroy'])->name('unions.delete');
             Route::resource('unions', UnionController::class)->names('unions');
+
+            //Education Board
+            Route::post('/educationboards/toggle', [EducationBoardController::class, 'toggleStatus'])->name('educationboards.toggle');
+            Route::post('/educationboards/delete', [EducationBoardController::class, 'destroy'])->name('educationboards.delete');
+            Route::resource('educationboards', EducationBoardController::class)->names('educationboards');
         });
 
 
