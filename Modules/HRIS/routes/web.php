@@ -12,6 +12,8 @@ use Modules\HRIS\Http\Controllers\Setup\ReligionController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
+use Modules\HRIS\Http\Controllers\Setup\DocumentController;
+use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -64,6 +66,16 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/educationboards/toggle', [EducationBoardController::class, 'toggleStatus'])->name('educationboards.toggle');
             Route::post('/educationboards/delete', [EducationBoardController::class, 'destroy'])->name('educationboards.delete');
             Route::resource('educationboards', EducationBoardController::class)->names('educationboards');
+
+            //Document
+            Route::post('/documents/toggle', [DocumentController::class, 'toggleStatus'])->name('documents.toggle');
+            Route::post('/documents/delete', [DocumentController::class, 'destroy'])->name('documents.delete');
+            Route::resource('documents', DocumentController::class)->names('documents');
+
+            //Source Reference
+            Route::post('/sourcereferences/toggle', [SourceReferenceController::class, 'toggleStatus'])->name('sourcereferences.toggle');
+            Route::post('/sourcereferences/delete', [SourceReferenceController::class, 'destroy'])->name('sourcereferences.delete');
+            Route::resource('sourcereferences', SourceReferenceController::class)->names('sourcereferences');
         });
 
 
