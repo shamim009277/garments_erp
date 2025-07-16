@@ -11,7 +11,13 @@ use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
-
+use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
+use Modules\HRIS\Http\Controllers\Setup\DocumentController;
+use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
+use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
+use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
+use Modules\HRIS\Http\Controllers\Setup\ShiftController;
+use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -59,6 +65,41 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/unions/toggle', [UnionController::class, 'toggleStatus'])->name('unions.toggle');
             Route::post('/unions/delete', [UnionController::class, 'destroy'])->name('unions.delete');
             Route::resource('unions', UnionController::class)->names('unions');
+
+            //Education Board
+            Route::post('/educationboards/toggle', [EducationBoardController::class, 'toggleStatus'])->name('educationboards.toggle');
+            Route::post('/educationboards/delete', [EducationBoardController::class, 'destroy'])->name('educationboards.delete');
+            Route::resource('educationboards', EducationBoardController::class)->names('educationboards');
+
+            //Document
+            Route::post('/documents/toggle', [DocumentController::class, 'toggleStatus'])->name('documents.toggle');
+            Route::post('/documents/delete', [DocumentController::class, 'destroy'])->name('documents.delete');
+            Route::resource('documents', DocumentController::class)->names('documents');
+
+            //Source Reference
+            Route::post('/sourcereferences/toggle', [SourceReferenceController::class, 'toggleStatus'])->name('sourcereferences.toggle');
+            Route::post('/sourcereferences/delete', [SourceReferenceController::class, 'destroy'])->name('sourcereferences.delete');
+            Route::resource('sourcereferences', SourceReferenceController::class)->names('sourcereferences');
+
+            //Employee Category
+            Route::post('/employeecategories/toggle', [EmployeeCategoryController::class, 'toggleStatus'])->name('employeecategories.toggle');
+            Route::post('/employeecategories/delete', [EmployeeCategoryController::class, 'destroy'])->name('employeecategories.delete');
+            Route::resource('employeecategories', EmployeeCategoryController::class)->names('employeecategories');
+
+            //Organization
+            Route::post('/organizations/toggle', [OrganizationController::class, 'toggleStatus'])->name('organizations.toggle');
+            Route::post('/organizations/delete', [OrganizationController::class, 'destroy'])->name('organizations.delete');
+            Route::resource('organizations', OrganizationController::class)->names('organizations');
+
+            //Shift
+            Route::post('/shifts/toggle', [ShiftController::class, 'toggleStatus'])->name('shifts.toggle');
+            Route::post('/shifts/delete', [ShiftController::class, 'destroy'])->name('shifts.delete');
+            Route::resource('shifts', ShiftController::class)->names('shifts');
+
+            //Leave Classification
+            Route::post('/leaveclassifications/toggle', [LeaveClassificationController::class, 'toggleStatus'])->name('leaveclassifications.toggle');
+            Route::post('/leaveclassifications/delete', [LeaveClassificationController::class, 'destroy'])->name('leaveclassifications.delete');
+            Route::resource('leaveclassifications', LeaveClassificationController::class)->names('leaveclassifications');
         });
 
 
