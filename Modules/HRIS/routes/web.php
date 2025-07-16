@@ -9,8 +9,11 @@ use Modules\HRIS\Http\Controllers\Setup\UnionController;
 use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeController;
+use Modules\HRIS\Http\Controllers\Database\ApplicantController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
@@ -61,7 +64,13 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('unions', UnionController::class)->names('unions');
         });
 
+        //Database
 
+        Route::prefix('database')->name('database.')->group(function () {
+            Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
 
+            Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
+            Route::resource('employee', EmployeeController::class)->names('employee');
+        });
     });
 });
