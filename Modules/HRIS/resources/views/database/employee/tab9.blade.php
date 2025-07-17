@@ -2,7 +2,7 @@
     <div class="card-body" style="min-height: 300px;">
         <div class="row">
             <div class="col-lg-12">
-                <div class="row">
+                <div class="row" style="border: 1px dotted #2f2f30; padding: 8px 0px;">
                     <div class="col-lg-3 col-md-6 pe-lg-0 pe-md-0">
                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                             <tr>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-2">
+                <div class="row mt-4" style="border: 1px dotted #2f2f30; padding: 8px 0px;">
                     <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
                         <h6 class="text-primary">Nominee Information</h6>
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
@@ -115,6 +115,10 @@
                             <tr>
                                 <th width="35%" style="border: none;">Mobile Number</th>
                                 <td width="65%" style="border: none;"><x-text-input name="mobile_number" id="mobile_number" type="text" class="form-control-sm" placeholder="Mobile Number" /></td>
+                            </tr>
+                            <tr>
+                                <th width="35%" style="border: none;">NID Number</th>
+                                <td width="65%" style="border: none;"><x-text-input name="nid_number" id="nid_number" type="text" class="form-control-sm" placeholder="NID Number" /></td>
                             </tr>
                         </table>
                     </div>
