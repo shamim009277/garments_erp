@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('name_bangla');
             $table->string('mobile');
-            $table->unsignedBigInteger('department_id');
+ /*            $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('designation_id');
             $table->unsignedBigInteger('district_id');
             $table->unsignedTinyInteger('identification_type')->comment('1 = NID, 2 = Birth Certificate')->default(1);
@@ -53,7 +53,7 @@ return new class extends Migration
             $table->foreign('designation_id')->references('id')->on('hris_setup_designations')->onDelete('cascade');
             $table->foreign('district_id')->references('id')->on('hris_setup_districts')->onDelete('cascade');
             $table->foreign('final_designation_id')->references('id')->on('hris_setup_designations')->onDelete('cascade');
-            $table->foreign('interviewer_employee_id')->references('id')->on('hris_database_employee_basic')->onDelete('cascade');
+            $table->foreign('interviewer_employee_id')->references('id')->on('hris_database_employee_basic')->onDelete('cascade'); */
         });
     }
 
