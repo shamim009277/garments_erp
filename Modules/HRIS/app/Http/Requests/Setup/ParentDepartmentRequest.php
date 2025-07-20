@@ -15,8 +15,8 @@ class ParentDepartmentRequest extends FormRequest
         $parentDepartmentId = $this->route('parentdepartment');
 
         return [
-            'parent_department' => ['required', 'string', 'max:100', Rule::unique('hris_setup_parent_department', 'parent_department')->ignore($parentDepartmentId)],
-            'parent_department_bn' => ['nullable', 'string', 'max:100', Rule::unique('hris_setup_parent_department', 'parent_department_bn')->ignore($parentDepartmentId)],
+            'department' => ['required', 'string', 'max:100', Rule::unique('hris_setup_parent_departments', 'department')->ignore($parentDepartmentId)],
+            'department_bn' => ['nullable', 'string', 'max:100', Rule::unique('hris_setup_parent_departments', 'department_bn')->ignore($parentDepartmentId)],
             'is_active' => ['nullable', 'boolean'],
         ];
     }

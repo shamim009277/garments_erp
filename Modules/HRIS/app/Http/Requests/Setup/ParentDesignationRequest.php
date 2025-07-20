@@ -15,8 +15,8 @@ class ParentDesignationRequest extends FormRequest
         $parentDesignationId = $this->route('parentdesignation');
 
         return [
-            'parent_designation' => ['required', 'string', 'max:100', Rule::unique('hris_setup_parentdesignation', 'parent_designation')->ignore($parentDesignationId)],
-            'parent_designation_bn' => ['nullable', 'string', 'max:100', Rule::unique('hris_setup_parentdesignation', 'parent_designation_bn')->ignore($parentDesignationId)],
+            'designation' => ['required', 'string', 'max:100', Rule::unique('hris_setup_parent_designations', 'designation')->ignore($parentDesignationId)],
+            'designation_bn' => ['nullable', 'string', 'max:100', Rule::unique('hris_setup_parent_designations', 'designation_bn')->ignore($parentDesignationId)],
             'approved_mp' => ['nullable', 'integer'],
             'is_active' => ['nullable', 'boolean'],
         ];

@@ -36,6 +36,12 @@ class EmployeeCategory extends Model
             $employeeCategory->updated_by = Auth::user()->id;
         });
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
     // protected static function newFactory(): Setup\EmployeeCategoryFactory
     // {
     //     // return Setup\EmployeeCategoryFactory::new();

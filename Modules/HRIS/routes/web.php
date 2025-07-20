@@ -119,15 +119,15 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/parentdesignations/delete', [ParentDesignationController::class, 'destroy'])->name('parentdesignations.delete');
             Route::resource('parentdesignations', ParentDesignationController::class)->names('parentdesignations');
 
-            /* //Department
+            //Department
             Route::post('/departments/toggle', [DepartmentController::class, 'toggleStatus'])->name('departments.toggle');
             Route::post('/departments/delete', [DepartmentController::class, 'destroy'])->name('departments.delete');
             Route::resource('departments', DepartmentController::class)->names('departments');
 
-            //Grade
-            Route::post('/grades/toggle', [GradeController::class, 'toggleStatus'])->name('grades.toggle');
-            Route::post('/grades/delete', [GradeController::class, 'destroy'])->name('grades.delete');
-            Route::resource('grades', GradeController::class)->names('grades'); */
+            //Designation
+            Route::post('/designations/toggle', [DesignationController::class, 'toggleStatus'])->name('designations.toggle');
+            Route::post('/designations/delete', [DesignationController::class, 'destroy'])->name('designations.delete');
+            Route::resource('designations', DesignationController::class)->names('designations');
         });
 
         //Database

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hris_setup_parentdesignation', function (Blueprint $table) {
+        Schema::create('hris_setup_parent_designations', function (Blueprint $table) {
             $table->id();
-            $table->string('parent_designation', 100)->unique();
-            $table->string('parent_designation_bn', 100)->nullable();
-            $table->tinyInteger('approved_mp')->nullable();
+            $table->string('designation', 100)->unique();
+            $table->string('designation_bn', 100)->nullable();
+            $table->integer('approved_mp')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hris_setup_parentdesignation');
+        Schema::dropIfExists('hris_setup_parent_designations');
     }
 };

@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hris_setup_department', function (Blueprint $table) {
+        Schema::create('hris_setup_departments', function (Blueprint $table) {
             $table->id();
             $table->string('department', 100)->unique();
             $table->string('department_bn', 100)->nullable();
-            $table->foreignId('parent_department_id')->constrained('hris_setup_parent_department')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_department_id');
+            $table->integer('approved_mp')->default(0);
             $table->boolean('is_active')->default(true);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
+
+            $table->foreign('parent_department_id')->references('id')->on('hris_setup_parent_departments')->onDelete('cascade');
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hris_setup_department');
+        Schema::dropIfExists('hris_setup_departments');
     }
 };

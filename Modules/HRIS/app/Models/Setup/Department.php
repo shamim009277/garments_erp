@@ -2,31 +2,27 @@
 
 namespace Modules\HRIS\Models\Setup;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+// use Modules\HRIS\Database\Factories\Setup\DepartmentFactory;
 
-class ParentDepartment extends Model
+class Department extends Model
 {
     use HasFactory;
 
     /**
      * The attributes that are mass assignable.
      */
-    protected $table = 'hris_setup_parent_departments';
+    protected $table = 'hris_setup_departments';
 
-    protected $fillable = ['department', 'department_bn', 'is_active', 'created_by', 'updated_by'];
-    /**
-     * The attributes that should be cast.
-     */
+    protected $fillable = ['department', 'department_bn', 'parent_department_id','approved_mp', 'is_active'];
+
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     */
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -44,13 +40,13 @@ class ParentDepartment extends Model
         });
     }
 
+    public function parentDepartment(): BelongsTo
+    {
+        return $this->belongsTo(ParentDepartment::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    public function departments(): HasMany
-    {
-        return $this->hasMany(Department::class);
     }
 }

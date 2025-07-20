@@ -5,19 +5,16 @@ namespace Modules\HRIS\Models\Setup;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
-// use Modules\HRIS\Database\Factories\Setup\ParentDesignationFactory;
-
 class ParentDesignation extends Model
 {
     use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      */
-    protected $table = 'hris_setup_parentdesignation';
+    protected $table = 'hris_setup_parent_designations';
     protected $fillable = [
-        'parent_designation',
-        'parent_designation_bn',
+        'designation',
+        'designation_bn',
         'approved_mp',
         'is_active',
         'created_by',
@@ -26,20 +23,21 @@ class ParentDesignation extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
-    
+
     public static function booted()
     {
-        static::created(function ($parentDesignation) {
-            $parentDesignation->created_by = Auth::user()->id;
+        static::creating(function ($parentDesignation) {
+            $parentDesignation->created_by = Auth::id();
+            $parentDesignation->updated_by = Auth::id();
         });
 
-        static::updated(function ($parentDesignation) {
-            $parentDesignation->updated_by = Auth::user()->id;
+        static::updating(function ($parentDesignation) {
+            $parentDesignation->updated_by = Auth::id();
         });
     }
 
-    // protected static function newFactory(): Setup\ParentDesignationFactory
-    // {
-    //     // return Setup\ParentDesignationFactory::new();
-    // }
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }
