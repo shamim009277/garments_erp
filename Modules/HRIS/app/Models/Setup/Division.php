@@ -30,12 +30,13 @@ class Division extends Model
 
     public static function booted()
     {
-        static::created(function ($division) {
-            $division->created_by = Auth::user()->id;
+        static::creating(function ($division) {
+            $division->created_by = Auth::id();
+            $division->updated_by = Auth::id();
         });
 
-        static::updated(function ($division) {
-            $division->updated_by = Auth::user()->id;
+        static::updating(function ($division) {
+            $division->updated_by = Auth::id();
         });
     }
 

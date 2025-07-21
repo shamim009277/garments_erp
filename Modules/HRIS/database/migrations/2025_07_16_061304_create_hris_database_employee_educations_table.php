@@ -28,7 +28,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('employee_id');
-            $table->foreign('degree_id')->references('id')->on('hris_setup_degrees')->onDelete('cascade');
+            //$table->foreign('degree_id')->references('id')->on('hris_setup_degrees')->onDelete('cascade');
         });
     }
 

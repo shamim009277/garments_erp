@@ -133,7 +133,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         //Database
 
         Route::prefix('database')->name('database.')->group(function () {
+            Route::post('/search', [ApplicantController::class, 'getSearch'])->name('new-applicants.search');
+            Route::post('/new-applicants/delete', [ApplicantController::class, 'destroy'])->name('new-applicants.delete');
             Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
+
+
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
             Route::resource('employee', EmployeeController::class)->names('employee');
         });

@@ -136,6 +136,14 @@
             background-color: #ebf0f6;
         }
         /* End Custom Navigation */
+        input[readonly] {
+            background-color: #dad9d9;
+            cursor: not-allowed;
+        }
+        .select2-container--default .select2-selection--single{
+            background-color: #F8F9FA !important;
+            border: 1px solid #E9E9EF !important;
+        }
     </style>
     @stack('styles')
 </head>

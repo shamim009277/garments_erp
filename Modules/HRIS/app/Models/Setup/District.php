@@ -29,12 +29,13 @@ class District extends Model
 
     public static function booted()
     {
-        static::created(function ($district) {
-            $district->created_by = Auth::user()->id;
+        static::creating(function ($district) {
+            $district->created_by = Auth::id();
+            $district->updated_by = Auth::id();
         });
 
-        static::updated(function ($district) {
-            $district->updated_by = Auth::user()->id;
+        static::updating(function ($district) {
+            $district->updated_by = Auth::id();
         });
     }
     public function division()
