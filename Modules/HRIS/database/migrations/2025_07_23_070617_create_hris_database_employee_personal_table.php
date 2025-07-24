@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('hris_database_employee_personal', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('org_id');
             $table->string('assestment_id')->nullable();
             $table->string('mobile')->nullable();
             $table->string('phone')->nullable();
@@ -56,6 +57,7 @@ return new class extends Migration
             $table->foreign('ndistrict_id')->references('id')->on('hris_setup_districts')->onDelete('cascade');
             $table->foreign('nthana_id')->references('id')->on('hris_setup_thanas')->onDelete('cascade');
             $table->foreign('birth_district_id')->references('id')->on('hris_setup_districts')->onDelete('cascade');
+            $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');
         });
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('hris_database_employee_salary', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-
+            $table->unsignedBigInteger('org_id');
             $table->decimal('gross_salary', 18, 2);
             $table->decimal('basic', 18, 2);
             $table->decimal('home_allowance', 18, 2)->default(0);
@@ -47,6 +47,8 @@ return new class extends Migration
 
             $table->index('employee_id');
             $table->index('ot_payable');
+
+            $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');
         });
     }
 

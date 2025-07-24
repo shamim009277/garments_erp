@@ -4,28 +4,29 @@ use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
+use Modules\HRIS\Http\Controllers\Setup\GradeController;
+use Modules\HRIS\Http\Controllers\Setup\ShiftController;
 use Modules\HRIS\Http\Controllers\Setup\ThanaController;
 use Modules\HRIS\Http\Controllers\Setup\UnionController;
+use Modules\HRIS\Http\Controllers\Setup\DegreeController;
 use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
+use Modules\HRIS\Http\Controllers\Setup\DocumentController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeController;
+use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Database\ApplicantController;
+use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
-use Modules\HRIS\Http\Controllers\Setup\DocumentController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
-use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
-use Modules\HRIS\Http\Controllers\Setup\ShiftController;
-use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
-use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
-use Modules\HRIS\Http\Controllers\Setup\DesignationController;
-use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
+use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -128,6 +129,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/designations/toggle', [DesignationController::class, 'toggleStatus'])->name('designations.toggle');
             Route::post('/designations/delete', [DesignationController::class, 'destroy'])->name('designations.delete');
             Route::resource('designations', DesignationController::class)->names('designations');
+
+            //Degree
+            Route::post('/degrees/toggle', [DegreeController::class, 'toggleStatus'])->name('degrees.toggle');
+            Route::post('/degrees/delete', [DegreeController::class, 'destroy'])->name('degrees.delete');
+            Route::resource('degrees', DegreeController::class)->names('degrees');
         });
 
         //Database
@@ -139,7 +145,21 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
 
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
+
+            Route::get('/designation/{id}', [EmployeeController::class, 'getGrade'])->name('employee.getGrade');
+            Route::get('/district/{district_id}', [EmployeeController::class, 'getThana'])->name('employee.getThana');
+            Route::get('/employee/{id}/{tab?}', [EmployeeController::class, 'show'])->name('hris.database.employee.show');
             Route::resource('employee', EmployeeController::class)->names('employee');
+        });
+
+        //Report
+        Route::prefix('report')->name('report.')->group(function () {
+
+        });
+
+        //Settings
+        Route::prefix('settings')->name('settings.')->group(function () {
+
         });
     });
 });

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('hris_database_employee_bangla', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('org_id');
             $table->string('name_bangla');
             $table->string('fname_bangla');
             $table->string('mname_bangla');
@@ -52,6 +53,7 @@ return new class extends Migration
             $table->foreign('pthana_id_bangla')->references('id')->on('hris_setup_thanas')->onDelete('cascade');
             $table->foreign('ndistrict_id_bangla')->references('id')->on('hris_setup_districts')->onDelete('cascade');
             $table->foreign('nthana_id_bangla')->references('id')->on('hris_setup_thanas')->onDelete('cascade');
+            $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');
         });
     }
 

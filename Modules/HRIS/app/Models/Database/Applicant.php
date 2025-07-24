@@ -92,6 +92,11 @@ class Applicant extends Model
         return $query->where('file_entry', 'N');
     }
 
+    public function scopeFileEntry($query)
+    {
+        return $query->where('file_entry', 'Y');
+    }
+
     public function department() : BelongsTo
     {
         return $this->belongsTo(Department::class,'department_id','id');

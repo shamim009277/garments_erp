@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('designation_id');
+            $table->unsignedBigInteger('org_id');
             $table->string('unit')->nullable();
             $table->tinyInteger('line')->default(0);
             $table->tinyInteger('grade')->default(0);
-
 
             $table->unsignedBigInteger('mdistrict_id');
             $table->unsignedBigInteger('mthana_id');
@@ -41,7 +41,6 @@ return new class extends Migration
             $table->date('refrerence_date')->nullable();
             $table->date('mtreturn_date')->nullable();
 
-
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('spouse_name')->nullable();
@@ -59,7 +58,6 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
 
-
             $table->index('salaried');
             $table->index('ot_payable');
             $table->index('leaving_date');
@@ -67,6 +65,7 @@ return new class extends Migration
 
             $table->foreign('department_id')->references('id')->on('hris_setup_departments')->onDelete('cascade');
             $table->foreign('designation_id')->references('id')->on('hris_setup_designations')->onDelete('cascade');
+            $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');
             $table->foreign('mdistrict_id')->references('id')->on('hris_setup_districts')->onDelete('cascade');
             $table->foreign('mthana_id')->references('id')->on('hris_setup_thanas')->onDelete('cascade');
             $table->foreign('pdistrict_id')->references('id')->on('hris_setup_districts')->onDelete('cascade');
