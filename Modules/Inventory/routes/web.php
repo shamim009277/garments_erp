@@ -2,7 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Inventory\Http\Controllers\InventoryController;
+use App\Http\Middleware\ModuleActive;
+use Modules\Inventory\Http\Controllers\Setup\BuyerController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
+
+    Route::prefix('inventory')->name('inventory.')->group(function () {
+        //Setup
+        Route::prefix('setup')->name('setup.')->group(function () {
+            //Party
+            Route::post('/parties/toggle', [InventoryController::class, 'toggleStatus'])->name('parties.toggle');
+            Route::post('/parties/delete', [InventoryController::class, 'destroy'])->name('parties.delete');
+            Route::resource('parties', InventoryController::class)->names('parties');
+
+            //Buyer
+            Route::post('/buyers/toggle', [BuyerController::class, 'toggleStatus'])->name('buyers.toggle');
+            Route::post('/buyers/delete', [BuyerController::class, 'destroy'])->name('buyers.delete');
+            Route::resource('buyers', BuyerController::class)->names('buyers');
+
+        });
+    });
 });
