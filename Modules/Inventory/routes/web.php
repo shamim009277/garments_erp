@@ -7,6 +7,7 @@ use Modules\Inventory\Http\Controllers\Setup\BuyerController;
 use Modules\Inventory\Http\Controllers\Setup\StoreTypeController;
 use Modules\Inventory\Http\Controllers\Setup\StoreLineController;
 use Modules\Inventory\Http\Controllers\Setup\RackLocationController;
+use Modules\Inventory\Http\Controllers\Setup\StoreLocationController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
@@ -38,6 +39,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/racklocations/toggle', [RackLocationController::class, 'toggleStatus'])->name('racklocations.toggle');
             Route::post('/racklocations/delete', [RackLocationController::class, 'destroy'])->name('racklocations.delete');
             Route::resource('racklocations', RackLocationController::class)->names('racklocations');
+
+            //StoreLocationController
+            Route::post('/storelocations/toggle', [StoreLocationController::class, 'toggleStatus'])->name('storelocations.toggle');
+            Route::post('/storelocations/delete', [StoreLocationController::class, 'destroy'])->name('storelocations.delete');
+            Route::resource('storelocations', StoreLocationController::class)->names('storelocations');
         });
     });
 });
