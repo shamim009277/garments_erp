@@ -36,14 +36,15 @@ class StoreTypeController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreTypeRequest $request) {
-        $prefix = 'ST';
+        dd($request->all());
+        $prefix = 'SL';
         $length = 4;
 
     // Get last serial number with prefix
     $lastSerial = DB::table('inventory_setup_storetype')
-        ->where('type_code', 'like', $prefix . '%')
-        ->orderBy('type_code', 'desc')
-        ->value('type_code');
+        ->where('line_code', 'like', $prefix . '%')
+        ->orderBy('line_code', 'desc')
+        ->value('line_code');
 
     // Extract number and increment
     if ($lastSerial) {

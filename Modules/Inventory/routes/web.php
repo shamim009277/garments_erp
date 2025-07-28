@@ -5,6 +5,7 @@ use Modules\Inventory\Http\Controllers\InventoryController;
 use App\Http\Middleware\ModuleActive;
 use Modules\Inventory\Http\Controllers\Setup\BuyerController;
 use Modules\Inventory\Http\Controllers\Setup\StoreTypeController;
+use Modules\Inventory\Http\Controllers\Setup\StoreLineController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
@@ -21,10 +22,16 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/buyers/toggle', [BuyerController::class, 'toggleStatus'])->name('buyers.toggle');
             Route::post('/buyers/delete', [BuyerController::class, 'destroy'])->name('buyers.delete');
             Route::resource('buyers', BuyerController::class)->names('buyers');
+
             //StoreTypeController
             Route::post('/storetypes/toggle', [StoreTypeController::class, 'toggleStatus'])->name('storetypes.toggle');
             Route::post('/storetypes/delete', [StoreTypeController::class, 'destroy'])->name('storetypes.delete');
             Route::resource('storetypes', StoreTypeController::class)->names('storetypes');
+
+            //StoreLineController
+            Route::post('/storelines/toggle', [StoreLineController::class, 'toggleStatus'])->name('storelines.toggle');
+            Route::post('/storelines/delete', [StoreLineController::class, 'destroy'])->name('storelines.delete');
+            Route::resource('storelines', StoreLineController::class)->names('storelines');
         });
     });
 });
