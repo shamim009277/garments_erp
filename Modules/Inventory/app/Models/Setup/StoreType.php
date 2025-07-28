@@ -4,7 +4,7 @@ namespace Modules\Inventory\Models\Setup;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Inventory\Database\Factories\Setup/StoreTypeFactory;
+use Illuminate\Support\Facades\Auth;
 
 class StoreType extends Model
 {
@@ -12,8 +12,20 @@ class StoreType extends Model
 
     /**
      * The attributes that are mass assignable.
+     *
      */
-    protected $fillable = [];
+    protected $table = 'inventory_setup_storetype';
+    protected $guarded = [];
+     protected static function booted()
+    {
+        static::created(function ($sex) {
+            $sex->created_by = Auth::user()->id;
+        });
+
+        static::updated(function ($sex) {
+            $sex->updated_by = Auth::user()->id;
+        });
+    }
 
     // protected static function newFactory(): Setup/StoreTypeFactory
     // {

@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('inventory_setup_storetype', function (Blueprint $table) {
             $table->id();
-            
+            $table->string('type_code', 50)->unique();
+            $table->string('name', 100);
+            $table->text('description')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }
