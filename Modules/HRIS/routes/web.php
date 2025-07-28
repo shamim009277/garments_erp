@@ -9,9 +9,23 @@ use Modules\HRIS\Http\Controllers\Setup\UnionController;
 use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeController;
+use Modules\HRIS\Http\Controllers\Database\ApplicantController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
-
+use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
+use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
+use Modules\HRIS\Http\Controllers\Setup\DocumentController;
+use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
+use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
+use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
+use Modules\HRIS\Http\Controllers\Setup\ShiftController;
+use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
+use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
+use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
+use Modules\HRIS\Http\Controllers\Setup\DesignationController;
+use Modules\HRIS\Http\Controllers\Setup\GradeController;
+use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -59,9 +73,69 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/unions/toggle', [UnionController::class, 'toggleStatus'])->name('unions.toggle');
             Route::post('/unions/delete', [UnionController::class, 'destroy'])->name('unions.delete');
             Route::resource('unions', UnionController::class)->names('unions');
+
+            //Education Board
+            Route::post('/educationboards/toggle', [EducationBoardController::class, 'toggleStatus'])->name('educationboards.toggle');
+            Route::post('/educationboards/delete', [EducationBoardController::class, 'destroy'])->name('educationboards.delete');
+            Route::resource('educationboards', EducationBoardController::class)->names('educationboards');
+
+            //Document
+            Route::post('/documents/toggle', [DocumentController::class, 'toggleStatus'])->name('documents.toggle');
+            Route::post('/documents/delete', [DocumentController::class, 'destroy'])->name('documents.delete');
+            Route::resource('documents', DocumentController::class)->names('documents');
+
+            //Source Reference
+            Route::post('/sourcereferences/toggle', [SourceReferenceController::class, 'toggleStatus'])->name('sourcereferences.toggle');
+            Route::post('/sourcereferences/delete', [SourceReferenceController::class, 'destroy'])->name('sourcereferences.delete');
+            Route::resource('sourcereferences', SourceReferenceController::class)->names('sourcereferences');
+
+            //Employee Category
+            Route::post('/employeecategories/toggle', [EmployeeCategoryController::class, 'toggleStatus'])->name('employeecategories.toggle');
+            Route::post('/employeecategories/delete', [EmployeeCategoryController::class, 'destroy'])->name('employeecategories.delete');
+            Route::resource('employeecategories', EmployeeCategoryController::class)->names('employeecategories');
+
+            //Organization
+            Route::post('/organizations/toggle', [OrganizationController::class, 'toggleStatus'])->name('organizations.toggle');
+            Route::post('/organizations/delete', [OrganizationController::class, 'destroy'])->name('organizations.delete');
+            Route::resource('organizations', OrganizationController::class)->names('organizations');
+
+            //Shift
+            Route::post('/shifts/toggle', [ShiftController::class, 'toggleStatus'])->name('shifts.toggle');
+            Route::post('/shifts/delete', [ShiftController::class, 'destroy'])->name('shifts.delete');
+            Route::resource('shifts', ShiftController::class)->names('shifts');
+
+            //Leave Classification
+            Route::post('/leaveclassifications/toggle', [LeaveClassificationController::class, 'toggleStatus'])->name('leaveclassifications.toggle');
+            Route::post('/leaveclassifications/delete', [LeaveClassificationController::class, 'destroy'])->name('leaveclassifications.delete');
+            Route::resource('leaveclassifications', LeaveClassificationController::class)->names('leaveclassifications');
+
+            //Parent Department
+            Route::post('/parentdepartments/toggle', [ParentDepartmentController::class, 'toggleStatus'])->name('parentdepartments.toggle');
+            Route::post('/parentdepartments/delete', [ParentDepartmentController::class, 'destroy'])->name('parentdepartments.delete');
+            Route::resource('parentdepartments', ParentDepartmentController::class)->names('parentdepartments');
+
+            //Parent Designation
+            Route::post('/parentdesignations/toggle', [ParentDesignationController::class, 'toggleStatus'])->name('parentdesignations.toggle');
+            Route::post('/parentdesignations/delete', [ParentDesignationController::class, 'destroy'])->name('parentdesignations.delete');
+            Route::resource('parentdesignations', ParentDesignationController::class)->names('parentdesignations');
+
+            //Department
+            Route::post('/departments/toggle', [DepartmentController::class, 'toggleStatus'])->name('departments.toggle');
+            Route::post('/departments/delete', [DepartmentController::class, 'destroy'])->name('departments.delete');
+            Route::resource('departments', DepartmentController::class)->names('departments');
+
+            //Designation
+            Route::post('/designations/toggle', [DesignationController::class, 'toggleStatus'])->name('designations.toggle');
+            Route::post('/designations/delete', [DesignationController::class, 'destroy'])->name('designations.delete');
+            Route::resource('designations', DesignationController::class)->names('designations');
         });
 
+        //Database
 
-
+        Route::prefix('database')->name('database.')->group(function () {
+            Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
+            Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
+            Route::resource('employee', EmployeeController::class)->names('employee');
+        });
     });
 });
