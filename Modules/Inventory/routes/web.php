@@ -11,6 +11,7 @@ use Modules\Inventory\Http\Controllers\Setup\StoreLocationController;
 use Modules\Inventory\Http\Controllers\Setup\SupplierTypeController;
 use Modules\Inventory\Http\Controllers\Setup\SupplierController;
 use Modules\Inventory\Http\Controllers\Setup\ChallanPurposeController;
+use Modules\Inventory\Http\Controllers\Setup\GoodsCategoryController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
@@ -62,6 +63,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/challanpurposes/toggle', [ChallanPurposeController::class, 'toggleStatus'])->name('challanpurposes.toggle');
             Route::post('/challanpurposes/delete', [ChallanPurposeController::class, 'destroy'])->name('challanpurposes.delete');
             Route::resource('challanpurposes', ChallanPurposeController::class)->names('challanpurposes');
+
+            //GoodsCategoryController
+            Route::post('/goodscategories/toggle', [GoodsCategoryController::class, 'toggleStatus'])->name('goodscategories.toggle');
+            Route::post('/goodscategories/delete', [GoodsCategoryController::class, 'destroy'])->name('goodscategories.delete');
+            Route::resource('goodscategories', GoodsCategoryController::class)->names('goodscategories');
         });
     });
 });
