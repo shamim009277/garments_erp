@@ -8,7 +8,7 @@
     'placeholder' => null,
 ])
 
-<div class="mb-3">
+<div class="mb-3" id="{{ $name }}_group">
     @if ($label)
         <label for="{{ $name }}" class="form-label">
             {{ $label }}

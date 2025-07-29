@@ -41,6 +41,11 @@ class Religion extends Model
         });
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
     // protected static function newFactory(): Setup\ReligionFactory
     // {
     //     // return Setup\ReligionFactory::new();

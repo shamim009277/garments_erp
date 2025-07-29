@@ -20,7 +20,6 @@
 
     <select
         name="{{ $name }}"
-        id="{{ $name }}"
         @if($required) required @endif
         @if($disabled) disabled @endif
         {{ $attributes->merge(['class' => 'form-select' . ($errors->has($name) ? ' is-invalid' : '')]) }}
