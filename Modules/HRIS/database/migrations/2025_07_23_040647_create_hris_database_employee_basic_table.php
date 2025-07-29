@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('employee_id')->unique();
             $table->char('salaried', 1)->default('Y');
             $table->char('ot_payable', 1)->default('N');
+            $table->char('shifting_duty', 1)->default('N');
             $table->string('name');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('designation_id');
@@ -46,7 +47,7 @@ return new class extends Migration
             $table->string('spouse_name')->nullable();
 
             $table->date('leaving_date')->nullable();
-            $table->char('reason', 1)->default('N');
+            $table->char('reason', 1)->default('N')->comment('N = Not Leaving, L = Long Absence, D = Death, R = Resignation, M = Maternity');
             $table->string('leaving_note')->nullable();
             $table->string('present_address_duration')->nullable();
 

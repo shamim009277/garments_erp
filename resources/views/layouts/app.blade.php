@@ -279,6 +279,11 @@
             allowClear: true,
             width: '100%'
         });
+        $(document).on('shown.bs.modal', '.modal', function () {
+            $(this).find('.select2').select2({
+                dropdownParent: $(this)
+            });
+        });
     </script>
 
     <script>

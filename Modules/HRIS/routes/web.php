@@ -3,6 +3,7 @@
 use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
+use Modules\HRIS\Http\Controllers\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
 use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ShiftController;
@@ -26,11 +27,14 @@ use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
-    Route::resource('hris', HRISController::class)->names('hris');
-
+    //Route::resource('hris', HRISController::class)->names('hris');
+    Route::get('/hris', [HRISController::class, 'index'])->name('hris.index');
 
     Route::prefix('hris')->name('hris.')->group(function () {
         //Setup
@@ -148,8 +152,22 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
             Route::get('/designation/{id}', [EmployeeController::class, 'getGrade'])->name('employee.getGrade');
             Route::get('/district/{district_id}', [EmployeeController::class, 'getThana'])->name('employee.getThana');
-            Route::get('/employee/{id}/{tab?}', [EmployeeController::class, 'show'])->name('hris.database.employee.show');
+
+
+            Route::post('/search', [EmployeeController::class, 'getSearch'])->name('employee.search');
+            Route::post('/employee/bangla', [EmployeeController::class, 'storeEmployeeBangla'])->name('employee.bangla');
+            Route::post('/employee/personal', [EmployeeController::class, 'storeEmployeePersonal'])->name('employee.personal');
+            Route::post('/employee/document', [EmployeeController::class, 'storeEmployeeDocument'])->name('employee.document');
             Route::resource('employee', EmployeeController::class)->names('employee');
+
+
+
+            Route::post('/employee-education/delete', [EmployeeEducationController::class, 'destroy'])->name('employee-education.delete');
+            Route::resource('employee-education', EmployeeEducationController::class)->names('employee-education');
+            Route::post('/employee-training/delete', [EmployeeTrainingController::class, 'destroy'])->name('employee-training.delete');
+            Route::resource('employee-training', EmployeeTrainingController::class)->names('employee-training');
+            Route::post('/employee-experience/delete', [EmployeeExperienceController::class, 'destroy'])->name('employee-experience.delete');
+            Route::resource('employee-experience', EmployeeExperienceController::class)->names('employee-experience');
         });
 
         //Report
@@ -158,8 +176,6 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         });
 
         //Settings
-        Route::prefix('settings')->name('settings.')->group(function () {
-
-        });
+        Route::resource('settings', SettingController::class)->names('setting');
     });
 });

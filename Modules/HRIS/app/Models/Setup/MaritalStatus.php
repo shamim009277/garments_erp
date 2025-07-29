@@ -39,6 +39,11 @@ class MaritalStatus extends Model
             $maritalStatus->updated_by = Auth::user()->id;
         });
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
     // protected static function newFactory(): Setup\MaritalStatusFactory
     // {
     //     // return Setup\MaritalStatusFactory::new();

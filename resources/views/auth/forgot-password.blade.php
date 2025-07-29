@@ -5,7 +5,7 @@
             <div class="card shadow rounded-2 border-0">
                 <div class="card-body p-4 p-sm-5">
                     <div class="text-center mb-4">
-                        <a href="index.html" class="d-block auth-logo">
+                        <a href="javascript:void(0);" class="d-block auth-logo">
                             <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="28">
                             <span class="logo-txt">Minia</span>
                         </a>

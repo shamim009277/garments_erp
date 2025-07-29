@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal('attendance_bonus', 18, 2)->default(0);
 
             $table->char('ot_payable', 1)->default('N');
+            $table->decimal('ot_rate', 18, 2)->default(0);
             $table->char('holiday_allowance', 1)->default('N');
             $table->char('salary_from_bank', 1)->default('N');
 

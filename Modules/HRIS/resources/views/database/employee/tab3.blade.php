@@ -1,3 +1,4 @@
+
 <div class="card padding-card" style="margin-bottom: 0px !important;">
     <div class="card-body" style="min-height: 300px;">
         <div class="row">
@@ -7,7 +8,8 @@
                         <h6 class="my-0 text-primary">Academic Summary</h6>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped mb-0" id="academicTable" width="100%">
+                        <div style="">
+                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
                             <thead>
                                 <tr>
                                     <th style="width:4%;">SL#</th>
@@ -20,27 +22,47 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                 @foreach ($employee_education as $key => $education)
+                                    <tr id="row-{{ $education->id }}">
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $education->degree->degree }}</td>
+                                        <td>
+                                            {{ $education->institute }}<br>
+                                            {{ $education->institute_bangla }}
+                                        </td>
+                                        <td>{{ $education->board }}</td>
+                                        <td>{{ $education->result }}</td>
+                                        <td>{{ $education->passing_year }}</td>
+                                        <td>
+                                            <a href="#" onclick="editEducation({{ $education->id }})" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $education->id }}"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-education" data-id="{{ $education->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-5 pe-lg-0 pe-md-0 ps-lg-0 ps-md-0">
+            <div class="col-lg-4 col-md-5 pe-lg-0 pe-md-0">
                 <div class="card alert-info alert-top-border padding-card">
                     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3" >
                         <h6 class="my-0 text-primary">Input Parameters For New Academic Qualification</h6>
                     </div>
+                    <form id="academicForm" action="{{ route('hris.database.employee-education.store') }}" method="POST">
+                        @csrf
                     <div class="card-body" style="padding:10px 10px;">
                         <table class="table table-striped mb-0" id="academicTable" width="100%">
                             <tr>
+                                <input type="hidden" name="employee_id" value="{{ $employee->employee_id }}">
                                 <th width="40%" style="border: none;">Degree</th>
-                                <td width="60%" style="border: none;"><x-select-input name="degree" id="degree" class="select2" label="" :options="['SSC', 'HSC', 'Diploma', 'Bachelor', 'Master']" placeholder="Academic Qualification" required /></td>
+                                <td width="60%" style="border: none;"><x-select-input name="degree_id" id="degree" class="select2" label="" :options="$degrees" placeholder="Academic Qualification" required /></td>
                             </tr>
                             <tr>
                                 <th width="40%" style="border: none;">Year of Passing</th>
-                                <td width="60%" style="border: none;"><x-text-input name="year" id="year" label="" class="form-control-sm" placeholder="Year of Passing" required /></td>
+                                <td width="60%" style="border: none;"><x-text-input name="passing_year" id="passing_year" label="" class="form-control-sm" placeholder="Year of Passing" required /></td>
                             </tr>
                             <tr>
                                 <th width="40%" style="border: none;">Institute</th>
@@ -52,27 +74,117 @@
                             </tr>
                             <tr>
                                 <th width="40%" style="border: none;">Board</th>
-                                <td width="60%" style="border: none;"><x-select-input name="board" id="board" label="" class="select2" placeholder="Board" required /></td>
+                                <td width="60%" style="border: none;"><x-select-input name="board" id="board" label="" class="select2" :options="$boards" placeholder="Board" required /></td>
                             </tr>
                             <tr>
                                 <th width="40%" style="border: none;">Result Type</th>
-                                <td width="60%" style="border: none;"><x-select-input name="result_type" id="result_type" label="" class="select2" :options="['Degree/Division','CGPA','Grade']" placeholder="Result Type" required /></td>
+                                <td width="60%" style="border: none;"><x-select-input name="result_type" id="result_type" label="" class="select2" :options="['D'=>'Degree/Division','C'=>'CGPA','G'=>'Grade']" selected="D" placeholder="Result Type" required /></td>
                             </tr>
-                            <tr>
+                            <tr id="degree_tr">
                                 <th width="40%" style="border: none;">Obtain Degree</th>
-                                <td width="60%" style="border: none;"><x-select-input name="obtain_degree" id="obtain_degree" label="" class="select2" :options="['Degree/Division','CGPA','Grade']" placeholder="Obtain Degree" required /></td>
+                                <td width="60%" style="border: none;"><x-select-input name="obtain_degree" id="obtain_degree" label="" class="select2" :options="['First Class' => 'First Class', 'Second Class' => 'Second Class', 'Third Class' => 'Third Class', 'Passed' => 'Passed', 'Appeared' => 'Appeared', 'N/A' => 'N/A']" placeholder="Obtain Degree" /></td>
                             </tr>
-                            <tr>
+                            <tr id="cgpa_tr">
                                 <th width="40%" style="border: none;">Obtain CGPA</th>
-                                <td width="60%" style="border: none;"><x-select-input name="obtain_cgpa" id="obtain_cgpa" label="" class="select2" :options="['Degree/Division','CGPA','Grade']" placeholder="Obtain CGPA" required /></td>
+                                <td width="60%" style="border: none;"><x-text-input type="number" name="obtain_cgpa" pattern="[0-9]+([\.,][0-9]+)?" class="form-control-sm" step="0.01" id="obtain_cgpa" label="" placeholder="Obtain CGPA" /></td>
+                            </tr>
+                            <tr id="grade_tr">
+                                <th width="40%" style="border: none;">Obtain Grade</th>
+                                <td width="60%" style="border: none;"><x-select-input name="obtain_grade" id="obtain_grade" label="" class="select2" :options="['Grade: A+' => 'Grade: A+', 'Grade: A' => 'Grade: A', 'Grade: A-' => 'Grade: A-','Grade: B+' => 'Grade: B+', 'Grade: B' => 'Grade: B', 'Grade: B-' => 'Grade: B-','Grade: C+' => 'Grade: C+', 'Grade: C' => 'Grade: C', 'Grade: C-' => 'Grade: C-', 'Grade: D+' => 'Grade: D+', 'Grade: D' => 'Grade: D', 'Grade: D-' => 'Grade: D-', 'Grade: F' => 'Grade: F']" placeholder="Obtain Grade"/></td>
                             </tr>
                         </table>
                     </div>
+                    <div class="card-footer mb-4" style="padding:10px 10px;">
+                        <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-footer" style="padding:10px 10px;">
-        <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
-    </div>
+
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function editEducation(id) {
+        $('#editModal').modal('show');
+    }
+    $(document).ready(function() {
+        $('#result_type').on('change', function() {
+            let result = $(this).val();
+            if(result == 'D'){
+                $('#degree_tr').show();
+                $('#cgpa_tr').hide();
+                $('#grade_tr').hide();
+
+                $('#obtain_degree').attr('required', true);
+                $('#obtain_cgpa').attr('required', false);
+                $('#obtain_grade').attr('required', false);
+
+            }else if(result == 'C'){
+                $('#degree_tr').hide();
+                $('#cgpa_tr').show();
+                $('#grade_tr').hide();
+
+                $('#obtain_degree').attr('required', false);
+                $('#obtain_cgpa').attr('required', true);
+                $('#obtain_grade').attr('required', false);
+            }else if(result == 'G'){
+                $('#degree_tr').hide();
+                $('#cgpa_tr').hide();
+                $('#grade_tr').show();
+
+                $('#obtain_degree').attr('required', false);
+                $('#obtain_cgpa').attr('required', false);
+                $('#obtain_grade').attr('required', true);
+            }
+        });
+        $('#result_type').trigger('change');
+    });
+
+    $(document).on('click', '.delete-education', function(e) {
+        e.preventDefault();
+        let educationId = $(this).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route('hris.database.employee-education.delete') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: educationId
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Education has been deleted.',
+                            'success'
+                        );
+                        $('#row-' + educationId).remove();
+                    },
+                    error: function() {
+                        Swal.fire(
+                            'Error!',
+                            'Something went wrong.',
+                            'error'
+                        );
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'Cancelled!',
+                    'Education has not been deleted.',
+                    'error'
+                );
+            }
+        });
+    });
+</script>

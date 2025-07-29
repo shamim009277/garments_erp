@@ -21,25 +21,27 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->date('birth_date')->nullable();
             $table->unsignedBigInteger('birth_district_id')->nullable();
+            $table->unsignedBigInteger('degree_id')->nullable();
             $table->string('blood_group')->nullable();
-            $table->string('nationality')->nullable();
-            $table->string('religion')->nullable();
+            $table->string('nationality_code')->nullable();
+            $table->string('religion_code')->nullable();
             $table->string('marital_status')->nullable();
-            $table->string('sex')->nullable();
+            $table->string('sex_code')->nullable();
             $table->string('height')->nullable();
             $table->string('weight')->nullable();
 
             $table->string('national_id')->nullable();
-            $table->string('barth_certificate')->nullable();
+            $table->string('birth_certificate')->nullable();
             $table->integer('no_of_son')->default(0);
             $table->integer('no_of_daughter')->default(0);
             $table->integer('childern_under_5_years')->default(0);
 
             $table->string('service_book_no')->nullable();
-            $table->date('service_book_issue_date')->nullable();
+            $table->date('service_book_date')->nullable();
 
             $table->string('nominee_nid')->nullable();
             $table->string('nominee_name')->nullable();
+            $table->string('nominee_mobile')->nullable();
             $table->string('relation')->nullable();
 
             $table->unsignedBigInteger('ndistrict_id')->nullable();
@@ -53,11 +55,16 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('employee_id');
+            $table->index('degree_id');
+            $table->index('sex_code');
+            $table->index('religion_code');
+            $table->index('blood_group');
 
             $table->foreign('ndistrict_id')->references('id')->on('hris_setup_districts')->onDelete('cascade');
             $table->foreign('nthana_id')->references('id')->on('hris_setup_thanas')->onDelete('cascade');
             $table->foreign('birth_district_id')->references('id')->on('hris_setup_districts')->onDelete('cascade');
             $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');
+            $table->foreign('degree_id')->references('id')->on('hris_setup_degrees')->onDelete('cascade');
         });
     }
 

@@ -79,7 +79,7 @@
                                                                     <label class="nav-custom-link" style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'background-color: #EBF0F6;' : '' }}" for="dept{{ $department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($pending_applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})</label>
                                                                     <div class="nav-custom-content">
                                                                         @foreach ($applicants_date_wises as $applicant)
-                                                                            <a href="javascript:void(0);" data-id="{{ $applicant->id }}" data-final_designation_id="{{ $applicant->final_designation_id }}" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}" class="employee-link">{{ $applicant->id }} :: {{ strtoupper($applicant->name) }}</a>
+                                                                            <a href="javascript:void(0);" data-id="{{ $applicant->id }}" data-final_designation_id="{{ $applicant->final_designation_id }}" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}" class="employee-link employee-show">{{ $applicant->id }} :: {{ strtoupper($applicant->name) }}</a>
                                                                         @endforeach
                                                                     </div>
                                                                 </li>
@@ -140,8 +140,8 @@
                                                     ->all();
                                             @endphp
                                             <li class="nav-custom-item">
-                                                <input type="checkbox" id="dept{{ $selected_department->department_id }}" {{ $unique_applicant && $unique_applicant->department_id == $selected_department->department_id ? 'checked' : '' }}>
-                                                <label class="nav-custom-link" for="dept{{ $selected_department->department_id }}"><span class="nav-custom-caret"></span> {{ $selected_department->department->department }} ({{ collect($selected_applicants)->where('department_id', $selected_department->department_id)->count() }})</label>
+                                                <input type="checkbox" id="deptf{{ $selected_department->department_id }}" {{ $unique_applicant && $unique_applicant->department_id == $selected_department->department_id ? 'checked' : '' }}>
+                                                <label class="nav-custom-link" for="deptf{{ $selected_department->department_id }}"><span class="nav-custom-caret"></span> {{ $selected_department->department->department }} ({{ collect($selected_applicants)->where('department_id', $selected_department->department_id)->count() }})</label>
                                                 <ul class="nav-custom-content">
                                                     @foreach ($applicant_date_wises as $key => $applicants)
                                                         @php
@@ -151,8 +151,8 @@
                                                                 ->all();
                                                         @endphp
                                                         <li class="nav-custom-item">
-                                                            <input type="checkbox" id="dept{{ $selected_department->department_id }}-{{ $key }}" {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $selected_department->department_id ? 'checked' : '' }}>
-                                                            <label class="nav-custom-link" style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $selected_department->department_id ? 'background-color: #EBF0F6;' : '' }}" for="dept{{ $selected_department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($pending_applicants)->where('department_id', $selected_department->department_id)->where('entry_date', $key)->count() }})</label>
+                                                            <input type="checkbox" id="deptf{{ $selected_department->department_id }}-{{ $key }}" {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $selected_department->department_id ? 'checked' : '' }}>
+                                                            <label class="nav-custom-link" style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $selected_department->department_id ? 'background-color: #EBF0F6;' : '' }}" for="deptf{{ $selected_department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($pending_applicants)->where('department_id', $selected_department->department_id)->where('entry_date', $key)->count() }})</label>
                                                             <div class="nav-custom-content">
                                                                 @foreach ($applicants_date_wises as $applicant)
                                                                     <a href="javascript:void(0);" data-id="{{ $applicant->id }}" data-final_designation_id="{{ $applicant->final_designation_id }}" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}" class="employee-link">{{ $applicant->id }} :: {{ $applicant->employee_id }} :: {{ strtoupper($applicant->name) }}</a>
@@ -201,7 +201,7 @@
             });
         });
 
-        $(document).on('click', '.employee-link', function(e) {
+        $(document).on('click', '.employee-show', function(e) {
             e.preventDefault();
             let applicantId = $(this).data('id');
             let finalDesignationId = $(this).data('final_designation_id');

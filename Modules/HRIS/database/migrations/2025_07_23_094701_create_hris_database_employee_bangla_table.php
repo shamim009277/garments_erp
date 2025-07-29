@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('hris_database_employee_bangla', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('employee_id')->unique();
             $table->unsignedBigInteger('org_id');
             $table->string('name_bangla');
             $table->string('fname_bangla');
             $table->string('mname_bangla');
-            $table->string('nname_bangla');
-            $table->string('relation_bangla');
+            $table->string('nname_bangla')->nullable();
+            $table->string('relation_bangla')->nullable();
             $table->string('national_id_bangla')->nullable();
 
             $table->unsignedBigInteger('mdistrict_id_bangla');
