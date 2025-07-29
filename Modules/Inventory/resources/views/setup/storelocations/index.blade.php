@@ -57,42 +57,30 @@
                                 <th>Name</th>
                                 <th>Store Code</th>
                                 <th>Address Line 1</th>
-                                <th>Address Line 2</th>
-                                <th>City</th>
-                                <th>State</th>
-                                <th>Zip Code</th>
                                 <th>Country</th>
                                 <th>Store Size</th>
                                 <th>Store Type</th>
                                 <th>Organization</th>
-                                <th>Owner ID</th>
-                                <th>Owner Name</th>
-                                <th>Latitude</th>
-                                <th>Longitude</th>
-                                <th>Contact Person</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Description</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                                //
-                            @endphp
                             @foreach ($storelocations as $key => $storelocation)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $storelocation->name }}</td>
                                     <td>{{ $storelocation->store_code }}</td>
                                     <td>{{ $storelocation->address_line_1 }}</td>
-                                    <td>{{ $storelocation->address_line_2 }}</td>
-                                    <td>{{ $storelocation->city }}</td>
-                                    <td>{{ $storelocation->state }}</td>
-                                    <td>{{ $storelocation->zip_code }}</td>
                                     <td>{{ $storelocation->country }}</td>
                                     <td>{{ $storelocation->store_size }}</td>
+                                    <td>
+                                        @foreach ($storetypes as $storetype)
+                                            @if ($storetype->id == $storelocation->store_type_id)
+                                                {{ $storetype->name }}
+                                            @endif
+                                        @endforeach
+                                    </td>
                                     <td>
                                         @foreach ($organizations as $organization)
                                             @if ($organization->id == $storelocation->organization_id)
@@ -100,15 +88,7 @@
                                             @endif
                                         @endforeach
                                     </td>
-                                    <td>{{ $storelocation->owner_id }}</td>
-                                    <td>{{ $storelocation->owner_name }}</td>
-                                    <td>{{ $storelocation->latitude }}</td>
-                                    <td>{{ $storelocation->longitude }}</td>
-                                    <td>{{ $storelocation->contact_person }}</td>
-                                    <td>{{ $storelocation->phone }}</td>
-                                    <td>{{ $storelocation->email }}</td>
-                                    <td>{{ $storelocation->description }}</td>
-                                    <td class="text-center">
+                                    <td>
                                         <p class="text-{{ $storelocation->is_active ? 'success' : 'danger' }}">
                                             {{ $storelocation->is_active ? 'Active' : 'Inactive' }}</p>
                                     </td>
@@ -149,8 +129,6 @@
 
                                                     <x-input-group name="name" label="Name" :value="$storelocation->name"
                                                         required />
-                                                    <x-input-group name="store_code" label="Store Code" :value="$storelocation->store_code"
-                                                        required />
                                                     <x-input-group name="address_line_1" label="Address Line 1"
                                                         :value="$storelocation->address_line_1" required />
                                                     <x-input-group name="address_line_2" label="Address Line 2"
@@ -166,16 +144,13 @@
                                                         :options="$storetypes->pluck('name', 'id')" :selected="$storelocation->store_type_id" required />
                                                     <x-input-group name="owner_id" label="Owner ID" :value="$storelocation->owner_id"
                                                         required />
-                                                    <x-input-group name="owner_name" label="Owner Name" :value="$storelocation->owner_name"
-                                                        required />
-                                                    <x-input-group name="latitude" label="Latitude" :value="$storelocation->latitude"
-                                                        required />
-                                                    <x-input-group name="longitude" label="Longitude" :value="$storelocation->longitude"
-                                                        required />
+                                                    <x-input-group name="owner_name" label="Owner Name"
+                                                        :value="$storelocation->owner_name" />
+                                                    <x-input-group name="latitude" label="Latitude" :value="$storelocation->latitude" />
+                                                    <x-input-group name="longitude" label="Longitude" :value="$storelocation->longitude" />
                                                     <x-input-group name="contact_person" label="Contact Person"
-                                                        :value="$storelocation->contact_person" required />
-                                                    <x-input-group name="phone" label="Phone" :value="$storelocation->phone"
-                                                        required />
+                                                        :value="$storelocation->contact_person" />
+                                                    <x-input-group name="phone" label="Phone" :value="$storelocation->phone" />
                                                     <x-input-group name="email" label="Email" :value="$storelocation->email"
                                                         required />
                                                     <x-input-group name="description" label="Description"
