@@ -8,6 +8,7 @@ use Modules\Inventory\Http\Controllers\Setup\StoreTypeController;
 use Modules\Inventory\Http\Controllers\Setup\StoreLineController;
 use Modules\Inventory\Http\Controllers\Setup\RackLocationController;
 use Modules\Inventory\Http\Controllers\Setup\StoreLocationController;
+use Modules\Inventory\Http\Controllers\Setup\SupplierTypeController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
@@ -44,6 +45,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/storelocations/toggle', [StoreLocationController::class, 'toggleStatus'])->name('storelocations.toggle');
             Route::post('/storelocations/delete', [StoreLocationController::class, 'destroy'])->name('storelocations.delete');
             Route::resource('storelocations', StoreLocationController::class)->names('storelocations');
+
+            //SupplierTypeController
+            Route::post('/suppliertypes/toggle', [SupplierTypeController::class, 'toggleStatus'])->name('suppliertypes.toggle');
+            Route::post('/suppliertypes/delete', [SupplierTypeController::class, 'destroy'])->name('suppliertypes.delete');
+            Route::resource('suppliertypes', SupplierTypeController::class)->names('suppliertypes');
         });
     });
 });
