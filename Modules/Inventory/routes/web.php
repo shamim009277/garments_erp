@@ -10,6 +10,7 @@ use Modules\Inventory\Http\Controllers\Setup\RackLocationController;
 use Modules\Inventory\Http\Controllers\Setup\StoreLocationController;
 use Modules\Inventory\Http\Controllers\Setup\SupplierTypeController;
 use Modules\Inventory\Http\Controllers\Setup\SupplierController;
+use Modules\Inventory\Http\Controllers\Setup\ChallanPurposeController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
@@ -56,6 +57,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/suppliers/toggle', [SupplierController::class, 'toggleStatus'])->name('suppliers.toggle');
             Route::post('/suppliers/delete', [SupplierController::class, 'destroy'])->name('suppliers.delete');
             Route::resource('suppliers', SupplierController::class)->names('suppliers');
+
+            //ChallanPurposeController
+            Route::post('/challanpurposes/toggle', [ChallanPurposeController::class, 'toggleStatus'])->name('challanpurposes.toggle');
+            Route::post('/challanpurposes/delete', [ChallanPurposeController::class, 'destroy'])->name('challanpurposes.delete');
+            Route::resource('challanpurposes', ChallanPurposeController::class)->names('challanpurposes');
         });
     });
 });

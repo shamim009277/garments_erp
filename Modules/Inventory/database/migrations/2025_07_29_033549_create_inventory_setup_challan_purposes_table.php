@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('inventory_setup_challan_purposes', function (Blueprint $table) {
             $table->id();
-            
+            $table->string('purpose_name', 100)->unique();   // e.g., Purchase Receipt
+            $table->string('description')->nullable();       // Optional description
+            $table->boolean('is_active')->default(true);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
