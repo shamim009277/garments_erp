@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/storelines/toggle', [StoreLineController::class, 'toggleStatus'])->name('storelines.toggle');
             Route::post('/storelines/delete', [StoreLineController::class, 'destroy'])->name('storelines.delete');
             Route::resource('storelines', StoreLineController::class)->names('storelines');
-
+ 
             //RackLocationController
             Route::post('/racklocations/toggle', [RackLocationController::class, 'toggleStatus'])->name('racklocations.toggle');
             Route::post('/racklocations/delete', [RackLocationController::class, 'destroy'])->name('racklocations.delete');
