@@ -7,12 +7,12 @@
                     <div class="text-center mb-4">
                         <a href="index.html" class="d-block auth-logo">
                             <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="28">
-                            <span class="logo-txt">{{ $general->short_name }}</span>
+                            <span class="logo-txt">{{ "TEXEUROP (BD) LTD." }}</span>
                         </a>
                     </div>
                     <div class="text-center">
                         <h5 class="mb-0">Welcome Back!</h5>
-                        <p class="text-muted mt-2">Sign in to continue to {{ $general->short_name }}.</p>
+                        <p class="text-muted mt-2">Sign in to continue to {{ "TEXEUROP (BD) LTD." }}.</p>
                     </div>
 
                     <form id="actionForm" class="mt-4 pt-2" method="POST" action="{{ route('login') }}">

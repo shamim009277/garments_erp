@@ -12,6 +12,7 @@ class SexRequest extends FormRequest
      */
     public function rules(): array
     {
+        dd('This is the rules method of SexRequest');
         $sexId = $this->route('sex');
 
         return [

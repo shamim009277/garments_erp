@@ -2,6 +2,6 @@
     <p class="mb-0 small text-muted">
         ©<script>
             document.write(new Date().getFullYear())
-        </script> {{ $general->short_name }}. Crafted with <i class="mdi mdi-heart text-danger"></i> by {{ $general->footer_text }}
+        </script> {{ env('APP_NAME') }}. Crafted with <i class="mdi mdi-heart text-danger"></i> by {{ 'TEXEUROP (BD) LTD.' }}
     </p>
 </div>
