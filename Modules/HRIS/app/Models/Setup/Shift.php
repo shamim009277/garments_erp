@@ -42,6 +42,11 @@ class Shift extends Model
             $shift->updated_by = Auth::user()->id;
         });
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
     // protected static function newFactory(): Setup\ShiftFactory
     // {
     //     // return Setup\ShiftFactory::new();

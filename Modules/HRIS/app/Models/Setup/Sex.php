@@ -40,6 +40,11 @@ class Sex extends Model
         });
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
     // protected static function newFactory(): Setup\SexFactory
     // {
     //     // return Setup\SexFactory::new();

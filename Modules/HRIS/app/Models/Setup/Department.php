@@ -4,8 +4,10 @@ namespace Modules\HRIS\Models\Setup;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HRIS\Models\Database\Applicant;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\HRIS\Database\Factories\Setup\DepartmentFactory;
 
 class Department extends Model
@@ -48,5 +50,10 @@ class Department extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    public function applicatnts(): HasMany
+    {
+        return $this->hasMany(Applicant::class);
     }
 }

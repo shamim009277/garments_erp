@@ -25,7 +25,7 @@
         <div class="col-lg-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <!-- Title -->
-                <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">Employee | ID : 1625</h4>
+                <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">Employee | ID : {{ $employee->employee_id }}</h4>
 
                 <!-- Search Form -->
                 <form class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
@@ -36,9 +36,9 @@
                 </form>
 
                 <!-- Back Button -->
-                <button class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
+                <a href="{{ route('hris.database.employee.index') }}" class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
                     <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
-                </button>
+                </a>
             </div>
         </div>
 
@@ -47,67 +47,67 @@
                 <div class="card-body px-0 py-0" style="min-height: 500px;">
                     <ul class="nav nav-tabs nav-tabs-custom" role="tablist" style="background-color: #4549A2; color: white;border-radius: 0px !important;">
                         <li class="nav-item">
-                            <a class="nav-link active border-none" data-bs-toggle="tab" href="#basic" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 1]) }}" class="nav-link border-none {{ $tab == 1 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                                 <span class="d-none d-sm-block">Basic</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#salary" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 2]) }}" class="nav-link border-none {{ $tab == 2 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                 <span class="d-none d-sm-block">Salary Info</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#education" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 3]) }}" class="nav-link border-none {{ $tab == 3 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                 <span class="d-none d-sm-block">Education</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#training" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 4]) }}" class="nav-link border-none {{ $tab == 4 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                                 <span class="d-none d-sm-block">Training</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#experience" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 5]) }}" class="nav-link border-none {{ $tab == 5 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                                 <span class="d-none d-sm-block">Experience</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#service" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 6]) }}" class="nav-link border-none {{ $tab == 6 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                                 <span class="d-none d-sm-block">Service</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#reference" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 7]) }}" class="nav-link border-none {{ $tab == 7 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                 <span class="d-none d-sm-block">Reference</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#documents" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 8]) }}" class="nav-link border-none {{ $tab == 8 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                 <span class="d-none d-sm-block">Documents</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#miscellaneous" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 9]) }}" class="nav-link border-none {{ $tab == 9 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                                 <span class="d-none d-sm-block">Mescellaneous</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#bangla" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 10]) }}" class="nav-link border-none {{ $tab == 10 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                                 <span class="d-none d-sm-block">Bangla</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-none" data-bs-toggle="tab" href="#operation" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 11]) }}" class="nav-link border-none {{ $tab == 11 ? 'active' : '' }}" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                                 <span class="d-none d-sm-block">Operation</span>
                             </a>
@@ -115,36 +115,61 @@
                     </ul>
 
                     <div class="tab-content text-muted">
-                        <div class="tab-pane active" id="basic" role="tabpanel">
+                        @if($tab == 1)
+                        <div class="tab-pane {{ $tab == 1 ? 'active' : '' }}    " id="basic" role="tabpanel">
                             @include('hris::database.employee.tab1')
                         </div>
-                        <div class="tab-pane" id="salary" role="tabpanel">
+                        @endif
+                        @if($tab == 2)
+                        <div class="tab-pane {{ $tab == 2 ? 'active' : '' }}" id="salary" role="tabpanel">
                             @include('hris::database.employee.tab2')
                         </div>
-                        <div class="tab-pane" id="education" role="tabpanel">
+                        @endif
+                        @if($tab == 3)
+                        <div class="tab-pane {{ $tab == 3 ? 'active' : '' }}" id="education" role="tabpanel">
                             @include('hris::database.employee.tab3')
                         </div>
-                        <div class="tab-pane" id="training" role="tabpanel">
+                        @endif
+                        @if($tab == 4)
+                        <div class="tab-pane {{ $tab == 4 ? 'active' : '' }}" id="training" role="tabpanel">
                             @include('hris::database.employee.tab4')
                         </div>
-                        <div class="tab-pane" id="experience" role="tabpanel">
+                        @endif
+                        @if($tab == 5)
+                        <div class="tab-pane {{ $tab == 5 ? 'active' : '' }}" id="experience" role="tabpanel">
                             @include('hris::database.employee.tab5')
                         </div>
-                        <div class="tab-pane" id="service" role="tabpanel">
+                        @endif
+                        @if($tab == 6)
+                        <div class="tab-pane {{ $tab == 6 ? 'active' : '' }}" id="service" role="tabpanel">
                             @include('hris::database.employee.tab6')
                         </div>
-                        <div class="tab-pane" id="reference" role="tabpanel">
+                        @endif
+                        @if($tab == 7)
+                        <div class="tab-pane {{ $tab == 7 ? 'active' : '' }}" id="reference" role="tabpanel">
                             @include('hris::database.employee.tab7')
                         </div>
-                        <div class="tab-pane" id="documents" role="tabpanel">
+                        @endif
+                        @if($tab == 8)
+                        <div class="tab-pane {{ $tab == 8 ? 'active' : '' }}" id="documents" role="tabpanel">
                             @include('hris::database.employee.tab8')
                         </div>
-                        <div class="tab-pane" id="miscellaneous" role="tabpanel">
+                        @endif
+                        @if($tab == 9)
+                        <div class="tab-pane {{ $tab == 9 ? 'active' : '' }}" id="miscellaneous" role="tabpanel">
                             @include('hris::database.employee.tab9')
                         </div>
-                        <div class="tab-pane" id="bangla" role="tabpanel">
+                        @endif
+                        @if($tab == 10)
+                        <div class="tab-pane {{ $tab == 10 ? 'active' : '' }}" id="bangla" role="tabpanel">
                             @include('hris::database.employee.tab10')
                         </div>
+                        @endif
+                        @if($tab == 11)
+                        <div class="tab-pane {{ $tab == 11 ? 'active' : '' }}" id="operation" role="tabpanel">
+                            @include('hris::database.employee.tab11')
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

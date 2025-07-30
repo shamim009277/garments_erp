@@ -7,20 +7,20 @@
                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                             <tr>
                                 <th width="30%" style="border: none;">Emp ID</th>
-                                <td width="70%" style="border: none;"><x-text-input name="employee_id" id="employee_id" class="form-control-sm" placeholder="Employee ID" required readonly /></td>
+                                <td width="70%" style="border: none;"><x-text-input name="employee_id" id="employee_id" class="form-control-sm" :value="old('employee_id',$employee->employee_id)" placeholder="Employee ID" required readonly /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Department</th>
-                                <td width="70%" style="border: none;"><x-select-input name="department_id" id="department_id" class="select2" :options="['1' => 'HR', '2' => 'IT']" required /></td>
+                                <td width="70%" style="border: none;"><x-select-input name="department_id" id="department_id" class="select2" :options="$departments" selected="{{ $employee->department_id }}" required /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Designation</th>
-                                <td width="70%" style="border: none;"><x-select-input name="designation_id" id="designation_id" class="select2" :options="['1' => 'John Doe', '2' => 'Jane Smith']" required /></td>
+                                <td width="70%" style="border: none;"><x-select-input name="designation_id" id="designation_id" class="select2" :options="$designations" selected="{{ $employee->designation_id }}" required /></td>
                             </tr>
                             <tr>
                                 <th style="border: none;">Joining Date</th>
                                 <td style="border: none;">
-                                    <x-text-input name="joining_date" id="joining_date" type="date" class="form-control-sm" placeholder="Joining Date" required />
+                                    <x-text-input name="joining_date" id="joining_date" type="date" class="form-control-sm" placeholder="Joining Date" :value="old('joining_date',$employee->joining_date)" required />
                                 </td>
                             </tr>
                             <tr>
@@ -34,19 +34,19 @@
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
                                 <th width="30%" style="border: none;">Line</th>
-                                <td width="70%" style="border: none;"><x-text-input name="line" id="line" type="text" class="form-control-sm" placeholder="Line" required /></td>
+                                <td width="70%" style="border: none;"><x-text-input name="line" id="line" type="text" class="form-control-sm" :value="old('line',$employee->line)" placeholder="Line" /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Grade</th>
-                                <td width="70%" style="border: none;"><x-text-input name="grade" id="grade" type="text" class="form-control-sm" placeholder="Grade" required /></td>
+                                <td width="70%" style="border: none;"><x-text-input name="grade" id="grade" type="text" class="form-control-sm" :value="old('grade',$employee->grade)" placeholder="Grade" required /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Salaried?</th>
-                                <td width="70%" style="border: none;"><x-select-input name="salaried" id="salaried" label="Salaried" class="select2" :options="['1' => 'Yes', '2' => 'No']" required /></td>
+                                <td width="70%" style="border: none;"><x-select-input name="salaried" id="salaried" label="Salaried" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="{{ $employee->salaried }}" required /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Confirm Date</th>
-                                <td width="70%" style="border: none;"><x-text-input name="confirm_date" id="confirm_date" type="date" class="form-control-sm" placeholder="Confirm Date" required /></td>
+                                <td width="70%" style="border: none;"><x-text-input name="confirmation_date" id="confirmation_date" type="date" class="form-control-sm" placeholder="Confirm Date" :value="old('confirmation_date',$employee->confirmation_date)" required readonly /></td>
                             </tr>
                             <tr>
                                 <th style="border: none;">&nbsp; &nbsp;</th>
@@ -62,24 +62,24 @@
                             <h6 class="text-primary font-weight-bold">Present Address</h6>
                             <tr>
                                 <th width="30%" style="border: none;">District</th>
-                                <td width="70%" style="border: none;"><x-select-input name="pdistrict_id" id="pdistrict_id" class="select2" :options="['1' => 'HR', '2' => 'IT']" required /></td>
+                                <td width="70%" style="border: none;"><x-select-input name="pdistrict_id" id="pdistrict_id" class="select2" :options="$districts" selected="{{ $employee->pdistrict_id }}" required /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Thana</th>
                                 <td width="70%" style="border: none;">
-                                    <x-select-input name="pthana_id" id="pthana_id" class="select2" :options="['1' => 'HR', '2' => 'IT']" required />
+                                    <x-select-input name="pthana_id" id="pthana_id" class="select2" :options="$thanas" selected="{{ $employee->pthana_id }}" required />
                                 </td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Post Office</th>
                                 <td width="70%" style="border: none;">
-                                    <x-text-input name="ppost_office" id="ppost_office" class="form-control-sm" placeholder="Post Office" required />
+                                    <x-text-input name="ppost_office" id="ppost_office" class="form-control-sm" :value="old('ppost_office',$employee->ppost_office)" placeholder="Post Office" required />
                                 </td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Address</th>
                                 <td width="70%" style="border: none;">
-                                    <x-text-input name="pvillage" id="pvillage" class="form-control-sm" placeholder="House No/Road No/Village ..." required />
+                                    <x-text-input name="pvillage" id="pvillage" class="form-control-sm" :value="old('pvillage',$employee->pvillage)" placeholder="House No/Road No/Village ..." required />
                                 </td>
                             </tr>
                         </table>
@@ -89,24 +89,24 @@
                             <h6 class="text-primary font-weight-bold">Mailing Address</h6>
                             <tr>
                                 <th width="30%" style="border: none;">District</th>
-                                <td width="70%" style="border: none;"><x-select-input name="mdistrict_id" id="mdistrict_id" class="select2" :options="['1' => 'HR', '2' => 'IT']" required /></td>
+                                <td width="70%" style="border: none;"><x-select-input name="mdistrict_id" id="mdistrict_id" class="select2" :options="$districts" selected="{{ $employee->mdistrict_id }}" required /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Thana</th>
                                 <td width="70%" style="border: none;">
-                                    <x-select-input name="mthana_id" id="mthana_id" class="select2" :options="['1' => 'HR', '2' => 'IT']" required />
+                                    <x-select-input name="mthana_id" id="mthana_id" class="select2" :options="$thanas" selected="{{ $employee->mthana_id }}" required />
                                 </td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Post Office</th>
                                 <td width="70%" style="border: none;">
-                                    <x-text-input name="mpost_office" id="mpost_office" class="form-control-sm" placeholder="Post Office" required />
+                                    <x-text-input name="mpost_office" id="mpost_office" class="form-control-sm" :value="old('mpost_office',$employee->mpost_office)" placeholder="Post Office" required />
                                 </td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Address</th>
                                 <td width="70%" style="border: none;">
-                                    <x-text-input name="mvillage" id="mvillage" class="form-control-sm" placeholder="House No/Road No/Village ..." required />
+                                    <x-text-input name="mvillage" id="mvillage" class="form-control-sm" :value="old('mvillage',$employee->mvillage)" placeholder="House No/Road No/Village ..." required />
                                 </td>
                             </tr>
                         </table>
@@ -116,36 +116,40 @@
             <div class="col-lg-4 pe-lg-0">
                 <table class="table table-striped" id="employeeTable" width="100%">
                     <tr>
+                        <th width="30%" style="border: none;">Organization</th>
+                        <td width="70%" style="border: none;"><x-select-input name="org_id" id="org_id" class="select2" :options="$organizations" selected="{{ $employee->org_id }}" required /></td>
+                    </tr>
+                    <tr>
                         <th width="30%" style="border: none;">Punch Category</th>
-                        <td width="70%" style="border: none;"><x-select-input name="punch_category" id="punch_category" class="select2" :options="['1' => 'HR', '2' => 'IT']" required /></td>
+                        <td width="70%" style="border: none;"><x-select-input name="punch_category" id="punch_category" class="select2" :options="['1' => 'Single Punch', '2' => 'Double Punch', '3' => 'No Punch']" selected="{{ $employee->punch_category }}" required /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Shifting Duty?</th>
-                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['1' => 'HR', '2' => 'IT']" required /></td>
+                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="{{ $employee->shifting_duty }}" required /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Reference Shift?</th>
-                        <td width="70%" style="border: none;"><x-select-input name="reference_shift" id="reference_shift" class="select2" :options="['1' => 'HR', '2' => 'IT']" required /></td>
+                        <td width="70%" style="border: none;"><x-select-input name="refrerence_shift" id="refrerence_shift" class="select2" :options="$shifts" selected="{{ $employee->refrerence_shift }}" required /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Reference Date</th>
-                        <td width="70%" style="border: none;"><x-text-input name="reference_date" type="date" id="reference_date" class="form-control-sm" placeholder="Reference Date" required /></td>
+                        <td width="70%" style="border: none;"><x-text-input name="refrerence_date" type="date" id="refrerence_date" class="form-control-sm" :value="old('refrerence_date',$employee->refrerence_date)" placeholder="Reference Date" required /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Name</th>
-                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" placeholder="Name" :value="old('name')" required /></td>
+                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" id="name" placeholder="Name" :value="old('name',$employee->name)" required /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Father Name</th>
-                        <td width="70%" style="border: none;"><x-text-input name="nameD" class="form-control-sm" placeholder="Father Name" :value="old('nameD')" required /></td>
+                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" :value="old('father_name',$employee->father_name)" required /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Mother Name</th>
-                        <td width="70%" style="border: none;"><x-text-input name="nameD" class="form-control-sm" placeholder="Mother Name" :value="old('nameD')" required /></td>
+                        <td width="70%" style="border: none;"><x-text-input name="mother_name" class="form-control-sm" id="mother_name" placeholder="Mother Name" :value="old('mother_name',$employee->mother_name)" required /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Spouse Name</th>
-                        <td width="70%" style="border: none;"><x-text-input name="nameD" class="form-control-sm" placeholder="Spouse Name" :value="old('nameD')" /></td>
+                        <td width="70%" style="border: none;"><x-text-input name="spouse_name" class="form-control-sm" id="spouse_name" placeholder="Spouse Name" :value="old('spouse_name',$employee->spouse_name)" /></td>
                     </tr>
                 </table>
             </div>
