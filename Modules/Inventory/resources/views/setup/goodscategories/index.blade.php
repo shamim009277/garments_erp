@@ -50,8 +50,11 @@
                                     <td>{{ $goodscategory->description }}</td>
                                     <td>
                                         <div class="square-switch">
-                                            <input type="checkbox" id="square-switch3{{ $goodscategory->id }}" class="goodscategory-toggle" data-id="{{ $goodscategory->id }}" switch="bool" {{ $goodscategory->is_active ? 'checked' : '' }} />
-                                            <label for="square-switch3{{ $goodscategory->id }}" data-on-label="Yes" data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
+                                            <input type="checkbox" id="square-switch3{{ $goodscategory->id }}"
+                                                class="goodscategory-toggle" data-id="{{ $goodscategory->id }}"
+                                                switch="bool" {{ $goodscategory->is_active ? 'checked' : '' }} />
+                                            <label for="square-switch3{{ $goodscategory->id }}" data-on-label="Yes"
+                                                data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
                                         </div>
                                     </td>
                                     <td>
@@ -60,7 +63,10 @@
                                             data-bs-target="#editModal{{ $goodscategory->id }}"><i
                                                 class="fas fa-edit"></i></a>
                                         {{--  --}}
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-goodscategory" data-id="{{ $goodscategory->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a> 
+                                        <a href="#"
+                                            class="btn btn-soft-danger waves-effect waves-light delete-goodscategory"
+                                            data-id="{{ $goodscategory->id }}" style="padding: 4px 6px;"><i
+                                                class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 {{-- load edit modal --}}
@@ -80,7 +86,7 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
-                                                    
+
                                                     <x-input-group name="name" label="Name" :value="$goodscategory->name"
                                                         required />
                                                     <x-input-group name="description" label="Description" :value="$goodscategory->description"
@@ -109,7 +115,7 @@
                 </div>
                 <div class="card-body">
                     <form id="moduleForm" action="{{ route('inventory.setup.goodscategories.store') }}" method="POST">
-                        @csrf                       
+                        @csrf
                         <x-input-group name="name" label="Name" placeholder="Enter name" :value="old('name')" required />
                         <x-input-group name="description" label="Description" placeholder="Enter description"
                             :value="old('description')" required />
@@ -131,7 +137,7 @@
                 console.log('change');
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
-                
+
                 $.ajax({
                     url: '{{ route('inventory.setup.goodscategories.toggle') }}',
                     type: 'POST',
@@ -153,7 +159,7 @@
                 });
             });
 
-           
+
         });
 
         $(document).on('click', '.delete-goodscategory', function(e) {

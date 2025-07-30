@@ -109,16 +109,21 @@ class GoodsSubCategoryController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id) {
-        dd($id);
-        DB::beginTransaction();
-        try {
-            $goodsSubCategory = GoodsSubCategory::findOrFail($id);
-            $goodsSubCategory->delete();
-            DB::commit();
-            return redirect()->route('inventory.setup.goodsSubCategories.index')->with('success', 'Goods Sub Category deleted successfully');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Failed to delete Goods Sub Category: ' . $e->getMessage());
-        }
+        // // dd($id);
+        // DB::beginTransaction();
+        // try {
+        //     $goodsSubCategory = GoodsSubCategory::findOrFail($id);
+        //     dd($goodsSubCategory);
+        //     $goodsSubCategory->delete();
+        //     DB::commit();
+        //     return redirect()->route('inventory.setup.goodsSubCategories.index')->with('success', 'Goods Sub Category deleted successfully');
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', 'Failed to delete Goods Sub Category: ' . $e->getMessage());
+        // }
+        $goodsSubCategory = GoodsSubCategory::findOrFail($id);
+        dd($goodsSubCategory);
+        $goodsSubCategory->delete();
+        return redirect()->route('inventory.setup.goodsSubCategories.index')->with('success', 'Goods Sub Category deleted successfully');
     }
 }
