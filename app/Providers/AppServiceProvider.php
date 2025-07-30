@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share('general', cache()->remember('general_settings', now()->addDay(), function () {
+        View::share('general', cache()->remember('general_settings', 3600, function () {
             return GeneralSetting::first();
         }));
     }
