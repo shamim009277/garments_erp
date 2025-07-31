@@ -2,14 +2,14 @@
 <div class="card padding-card" style="margin-bottom: 0px !important;">
     <div class="card-body" style="min-height: 300px;">
         <div class="row">
-            <div class="col-lg-8 col-md-7 pe-lg-0 pe-md-0 ps-lg-0 ps-md-0">
+            <div class="col-lg-8 pe-lg-0 ps-lg-0">
                 <div class="card alert-primary alert-top-border padding-card">
                     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
                         <h6 class="my-0 text-primary">Academic Summary</h6>
                     </div>
                     <div class="card-body">
-                        <div style="">
-                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
+                        <div style="overflow-x: auto;">
+                        <table class="table table-striped table-hover mb-0" width="100%">
                             <thead>
                                 <tr>
                                     <th style="width:4%;">SL#</th>
@@ -34,9 +34,37 @@
                                         <td>{{ $education->result }}</td>
                                         <td>{{ $education->passing_year }}</td>
                                         <td>
-                                            <a href="#" onclick="editEducation({{ $education->id }})" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $education->id }}"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-education" data-id="{{ $education->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $education->id }}"><i class="fas fa-edit"></i></a>
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-soft-danger waves-effect waves-light delete-education" data-id="{{ $education->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
                                         </td>
+                                        <div id="editModal{{ $education->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h6 class="modal-title" id="myModalLabel">Edit Employee Education</h6>
+                                                        <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <form id="editForm{{ $education->id }}" action="{{ route('hris.database.employee-education.update', $education->id) }}" method="POST">
+                                                        <div class="modal-body">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input type="hidden" name="employee_id" value="{{ $education->employee_id }}">
+                                                            <x-select-input-group name="degree_id" label="Degree" id="degree" class="select2" :options="$degrees" selected="{{ $education->degree_id??old('degree_id') }}" required />
+                                                            <x-input-group name="institute" label="Institute" type="text" class="form-control-sm" placeholder="Enter institute" :value="$education->institute" required />
+                                                            <x-input-group name="institute_bangla" label="Institute Bangla" type="text" class="form-control-sm" placeholder="Enter institute bangla" :value="$education->institute_bangla" required />
+                                                            <x-select-input-group name="board" label="Board" type="text" class="select2" :options="$boards" selected="{{ $education->board??old('board') }}" required />
+                                                            <x-input-group name="passing_year" label="Passing Year" type="text" class="form-control-sm" placeholder="Enter passing year" :value="$education->passing_year" required />
+                                                            <x-select-input-group name="result_type" id="result_type_{{ $education->id }}" label="Result Type" class="select2" :options="['D'=>'Degree/Division','C'=>'CGPA','G'=>'Grade']" selected="D" placeholder="Result Type" required />
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
+                                                            <x-primary-button id="submitBtn" class="float-start btn-sm submitBtn">Save changes</x-primary-button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                  @endforeach
                             </tbody>
@@ -46,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-5 pe-lg-0 pe-md-0">
+            <div class="col-lg-4 pe-lg-0">
                 <div class="card alert-info alert-top-border padding-card">
                     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3" >
                         <h6 class="my-0 text-primary">Input Parameters For New Academic Qualification</h6>
@@ -58,7 +86,7 @@
                             <tr>
                                 <input type="hidden" name="employee_id" value="{{ $employee->employee_id }}">
                                 <th width="40%" style="border: none;">Degree</th>
-                                <td width="60%" style="border: none;"><x-select-input name="degree_id" id="degree" class="select2" label="" :options="$degrees" placeholder="Academic Qualification" required /></td>
+                                <td width="60%" style="border: none;"><x-select-input name="degree_id" id="degree" class="select2" label="" :options="$degrees"  placeholder="Academic Qualification" required /></td>
                             </tr>
                             <tr>
                                 <th width="40%" style="border: none;">Year of Passing</th>
@@ -104,11 +132,8 @@
     </div>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@push('scripts')
 <script>
-    function editEducation(id) {
-        $('#editModal').modal('show');
-    }
     $(document).ready(function() {
         $('#result_type').on('change', function() {
             let result = $(this).val();
@@ -188,3 +213,4 @@
         });
     });
 </script>
+@endpush

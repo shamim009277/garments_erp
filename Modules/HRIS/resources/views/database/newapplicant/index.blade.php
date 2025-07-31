@@ -21,15 +21,17 @@
                 </h4>
 
                 <!-- Search Input + Button in One Line -->
-                <form action="{{ route('hris.database.new-applicants.search') }}" method="POST"
-                    class="d-flex order-0 order-md-1" style="max-width: 400px;" role="search">
+                <form action="{{ route('hris.database.new-applicants.search') }}" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
                     @csrf
-                    <input class="form-control form-control-sm me-2" type="search" name="search"
-                        placeholder="Applicant Card No ..." aria-label="Search">
-                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit">
-                        <i data-feather="search" width="14" height="14" class="me-1"></i> Search
-                    </button>
+                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Applicant Card No ..." aria-label="Search">
+                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search" width="14" height="14" class="me-1"></i> Search</button>
                 </form>
+                @if ($unique_applicant)
+                    <!-- Back Button -->
+                    <a href="{{ route('hris.database.new-applicants.index') }}" class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
+                        <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
+                    </a>
+                @endif
             </div>
         </div>
         <div class="col-lg-4 pe-lg-0">
@@ -295,27 +297,19 @@
                             id: applicantId
                         },
                         success: function(response) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Applicant has been deleted.',
-                                'success'
-                            );
-                            location.href = '{{ route('hris.database.new-applicants.index') }}';
+                            if (response.success) {
+                                Swal.fire('Deleted!', 'Applicant has been deleted.', 'success');
+                                location.href = '{{ route('hris.database.new-applicants.index') }}';
+                            } else {
+                                Swal.fire('Error!', response.message);
+                            }
                         },
                         error: function() {
-                            Swal.fire(
-                                'Error!',
-                                'Something went wrong.',
-                                'error'
-                            );
+                            Swal.fire('Error!', 'Something went wrong.', 'error');
                         }
                     });
                 } else {
-                    Swal.fire(
-                        'Cancelled!',
-                        'Applicant has not been deleted.',
-                        'error'
-                    );
+                    Swal.fire('Cancelled!', 'Applicant has not been deleted.', 'error');
                 }
             });
         });

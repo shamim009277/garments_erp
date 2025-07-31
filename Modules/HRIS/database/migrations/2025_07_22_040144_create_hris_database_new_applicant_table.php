@@ -37,7 +37,7 @@ return new class extends Migration
 
             $table->enum('recruitment_type', ['N', 'R'])->nullable();
             $table->integer('replace_id')->unsigned()->nullable();
-            $table->enum('file_entry', ['Y', 'N'])->default('N');
+            $table->enum('file_entry', ['Y', 'N','C'])->default('N');
 
             $table->boolean('ipe_assessment_required')->default(false);
             $table->integer('final_status')->default(0)->comment('0 = Pending, 1 = Selected, 2 = Disqualify, 3 = Not Recruit');

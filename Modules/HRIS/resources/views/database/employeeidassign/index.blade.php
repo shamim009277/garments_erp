@@ -45,12 +45,12 @@
                 <div class="card-header" style="padding:14px 20px;">
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Applicant For EmployeeID</h6>
                 </div>
-                <div class="card-body" style="min-height: 500px;max-height: 500px; overflow-y: auto;">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 pe-lg-1 ps-md-0">
                             <div class="card border border-primary">
                                 <div class="card-header" style="padding:10px 16px;">
-                                    <h6 class="my-0 text-primary">Pending Applicant List For EmployeeID (1)</h6>
+                                    <h6 class="my-0 text-primary">Pending Applicant List For EmployeeID</h6>
                                 </div>
                                 <div class="card-body" style="min-height: 450px;max-height: 450px; overflow-y: auto;">
                                     <div class="row">
@@ -101,11 +101,11 @@
                                     <h6 class="my-0 text-primary">Input Parameters For EmployeeID</h6>
                                 </div>
                                 <div class="card-body" style="min-height: 400px;max-height: 400px; overflow-y: auto;">
-                                    <x-input-group label="Applicant ID" name="applicant_id" type="text" placeholder="Applicant ID" readonly/>
-                                    <x-input-group label="Employee ID" name="employee_id" type="text" placeholder="Employee ID" required/>
+                                    <x-input-group label="Applicant ID" id="applicant_id" name="applicant_id" type="text" placeholder="Applicant ID" readonly/>
+                                    <x-input-group label="Employee ID" id="employee_id" name="employee_id" type="text" placeholder="Employee ID" required/>
                                     <x-select-input-group name="final_designation_id" id="final_designation_id" label="Final Designation" class="select2" :options="$designations" :selected="old('final_designation_id')" required />
                                     <x-select-input-group name="recruitment_type" id="recruitment_type" label="Recruitment Type" :options="['N' => 'New', 'R' => 'Replacement']" :selected="old('final_designation_id')" required />
-                                    <x-input-group name="replace_id" id="replace_id" label="Replacement ID" type="text" placeholder="Replacement ID"/>
+                                    <x-input-group name="replace_id" id="replace_id" group_id="replace_id_group" label="Replacement ID" type="text" placeholder="Replacement ID"/>
                                 </div>
                                 <div class="card-footer" style="padding:10px 16px;">
                                     <x-primary-button class="float-start btn-sm submitBtn">Assign</x-primary-button>
@@ -123,7 +123,7 @@
                 <div class="card-header" style="padding:14px 20px;">
                     <h6 class="my-0 text-primary"><i data-feather="list" width="18" height="18"></i> Applicant For File Entry</h6>
                 </div>
-                <div class="card-body" style="min-height: 500px;max-height: 500px; overflow-y: auto;">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 pe-lg-1 ps-md-0">
                             <div class="card border border-primary">
@@ -197,6 +197,7 @@
         $(document).ready(function() {
             $('.select2').select2({
                 placeholder: "Select an option",
+                width: '100%',
                 allowClear: true
             });
         });

@@ -32,9 +32,9 @@ return new class extends Migration
 
             $table->string('national_id')->nullable();
             $table->string('birth_certificate')->nullable();
-            $table->integer('no_of_son')->default(0);
-            $table->integer('no_of_daughter')->default(0);
-            $table->integer('childern_under_5_years')->default(0);
+            $table->integer('no_of_son')->nullable();
+            $table->integer('no_of_daughter')->nullable();
+            $table->integer('childern_under_5_years')->nullable();
 
             $table->string('service_book_no')->nullable();
             $table->date('service_book_date')->nullable();

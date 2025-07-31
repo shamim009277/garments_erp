@@ -108,14 +108,6 @@ class ApplicantController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('hris::edit');
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(ApplicantRequest $request, $id)
@@ -155,8 +147,11 @@ class ApplicantController extends Controller
             if($applicant->interview_status == 'Selected' || $applicant->interview_status == 'Disqualify' || $applicant->interview_status == 'Not Recruit'){
                 return response()->json(['success' => false, 'message' => 'Applicant deletion failed: Applicant is selected, disqualified or not recruit']);
             }
-            $applicant->delete();
-            return response()->json(['success' => true, 'message' => 'Applicant deleted successfully']);
+            if($applicant->file_entry == 'N'){
+                $applicant->delete();
+                return response()->json(['success' => true, 'message' => 'Applicant deleted successfully']);
+            }
+            return response()->json(['success' => false, 'message' => 'Applicant deletion failed: Applicant has file entry']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Applicant deletion failed: ' . $e->getMessage()]);
         }

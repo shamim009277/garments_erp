@@ -96,15 +96,15 @@
                                                 <td width="70%" style="border: none;"><x-text-input name="employee_id" id="employee_id" class="form-control-sm" placeholder="Employee ID" required readonly /></td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Department</th>
+                                                <th width="30%" style="border: none;">Department </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="department_id" id="department_id" class="select2" :options="$departments" required /></td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Designation</th>
+                                                <th width="30%" style="border: none;">Designation </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="designation_id" id="designation_id" class="select2" :options="$designations" required /></td>
                                             </tr>
                                             <tr>
-                                                <th style="border: none;">Joining Date</th>
+                                                <th style="border: none;">Joining Date </th>
                                                 <td style="border: none;">
                                                     <x-text-input name="joining_date" id="joining_date" type="date" class="form-control-sm" placeholder="Joining Date" required />
                                                 </td>
@@ -123,15 +123,15 @@
                                                 <td width="70%" style="border: none;"><x-text-input name="line" id="line" type="text" class="form-control-sm" placeholder="Line" /></td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Grade</th>
+                                                <th width="30%" style="border: none;">Grade </th>
                                                 <td width="70%" style="border: none;"><x-text-input name="grade" id="grade" type="text" class="form-control-sm" placeholder="Grade" required /></td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Salaried?</th>
+                                                <th width="30%" style="border: none;">Salaried? </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="salaried" id="salaried" label="Salaried" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="Y" required /></td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Confirm Date</th>
+                                                <th width="30%" style="border: none;">Confirm Date </th>
                                                 <td width="70%" style="border: none;"><x-text-input name="confirmation_date" id="confirmation_date" type="date" class="form-control-sm" placeholder="Confirm Date" required readonly /></td>
                                             </tr>
                                             <tr>
@@ -147,23 +147,23 @@
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                                             <h6 class="text-primary font-weight-bold">Present Address</h6>
                                             <tr>
-                                                <th width="30%" style="border: none;">District</th>
+                                                <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="pdistrict_id" id="pdistrict_id" class="select2" :options="$districts" required /></td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Thana</th>
+                                                <th width="30%" style="border: none;">Thana </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-select-input name="pthana_id" id="pthana_id" class="select2" :options="[]" required />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Post Office</th>
+                                                <th width="30%" style="border: none;">Post Office </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="ppost_office" id="ppost_office" class="form-control-sm" placeholder="Post Office" required />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Address</th>
+                                                <th width="30%" style="border: none;">Address </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="pvillage" id="pvillage" class="form-control-sm" placeholder="House No/Road No/Village ..." required />
                                                 </td>
@@ -174,23 +174,23 @@
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <h6 class="text-primary font-weight-bold">Mailing Address</h6>
                                             <tr>
-                                                <th width="30%" style="border: none;">District</th>
+                                                <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="mdistrict_id" id="mdistrict_id" class="select2" :options="$districts" required /></td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Thana</th>
+                                                <th width="30%" style="border: none;">Thana </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-select-input name="mthana_id" id="mthana_id" class="select2" :options="[]" required />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Post Office</th>
+                                                <th width="30%" style="border: none;">Post Office </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="mpost_office" id="mpost_office" class="form-control-sm" placeholder="Post Office" required />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th width="30%" style="border: none;">Address</th>
+                                                <th width="30%" style="border: none;">Address </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="mvillage" id="mvillage" class="form-control-sm" placeholder="House No/Road No/Village ..." required />
                                                 </td>
@@ -202,40 +202,40 @@
                             <div class="col-lg-4 pe-lg-0">
                                 <table class="table table-striped" id="employeeTable" width="100%">
                                     <tr>
-                                        <th width="30%" style="border: none;">Organization</th>
+                                        <th width="30%" style="border: none;">Organization </th>
                                         <td width="70%" style="border: none;"><x-select-input name="org_id" id="org_id" class="select2" :options="$organizations" selected="1" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Punch Category</th>
-                                        <td width="70%" style="border: none;"><x-select-input name="punch_category" id="punch_category" class="select2" :options="['1' => 'Single Punch', '2' => 'Double Punch', '3' => 'No Punch']" selected="1" required /></td>
+                                        <th width="30%" style="border: none;">Punch Category </th>
+                                        <td width="70%" style="border: none;"><x-select-input name="punch_category" id="punch_category" class="select2" :options="['1' => 'Single Punch', '2' => 'Double Punch', '3' => 'No Punch']" selected="2" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Shifting Duty?</th>
+                                        <th width="30%" style="border: none;">Shifting Duty? </th>
                                         <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="Y" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Reference Shift?</th>
+                                        <th width="30%" style="border: none;">Reference Shift? </th>
                                         <td width="70%" style="border: none;"><x-select-input name="refrerence_shift" id="refrerence_shift" class="select2" :options="$shifts" selected="G" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Reference Date</th>
+                                        <th width="30%" style="border: none;">Reference Date </th>
                                         <td width="70%" style="border: none;"><x-text-input name="refrerence_date" type="date" id="refrerence_date" class="form-control-sm" placeholder="Reference Date" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Name</th>
-                                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" id="name" placeholder="Name" :value="old('name')" required /></td>
+                                        <th width="30%" style="border: none;">Name </th>
+                                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" id="name" placeholder="Name" value="{{ old('name') }}" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Father Name</th>
-                                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" :value="old('father_name')" required /></td>
+                                        <th width="30%" style="border: none;">Father Name </th>
+                                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" value="{{ old('father_name') }}" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Mother Name</th>
-                                        <td width="70%" style="border: none;"><x-text-input name="mother_name" class="form-control-sm" id="mother_name" placeholder="Mother Name" :value="old('mother_name')" required /></td>
+                                        <th width="30%" style="border: none;">Mother Name </th>
+                                        <td width="70%" style="border: none;"><x-text-input name="mother_name" class="form-control-sm" id="mother_name" placeholder="Mother Name" value="{{ old('mother_name') }}" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Spouse Name</th>
-                                        <td width="70%" style="border: none;"><x-text-input name="spouse_name" class="form-control-sm" id="spouse_name" placeholder="Spouse Name" :value="old('spouse_name')" /></td>
+                                        <th width="30%" style="border: none;">Spouse Name </th>
+                                        <td width="70%" style="border: none;"><x-text-input name="spouse_name" class="form-control-sm" id="spouse_name" placeholder="Spouse Name" value="{{ old('spouse_name') }}" /></td>
                                     </tr>
                                 </table>
                             </div>

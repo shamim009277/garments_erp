@@ -11,23 +11,23 @@
                                 <input type="hidden" name="employee_id" id="employee_id" value="{{ $employee->employee_id }}">
                                 <input type="hidden" name="org_id" id="org_id" value="{{ $employee->org_id }}">
                                 <th width="35%" style="border: none;">Date of Birth</th>
-                                <td width="65%" style="border: none;"><x-text-input name="birth_date" id="birth_date" class="form-control-sm" type="date" value="{{ $employee_personal->birth_date??old('birth_date') }}" placeholder="Date of Birth" required /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="date" name="birth_date" id="birth_date" class="form-control-sm" value="{{ $employee_personal->birth_date??old('birth_date') }}" placeholder="Date of Birth" required /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Place of Birth</th>
-                                <td width="65%" style="border: none;"><x-select-input name="birth_district_id" id="birth_district_id" class="select2" placeholder="Place of Birth" :options="$districts" selected="{{ $employee_personal->birth_district_id??old('birth_district_id') }}" required/></td>
+                                <td width="65%" style="border: none;"><x-select-input name="birth_district_id" id="birth_district_id" class="select2" placeholder="Place of Birth" :options="$districts" selected="{{ $employee_personal->birth_district_id??old('birth_district_id') }}" value="{{ old('birth_district_id',$employee_personal->birth_district_id??'') }}" required/></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Sex</th>
-                                <td width="65%" style="border: none;"><x-select-input name="sex_code" id="sex_code" class="select2" placeholder="Sex" required :options="$sex" selected="{{ $employee_personal->sex_code??old('sex_code') }}" /></td>
+                                <td width="65%" style="border: none;"><x-select-input name="sex_code" id="sex_code" class="select2" placeholder="Sex" required :options="$sex" selected="{{ $employee_personal->sex_code??old('sex_code') }}" value="{{ old('sex_code',$employee_personal->sex_code??'') }}" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Height</th>
-                                <td width="65%" style="border: none;"><x-text-input name="height" id="height" class="form-control-sm" placeholder="Height" value="{{ $employee_personal->height??old('height') }}" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="height" id="height" class="form-control-sm" placeholder="Height" value="{{ $employee_personal->height??old('height') }}" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Weight</th>
-                                <td width="65%" style="border: none;"><x-text-input name="weight" id="weight" class="form-control-sm" placeholder="Weight" value="{{ $employee_personal->weight??old('weight') }}"/></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="weight" id="weight" class="form-control-sm" placeholder="Weight" value="{{ $employee_personal->weight??old('weight') }}"/></td>
                             </tr>
                         </table>
                     </div>
@@ -36,7 +36,7 @@
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
                                 <th width="35%" style="border: none;">Blood Group</th>
-                                <td width="65%" style="border: none;"><x-select-input name="blood_group" id="blood_group" label="Blood Group" class="select2" :options="['A+' => 'A Positive (A+)', 'B+' => 'B Positive (B+)', 'AB+' => 'AB Positive (AB+)', 'O+' => 'O Positive (O+)', 'A-' => 'A Negative (A-)', 'B-' => 'B Negative (B-)', 'AB-' => 'AB Negative (AB-)', 'O-' => 'O Negative (O-)', 'N/A' => 'Not Applicable (N/A)']" :selected="$employee_personal->blood_group ?? 'N/A'" /></td>
+                                <td width="65%" style="border: none;"><x-select-input name="blood_group" id="blood_group" label="Blood Group" class="select2" :options="['A+' => 'A+', 'B+' => 'B+', 'AB+' => 'AB+', 'O+' => 'O+', 'A-' => 'A-', 'B-' => 'B-', 'AB-' => 'AB-', 'O-' => 'O-', 'N/A' => 'N/A']" :selected="$employee_personal->blood_group ?? 'N/A'" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Highest Degree</th>
@@ -61,23 +61,23 @@
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
                                 <th width="35%" style="border: none;">Mobile Number</th>
-                                <td width="65%" style="border: none;"><x-text-input name="mobile" id="mobile" type="text" pattern="(01)[0-9]{9}" maxlength="11" class="form-control-sm" min="11" max="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $employee_personal->mobile??old('mobile') }}" placeholder="Mobile Number" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="mobile" id="mobile" pattern="(01)[0-9]{9}" maxlength="11" class="form-control-sm" min="11" max="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $employee_personal->mobile??old('mobile') }}" placeholder="Mobile Number" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">National ID</th>
-                                <td width="65%" style="border: none;"><x-text-input name="national_id" id="national_id" type="text" pattern="[0-9]{10,17}" minlength="10" maxlength="17" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $employee_personal->national_id??old('national_id') }}" class="form-control-sm" placeholder="National ID" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="national_id" id="national_id" pattern="[0-9]{10,17}" minlength="10" maxlength="17" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $employee_personal->national_id??old('national_id') }}" class="form-control-sm" placeholder="National ID" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Birth Certificate</th>
-                                <td width="65%" style="border: none;"><x-text-input name="birth_certificate" id="birth_certificate" type="text" pattern="[0-9]{10,30}" minlength="13" maxlength="30" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="{{ $employee_personal->birth_certificate??old  ('birth_certificate') }}" class="form-control-sm" placeholder="Birth Certificate" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="birth_certificate" id="birth_certificate" class="form-control-sm" value="{{ $employee_personal->birth_certificate??old  ('birth_certificate') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Birth Certificate" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">No. of Son</th>
-                                <td width="65%" style="border: none;"><x-text-input name="no_of_son" id="no_of_son" type="text" class="form-control-sm" value="{{ $employee_personal->no_of_son??old('no_of_son') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="No. of Son" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="no_of_son" id="no_of_son" class="form-control-sm" value="{{ $employee_personal->no_of_son??old('no_of_son') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="No. of Son" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">No. of Daughter</th>
-                                <td width="65%" style="border: none;"><x-text-input name="no_of_daughter" id="no_of_daughter" type="text" class="form-control-sm" value="{{ $employee_personal->no_of_daughter??old('no_of_daughter') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="No. of Daughter" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="no_of_daughter" id="no_of_daughter" class="form-control-sm" value="{{ $employee_personal->no_of_daughter??old('no_of_daughter') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="No. of Daughter" /></td>
                             </tr>
                         </table>
                     </div>
@@ -86,23 +86,23 @@
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
                                 <th width="35%" style="border: none;">Children Under 5</th>
-                                <td width="65%" style="border: none;"><x-text-input name="children_under_5_years" id="children_under_5_years" type="text" class="form-control-sm" min="11" max="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Children Under 5 Years" value="{{ $employee_personal->children_under_5_years??old('children_under_5_years') }}" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="children_under_5_years" id="children_under_5_years" class="form-control-sm" min="11" max="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Children Under 5 Years" value="{{ $employee_personal->children_under_5_years??old('children_under_5_years') }}" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Service Book No</th>
-                                <td width="65%" style="border: none;"><x-text-input name="service_book_no" id="service_book_no" type="text" class="form-control-sm" value="{{ $employee_personal->service_book_no??old('service_book_no') }}" placeholder="Service Book No" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="service_book_no" id="service_book_no" class="form-control-sm" value="{{ $employee_personal->service_book_no??old('service_book_no') }}" placeholder="Service Book No" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Service Book Date</th>
-                                <td width="65%" style="border: none;"><x-text-input name="service_book_date" id="service_book_date" type="date" class="form-control-sm" value="{{ $employee_personal->service_book_date ?? $employee->joining_date }}" placeholder="Service Book Date" readonly /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="date" name="service_book_date" id="service_book_date" class="form-control-sm" value="{{ $employee_personal->service_book_date ?? $employee->joining_date }}" placeholder="Service Book Date" readonly /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Email</th>
-                                <td width="65%" style="border: none;"><x-text-input name="email" id="email" type="text" class="form-control-sm" placeholder="Email" value="{{ $employee_personal->email??old('email') }}" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="email" id="email" class="form-control-sm" placeholder="Email" value="{{ $employee_personal->email??old('email') }}" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Assessment ID</th>
-                                <td width="65%" style="border: none;"><x-text-input name="assessment_id" id="assessment_id" type="text" class="form-control-sm" placeholder="Assessment ID" value="{{ $employee_personal->assessment_id??old('assessment_id') }}" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="assessment_id" id="assessment_id" class="form-control-sm" placeholder="Assessment ID" value="{{ $employee_personal->assessment_id??old('assessment_id') }}" /></td>
                             </tr>
                         </table>
                     </div>
@@ -114,19 +114,19 @@
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
                                 <th width="35%" style="border: none;">Nominee Name</th>
-                                <td width="65%" style="border: none;"><x-text-input name="nominee_name" id="nominee_name" type="text" class="form-control-sm" placeholder="Nominee Name" value="{{ $employee_personal->nominee_name??old('nominee_name') }}" required/></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="nominee_name" id="nominee_name" class="form-control-sm" placeholder="Nominee Name" value="{{ $employee_personal->nominee_name??old('nominee_name') }}" required/></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Relation</th>
-                                <td width="65%" style="border: none;"><x-text-input name="relation" id="relation" type="text" class="form-control-sm" placeholder="Relation" value="{{ $employee_personal->relation??old('relation') }}" required/></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="relation" id="relation" class="form-control-sm" placeholder="Relation" value="{{ $employee_personal->relation??old('relation') }}" required/></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Mobile Number</th>
-                                <td width="65%" style="border: none;"><x-text-input name="nominee_mobile" id="nominee_mobile" type="text" pattern="(01)[0-9]{9}" maxlength="11" class="form-control-sm" value="{{ $employee_personal->nominee_mobile??old('nominee_mobile') }}" placeholder="Mobile Number" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="nominee_mobile" id="nominee_mobile" pattern="(01)[0-9]{9}" maxlength="11" class="form-control-sm" value="{{ $employee_personal->nominee_mobile??old('nominee_mobile') }}" placeholder="Mobile Number" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">NID Number</th>
-                                <td width="65%" style="border: none;"><x-text-input name="nominee_nid" id="nominee_nid" type="text" pattern="[0-9]{10,17}" minlength="10" maxlength="17" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control-sm" value="{{ $employee_personal->nominee_nid??old('nominee_nid') }}" placeholder="NID Number" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="nominee_nid" id="nominee_nid" pattern="[0-9]{10,17}" minlength="10" maxlength="17" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control-sm" value="{{ $employee_personal->nominee_nid??old('nominee_nid') }}" placeholder="NID Number" /></td>
                             </tr>
                         </table>
                     </div>
@@ -143,11 +143,11 @@
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Post Office</th>
-                                <td width="65%" style="border: none;"><x-text-input name="npost_office" id="npost_office" label="Post Office" class="form-control-sm" value="{{ $employee_personal->npost_office??old('npost_office') }}" placeholder="Post Office" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="npost_office" id="npost_office" class="form-control-sm" value="{{ $employee_personal->npost_office??old('npost_office') }}" placeholder="Post Office" /></td>
                             </tr>
                             <tr>
                                 <th width="35%" style="border: none;">Address</th>
-                                <td width="65%" style="border: none;"><x-text-input name="nvillage" id="nvillage" type="text" class="form-control-sm" value="{{ $employee_personal->nvillage??old('nvillage') }}" placeholder="Address" /></td>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="nvillage" id="nvillage" class="form-control-sm" value="{{ $employee_personal->nvillage??old('nvillage') }}" placeholder="Address" /></td>
                             </tr>
                         </table>
                     </div>
