@@ -101,8 +101,8 @@
                                     <h6 class="my-0 text-primary">Input Parameters For EmployeeID</h6>
                                 </div>
                                 <div class="card-body" style="min-height: 400px;max-height: 400px; overflow-y: auto;">
-                                    <x-input-group label="Applicant ID" name="applicant_id" type="text" placeholder="Applicant ID" readonly/>
-                                    <x-input-group label="Employee ID" name="employee_id" type="text" placeholder="Employee ID" required/>
+                                    <x-input-group label="Applicant ID" id="applicant_id" name="applicant_id" type="text" placeholder="Applicant ID" readonly/>
+                                    <x-input-group label="Employee ID" id="employee_id" name="employee_id" type="text" placeholder="Employee ID" required/>
                                     <x-select-input-group name="final_designation_id" id="final_designation_id" label="Final Designation" class="select2" :options="$designations" :selected="old('final_designation_id')" required />
                                     <x-select-input-group name="recruitment_type" id="recruitment_type" label="Recruitment Type" :options="['N' => 'New', 'R' => 'Replacement']" :selected="old('final_designation_id')" required />
                                     <x-input-group name="replace_id" id="replace_id" group_id="replace_id_group" label="Replacement ID" type="text" placeholder="Replacement ID"/>
@@ -197,6 +197,7 @@
         $(document).ready(function() {
             $('.select2').select2({
                 placeholder: "Select an option",
+                width: '100%',
                 allowClear: true
             });
         });

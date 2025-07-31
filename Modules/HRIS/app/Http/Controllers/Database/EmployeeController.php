@@ -358,14 +358,14 @@ class EmployeeController extends Controller
                 if ($employee_personal->isDirty()) {
                     $employee_personal->update($validated);
 
-                    $translate = new TextTranslateService();
+                    //$translate = new TextTranslateService();
                     EmployeeBangla::where('employee_id', $request->employee_id)->update([
-                        'nname_bangla'       => $translate->translatePart($employee_personal->nominee_name),
-                        'relation_bangla'    => $translate->translatePart($employee_personal->relation),
+                        'nname_bangla'       => $employee_personal->nominee_name,
+                        'relation_bangla'    => $employee_personal->relation,
                         'ndistrict_id_bangla'=> $employee_personal->ndistrict_id,
                         'nthana_id_bangla'   => $employee_personal->nthana_id,
-                        'npost_office_bangla'=> $translate->translatePart($employee_personal->npost_office),
-                        'nvillage_bangla'    => $translate->translatePart($employee_personal->nvillage),
+                        'npost_office_bangla'=> $employee_personal->npost_office,
+                        'nvillage_bangla'    => $employee_personal->nvillage,
                     ]);
                     DB::commit();
                     return redirect()->back()->with('success', 'Employee personal data updated successfully');
@@ -375,15 +375,15 @@ class EmployeeController extends Controller
                 }
             } else {
                 $personal = EmployeePersonal::create($validated);
-                $translate = new TextTranslateService();
+                //$translate = new TextTranslateService();
                 if ($personal) {
                     EmployeeBangla::where('employee_id', $request->employee_id)->update([
-                        'nname_bangla'       => $translate->translatePart($personal->nominee_name),
-                        'relation_bangla'    => $translate->translatePart($personal->relation),
+                        'nname_bangla'       => $personal->nominee_name,
+                        'relation_bangla'    => $personal->relation,
                         'ndistrict_id_bangla'=> $personal->ndistrict_id,
                         'nthana_id_bangla'   => $personal->nthana_id,
-                        'npost_office_bangla'=> $translate->translatePart($personal->npost_office),
-                        'nvillage_bangla'    => $translate->translatePart($personal->nvillage),
+                        'npost_office_bangla'=> $personal->npost_office,
+                        'nvillage_bangla'    => $personal->nvillage,
                     ]);
                 }
 

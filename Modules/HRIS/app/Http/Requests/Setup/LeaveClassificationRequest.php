@@ -16,12 +16,7 @@ class LeaveClassificationRequest extends FormRequest
 
         return [
             'id' => ['nullable', 'exists:hris_setup_leaveclassifications,id'],
-            'code' => [
-                'required',
-                'string',
-                'max:10',
-                Rule::unique('hris_setup_leaveclassifications', 'code')->ignore($leaveId),
-            ],
+            'code' => ['required', 'string', 'max:10', Rule::unique('hris_setup_leaveclassifications', 'code')->ignore($leaveId)],
             'signification' => ['nullable', 'string', 'max:100', Rule::unique('hris_setup_leaveclassifications', 'signification')->ignore($leaveId)],
             'signification_bn' => ['nullable', 'string', 'max:100', Rule::unique('hris_setup_leaveclassifications', 'signification_bn')->ignore($leaveId)],
             'yearly_limit' => ['nullable', 'numeric', 'min:0'],

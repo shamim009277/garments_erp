@@ -14,7 +14,7 @@ class EmployeeEducationRequest extends FormRequest
         return [
             'employee_id' => 'required|exists:hris_database_employee_basic,employee_id',
             'degree_id' => 'required|exists:hris_setup_degrees,id',
-            'passing_year' => 'required',
+            'passing_year' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
             'institute' => 'required|string|max:255',
             'institute_bangla' => 'nullable|string|max:255',
             'board' => 'required|string|max:100',
