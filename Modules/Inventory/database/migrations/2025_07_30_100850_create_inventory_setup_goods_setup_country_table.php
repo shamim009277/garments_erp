@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
 
             $table->string('country_name', 100)->unique();
-            $table->string('country_code', 20)->unique();
+            $table->string('country_code', 20)->nullable();
             $table->boolean('is_active')->default(true);
             //currency
-            $table->string('currency', 20)->unique();
-            $table->string('currency_code', 20)->unique();
-            $table->string('currency_symbol', 20)->unique();
+            $table->string('currency', 20)->nullable();
+            $table->string('currency_code', 20)->nullable();
+            $table->string('currency_symbol', 20)->nullable();
             //exchange rate
-            $table->decimal('exchange_rate', 10, 2)->default(1);
+            $table->decimal('exchange_rate', 10, 2)->nullable();
             //description
             $table->text('description')->nullable();
             $table->timestamps();

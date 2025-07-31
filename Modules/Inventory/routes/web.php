@@ -13,6 +13,8 @@ use Modules\Inventory\Http\Controllers\Setup\SupplierController;
 use Modules\Inventory\Http\Controllers\Setup\ChallanPurposeController;
 use Modules\Inventory\Http\Controllers\Setup\GoodsCategoryController;
 use Modules\Inventory\Http\Controllers\Setup\GoodsSubCategoryController;
+use Modules\Inventory\Http\Controllers\Setup\CountryController; 
+
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
@@ -74,6 +76,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/goodsSubCategories/toggle', [GoodsSubCategoryController::class, 'toggleStatus'])->name('goodsSubCategories.toggle');
             Route::post('/goodsSubCategories/delete', [GoodsSubCategoryController::class, 'destroy'])->name('goodsSubCategories.delete');
             Route::resource('goodsSubCategories', GoodsSubCategoryController::class)->names('goodsSubCategories');
+
+            //CountryController
+            Route::post('/countries/toggle', [CountryController::class, 'toggleStatus'])->name('countries.toggle');
+            Route::post('/countries/delete', [CountryController::class, 'destroy'])->name('countries.delete');
+            Route::resource('countries', CountryController::class)->names('countries');
         });
     });
 });
