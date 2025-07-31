@@ -26,10 +26,12 @@ use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
@@ -143,23 +145,20 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         //Database
 
         Route::prefix('database')->name('database.')->group(function () {
-            Route::post('/search', [ApplicantController::class, 'getSearch'])->name('new-applicants.search');
+            Route::post('/new-applicants/search', [ApplicantController::class, 'getSearch'])->name('new-applicants.search');
             Route::post('/new-applicants/delete', [ApplicantController::class, 'destroy'])->name('new-applicants.delete');
             Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
-
 
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
 
             Route::get('/designation/{id}', [EmployeeController::class, 'getGrade'])->name('employee.getGrade');
             Route::get('/district/{district_id}', [EmployeeController::class, 'getThana'])->name('employee.getThana');
-
-
             Route::post('/search', [EmployeeController::class, 'getSearch'])->name('employee.search');
             Route::post('/employee/bangla', [EmployeeController::class, 'storeEmployeeBangla'])->name('employee.bangla');
+            Route::post('/employee/salary', [EmployeeController::class, 'storeEmployeeSalary'])->name('employee.salary');
             Route::post('/employee/personal', [EmployeeController::class, 'storeEmployeePersonal'])->name('employee.personal');
             Route::post('/employee/document', [EmployeeController::class, 'storeEmployeeDocument'])->name('employee.document');
             Route::resource('employee', EmployeeController::class)->names('employee');
-
 
 
             Route::post('/employee-education/delete', [EmployeeEducationController::class, 'destroy'])->name('employee-education.delete');
@@ -168,6 +167,10 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('employee-training', EmployeeTrainingController::class)->names('employee-training');
             Route::post('/employee-experience/delete', [EmployeeExperienceController::class, 'destroy'])->name('employee-experience.delete');
             Route::resource('employee-experience', EmployeeExperienceController::class)->names('employee-experience');
+            Route::post('/employee-reference/delete', [EmployeeReferenceController::class, 'destroy'])->name('employee-reference.delete');
+            Route::resource('employee-reference', EmployeeReferenceController::class)->names('employee-reference');
+            Route::post('/employee-service/delete', [EmployeeServiceController::class, 'destroy'])->name('employee-service.delete');
+            Route::resource('employee-service', EmployeeServiceController::class)->names('employee-service');
         });
 
         //Report

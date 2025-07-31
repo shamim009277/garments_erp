@@ -207,7 +207,7 @@
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Punch Category</th>
-                                        <td width="70%" style="border: none;"><x-select-input name="punch_category" id="punch_category" class="select2" :options="['1' => 'Single Punch', '2' => 'Double Punch', '3' => 'No Punch']" selected="1" required /></td>
+                                        <td width="70%" style="border: none;"><x-select-input name="punch_category" id="punch_category" class="select2" :options="['1' => 'Single Punch', '2' => 'Double Punch', '3' => 'No Punch']" selected="2" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Shifting Duty?</th>

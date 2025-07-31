@@ -1,4 +1,7 @@
 <div class="card padding-card" style="margin-bottom: 0px !important;">
+    <form action="{{ route('hris.database.employee.update', $employee->id) }}" method="POST">
+        @csrf
+        @method('PUT')
     <div class="card-body" style="min-height: 400px;">
         <div class="row">
             <div class="col-lg-8">
@@ -155,7 +158,8 @@
             </div>
         </div>
     </div>
-    <div class="card-footer" style="padding:10px 10px;">
-        <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
+    <div class="card-footer mb-4" style="padding:10px 10px;">
+        <x-primary-button class="float-start btn-sm submitBtn">Update</x-primary-button>
     </div>
+    </form>
 </div>
