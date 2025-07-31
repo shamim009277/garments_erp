@@ -26,6 +26,7 @@ use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
+use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -136,6 +137,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
             Route::resource('employee', EmployeeController::class)->names('employee');
+        });
+
+        //Reports
+        Route::prefix('reports')->name('reports.')->group(function () {
+            Route::resource('employee-listings', EmployeeListingReportController::class)->names('employee-listings');
         });
     });
 });

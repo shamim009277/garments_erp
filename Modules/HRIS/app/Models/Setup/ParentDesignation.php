@@ -13,8 +13,8 @@ class ParentDesignation extends Model
      */
     protected $table = 'hris_setup_parent_designations';
     protected $fillable = [
-        'designation',
-        'designation_bn',
+        'parent_designation',
+        'parent_designation_bn',
         'approved_mp',
         'is_active',
         'created_by',
