@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::XIVXMPI5EbxBOhL0',
+            '_route' => 'generated::0GOAfk1p2Mc0Kfek',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::obfC4isnsxqPJJwa',
+            '_route' => 'generated::lhxTUlVJzcz9ENOE',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::u6bRUbK2r6hLNdnG',
+            '_route' => 'generated::SY5uTLNeEOawDLby',
           ),
           1 => NULL,
           2 => 
@@ -4742,6 +4742,100 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/inventory/setup/colorgroups/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/colorgroups/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/colorgroups' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/colorgroups/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/api/v1/payrolls' => 
       array (
         0 => 
@@ -4837,7 +4931,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132)))|/([^/]++)(?|(*:2155)|/edit(*:2169)|(*:2178)))|d(?|esignation/([^/]++)(*:2212)|istrict/([^/]++)(*:2237))))|/inventory/(?|([^/]++)(?|(*:2274)|/edit(*:2288)|(*:2297))|setup/(?|parties/([^/]++)(?|(*:2335)|/edit(*:2349)|(*:2358))|buyers/([^/]++)(?|(*:2386)|/edit(*:2400)|(*:2409))|s(?|tore(?|types/([^/]++)(?|(*:2447)|/edit(*:2461)|(*:2470))|l(?|ines/([^/]++)(?|(*:2500)|/edit(*:2514)|(*:2523))|ocations/([^/]++)(?|(*:2553)|/edit(*:2567)|(*:2576))))|upplier(?|types/([^/]++)(?|(*:2615)|/edit(*:2629)|(*:2638))|s/([^/]++)(?|(*:2661)|/edit(*:2675)|(*:2684))))|racklocations/([^/]++)(?|(*:2721)|/edit(*:2735)|(*:2744))|c(?|hallanpurposes/([^/]++)(?|(*:2784)|/edit(*:2798)|(*:2807))|ountries/([^/]++)(?|(*:2837)|/edit(*:2851)|(*:2860)))|goods(?|categories/([^/]++)(?|(*:2901)|/edit(*:2915)|(*:2924))|SubCategories/([^/]++)(?|(*:2959)|/edit(*:2973)|(*:2982)))))|/payroll/([^/]++)(?|(*:3015)|/edit(*:3029)|(*:3038))|/storage/(.*)(*:3061))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132)))|/([^/]++)(?|(*:2155)|/edit(*:2169)|(*:2178)))|d(?|esignation/([^/]++)(*:2212)|istrict/([^/]++)(*:2237))))|/inventory/(?|([^/]++)(?|(*:2274)|/edit(*:2288)|(*:2297))|setup/(?|parties/([^/]++)(?|(*:2335)|/edit(*:2349)|(*:2358))|buyers/([^/]++)(?|(*:2386)|/edit(*:2400)|(*:2409))|s(?|tore(?|types/([^/]++)(?|(*:2447)|/edit(*:2461)|(*:2470))|l(?|ines/([^/]++)(?|(*:2500)|/edit(*:2514)|(*:2523))|ocations/([^/]++)(?|(*:2553)|/edit(*:2567)|(*:2576))))|upplier(?|types/([^/]++)(?|(*:2615)|/edit(*:2629)|(*:2638))|s/([^/]++)(?|(*:2661)|/edit(*:2675)|(*:2684))))|racklocations/([^/]++)(?|(*:2721)|/edit(*:2735)|(*:2744))|c(?|hallanpurposes/([^/]++)(?|(*:2784)|/edit(*:2798)|(*:2807))|o(?|untries/([^/]++)(?|(*:2840)|/edit(*:2854)|(*:2863))|lorgroups/([^/]++)(?|(*:2894)|/edit(*:2908)|(*:2917))))|goods(?|categories/([^/]++)(?|(*:2959)|/edit(*:2973)|(*:2982))|SubCategories/([^/]++)(?|(*:3017)|/edit(*:3031)|(*:3040)))))|/payroll/([^/]++)(?|(*:3073)|/edit(*:3087)|(*:3096))|/storage/(.*)(*:3119))/?$}sDu',
     ),
     3 => 
     array (
@@ -8997,7 +9091,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2837 => 
+      2840 => 
       array (
         0 => 
         array (
@@ -9020,7 +9114,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2851 => 
+      2854 => 
       array (
         0 => 
         array (
@@ -9043,7 +9137,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2860 => 
+      2863 => 
       array (
         0 => 
         array (
@@ -9085,7 +9179,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2901 => 
+      2894 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.show',
+          ),
+          1 => 
+          array (
+            0 => 'colorgroup',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2908 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.edit',
+          ),
+          1 => 
+          array (
+            0 => 'colorgroup',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2917 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.update',
+          ),
+          1 => 
+          array (
+            0 => 'colorgroup',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.colorgroups.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'colorgroup',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2959 => 
       array (
         0 => 
         array (
@@ -9108,7 +9290,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2915 => 
+      2973 => 
       array (
         0 => 
         array (
@@ -9131,7 +9313,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2924 => 
+      2982 => 
       array (
         0 => 
         array (
@@ -9173,7 +9355,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2959 => 
+      3017 => 
       array (
         0 => 
         array (
@@ -9196,7 +9378,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2973 => 
+      3031 => 
       array (
         0 => 
         array (
@@ -9219,7 +9401,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2982 => 
+      3040 => 
       array (
         0 => 
         array (
@@ -9261,7 +9443,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3015 => 
+      3073 => 
       array (
         0 => 
         array (
@@ -9284,7 +9466,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3029 => 
+      3087 => 
       array (
         0 => 
         array (
@@ -9307,7 +9489,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3038 => 
+      3096 => 
       array (
         0 => 
         array (
@@ -9349,7 +9531,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3061 => 
+      3119 => 
       array (
         0 => 
         array (
@@ -9613,7 +9795,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::XIVXMPI5EbxBOhL0' => 
+    'generated::0GOAfk1p2Mc0Kfek' => 
     array (
       'methods' => 
       array (
@@ -9642,7 +9824,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bc00000000000000000";}}',
-        'as' => 'generated::XIVXMPI5EbxBOhL0',
+        'as' => 'generated::0GOAfk1p2Mc0Kfek',
       ),
       'fallback' => false,
       'defaults' => 
@@ -9884,7 +10066,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::obfC4isnsxqPJJwa' => 
+    'generated::lhxTUlVJzcz9ENOE' => 
     array (
       'methods' => 
       array (
@@ -9905,7 +10087,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::obfC4isnsxqPJJwa',
+        'as' => 'generated::lhxTUlVJzcz9ENOE',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10225,7 +10407,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::u6bRUbK2r6hLNdnG' => 
+    'generated::SY5uTLNeEOawDLby' => 
     array (
       'methods' => 
       array (
@@ -10246,7 +10428,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::u6bRUbK2r6hLNdnG',
+        'as' => 'generated::SY5uTLNeEOawDLby',
       ),
       'fallback' => false,
       'defaults' => 
@@ -27123,6 +27305,362 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.setup.colorgroups.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/colorgroups/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@toggleStatus',
+        'as' => 'inventory.setup.colorgroups.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/colorgroups/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@destroy',
+        'as' => 'inventory.setup.colorgroups.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/colorgroups',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.colorgroups.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/colorgroups/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.colorgroups.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/colorgroups',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.colorgroups.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/colorgroups/{colorgroup}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.colorgroups.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/colorgroups/{colorgroup}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.colorgroups.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/colorgroups/{colorgroup}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.colorgroups.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.colorgroups.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/colorgroups/{colorgroup}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.colorgroups.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ColorGroupController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -27605,7 +28143,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000d630000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000d6c0000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,
