@@ -33,6 +33,7 @@ use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
+use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     //Route::resource('hris', HRISController::class)->names('hris');
