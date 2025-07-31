@@ -39,8 +39,10 @@ class Organization extends Model
         });
     }
 
-    // protected static function newFactory(): Setup\OrganizationFactory
-    // {
-    //     // return Setup\OrganizationFactory::new();
-    // }
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+
 }

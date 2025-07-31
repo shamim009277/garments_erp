@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Traits;
+
 use Illuminate\Http\Request;
 
 trait ToggleStatus
@@ -10,7 +11,6 @@ trait ToggleStatus
         try {
             $model = $modelClass::findOrFail($request->id);
             $model->update([$statusColumn => $request->status]);
-
             return response()->json([
                 'success' => true,
                 'message' => class_basename($modelClass) . ' status updated successfully',

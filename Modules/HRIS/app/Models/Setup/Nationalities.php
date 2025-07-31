@@ -39,6 +39,11 @@ class Nationalities extends Model
         });
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
     // protected static function newFactory(): Setup\NationalitiesFactory
     // {
     //     // return Setup\NationalitiesFactory::new();

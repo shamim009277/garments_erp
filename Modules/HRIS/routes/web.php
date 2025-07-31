@@ -3,34 +3,40 @@
 use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
+use Modules\HRIS\Http\Controllers\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
+use Modules\HRIS\Http\Controllers\Setup\GradeController;
+use Modules\HRIS\Http\Controllers\Setup\ShiftController;
 use Modules\HRIS\Http\Controllers\Setup\ThanaController;
 use Modules\HRIS\Http\Controllers\Setup\UnionController;
+use Modules\HRIS\Http\Controllers\Setup\DegreeController;
 use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
+use Modules\HRIS\Http\Controllers\Setup\DocumentController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeController;
+use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Database\ApplicantController;
+use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
-use Modules\HRIS\Http\Controllers\Setup\DocumentController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
-use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
-use Modules\HRIS\Http\Controllers\Setup\ShiftController;
-use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
-use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
-use Modules\HRIS\Http\Controllers\Setup\DesignationController;
-use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
-use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
+use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
-    Route::resource('hris', HRISController::class)->names('hris');
-
+    //Route::resource('hris', HRISController::class)->names('hris');
+    Route::get('/hris', [HRISController::class, 'index'])->name('hris.index');
 
     Route::prefix('hris')->name('hris.')->group(function () {
         //Setup
@@ -129,19 +135,50 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/designations/toggle', [DesignationController::class, 'toggleStatus'])->name('designations.toggle');
             Route::post('/designations/delete', [DesignationController::class, 'destroy'])->name('designations.delete');
             Route::resource('designations', DesignationController::class)->names('designations');
+
+            //Degree
+            Route::post('/degrees/toggle', [DegreeController::class, 'toggleStatus'])->name('degrees.toggle');
+            Route::post('/degrees/delete', [DegreeController::class, 'destroy'])->name('degrees.delete');
+            Route::resource('degrees', DegreeController::class)->names('degrees');
         });
 
         //Database
 
         Route::prefix('database')->name('database.')->group(function () {
+            Route::post('/new-applicants/search', [ApplicantController::class, 'getSearch'])->name('new-applicants.search');
+            Route::post('/new-applicants/delete', [ApplicantController::class, 'destroy'])->name('new-applicants.delete');
             Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
+
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
+
+            Route::get('/designation/{id}', [EmployeeController::class, 'getGrade'])->name('employee.getGrade');
+            Route::get('/district/{district_id}', [EmployeeController::class, 'getThana'])->name('employee.getThana');
+            Route::post('/search', [EmployeeController::class, 'getSearch'])->name('employee.search');
+            Route::post('/employee/bangla', [EmployeeController::class, 'storeEmployeeBangla'])->name('employee.bangla');
+            Route::post('/employee/salary', [EmployeeController::class, 'storeEmployeeSalary'])->name('employee.salary');
+            Route::post('/employee/personal', [EmployeeController::class, 'storeEmployeePersonal'])->name('employee.personal');
+            Route::post('/employee/document', [EmployeeController::class, 'storeEmployeeDocument'])->name('employee.document');
             Route::resource('employee', EmployeeController::class)->names('employee');
+
+
+            Route::post('/employee-education/delete', [EmployeeEducationController::class, 'destroy'])->name('employee-education.delete');
+            Route::resource('employee-education', EmployeeEducationController::class)->names('employee-education');
+            Route::post('/employee-training/delete', [EmployeeTrainingController::class, 'destroy'])->name('employee-training.delete');
+            Route::resource('employee-training', EmployeeTrainingController::class)->names('employee-training');
+            Route::post('/employee-experience/delete', [EmployeeExperienceController::class, 'destroy'])->name('employee-experience.delete');
+            Route::resource('employee-experience', EmployeeExperienceController::class)->names('employee-experience');
+            Route::post('/employee-reference/delete', [EmployeeReferenceController::class, 'destroy'])->name('employee-reference.delete');
+            Route::resource('employee-reference', EmployeeReferenceController::class)->names('employee-reference');
+            Route::post('/employee-service/delete', [EmployeeServiceController::class, 'destroy'])->name('employee-service.delete');
+            Route::resource('employee-service', EmployeeServiceController::class)->names('employee-service');
         });
 
         //Reports
         Route::prefix('reports')->name('reports.')->group(function () {
             Route::resource('employee-listings', EmployeeListingReportController::class)->names('employee-listings');
         });
+
+        //Settings
+        Route::resource('settings', SettingController::class)->names('setting');
     });
 });

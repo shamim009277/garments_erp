@@ -1,5 +1,6 @@
 @props([
     'name',
+    'id'=>null,
     'options' => [],
     'selected' => '',
     'required' => false,
@@ -8,7 +9,7 @@
 
 <select
     name="{{ $name }}"
-    id="{{ $name }}"
+    id="{{ $id }}"
     @if($required) required @endif
     {{ $attributes->merge(['class' => 'form-select' . ($errors->has($name) ? ' is-invalid' : '')]) }}
 >

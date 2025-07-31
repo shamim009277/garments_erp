@@ -14,9 +14,4 @@ class EmployeeIDAssign extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [];
-
-    // protected static function newFactory(): Database\EmployeeIDAssignFactory
-    // {
-    //     // return Database\EmployeeIDAssignFactory::new();
-    // }
 }

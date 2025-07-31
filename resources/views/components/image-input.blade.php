@@ -1,5 +1,6 @@
 @props([
     'name',
+    'id'=>null,
     'accept' => 'image/*',
     'preview' => false,
     'value' => null,
@@ -8,7 +9,7 @@
 ])
 
 <div class="mb-3">
-    <input type="file" class="form-control" id="{{ $name }}" name="{{ $name }}"
+    <input type="file" class="form-control" id="{{ $id }}" name="{{ $name }}"
         accept="{{ $accept }}"
         @if ($preview) onchange="previewImage_{{ $name }}(event)" @endif>
 

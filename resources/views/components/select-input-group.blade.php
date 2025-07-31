@@ -1,5 +1,7 @@
 @props([
     'name',
+    'id'=>null,
+    'group_id'=>null,
     'label' => null,
     'options' => [],
     'selected' => '',
@@ -8,7 +10,7 @@
     'placeholder' => 'Select an option',
 ])
 
-<div class="mb-3">
+<div class="mb-3" id="{{ $group_id }}">
     @if ($label)
         <label for="{{ $name }}" class="form-label">
             {{ $label }}
@@ -20,7 +22,7 @@
 
     <select
         name="{{ $name }}"
-        id="{{ $name }}"
+        id="{{ $id }}"
         @if($required) required @endif
         @if($disabled) disabled @endif
         {{ $attributes->merge(['class' => 'form-select' . ($errors->has($name) ? ' is-invalid' : '')]) }}

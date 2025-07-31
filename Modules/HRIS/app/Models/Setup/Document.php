@@ -13,14 +13,14 @@ class Document extends Model
 
     /**
      * The attributes that are mass assignable.
-     * 
+     *
      */
     protected $table = 'hris_setup_documents';
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
-    
+
     protected $fillable = [
         'name',
         'is_active',
@@ -35,6 +35,10 @@ class Document extends Model
         static::updated(function ($document) {
             $document->updated_by = Auth::user()->id;
         });
+    }
+
+    public function scopeActive($query){
+        return $query->where('is_active', true);
     }
 
     // protected static function newFactory(): Setup\DocumentFactory

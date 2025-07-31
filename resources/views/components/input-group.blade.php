@@ -1,5 +1,7 @@
 @props([
     'name',
+    'id'=>null,
+    'group_id'=>null,
     'label' => null,
     'value' => '',
     'type' => 'text',
@@ -8,7 +10,7 @@
     'placeholder' => null,
 ])
 
-<div class="mb-3">
+<div class="mb-3" id="{{ $group_id }}">
     @if ($label)
         <label for="{{ $name }}" class="form-label">
             {{ $label }}
@@ -21,7 +23,7 @@
     <input
         type="{{ $type }}"
         name="{{ $name }}"
-        id="{{ $name }}"
+        id="{{ $id }}"
         value="{{ old($name, $value) }}"
         placeholder="{{ $placeholder }}"
         @if($required) required @endif
@@ -33,12 +35,4 @@
         <div class="text-danger mt-1">{{ $message }}</div>
     @enderror
 </div>
-
-{{-- <x-input-group
-    name="email"
-    label="Email Address"
-    type="email"
-    placeholder="Enter your email"
-    :value="$user->email"
-/> --}}
 
