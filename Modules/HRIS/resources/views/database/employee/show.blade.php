@@ -27,8 +27,9 @@
                 <!-- Title -->
                 <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">Employee | ID : {{ $employee->employee_id }}</h4>
                 <!-- Search Form -->
-                <form class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
-                    <input class="form-control form-control-sm me-2" type="search" placeholder="Applicant Card No ..." aria-label="Search">
+                <form action="{{ route('hris.database.employee.search') }}" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
+                    @csrf
+                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Applicant Card No ..." aria-label="Search">
                     <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit">
                         <i data-feather="search" width="14" height="14" class="me-1"></i> Search
                     </button>
