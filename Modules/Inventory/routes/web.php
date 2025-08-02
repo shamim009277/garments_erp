@@ -16,6 +16,8 @@ use Modules\Inventory\Http\Controllers\Setup\GoodsSubCategoryController;
 use Modules\Inventory\Http\Controllers\Setup\CountryController; 
 use Modules\Inventory\Http\Controllers\Setup\ColorGroupController;
 use Modules\Inventory\Http\Controllers\Setup\ColorController;
+use Modules\Inventory\Http\Controllers\Setup\SizeController;
+use Modules\Inventory\Http\Controllers\Setup\SizeGroupController;
 
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
@@ -88,6 +90,16 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/colors/toggle', [ColorController::class, 'toggleStatus'])->name('colors.toggle');
             Route::post('/colors/delete', [ColorController::class, 'destroy'])->name('colors.delete');
             Route::resource('colors', ColorController::class)->names('colors');
+
+            //SizeGroupController
+            Route::post('/sizegroups/toggle', [SizeGroupController::class, 'toggleStatus'])->name('sizegroups.toggle');
+            Route::post('/sizegroups/delete', [SizeGroupController::class, 'destroy'])->name('sizegroups.delete');
+            Route::resource('sizegroups', SizeGroupController::class)->names('sizegroups');
+
+            //SizeController
+            Route::post('/sizes/toggle', [SizeController::class, 'toggleStatus'])->name('sizes.toggle');
+            Route::post('/sizes/delete', [SizeController::class, 'destroy'])->name('sizes.delete');
+            Route::resource('sizes', SizeController::class)->names('sizes');
         });
     });
 });

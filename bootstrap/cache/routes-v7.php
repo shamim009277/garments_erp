@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::m0ypVtyI0JbZpeZp',
+            '_route' => 'generated::XzeuJ9R0BiUEuSB9',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::Y1pgihqqLkEPcoGK',
+            '_route' => 'generated::I4nQmnGNaC2X10bM',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::GM4eBvjiM74Leu0w',
+            '_route' => 'generated::iQAPmicbt8M0Sm0z',
           ),
           1 => NULL,
           2 => 
@@ -3708,100 +3708,6 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/inventory/setup/buyers/toggle' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.toggle',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'POST' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/inventory/setup/buyers/delete' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.delete',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'POST' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/inventory/setup/buyers' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.index',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-        1 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.store',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'POST' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/inventory/setup/buyers/create' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.create',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
       '/inventory/setup/storetypes/toggle' => 
       array (
         0 => 
@@ -4930,6 +4836,194 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/inventory/setup/sizegroups/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/sizegroups/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/sizegroups' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/sizegroups/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/sizes/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/sizes/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/sizes' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/sizes/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/api/v1/payrolls' => 
       array (
         0 => 
@@ -5025,7 +5119,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132)))|/([^/]++)(?|(*:2155)|/edit(*:2169)|(*:2178)))|d(?|esignation/([^/]++)(*:2212)|istrict/([^/]++)(*:2237))))|/inventory/(?|([^/]++)(?|(*:2274)|/edit(*:2288)|(*:2297))|setup/(?|parties/([^/]++)(?|(*:2335)|/edit(*:2349)|(*:2358))|buyers/([^/]++)(?|(*:2386)|/edit(*:2400)|(*:2409))|s(?|tore(?|types/([^/]++)(?|(*:2447)|/edit(*:2461)|(*:2470))|l(?|ines/([^/]++)(?|(*:2500)|/edit(*:2514)|(*:2523))|ocations/([^/]++)(?|(*:2553)|/edit(*:2567)|(*:2576))))|upplier(?|types/([^/]++)(?|(*:2615)|/edit(*:2629)|(*:2638))|s/([^/]++)(?|(*:2661)|/edit(*:2675)|(*:2684))))|racklocations/([^/]++)(?|(*:2721)|/edit(*:2735)|(*:2744))|c(?|hallanpurposes/([^/]++)(?|(*:2784)|/edit(*:2798)|(*:2807))|o(?|untries/([^/]++)(?|(*:2840)|/edit(*:2854)|(*:2863))|lor(?|groups/([^/]++)(?|(*:2897)|/edit(*:2911)|(*:2920))|s/([^/]++)(?|(*:2943)|/edit(*:2957)|(*:2966)))))|goods(?|categories/([^/]++)(?|(*:3009)|/edit(*:3023)|(*:3032))|SubCategories/([^/]++)(?|(*:3067)|/edit(*:3081)|(*:3090)))))|/payroll/([^/]++)(?|(*:3123)|/edit(*:3137)|(*:3146))|/storage/(.*)(*:3169))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132)))|/([^/]++)(?|(*:2155)|/edit(*:2169)|(*:2178)))|d(?|esignation/([^/]++)(*:2212)|istrict/([^/]++)(*:2237))))|/inventory/(?|([^/]++)(?|(*:2274)|/edit(*:2288)|(*:2297))|setup/(?|parties/([^/]++)(?|(*:2335)|/edit(*:2349)|(*:2358))|s(?|tore(?|types/([^/]++)(?|(*:2396)|/edit(*:2410)|(*:2419))|l(?|ines/([^/]++)(?|(*:2449)|/edit(*:2463)|(*:2472))|ocations/([^/]++)(?|(*:2502)|/edit(*:2516)|(*:2525))))|upplier(?|types/([^/]++)(?|(*:2564)|/edit(*:2578)|(*:2587))|s/([^/]++)(?|(*:2610)|/edit(*:2624)|(*:2633)))|ize(?|groups/([^/]++)(?|(*:2668)|/edit(*:2682)|(*:2691))|s/([^/]++)(?|(*:2714)|/edit(*:2728)|(*:2737))))|racklocations/([^/]++)(?|(*:2774)|/edit(*:2788)|(*:2797))|c(?|hallanpurposes/([^/]++)(?|(*:2837)|/edit(*:2851)|(*:2860))|o(?|untries/([^/]++)(?|(*:2893)|/edit(*:2907)|(*:2916))|lor(?|groups/([^/]++)(?|(*:2950)|/edit(*:2964)|(*:2973))|s/([^/]++)(?|(*:2996)|/edit(*:3010)|(*:3019)))))|goods(?|categories/([^/]++)(?|(*:3062)|/edit(*:3076)|(*:3085))|SubCategories/([^/]++)(?|(*:3120)|/edit(*:3134)|(*:3143)))))|/payroll/([^/]++)(?|(*:3176)|/edit(*:3190)|(*:3199))|/storage/(.*)(*:3222))/?$}sDu',
     ),
     3 => 
     array (
@@ -8481,95 +8575,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2386 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.show',
-          ),
-          1 => 
-          array (
-            0 => 'buyer',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      2400 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.edit',
-          ),
-          1 => 
-          array (
-            0 => 'buyer',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      2409 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.update',
-          ),
-          1 => 
-          array (
-            0 => 'buyer',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-            'PATCH' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-        1 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'inventory.setup.buyers.destroy',
-          ),
-          1 => 
-          array (
-            0 => 'buyer',
-          ),
-          2 => 
-          array (
-            'DELETE' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      2447 => 
+      2396 => 
       array (
         0 => 
         array (
@@ -8592,7 +8598,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2461 => 
+      2410 => 
       array (
         0 => 
         array (
@@ -8615,7 +8621,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2470 => 
+      2419 => 
       array (
         0 => 
         array (
@@ -8657,7 +8663,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2500 => 
+      2449 => 
       array (
         0 => 
         array (
@@ -8680,7 +8686,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2514 => 
+      2463 => 
       array (
         0 => 
         array (
@@ -8703,7 +8709,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2523 => 
+      2472 => 
       array (
         0 => 
         array (
@@ -8745,7 +8751,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2553 => 
+      2502 => 
       array (
         0 => 
         array (
@@ -8768,7 +8774,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2567 => 
+      2516 => 
       array (
         0 => 
         array (
@@ -8791,7 +8797,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2576 => 
+      2525 => 
       array (
         0 => 
         array (
@@ -8833,7 +8839,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2615 => 
+      2564 => 
       array (
         0 => 
         array (
@@ -8856,7 +8862,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2629 => 
+      2578 => 
       array (
         0 => 
         array (
@@ -8879,7 +8885,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2638 => 
+      2587 => 
       array (
         0 => 
         array (
@@ -8921,7 +8927,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2661 => 
+      2610 => 
       array (
         0 => 
         array (
@@ -8944,7 +8950,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2675 => 
+      2624 => 
       array (
         0 => 
         array (
@@ -8967,7 +8973,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2684 => 
+      2633 => 
       array (
         0 => 
         array (
@@ -9009,7 +9015,183 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2721 => 
+      2668 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.show',
+          ),
+          1 => 
+          array (
+            0 => 'sizegroup',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2682 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.edit',
+          ),
+          1 => 
+          array (
+            0 => 'sizegroup',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2691 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.update',
+          ),
+          1 => 
+          array (
+            0 => 'sizegroup',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizegroups.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'sizegroup',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2714 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.show',
+          ),
+          1 => 
+          array (
+            0 => 'size',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2728 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.edit',
+          ),
+          1 => 
+          array (
+            0 => 'size',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2737 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.update',
+          ),
+          1 => 
+          array (
+            0 => 'size',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.sizes.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'size',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2774 => 
       array (
         0 => 
         array (
@@ -9032,7 +9214,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2735 => 
+      2788 => 
       array (
         0 => 
         array (
@@ -9055,7 +9237,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2744 => 
+      2797 => 
       array (
         0 => 
         array (
@@ -9097,7 +9279,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2784 => 
+      2837 => 
       array (
         0 => 
         array (
@@ -9120,7 +9302,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2798 => 
+      2851 => 
       array (
         0 => 
         array (
@@ -9143,7 +9325,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2807 => 
+      2860 => 
       array (
         0 => 
         array (
@@ -9185,7 +9367,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2840 => 
+      2893 => 
       array (
         0 => 
         array (
@@ -9208,7 +9390,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2854 => 
+      2907 => 
       array (
         0 => 
         array (
@@ -9231,7 +9413,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2863 => 
+      2916 => 
       array (
         0 => 
         array (
@@ -9273,7 +9455,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2897 => 
+      2950 => 
       array (
         0 => 
         array (
@@ -9296,7 +9478,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2911 => 
+      2964 => 
       array (
         0 => 
         array (
@@ -9319,7 +9501,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2920 => 
+      2973 => 
       array (
         0 => 
         array (
@@ -9361,7 +9543,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2943 => 
+      2996 => 
       array (
         0 => 
         array (
@@ -9384,7 +9566,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2957 => 
+      3010 => 
       array (
         0 => 
         array (
@@ -9407,7 +9589,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2966 => 
+      3019 => 
       array (
         0 => 
         array (
@@ -9449,7 +9631,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3009 => 
+      3062 => 
       array (
         0 => 
         array (
@@ -9472,7 +9654,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3023 => 
+      3076 => 
       array (
         0 => 
         array (
@@ -9495,7 +9677,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3032 => 
+      3085 => 
       array (
         0 => 
         array (
@@ -9537,7 +9719,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3067 => 
+      3120 => 
       array (
         0 => 
         array (
@@ -9560,7 +9742,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3081 => 
+      3134 => 
       array (
         0 => 
         array (
@@ -9583,7 +9765,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3090 => 
+      3143 => 
       array (
         0 => 
         array (
@@ -9625,7 +9807,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3123 => 
+      3176 => 
       array (
         0 => 
         array (
@@ -9648,7 +9830,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3137 => 
+      3190 => 
       array (
         0 => 
         array (
@@ -9671,7 +9853,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3146 => 
+      3199 => 
       array (
         0 => 
         array (
@@ -9713,7 +9895,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3169 => 
+      3222 => 
       array (
         0 => 
         array (
@@ -9977,7 +10159,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::m0ypVtyI0JbZpeZp' => 
+    'generated::XzeuJ9R0BiUEuSB9' => 
     array (
       'methods' => 
       array (
@@ -10006,7 +10188,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bc00000000000000000";}}',
-        'as' => 'generated::m0ypVtyI0JbZpeZp',
+        'as' => 'generated::XzeuJ9R0BiUEuSB9',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10248,7 +10430,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::Y1pgihqqLkEPcoGK' => 
+    'generated::I4nQmnGNaC2X10bM' => 
     array (
       'methods' => 
       array (
@@ -10269,7 +10451,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::Y1pgihqqLkEPcoGK',
+        'as' => 'generated::I4nQmnGNaC2X10bM',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10589,7 +10771,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::GM4eBvjiM74Leu0w' => 
+    'generated::iQAPmicbt8M0Sm0z' => 
     array (
       'methods' => 
       array (
@@ -10610,7 +10792,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::GM4eBvjiM74Leu0w',
+        'as' => 'generated::iQAPmicbt8M0Sm0z',
       ),
       'fallback' => false,
       'defaults' => 
@@ -23571,362 +23753,6 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'inventory.setup.buyers.toggle' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'POST',
-      ),
-      'uri' => 'inventory/setup/buyers/toggle',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@toggleStatus',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@toggleStatus',
-        'as' => 'inventory.setup.buyers.toggle',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.delete' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'POST',
-      ),
-      'uri' => 'inventory/setup/buyers/delete',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
-        'as' => 'inventory.setup.buyers.delete',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.index' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'inventory/setup/buyers',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'as' => 'inventory.setup.buyers.index',
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@index',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@index',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.create' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'inventory/setup/buyers/create',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'as' => 'inventory.setup.buyers.create',
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@create',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@create',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.store' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'POST',
-      ),
-      'uri' => 'inventory/setup/buyers',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'as' => 'inventory.setup.buyers.store',
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@store',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@store',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.show' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'inventory/setup/buyers/{buyer}',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'as' => 'inventory.setup.buyers.show',
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@show',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@show',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.edit' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'inventory/setup/buyers/{buyer}/edit',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'as' => 'inventory.setup.buyers.edit',
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@edit',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@edit',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.update' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'PUT',
-        1 => 'PATCH',
-      ),
-      'uri' => 'inventory/setup/buyers/{buyer}',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'as' => 'inventory.setup.buyers.update',
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@update',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@update',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'inventory.setup.buyers.destroy' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'DELETE',
-      ),
-      'uri' => 'inventory/setup/buyers/{buyer}',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
-        ),
-        'as' => 'inventory.setup.buyers.destroy',
-        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
-        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
-        'namespace' => NULL,
-        'prefix' => 'inventory/setup',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
     'inventory.setup.storetypes.toggle' => 
     array (
       'methods' => 
@@ -28199,6 +28025,718 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.setup.sizegroups.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/sizegroups/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@toggleStatus',
+        'as' => 'inventory.setup.sizegroups.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/sizegroups/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@destroy',
+        'as' => 'inventory.setup.sizegroups.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizegroups',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizegroups.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizegroups/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizegroups.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/sizegroups',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizegroups.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizegroups/{sizegroup}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizegroups.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizegroups/{sizegroup}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizegroups.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/sizegroups/{sizegroup}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizegroups.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizegroups.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/sizegroups/{sizegroup}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizegroups.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeGroupController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/sizes/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@toggleStatus',
+        'as' => 'inventory.setup.sizes.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/sizes/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@destroy',
+        'as' => 'inventory.setup.sizes.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizes',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizes.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizes/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizes.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/sizes',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizes.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizes/{size}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizes.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/sizes/{size}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizes.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/sizes/{size}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizes.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.sizes.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/sizes/{size}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.sizes.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\SizeController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -28681,7 +29219,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000d750000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000d7e0000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_setup_goods_setup_size_groups', function (Blueprint $table) {
+        Schema::create('inventory_setup_size_group', function (Blueprint $table) {
             $table->id();
-            $table->string('group_name', 100)->unique();
-            $table->string('group_code', 100)->unique();
+            $table->string('size_group_code', 20)->unique();
+            $table->string('size_group_name', 100);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_setup_goods_setup_size_groups');
+        Schema::dropIfExists('inventory_setup_size_group');
     }
 };
