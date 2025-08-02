@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('board');
             $table->char('result_type', 1);
             $table->string('result');
-            $table->date('passing_year');
+            $table->integer('passing_year');
 
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->useCurrent();

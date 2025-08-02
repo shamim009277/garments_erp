@@ -2,6 +2,7 @@
 
 namespace Modules\HRIS\Http\Requests\Setup;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UnionRequest extends FormRequest
@@ -11,10 +12,12 @@ class UnionRequest extends FormRequest
      */
     public function rules(): array
     {
+        $unionId = $this->route('union');
+
         return [
             'thana_id' => 'required|exists:hris_setup_thanas,id',
-            'name' => 'required|string|max:255',
-            'bn_name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255', Rule::unique('hris_setup_unions', 'name')->ignore($unionId)],
+            'bn_name' => ['required', 'string', 'max:255', Rule::unique('hris_setup_unions', 'bn_name')->ignore($unionId)],
             'is_active' => 'required|boolean',
         ];
     }

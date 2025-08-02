@@ -12,7 +12,7 @@
                 ],
             ])
         </div>
-        <div class="col-md-8 pr-0">
+        <div class="col-md-8 pe-md-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
                     <h6 class="my-0 text-primary"><i data-feather="list" width="16" height="16"></i> Menu List</h6>
