@@ -17,6 +17,7 @@ class SizeRequest extends FormRequest
             'size_name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_size', 'size_name')->ignore($sizeId)],
             'size_rank' => 'required|integer',
             'is_active' => 'required|boolean',
+            'size_group_id' => 'required|exists:inventory_setup_size_group,id',
         ];
     }
 

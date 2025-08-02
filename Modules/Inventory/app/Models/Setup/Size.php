@@ -33,7 +33,10 @@ class Size extends Model
             $size->updated_by = Auth::user()->id;
         });
     }
-
+    public function sizeGroup()
+    {
+        return $this->belongsTo(SizeGroup::class, 'size_group_id');
+    }
     // protected static function newFactory(): Setup/SizeFactory
     // {
     //     // return Setup/SizeFactory::new();

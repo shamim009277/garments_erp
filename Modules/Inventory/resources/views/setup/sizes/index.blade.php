@@ -5,11 +5,11 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'INVENTORY',
-                'subtitle' => 'Colors',
+                'subtitle' => 'Sizes',
                 'breadcrumbs' => [
                     ['label' => 'INVENTORY', 'url' => route('inventory.index')],
                     ['label' => 'Setup', 'url' => route('inventory.index')],
-                    ['label' => 'Color Groups', 'url' => route('inventory.setup.colorgroups.index')],
+                    ['label' => 'Sizes', 'url' => route('inventory.setup.sizes.index')],
                 ],
             ])
         </div>
@@ -22,47 +22,35 @@
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
                         <thead>
-                            {{-- $table->id();
-            $table->string('color_code', 20)->unique();
-            $table->string('color_name', 100);
-            $table->char('color_hex', 7)->nullable();
-            $table->unsignedBigInteger('color_group_id');
-            $table->foreign('color_group_id')
-                ->references('id')
-                ->on('inventory_setup_color_groups')
-                ->onDelete('restrict');
-
-            $table->boolean('is_active')->default(true);
-            $table->timestamps(); --}}
                             <tr>
                                 <th width="5%">#</th>
                                 <th width="50%">Name</th>
-                                <th width="50%">Group</th>
-                                <th width="50%">Code</th>
+                                <th width="15%">Group</th>
+                                <th width="10%">Rank</th>
                                 <th width="5%">Status</th>
                                 <th width="15%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($colors as $key => $color)
+                            @foreach ($sizes as $key => $size)
                                 <tr>
                                     <td width="5%">{{ $key + 1 }}</td>
-                                    <td width="50%">{{ $color->color_name }}</td>
-                                    <td width="50%">
-                                        @if ($color->colorGroup)
-                                            {{ $color->colorGroup->group_name }}
+                                    <td width="50%">{{ $size->size_name }}</td>
+                                    <td width="15%">
+                                        @if ($size->sizeGroup)
+                                            {{ $size->sizeGroup->size_group_name }}
                                         @endif
                                     </td>
-                                    <td width="50%">{{ $color->color_code }}</td>
+                                    <td width="10%">{{ $size->size_rank }}</td>
                                     <td class="text-center">
-                                        <p class="text-{{ $color->is_active ? 'success' : 'danger' }}">
-                                            {{ $color->is_active ? 'Active' : 'Inactive' }}</p>
+                                        <p class="text-{{ $size->is_active ? 'success' : 'danger' }}">
+                                            {{ $size->is_active ? 'Active' : 'Inactive' }}</p>
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-soft-success waves-effect waves-light"
                                             style="padding: 4px 6px;" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $color->id }}"><i class="fas fa-edit"></i></a>
-                                        <form action="{{ route('inventory.setup.colors.destroy', $color->id) }}"
+                                            data-bs-target="#editModal{{ $size->id }}"><i class="fas fa-edit"></i></a>
+                                        <form action="{{ route('inventory.setup.sizes.destroy', $size->id) }}"
                                             method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
@@ -73,41 +61,39 @@
                                     </td>
                                 </tr>
                                 {{-- load edit modal --}}
-                                <div class="modal fade" id="editModal{{ $color->id }}" tabindex="-1"
-                                    aria-labelledby="editModalLabel{{ $color->id }}" aria-hidden="true">
+                                <div class="modal fade" id="editModal{{ $size->id }}" tabindex="-1"
+                                    aria-labelledby="editModalLabel{{ $size->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel{{ $color->id }}">Edit Color
+                                                <h5 class="modal-title" id="editModalLabel{{ $size->id }}">Edit Size
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="moduleForm"
-                                                    action="{{ route('inventory.setup.colors.update', $color->id) }}"
+                                                    action="{{ route('inventory.setup.sizes.update', $size->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <x-input-group name="color_name" label="Color Name"
-                                                                placeholder="Enter color name"
-                                                                :value="$color->color_name" required />
+                                                            <x-input-group name="size_name" label="Size Name"
+                                                                placeholder="Enter size name" :value="$size->size_name" required />
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <x-select-input-group name="color_group_id" label="Color Group"
-                                                                :options="$colorGroups->pluck('group_name', 'id')" :selected="$color->color_group_id" required />
+                                                            <x-select-input-group name="size_group_id" label="Size Group"
+                                                                :options="$sizeGroups->pluck('size_group_name', 'id')" :selected="$size->size_group_id" required />
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <x-input-group name="color_code" label="Color Code"
-                                                                placeholder="Enter color code"
-                                                                :value="$color->color_code" required />
+                                                            <x-input-group name="size_rank" label="Size Rank"
+                                                                placeholder="Enter size rank" :value="$size->size_rank" required />
                                                         </div>
                                                         <div class="col-md-12">
                                                             <x-select-input-group name="is_active" label="Is Active?"
-                                                                :options="['1' => 'Active', '0' => 'Inactive']" :selected="$color->is_active ? '1' : '0'" required />
-                                                                </div>
+                                                                :options="['1' => 'Active', '0' => 'Inactive']" :selected="$size->is_active ? '1' : '0'" required />
+                                                        </div>
                                                     </div>
                                                     <x-primary-button
                                                         class="float-start btn-sm submitBtn">Save</x-primary-button>
@@ -126,17 +112,20 @@
         <div class="col-md-4">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Color ...
+                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Size ...
                     </h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('inventory.setup.colors.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('inventory.setup.sizes.store') }}" method="POST">
                         @csrf
 
-                        <x-input-group name="color_name" label="Color Name" placeholder="Enter color name" :value="old('color_name')"
+                        <x-input-group name="size_name" label="Size Name" placeholder="Enter size name" :value="old('size_name')"
                             required />
-                        <x-select-input-group name="color_group_id" label="Color Group" :options="$colorGroups->pluck('group_name', 'id')" :selected="old('color_group_id')" required />
-                        <x-input-group name="color_code" label="Color Code" placeholder="Enter color code" :value="old('color_code')" required />   
+
+                        <x-select-input-group name="size_group_id" label="Size Group" :options="$sizeGroups->pluck('size_group_name', 'id')" :selected="old('size_group_id')"
+                            required />
+                        <x-input-group name="size_rank" label="Size Rank" placeholder="Enter size rank" :value="old('size_rank')"
+                            required />
                         <x-select-input-group name="is_active" label="Is Active?" :options="['1' => 'Active', '0' => 'Inactive']" :selected="old('is_active', '1')"
                             required />
                         <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
