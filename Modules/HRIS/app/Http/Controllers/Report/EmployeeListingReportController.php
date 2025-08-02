@@ -2,8 +2,17 @@
 
 namespace Modules\HRIS\Http\Controllers\Report;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Modules\HRIS\Models\Setup\District;
+use Modules\HRIS\Models\Setup\BloodGroup;
+use Modules\HRIS\Models\Setup\Department;
+use Modules\HRIS\Models\Setup\Designation;
+use Modules\HRIS\Models\Setup\Organization;
+use Modules\HRIS\Models\Setup\EmployeeCategory;
+use Modules\HRIS\Models\Setup\ParentDepartment;
 
 class EmployeeListingReportController extends Controller
 {
@@ -12,7 +21,14 @@ class EmployeeListingReportController extends Controller
      */
     public function index()
     {
-        return view('hris::report.employeelisting.index');
+        $startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endDate = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $organizations = Organization::pluck('short_name', 'id')->toArray();
+        $parentDepartments = ParentDepartment::with('departments')->whereHas('departments') ->orderBy('department', 'asc') ->get();
+        $designations = Designation::orderBy('designation', 'asc')->get();
+        $districts = District::pluck('name', 'id')->toArray();
+        $employeeCategories = EmployeeCategory::pluck('category', 'category_code')->toArray();
+        return view('hris::report.employeelisting.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'districts', 'employeeCategories'));
     }
 
     /**
