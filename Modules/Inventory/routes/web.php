@@ -15,6 +15,7 @@ use Modules\Inventory\Http\Controllers\Setup\GoodsCategoryController;
 use Modules\Inventory\Http\Controllers\Setup\GoodsSubCategoryController;
 use Modules\Inventory\Http\Controllers\Setup\CountryController; 
 use Modules\Inventory\Http\Controllers\Setup\ColorGroupController;
+use Modules\Inventory\Http\Controllers\Setup\ColorController;
 
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
@@ -87,6 +88,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/colorgroups/toggle', [ColorGroupController::class, 'toggleStatus'])->name('colorgroups.toggle');
             Route::post('/colorgroups/delete', [ColorGroupController::class, 'destroy'])->name('colorgroups.delete');
             Route::resource('colorgroups', ColorGroupController::class)->names('colorgroups');
+
+            //ColorController
+            Route::post('/colors/toggle', [ColorController::class, 'toggleStatus'])->name('colors.toggle');
+            Route::post('/colors/delete', [ColorController::class, 'destroy'])->name('colors.delete');
+            Route::resource('colors', ColorController::class)->names('colors');
         });
     });
 });

@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('color_code', 20)->unique();
             $table->string('color_name', 100);
-            $table->char('color_hex', 7)->nullable(); // e.g., #FFAA00
-
+            $table->char('color_hex', 7)->nullable();
             $table->unsignedBigInteger('color_group_id');
             $table->foreign('color_group_id')
                 ->references('id')
