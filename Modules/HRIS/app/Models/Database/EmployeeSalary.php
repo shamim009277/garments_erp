@@ -44,10 +44,7 @@ class EmployeeSalary extends Model
     ];
 
     protected $casts = [
-        'ot_payable' => 'boolean',
-        'holiday_allowance' => 'boolean',
-        'salary_from_bank' => 'boolean',
-        'pf_member' => 'boolean',
+
     ];
 
     protected $dates = [

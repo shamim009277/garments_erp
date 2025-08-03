@@ -12,8 +12,9 @@ class EmployeeDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id' => 'required|array|exists:hris_database_employee_basic,employee_id',
-            'document_id' => 'required|array|exists:hris_setup_documents,id',
+            'employee_id' => 'required|array',
+            'document_id' => 'required|array',
+            'document_id.*' => 'required|integer|exists:hris_setup_documents,id',
         ];
     }
 

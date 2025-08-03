@@ -6,9 +6,11 @@
     'required' => false,
     'disabled' => false,
     'placeholder' => 'Select One',
+    'id'=>null,
+    'group_id'=>null,
 ])
 
-<div class="mb-3">
+<div class="mb-3" id="{{ $group_id }}">
     @if ($label)
         <label for="{{ $name }}" class="form-label">
             {{ $label }}
@@ -20,7 +22,7 @@
 
     <select
         name="{{ $name }}"
-        id="{{ $name }}"
+        id="{{ $id }}"
         data-trigger
         placeholder="{{ $placeholder }}"
         @if($required) required @endif

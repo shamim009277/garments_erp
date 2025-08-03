@@ -27,13 +27,16 @@ use Modules\HRIS\Models\Setup\Nationalities;
 use Modules\HRIS\Models\Setup\EducationBoard;
 use Modules\HRIS\Models\Database\EmployeeBangla;
 use Modules\HRIS\Models\Database\EmployeeSalary;
+use Modules\HRIS\Models\Database\EmployeeService;
 use Modules\HRIS\Models\Database\EmployeeDocument;
 use Modules\HRIS\Models\Database\EmployeePersonal;
 use Modules\HRIS\Models\Database\EmployeeTraining;
 use Modules\HRIS\Models\Database\EmployeeEducation;
+use Modules\HRIS\Models\Database\EmployeeReference;
 use Modules\HRIS\Models\Database\EmployeeExperience;
 use Modules\HRIS\Http\Requests\Database\EmployeeRequest;
 use Modules\HRIS\Http\Requests\Database\EmployeeBanglaRequest;
+use Modules\HRIS\Http\Requests\Database\EmployeeSalaryRequest;
 use Modules\HRIS\Http\Requests\Database\EmployeeDocumentRequest;
 use Modules\HRIS\Http\Requests\Database\EmployeePersonalRequest;
 
@@ -52,17 +55,9 @@ class EmployeeController extends Controller
         $districts = District::active()->pluck('name', 'id');
         $shifts = Shift::active()->pluck('shift', 'shift');
         $organizations = Organization::active()->pluck('short_name', 'id');
-        $applicants = Applicant::with(['department:id,department', 'designation:id,designation'])->active()->fileEntry()->where('entry_date', '>=', $lst_30_days)->where('final_status', 1)->get();
+        $applicants = Applicant::with(['department:id,department', 'designation:id,designation'])->active()->fileEntry()->where('entry_date', '>=', $lst_30_days)->where('file_entry','!=', 'C')->where('final_status', 1)->get();
         $unique_department = $applicants->unique('department_id');
         return view('hris::database.employee.index', compact('designations', 'departments', 'districts', 'applicants', 'unique_department', 'shifts', 'organizations'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('hris::create');
     }
 
     /**
@@ -71,17 +66,20 @@ class EmployeeController extends Controller
     public function store(EmployeeRequest $request)
     {
         DB::beginTransaction();
-        DB::enableQueryLog();
-
         try {
             // 1. Create employee
             $employeeData = $request->validated();
             $employee = Employee::create($employeeData);
 
             // 2. Fetch dependent data first
-            $empEntryCheck = Applicant::select('determined_salary')->where('employee_id', $employee->employee_id)->first();
-            $initial_salary = $empEntryCheck->determined_salary ?? 0;
+            $empEntryCheck = Applicant::select('determined_salary','id','employee_id','file_entry')->where('employee_id', $employee->employee_id)->first();
+            if($empEntryCheck){
+                $empEntryCheck->update([
+                    'file_entry' => 'C',
+                ]);
+            }
 
+            $initial_salary = $empEntryCheck->determined_salary ?? 0;
             $hr_setting = Setting::active()->select('medical_allowance', 'food_allowance', 'conveyance', 'house_rant_percent_basic')->first();
 
             $medical = $hr_setting->medical_allowance ?? 0;
@@ -112,33 +110,26 @@ class EmployeeController extends Controller
                 'updated_by'        => Auth::id(),
             ]);
 
-            // 5. Translate only needed fields
-            $translate = new TextTranslateService();
             $employee_bangla_data = [
                 'employee_id'           => $employee->employee_id,
                 'org_id'                => $employee->org_id,
-                'name_bangla'           => $translate->translatePart($employee->name),
-                'fname_bangla'          => $translate->translatePart($employee->father_name),
-                'mname_bangla'          => $translate->translatePart($employee->mother_name),
+                'name_bangla'           => $employee->name,
+                'fname_bangla'          => $employee->father_name,
+                'mname_bangla'          => $employee->mother_name,
                 'pdistrict_id_bangla'   => $employee->pdistrict_id,
                 'pthana_id_bangla'      => $employee->pthana_id,
-                'ppost_office_bangla'   => $translate->translatePart($employee->ppost_office),
-                'pvillage_bangla'       => $translate->translatePart($employee->pvillage),
+                'ppost_office_bangla'   => $employee->ppost_office,
+                'pvillage_bangla'       => $employee->pvillage,
                 'mdistrict_id_bangla'   => $employee->mdistrict_id,
                 'mthana_id_bangla'      => $employee->mthana_id,
-                'mpost_office_bangla'   => $translate->translatePart($employee->mpost_office),
-                'mvillage_bangla'       => $translate->translatePart($employee->mvillage),
+                'mpost_office_bangla'   => $employee->mpost_office,
+                'mvillage_bangla'       => $employee->mvillage,
                 'created_by'        => Auth::id(),
                 'updated_by'        => Auth::id(),
             ];
             EmployeeBangla::insert($employee_bangla_data);
-
             DB::commit();
-            return redirect()->route('hris.database.employee.show', [
-                'employee' => $employee->id,
-                'tab' => 1
-            ])->with('success', 'Employee created successfully');
-
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('success', 'Employee created successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error('Employee Store Error', [
@@ -170,9 +161,10 @@ class EmployeeController extends Controller
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'designations' => $designations, 'departments' => $departments, 'districts' => $districts, 'thanas' => $thanas, 'shifts' => $shifts, 'organizations' => $organizations]);
         }else if($request->get('tab') == 2){
             $tab = $request->get('tab');
-            $employee = Employee::find($id);
+            $employee = Employee::select('employee_id','id','org_id')->find($id);
+            $setting = Setting::active()->first();
             $employee_salary = EmployeeSalary::where('employee_id', $employee->employee_id)->first();
-            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_salary' => $employee_salary]);
+            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_salary' => $employee_salary, 'setting' => $setting]);
         }else if($request->get('tab') == 3){
             $degrees = Degree::active()->pluck('degree', 'id');
             $boards = EducationBoard::active()->pluck('name', 'name');
@@ -192,17 +184,20 @@ class EmployeeController extends Controller
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_experience' => $employee_experience]);
         }else if($request->get('tab') == 6){
             $tab = $request->get('tab');
-            $employee = Employee::find($id);
-            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab]);
+            $employee = Employee::select('employee_id','id')->find($id);
+            $employee_service = EmployeeService::where('employee_id', $employee->employee_id)->get();
+            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_service' => $employee_service]);
         }else if($request->get('tab') == 7){
             $tab = $request->get('tab');
-            $employee = Employee::find($id);
-            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab]);
+            $employee = Employee::select('employee_id','id')->find($id);
+            $employee_references = EmployeeReference::where('employee_id', $employee->employee_id)->get();
+            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_references' => $employee_references]);
         }else if($request->get('tab') == 8){
             $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id')->find($id);
+            $employee_documents = EmployeeDocument::with(['document:id,name'])->where('employee_id', $employee->employee_id)->get();
             $documents = Document::active()->get();
-            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'documents' => $documents]);
+            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'documents' => $documents, 'employee_documents' => $employee_documents]);
         }else if($request->get('tab') == 9){
             $tab = $request->get('tab');
             $degrees = Degree::active()->pluck('degree', 'id');
@@ -224,23 +219,89 @@ class EmployeeController extends Controller
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_bangla' => $employee_bangla, 'districts' => $districts, 'thanas' => $thanas]);
         }
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('hris::edit');
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
 
+
+    public function update(EmployeeRequest $request, $id)
+    {
+        $employee = Employee::findOrFail($id);
+        DB::beginTransaction();
+
+        try {
+            $employeeData = $request->validated();
+            $employee->fill($employeeData);
+
+            $hasEmployeeChanges = $employee->isDirty();
+            $employeeBangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
+
+            $banglaData = [
+                'org_id'                => $employee->org_id,
+                'name_bangla'           => $employee->name,
+                'fname_bangla'          => $employee->father_name,
+                'mname_bangla'          => $employee->mother_name,
+                'pdistrict_id_bangla'   => $employee->pdistrict_id,
+                'pthana_id_bangla'      => $employee->pthana_id,
+                'ppost_office_bangla'   => $employee->ppost_office,
+                'pvillage_bangla'       => $employee->pvillage,
+                'mdistrict_id_bangla'   => $employee->mdistrict_id,
+                'mthana_id_bangla'      => $employee->mthana_id,
+                'mpost_office_bangla'   => $employee->mpost_office,
+                'mvillage_bangla'       => $employee->mvillage,
+            ];
+
+            $hasBanglaChanges = false;
+
+            if ($employeeBangla) {
+                $employeeBangla->fill($banglaData);
+                $hasBanglaChanges = $employeeBangla->isDirty();
+            } else {
+                $hasBanglaChanges = true;
+            }
+
+            if (!$hasEmployeeChanges && !$hasBanglaChanges) {
+                DB::rollBack();
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('info', 'No changes detected. Nothing was updated.');
+            }
+
+            // Now save changes
+            if ($hasEmployeeChanges) {
+                $employee->updated_by = Auth::id();
+                $employee->save();
+            }
+
+            if ($employeeBangla) {
+                if ($hasBanglaChanges) {
+                    $employeeBangla->updated_by = Auth::id();
+                    $employeeBangla->save();
+                }
+            } else {
+                $banglaData['employee_id'] = $employee->employee_id;
+                $banglaData['created_by'] = Auth::id();
+                $banglaData['updated_by'] = Auth::id();
+                EmployeeBangla::create($banglaData);
+            }
+
+            DB::commit();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('success', 'Employee updated successfully');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Employee Update Error', [
+                'message' => $th->getMessage(),
+                'line'    => $th->getLine(),
+                'file'    => $th->getFile(),
+            ]);
+            return redirect()->back()->with('error', 'Failed to update employee: ' . $th->getMessage());
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id) {}
+
 
     public function getThana($district_id) {
         $thanas = Thana::active()->where('district_id', $district_id)->pluck('name', 'id');
@@ -297,14 +358,14 @@ class EmployeeController extends Controller
                 if ($employee_personal->isDirty()) {
                     $employee_personal->update($validated);
 
-                    $translate = new TextTranslateService();
+                    //$translate = new TextTranslateService();
                     EmployeeBangla::where('employee_id', $request->employee_id)->update([
-                        'nname_bangla'       => $translate->translatePart($employee_personal->nominee_name),
-                        'relation_bangla'    => $translate->translatePart($employee_personal->relation),
+                        'nname_bangla'       => $employee_personal->nominee_name,
+                        'relation_bangla'    => $employee_personal->relation,
                         'ndistrict_id_bangla'=> $employee_personal->ndistrict_id,
                         'nthana_id_bangla'   => $employee_personal->nthana_id,
-                        'npost_office_bangla'=> $translate->translatePart($employee_personal->npost_office),
-                        'nvillage_bangla'    => $translate->translatePart($employee_personal->nvillage),
+                        'npost_office_bangla'=> $employee_personal->npost_office,
+                        'nvillage_bangla'    => $employee_personal->nvillage,
                     ]);
                     DB::commit();
                     return redirect()->back()->with('success', 'Employee personal data updated successfully');
@@ -314,15 +375,15 @@ class EmployeeController extends Controller
                 }
             } else {
                 $personal = EmployeePersonal::create($validated);
-                $translate = new TextTranslateService();
+                //$translate = new TextTranslateService();
                 if ($personal) {
                     EmployeeBangla::where('employee_id', $request->employee_id)->update([
-                        'nname_bangla'       => $translate->translatePart($personal->nominee_name),
-                        'relation_bangla'    => $translate->translatePart($personal->relation),
+                        'nname_bangla'       => $personal->nominee_name,
+                        'relation_bangla'    => $personal->relation,
                         'ndistrict_id_bangla'=> $personal->ndistrict_id,
                         'nthana_id_bangla'   => $personal->nthana_id,
-                        'npost_office_bangla'=> $translate->translatePart($personal->npost_office),
-                        'nvillage_bangla'    => $translate->translatePart($personal->nvillage),
+                        'npost_office_bangla'=> $personal->npost_office,
+                        'nvillage_bangla'    => $personal->nvillage,
                     ]);
                 }
 
@@ -343,26 +404,80 @@ class EmployeeController extends Controller
         }
     }
 
-    public function storeEmployeeDocument(EmployeeDocumentRequest $request){
+    public function storeEmployeeDocument(EmployeeDocumentRequest $request)
+    {
         try {
             $validated = $request->validated();
-            $employee_document = EmployeeDocument::where('employee_id', $request->employee_id)->first();
-            if($employee_document){
-                $employee_document->fill($validated);
-                if ($employee_document->isDirty()) {
-                    $employee_document->update($validated);
-                    return redirect()->back()->with('success', 'Employee document updated successfully');
+
+            // Ensure employee_id is scalar, not array
+            $employee_id = is_array($validated['employee_id']) ? $validated['employee_id'][0] : $validated['employee_id'];
+            $new_document_ids = $validated['document_id'];
+
+            // Ensure document_id is array
+            if (!is_array($new_document_ids)) {
+                $new_document_ids = [$new_document_ids];
+            }
+
+            // Get existing document IDs for that employee
+            $existingDocuments = EmployeeDocument::where('employee_id', $employee_id)
+                ->pluck('document_id')
+                ->toArray();
+
+            $documentsToAdd = array_diff($new_document_ids, $existingDocuments);
+            $documentsToDelete = array_diff($existingDocuments, $new_document_ids);
+
+            $changesMade = false;
+
+            // Add new documents
+            foreach ($documentsToAdd as $document_id) {
+                EmployeeDocument::create([
+                    'employee_id' => $employee_id,
+                    'document_id' => $document_id,
+                ]);
+                $changesMade = true;
+            }
+
+            // Delete removed documents
+            if (!empty($documentsToDelete)) {
+                EmployeeDocument::where('employee_id', $employee_id)
+                    ->whereIn('document_id', $documentsToDelete)
+                    ->delete();
+                $changesMade = true;
+            }
+
+            if ($changesMade) {
+                return redirect()->back()->with('success', 'Employee documents updated successfully.');
+            } else {
+                return redirect()->back()->with('info', 'No changes detected.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update employee documents: ' . $e->getMessage());
+        }
+    }
+
+    public function storeEmployeeSalary(EmployeeSalaryRequest $request){
+        try {
+            $validated = $request->validated();
+            $employee_salary = EmployeeSalary::where('employee_id', $request->employee_id)->first();
+            if($employee_salary){
+                $employee_salary->fill($validated);
+                $validated['ot_rate'] = round(($validated['basic']/240)*2);
+                if ($employee_salary->isDirty()) {
+                    $employee_salary->update($validated);
+                    return redirect()->back()->with('success', 'Employee salary updated successfully');
                 } else {
                     return redirect()->back()->with('info', 'No changes detected');
                 }
             }else{
-                EmployeeDocument::create($validated);
-                return redirect()->back()->with('success', 'Employee document saved successfully');
+                $validated['ot_rate'] = round(($validated['basic']/240)*2);
+                EmployeeSalary::create($validated);
+                return redirect()->back()->with('success', 'Employee salary saved successfully');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Employee document creation failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Employee salary creation failed: ' . $e->getMessage());
         }
     }
+
 
 
 }

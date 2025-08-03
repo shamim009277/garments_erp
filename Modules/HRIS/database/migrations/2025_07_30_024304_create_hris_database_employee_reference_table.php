@@ -11,24 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hris_database_employee_educations', function (Blueprint $table) {
+        Schema::create('hris_database_employee_reference', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('degree_id');
-            $table->string('institute');
-            $table->string('institute_bangla')->nullable();
-            $table->string('board');
-            $table->char('result_type', 1);
-            $table->string('result');
-            $table->integer('passing_year');
-
+            $table->string('name');
+            $table->string('mobile');
+            $table->string('email')->nullable();
+            $table->string('know_about_company');
+            $table->unsignedBigInteger('reference_id')->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->useCurrent();
             $table->unsignedBigInteger('updated_by')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
 
             $table->index('employee_id');
-            $table->foreign('degree_id')->references('id')->on('hris_setup_degrees')->onDelete('cascade');
+            $table->index('reference_id');
         });
     }
 
@@ -37,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hris_database_employee_educations');
+        Schema::dropIfExists('hris_database_employee_reference');
     }
 };

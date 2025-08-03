@@ -12,7 +12,7 @@
                 ],
             ])
         </div>
-        <div class="col-lg-8 pr-0">
+        <div class="col-lg-8 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Shift List</h6>

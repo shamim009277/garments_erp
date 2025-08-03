@@ -15,7 +15,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                               @foreach ($employee_documents as $key => $document)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $document->document->name }}</td>
+                                </tr>
+                               @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -35,11 +40,14 @@
                                     <th width="40%" style="border: none; text-align: center;">Document</th>
                                     <td width="60%" style="border: none;">
                                         @foreach ($documents as $document)
-                                        <div class="form-check">
-                                            <input type="hidden" name="employee_id[]" value="{{ $employee->employee_id }}">
-                                            <input class="form-check-input" type="checkbox" style="display: inline-block;" name="document_id[]" id="document_id" value="{{ $document->id }}">
-                                            <label class="form-check-label" for="document_id">{{ $document->name }}</label>
-                                        </div>
+                                            @php
+                                                $checked = $employee_documents->contains('document_id', $document->id) ? 'checked' : '';
+                                            @endphp
+                                            <div class="form-check">
+                                                <input type="hidden" name="employee_id[]" value="{{ $employee->employee_id }}">
+                                                <input class="form-check-input" type="checkbox" style="display: inline-block;" name="document_id[]" id="document_id" value="{{ $document->id }}" {{ $checked }}>
+                                                <label class="form-check-label" for="document_id">{{ $document->name }}</label>
+                                            </div>
                                         @endforeach
                                     </td>
                                 </tr>
@@ -57,7 +65,7 @@
                             </table>
                         </div>
                         <div class="card-footer" style="padding:10px 10px;">
-                            <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
+                            <x-primary-button class="float-start btn-sm submitBtn">{{ count($employee_documents) > 0 ? 'Update' : 'Save' }}</x-primary-button>
                         </div>
                     </div>
                 </form>

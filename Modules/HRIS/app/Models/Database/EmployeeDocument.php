@@ -4,6 +4,7 @@ namespace Modules\HRIS\Models\Database;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Modules\HRIS\Models\Setup\Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\HRIS\Database\Factories\Database\EmployeeDocumentFactory;
 
@@ -23,7 +24,7 @@ class EmployeeDocument extends Model
     }
     public function document()
     {
-        return $this->belongsTo(EmployeeDocument::class);
+        return $this->belongsTo(Document::class,'document_id','id');
     }
     public function scopeActive($query)
     {

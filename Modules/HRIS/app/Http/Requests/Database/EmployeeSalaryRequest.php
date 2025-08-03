@@ -12,7 +12,7 @@ class EmployeeSalaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id'        => 'required|exists:hris_database_employee_basic,id',
+            'employee_id'        => 'required|exists:hris_database_employee_basic,employee_id',
             'org_id'             => 'required|exists:hris_setup_organizations,id',
             'gross_salary'       => 'required|numeric|min:0',
             'basic'              => 'required|numeric|min:0',
@@ -29,7 +29,6 @@ class EmployeeSalaryRequest extends FormRequest
             'account_no'         => 'nullable|string|max:255',
             'mobile_banking'     => 'nullable|string|max:255',
             'bank_name'          => 'nullable|string|max:255',
-            'pf_member'          => 'required|in:Y,N',
             'pf_member_date'     => 'nullable|date|required_if:pf_member,Y',
             'pf_close_date'      => 'nullable|date|after_or_equal:pf_member_date',
             'tin_no'             => 'nullable|string|max:100',

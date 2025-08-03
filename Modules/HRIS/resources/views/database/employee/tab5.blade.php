@@ -1,7 +1,7 @@
 <div class="card padding-card" style="margin-bottom: 0px !important;">
     <div class="card-body" style="min-height: 300px;">
         <div class="row">
-            <div class="col-lg-8 col-md-7 pe-lg-0 pe-md-0 ps-lg-0 ps-md-0">
+            <div class="col-lg-8 pe-lg-0 ps-lg-0">
                 <div class="card alert-primary alert-top-border padding-card">
                     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
                         <h6 class="my-0 text-primary">Employment History</h6>
@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-5 pe-lg-0 pe-md-0">
+            <div class="col-lg-4 pe-lg-0">
                 <form action="{{ route('hris.database.employee-experience.store') }}" method="post">
                     @csrf
                 <div class="card alert-info alert-top-border padding-card">
@@ -102,7 +102,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@push('scripts')
 <script>
     $(document).ready(function() {
         $(document).on('click', '.delete-experience', function(e) {
@@ -152,3 +152,4 @@
     });
     });
 </script>
+@endpush

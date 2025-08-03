@@ -1,13 +1,13 @@
 <div class="card padding-card" style="margin-bottom: 0px !important;">
     <div class="card-body" style="min-height: 450px;">
         <div class="row">
-            <div class="col-lg-8 col-md-7 pe-lg-0 pe-md-0 ps-lg-0 ps-md-0">
+            <div class="col-lg-8 pe-lg-0 ps-lg-0">
                 <div class="card alert-primary alert-top-border padding-card">
                     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
                         <h6 class="my-0 text-primary">Training Summary</h6>
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table table-striped mb-0" width="100%">
+                        <table class="table table-striped table-hover mb-0" width="100%">
                             <thead>
                                 <tr>
                                     <th style="width:4%;">SL#</th>
@@ -27,8 +27,8 @@
                                         <td>{{ $training->duration }}</td>
                                         <td>{{ $training->description }}</td>
                                         <td style="text-align: center;">
-                                            <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $training->id }}"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-training" data-id="{{ $training->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="btn btn-sm btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $training->id }}"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="btn btn-sm btn-soft-danger waves-effect waves-light delete-training" data-id="{{ $training->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
                                         </td>
                                         <div id="editModal{{ $training->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
                                             <div class="modal-dialog">
@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-5 pe-lg-0 pe-md-0">
+            <div class="col-lg-4 pe-lg-0">
                 <div class="card alert-info alert-top-border padding-card">
                     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3" >
                         <h6 class="my-0 text-primary">Input Parameters For New Training Summary</h6>
@@ -100,7 +100,7 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@push('scripts')
 <script>
     $(document).ready(function() {
         $(document).on('click', '.delete-training', function(e) {
@@ -150,3 +150,4 @@
     });
     });
 </script>
+@endpush
