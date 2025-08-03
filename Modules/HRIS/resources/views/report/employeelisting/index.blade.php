@@ -23,8 +23,12 @@
         }
 
         .disabled-select {
-            opacity: 0.4;
             cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
+        }
+        .form-check-input:checked:disabled {
+            background-color: #b7bbf5 !important;
+            border: 1px solid #b7bbf5 !important;
         }
     </style>
 @endpush
@@ -46,9 +50,9 @@
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Listing Report
                     </h6>
                 </div>
-                <form id="employeeListingForm">
+                <form id="employeeListingForm" action="{{ route('hris.report.employee-listings.preview') }}" method="POST" target="_blank">
+                    @csrf
                     <div class="card-body">
-
                         <div class="row">
                             <!-- Titles -->
                             <div class="col-lg-3 mb-3 pe-lg-0">
@@ -117,7 +121,7 @@
                                     <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
                                         @foreach ($designations as $designation)
                                             <div class="form-check">
-                                                <input type="checkbox" name="designation_id[]" class="form-check-input DesignationID" id="desg{{ $designation['id'] }}" checked>
+                                                <input type="checkbox" name="designation_id[]" class="form-check-input designationID" id="desg{{ $designation['id'] }}" checked>
                                                 <label class="form-check-label" for="desg{{ $designation['id'] }}">{{ $designation['designation'] }}</label>
                                             </div>
                                         @endforeach
@@ -147,7 +151,7 @@
                                                         <label class="m-0" for="all_category">All Category</label>
                                                     </th>
                                                     <td id="all_category_section">
-                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="['1' => 'Staff', '2' => 'Worker']" placeholder="Category ID" disabled />
+                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$employeeCategories" placeholder="Category ID" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -189,19 +193,19 @@
                                                 <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" />
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" />
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">Organization</th>
                                                     <td width="60%">
-                                                        <x-select-input name="organization" id="organization" class="select2" :options="$organizations" selected="{{ old('organization', 1) }}" placeholder="Organization" />
+                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -230,7 +234,7 @@
 <script>
     $(document).ready(function () {
         $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
-        $('.DesignationID').prop('checked', true);
+        $('.designationID').prop('checked', true);
 
         $('.titles').prop('checked', false);
         $('#title1').prop('checked', true);
@@ -271,11 +275,11 @@
         });
 
         $('#check_all2').on('click', function () {
-            $('.DesignationID').prop('checked', true);
+            $('.designationID').prop('checked', true);
         });
 
         $('#uncheck_all2').on('click', function () {
-            $('.DesignationID').prop('checked', false);
+            $('.designationID').prop('checked', false);
         });
 
         // Handle All Category and Line
@@ -338,6 +342,32 @@
             $('#start_date').removeAttr('max');
         }
     });
+
+
+    handleTitleSelection();
+
+    // On title radio change
+    $('input[name="title"]').on('change', function() {
+        handleTitleSelection();
+    });
+
+    function handleTitleSelection() {
+        let selectedValue = $('input[name="title"]:checked').val();
+        if (selectedValue == '1') {
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+        } else if (selectedValue == '2') {
+            $('.departmentID').prop('disabled', true);
+            $('.designationID').prop('disabled', false);
+        } else {
+            $('.designationID').prop('disabled', false);
+            $('.departmentID').prop('disabled', false);
+        }
+    }
+
+
 
 </script>
 

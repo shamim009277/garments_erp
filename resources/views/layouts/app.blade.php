@@ -142,7 +142,7 @@
         }
 
         input[disabled] {
-            background-color: #dad9d9;
+            background-color: #dad9d9 !important;
             cursor: not-allowed;
         }
         .select2-container--default .select2-selection--single{
