@@ -1,15 +1,18 @@
 @extends('layouts.app')
 @section('title', 'HRIS')
 @section('content')
-<style>
-    input[type="checkbox"] {
-    display: inline-block !important;
-    opacity: 1 !important;
-}
-.collapse {
+@push('styles')
+    <style>
+        input[type="checkbox"] {
+            display: inline-block !important;
+            opacity: 1 !important;
+        }
+
+        .collapse {
             display: none;
             margin-left: 35px;
         }
+
         .toggle-btn {
             cursor: pointer;
             color: #5156be;
@@ -18,7 +21,17 @@
         .parent-label {
             font-weight: bold;
         }
-</style>
+
+        .disabled-select {
+            cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
+        }
+        .form-check-input:checked:disabled {
+            background-color: #b7bbf5 !important;
+            border: 1px solid #b7bbf5 !important;
+        }
+    </style>
+@endpush
     <div class="row">
         <div class="col-12">
             @include('components.breadcrumb', [
@@ -27,281 +40,335 @@
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Report', 'url' => route('hris.index')],
-                    ['label' => 'Employee Listing', 'url' => route('hris.reports.employee-listings.index')],
+                    ['label' => 'Employee Listing', 'url' => route('hris.report.employee-listings.index')],
                 ],
             ])
         </div>
         <div class="col-lg-12 pr-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Listing</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Listing Report
+                    </h6>
                 </div>
-                <div class="card-body">
-
-                    <form id="employeeListingForm">
+                <form id="employeeListingForm" action="{{ route('hris.report.employee-listings.preview') }}" method="POST" target="_blank">
+                    @csrf
+                    <div class="card-body">
                         <div class="row">
                             <!-- Titles -->
-                            <div class="col-lg-4 mb-3">
-                                <div class="card alert-info alert-top-border" style="max-height:460px;min-height:460px;">
+                            <div class="col-lg-3 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
                                     <div class="card-header">
-                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Preview Title's</h6>
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i>Preview Title's</h6>
                                     </div>
-                                    <div class="card-body">
-                                       
-                                    
+                                    <div class="card-body" style="max-height:450px;min-height:450px; overflow-y: auto;">
                                         <div class="form-check">
-                                            <input type="radio" id="title1" name="title" value="1" class="form-check-input titles" checked>
+                                            <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
                                             <label class="form-check-label" for="title1">Department-wise Listing of Employees</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" id="title2" name="title" value="2" class="form-check-input titles">
+                                            <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
                                             <label class="form-check-label" for="title2">Designation-wise Listing of Employees</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" id="title5" name="title" value="5" class="form-check-input titles">
-                                            <label class="form-check-label" for="title5">Employees Joined Within Date Range</label>
+                                            <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
+                                            <label class="form-check-label" for="title3">Employees Joined Within Date Range</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" id="title14" name="title" value="14" class="form-check-input titles">
-                                            <label class="form-check-label" for="title14">Employees With Blood Group</label>
+                                            <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
+                                            <label class="form-check-label" for="title4">Employees With Blood Group</label>
                                         </div>
-                                        <!-- Add more radio items as required -->
                                     </div>
-                                    <div class="card-footer">
-                                       
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-header">
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i> Department</h6>
+                                    </div>
+                                    <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
+                                        <!-- Sample departments -->
+                                        <div class="department-list">
+                                            <!-- Parent 1 -->
+                                            @foreach ($parentDepartments as $parentDepartment)
+                                            <div class="parent-wrapper">
+                                                <label class="parent-label">
+                                                    <span class="toggle-btn" data-target="children-{{ $parentDepartment->id }}">[+]</span>
+                                                    <input type="checkbox" class="parent-checkbox departmentID" data-id="{{ $parentDepartment->id }}" name="parent_department_id[]" value="{{ $parentDepartment->id }}"> {{ $parentDepartment->department }}
+                                                </label>
+                                                <div class="collapse" id="children-{{ $parentDepartment->id }}">
+                                                    @foreach ($parentDepartment->departments as $department)
+                                                    <label><input type="checkbox" class="form-check-input child-of-{{ $parentDepartment->id }} departmentID" name="department_id[]" value="{{ $department->id }}"> {{ $department->department }}</label><br>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="check_all">Check All</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all">Uncheck All</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-3 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-header">
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Designation</h6>
+                                    </div>
+                                    <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
+                                        @foreach ($designations as $designation)
+                                            <div class="form-check">
+                                                <input type="checkbox" name="designation_id[]" class="form-check-input designationID" id="desg{{ $designation['id'] }}" checked>
+                                                <label class="form-check-label" for="desg{{ $designation['id'] }}">{{ $designation['designation'] }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="check_all2">Check All</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all2">Uncheck All</button>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Department & Designation -->
-                            <div class="col-lg-5 mb-3">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                    <div class="card alert-info alert-top-border" style="max-height:460px;min-height:460px;">
-                                        <div class="card-header">
-                                            <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Department</h6>
-                                        </div>  
-                                             <div class="card-body">     
-                                           
-                                                <!-- Sample departments -->
-                                                <div class="department-list">
-                                                    <!-- Parent 1 -->
-                                                    <div class="parent-wrapper">
-                                                        <label class="parent-label">
-                                                        <span class="toggle-btn" data-target="children-1">[+]</span>
-                                                            <input type="checkbox" class="parent-checkbox" data-id="1"> Administration
-                                                        
-                                                        </label>
-                                                        <div class="collapse" id="children-1">
-                                                            <label><input type="checkbox" class="form-check-input child-of-1"> Admin Office</label><br>
-                                                            <label><input type="checkbox" class="form-check-input child-of-1"> Admin IT</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Parent 2 -->
-                                                    <div class="parent-wrapper">
-                                                        <label class="parent-label">
-                                                            <span class="toggle-btn" data-target="children-2">[+]</span>
-                                                            <input type="checkbox" class="parent-checkbox" data-id="2"> Production
-                                                            
-                                                        </label>
-                                                        <div class="collapse" id="children-2">
-                                                            <label><input type="checkbox" class="form-check-input child-of-2"> Cutting</label><br>
-                                                            <label><input type="checkbox" class="form-check-input child-of-2"> Sewing</label><br>
-                                                            <label><input type="checkbox" class="form-check-input child-of-2"> Finishing</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-2">
-                                            <button type="button" class="btn btn-sm btn-outline-primary" id="check_all">Check All</button>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all">Uncheck All</button>
-                                        </div>
+                            <div class="col-lg-3 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-body" style="max-height:460px;min-height:460px; overflow-y: auto;">
+                                        <table class="table table-sm" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <th width="40%"> Employee ID</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox" name="all_category" id="all_category" checked>
+                                                        <label class="m-0" for="all_category">All Category</label>
+                                                    </th>
+                                                    <td id="all_category_section">
+                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$employeeCategories" placeholder="Category ID" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox" name="all_line" id="all_line" checked>
+                                                        <label class="m-0" for="all_line">All Line</label>
+                                                    </th>
+                                                    <td id="all_line_section">
+                                                        <x-text-input name="line" id="line" label="" class="form-control-sm" placeholder="Line" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox" id="all_district" checked>
+                                                        <label class="m-0" for="all_district">All District</label>
+                                                    </th>
+                                                    <td id="all_district_section">
+                                                        <x-select-input name="district_id" id="district_id" class="select2" :options="$districts" placeholder="District ID" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox" id="all_blood_group" checked>
+                                                        <label class="m-0" for="all_blood_group">All Blood Group</label>
+                                                    </th>
+                                                    <td id="all_blood_group_section">
+                                                        <x-select-input name="blood_group" id="blood_group" class="select2" :options="['O+' => 'O+', 'O-' => 'O-', 'A+' => 'A+', 'A-' => 'A-', 'B+' => 'B+', 'B-' => 'B-', 'AB+' => 'AB+', 'AB-' => 'AB-', 'N/A' => 'N/A']" placeholder="Blood Group" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">
+                                                        <input type="checkbox" id="all_reason" checked>
+                                                        <label class="m-0 font-bold" for="all_reason">All Reason</label>
+                                                    </th>
+                                                    <td width="60%" id="all_reason_section">
+                                                        <x-select-input name="reason_id" id="reason_id" class="select2" :options="$employeeCategories" placeholder="Reason ID" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Start Date</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">End Date</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">Organization</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">View Mode</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 1) }}" placeholder="View Mode" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="card alert-info alert-top-border" style="max-height:460px;min-height:460px;">
-                                            <div class="card-header">
-                                                <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Designation</h6>
-                                            </div>
-                                            <div class="card-body">
-                                                <label class="font-weight-bold d-block">Designation</label>
-                                                <div class="border rounded p-2 overflow-auto" style="max-height:460px;min-height:460px;">
-                                                    <!-- Sample designations -->
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input DesignationID" id="desg1" checked>
-                                                        <label class="form-check-label" for="desg1">Manager</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input DesignationID" id="desg2" checked>
-                                                <label class="form-check-label" for="desg2">Officer</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input DesignationID" id="desg3" checked>
-                                                <label class="form-check-label" for="desg3">Operator</label>
-                                            </div>
-                                            <!-- ... -->
-                                        </div>
-                                        <div class="mt-2">
-                                            <button type="button" class="btn btn-sm btn-outline-primary" id="check_all2">Check All</button>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all2">Uncheck All</button>
-                                        </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <button type="submit" class="btn btn-sm btn-primary float-end">Preview</button>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Filters -->
-                            <div class="col-lg-3 mb-3">
-                                <table class="table table-sm">
-                                    <tbody>
-                                        <tr>
-                                            <th>Employee ID</th>
-                                            <td colspan="2">
-                                                <div class="d-flex">
-                                                    <input type="number" class="form-control mr-1" id="EmployeeF" placeholder="From">
-                                                    <input type="number" class="form-control" id="EmployeeL" placeholder="To">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" id="AllCategory" checked> <label for="AllCategory">All Category</label></th>
-                                            <td colspan="2">
-                                                <select id="CategoryID" class="form-control category" disabled>
-                                                    <option selected>Select One</option>
-                                                    <option>Staff</option>
-                                                    <option>Worker</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" id="AllLine" checked> <label for="AllLine">All Line</label></th>
-                                            <td colspan="2"><input type="number" id="Line" class="form-control" placeholder="Line" disabled></td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" id="AllDistrict" checked> <label for="AllDistrict">All District</label></th>
-                                            <td colspan="2">
-                                                <select id="DistrictID" class="form-control" disabled>
-                                                    <option selected>Select One</option>
-                                                    <option>Dhaka</option>
-                                                    <option>Chittagong</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" id="AllBloodGroup" checked> <label for="AllBloodGroup">All Blood Group</label></th>
-                                            <td colspan="2">
-                                                <select id="BloodGroup" class="form-control" disabled>
-                                                    <option selected>Select One</option>
-                                                    <option>A+</option>
-                                                    <option>B+</option>
-                                                    <option>O+</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" id="AllReason" checked> <label for="AllReason">All Reason</label></th>
-                                            <td colspan="2">
-                                                <select id="ReasonID" class="form-control" disabled>
-                                                    <option selected>Select One</option>
-                                                    <option>Resigned</option>
-                                                    <option>Terminated</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Start Date</th>
-                                            <td colspan="2"><input type="date" id="StartDate" class="form-control" disabled></td>
-                                        </tr>
-                                        <tr>
-                                            <th>End Date</th>
-                                            <td colspan="2"><input type="date" id="EndDate" class="form-control" disabled></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Religion</th>
-                                            <td colspan="2">
-                                                <select id="ReligionID" class="form-control" disabled>
-                                                    <option selected>Select One</option>
-                                                    <option>Islam</option>
-                                                    <option>Hinduism</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Date</th>
-                                            <td colspan="2"><input type="date" id="Date" class="form-control"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>View Mode</th>
-                                            <td colspan="2">
-                                                <select id="viewmode" class="form-control">
-                                                    <option value="1">Normal View</option>
-                                                    <option value="2" selected>PDF View</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="text-right">
-                                                <button type="submit" class="btn btn-success">Preview</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-
     </div>
 @endsection
 
 @push('scripts')
 <script>
-     // Toggle collapse
-     document.querySelectorAll('.toggle-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const target = document.getElementById(this.dataset.target);
-            const isOpen = target.style.display === 'block';
-            target.style.display = isOpen ? 'none' : 'block';
-            this.textContent = isOpen ? '[+]' : '[-]';
+    $(document).ready(function () {
+        $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
+        $('.designationID').prop('checked', true);
+
+        $('.titles').prop('checked', false);
+        $('#title1').prop('checked', true);
+
+        $('.toggle-btn').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const target = $('#' + $(this).data('target'));
+            const isOpen = target.is(':visible');
+            target.toggle();
+            $(this).text(isOpen ? '[+]' : '[-]');
         });
+
+        $('.parent-checkbox').on('change', function () {
+            const id = $(this).data('id');
+            $(`.child-of-${id}`).prop('checked', this.checked);
+        });
+
+        $('.form-check-input').on('change', function () {
+            const classList = $(this).attr('class').split(/\s+/);
+            const childClass = classList.find(cls => cls.startsWith('child-of-'));
+            const parentId = childClass.split('-').pop();
+
+            const children = $(`.child-of-${parentId}`);
+            const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
+            const anyChecked = children.is(':checked');
+
+            parent.prop('checked', anyChecked);
+        });
+
+        $('#check_all').on('click', function () {
+            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
+        });
+
+        $('#uncheck_all').on('click', function () {
+            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
+        });
+
+        $('#check_all2').on('click', function () {
+            $('.designationID').prop('checked', true);
+        });
+
+        $('#uncheck_all2').on('click', function () {
+            $('.designationID').prop('checked', false);
+        });
+
+        // Handle All Category and Line
+
+        handleToggle('#all_category', '#category_id', '#all_category_section');
+        handleToggle('#all_line', '#line', '#all_line_section');
+
+        $('#all_category').on('change', function () {
+            handleToggle('#all_category', '#category_id', '#all_category_section');
+        });
+
+        $('#all_line').on('change', function () {
+            handleToggle('#all_line', '#line', '#all_line_section');
+        });
+
+        // Handle All District and Blood Group and Reason
+
+        handleToggle('#all_district', '#district_id', '#all_district_section');
+        handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
+        handleToggle('#all_reason', '#reason_id', '#all_reason_section');
+
+        $('#all_district').on('change', function () {
+            handleToggle('#all_district', '#district_id', '#all_district_section');
+        });
+
+        $('#all_blood_group').on('change', function () {
+            handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
+        });
+
+        $('#all_reason').on('change', function () {
+            handleToggle('#all_reason', '#reason_id', '#all_reason_section');
+        });
+
+        function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
+            const isChecked = $(checkboxSelector).is(':checked');
+
+            $(selectSelector)
+                .prop('disabled', isChecked)
+                .val(null).trigger('change');
+
+            $(selectSelector).toggleClass('disabled-select', isChecked);
+            $(sectionSelector).toggleClass('disabled-select', isChecked);
+        }
     });
 
-    // Parent checkbox controls children
-    document.querySelectorAll('.parent-checkbox').forEach(parent => {
-        parent.addEventListener('change', function () {
-            const id = this.dataset.id;
-            document.querySelectorAll(`.child-of-${id}`).forEach(child => {
-                child.checked = this.checked;
-            });
-        });
+    $('#start_date').on('change', function () {
+        let startDate = $(this).val();
+        if (startDate) {
+            $('#end_date').attr('min', startDate);
+        } else {
+            $('#end_date').removeAttr('min');
+        }
     });
 
-    // Children affect parent
-    document.querySelectorAll('.form-check-input').forEach(child => {
-        child.addEventListener('change', function () {
-            const parentId = Array.from(this.classList).find(cls => cls.startsWith('child-of-')).split('-').pop();
-            const children = document.querySelectorAll(`.child-of-${parentId}`);
-            const parent = document.querySelector(`.parent-checkbox[data-id="${parentId}"]`);
-            const anyChecked = Array.from(children).some(cb => cb.checked);
-            parent.checked = anyChecked;
-        });
-    });
-    // Department check/uncheck
-    document.getElementById('check_all').addEventListener('click', () => {
-        document.querySelectorAll('.DepartmentID').forEach(cb => cb.checked = true);
-    });
-    document.getElementById('uncheck_all').addEventListener('click', () => {
-        document.querySelectorAll('.DepartmentID').forEach(cb => cb.checked = false);
+    $('#end_date').on('change', function () {
+        let endDate = $(this).val();
+        if (endDate) {
+            $('#start_date').attr('max', endDate);
+        } else {
+            $('#start_date').removeAttr('max');
+        }
     });
 
-    // Designation check/uncheck
-    document.getElementById('check_all2').addEventListener('click', () => {
-        document.querySelectorAll('.DesignationID').forEach(cb => cb.checked = true);
+
+    handleTitleSelection();
+
+    // On title radio change
+    $('input[name="title"]').on('change', function() {
+        handleTitleSelection();
     });
-    document.getElementById('uncheck_all2').addEventListener('click', () => {
-        document.querySelectorAll('.DesignationID').forEach(cb => cb.checked = false);
-    });
+
+    function handleTitleSelection() {
+        let selectedValue = $('input[name="title"]:checked').val();
+        if (selectedValue == '1') {
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+        } else if (selectedValue == '2') {
+            $('.departmentID').prop('disabled', true);
+            $('.designationID').prop('disabled', false);
+        } else {
+            $('.designationID').prop('disabled', false);
+            $('.departmentID').prop('disabled', false);
+        }
+    }
+
+
+
 </script>
+
 @endpush

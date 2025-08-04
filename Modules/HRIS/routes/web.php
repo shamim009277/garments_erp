@@ -175,7 +175,9 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         });
 
         //Reports
-        Route::prefix('reports')->name('reports.')->group(function () {
+        Route::prefix('report')->name('report.')->group(function () {
+            Route::get('/employee-listings/preview', [EmployeeListingReportController::class, 'previewData'])->name('employee-listings.preview');
+            Route::post('/employee-listings/preview', [EmployeeListingReportController::class, 'preview'])->name('employee-listings.preview');
             Route::resource('employee-listings', EmployeeListingReportController::class)->names('employee-listings');
         });
 

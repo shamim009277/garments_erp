@@ -129,7 +129,7 @@ class Employee extends Model
         return $this->belongsTo(Designation::class);
     }
 
-    public function org() {
+    public function organization() {
         return $this->belongsTo(Organization::class);
     }
 
