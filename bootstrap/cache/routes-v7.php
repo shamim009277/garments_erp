@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::oAwHdCGFXNYgBUQm',
+            '_route' => 'generated::Z2sGr02zk2xePMWK',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::2zKXyW2ldP1s8iDg',
+            '_route' => 'generated::y4GyLDySbUGbUNzs',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::SrioxAcKnszaDDP1',
+            '_route' => 'generated::c3CtWmXEn9yrvgAp',
           ),
           1 => NULL,
           2 => 
@@ -5306,6 +5306,100 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/inventory/setup/items/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/items/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/items' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/items/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/api/v1/payrolls' => 
       array (
         0 => 
@@ -5401,7 +5495,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132))|reference/([^/]++)(?|(*:2163)|/edit(*:2177)|(*:2186))|service/([^/]++)(?|(*:2215)|/edit(*:2229)|(*:2238)))|/([^/]++)(?|(*:2261)|/edit(*:2275)|(*:2284)))|d(?|esignation/([^/]++)(*:2318)|istrict/([^/]++)(*:2343))))|/inventory/(?|([^/]++)(?|(*:2380)|/edit(*:2394)|(*:2403))|setup/(?|parties/([^/]++)(?|(*:2441)|/edit(*:2455)|(*:2464))|s(?|tore(?|types/([^/]++)(?|(*:2502)|/edit(*:2516)|(*:2525))|l(?|ines/([^/]++)(?|(*:2555)|/edit(*:2569)|(*:2578))|ocations/([^/]++)(?|(*:2608)|/edit(*:2622)|(*:2631))))|upplier(?|types/([^/]++)(?|(*:2670)|/edit(*:2684)|(*:2693))|s/([^/]++)(?|(*:2716)|/edit(*:2730)|(*:2739)))|ize(?|groups/([^/]++)(?|(*:2774)|/edit(*:2788)|(*:2797))|s/([^/]++)(?|(*:2820)|/edit(*:2834)|(*:2843))))|racklocations/([^/]++)(?|(*:2880)|/edit(*:2894)|(*:2903))|c(?|hallanpurposes/([^/]++)(?|(*:2943)|/edit(*:2957)|(*:2966))|o(?|untries/([^/]++)(?|(*:2999)|/edit(*:3013)|(*:3022))|lor(?|groups/([^/]++)(?|(*:3056)|/edit(*:3070)|(*:3079))|s/([^/]++)(?|(*:3102)|/edit(*:3116)|(*:3125)))))|goods(?|categories/([^/]++)(?|(*:3168)|/edit(*:3182)|(*:3191))|SubCategories/([^/]++)(?|(*:3226)|/edit(*:3240)|(*:3249)))|buyers/([^/]++)(?|(*:3278)|/edit(*:3292)|(*:3301))))|/payroll/([^/]++)(?|(*:3333)|/edit(*:3347)|(*:3356))|/storage/(.*)(*:3379))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132))|reference/([^/]++)(?|(*:2163)|/edit(*:2177)|(*:2186))|service/([^/]++)(?|(*:2215)|/edit(*:2229)|(*:2238)))|/([^/]++)(?|(*:2261)|/edit(*:2275)|(*:2284)))|d(?|esignation/([^/]++)(*:2318)|istrict/([^/]++)(*:2343))))|/inventory/(?|([^/]++)(?|(*:2380)|/edit(*:2394)|(*:2403))|setup/(?|parties/([^/]++)(?|(*:2441)|/edit(*:2455)|(*:2464))|s(?|tore(?|types/([^/]++)(?|(*:2502)|/edit(*:2516)|(*:2525))|l(?|ines/([^/]++)(?|(*:2555)|/edit(*:2569)|(*:2578))|ocations/([^/]++)(?|(*:2608)|/edit(*:2622)|(*:2631))))|upplier(?|types/([^/]++)(?|(*:2670)|/edit(*:2684)|(*:2693))|s/([^/]++)(?|(*:2716)|/edit(*:2730)|(*:2739)))|ize(?|groups/([^/]++)(?|(*:2774)|/edit(*:2788)|(*:2797))|s/([^/]++)(?|(*:2820)|/edit(*:2834)|(*:2843))))|racklocations/([^/]++)(?|(*:2880)|/edit(*:2894)|(*:2903))|c(?|hallanpurposes/([^/]++)(?|(*:2943)|/edit(*:2957)|(*:2966))|o(?|untries/([^/]++)(?|(*:2999)|/edit(*:3013)|(*:3022))|lor(?|groups/([^/]++)(?|(*:3056)|/edit(*:3070)|(*:3079))|s/([^/]++)(?|(*:3102)|/edit(*:3116)|(*:3125)))))|goods(?|categories/([^/]++)(?|(*:3168)|/edit(*:3182)|(*:3191))|SubCategories/([^/]++)(?|(*:3226)|/edit(*:3240)|(*:3249)))|buyers/([^/]++)(?|(*:3278)|/edit(*:3292)|(*:3301))|items/([^/]++)(?|(*:3328)|/edit(*:3342)|(*:3351))))|/payroll/([^/]++)(?|(*:3383)|/edit(*:3397)|(*:3406))|/storage/(.*)(*:3429))/?$}sDu',
     ),
     3 => 
     array (
@@ -10353,7 +10447,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3333 => 
+      3328 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.show',
+          ),
+          1 => 
+          array (
+            0 => 'item',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3342 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.edit',
+          ),
+          1 => 
+          array (
+            0 => 'item',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3351 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.update',
+          ),
+          1 => 
+          array (
+            0 => 'item',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'item',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3383 => 
       array (
         0 => 
         array (
@@ -10376,7 +10558,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3347 => 
+      3397 => 
       array (
         0 => 
         array (
@@ -10399,7 +10581,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3356 => 
+      3406 => 
       array (
         0 => 
         array (
@@ -10441,7 +10623,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3379 => 
+      3429 => 
       array (
         0 => 
         array (
@@ -10705,7 +10887,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::oAwHdCGFXNYgBUQm' => 
+    'generated::Z2sGr02zk2xePMWK' => 
     array (
       'methods' => 
       array (
@@ -10734,7 +10916,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bc00000000000000000";}}',
-        'as' => 'generated::oAwHdCGFXNYgBUQm',
+        'as' => 'generated::Z2sGr02zk2xePMWK',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10976,7 +11158,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::2zKXyW2ldP1s8iDg' => 
+    'generated::y4GyLDySbUGbUNzs' => 
     array (
       'methods' => 
       array (
@@ -10997,7 +11179,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::2zKXyW2ldP1s8iDg',
+        'as' => 'generated::y4GyLDySbUGbUNzs',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11317,7 +11499,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::SrioxAcKnszaDDP1' => 
+    'generated::c3CtWmXEn9yrvgAp' => 
     array (
       'methods' => 
       array (
@@ -11338,7 +11520,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::SrioxAcKnszaDDP1',
+        'as' => 'generated::c3CtWmXEn9yrvgAp',
       ),
       'fallback' => false,
       'defaults' => 
@@ -30351,6 +30533,362 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.setup.items.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/items/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@toggleStatus',
+        'as' => 'inventory.setup.items.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/items/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@destroy',
+        'as' => 'inventory.setup.items.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/items',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.items.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/items/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.items.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/items',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.items.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/items/{item}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.items.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/items/{item}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.items.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/items/{item}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.items.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.items.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/items/{item}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.items.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -30833,7 +31371,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000d980000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000da10000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

@@ -19,6 +19,7 @@ use Modules\Inventory\Http\Controllers\Setup\ColorController;
 use Modules\Inventory\Http\Controllers\Setup\SizeController;
 use Modules\Inventory\Http\Controllers\Setup\SizeGroupController;
 use Modules\Inventory\Http\Controllers\Setup\BuyerController;
+use Modules\Inventory\Http\Controllers\Setup\ItemController;
 
 
 
@@ -107,6 +108,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/buyers/toggle', [BuyerController::class, 'toggleStatus'])->name('buyers.toggle');
             Route::post('/buyers/delete', [BuyerController::class, 'destroy'])->name('buyers.delete');
             Route::resource('buyers', BuyerController::class)->names('buyers');
+
+            //ItemController
+            Route::post('/items/toggle', [ItemController::class, 'toggleStatus'])->name('items.toggle');
+            Route::post('/items/delete', [ItemController::class, 'destroy'])->name('items.delete');
+            Route::resource('items', ItemController::class)->names('items');
         });
     });
 });
