@@ -153,7 +153,7 @@
     <div id="layout-wrapper">
         @include('includes.header')
         <!-- ========== Left Sidebar Start ========== -->
-        @if (request()->segment(1) != 'dashboard')
+        @if (request()->segment(1) != 'dashboard' && request()->segment(1) != 'user')
             @include('includes.sidebar')
         @endif
         <!-- Left Sidebar End -->
