@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::F0JkQexxwiWEhE8p',
+            '_route' => 'generated::oAwHdCGFXNYgBUQm',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::pO07OVpbCOzVMOTj',
+            '_route' => 'generated::2zKXyW2ldP1s8iDg',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::wKdqqmL952Azy2YX',
+            '_route' => 'generated::SrioxAcKnszaDDP1',
           ),
           1 => NULL,
           2 => 
@@ -2978,13 +2978,13 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/hris/database/search' => 
+      '/hris/database/new-applicants/search' => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'hris.database.employee.search',
+            '_route' => 'hris.database.new-applicants.search',
           ),
           1 => NULL,
           2 => 
@@ -3128,6 +3128,25 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/hris/database/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/hris/database/employee/bangla' => 
       array (
         0 => 
@@ -3135,6 +3154,25 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'hris.database.employee.bangla',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee/salary' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee.salary',
           ),
           1 => NULL,
           2 => 
@@ -3453,6 +3491,156 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'hris.database.employee-experience.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-reference/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-reference' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-reference/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-service/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-service' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-service/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.create',
           ),
           1 => NULL,
           2 => 
@@ -5024,6 +5212,100 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/inventory/setup/buyers/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/buyers/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/buyers' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/buyers/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/api/v1/payrolls' => 
       array (
         0 => 
@@ -5119,7 +5401,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132)))|/([^/]++)(?|(*:2155)|/edit(*:2169)|(*:2178)))|d(?|esignation/([^/]++)(*:2212)|istrict/([^/]++)(*:2237))))|/inventory/(?|([^/]++)(?|(*:2274)|/edit(*:2288)|(*:2297))|setup/(?|parties/([^/]++)(?|(*:2335)|/edit(*:2349)|(*:2358))|s(?|tore(?|types/([^/]++)(?|(*:2396)|/edit(*:2410)|(*:2419))|l(?|ines/([^/]++)(?|(*:2449)|/edit(*:2463)|(*:2472))|ocations/([^/]++)(?|(*:2502)|/edit(*:2516)|(*:2525))))|upplier(?|types/([^/]++)(?|(*:2564)|/edit(*:2578)|(*:2587))|s/([^/]++)(?|(*:2610)|/edit(*:2624)|(*:2633)))|ize(?|groups/([^/]++)(?|(*:2668)|/edit(*:2682)|(*:2691))|s/([^/]++)(?|(*:2714)|/edit(*:2728)|(*:2737))))|racklocations/([^/]++)(?|(*:2774)|/edit(*:2788)|(*:2797))|c(?|hallanpurposes/([^/]++)(?|(*:2837)|/edit(*:2851)|(*:2860))|o(?|untries/([^/]++)(?|(*:2893)|/edit(*:2907)|(*:2916))|lor(?|groups/([^/]++)(?|(*:2950)|/edit(*:2964)|(*:2973))|s/([^/]++)(?|(*:2996)|/edit(*:3010)|(*:3019)))))|goods(?|categories/([^/]++)(?|(*:3062)|/edit(*:3076)|(*:3085))|SubCategories/([^/]++)(?|(*:3120)|/edit(*:3134)|(*:3143)))))|/payroll/([^/]++)(?|(*:3176)|/edit(*:3190)|(*:3199))|/storage/(.*)(*:3222))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132))|reference/([^/]++)(?|(*:2163)|/edit(*:2177)|(*:2186))|service/([^/]++)(?|(*:2215)|/edit(*:2229)|(*:2238)))|/([^/]++)(?|(*:2261)|/edit(*:2275)|(*:2284)))|d(?|esignation/([^/]++)(*:2318)|istrict/([^/]++)(*:2343))))|/inventory/(?|([^/]++)(?|(*:2380)|/edit(*:2394)|(*:2403))|setup/(?|parties/([^/]++)(?|(*:2441)|/edit(*:2455)|(*:2464))|s(?|tore(?|types/([^/]++)(?|(*:2502)|/edit(*:2516)|(*:2525))|l(?|ines/([^/]++)(?|(*:2555)|/edit(*:2569)|(*:2578))|ocations/([^/]++)(?|(*:2608)|/edit(*:2622)|(*:2631))))|upplier(?|types/([^/]++)(?|(*:2670)|/edit(*:2684)|(*:2693))|s/([^/]++)(?|(*:2716)|/edit(*:2730)|(*:2739)))|ize(?|groups/([^/]++)(?|(*:2774)|/edit(*:2788)|(*:2797))|s/([^/]++)(?|(*:2820)|/edit(*:2834)|(*:2843))))|racklocations/([^/]++)(?|(*:2880)|/edit(*:2894)|(*:2903))|c(?|hallanpurposes/([^/]++)(?|(*:2943)|/edit(*:2957)|(*:2966))|o(?|untries/([^/]++)(?|(*:2999)|/edit(*:3013)|(*:3022))|lor(?|groups/([^/]++)(?|(*:3056)|/edit(*:3070)|(*:3079))|s/([^/]++)(?|(*:3102)|/edit(*:3116)|(*:3125)))))|goods(?|categories/([^/]++)(?|(*:3168)|/edit(*:3182)|(*:3191))|SubCategories/([^/]++)(?|(*:3226)|/edit(*:3240)|(*:3249)))|buyers/([^/]++)(?|(*:3278)|/edit(*:3292)|(*:3301))))|/payroll/([^/]++)(?|(*:3333)|/edit(*:3347)|(*:3356))|/storage/(.*)(*:3379))/?$}sDu',
     ),
     3 => 
     array (
@@ -8265,7 +8547,183 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2155 => 
+      2163 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.show',
+          ),
+          1 => 
+          array (
+            0 => 'employee_reference',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2177 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.edit',
+          ),
+          1 => 
+          array (
+            0 => 'employee_reference',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2186 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.update',
+          ),
+          1 => 
+          array (
+            0 => 'employee_reference',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-reference.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'employee_reference',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2215 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.show',
+          ),
+          1 => 
+          array (
+            0 => 'employee_service',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2229 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.edit',
+          ),
+          1 => 
+          array (
+            0 => 'employee_service',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2238 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.update',
+          ),
+          1 => 
+          array (
+            0 => 'employee_service',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-service.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'employee_service',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2261 => 
       array (
         0 => 
         array (
@@ -8288,7 +8746,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2169 => 
+      2275 => 
       array (
         0 => 
         array (
@@ -8311,7 +8769,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2178 => 
+      2284 => 
       array (
         0 => 
         array (
@@ -8353,7 +8811,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2212 => 
+      2318 => 
       array (
         0 => 
         array (
@@ -8376,7 +8834,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2237 => 
+      2343 => 
       array (
         0 => 
         array (
@@ -8399,7 +8857,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2274 => 
+      2380 => 
       array (
         0 => 
         array (
@@ -8422,7 +8880,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2288 => 
+      2394 => 
       array (
         0 => 
         array (
@@ -8445,7 +8903,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2297 => 
+      2403 => 
       array (
         0 => 
         array (
@@ -8487,7 +8945,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2335 => 
+      2441 => 
       array (
         0 => 
         array (
@@ -8510,7 +8968,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2349 => 
+      2455 => 
       array (
         0 => 
         array (
@@ -8533,7 +8991,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2358 => 
+      2464 => 
       array (
         0 => 
         array (
@@ -8575,7 +9033,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2396 => 
+      2502 => 
       array (
         0 => 
         array (
@@ -8598,7 +9056,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2410 => 
+      2516 => 
       array (
         0 => 
         array (
@@ -8621,7 +9079,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2419 => 
+      2525 => 
       array (
         0 => 
         array (
@@ -8663,7 +9121,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2449 => 
+      2555 => 
       array (
         0 => 
         array (
@@ -8686,7 +9144,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2463 => 
+      2569 => 
       array (
         0 => 
         array (
@@ -8709,7 +9167,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2472 => 
+      2578 => 
       array (
         0 => 
         array (
@@ -8751,7 +9209,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2502 => 
+      2608 => 
       array (
         0 => 
         array (
@@ -8774,7 +9232,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2516 => 
+      2622 => 
       array (
         0 => 
         array (
@@ -8797,7 +9255,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2525 => 
+      2631 => 
       array (
         0 => 
         array (
@@ -8839,7 +9297,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2564 => 
+      2670 => 
       array (
         0 => 
         array (
@@ -8862,7 +9320,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2578 => 
+      2684 => 
       array (
         0 => 
         array (
@@ -8885,7 +9343,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2587 => 
+      2693 => 
       array (
         0 => 
         array (
@@ -8927,7 +9385,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2610 => 
+      2716 => 
       array (
         0 => 
         array (
@@ -8950,7 +9408,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2624 => 
+      2730 => 
       array (
         0 => 
         array (
@@ -8973,7 +9431,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2633 => 
+      2739 => 
       array (
         0 => 
         array (
@@ -9015,7 +9473,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2668 => 
+      2774 => 
       array (
         0 => 
         array (
@@ -9038,7 +9496,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2682 => 
+      2788 => 
       array (
         0 => 
         array (
@@ -9061,7 +9519,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2691 => 
+      2797 => 
       array (
         0 => 
         array (
@@ -9103,7 +9561,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2714 => 
+      2820 => 
       array (
         0 => 
         array (
@@ -9126,7 +9584,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2728 => 
+      2834 => 
       array (
         0 => 
         array (
@@ -9149,7 +9607,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2737 => 
+      2843 => 
       array (
         0 => 
         array (
@@ -9191,7 +9649,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2774 => 
+      2880 => 
       array (
         0 => 
         array (
@@ -9214,7 +9672,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2788 => 
+      2894 => 
       array (
         0 => 
         array (
@@ -9237,7 +9695,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2797 => 
+      2903 => 
       array (
         0 => 
         array (
@@ -9279,7 +9737,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2837 => 
+      2943 => 
       array (
         0 => 
         array (
@@ -9302,7 +9760,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2851 => 
+      2957 => 
       array (
         0 => 
         array (
@@ -9325,7 +9783,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2860 => 
+      2966 => 
       array (
         0 => 
         array (
@@ -9367,7 +9825,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2893 => 
+      2999 => 
       array (
         0 => 
         array (
@@ -9390,7 +9848,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2907 => 
+      3013 => 
       array (
         0 => 
         array (
@@ -9413,7 +9871,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2916 => 
+      3022 => 
       array (
         0 => 
         array (
@@ -9455,7 +9913,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2950 => 
+      3056 => 
       array (
         0 => 
         array (
@@ -9478,7 +9936,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2964 => 
+      3070 => 
       array (
         0 => 
         array (
@@ -9501,7 +9959,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2973 => 
+      3079 => 
       array (
         0 => 
         array (
@@ -9543,7 +10001,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2996 => 
+      3102 => 
       array (
         0 => 
         array (
@@ -9566,7 +10024,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3010 => 
+      3116 => 
       array (
         0 => 
         array (
@@ -9589,7 +10047,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3019 => 
+      3125 => 
       array (
         0 => 
         array (
@@ -9631,7 +10089,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3062 => 
+      3168 => 
       array (
         0 => 
         array (
@@ -9654,7 +10112,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3076 => 
+      3182 => 
       array (
         0 => 
         array (
@@ -9677,7 +10135,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3085 => 
+      3191 => 
       array (
         0 => 
         array (
@@ -9719,7 +10177,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3120 => 
+      3226 => 
       array (
         0 => 
         array (
@@ -9742,7 +10200,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3134 => 
+      3240 => 
       array (
         0 => 
         array (
@@ -9765,7 +10223,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3143 => 
+      3249 => 
       array (
         0 => 
         array (
@@ -9807,7 +10265,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3176 => 
+      3278 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.show',
+          ),
+          1 => 
+          array (
+            0 => 'buyer',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3292 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.edit',
+          ),
+          1 => 
+          array (
+            0 => 'buyer',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3301 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.update',
+          ),
+          1 => 
+          array (
+            0 => 'buyer',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.buyers.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'buyer',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3333 => 
       array (
         0 => 
         array (
@@ -9830,7 +10376,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3190 => 
+      3347 => 
       array (
         0 => 
         array (
@@ -9853,7 +10399,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3199 => 
+      3356 => 
       array (
         0 => 
         array (
@@ -9895,7 +10441,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3222 => 
+      3379 => 
       array (
         0 => 
         array (
@@ -10159,7 +10705,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::F0JkQexxwiWEhE8p' => 
+    'generated::oAwHdCGFXNYgBUQm' => 
     array (
       'methods' => 
       array (
@@ -10188,7 +10734,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bc00000000000000000";}}',
-        'as' => 'generated::F0JkQexxwiWEhE8p',
+        'as' => 'generated::oAwHdCGFXNYgBUQm',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10430,7 +10976,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::pO07OVpbCOzVMOTj' => 
+    'generated::2zKXyW2ldP1s8iDg' => 
     array (
       'methods' => 
       array (
@@ -10451,7 +10997,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::pO07OVpbCOzVMOTj',
+        'as' => 'generated::2zKXyW2ldP1s8iDg',
       ),
       'fallback' => false,
       'defaults' => 
@@ -10771,7 +11317,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::wKdqqmL952Azy2YX' => 
+    'generated::SrioxAcKnszaDDP1' => 
     array (
       'methods' => 
       array (
@@ -10792,7 +11338,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::wKdqqmL952Azy2YX',
+        'as' => 'generated::SrioxAcKnszaDDP1',
       ),
       'fallback' => false,
       'defaults' => 
@@ -20593,13 +21139,13 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.database.employee.search' => 
+    'hris.database.new-applicants.search' => 
     array (
       'methods' => 
       array (
         0 => 'POST',
       ),
-      'uri' => 'hris/database/search',
+      'uri' => 'hris/database/new-applicants/search',
       'action' => 
       array (
         'middleware' => 
@@ -20609,9 +21155,9 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getSearch',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getSearch',
-        'as' => 'hris.database.employee.search',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ApplicantController@getSearch',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ApplicantController@getSearch',
+        'as' => 'hris.database.new-applicants.search',
         'namespace' => NULL,
         'prefix' => 'hris/database',
         'where' => 
@@ -21307,6 +21853,45 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'hris.database.employee.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getSearch',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getSearch',
+        'as' => 'hris.database.employee.search',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'hris.database.employee.bangla' => 
     array (
       'methods' => 
@@ -21326,6 +21911,45 @@ app('router')->setCompiledRoutes(
         'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@storeEmployeeBangla',
         'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@storeEmployeeBangla',
         'as' => 'hris.database.employee.bangla',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee.salary' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee/salary',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@storeEmployeeSalary',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@storeEmployeeSalary',
+        'as' => 'hris.database.employee.salary',
         'namespace' => NULL,
         'prefix' => 'hris/database',
         'where' => 
@@ -22633,6 +23257,640 @@ app('router')->setCompiledRoutes(
         'as' => 'hris.database.employee-experience.destroy',
         'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeExperienceController@destroy',
         'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeExperienceController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-reference/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@destroy',
+        'as' => 'hris.database.employee-reference.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-reference',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-reference.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-reference/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-reference.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-reference',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-reference.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-reference/{employee_reference}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-reference.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-reference/{employee_reference}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-reference.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/employee-reference/{employee_reference}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-reference.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-reference.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/employee-reference/{employee_reference}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-reference.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeReferenceController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-service/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@destroy',
+        'as' => 'hris.database.employee-service.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-service',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-service.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-service/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-service.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-service',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-service.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-service/{employee_service}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-service.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-service/{employee_service}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-service.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/employee-service/{employee_service}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-service.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-service.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/employee-service/{employee_service}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-service.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeServiceController@destroy',
         'namespace' => NULL,
         'prefix' => 'hris/database',
         'where' => 
@@ -28737,6 +29995,362 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.setup.buyers.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/buyers/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@toggleStatus',
+        'as' => 'inventory.setup.buyers.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/buyers/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
+        'as' => 'inventory.setup.buyers.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/buyers',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.buyers.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/buyers/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.buyers.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/buyers',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.buyers.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/buyers/{buyer}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.buyers.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/buyers/{buyer}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.buyers.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/buyers/{buyer}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.buyers.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.buyers.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/buyers/{buyer}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.buyers.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\BuyerController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -29219,7 +30833,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000d7e0000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000d980000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

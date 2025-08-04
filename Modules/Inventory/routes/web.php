@@ -18,6 +18,8 @@ use Modules\Inventory\Http\Controllers\Setup\ColorGroupController;
 use Modules\Inventory\Http\Controllers\Setup\ColorController;
 use Modules\Inventory\Http\Controllers\Setup\SizeController;
 use Modules\Inventory\Http\Controllers\Setup\SizeGroupController;
+use Modules\Inventory\Http\Controllers\Setup\BuyerController;
+
 
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
@@ -100,6 +102,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/sizes/toggle', [SizeController::class, 'toggleStatus'])->name('sizes.toggle');
             Route::post('/sizes/delete', [SizeController::class, 'destroy'])->name('sizes.delete');
             Route::resource('sizes', SizeController::class)->names('sizes');
+
+            //BuyerController
+            Route::post('/buyers/toggle', [BuyerController::class, 'toggleStatus'])->name('buyers.toggle');
+            Route::post('/buyers/delete', [BuyerController::class, 'destroy'])->name('buyers.delete');
+            Route::resource('buyers', BuyerController::class)->names('buyers');
         });
     });
 });
