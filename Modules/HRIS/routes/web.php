@@ -3,7 +3,7 @@
 use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
-use Modules\HRIS\Http\Controllers\SettingController;
+use Modules\HRIS\Http\Controllers\Settings\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
 use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ShiftController;
@@ -35,8 +35,8 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
-    //Route::resource('hris', HRISController::class)->names('hris');
-    Route::get('/hris', [HRISController::class, 'index'])->name('hris.index');
+    Route::resource('hris', HRISController::class)->names('hris');
+    //Route::get('/hris', [HRISController::class, 'index'])->name('hris.index');
 
     Route::prefix('hris')->name('hris.')->group(function () {
         //Setup
@@ -179,6 +179,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         });
 
         //Settings
-        Route::resource('settings', SettingController::class)->names('setting');
+        Route::prefix('settings')->name('settings.')->group(function () {
+            Route::resource('hr-settings', SettingController::class)->names('hr-settings');
+        });
     });
 });

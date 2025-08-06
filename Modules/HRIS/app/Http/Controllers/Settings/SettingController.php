@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\HRIS\Http\Controllers;
+namespace Modules\HRIS\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use Modules\HRIS\Models\Setting;
