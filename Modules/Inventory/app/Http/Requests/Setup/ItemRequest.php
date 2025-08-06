@@ -12,21 +12,18 @@ class ItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        $item_id = $this->route('items');
+        $item_id = $this->route('item');
+
         return [
-            'goods_category_id' => ['required|exists:inventory_setup_goods_setup_category,id', Rule::unique('inventory_setup_items', 'goods_category_id')->ignore($item_id)],
-            'goods_subcategory_id' => ['required|exists:inventory_setup_goods_setup_subcategory,id', Rule::unique('inventory_setup_items', 'goods_subcategory_id')->ignore($item_id)],
-            'unit_id' => ['required|exists:master_setup_units,id', Rule::unique('inventory_setup_items', 'unit_id')->ignore($item_id)],
-            'item_name' => ['required|string', Rule::unique('inventory_setup_items', 'item_name')->ignore($item_id)],
-            'item_description' => ['nullable|string'],
-            'item_barcode' => ['nullable|string'],
-            'item_image' => ['nullable|string'],
-            'is_active' => ['required|boolean'],
-            'varient' => ['nullable|array'],
-            'model' => ['nullable|string'],
-            'type' => ['nullable|string'],
-            'remarks' => ['nullable|string'],
-            'created_by' => ['nullable|exists:users,id'],
+            'goods_category_id' => ['required', 'exists:inventory_setup_goods_categories,id'],
+            'goods_subcategory_id' => ['required', 'exists:inventory_setup_goods_subcategories,id'],
+            'unit_id' => ['required', 'exists:master_setup_units,id'],
+            'item_name' => ['required', 'string', Rule::unique('inventory_setup_items', 'item_name')->ignore($item_id)],
+            'item_description' => ['nullable', 'string'],
+            'model' => ['nullable', 'string'],
+            'type' => ['nullable', 'string'],
+            'remarks' => ['nullable', 'string'],
+            'created_by' => ['nullable', 'exists:users,id'],
         ];
     }
 
@@ -48,13 +45,8 @@ class ItemRequest extends FormRequest
             'unit_id.required' => 'Unit is required',
             'unit_id.exists' => 'Unit does not exist',
             'item_name.required' => 'Item name is required',
-            'item_name.unique' => 'Item name already exists',
+           'item_name.unique' => 'Item name already exists',
             'item_description.string' => 'Item description must be a string',
-            'item_barcode.string' => 'Item barcode must be a string',
-            'item_image.string' => 'Item image must be a string',
-            'is_active.required' => 'Is active is required',
-            'is_active.boolean' => 'Is active must be a boolean',
-            'varient.array' => 'Varient must be an array',
             'model.string' => 'Model must be a string',
             'type.string' => 'Type must be a string',
             'remarks.string' => 'Remarks must be a string',
