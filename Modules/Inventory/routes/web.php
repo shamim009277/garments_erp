@@ -113,6 +113,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/items/toggle', [ItemController::class, 'toggleStatus'])->name('items.toggle');
             Route::post('/items/delete', [ItemController::class, 'destroy'])->name('items.delete');
             Route::resource('items', ItemController::class)->names('items');
+            //for ajax call
+            Route::get('/inventory/setup/items/get-subcategories', [ItemController::class, 'getSubcategories'])->name('items.getSubcategories');
         });
     });
 });

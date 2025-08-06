@@ -132,6 +132,7 @@
                                                         <x-select-input-group name="goods_category_id"
                                                             label="Goods Category" :options="$goodsCategories->pluck('name', 'id')" :selected="$item->goods_category_id"
                                                             required />
+
                                                         <x-select-input-group name="goods_subcategory_id"
                                                             label="Goods Subcategory" :options="$goodsSubcategories->pluck('name', 'id')" :selected="$item->goods_subcategory_id"
                                                             required />
@@ -147,8 +148,7 @@
                                                             :options="['1' => 'Active', '0' => 'Inactive']" :selected="$item->is_active" required />
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button"
-                                                            class="btn btn-secondary waves-effect btn-sm"
+                                                        <button type="button" class="btn btn-secondary waves-effect btn-sm"
                                                             data-bs-dismiss="modal">Close</button>
                                                         <x-primary-button id="submitBtn"
                                                             class="float-start btn-sm submitBtn">Save
@@ -177,10 +177,15 @@
                         @csrf
                         <x-input-group name="item_name" label="Item Name" placeholder="Enter item name"
                             :value="old('item_name')" required />
-                        <x-select-input-group name="goods_category_id" label="Goods Category" :options="$goodsCategories->pluck('name', 'id')"
-                            :selected="old('goods_category_id')" required />
-                        <x-select-input-group name="goods_subcategory_id" label="Goods Subcategory" :options="$goodsSubcategories->pluck('name', 'id')"
-                            :selected="old('goods_subcategory_id')" required />
+                        <x-select-input-group name="goods_category_id" id="goods_category_id" label="Goods Category"
+                            :options="$goodsCategories->pluck('name', 'id')" :selected="old('goods_category_id')" required />
+
+                        <!-- load subcategory based on category On change event Load Subcategory -->
+                        <x-select-input-group name="goods_subcategory_id" id="goods_subcategory_id"
+                            label="Goods Subcategory" :options="[]" :selected="old('goods_subcategory_id')" required />
+
+
+
                         <x-select-input-group name="unit_id" label="Unit" :options="$units->pluck('name', 'id')" :selected="old('unit_id')"
                             required />
                         <x-input-group name="model" label="Model" placeholder="Enter model" :value="old('model')" />
@@ -291,6 +296,27 @@
                         'error'
                     );
                 }
+            });
+        });
+
+        $(document).ready(function() {
+            $('#goods_category_id').on('change', function() {
+                let categoryId = $(this).val();
+                console.log(categoryId);
+                $.ajax({
+                    url: '{{ route('inventory.setup.items.getSubcategories') }}',
+                    type: 'GET',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        category_id: categoryId
+                    },
+                    success: function(data) {
+                        $('#goods_subcategory_id').html(data);
+                    },
+                    error: function() {
+                        toastr.error('Something went wrong!');
+                    }
+                });
             });
         });
     </script>

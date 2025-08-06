@@ -126,4 +126,6 @@ class GoodsSubCategoryController extends Controller
         $goodsSubCategory->delete();
         return redirect()->route('inventory.setup.goodsSubCategories.index')->with('success', 'Goods Sub Category deleted successfully');
     }
+    //getSubcategories
+   
 }

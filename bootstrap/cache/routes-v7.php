@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::pNn7pKuicekoyf3j',
+            '_route' => 'generated::yM30u7xUBBiJjCRT',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::4GESQJCNtGoA1m4B',
+            '_route' => 'generated::DaOCJTYatu442eDS',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::0rPmUB3e1weyDyWJ',
+            '_route' => 'generated::nerPld9XP92gE3fc',
           ),
           1 => NULL,
           2 => 
@@ -5387,6 +5387,26 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'inventory.setup.items.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/inventory/setup/items/get-subcategories' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.items.getSubcategories',
           ),
           1 => NULL,
           2 => 
@@ -10887,7 +10907,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::pNn7pKuicekoyf3j' => 
+    'generated::yM30u7xUBBiJjCRT' => 
     array (
       'methods' => 
       array (
@@ -10916,7 +10936,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bc00000000000000000";}}',
-        'as' => 'generated::pNn7pKuicekoyf3j',
+        'as' => 'generated::yM30u7xUBBiJjCRT',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11158,7 +11178,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::4GESQJCNtGoA1m4B' => 
+    'generated::DaOCJTYatu442eDS' => 
     array (
       'methods' => 
       array (
@@ -11179,7 +11199,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::4GESQJCNtGoA1m4B',
+        'as' => 'generated::DaOCJTYatu442eDS',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11499,7 +11519,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::0rPmUB3e1weyDyWJ' => 
+    'generated::nerPld9XP92gE3fc' => 
     array (
       'methods' => 
       array (
@@ -11520,7 +11540,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::0rPmUB3e1weyDyWJ',
+        'as' => 'generated::nerPld9XP92gE3fc',
       ),
       'fallback' => false,
       'defaults' => 
@@ -30889,6 +30909,46 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.setup.items.getSubcategories' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/inventory/setup/items/get-subcategories',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@getSubcategories',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ItemController@getSubcategories',
+        'as' => 'inventory.setup.items.getSubcategories',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -31371,7 +31431,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000da10000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000da20000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

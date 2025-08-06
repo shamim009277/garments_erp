@@ -139,4 +139,19 @@ class ItemController extends Controller
     {
         return $this->toggleStatusTrait($request, Item::class);
     }
+    //getSubcategories
+    public function getSubcategories(Request $request)
+    {
+        $category_id = $request->category_id;
+        if(!$category_id){
+            return response()->json('<option value="">Select a subcategory</option>');
+        }
+        $subcategories = GoodsSubcategory::where('goods_category_id', $category_id)->pluck('name', 'id');
+        $html = '<option value="">Select a subcategory</option>';
+        foreach($subcategories as $id => $name){
+            $html .= "<option value='{$id}'>{$name}</option>";
+        }
+        return response()->json($html);
+    }
+    
 }
