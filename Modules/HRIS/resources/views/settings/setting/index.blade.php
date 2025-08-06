@@ -48,10 +48,10 @@
 
                     <div class="tab-content text-muted">
                         <div class="tab-pane active" id="salary" role="tabpanel">
-                            @include('hris::setting.tab1')
+                            @include('hris::settings.setting.tab1')
                         </div>
                         <div class="tab-pane" id="leave" role="tabpanel">
-                            @include('hris::setting.tab2')
+                            @include('hris::settings.setting.tab2')
                         </div>
                     </div>
                 </div>

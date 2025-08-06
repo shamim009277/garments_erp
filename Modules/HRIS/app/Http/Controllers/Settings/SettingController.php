@@ -16,7 +16,7 @@ class SettingController extends Controller
     public function index()
     {
         $setting = Setting::active()->first();
-        return view('hris::setting.index', compact('setting'));
+        return view('hris::settings.setting.index', compact('setting'));
     }
 
     /**

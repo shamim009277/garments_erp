@@ -3,7 +3,6 @@
 use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
-use Modules\HRIS\Http\Controllers\Settings\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
 use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ShiftController;
@@ -14,6 +13,7 @@ use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\DocumentController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Settings\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeController;
 use Modules\HRIS\Http\Controllers\Setup\DesignationController;
@@ -25,6 +25,7 @@ use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
+use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
@@ -181,6 +182,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         //Settings
         Route::prefix('settings')->name('settings.')->group(function () {
             Route::resource('hr-settings', SettingController::class)->names('hr-settings');
+            Route::resource('forward-approve', ForwardApproveController::class)->names('forward-approve');
         });
     });
 });
