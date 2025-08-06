@@ -12,7 +12,7 @@ class SizeGroupRequest extends FormRequest
      */
     public function rules(): array
     {
-        $sizeGroupId = $this->route('sizegroups');
+        $sizeGroupId = $this->route('sizegroup');
         return [
             'size_group_name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_size_group', 'size_group_name')->ignore($sizeGroupId)],
             'is_active' => 'required|boolean',

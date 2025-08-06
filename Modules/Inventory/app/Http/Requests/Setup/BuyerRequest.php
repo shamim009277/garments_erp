@@ -36,7 +36,7 @@ class BuyerRequest extends FormRequest
         //     ->nullable()
         //     ->constrained('inventory_setup_goods_setup_country')
         //     ->onDelete('restrict');
-        $buyerId = $this->route('buyers');
+        $buyerId = $this->route('buyer');
         return [
             'buyer_name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_buyer', 'buyer_name')->ignore($buyerId)],
             // 'buyer_type' => ['required', 'string', Rule::in(['Local', 'Foreign', 'Both', 'Buying House', 'Retail', 'Online Seller'])],

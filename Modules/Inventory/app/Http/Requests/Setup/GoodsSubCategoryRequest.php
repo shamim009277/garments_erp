@@ -26,7 +26,7 @@ class GoodsSubCategoryRequest extends FormRequest
     public function rules(): array
     {
         // dd('This is the rules method of GoodsSubCategoryRequest');
-        $goodsSubCategoryId = $this->route('goodsSubCategories');
+        $goodsSubCategoryId = $this->route('goodsSubCategorie');
         return [
             'name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_goods_subcategories', 'name')->ignore($goodsSubCategoryId)],
             'bn_name' => ['nullable', 'string', 'max:100'],

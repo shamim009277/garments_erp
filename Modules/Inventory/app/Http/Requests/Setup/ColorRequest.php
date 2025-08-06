@@ -13,7 +13,7 @@ class ColorRequest extends FormRequest
     public function rules(): array
     {
         // dd('This is the rules method of ColorRequest');
-        $colorId = $this->route('colors');
+        $colorId = $this->route('color');
         return [
             'color_name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_colors', 'color_name')->ignore($colorId)],
             'color_hex' => 'nullable|string|max:7',

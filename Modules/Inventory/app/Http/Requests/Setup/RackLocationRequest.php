@@ -32,7 +32,7 @@ class RackLocationRequest extends FormRequest
     
     public function rules(): array
     {
-        $rackLocationId = $this->route('racklocations');
+        $rackLocationId = $this->route('racklocation');
         return [
             'rack_name' => ['required', 'string', 'max:30', Rule::unique('inventory_setup_rack_locations', 'rack_name')->ignore($rackLocationId)],
             'aisle' => ['required', 'string', 'max:50'],

@@ -19,7 +19,7 @@ class SupplierTypeRequest extends FormRequest
 
     public function rules(): array
     {
-        $supplierTypeId = $this->route('suppliertypes');
+        $supplierTypeId = $this->route('suppliertype');
         return [
             'name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_supplier_types', 'name')->ignore($supplierTypeId)],
             'description' => 'nullable',
