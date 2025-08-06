@@ -64,24 +64,16 @@
                             <tr>
                                 <th width="5%">#</th>
                                 <th width="50%">Item Name</th>
-                                <th width="15%">Item Code</th>
-                                <th width="10%">Item Description</th>
-                                <th width="10%">Item Barcode</th>
                                 <th width="10%">Item Image</th>
+                                <th width="10%">Goods Category</th>
+                                <th width="10%">Goods Subcategory</th>
+                                <th width="10%">Unit</th>
                                 {{-- //varient --}}
                                 <th width="10%">Model</th>
                                 <th width="10%">Type</th>
                                 <th width="10%">Remarks</th>
                                 {{-- //present stock --}}
                                 <th width="10%">Present Stock</th>
-                                <th width="10%">Minimum Stock</th>
-                                <th width="10%">Maximum Stock</th>
-                                <th width="10%">Reorder Level</th>
-                                <th width="10%">Reorder Quantity</th>
-                                {{-- //foreign key --}}
-                                <th width="10%">Goods Category</th>
-                                <th width="10%">Goods Subcategory</th>
-                                <th width="10%">Unit</th>
                                 {{-- //item status --}}
                                 <th width="10%">Item Status</th>
                                 <th width="10%">Action</th>
@@ -90,73 +82,24 @@
                         <tbody>
                             @foreach ($items as $key => $item)
                                 <tr>
-                                    <td width="5%">{{ $key + 1 }}</td>
-                                    <td width="50%">{{ $item->item_name }}</td>
-                                    <td width="15%">
-                                        @if ($item->item_code)
-                                            {{ $item->item_code }}
-                                        @endif
-                                    </td>
-                                    <td width="10%">{{ $item->item_description }}</td>
-                                    <td width="10%">{{ $item->item_barcode }}</td>
-                                    <td width="10%">{{ $item->item_image }}</td>
-                                    {{-- //varient --}}
-                                    <td width="10%">{{ $item->model }}</td>
-                                    <td width="10%">{{ $item->type }}</td>
-                                    <td width="10%">{{ $item->remarks }}</td>
-                                    {{-- //present stock --}}
-                                    <td width="10%">{{ $item->present_stock }}</td>
-                                    <td width="10%">{{ $item->minimum_stock }}</td>
-                                    <td width="10%">{{ $item->maximum_stock }}</td>
-                                    <td width="10%">{{ $item->reorder_level }}</td>
-                                    <td width="10%">{{ $item->reorder_quantity }}</td>
-                                    <td width="10%">{{ $item->goods_category->category_name }}</td>
-                                    <td width="10%">{{ $item->goods_subcategory->subcategory_name }}</td>
-                                    <td width="10%">{{ $item->unit->unit_name }}</td>
-                                    {{-- //item status --}}
-                                    <td class="text-center">
-                                        <p class="text-{{ $item->is_active ? 'success' : 'danger' }}">
-                                            {{ $item->is_active ? 'Active' : 'Inactive' }}</p>
-                                    </td>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->item_name }}</td>
+                                    <td>{{ $item->item_image }}</td>
+                                    <td>{{ $item->goodsCategory->name }}</td>
+                                    <td>{{ $item->goodsSubcategory->name }}</td>
+                                    <td>{{ $item->unit->unit_name }}</td>
+                                    <td>{{ $item->model }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->remarks }}</td>
+                                    <td>{{ $item->present_stock }}</td>
+                                    <td>{{ $item->is_active ? 'Active' : 'Inactive' }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-soft-success waves-effect waves-light"
-                                            style="padding: 4px 6px;" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $item->id }}"><i class="fas fa-edit"></i></a>
-                                        <form action="{{ route('inventory.setup.items.destroy', $item->id) }}"
-                                            method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- add confirm dialog --}}
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this store line?')">Delete</button>
-                                        </form>
+                                        <a href="{{ route('inventory.setup.items.edit', $item->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="mdi mdi-pencil"></i></a>
+                                        <a href="{{ route('inventory.setup.items.destroy', $item->id) }}"
+                                            class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
-                                {{-- load edit modal --}}
-                                <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
-                                    aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Item
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="moduleForm"
-                                                    action="{{ route('inventory.setup.items.update', $item->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    
-                                                    <x-primary-button
-                                                        class="float-start btn-sm submitBtn">Save</x-primary-button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             @endforeach
                         </tbody>
                     </table>

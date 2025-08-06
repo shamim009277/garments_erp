@@ -55,21 +55,7 @@ class Item extends Model
      * The attributes that are mass assignable.
      */
     protected $table = 'inventory_setup_items';
-    protected $fillable = [
-        'goods_category_id',
-        'goods_subcategory_id',
-        'unit_id',
-        'item_code',
-        'item_name',
-        'item_description',
-        'item_barcode',
-        'item_image',
-        'is_active',
-        'varient',
-        'model',
-        'type',
-        'remarks',
-    ];
+    protected $guarded = [];
     //booted
     protected static function booted()
     {

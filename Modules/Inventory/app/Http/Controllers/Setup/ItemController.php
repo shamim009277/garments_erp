@@ -98,4 +98,9 @@ class ItemController extends Controller
         $item->delete();
         return redirect()->route('inventory.items.index')->with('success', 'Item deleted successfully');
     }
+    //toggleStatus
+    public function toggleStatus($id)
+    {
+        return $this->toggleStatus(Item::class, $id);
+    }
 }
