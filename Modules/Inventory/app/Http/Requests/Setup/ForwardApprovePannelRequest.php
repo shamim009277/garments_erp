@@ -11,7 +11,12 @@ class ForwardApprovePannelRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'organization_id' => 'required|exists:hris_setup_organizations,id',
+            'user_id' => 'required|exists:users,id',
+            'access_level' => 'required|in:1,2,3,4,5',
+            'is_active' => 'required|string'
+        ];
     }
 
     /**
@@ -20,5 +25,19 @@ class ForwardApprovePannelRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    //messages
+    public function messages(): array
+    {
+        return [
+            'organization_id.required' => 'Organization is required',
+            'organization_id.exists' => 'Organization does not exist',
+            'user_id.required' => 'User is required',
+            'user_id.exists' => 'User does not exist',
+            'access_type.required' => 'Access type is required',
+            'is_active.required' => 'Is active is required',
+            'is_active.boolean' => 'Is active must be a boolean',
+        ];
     }
 }

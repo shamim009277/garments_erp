@@ -20,7 +20,8 @@ use Modules\Inventory\Http\Controllers\Setup\SizeController;
 use Modules\Inventory\Http\Controllers\Setup\SizeGroupController;
 use Modules\Inventory\Http\Controllers\Setup\BuyerController;
 use Modules\Inventory\Http\Controllers\Setup\ItemController;
-
+use Modules\Inventory\Http\Controllers\Setup\ForwardApprovePannelController;
+use Modules\Inventory\Http\Controllers\Database\PurchaseRequisitionController;
 
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
@@ -113,6 +114,15 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/items/toggle', [ItemController::class, 'toggleStatus'])->name('items.toggle');
             Route::post('/items/delete', [ItemController::class, 'destroy'])->name('items.delete');
             Route::resource('items', ItemController::class)->names('items');
+
+            //ForwardApprovePannelController    
+            Route::post('/forapppannel/toggle', [ForwardApprovePannelController::class, 'toggleStatus'])->name('forapppannel.toggle');
+            Route::post('/forapppannel/delete', [ForwardApprovePannelController::class, 'destroy'])->name('forapppannel.delete');
+            Route::resource('forapppannel', ForwardApprovePannelController::class)->names('forapppannel');
+        });
+
+        Route::prefix('database')->name('database.')->group(function () {
+            Route::resource('purrequisitions', PurchaseRequisitionController::class)->names('purrequisitions');
         });
     });
 });
