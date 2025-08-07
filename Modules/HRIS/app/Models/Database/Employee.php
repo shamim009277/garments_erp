@@ -74,10 +74,14 @@ class Employee extends Model
         static::creating(function ($employee) {
             $employee->created_by = Auth::id();
             $employee->updated_by = Auth::id();
+            $employee->line = $employee->line ?? 0;
+            $employee->grade = $employee->grade ?? 0;
         });
 
         static::updating(function ($employee) {
             $employee->updated_by = Auth::id();
+            $employee->line = $employee->line ?? 0;
+            $employee->grade = $employee->grade ?? 0;
         });
     }
 

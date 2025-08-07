@@ -2,6 +2,7 @@
 
 namespace Modules\HRIS\Http\Requests\Setup;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ThanaRequest extends FormRequest
@@ -11,10 +12,12 @@ class ThanaRequest extends FormRequest
      */
     public function rules(): array
     {
+        $thanaId = $this->route('thana');
+
         return [
             'district_id' => 'required|exists:hris_setup_districts,id',
-            'name' => 'required|string|max:255',
-            'bn_name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255', Rule::unique('hris_setup_thanas', 'name')->ignore($thanaId)],
+            'bn_name' => ['required', 'string', 'max:255', Rule::unique('hris_setup_thanas', 'bn_name')->ignore($thanaId)],
             'is_active' => 'required|boolean',
         ];
     }

@@ -10,27 +10,27 @@
                                 <tr>
                                     <input type="hidden" name="employee_id" id="employee_id" value="{{ $employee->employee_id ?? 0 }}">
                                     <input type="hidden" name="org_id" id="org_id" value="{{ $employee->org_id ?? 0 }}">
-                                    <th width="40%" style="border: none;">Gross Salary</th>
+                                    <th width="40%" style="border: none;">Gross Salary </th>
                                     <td width="60%" style="border: none;"><x-text-input name="gross_salary" id="gross_salary" class="form-control-sm" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" value="{{ $employee_salary->gross_salary }}" placeholder="Gross Salary" required /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Basic</th>
+                                    <th width="40%" style="border: none;">Basic </th>
                                     <td width="60%" style="border: none;"><x-text-input name="basic" id="basic" class="form-control-sm" value="{{ $employee_salary->basic }}" placeholder="Basic" required readonly /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">House Rent</th>
+                                    <th width="40%" style="border: none;">House Rent </th>
                                     <td width="60%" style="border: none;"><x-text-input name="home_allowance" id="home_allowance" class="form-control-sm"  value="{{ $employee_salary->home_allowance }}" placeholder="House Rent" required readonly /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Medical Allowance</th>
+                                    <th width="40%" style="border: none;">Medical Allowance </th>
                                     <td width="60%" style="border: none;"><x-text-input name="medical_allowance" id="medical" class="form-control-sm" value="{{ $employee_salary->medical_allowance }}" placeholder="Medical Allowance" required  readonly/></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Food Allowance</th>
+                                    <th width="40%" style="border: none;">Food Allowance </th>
                                     <td width="60%" style="border: none;"><x-text-input name="food_allowance" id="food" class="form-control-sm"  value="{{ $employee_salary->food_allowance }}" placeholder="Food Allowance" required readonly /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Conveyance</th>
+                                    <th width="40%" style="border: none;">Conveyance </th>
                                     <td width="60%" style="border: none;"><x-text-input name="conveyance" id="conveyance" type="text" class="form-control-sm" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" value="{{ $employee_salary->conveyance }}" placeholder="Conveyance" required readonly /></td>
                                 </tr>
                             </table>
@@ -39,24 +39,24 @@
                         <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
                             <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                 <tr>
-                                    <th width="40%" style="border: none;">Other Allowance</th>
+                                    <th width="40%" style="border: none;">Other Allowance </th>
                                     <td width="60%" style="border: none;"><x-text-input name="other_allowance" id="other_allowance" type="text" class="form-control-sm" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" value="{{ $employee_salary->other_allowance }}" placeholder="Other Allowance" required /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Attendance Bonus</th>
+                                    <th width="40%" style="border: none;">Attendance Bonus </th>
                                     <td width="60%" style="border: none;"><x-text-input name="attendance_bonus" id="attendance_bonus" type="text" class="form-control-sm" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" value="{{ $employee_salary->attendance_bonus }}" placeholder="Attendance Bonus" required /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Overtime Payable?</th>
-                                    <td width="60%" style="border: none;"><x-select-input name="ot_payable" id="overtime_payable" label="Overtime Payable" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" :selected="($employee_salary->ot_payable ?? 'N')"  required /></td>
+                                    <th width="40%" style="border: none;">Overtime Payable </th>
+                                    <td width="60%" style="border: none;"><x-select-input name="ot_payable" id="overtime_payable" label="Overtime Payable" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" :selected="($employee_salary->ot_payable ?? 'N')" value="{{ old('ot_payable',$employee_salary->ot_payable) }}" required /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Holiday Allowance?</th>
-                                    <td width="60%" style="border: none;"><x-select-input name="holiday_allowance" id="holiday_allowance" label="Holiday Allowance" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" :selected="($employee_salary->holiday_allowance ?? 'N')" required /></td>
+                                    <th width="40%" style="border: none;">Holiday Allowance </th>
+                                    <td width="60%" style="border: none;"><x-select-input name="holiday_allowance" id="holiday_allowance" label="Holiday Allowance" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" :selected="($employee_salary->holiday_allowance ?? 'N')" value="{{ old('holiday_allowance',$employee_salary->holiday_allowance) }}" required /></td>
                                 </tr>
                                 <tr>
-                                    <th width="40%" style="border: none;">Salary From Bank?</th>
-                                    <td width="60%" style="border: none;"><x-select-input name="salary_from_bank" id="salary_from_bank" label="Salary From Bank" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" :selected="($employee_salary->salary_from_bank ?? 'N')" required /></td>
+                                    <th width="40%" style="border: none;">Salary From Bank </th>
+                                    <td width="60%" style="border: none;"><x-select-input name="salary_from_bank" id="salary_from_bank" label="Salary From Bank" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" :selected="($employee_salary->salary_from_bank ?? 'N')" value="{{ old('salary_from_bank',$employee_salary->salary_from_bank) }}" required /></td>
                                 </tr>
                                 <tr>
                                     <th width="40%" style="border: none;">Account No</th>

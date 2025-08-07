@@ -13,7 +13,7 @@
                 ],
             ])
         </div>
-        <div class="col-lg-8 pr-0">
+        <div class="col-lg-8 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header px-2">
                     <div class="row w-100 align-items-center" style="margin:0 !important">
