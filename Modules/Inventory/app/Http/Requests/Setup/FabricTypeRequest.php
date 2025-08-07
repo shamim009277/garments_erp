@@ -13,7 +13,7 @@ class FabricTypeRequest extends FormRequest
     // $table->boolean('is_active')->default(true);
     public function rules(): array
     {
-        $fabricTypeId = $this->route('fabricType');
+        $fabricTypeId = $this->route('fabictypes');
         return [
             'fabric_type_name' => ['required', 'string', 'max:20', Rule::unique('inventory_setup_fabric_types', 'fabric_type_name')->ignore($fabricTypeId)],
             'fabric_type_description' => 'nullable',

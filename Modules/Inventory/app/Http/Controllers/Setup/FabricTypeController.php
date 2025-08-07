@@ -4,15 +4,22 @@ namespace Modules\Inventory\Http\Controllers\Setup;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Inventory\Models\Setup\FabricType;
+use Illuminate\Support\Facades\DB;
+use App\Traits\ToggleStatus;
+use Modules\Inventory\Http\Requests\Setup\FabricTypeRequest;
 
 class FabricTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //         $table->string('fabric_type_code', 20)->unique(); // Like FT001
+    //         $table->string('fabric_type_name', 100);
+    //         $table->string('fabric_type_description')->nullable();
+    //         $table->boolean('is_active')->default(true);
+    use ToggleStatus;
     public function index()
     {
-        return view('inventory::index');
+        $fabictypes = FabricType::all();
+        return view('inventory::setup.fabictypes.index', compact('fabictypes'));
     }
 
     /**
@@ -20,20 +27,39 @@ class FabricTypeController extends Controller
      */
     public function create()
     {
-        return view('inventory::create');
+        return view('inventory::setup.fabictypes.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(FabricTypeRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            //fabric_type_code
+            $prifix = 'FT';
+            $length = 3;
+            $fabricType = FabricType::create([
+                'fabric_type_code' => $prifix . str_pad(FabricType::count() + 1, $length, '0', STR_PAD_LEFT),
+                'fabric_type_name' => $request->fabric_type_name,
+                'fabric_type_description' => $request->fabric_type_description,
+                'is_active' => $request->is_active,
+            ]);
+            DB::commit();
+            return redirect()->route('inventory.setup.fabictypes.index')->with('success', 'Fabric Type created successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to create fabric type: ' . $e->getMessage());
+        }
+    }
 
     /**
      * Show the specified resource.
      */
     public function show($id)
     {
-        return view('inventory::show');
+        return view('inventory::setup.fabictypes.show');
     }
 
     /**
@@ -41,16 +67,45 @@ class FabricTypeController extends Controller
      */
     public function edit($id)
     {
-        return view('inventory::edit');
+        $fabricType = FabricType::findOrFail($id);
+        return view('inventory::setup.fabictypes.edit', compact('fabricType'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
+    public function update(FabricTypeRequest $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $fabricType = FabricType::findOrFail($id);
+            $fabricType->update([
+                'fabric_type_name' => $request->fabric_type_name,
+                'fabric_type_description' => $request->fabric_type_description,
+                'is_active' => $request->is_active,
+            ]);
+            DB::commit();
+            return redirect()->route('inventory.setup.fabictypes.index')->with('success', 'Fabric Type updated successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to update fabric type: ' . $e->getMessage());
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {}
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+            $fabricType = FabricType::findOrFail($id);
+            $fabricType->delete();
+            DB::commit();
+            return redirect()->route('inventory.setup.fabictypes.index')->with('success', 'Fabric Type deleted successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to delete fabric type: ' . $e->getMessage());
+        }
+    }
 }
