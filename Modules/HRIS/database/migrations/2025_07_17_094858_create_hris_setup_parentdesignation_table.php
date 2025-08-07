@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('hris_setup_parent_designations', function (Blueprint $table) {
             $table->id();
-            $table->string('designation', 100)->unique();
-            $table->string('designation_bn', 100)->nullable();
+            $table->string('parent_designation', 100)->unique();
+            $table->string('parent_designation_bn', 100)->nullable();
             $table->integer('approved_mp')->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->nullable();

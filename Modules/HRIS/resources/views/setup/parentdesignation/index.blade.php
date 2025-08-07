@@ -34,8 +34,8 @@
                             @foreach ($parentDesignations as $key => $parentDesignation)
                                 <tr id="row-{{ $parentDesignation->id }}">
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $parentDesignation->designation }}</td>
-                                    <td>{{ $parentDesignation->designation_bn }}</td>
+                                    <td>{{ $parentDesignation->parent_designation }}</td>
+                                    <td>{{ $parentDesignation->parent_designation_bn }}</td>
                                     <td>{{ $parentDesignation->approved_mp }}</td>
                                     <td>
                                         <div class="square-switch">
@@ -59,8 +59,8 @@
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
-                                                        <x-input-group name="designation" label="Parent Designation" type="text" placeholder="Enter parent designation" :value="$parentDesignation->designation" required />
-                                                        <x-input-group name="designation_bn" label="Parent Designation(Bangla)" type="text" placeholder="Enter parent designation(bangla)" :value="$parentDesignation->designation_bn" required />
+                                                        <x-input-group name="parent_designation" label="Parent Designation" type="text" placeholder="Enter parent designation" :value="$parentDesignation->parent_designation" required />
+                                                        <x-input-group name="parent_designation_bn" label="Parent Designation(Bangla)" type="text" placeholder="Enter parent designation(bangla)" :value="$parentDesignation->parent_designation_bn" required />
                                                         <x-input-group name="approved_mp" label="Approved MP" type="number" placeholder="Enter approved mp" :value="$parentDesignation->approved_mp" required />
                                                         <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$parentDesignation->is_active" required />
                                                     </div>
@@ -88,8 +88,8 @@
                 <div class="card-body">
                     <form id="moduleForm" action="{{ route('hris.setup.parentdesignations.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="designation" label="Parent Designation" type="text" placeholder="Enter parent designation" :value="old('designation')" required />
-                        <x-input-group name="designation_bn" label="Parent Designation(Bangla)" type="text" placeholder="Enter parent designation(bangla)" :value="old('designation_bn')" required />
+                        <x-input-group name="parent_designation" label="Parent Designation" type="text" placeholder="Enter parent designation" :value="old('parent_designation')" required />
+                        <x-input-group name="parent_designation_bn" label="Parent Designation(Bangla)" type="text" placeholder="Enter parent designation(bangla)" :value="old('parent_designation_bn')" required />
                         <x-input-group name="approved_mp" label="Approved MP" type="number" placeholder="Enter approved mp" :value="old('approved_mp')" required />
                         <x-select-input-group
                             name="is_active"

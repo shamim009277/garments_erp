@@ -16,7 +16,7 @@
                 'subtitle' => 'Settings',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
-                    ['label' => 'Settings', 'url' => route('hris.setting.index')],
+                    ['label' => 'Settings', 'url' => route('hris.settings.hr-settings.index')],
                 ],
             ])
         </div>
@@ -30,7 +30,7 @@
 
         <div class="col-lg-12">
             <div class="card alert-primary alert-top-border">
-                <div class="card-body px-0 py-0" style="min-height: 500px;">
+                <div class="card-body px-0 py-0">
                     <ul class="nav nav-tabs nav-tabs-custom" role="tablist" style="background-color: #4549A2; color: white;border-radius: 0px !important;">
                         <li class="nav-item">
                             <a class="nav-link active border-none" data-bs-toggle="tab" href="#salary" role="tab">
@@ -48,10 +48,10 @@
 
                     <div class="tab-content text-muted">
                         <div class="tab-pane active" id="salary" role="tabpanel">
-                            @include('hris::setting.tab1')
+                            @include('hris::settings.setting.tab1')
                         </div>
                         <div class="tab-pane" id="leave" role="tabpanel">
-                            @include('hris::setting.tab2')
+                            @include('hris::settings.setting.tab2')
                         </div>
                     </div>
                 </div>

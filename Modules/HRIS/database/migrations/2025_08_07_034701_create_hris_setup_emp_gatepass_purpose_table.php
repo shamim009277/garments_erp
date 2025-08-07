@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hris_setup_parent_departments', function (Blueprint $table) {
+        Schema::create('hris_setup_emp_gatepass_purpose', function (Blueprint $table) {
             $table->id();
-            $table->string('parent_department', 100)->unique();
-            $table->string('parent_department_bn', 100)->nullable();
+            $table->string('purpose')->unique();
             $table->boolean('is_active')->default(true);
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->useCurrent();
+            $table->unsignedBigInteger('updated_by')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hris_setup_parent_departments');
+        Schema::dropIfExists('hris_setup_emp_gatepass_purpose');
     }
 };

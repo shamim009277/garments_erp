@@ -5,61 +5,58 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Parent Department',
+                'subtitle' => 'Gate Pass Purpose',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Setup', 'url' => route('hris.index')],
-                    ['label' => 'Parent Department', 'url' => route('hris.setup.parentdepartments.index')],
+                    ['label' => 'Gate Pass Purpose', 'url' => route('hris.setup.gatepass_purpose.index')],
                 ],
             ])
         </div>
         <div class="col-lg-8 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Parent Department List</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Gate Pass Purpose List</h6>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
                         <thead>
                             <tr>
                                 <th width="5%">SL</th>
-                                <th width="30%">Parent Department</th>
-                                <th width="30%">Parent Department Bangla</th>
-                                <th width="20%">Is Active</th>
-                                <th width="15%">Actions</th>
+                                <th width="50%">Purpose</th>
+                                <th width="35%">Is Active</th>
+                                <th width="10%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($parentDepartments as $key => $parentDepartment)
-                                <tr id="row-{{ $parentDepartment->id }}">
+                            @foreach ($purposes as $key => $purpose)
+                                <tr id="row-{{ $purpose->id }}">
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $parentDepartment->parent_department }}</td>
-                                    <td>{{ $parentDepartment->parent_department_bn }}</td>
+                                    <td>{{ $purpose->purpose }}</td>
                                     <td>
                                         <div class="square-switch">
-                                            <input type="checkbox" id="square-switch3{{ $parentDepartment->id }}" class="organization-toggle" data-id="{{ $parentDepartment->id }}" switch="bool" {{ $parentDepartment->is_active ? 'checked' : '' }} />
-                                            <label for="square-switch3{{ $parentDepartment->id }}" data-on-label="Yes" data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
+                                            <input type="checkbox" id="square-switch3{{ $purpose->id }}" class="purpose-toggle" data-id="{{ $purpose->id }}" switch="bool" {{ $purpose->is_active ? 'checked' : '' }} />
+                                            <label for="square-switch3{{ $purpose->id }}" data-on-label="Yes" data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $parentDepartment->id }}"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-organization" data-id="{{ $parentDepartment->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                        <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $purpose->id }}"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-purpose" data-id="{{ $purpose->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
                                     </td>
-                                    <div id="editModal{{ $parentDepartment->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+                                    <div id="editModal{{ $purpose->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h6 class="modal-title" id="myModalLabel">Edit Parent Department</h6>
+                                                    <h6 class="modal-title" id="myModalLabel">Edit Gate Pass Purpose</h6>
                                                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <form id="editForm{{ $parentDepartment->id }}" action="{{ route('hris.setup.parentdepartments.update', $parentDepartment->id) }}" method="POST">
+                                                <form id="editForm{{ $purpose->id }}" action="{{ route('hris.setup.gatepass_purpose.update', $purpose->id) }}" method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
-                                                        <x-input-group name="parent_department" label="Name" type="text" placeholder="Enter name" :value="$parentDepartment->parent_department" required />
-                                                        <x-input-group name="parent_department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="$parentDepartment->parent_department_bn" required />
-                                                        <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$parentDepartment->is_active" required />
+                                                        <x-input-group name="purpose" label="Purpose" type="text" placeholder="Enter purpose" :value="$purpose->purpose" required />
+                                                        <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$purpose->is_active" required />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
@@ -80,13 +77,13 @@
         <div class="col-lg-4">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Parent Department ...</h6>
+                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Purpose ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('hris.setup.parentdepartments.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('hris.setup.gatepass_purpose.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="parent_department" label="Name" type="text" placeholder="Enter name" :value="old('parent_department')" required />
-                        <x-input-group name="parent_department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="old('parent_department_bn')" required />
+                        <x-input-group name="purpose" label="Purpose" type="text" placeholder="Enter purpose" :value="old('purpose')" required />
+
                         <x-select-input-group
                             name="is_active"
                             label="Is Active?"
@@ -106,11 +103,11 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.organization-toggle').on('change', function() {
+            $('.purpose-toggle').on('change', function() {
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('hris.setup.parentdepartments.toggle') }}',
+                    url: '{{ route('hris.setup.gatepass_purpose.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -131,9 +128,9 @@
             });
         });
 
-        $(document).on('click', '.delete-organization', function(e) {
+        $(document).on('click', '.delete-purpose', function(e) {
             e.preventDefault();
-            let organizationId = $(this).data('id');
+            let purposeId = $(this).data('id');
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -145,19 +142,19 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('hris.setup.parentdepartments.delete') }}',
+                        url: '{{ route('hris.setup.gatepass_purpose.delete') }}',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            id: organizationId
+                            id: purposeId
                         },
                         success: function(response) {
                             Swal.fire(
                                 'Deleted!',
-                                'Parent Department has been deleted.',
+                                'Gate Pass Purpose has been deleted.',
                                 'success'
                             );
-                            $('#row-' + organizationId).remove();
+                            $('#row-' + purposeId).remove();
                         },
                         error: function() {
                             Swal.fire(
@@ -170,7 +167,7 @@
                 } else {
                     Swal.fire(
                         'Cancelled!',
-                        'Parent Department has not been deleted.',
+                        'Gate Pass Purpose has not been deleted.',
                         'error'
                     );
                 }

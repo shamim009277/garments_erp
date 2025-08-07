@@ -3,20 +3,17 @@
 namespace Modules\HRIS\Http\Requests\Setup;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Route;
 
-class DocumentRequest extends FormRequest
+class EmpGatepassPurposeRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
      */
     public function rules(): array
     {
-        $id = $this->route('id') ?? $this->route('document');
-
+        $id = $this->route('gatepass_purpose') ?? $this->input('id');
         return [
-            'name' => 'required|string|max:255|unique:hris_setup_documents,name,' . $id,
-            'is_active' => 'required|boolean',
+            'purpose' => 'required|string|unique:hris_setup_emp_gatepass_purpose,purpose,' . $id,
         ];
     }
 
