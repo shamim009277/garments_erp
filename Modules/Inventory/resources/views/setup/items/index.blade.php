@@ -129,13 +129,15 @@
                                                         <input type="hidden" name="id" value="{{ $item->id }}">
                                                         <x-input-group name="item_name" label="Item Name" type="text"
                                                             placeholder="Enter item name" :value="$item->item_name" required />
-                                                        <x-select-input-group name="goods_category_id"
+                                                        <x-select-input-group name="goods_category_id" id="goods_category_id"
                                                             label="Goods Category" :options="$goodsCategories->pluck('name', 'id')" :selected="$item->goods_category_id"
                                                             required />
 
-                                                        <x-select-input-group name="goods_subcategory_id"
-                                                            label="Goods Subcategory" :options="$goodsSubcategories->pluck('name', 'id')" :selected="$item->goods_subcategory_id"
+                                                        <x-select-input-group name="goods_subcategory_id" id="goods_subcategory_id"
+                                                            label="Goods Subcategory" :options="[]" :selected="$item->goods_subcategory_id"
                                                             required />
+
+
                                                         <x-select-input-group name="unit_id" label="Unit"
                                                             :options="$units->pluck('name', 'id')" :selected="$item->unit_id" required />
                                                         <x-input-group name="model" label="Model" type="text"
@@ -179,13 +181,9 @@
                             :value="old('item_name')" required />
                         <x-select-input-group name="goods_category_id" id="goods_category_id" label="Goods Category"
                             :options="$goodsCategories->pluck('name', 'id')" :selected="old('goods_category_id')" required />
-
                         <!-- load subcategory based on category On change event Load Subcategory -->
                         <x-select-input-group name="goods_subcategory_id" id="goods_subcategory_id"
                             label="Goods Subcategory" :options="[]" :selected="old('goods_subcategory_id')" required />
-
-
-
                         <x-select-input-group name="unit_id" label="Unit" :options="$units->pluck('name', 'id')" :selected="old('unit_id')"
                             required />
                         <x-input-group name="model" label="Model" placeholder="Enter model" :value="old('model')" />
