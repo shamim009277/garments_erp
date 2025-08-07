@@ -11,10 +11,7 @@ class Composition extends Model
 {
     use HasFactory;
 
-    // $table->string('composition_code', 20)->unique(); // Like C001
-    //         $table->string('composition_name', 100);
-    //         $table->string('composition_description')->nullable();
-    //         $table->boolean('is_active')->default(true);
+
     protected $table = 'inventory_setup_compositions';
     protected $fillable = [
         'composition_code',

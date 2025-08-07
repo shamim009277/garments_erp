@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::yM30u7xUBBiJjCRT',
+            '_route' => 'generated::1JwtzhGROIkxmliD',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::DaOCJTYatu442eDS',
+            '_route' => 'generated::rFgig6u5sgg6Rwlj',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::nerPld9XP92gE3fc',
+            '_route' => 'generated::w9vRt5eMz9iMBDgU',
           ),
           1 => NULL,
           2 => 
@@ -5420,6 +5420,476 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/inventory/setup/compositions/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/compositions/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/compositions' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/compositions/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/yarncounts/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/yarncounts/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/yarncounts' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/yarncounts/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictypes/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictypes/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictypes' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictypes/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictreatments/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictreatments/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictreatments' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/fabictreatments/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/productcategories/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/productcategories/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/productcategories' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/productcategories/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/api/v1/payrolls' => 
       array (
         0 => 
@@ -5515,7 +5985,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132))|reference/([^/]++)(?|(*:2163)|/edit(*:2177)|(*:2186))|service/([^/]++)(?|(*:2215)|/edit(*:2229)|(*:2238)))|/([^/]++)(?|(*:2261)|/edit(*:2275)|(*:2284)))|d(?|esignation/([^/]++)(*:2318)|istrict/([^/]++)(*:2343))))|/inventory/(?|([^/]++)(?|(*:2380)|/edit(*:2394)|(*:2403))|setup/(?|parties/([^/]++)(?|(*:2441)|/edit(*:2455)|(*:2464))|s(?|tore(?|types/([^/]++)(?|(*:2502)|/edit(*:2516)|(*:2525))|l(?|ines/([^/]++)(?|(*:2555)|/edit(*:2569)|(*:2578))|ocations/([^/]++)(?|(*:2608)|/edit(*:2622)|(*:2631))))|upplier(?|types/([^/]++)(?|(*:2670)|/edit(*:2684)|(*:2693))|s/([^/]++)(?|(*:2716)|/edit(*:2730)|(*:2739)))|ize(?|groups/([^/]++)(?|(*:2774)|/edit(*:2788)|(*:2797))|s/([^/]++)(?|(*:2820)|/edit(*:2834)|(*:2843))))|racklocations/([^/]++)(?|(*:2880)|/edit(*:2894)|(*:2903))|c(?|hallanpurposes/([^/]++)(?|(*:2943)|/edit(*:2957)|(*:2966))|o(?|untries/([^/]++)(?|(*:2999)|/edit(*:3013)|(*:3022))|lor(?|groups/([^/]++)(?|(*:3056)|/edit(*:3070)|(*:3079))|s/([^/]++)(?|(*:3102)|/edit(*:3116)|(*:3125)))))|goods(?|categories/([^/]++)(?|(*:3168)|/edit(*:3182)|(*:3191))|SubCategories/([^/]++)(?|(*:3226)|/edit(*:3240)|(*:3249)))|buyers/([^/]++)(?|(*:3278)|/edit(*:3292)|(*:3301))|items/([^/]++)(?|(*:3328)|/edit(*:3342)|(*:3351))))|/payroll/([^/]++)(?|(*:3383)|/edit(*:3397)|(*:3406))|/storage/(.*)(*:3429))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132))|reference/([^/]++)(?|(*:2163)|/edit(*:2177)|(*:2186))|service/([^/]++)(?|(*:2215)|/edit(*:2229)|(*:2238)))|/([^/]++)(?|(*:2261)|/edit(*:2275)|(*:2284)))|d(?|esignation/([^/]++)(*:2318)|istrict/([^/]++)(*:2343))))|/inventory/(?|([^/]++)(?|(*:2380)|/edit(*:2394)|(*:2403))|setup/(?|p(?|arties/([^/]++)(?|(*:2444)|/edit(*:2458)|(*:2467))|roductcategories/([^/]++)(?|(*:2505)|/edit(*:2519)|(*:2528)))|s(?|tore(?|types/([^/]++)(?|(*:2567)|/edit(*:2581)|(*:2590))|l(?|ines/([^/]++)(?|(*:2620)|/edit(*:2634)|(*:2643))|ocations/([^/]++)(?|(*:2673)|/edit(*:2687)|(*:2696))))|upplier(?|types/([^/]++)(?|(*:2735)|/edit(*:2749)|(*:2758))|s/([^/]++)(?|(*:2781)|/edit(*:2795)|(*:2804)))|ize(?|groups/([^/]++)(?|(*:2839)|/edit(*:2853)|(*:2862))|s/([^/]++)(?|(*:2885)|/edit(*:2899)|(*:2908))))|racklocations/([^/]++)(?|(*:2945)|/edit(*:2959)|(*:2968))|c(?|hallanpurposes/([^/]++)(?|(*:3008)|/edit(*:3022)|(*:3031))|o(?|untries/([^/]++)(?|(*:3064)|/edit(*:3078)|(*:3087))|lor(?|groups/([^/]++)(?|(*:3121)|/edit(*:3135)|(*:3144))|s/([^/]++)(?|(*:3167)|/edit(*:3181)|(*:3190)))|mpositions/([^/]++)(?|(*:3223)|/edit(*:3237)|(*:3246))))|goods(?|categories/([^/]++)(?|(*:3288)|/edit(*:3302)|(*:3311))|SubCategories/([^/]++)(?|(*:3346)|/edit(*:3360)|(*:3369)))|buyers/([^/]++)(?|(*:3398)|/edit(*:3412)|(*:3421))|items/([^/]++)(?|(*:3448)|/edit(*:3462)|(*:3471))|yarncounts/([^/]++)(?|(*:3503)|/edit(*:3517)|(*:3526))|fabict(?|ypes/([^/]++)(?|(*:3561)|/edit(*:3575)|(*:3584))|reatments/([^/]++)(?|(*:3615)|/edit(*:3629)|(*:3638)))))|/payroll/([^/]++)(?|(*:3671)|/edit(*:3685)|(*:3694))|/storage/(.*)(*:3717))/?$}sDu',
     ),
     3 => 
     array (
@@ -9059,7 +9529,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2441 => 
+      2444 => 
       array (
         0 => 
         array (
@@ -9082,7 +9552,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2455 => 
+      2458 => 
       array (
         0 => 
         array (
@@ -9105,7 +9575,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2464 => 
+      2467 => 
       array (
         0 => 
         array (
@@ -9147,7 +9617,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2502 => 
+      2505 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.show',
+          ),
+          1 => 
+          array (
+            0 => 'productcategory',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2519 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.edit',
+          ),
+          1 => 
+          array (
+            0 => 'productcategory',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2528 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.update',
+          ),
+          1 => 
+          array (
+            0 => 'productcategory',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.productcategories.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'productcategory',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2567 => 
       array (
         0 => 
         array (
@@ -9170,7 +9728,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2516 => 
+      2581 => 
       array (
         0 => 
         array (
@@ -9193,7 +9751,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2525 => 
+      2590 => 
       array (
         0 => 
         array (
@@ -9235,7 +9793,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2555 => 
+      2620 => 
       array (
         0 => 
         array (
@@ -9258,7 +9816,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2569 => 
+      2634 => 
       array (
         0 => 
         array (
@@ -9281,7 +9839,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2578 => 
+      2643 => 
       array (
         0 => 
         array (
@@ -9323,7 +9881,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2608 => 
+      2673 => 
       array (
         0 => 
         array (
@@ -9346,7 +9904,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2622 => 
+      2687 => 
       array (
         0 => 
         array (
@@ -9369,7 +9927,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2631 => 
+      2696 => 
       array (
         0 => 
         array (
@@ -9411,7 +9969,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2670 => 
+      2735 => 
       array (
         0 => 
         array (
@@ -9434,7 +9992,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2684 => 
+      2749 => 
       array (
         0 => 
         array (
@@ -9457,7 +10015,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2693 => 
+      2758 => 
       array (
         0 => 
         array (
@@ -9499,7 +10057,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2716 => 
+      2781 => 
       array (
         0 => 
         array (
@@ -9522,7 +10080,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2730 => 
+      2795 => 
       array (
         0 => 
         array (
@@ -9545,7 +10103,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2739 => 
+      2804 => 
       array (
         0 => 
         array (
@@ -9587,7 +10145,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2774 => 
+      2839 => 
       array (
         0 => 
         array (
@@ -9610,7 +10168,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2788 => 
+      2853 => 
       array (
         0 => 
         array (
@@ -9633,7 +10191,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2797 => 
+      2862 => 
       array (
         0 => 
         array (
@@ -9675,7 +10233,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2820 => 
+      2885 => 
       array (
         0 => 
         array (
@@ -9698,7 +10256,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2834 => 
+      2899 => 
       array (
         0 => 
         array (
@@ -9721,7 +10279,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2843 => 
+      2908 => 
       array (
         0 => 
         array (
@@ -9763,7 +10321,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2880 => 
+      2945 => 
       array (
         0 => 
         array (
@@ -9786,7 +10344,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2894 => 
+      2959 => 
       array (
         0 => 
         array (
@@ -9809,7 +10367,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2903 => 
+      2968 => 
       array (
         0 => 
         array (
@@ -9851,7 +10409,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2943 => 
+      3008 => 
       array (
         0 => 
         array (
@@ -9874,7 +10432,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2957 => 
+      3022 => 
       array (
         0 => 
         array (
@@ -9897,7 +10455,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2966 => 
+      3031 => 
       array (
         0 => 
         array (
@@ -9939,7 +10497,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2999 => 
+      3064 => 
       array (
         0 => 
         array (
@@ -9962,7 +10520,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3013 => 
+      3078 => 
       array (
         0 => 
         array (
@@ -9985,7 +10543,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3022 => 
+      3087 => 
       array (
         0 => 
         array (
@@ -10027,7 +10585,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3056 => 
+      3121 => 
       array (
         0 => 
         array (
@@ -10050,7 +10608,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3070 => 
+      3135 => 
       array (
         0 => 
         array (
@@ -10073,7 +10631,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3079 => 
+      3144 => 
       array (
         0 => 
         array (
@@ -10115,7 +10673,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3102 => 
+      3167 => 
       array (
         0 => 
         array (
@@ -10138,7 +10696,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3116 => 
+      3181 => 
       array (
         0 => 
         array (
@@ -10161,7 +10719,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3125 => 
+      3190 => 
       array (
         0 => 
         array (
@@ -10203,7 +10761,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3168 => 
+      3223 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.show',
+          ),
+          1 => 
+          array (
+            0 => 'composition',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3237 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.edit',
+          ),
+          1 => 
+          array (
+            0 => 'composition',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3246 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.update',
+          ),
+          1 => 
+          array (
+            0 => 'composition',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.compositions.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'composition',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3288 => 
       array (
         0 => 
         array (
@@ -10226,7 +10872,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3182 => 
+      3302 => 
       array (
         0 => 
         array (
@@ -10249,7 +10895,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3191 => 
+      3311 => 
       array (
         0 => 
         array (
@@ -10291,7 +10937,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3226 => 
+      3346 => 
       array (
         0 => 
         array (
@@ -10314,7 +10960,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3240 => 
+      3360 => 
       array (
         0 => 
         array (
@@ -10337,7 +10983,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3249 => 
+      3369 => 
       array (
         0 => 
         array (
@@ -10379,7 +11025,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3278 => 
+      3398 => 
       array (
         0 => 
         array (
@@ -10402,7 +11048,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3292 => 
+      3412 => 
       array (
         0 => 
         array (
@@ -10425,7 +11071,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3301 => 
+      3421 => 
       array (
         0 => 
         array (
@@ -10467,7 +11113,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3328 => 
+      3448 => 
       array (
         0 => 
         array (
@@ -10490,7 +11136,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3342 => 
+      3462 => 
       array (
         0 => 
         array (
@@ -10513,7 +11159,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3351 => 
+      3471 => 
       array (
         0 => 
         array (
@@ -10555,7 +11201,271 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3383 => 
+      3503 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.show',
+          ),
+          1 => 
+          array (
+            0 => 'yarncount',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3517 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.edit',
+          ),
+          1 => 
+          array (
+            0 => 'yarncount',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3526 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.update',
+          ),
+          1 => 
+          array (
+            0 => 'yarncount',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.yarncounts.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'yarncount',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3561 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.show',
+          ),
+          1 => 
+          array (
+            0 => 'fabictype',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3575 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.edit',
+          ),
+          1 => 
+          array (
+            0 => 'fabictype',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3584 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.update',
+          ),
+          1 => 
+          array (
+            0 => 'fabictype',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictypes.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'fabictype',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3615 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.show',
+          ),
+          1 => 
+          array (
+            0 => 'fabictreatment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3629 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.edit',
+          ),
+          1 => 
+          array (
+            0 => 'fabictreatment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3638 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.update',
+          ),
+          1 => 
+          array (
+            0 => 'fabictreatment',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.fabictreatments.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'fabictreatment',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3671 => 
       array (
         0 => 
         array (
@@ -10578,7 +11488,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3397 => 
+      3685 => 
       array (
         0 => 
         array (
@@ -10601,7 +11511,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3406 => 
+      3694 => 
       array (
         0 => 
         array (
@@ -10643,7 +11553,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3429 => 
+      3717 => 
       array (
         0 => 
         array (
@@ -10907,7 +11817,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::yM30u7xUBBiJjCRT' => 
+    'generated::1JwtzhGROIkxmliD' => 
     array (
       'methods' => 
       array (
@@ -10936,7 +11846,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bc00000000000000000";}}',
-        'as' => 'generated::yM30u7xUBBiJjCRT',
+        'as' => 'generated::1JwtzhGROIkxmliD',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11178,7 +12088,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::DaOCJTYatu442eDS' => 
+    'generated::rFgig6u5sgg6Rwlj' => 
     array (
       'methods' => 
       array (
@@ -11199,7 +12109,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::DaOCJTYatu442eDS',
+        'as' => 'generated::rFgig6u5sgg6Rwlj',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11519,7 +12429,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::nerPld9XP92gE3fc' => 
+    'generated::w9vRt5eMz9iMBDgU' => 
     array (
       'methods' => 
       array (
@@ -11540,7 +12450,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::nerPld9XP92gE3fc',
+        'as' => 'generated::w9vRt5eMz9iMBDgU',
       ),
       'fallback' => false,
       'defaults' => 
@@ -30949,6 +31859,1786 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.setup.compositions.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/compositions/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@toggleStatus',
+        'as' => 'inventory.setup.compositions.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/compositions/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@destroy',
+        'as' => 'inventory.setup.compositions.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/compositions',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.compositions.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/compositions/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.compositions.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/compositions',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.compositions.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/compositions/{composition}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.compositions.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/compositions/{composition}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.compositions.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/compositions/{composition}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.compositions.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.compositions.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/compositions/{composition}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.compositions.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\CompositionController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/yarncounts/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@toggleStatus',
+        'as' => 'inventory.setup.yarncounts.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/yarncounts/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@destroy',
+        'as' => 'inventory.setup.yarncounts.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/yarncounts',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.yarncounts.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/yarncounts/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.yarncounts.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/yarncounts',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.yarncounts.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/yarncounts/{yarncount}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.yarncounts.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/yarncounts/{yarncount}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.yarncounts.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/yarncounts/{yarncount}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.yarncounts.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.yarncounts.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/yarncounts/{yarncount}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.yarncounts.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\YarnCountController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/fabictypes/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@toggleStatus',
+        'as' => 'inventory.setup.fabictypes.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/fabictypes/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@destroy',
+        'as' => 'inventory.setup.fabictypes.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictypes',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictypes.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictypes/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictypes.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/fabictypes',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictypes.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictypes/{fabictype}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictypes.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictypes/{fabictype}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictypes.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/fabictypes/{fabictype}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictypes.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictypes.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/fabictypes/{fabictype}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictypes.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTypeController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/fabictreatments/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@toggleStatus',
+        'as' => 'inventory.setup.fabictreatments.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/fabictreatments/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@destroy',
+        'as' => 'inventory.setup.fabictreatments.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictreatments',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictreatments.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictreatments/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictreatments.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/fabictreatments',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictreatments.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictreatments/{fabictreatment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictreatments.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/fabictreatments/{fabictreatment}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictreatments.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/fabictreatments/{fabictreatment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictreatments.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.fabictreatments.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/fabictreatments/{fabictreatment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.fabictreatments.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\FabricTreatmentsController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/productcategories/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@toggleStatus',
+        'as' => 'inventory.setup.productcategories.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/productcategories/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@destroy',
+        'as' => 'inventory.setup.productcategories.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/productcategories',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.productcategories.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/productcategories/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.productcategories.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/productcategories',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.productcategories.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/productcategories/{productcategory}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.productcategories.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/productcategories/{productcategory}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.productcategories.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/productcategories/{productcategory}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.productcategories.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.productcategories.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/productcategories/{productcategory}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.productcategories.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ProductCategoryController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -31431,7 +34121,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000da20000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000dcf0000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,
