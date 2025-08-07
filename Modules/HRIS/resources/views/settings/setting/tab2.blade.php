@@ -1,5 +1,5 @@
 <div class="card padding-card" style="margin-bottom: 0px !important;">
-    <div class="card-body" style="min-height: 400px;">
+    <div class="card-body">
         <div class="row">
             <div class="col-lg-8">
                 <div class="row">

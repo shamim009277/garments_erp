@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\HRIS\Http\Controllers;
+namespace Modules\HRIS\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use Modules\HRIS\Models\Setting;
@@ -16,7 +16,7 @@ class SettingController extends Controller
     public function index()
     {
         $setting = Setting::active()->first();
-        return view('hris::setting.index', compact('setting'));
+        return view('hris::settings.setting.index', compact('setting'));
     }
 
     /**

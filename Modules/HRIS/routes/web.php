@@ -3,7 +3,6 @@
 use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
-use Modules\HRIS\Http\Controllers\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
 use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ShiftController;
@@ -14,6 +13,7 @@ use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\DocumentController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Settings\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeController;
 use Modules\HRIS\Http\Controllers\Setup\DesignationController;
@@ -25,8 +25,11 @@ use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
+use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
+use Modules\HRIS\Http\Controllers\Setup\EmpGatepassReasonController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
+use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
@@ -36,8 +39,8 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
-    //Route::resource('hris', HRISController::class)->names('hris');
-    Route::get('/hris', [HRISController::class, 'index'])->name('hris.index');
+    Route::resource('hris', HRISController::class)->names('hris');
+    //Route::get('/hris', [HRISController::class, 'index'])->name('hris.index');
 
     Route::prefix('hris')->name('hris.')->group(function () {
         //Setup
@@ -141,6 +144,16 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/degrees/toggle', [DegreeController::class, 'toggleStatus'])->name('degrees.toggle');
             Route::post('/degrees/delete', [DegreeController::class, 'destroy'])->name('degrees.delete');
             Route::resource('degrees', DegreeController::class)->names('degrees');
+
+            //EmpGatepassPurpose
+            Route::post('/gatepass_purpose/toggle', [EmpGatepassPurposeController::class, 'toggleStatus'])->name('gatepass_purpose.toggle');
+            Route::post('/gatepass_purpose/delete', [EmpGatepassPurposeController::class, 'destroy'])->name('gatepass_purpose.delete');
+            Route::resource('gatepass_purpose', EmpGatepassPurposeController::class)->names('gatepass_purpose');
+
+            //EmpGatepassReason
+            Route::post('/gatepass_reason/toggle', [EmpGatepassReasonController::class, 'toggleStatus'])->name('gatepass_reason.toggle');
+            Route::post('/gatepass_reason/delete', [EmpGatepassReasonController::class, 'destroy'])->name('gatepass_reason.delete');
+            Route::resource('gatepass_reason', EmpGatepassReasonController::class)->names('gatepass_reason');
         });
 
         //Database
@@ -182,6 +195,9 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         });
 
         //Settings
-        Route::resource('settings', SettingController::class)->names('setting');
+        Route::prefix('settings')->name('settings.')->group(function () {
+            Route::resource('hr-settings', SettingController::class)->names('hr-settings');
+            Route::resource('forward-approve', ForwardApproveController::class)->names('forward-approve');
+        });
     });
 });
