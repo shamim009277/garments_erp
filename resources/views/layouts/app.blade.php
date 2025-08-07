@@ -37,27 +37,22 @@
             vertical-align: middle !important;
             font-weight: bold !important;
         }
-
         table tr td {
             padding: 4px !important;
             vertical-align: middle !important;
         }
-
         .padding-card {
             padding: 0px !important;
         }
-
         .page-content {
             padding: calc(70px + 1.5rem) 0 60px 0 !important;
             background-color: #F6F9FC !important;
             min-height: 100vh !important;
             width: 100%;
         }
-
         .pr-0 {
             padding-right: 0px !important;
         }
-
         .navbar-header {
             padding: 0 1.0rem 0 0 !important;
         }
@@ -65,14 +60,12 @@
         .border-none{
             border-radius: 0px !important;
         }
-
         /* Custom Navigation */
         .nav-custom {
             list-style: none;
             padding-left: 0;
             font-size: 14px;
         }
-
         .nav-custom-item {
             margin-left: 0px;
             width: 100%;
@@ -80,7 +73,6 @@
             list-style: none;
             padding: 2px 0px;
         }
-
         .nav-custom-link {
             cursor: pointer;
             display: block;
@@ -88,7 +80,6 @@
             padding: 8px 6px;
             color: #4549A2;
         }
-
         .nav-custom-content {
             display: none;
             margin-left: 5px;
@@ -96,41 +87,34 @@
             transform: translateY(-10px);
             transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
         }
-
         input[type="checkbox"] {
             display: none;
         }
-
         .nav-custom-link:hover {
             color: #4549A2;
             background-color: #ebf0f6;
         }
-
         input:checked+label+.nav-custom-content {
             display: block;
             max-height: 1000px;
             opacity: 1;
             transform: translateY(0);
         }
-
         .nav-custom-caret::before {
             content: "➡";
             margin-right: 5px;
             transition: transform 0.2s;
             display: inline-block;
         }
-
         input:checked+label .nav-custom-caret::before {
             transform: rotate(90deg);
         }
-
         .employee-link {
             display: block;
             margin-left: 30px;
             color: #313533;
             padding: 6px 6px;
         }
-
         .employee-link:hover {
             text-decoration: underline;
             background-color: #ebf0f6;
@@ -143,6 +127,14 @@
         .select2-container--default .select2-selection--single{
             background-color: #F8F9FA !important;
             border: 1px solid #E9E9EF !important;
+        }
+        .choices{
+            background-color: #F8F9FA !important;
+            border-radius: 0.25rem !important;
+        }
+        .choices__inner{
+            background-color: #F8F9FA !important;
+            border-radius: 0.25rem !important;
         }
     </style>
     @stack('styles')

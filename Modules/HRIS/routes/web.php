@@ -26,8 +26,10 @@ use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
 use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
+use Modules\HRIS\Http\Controllers\Setup\EmpGatepassReasonController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
+use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
@@ -141,6 +143,16 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/degrees/toggle', [DegreeController::class, 'toggleStatus'])->name('degrees.toggle');
             Route::post('/degrees/delete', [DegreeController::class, 'destroy'])->name('degrees.delete');
             Route::resource('degrees', DegreeController::class)->names('degrees');
+
+            //EmpGatepassPurpose
+            Route::post('/gatepass_purpose/toggle', [EmpGatepassPurposeController::class, 'toggleStatus'])->name('gatepass_purpose.toggle');
+            Route::post('/gatepass_purpose/delete', [EmpGatepassPurposeController::class, 'destroy'])->name('gatepass_purpose.delete');
+            Route::resource('gatepass_purpose', EmpGatepassPurposeController::class)->names('gatepass_purpose');
+
+            //EmpGatepassReason
+            Route::post('/gatepass_reason/toggle', [EmpGatepassReasonController::class, 'toggleStatus'])->name('gatepass_reason.toggle');
+            Route::post('/gatepass_reason/delete', [EmpGatepassReasonController::class, 'destroy'])->name('gatepass_reason.delete');
+            Route::resource('gatepass_reason', EmpGatepassReasonController::class)->names('gatepass_reason');
         });
 
         //Database
