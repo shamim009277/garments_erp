@@ -5,86 +5,83 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'INVENTORY',
-                'subtitle' => 'Compositions',
+                'subtitle' => 'Fabric Treatments',
                 'breadcrumbs' => [
                     ['label' => 'INVENTORY', 'url' => route('inventory.index')],
                     ['label' => 'Setup', 'url' => route('inventory.index')],
-                    ['label' => 'Compositions', 'url' => route('inventory.setup.compositions.index')],
+                    ['label' => 'Fabric Treatments', 'url' => route('inventory.setup.fabictreatments.index')],
                 ],
             ])
         </div>
         <div class="col-md-8">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Compositions List
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Fabric Treatments List
                     </h6>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
                         <thead>
-                            {{-- // $table->string('composition_code', 20)->unique(); // Like C001
-                            //         $table->string('composition_name', 100);
-                            //         $table->string('composition_description')->nullable();
-                            //         $table->boolean('is_active')->default(true); --}}
+                            {{-- // $table->string('fabric_treatment_code', 20)->unique(); // Like FT001
+                            // $table->string('fabric_treatment_name', 100);
+                            // $table->string('fabric_treatment_description')->nullable();
+                            // $table->boolean('is_active')->default(true); --}}
                             <tr>
                                 <th>#</th>
-                                <th>Composition Code</th>
-                                <th>Composition Name</th>
-                                <th>Composition Description</th>
+                                <th>Fabric Treatment Code</th>
+                                <th>Fabric Treatment Name</th>
+                                <th>Fabric Treatment Description</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($compositions as $key => $composition)
+                            @foreach ($fabricTreatments as $key => $fabricTreatment)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $composition->composition_code }}</td>
-                                    <td>{{ $composition->composition_name }}</td>
-                                    <td>{{ $composition->composition_description }}</td>
-                                    <td>{{ $composition->is_active ? 'Active' : 'Inactive' }}</td>
+                                    <td>{{ $fabricTreatment->fabric_treatment_code }}</td>
+                                    <td>{{ $fabricTreatment->fabric_treatment_name }}</td>
+                                    <td>{{ $fabricTreatment->fabric_treatment_description }}</td>
+                                    <td>{{ $fabricTreatment->is_active ? 'Active' : 'Inactive' }}</td>
                                     <td>
                                         <a href="#" class="btn btn-soft-success waves-effect waves-light"
                                             style="padding: 4px 6px;" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $composition->id }}"><i
+                                            data-bs-target="#editModal{{ $fabricTreatment->id }}"><i
                                                 class="fas fa-edit"></i></a>
                                         <form
-                                            action="{{ route('inventory.setup.compositions.destroy', $composition->id) }}"
+                                            action="{{ route('inventory.setup.fabictreatments.destroy', $fabricTreatment->id) }}"
                                             method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             {{-- add confirm dialog --}}
                                             <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this composition?')">Delete</button>
+                                                onclick="return confirm('Are you sure you want to delete this fabric treatment?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                                 {{-- load edit modal --}}
-                                <div class="modal fade" id="editModal{{ $composition->id }}" tabindex="-1"
-                                    aria-labelledby="editModalLabel{{ $composition->id }}" aria-hidden="true">
+                                <div class="modal fade" id="editModal{{ $fabricTreatment->id }}" tabindex="-1"
+                                    aria-labelledby="editModalLabel{{ $fabricTreatment->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel{{ $composition->id }}">Edit
-                                                    Composition</h5>
+                                                <h5 class="modal-title" id="editModalLabel{{ $fabricTreatment->id }}">Edit
+                                                    Fabric Treatment</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="moduleForm"
-                                                    action="{{ route('inventory.setup.compositions.update', $composition->id) }}"
+                                                    action="{{ route('inventory.setup.fabictreatments.update', $fabricTreatment->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
-
-                                                    <x-input-group name="composition_code" label="Composition Code"
-                                                        :value="$composition->composition_code" required />
-                                                    <x-input-group name="composition_name" label="Composition Name" :value="$composition->composition_name"
+                                                    <x-input-group name="fabric_treatment_name" label="Fabric Treatment Name" :value="$fabricTreatment->fabric_treatment_name"
                                                         required />
-                                                    <x-input-group name="composition_description" label="Composition Description" :value="$composition->composition_description"
+                                                    <x-input-group name="fabric_treatment_description" label="Fabric Treatment Description" :value="$fabricTreatment->fabric_treatment_description"
                                                         required />
                                                     <x-select-input-group name="is_active" label="Is Active?"
-                                                        :options="['1' => 'Active', '0' => 'Inactive']" :selected="$composition->is_active ? '1' : '0'" required />
+                                                        :options="['1' => 'Active', '0' => 'Inactive']" :selected="$fabricTreatment->is_active ? '1' : '0'" required />
                                                     <x-primary-button
                                                         class="float-start btn-sm submitBtn">Save</x-primary-button>
                                                 </form>
@@ -102,15 +99,15 @@
         <div class="col-md-4">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Composition ...</h6>
+                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Fabric Treatment ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('inventory.setup.compositions.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('inventory.setup.fabictreatments.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="composition_name" label="Composition Name" placeholder="Enter composition name"
-                            :value="old('composition_name')" required />
-                        <x-input-group name="composition_description" label="Composition Description" placeholder="Enter composition description"
-                            :value="old('composition_description')" required />
+                        <x-input-group name="fabric_treatment_name" label="Fabric Treatment Name" placeholder="Enter fabric treatment name"
+                            :value="old('fabric_treatment_name')" required />
+                        <x-input-group name="fabric_treatment_description" label="Fabric Treatment Description" placeholder="Enter fabric treatment description"
+                            :value="old('fabric_treatment_description')" required />
                         <x-select-input-group name="is_active" label="Is Active?" :options="['1' => 'Active', '0' => 'Inactive']" :selected="old('is_active', '1')"
                             required />
                         <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
