@@ -33,8 +33,8 @@
                             @foreach ($parentDepartments as $key => $parentDepartment)
                                 <tr id="row-{{ $parentDepartment->id }}">
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $parentDepartment->department }}</td>
-                                    <td>{{ $parentDepartment->department_bn }}</td>
+                                    <td>{{ $parentDepartment->parent_department }}</td>
+                                    <td>{{ $parentDepartment->parent_department_bn }}</td>
                                     <td>
                                         <div class="square-switch">
                                             <input type="checkbox" id="square-switch3{{ $parentDepartment->id }}" class="organization-toggle" data-id="{{ $parentDepartment->id }}" switch="bool" {{ $parentDepartment->is_active ? 'checked' : '' }} />
@@ -57,8 +57,8 @@
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
-                                                        <x-input-group name="department" label="Name" type="text" placeholder="Enter name" :value="$parentDepartment->department" required />
-                                                        <x-input-group name="department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="$parentDepartment->department_bn" required />
+                                                        <x-input-group name="parent_department" label="Name" type="text" placeholder="Enter name" :value="$parentDepartment->parent_department" required />
+                                                        <x-input-group name="parent_department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="$parentDepartment->parent_department_bn" required />
                                                         <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$parentDepartment->is_active" required />
                                                     </div>
                                                     <div class="modal-footer">
@@ -85,8 +85,8 @@
                 <div class="card-body">
                     <form id="moduleForm" action="{{ route('hris.setup.parentdepartments.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="department" label="Name" type="text" placeholder="Enter name" :value="old('department')" required />
-                        <x-input-group name="department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="old('department_bn')" required />
+                        <x-input-group name="parent_department" label="Name" type="text" placeholder="Enter name" :value="old('parent_department')" required />
+                        <x-input-group name="parent_department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="old('parent_department_bn')" required />
                         <x-select-input-group
                             name="is_active"
                             label="Is Active?"

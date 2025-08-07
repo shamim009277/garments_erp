@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('hris_setup_parent_departments', function (Blueprint $table) {
             $table->id();
-            $table->string('department', 100)->unique();
-            $table->string('department_bn', 100)->nullable();
+            $table->string('parent_department', 100)->unique();
+            $table->string('parent_department_bn', 100)->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
