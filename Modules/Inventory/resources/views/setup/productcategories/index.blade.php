@@ -22,9 +22,9 @@
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
                         <thead>
-                            {{-- // $table->string('product_category_name', 100);
-    // $table->string('product_category_description')->nullable();
-    // $table->boolean('is_active')->default(true); --}}
+                            {{-- $table->string('product_category_name', 100);
+                            $table->string('product_category_description')->nullable();
+                            $table->boolean('is_active')->default(true); --}}
 
                             <tr>
                                 <th>#</th>

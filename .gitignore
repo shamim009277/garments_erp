@@ -18,9 +18,9 @@
 # /public/storage
 # /storage/*.key
 # /storage/pail
-# /vendor
-# /vendor_old
-# /vendor_old_one
+/vendor
+/vendor_old
+/vendor_old_one
 # Homestead.json
 # Homestead.yaml
 # Thumbs.db
