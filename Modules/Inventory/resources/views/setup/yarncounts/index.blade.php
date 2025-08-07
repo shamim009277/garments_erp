@@ -5,81 +5,83 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'INVENTORY',
-                'subtitle' => 'Challan Purposes',
+                'subtitle' => 'Yarn Counts',
                 'breadcrumbs' => [
                     ['label' => 'INVENTORY', 'url' => route('inventory.index')],
                     ['label' => 'Setup', 'url' => route('inventory.index')],
-                    ['label' => 'Challan Purposes', 'url' => route('inventory.setup.challanpurposes.index')],
+                    ['label' => 'Yarn Counts', 'url' => route('inventory.setup.yarncounts.index')],
                 ],
             ])
         </div>
         <div class="col-md-8">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Challan Purposes List
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Yarn Counts List
                     </h6>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
                         <thead>
-                            {{-- $table->string('purpose_name', 100)->unique();   // e.g., Purchase Receipt
-                            $table->string('description')->nullable();       // Optional description
+                            {{-- $table->string('yarn_count_code', 20)->unique(); // Like YC001
+                            $table->string('yarn_count_name', 100);
+                            $table->string('yarn_count_description')->nullable();
                             $table->boolean('is_active')->default(true); --}}
                             <tr>
                                 <th>#</th>
-                                <th>Purpose Name</th>
-                                <th>Description</th>
+                                <th>Yarn Count Code</th>
+                                <th>Yarn Count Name</th>
+                                <th>Yarn Count Description</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($challanpurposes as $key => $challanpurpose)
+                            @foreach ($yarnCounts as $key => $yarnCount)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $challanpurpose->purpose_name }}</td>
-                                    <td>{{ $challanpurpose->description }}</td>
-                                    <td>{{ $challanpurpose->is_active ? 'Active' : 'Inactive' }}</td>
+                                    <td>{{ $yarnCount->yarn_count_code }}</td>
+                                    <td>{{ $yarnCount->yarn_count_name }}</td>
+                                    <td>{{ $yarnCount->yarn_count_description }}</td>
+                                    <td>{{ $yarnCount->is_active ? 'Active' : 'Inactive' }}</td>
                                     <td>
                                         <a href="#" class="btn btn-soft-success waves-effect waves-light"
                                             style="padding: 4px 6px;" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $challanpurpose->id }}"><i
-                                                class="fas fa-edit"></i></a>
-                                        <form
-                                            action="{{ route('inventory.setup.challanpurposes.destroy', $challanpurpose->id) }}"
+                                            data-bs-target="#editModal{{ $yarnCount->id }}"><i class="fas fa-edit"></i></a>
+                                        <form action="{{ route('inventory.setup.yarncounts.destroy', $yarnCount->id) }}"
                                             method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             {{-- add confirm dialog --}}
                                             <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this challan purpose?')">Delete</button>
+                                                onclick="return confirm('Are you sure you want to delete this yarn count?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                                 {{-- load edit modal --}}
-                                <div class="modal fade" id="editModal{{ $challanpurpose->id }}" tabindex="-1"
-                                    aria-labelledby="editModalLabel{{ $challanpurpose->id }}" aria-hidden="true">
+                                <div class="modal fade" id="editModal{{ $yarnCount->id }}" tabindex="-1"
+                                    aria-labelledby="editModalLabel{{ $yarnCount->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel{{ $challanpurpose->id }}">Edit
-                                                    Challan Purpose</h5>
+                                                <h5 class="modal-title" id="editModalLabel{{ $yarnCount->id }}">Edit
+                                                    Yarn Count</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="moduleForm"
-                                                    action="{{ route('inventory.setup.challanpurposes.update', $challanpurpose->id) }}"
+                                                    action="{{ route('inventory.setup.yarncounts.update', $yarnCount->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
 
-                                                    <x-input-group name="purpose_name" label="Purpose Name"
-                                                        :value="$challanpurpose->purpose_name" required />
-                                                    <x-input-group name="description" label="Description" :value="$challanpurpose->description"
-                                                        required />
+
+                                                    <x-input-group name="yarn_count_name" label="Yarn Count Name"
+                                                        :value="$yarnCount->yarn_count_name" required />
+                                                    <x-input-group name="yarn_count_description"
+                                                        label="Yarn Count Description" :value="$yarnCount->yarn_count_description" required />
                                                     <x-select-input-group name="is_active" label="Is Active?"
-                                                        :options="['1' => 'Active', '0' => 'Inactive']" :selected="$challanpurpose->is_active ? '1' : '0'" required />
+                                                        :options="['1' => 'Active', '0' => 'Inactive']" :selected="$yarnCount->is_active ? '1' : '0'" required />
                                                     <x-primary-button
                                                         class="float-start btn-sm submitBtn">Save</x-primary-button>
                                                 </form>
@@ -97,16 +99,15 @@
         <div class="col-md-4">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Challan Purpose ...</h6>
+                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Yarn Count ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('inventory.setup.challanpurposes.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('inventory.setup.yarncounts.store') }}" method="POST">
                         @csrf
-
-                        <x-input-group name="purpose_name" label="Purpose Name" placeholder="Enter purpose name"
-                            :value="old('purpose_name')" required />
-                        <x-input-group name="description" label="Description" placeholder="Enter description"
-                            :value="old('description')" required />
+                        <x-input-group name="yarn_count_name" label="Yarn Count Name" placeholder="Enter yarn count name"
+                            :value="old('yarn_count_name')" required />
+                        <x-input-group name="yarn_count_description" label="Yarn Count Description"
+                            placeholder="Enter yarn count description" :value="old('yarn_count_description')" required />
                         <x-select-input-group name="is_active" label="Is Active?" :options="['1' => 'Active', '0' => 'Inactive']" :selected="old('is_active', '1')"
                             required />
                         <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
