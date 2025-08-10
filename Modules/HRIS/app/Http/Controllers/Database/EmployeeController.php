@@ -478,6 +478,13 @@ class EmployeeController extends Controller
         }
     }
 
+    public function getEmployeeInfo(Request $request){
+        $employee = Employee::with(['designation:id,designation','department:id,department','employeePersonal:employee_id,mobile,national_id,birth_certificate'])
+                  ->where('employee_id', $request->employee_id)
+                  ->select('id','employee_id','name','designation_id','department_id','joining_date')
+                  ->first();
+        return response()->json($employee);
+    }
 
 
 }

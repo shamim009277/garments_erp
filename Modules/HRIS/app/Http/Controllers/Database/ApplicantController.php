@@ -41,7 +41,7 @@ class ApplicantController extends Controller
 
         //dd($unique_department);
 
-        return view('hris::database.newapplicant.index', compact('departments', 'designations', 'districts', 'pending_applicants','unique_applicant','unique_department'));
+        return view('hris::database.newapplicant.index', compact('departments', 'designations', 'districts', 'pending_applicants','unique_applicant','unique_department','today'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ApplicantController extends Controller
 
         $unique_department = $pending_applicants->unique('department_id');
 
-        return view('hris::database.newapplicant.index', compact('applicant', 'departments', 'designations', 'districts', 'pending_applicants', 'unique_applicant', 'unique_department'));
+        return view('hris::database.newapplicant.index', compact('applicant', 'departments', 'designations', 'districts', 'pending_applicants', 'unique_applicant', 'unique_department','today'));
     }
 
     /**

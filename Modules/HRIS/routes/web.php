@@ -21,6 +21,7 @@ use Modules\HRIS\Http\Controllers\Database\ApplicantController;
 use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
+use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
@@ -32,6 +33,7 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
 use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
+use Modules\HRIS\Http\Controllers\Database\LeaveApplicationController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
@@ -172,6 +174,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/employee/salary', [EmployeeController::class, 'storeEmployeeSalary'])->name('employee.salary');
             Route::post('/employee/personal', [EmployeeController::class, 'storeEmployeePersonal'])->name('employee.personal');
             Route::post('/employee/document', [EmployeeController::class, 'storeEmployeeDocument'])->name('employee.document');
+            Route::post('/employee-info', [EmployeeController::class, 'getEmployeeInfo'])->name('employee.info');
             Route::resource('employee', EmployeeController::class)->names('employee');
 
 
@@ -185,6 +188,16 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('employee-reference', EmployeeReferenceController::class)->names('employee-reference');
             Route::post('/employee-service/delete', [EmployeeServiceController::class, 'destroy'])->name('employee-service.delete');
             Route::resource('employee-service', EmployeeServiceController::class)->names('employee-service');
+
+            Route::post('/employee-gatepass/reasons', [EmpGatePassController::class, 'getReasons'])->name('employee-gatepass.reasons');
+            Route::get('/employee-gatepass/in', [EmpGatePassController::class, 'getEmployeeIn'])->name('employee-gatepass.in');
+            Route::post('/employee-gatepass/in', [EmpGatePassController::class, 'getEmployeeInUpdate'])->name('employee-gatepass.in');
+            Route::get('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOut'])->name('employee-gatepass.out');
+            Route::post('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOutUpdate'])->name('employee-gatepass.out');
+            Route::resource('employee-gatepass', EmpGatePassController::class)->names('employee-gatepass');
+
+            Route::post('/leave-application/reasons', [LeaveApplicationController::class, 'getReasons'])->name('leave-application.reasons');
+            Route::resource('leave-application', LeaveApplicationController::class)->names('leave-application');
         });
 
         //Reports
