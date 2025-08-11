@@ -2,9 +2,11 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Modules\HRIS\Models\Setup\LeaveClassification;
+
 class LeaveApplicationController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class LeaveApplicationController extends Controller
     public function index()
     {
         $date=Carbon::now()->format('Y-m-d');
-        return view('hris::database.leaveapplication.index',compact('date'));
+        $leave_types = LeaveClassification::pluck('signification','code');
+        return view('hris::database.leaveapplication.index',compact('date','leave_types'));
     }
 
     /**

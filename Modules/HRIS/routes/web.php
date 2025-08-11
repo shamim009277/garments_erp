@@ -17,6 +17,7 @@ use Modules\HRIS\Http\Controllers\Settings\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeController;
 use Modules\HRIS\Http\Controllers\Setup\DesignationController;
+use Modules\HRIS\Http\Controllers\Setup\LeaveReasonController;
 use Modules\HRIS\Http\Controllers\Database\ApplicantController;
 use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
@@ -156,6 +157,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/gatepass_reason/toggle', [EmpGatepassReasonController::class, 'toggleStatus'])->name('gatepass_reason.toggle');
             Route::post('/gatepass_reason/delete', [EmpGatepassReasonController::class, 'destroy'])->name('gatepass_reason.delete');
             Route::resource('gatepass_reason', EmpGatepassReasonController::class)->names('gatepass_reason');
+
+            //Leave Reason
+            Route::post('/leavereason/toggle', [LeaveReasonController::class, 'toggleStatus'])->name('leavereason.toggle');
+            Route::post('/leavereason/delete', [LeaveReasonController::class, 'destroy'])->name('leavereason.delete');
+            Route::resource('leavereason', LeaveReasonController::class)->names('leavereason');
         });
 
         //Database
@@ -191,9 +197,9 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
             Route::post('/employee-gatepass/reasons', [EmpGatePassController::class, 'getReasons'])->name('employee-gatepass.reasons');
             Route::get('/employee-gatepass/in', [EmpGatePassController::class, 'getEmployeeIn'])->name('employee-gatepass.in');
-            Route::post('/employee-gatepass/in', [EmpGatePassController::class, 'getEmployeeInUpdate'])->name('employee-gatepass.in');
+            Route::post('/employee-gatepass/in', [EmpGatePassController::class, 'getEmployeeInUpdate'])->name('employee-gatepass.in.update');
             Route::get('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOut'])->name('employee-gatepass.out');
-            Route::post('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOutUpdate'])->name('employee-gatepass.out');
+            Route::post('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOutUpdate'])->name('employee-gatepass.out.update');
             Route::resource('employee-gatepass', EmpGatePassController::class)->names('employee-gatepass');
 
             Route::post('/leave-application/reasons', [LeaveApplicationController::class, 'getReasons'])->name('leave-application.reasons');
@@ -202,8 +208,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
         //Reports
         Route::prefix('report')->name('report.')->group(function () {
-            Route::get('/employee-listings/preview', [EmployeeListingReportController::class, 'previewData'])->name('employee-listings.preview');
-            Route::post('/employee-listings/preview', [EmployeeListingReportController::class, 'preview'])->name('employee-listings.preview');
+            Route::get('/employee-listings/preview', [EmployeeListingReportController::class, 'previewData'])->name('employee-listings.form.preview');
+            Route::post('/employee-listings/preview', [EmployeeListingReportController::class, 'preview'])->name('employee-listings.report.preview');
             Route::resource('employee-listings', EmployeeListingReportController::class)->names('employee-listings');
         });
 

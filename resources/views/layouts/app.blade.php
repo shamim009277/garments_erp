@@ -143,6 +143,11 @@
             background-color: #F8F9FA !important;
             border-radius: 0.25rem !important;
         }
+
+        .select2-container--default .select2-selection--multiple{
+            background-color: #F8F9FA !important;
+            border: 1px solid #E9E9EF !important;
+        }
     </style>
     @stack('styles')
 </head>

@@ -110,7 +110,7 @@
                 if (response) {
                     Swal.fire(
                         'Success!',
-                        'Employee gate pass updated successfully.',
+                        'Employee gate pass out successfully.',
                         'success'
                     );
                     $('#row-' + id).remove();

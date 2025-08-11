@@ -50,7 +50,7 @@
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Listing Report
                     </h6>
                 </div>
-                <form id="employeeListingForm" action="{{ route('hris.report.employee-listings.preview') }}" method="POST" target="_blank">
+                <form id="employeeListingForm" action="{{ route('hris.report.employee-listings.report.preview') }}" method="POST" target="_blank">
                     @csrf
                     <div class="card-body">
                         <div class="row">

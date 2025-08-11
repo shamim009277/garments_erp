@@ -40,7 +40,7 @@
                                     <tr>
                                         <th style="width: 30%">Leave Type</th>
                                         <td style="width: 70%">
-                                            <x-select-input name="leave_type_id" id="leave_type_id" class="select2" :options="[]" required />
+                                            <x-select-input name="leave_type_id" id="leave_type_id" class="select2" :options="$leave_types" required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -64,7 +64,7 @@
                                     <tr>
                                         <th style="width: 30%">Days</th>
                                         <td style="width: 70%">
-                                            <x-text-input name="days" id="days" label="" class="form-control-sm" placeholder="Days" required readonly/>
+                                            <x-text-input name="days" id="days" label="" class="form-control-sm" value="1" placeholder="Days" required readonly/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -94,19 +94,19 @@
                                     <tr>
                                         <th style="width: 30%">Join Date</th>
                                         <td style="width: 70%">
-                                            <x-text-input name="join_date" type="date" id="join_date" label="" class="form-control-sm" placeholder="Join Date" required readonly/>
+                                            <x-text-input name="join_date" type="text" id="join_date" label="" class="form-control-sm" placeholder="Join Date" required readonly/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="width: 30%">Input Date</th>
                                         <td style="width: 70%">
-                                            <x-text-input name="date" type="date" id="date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="Date" required readonly/>
+                                            <x-text-input name="date" type="text" id="date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="Date" required readonly/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="width: 30%">Remarks</th>
                                         <td style="width: 70%">
-                                            <x-text-input name="remarks" id="remarks" label="" class="form-control-sm" placeholder="Remarks" required readonly/>
+                                            <x-text-input name="remarks" id="remarks" label="" class="form-control-sm" placeholder="Remarks" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -195,6 +195,28 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            let startPicker, endPicker;
+
+            endPicker = flatpickr("#end_date", {
+                dateFormat: "Y-m-d",
+                onChange: function (selectedDates, dateStr) {
+                    if (dateStr) {
+                        startPicker.set('maxDate', dateStr);
+                    }
+                    updateDays();
+                }
+            });
+
+            startPicker = flatpickr("#start_date", {
+                dateFormat: "Y-m-d",
+                onChange: function (selectedDates, dateStr) {
+                    if (dateStr) {
+                        endPicker.set('minDate', dateStr);
+                    }
+                    updateDays();
+                }
+            });
+
             function calculateDays(start, end) {
                 if (!start || !end) return "";
 
@@ -214,19 +236,8 @@
 
                 let diffTime = endDate - startDate;
                 let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-
                 return diffDays;
             }
-
-            $("#start_date").on("change", function () {
-                let startDate = $(this).val();
-                $("#end_date").attr("min", startDate);
-            });
-
-            $("#end_date").on("change", function () {
-                let endDate = $(this).val();
-                $("#start_date").attr("max", endDate);
-            });
 
             function updateDays() {
                 let start = $("#start_date").val();
@@ -238,9 +249,8 @@
                 }
             }
 
-            $("#start_date, #end_date").on("change", updateDays);
-
             $('#start_date,#end_date').trigger('change');
         });
+
     </script>
 @endpush
