@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_databases_orders', function (Blueprint $table) {
+            $table->id();
             // Basic Order Details
             $table->enum('order_type', ['Confirmed', 'Pending', 'Cancelled'])->default('Confirmed');
             $table->enum('compile_type', ['Always Barcode', 'Manual'])->nullable();

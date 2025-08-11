@@ -616,12 +616,6 @@
                     })
                     .catch(err => console.error(err));
             });
-
-            // // Trigger change if old category exists (for edit form)
-            // if (document.querySelector('.goods_category_id').dataset.selected) {
-            //     document.querySelector('.goods_category_id').dispatchEvent(new Event('change'));
-            // }
-
             //for edit form
             $(document).ready(function() {
                 function loadSubcategories(categoryId, selectedId = null) {
@@ -641,7 +635,7 @@
 
                             $.each(response, function(index, item) {
                                 let selected = (item.id == selectedId) ? 'selected' :
-                                '';
+                                    '';
                                 options +=
                                     `<option value="${item.id}" ${selected}>${item.name}</option>`;
                             });
@@ -655,13 +649,13 @@
                     });
                 }
 
-                // যখন Category change হবে
+                
                 $('.goods_category_id').on('change', function() {
                     let categoryId = $(this).val();
                     loadSubcategories(categoryId);
                 });
 
-                // ফর্ম লোডের সময় Edit এর জন্য
+               
                 let initialCategoryId = $('.goods_category_id').data('selected');
                 let initialSubcategoryId = $('.goods_subcategory_id').data('selected');
 
