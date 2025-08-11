@@ -48,9 +48,9 @@
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow">
                                     <i data-feather={{ $menu->icon }}></i>
-                                    <span data-key="t-authorization">{{ $menu->title }}</span>
+                                    <span data-key="t-authorization">{{ $menu->title }} ({{ $menu->childs->count() }})</span>
                                 </a>
-                                <ul class="sub-menu" aria-expanded="false">
+                                <ul class="sub-menu" aria-expanded="false" style="max-height: 600px;overflow-x:hidden;overflow-y:auto">
                                     @foreach ($menu->childs as $child)
                                         <li>
                                             <a

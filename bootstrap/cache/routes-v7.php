@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::0ivf22HINFLzZ7Kt',
+            '_route' => 'generated::PvQf0t9P5VSfnH5e',
           ),
           1 => NULL,
           2 => 
@@ -146,13 +146,13 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/profile' => 
+      '/user/profile' => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'profile.edit',
+            '_route' => 'user.profile.edit',
           ),
           1 => NULL,
           2 => 
@@ -169,7 +169,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'profile.update',
+            '_route' => 'user.profile.update',
           ),
           1 => NULL,
           2 => 
@@ -185,7 +185,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'profile.destroy',
+            '_route' => 'user.profile.destroy',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::75jkTkQEohtizM4O',
+            '_route' => 'generated::yHC3X0Pfkk81Zbx8',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::F154c4ritnnPSecQ',
+            '_route' => 'generated::pi1MlaVRDpQBD1DY',
           ),
           1 => NULL,
           2 => 
@@ -1085,6 +1085,42 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'hris.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.create',
           ),
           1 => NULL,
           2 => 
@@ -2978,6 +3014,194 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/hris/setup/gatepass_purpose/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_purpose.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/gatepass_purpose/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_purpose.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/gatepass_purpose' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_purpose.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_purpose.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/gatepass_purpose/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_purpose.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/gatepass_reason/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/gatepass_reason/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/gatepass_reason' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/gatepass_reason/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/hris/database/new-applicants/search' => 
       array (
         0 => 
@@ -3654,13 +3878,33 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/hris/settings' => 
+      '/hris/report/employee-listings/preview' => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'hris.setting.index',
+            '_route' => 'hris.report.employee-listings.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/employee-listings' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.employee-listings.index',
           ),
           1 => NULL,
           2 => 
@@ -3677,7 +3921,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'hris.setting.store',
+            '_route' => 'hris.report.employee-listings.store',
           ),
           1 => NULL,
           2 => 
@@ -3690,13 +3934,125 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/hris/settings/create' => 
+      '/hris/report/employee-listings/create' => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'hris.setting.create',
+            '_route' => 'hris.report.employee-listings.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/hr-settings' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.hr-settings.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.hr-settings.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/hr-settings/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.hr-settings.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/forward-approve' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/forward-approve/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.create',
           ),
           1 => NULL,
           2 => 
@@ -5985,7 +6341,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|set(?|up/(?|nationalities/([^/]++)(?|(*:692)|/edit(*:705)|(*:713))|maritalstatus/([^/]++)(?|(*:747)|/edit(*:760)|(*:768))|s(?|ex/([^/]++)(?|(*:795)|/edit(*:808)|(*:816))|ourcereferences/([^/]++)(?|(*:852)|/edit(*:865)|(*:873))|hifts/([^/]++)(?|(*:899)|/edit(*:912)|(*:920)))|religions/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|d(?|i(?|visions/([^/]++)(?|(*:1008)|/edit(*:1022)|(*:1031))|stricts/([^/]++)(?|(*:1060)|/edit(*:1074)|(*:1083)))|ocuments/([^/]++)(?|(*:1114)|/edit(*:1128)|(*:1137))|e(?|partments/([^/]++)(?|(*:1172)|/edit(*:1186)|(*:1195))|signations/([^/]++)(?|(*:1227)|/edit(*:1241)|(*:1250))|grees/([^/]++)(?|(*:1277)|/edit(*:1291)|(*:1300))))|thanas/([^/]++)(?|(*:1330)|/edit(*:1344)|(*:1353))|unions/([^/]++)(?|(*:1381)|/edit(*:1395)|(*:1404))|e(?|ducationboards/([^/]++)(?|(*:1444)|/edit(*:1458)|(*:1467))|mployeecategories/([^/]++)(?|(*:1506)|/edit(*:1520)|(*:1529)))|organizations/([^/]++)(?|(*:1565)|/edit(*:1579)|(*:1588))|leaveclassifications/([^/]++)(?|(*:1630)|/edit(*:1644)|(*:1653))|parentde(?|partments/([^/]++)(?|(*:1695)|/edit(*:1709)|(*:1718))|signations/([^/]++)(?|(*:1750)|/edit(*:1764)|(*:1773))))|tings/([^/]++)(?|(*:1802)|/edit(*:1816)|(*:1825)))|database/(?|new\\-applicants/([^/]++)(?|(*:1875)|/edit(*:1889)|(*:1898))|employee(?|\\-(?|idassign/([^/]++)(?|(*:1944)|/edit(*:1958)|(*:1967))|e(?|ducation/([^/]++)(?|(*:2001)|/edit(*:2015)|(*:2024))|xperience/([^/]++)(?|(*:2055)|/edit(*:2069)|(*:2078)))|training/([^/]++)(?|(*:2109)|/edit(*:2123)|(*:2132))|reference/([^/]++)(?|(*:2163)|/edit(*:2177)|(*:2186))|service/([^/]++)(?|(*:2215)|/edit(*:2229)|(*:2238)))|/([^/]++)(?|(*:2261)|/edit(*:2275)|(*:2284)))|d(?|esignation/([^/]++)(*:2318)|istrict/([^/]++)(*:2343))))|/inventory/(?|([^/]++)(?|(*:2380)|/edit(*:2394)|(*:2403))|setup/(?|p(?|arties/([^/]++)(?|(*:2444)|/edit(*:2458)|(*:2467))|roductcategories/([^/]++)(?|(*:2505)|/edit(*:2519)|(*:2528)))|s(?|tore(?|types/([^/]++)(?|(*:2567)|/edit(*:2581)|(*:2590))|l(?|ines/([^/]++)(?|(*:2620)|/edit(*:2634)|(*:2643))|ocations/([^/]++)(?|(*:2673)|/edit(*:2687)|(*:2696))))|upplier(?|types/([^/]++)(?|(*:2735)|/edit(*:2749)|(*:2758))|s/([^/]++)(?|(*:2781)|/edit(*:2795)|(*:2804)))|ize(?|groups/([^/]++)(?|(*:2839)|/edit(*:2853)|(*:2862))|s/([^/]++)(?|(*:2885)|/edit(*:2899)|(*:2908))))|racklocations/([^/]++)(?|(*:2945)|/edit(*:2959)|(*:2968))|c(?|hallanpurposes/([^/]++)(?|(*:3008)|/edit(*:3022)|(*:3031))|o(?|untries/([^/]++)(?|(*:3064)|/edit(*:3078)|(*:3087))|lor(?|groups/([^/]++)(?|(*:3121)|/edit(*:3135)|(*:3144))|s/([^/]++)(?|(*:3167)|/edit(*:3181)|(*:3190)))|mpositions/([^/]++)(?|(*:3223)|/edit(*:3237)|(*:3246))))|goods(?|categories/([^/]++)(?|(*:3288)|/edit(*:3302)|(*:3311))|SubCategories/([^/]++)(?|(*:3346)|/edit(*:3360)|(*:3369)))|buyers/([^/]++)(?|(*:3398)|/edit(*:3412)|(*:3421))|items/([^/]++)(?|(*:3448)|/edit(*:3462)|(*:3471))|yarncounts/([^/]++)(?|(*:3503)|/edit(*:3517)|(*:3526))|fabict(?|ypes/([^/]++)(?|(*:3561)|/edit(*:3575)|(*:3584))|reatments/([^/]++)(?|(*:3615)|/edit(*:3629)|(*:3638)))))|/payroll/([^/]++)(?|(*:3671)|/edit(*:3685)|(*:3694))|/storage/(.*)(*:3717))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|([^/]++)(?|(*:666)|/edit(*:679)|(*:687))|set(?|up/(?|nationalities/([^/]++)(?|(*:733)|/edit(*:746)|(*:754))|maritalstatus/([^/]++)(?|(*:788)|/edit(*:801)|(*:809))|s(?|ex/([^/]++)(?|(*:836)|/edit(*:849)|(*:857))|ourcereferences/([^/]++)(?|(*:893)|/edit(*:906)|(*:914))|hifts/([^/]++)(?|(*:940)|/edit(*:953)|(*:961)))|religions/([^/]++)(?|(*:992)|/edit(*:1005)|(*:1014))|d(?|i(?|visions/([^/]++)(?|(*:1051)|/edit(*:1065)|(*:1074))|stricts/([^/]++)(?|(*:1103)|/edit(*:1117)|(*:1126)))|ocuments/([^/]++)(?|(*:1157)|/edit(*:1171)|(*:1180))|e(?|partments/([^/]++)(?|(*:1215)|/edit(*:1229)|(*:1238))|signations/([^/]++)(?|(*:1270)|/edit(*:1284)|(*:1293))|grees/([^/]++)(?|(*:1320)|/edit(*:1334)|(*:1343))))|thanas/([^/]++)(?|(*:1373)|/edit(*:1387)|(*:1396))|unions/([^/]++)(?|(*:1424)|/edit(*:1438)|(*:1447))|e(?|ducationboards/([^/]++)(?|(*:1487)|/edit(*:1501)|(*:1510))|mployeecategories/([^/]++)(?|(*:1549)|/edit(*:1563)|(*:1572)))|organizations/([^/]++)(?|(*:1608)|/edit(*:1622)|(*:1631))|leaveclassifications/([^/]++)(?|(*:1673)|/edit(*:1687)|(*:1696))|parentde(?|partments/([^/]++)(?|(*:1738)|/edit(*:1752)|(*:1761))|signations/([^/]++)(?|(*:1793)|/edit(*:1807)|(*:1816)))|gatepass_(?|purpose/([^/]++)(?|(*:1858)|/edit(*:1872)|(*:1881))|reason/([^/]++)(?|(*:1909)|/edit(*:1923)|(*:1932))))|tings/(?|hr\\-settings/([^/]++)(?|(*:1977)|/edit(*:1991)|(*:2000))|forward\\-approve/([^/]++)(?|(*:2038)|/edit(*:2052)|(*:2061))))|database/(?|new\\-applicants/([^/]++)(?|(*:2112)|/edit(*:2126)|(*:2135))|employee(?|\\-(?|idassign/([^/]++)(?|(*:2181)|/edit(*:2195)|(*:2204))|e(?|ducation/([^/]++)(?|(*:2238)|/edit(*:2252)|(*:2261))|xperience/([^/]++)(?|(*:2292)|/edit(*:2306)|(*:2315)))|training/([^/]++)(?|(*:2346)|/edit(*:2360)|(*:2369))|reference/([^/]++)(?|(*:2400)|/edit(*:2414)|(*:2423))|service/([^/]++)(?|(*:2452)|/edit(*:2466)|(*:2475)))|/([^/]++)(?|(*:2498)|/edit(*:2512)|(*:2521)))|d(?|esignation/([^/]++)(*:2555)|istrict/([^/]++)(*:2580)))|report/employee\\-listings/([^/]++)(?|(*:2628)|/edit(*:2642)|(*:2651)))|/inventory/(?|([^/]++)(?|(*:2687)|/edit(*:2701)|(*:2710))|setup/(?|p(?|arties/([^/]++)(?|(*:2751)|/edit(*:2765)|(*:2774))|roductcategories/([^/]++)(?|(*:2812)|/edit(*:2826)|(*:2835)))|s(?|tore(?|types/([^/]++)(?|(*:2874)|/edit(*:2888)|(*:2897))|l(?|ines/([^/]++)(?|(*:2927)|/edit(*:2941)|(*:2950))|ocations/([^/]++)(?|(*:2980)|/edit(*:2994)|(*:3003))))|upplier(?|types/([^/]++)(?|(*:3042)|/edit(*:3056)|(*:3065))|s/([^/]++)(?|(*:3088)|/edit(*:3102)|(*:3111)))|ize(?|groups/([^/]++)(?|(*:3146)|/edit(*:3160)|(*:3169))|s/([^/]++)(?|(*:3192)|/edit(*:3206)|(*:3215))))|racklocations/([^/]++)(?|(*:3252)|/edit(*:3266)|(*:3275))|c(?|hallanpurposes/([^/]++)(?|(*:3315)|/edit(*:3329)|(*:3338))|o(?|untries/([^/]++)(?|(*:3371)|/edit(*:3385)|(*:3394))|lor(?|groups/([^/]++)(?|(*:3428)|/edit(*:3442)|(*:3451))|s/([^/]++)(?|(*:3474)|/edit(*:3488)|(*:3497)))|mpositions/([^/]++)(?|(*:3530)|/edit(*:3544)|(*:3553))))|goods(?|categories/([^/]++)(?|(*:3595)|/edit(*:3609)|(*:3618))|SubCategories/([^/]++)(?|(*:3653)|/edit(*:3667)|(*:3676)))|buyers/([^/]++)(?|(*:3705)|/edit(*:3719)|(*:3728))|items/([^/]++)(?|(*:3755)|/edit(*:3769)|(*:3778))|yarncounts/([^/]++)(?|(*:3810)|/edit(*:3824)|(*:3833))|fabict(?|ypes/([^/]++)(?|(*:3868)|/edit(*:3882)|(*:3891))|reatments/([^/]++)(?|(*:3922)|/edit(*:3936)|(*:3945)))))|/payroll/([^/]++)(?|(*:3978)|/edit(*:3992)|(*:4001))|/storage/(.*)(*:4024))/?$}sDu',
     ),
     3 => 
     array (
@@ -6843,7 +7199,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      692 => 
+      666 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.show',
+          ),
+          1 => 
+          array (
+            0 => 'hri',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      679 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.edit',
+          ),
+          1 => 
+          array (
+            0 => 'hri',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      687 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.update',
+          ),
+          1 => 
+          array (
+            0 => 'hri',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'hri',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      733 => 
       array (
         0 => 
         array (
@@ -6866,7 +7310,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      705 => 
+      746 => 
       array (
         0 => 
         array (
@@ -6889,7 +7333,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      713 => 
+      754 => 
       array (
         0 => 
         array (
@@ -6931,7 +7375,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      747 => 
+      788 => 
       array (
         0 => 
         array (
@@ -6954,7 +7398,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      760 => 
+      801 => 
       array (
         0 => 
         array (
@@ -6977,7 +7421,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      768 => 
+      809 => 
       array (
         0 => 
         array (
@@ -7019,7 +7463,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      795 => 
+      836 => 
       array (
         0 => 
         array (
@@ -7042,7 +7486,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      808 => 
+      849 => 
       array (
         0 => 
         array (
@@ -7065,7 +7509,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      816 => 
+      857 => 
       array (
         0 => 
         array (
@@ -7107,7 +7551,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      852 => 
+      893 => 
       array (
         0 => 
         array (
@@ -7130,7 +7574,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      865 => 
+      906 => 
       array (
         0 => 
         array (
@@ -7153,7 +7597,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      873 => 
+      914 => 
       array (
         0 => 
         array (
@@ -7195,7 +7639,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      899 => 
+      940 => 
       array (
         0 => 
         array (
@@ -7218,7 +7662,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      912 => 
+      953 => 
       array (
         0 => 
         array (
@@ -7241,7 +7685,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      920 => 
+      961 => 
       array (
         0 => 
         array (
@@ -7283,7 +7727,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      951 => 
+      992 => 
       array (
         0 => 
         array (
@@ -7306,7 +7750,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      964 => 
+      1005 => 
       array (
         0 => 
         array (
@@ -7329,7 +7773,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      972 => 
+      1014 => 
       array (
         0 => 
         array (
@@ -7371,7 +7815,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1008 => 
+      1051 => 
       array (
         0 => 
         array (
@@ -7394,7 +7838,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1022 => 
+      1065 => 
       array (
         0 => 
         array (
@@ -7417,7 +7861,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1031 => 
+      1074 => 
       array (
         0 => 
         array (
@@ -7459,7 +7903,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1060 => 
+      1103 => 
       array (
         0 => 
         array (
@@ -7482,7 +7926,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1074 => 
+      1117 => 
       array (
         0 => 
         array (
@@ -7505,7 +7949,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1083 => 
+      1126 => 
       array (
         0 => 
         array (
@@ -7547,7 +7991,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1114 => 
+      1157 => 
       array (
         0 => 
         array (
@@ -7570,7 +8014,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1128 => 
+      1171 => 
       array (
         0 => 
         array (
@@ -7593,7 +8037,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1137 => 
+      1180 => 
       array (
         0 => 
         array (
@@ -7635,7 +8079,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1172 => 
+      1215 => 
       array (
         0 => 
         array (
@@ -7658,7 +8102,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1186 => 
+      1229 => 
       array (
         0 => 
         array (
@@ -7681,7 +8125,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1195 => 
+      1238 => 
       array (
         0 => 
         array (
@@ -7723,7 +8167,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1227 => 
+      1270 => 
       array (
         0 => 
         array (
@@ -7746,7 +8190,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1241 => 
+      1284 => 
       array (
         0 => 
         array (
@@ -7769,7 +8213,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1250 => 
+      1293 => 
       array (
         0 => 
         array (
@@ -7811,7 +8255,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1277 => 
+      1320 => 
       array (
         0 => 
         array (
@@ -7834,7 +8278,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1291 => 
+      1334 => 
       array (
         0 => 
         array (
@@ -7857,7 +8301,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1300 => 
+      1343 => 
       array (
         0 => 
         array (
@@ -7899,7 +8343,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1330 => 
+      1373 => 
       array (
         0 => 
         array (
@@ -7922,7 +8366,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1344 => 
+      1387 => 
       array (
         0 => 
         array (
@@ -7945,7 +8389,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1353 => 
+      1396 => 
       array (
         0 => 
         array (
@@ -7987,7 +8431,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1381 => 
+      1424 => 
       array (
         0 => 
         array (
@@ -8010,7 +8454,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1395 => 
+      1438 => 
       array (
         0 => 
         array (
@@ -8033,7 +8477,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1404 => 
+      1447 => 
       array (
         0 => 
         array (
@@ -8075,7 +8519,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1444 => 
+      1487 => 
       array (
         0 => 
         array (
@@ -8098,7 +8542,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1458 => 
+      1501 => 
       array (
         0 => 
         array (
@@ -8121,7 +8565,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1467 => 
+      1510 => 
       array (
         0 => 
         array (
@@ -8163,7 +8607,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1506 => 
+      1549 => 
       array (
         0 => 
         array (
@@ -8186,7 +8630,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1520 => 
+      1563 => 
       array (
         0 => 
         array (
@@ -8209,7 +8653,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1529 => 
+      1572 => 
       array (
         0 => 
         array (
@@ -8251,7 +8695,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1565 => 
+      1608 => 
       array (
         0 => 
         array (
@@ -8274,7 +8718,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1579 => 
+      1622 => 
       array (
         0 => 
         array (
@@ -8297,7 +8741,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1588 => 
+      1631 => 
       array (
         0 => 
         array (
@@ -8339,7 +8783,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1630 => 
+      1673 => 
       array (
         0 => 
         array (
@@ -8362,7 +8806,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1644 => 
+      1687 => 
       array (
         0 => 
         array (
@@ -8385,7 +8829,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1653 => 
+      1696 => 
       array (
         0 => 
         array (
@@ -8427,7 +8871,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1695 => 
+      1738 => 
       array (
         0 => 
         array (
@@ -8450,7 +8894,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1709 => 
+      1752 => 
       array (
         0 => 
         array (
@@ -8473,7 +8917,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1718 => 
+      1761 => 
       array (
         0 => 
         array (
@@ -8515,7 +8959,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1750 => 
+      1793 => 
       array (
         0 => 
         array (
@@ -8538,7 +8982,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1764 => 
+      1807 => 
       array (
         0 => 
         array (
@@ -8561,7 +9005,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1773 => 
+      1816 => 
       array (
         0 => 
         array (
@@ -8603,17 +9047,17 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1802 => 
+      1858 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'hris.setting.show',
+            '_route' => 'hris.setup.gatepass_purpose.show',
           ),
           1 => 
           array (
-            0 => 'setting',
+            0 => 'gatepass_purpose',
           ),
           2 => 
           array (
@@ -8626,17 +9070,17 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1816 => 
+      1872 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'hris.setting.edit',
+            '_route' => 'hris.setup.gatepass_purpose.edit',
           ),
           1 => 
           array (
-            0 => 'setting',
+            0 => 'gatepass_purpose',
           ),
           2 => 
           array (
@@ -8649,17 +9093,17 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1825 => 
+      1881 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'hris.setting.update',
+            '_route' => 'hris.setup.gatepass_purpose.update',
           ),
           1 => 
           array (
-            0 => 'setting',
+            0 => 'gatepass_purpose',
           ),
           2 => 
           array (
@@ -8675,11 +9119,11 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'hris.setting.destroy',
+            '_route' => 'hris.setup.gatepass_purpose.destroy',
           ),
           1 => 
           array (
-            0 => 'setting',
+            0 => 'gatepass_purpose',
           ),
           2 => 
           array (
@@ -8691,7 +9135,271 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1875 => 
+      1909 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.show',
+          ),
+          1 => 
+          array (
+            0 => 'gatepass_reason',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1923 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.edit',
+          ),
+          1 => 
+          array (
+            0 => 'gatepass_reason',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1932 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.update',
+          ),
+          1 => 
+          array (
+            0 => 'gatepass_reason',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.gatepass_reason.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'gatepass_reason',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1977 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.hr-settings.show',
+          ),
+          1 => 
+          array (
+            0 => 'hr_setting',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1991 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.hr-settings.edit',
+          ),
+          1 => 
+          array (
+            0 => 'hr_setting',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2000 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.hr-settings.update',
+          ),
+          1 => 
+          array (
+            0 => 'hr_setting',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.hr-settings.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'hr_setting',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2038 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.show',
+          ),
+          1 => 
+          array (
+            0 => 'forward_approve',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2052 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.edit',
+          ),
+          1 => 
+          array (
+            0 => 'forward_approve',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2061 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.update',
+          ),
+          1 => 
+          array (
+            0 => 'forward_approve',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'forward_approve',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2112 => 
       array (
         0 => 
         array (
@@ -8714,7 +9422,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1889 => 
+      2126 => 
       array (
         0 => 
         array (
@@ -8737,7 +9445,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1898 => 
+      2135 => 
       array (
         0 => 
         array (
@@ -8779,7 +9487,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1944 => 
+      2181 => 
       array (
         0 => 
         array (
@@ -8802,7 +9510,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1958 => 
+      2195 => 
       array (
         0 => 
         array (
@@ -8825,7 +9533,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1967 => 
+      2204 => 
       array (
         0 => 
         array (
@@ -8867,7 +9575,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2001 => 
+      2238 => 
       array (
         0 => 
         array (
@@ -8890,7 +9598,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2015 => 
+      2252 => 
       array (
         0 => 
         array (
@@ -8913,7 +9621,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2024 => 
+      2261 => 
       array (
         0 => 
         array (
@@ -8955,7 +9663,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2055 => 
+      2292 => 
       array (
         0 => 
         array (
@@ -8978,7 +9686,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2069 => 
+      2306 => 
       array (
         0 => 
         array (
@@ -9001,7 +9709,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2078 => 
+      2315 => 
       array (
         0 => 
         array (
@@ -9043,7 +9751,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2109 => 
+      2346 => 
       array (
         0 => 
         array (
@@ -9066,7 +9774,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2123 => 
+      2360 => 
       array (
         0 => 
         array (
@@ -9089,7 +9797,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2132 => 
+      2369 => 
       array (
         0 => 
         array (
@@ -9131,7 +9839,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2163 => 
+      2400 => 
       array (
         0 => 
         array (
@@ -9154,7 +9862,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2177 => 
+      2414 => 
       array (
         0 => 
         array (
@@ -9177,7 +9885,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2186 => 
+      2423 => 
       array (
         0 => 
         array (
@@ -9219,7 +9927,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2215 => 
+      2452 => 
       array (
         0 => 
         array (
@@ -9242,7 +9950,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2229 => 
+      2466 => 
       array (
         0 => 
         array (
@@ -9265,7 +9973,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2238 => 
+      2475 => 
       array (
         0 => 
         array (
@@ -9307,7 +10015,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2261 => 
+      2498 => 
       array (
         0 => 
         array (
@@ -9330,7 +10038,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2275 => 
+      2512 => 
       array (
         0 => 
         array (
@@ -9353,7 +10061,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2284 => 
+      2521 => 
       array (
         0 => 
         array (
@@ -9395,7 +10103,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2318 => 
+      2555 => 
       array (
         0 => 
         array (
@@ -9418,7 +10126,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2343 => 
+      2580 => 
       array (
         0 => 
         array (
@@ -9441,7 +10149,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2380 => 
+      2628 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.employee-listings.show',
+          ),
+          1 => 
+          array (
+            0 => 'employee_listing',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2642 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.employee-listings.edit',
+          ),
+          1 => 
+          array (
+            0 => 'employee_listing',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2651 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.employee-listings.update',
+          ),
+          1 => 
+          array (
+            0 => 'employee_listing',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.employee-listings.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'employee_listing',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2687 => 
       array (
         0 => 
         array (
@@ -9464,7 +10260,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2394 => 
+      2701 => 
       array (
         0 => 
         array (
@@ -9487,7 +10283,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2403 => 
+      2710 => 
       array (
         0 => 
         array (
@@ -9529,7 +10325,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2444 => 
+      2751 => 
       array (
         0 => 
         array (
@@ -9552,7 +10348,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2458 => 
+      2765 => 
       array (
         0 => 
         array (
@@ -9575,7 +10371,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2467 => 
+      2774 => 
       array (
         0 => 
         array (
@@ -9617,7 +10413,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2505 => 
+      2812 => 
       array (
         0 => 
         array (
@@ -9640,7 +10436,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2519 => 
+      2826 => 
       array (
         0 => 
         array (
@@ -9663,7 +10459,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2528 => 
+      2835 => 
       array (
         0 => 
         array (
@@ -9705,7 +10501,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2567 => 
+      2874 => 
       array (
         0 => 
         array (
@@ -9728,7 +10524,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2581 => 
+      2888 => 
       array (
         0 => 
         array (
@@ -9751,7 +10547,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2590 => 
+      2897 => 
       array (
         0 => 
         array (
@@ -9793,7 +10589,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2620 => 
+      2927 => 
       array (
         0 => 
         array (
@@ -9816,7 +10612,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2634 => 
+      2941 => 
       array (
         0 => 
         array (
@@ -9839,7 +10635,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2643 => 
+      2950 => 
       array (
         0 => 
         array (
@@ -9881,7 +10677,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2673 => 
+      2980 => 
       array (
         0 => 
         array (
@@ -9904,7 +10700,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2687 => 
+      2994 => 
       array (
         0 => 
         array (
@@ -9927,7 +10723,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2696 => 
+      3003 => 
       array (
         0 => 
         array (
@@ -9969,7 +10765,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2735 => 
+      3042 => 
       array (
         0 => 
         array (
@@ -9992,7 +10788,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2749 => 
+      3056 => 
       array (
         0 => 
         array (
@@ -10015,7 +10811,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2758 => 
+      3065 => 
       array (
         0 => 
         array (
@@ -10057,7 +10853,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2781 => 
+      3088 => 
       array (
         0 => 
         array (
@@ -10080,7 +10876,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2795 => 
+      3102 => 
       array (
         0 => 
         array (
@@ -10103,7 +10899,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2804 => 
+      3111 => 
       array (
         0 => 
         array (
@@ -10145,7 +10941,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2839 => 
+      3146 => 
       array (
         0 => 
         array (
@@ -10168,7 +10964,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2853 => 
+      3160 => 
       array (
         0 => 
         array (
@@ -10191,7 +10987,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2862 => 
+      3169 => 
       array (
         0 => 
         array (
@@ -10233,7 +11029,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2885 => 
+      3192 => 
       array (
         0 => 
         array (
@@ -10256,7 +11052,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2899 => 
+      3206 => 
       array (
         0 => 
         array (
@@ -10279,7 +11075,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2908 => 
+      3215 => 
       array (
         0 => 
         array (
@@ -10321,7 +11117,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2945 => 
+      3252 => 
       array (
         0 => 
         array (
@@ -10344,7 +11140,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2959 => 
+      3266 => 
       array (
         0 => 
         array (
@@ -10367,7 +11163,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2968 => 
+      3275 => 
       array (
         0 => 
         array (
@@ -10409,7 +11205,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3008 => 
+      3315 => 
       array (
         0 => 
         array (
@@ -10432,7 +11228,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3022 => 
+      3329 => 
       array (
         0 => 
         array (
@@ -10455,7 +11251,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3031 => 
+      3338 => 
       array (
         0 => 
         array (
@@ -10497,7 +11293,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3064 => 
+      3371 => 
       array (
         0 => 
         array (
@@ -10520,7 +11316,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3078 => 
+      3385 => 
       array (
         0 => 
         array (
@@ -10543,7 +11339,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3087 => 
+      3394 => 
       array (
         0 => 
         array (
@@ -10585,7 +11381,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3121 => 
+      3428 => 
       array (
         0 => 
         array (
@@ -10608,7 +11404,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3135 => 
+      3442 => 
       array (
         0 => 
         array (
@@ -10631,7 +11427,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3144 => 
+      3451 => 
       array (
         0 => 
         array (
@@ -10673,7 +11469,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3167 => 
+      3474 => 
       array (
         0 => 
         array (
@@ -10696,7 +11492,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3181 => 
+      3488 => 
       array (
         0 => 
         array (
@@ -10719,7 +11515,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3190 => 
+      3497 => 
       array (
         0 => 
         array (
@@ -10761,7 +11557,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3223 => 
+      3530 => 
       array (
         0 => 
         array (
@@ -10784,7 +11580,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3237 => 
+      3544 => 
       array (
         0 => 
         array (
@@ -10807,7 +11603,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3246 => 
+      3553 => 
       array (
         0 => 
         array (
@@ -10849,7 +11645,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3288 => 
+      3595 => 
       array (
         0 => 
         array (
@@ -10872,7 +11668,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3302 => 
+      3609 => 
       array (
         0 => 
         array (
@@ -10895,7 +11691,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3311 => 
+      3618 => 
       array (
         0 => 
         array (
@@ -10937,7 +11733,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3346 => 
+      3653 => 
       array (
         0 => 
         array (
@@ -10960,7 +11756,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3360 => 
+      3667 => 
       array (
         0 => 
         array (
@@ -10983,7 +11779,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3369 => 
+      3676 => 
       array (
         0 => 
         array (
@@ -11025,7 +11821,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3398 => 
+      3705 => 
       array (
         0 => 
         array (
@@ -11048,7 +11844,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3412 => 
+      3719 => 
       array (
         0 => 
         array (
@@ -11071,7 +11867,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3421 => 
+      3728 => 
       array (
         0 => 
         array (
@@ -11113,7 +11909,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3448 => 
+      3755 => 
       array (
         0 => 
         array (
@@ -11136,7 +11932,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3462 => 
+      3769 => 
       array (
         0 => 
         array (
@@ -11159,7 +11955,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3471 => 
+      3778 => 
       array (
         0 => 
         array (
@@ -11201,7 +11997,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3503 => 
+      3810 => 
       array (
         0 => 
         array (
@@ -11224,7 +12020,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3517 => 
+      3824 => 
       array (
         0 => 
         array (
@@ -11247,7 +12043,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3526 => 
+      3833 => 
       array (
         0 => 
         array (
@@ -11289,7 +12085,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3561 => 
+      3868 => 
       array (
         0 => 
         array (
@@ -11312,7 +12108,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3575 => 
+      3882 => 
       array (
         0 => 
         array (
@@ -11335,7 +12131,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3584 => 
+      3891 => 
       array (
         0 => 
         array (
@@ -11377,7 +12173,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3615 => 
+      3922 => 
       array (
         0 => 
         array (
@@ -11400,7 +12196,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3629 => 
+      3936 => 
       array (
         0 => 
         array (
@@ -11423,7 +12219,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3638 => 
+      3945 => 
       array (
         0 => 
         array (
@@ -11465,7 +12261,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3671 => 
+      3978 => 
       array (
         0 => 
         array (
@@ -11488,7 +12284,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3685 => 
+      3992 => 
       array (
         0 => 
         array (
@@ -11511,7 +12307,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3694 => 
+      4001 => 
       array (
         0 => 
         array (
@@ -11553,7 +12349,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3717 => 
+      4024 => 
       array (
         0 => 
         array (
@@ -11817,7 +12613,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::0ivf22HINFLzZ7Kt' => 
+    'generated::PvQf0t9P5VSfnH5e' => 
     array (
       'methods' => 
       array (
@@ -11845,8 +12641,8 @@ app('router')->setCompiledRoutes(
                     return response(\\Illuminate\\Support\\Facades\\View::file(\'D:\\\\laragon\\\\www\\\\new erp\\\\garments_erp\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bc00000000000000000";}}',
-        'as' => 'generated::0ivf22HINFLzZ7Kt',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bcc0000000000000000";}}',
+        'as' => 'generated::PvQf0t9P5VSfnH5e',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11938,29 +12734,30 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'profile.edit' => 
+    'user.profile.edit' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'profile',
+      'uri' => 'user/profile',
       'action' => 
       array (
         'middleware' => 
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'verified',
         ),
         'uses' => 'App\\Http\\Controllers\\ProfileController@edit',
         'controller' => 'App\\Http\\Controllers\\ProfileController@edit',
+        'as' => 'user.profile.edit',
         'namespace' => NULL,
-        'prefix' => '',
+        'prefix' => '/user',
         'where' => 
         array (
         ),
-        'as' => 'profile.edit',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11976,28 +12773,29 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'profile.update' => 
+    'user.profile.update' => 
     array (
       'methods' => 
       array (
         0 => 'PATCH',
       ),
-      'uri' => 'profile',
+      'uri' => 'user/profile',
       'action' => 
       array (
         'middleware' => 
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'verified',
         ),
         'uses' => 'App\\Http\\Controllers\\ProfileController@update',
         'controller' => 'App\\Http\\Controllers\\ProfileController@update',
+        'as' => 'user.profile.update',
         'namespace' => NULL,
-        'prefix' => '',
+        'prefix' => '/user',
         'where' => 
         array (
         ),
-        'as' => 'profile.update',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12013,28 +12811,29 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'profile.destroy' => 
+    'user.profile.destroy' => 
     array (
       'methods' => 
       array (
         0 => 'DELETE',
       ),
-      'uri' => 'profile',
+      'uri' => 'user/profile',
       'action' => 
       array (
         'middleware' => 
         array (
           0 => 'web',
           1 => 'auth',
+          2 => 'verified',
         ),
         'uses' => 'App\\Http\\Controllers\\ProfileController@destroy',
         'controller' => 'App\\Http\\Controllers\\ProfileController@destroy',
+        'as' => 'user.profile.destroy',
         'namespace' => NULL,
-        'prefix' => '',
+        'prefix' => '/user',
         'where' => 
         array (
         ),
-        'as' => 'profile.destroy',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12088,7 +12887,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::75jkTkQEohtizM4O' => 
+    'generated::yHC3X0Pfkk81Zbx8' => 
     array (
       'methods' => 
       array (
@@ -12109,7 +12908,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::75jkTkQEohtizM4O',
+        'as' => 'generated::yHC3X0Pfkk81Zbx8',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12429,7 +13228,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::F154c4ritnnPSecQ' => 
+    'generated::pi1MlaVRDpQBD1DY' => 
     array (
       'methods' => 
       array (
@@ -12450,7 +13249,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::F154c4ritnnPSecQ',
+        'as' => 'generated::pi1MlaVRDpQBD1DY',
       ),
       'fallback' => false,
       'defaults' => 
@@ -15108,6 +15907,7 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
+        'as' => 'hris.index',
         'uses' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@index',
         'controller' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@index',
         'namespace' => NULL,
@@ -15115,7 +15915,244 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'hris.index',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@create',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@store',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/{hri}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@show',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/{hri}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@edit',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/{hri}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@update',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/{hri}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\HRISController@destroy',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
       ),
       'fallback' => false,
       'defaults' => 
@@ -22251,6 +23288,718 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'hris.setup.gatepass_purpose.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@toggleStatus',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@toggleStatus',
+        'as' => 'hris.setup.gatepass_purpose.toggle',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@destroy',
+        'as' => 'hris.setup.gatepass_purpose.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_purpose.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_purpose.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_purpose.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose/{gatepass_purpose}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_purpose.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose/{gatepass_purpose}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_purpose.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose/{gatepass_purpose}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_purpose.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_purpose.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/setup/gatepass_purpose/{gatepass_purpose}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_purpose.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassPurposeController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/gatepass_reason/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@toggleStatus',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@toggleStatus',
+        'as' => 'hris.setup.gatepass_reason.toggle',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/gatepass_reason/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@destroy',
+        'as' => 'hris.setup.gatepass_reason.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_reason',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_reason.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_reason/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_reason.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/gatepass_reason',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_reason.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_reason/{gatepass_reason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_reason.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/gatepass_reason/{gatepass_reason}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_reason.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/setup/gatepass_reason/{gatepass_reason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_reason.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.gatepass_reason.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/setup/gatepass_reason/{gatepass_reason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.gatepass_reason.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\EmpGatepassReasonController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'hris.database.new-applicants.search' => 
     array (
       'methods' => 
@@ -25023,14 +26772,14 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.setting.index' => 
+    'hris.report.employee-listings.preview' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'hris/settings',
+      'uri' => 'hris/report/employee-listings/preview',
       'action' => 
       array (
         'middleware' => 
@@ -25040,11 +26789,11 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'as' => 'hris.setting.index',
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@index',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@previewData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@previewData',
+        'as' => 'hris.report.employee-listings.preview',
         'namespace' => NULL,
-        'prefix' => '/hris',
+        'prefix' => 'hris/report',
         'where' => 
         array (
         ),
@@ -25063,14 +26812,14 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.setting.create' => 
+    'hris.report.employee-listings.index' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'hris/settings/create',
+      'uri' => 'hris/report/employee-listings',
       'action' => 
       array (
         'middleware' => 
@@ -25080,11 +26829,11 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'as' => 'hris.setting.create',
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@create',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@create',
+        'as' => 'hris.report.employee-listings.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@index',
         'namespace' => NULL,
-        'prefix' => '/hris',
+        'prefix' => 'hris/report',
         'where' => 
         array (
         ),
@@ -25103,13 +26852,53 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.setting.store' => 
+    'hris.report.employee-listings.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/employee-listings/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.employee-listings.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.employee-listings.store' => 
     array (
       'methods' => 
       array (
         0 => 'POST',
       ),
-      'uri' => 'hris/settings',
+      'uri' => 'hris/report/employee-listings',
       'action' => 
       array (
         'middleware' => 
@@ -25119,11 +26908,11 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'as' => 'hris.setting.store',
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@store',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@store',
+        'as' => 'hris.report.employee-listings.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@store',
         'namespace' => NULL,
-        'prefix' => '/hris',
+        'prefix' => 'hris/report',
         'where' => 
         array (
         ),
@@ -25142,14 +26931,14 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.setting.show' => 
+    'hris.report.employee-listings.show' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'hris/settings/{setting}',
+      'uri' => 'hris/report/employee-listings/{employee_listing}',
       'action' => 
       array (
         'middleware' => 
@@ -25159,11 +26948,11 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'as' => 'hris.setting.show',
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@show',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@show',
+        'as' => 'hris.report.employee-listings.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@show',
         'namespace' => NULL,
-        'prefix' => '/hris',
+        'prefix' => 'hris/report',
         'where' => 
         array (
         ),
@@ -25182,14 +26971,14 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.setting.edit' => 
+    'hris.report.employee-listings.edit' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'hris/settings/{setting}/edit',
+      'uri' => 'hris/report/employee-listings/{employee_listing}/edit',
       'action' => 
       array (
         'middleware' => 
@@ -25199,11 +26988,11 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'as' => 'hris.setting.edit',
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@edit',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@edit',
+        'as' => 'hris.report.employee-listings.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@edit',
         'namespace' => NULL,
-        'prefix' => '/hris',
+        'prefix' => 'hris/report',
         'where' => 
         array (
         ),
@@ -25222,14 +27011,14 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.setting.update' => 
+    'hris.report.employee-listings.update' => 
     array (
       'methods' => 
       array (
         0 => 'PUT',
         1 => 'PATCH',
       ),
-      'uri' => 'hris/settings/{setting}',
+      'uri' => 'hris/report/employee-listings/{employee_listing}',
       'action' => 
       array (
         'middleware' => 
@@ -25239,11 +27028,11 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'as' => 'hris.setting.update',
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@update',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@update',
+        'as' => 'hris.report.employee-listings.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@update',
         'namespace' => NULL,
-        'prefix' => '/hris',
+        'prefix' => 'hris/report',
         'where' => 
         array (
         ),
@@ -25262,13 +27051,13 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.setting.destroy' => 
+    'hris.report.employee-listings.destroy' => 
     array (
       'methods' => 
       array (
         0 => 'DELETE',
       ),
-      'uri' => 'hris/settings/{setting}',
+      'uri' => 'hris/report/employee-listings/{employee_listing}',
       'action' => 
       array (
         'middleware' => 
@@ -25278,11 +27067,567 @@ app('router')->setCompiledRoutes(
           2 => 'verified',
           3 => 'App\\Http\\Middleware\\ModuleActive:hris',
         ),
-        'as' => 'hris.setting.destroy',
-        'uses' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@destroy',
-        'controller' => 'Modules\\HRIS\\Http\\Controllers\\SettingController@destroy',
+        'as' => 'hris.report.employee-listings.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@destroy',
         'namespace' => NULL,
-        'prefix' => '/hris',
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.hr-settings.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/hr-settings',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.hr-settings.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.hr-settings.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/hr-settings/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.hr-settings.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.hr-settings.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/settings/hr-settings',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.hr-settings.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.hr-settings.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/hr-settings/{hr_setting}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.hr-settings.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.hr-settings.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/hr-settings/{hr_setting}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.hr-settings.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.hr-settings.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/settings/hr-settings/{hr_setting}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.hr-settings.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.hr-settings.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/settings/hr-settings/{hr_setting}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.hr-settings.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/forward-approve',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.forward-approve.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/forward-approve/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.forward-approve.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/settings/forward-approve',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.forward-approve.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/forward-approve/{forward_approve}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.forward-approve.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/settings/forward-approve/{forward_approve}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.forward-approve.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/settings/forward-approve/{forward_approve}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.forward-approve.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/settings/forward-approve/{forward_approve}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.settings.forward-approve.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
         'where' => 
         array (
         ),
@@ -34121,7 +36466,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000dcf0000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000e020000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

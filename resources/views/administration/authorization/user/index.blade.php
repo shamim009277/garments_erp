@@ -31,8 +31,9 @@
                             <tr>
                                 <th width="5%">SL</th>
                                 <th width="20%">Name</th>
-                                <th width="20%">Email</th>
-                                <th width="30%">Role</th>
+                                <th width="15%">Employee ID</th>
+                                <th width="25%">Email</th>
+                                <th width="25%">Role</th>
                                 <th width="15%">Is Active</th>
                                 <th width="10%">Actions</th>
                             </tr>
@@ -58,6 +59,12 @@
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" required value="{{ old('name') }}" placeholder="Enter name">
                             <x-input-error :messages="$errors->get('name')" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee_id" class="form-label">Employee ID</label>
+                            <input type="text" class="form-control @error('employee_id') is-invalid @enderror" id="employee_id"
+                                name="employee_id" value="{{ old('employee_id') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter employee id">
+                            <x-input-error :messages="$errors->get('employee_id')" />
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
@@ -115,6 +122,12 @@
                             <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text"class="form-control @error('name') is-invalid @enderror" id="edit_name" name="name" required>
                             <x-input-error :messages="$errors->get('name')" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee_id" class="form-label">Employee ID</label>
+                            <input type="text" class="form-control @error('employee_id') is-invalid @enderror" id="edit_employee_id"
+                                name="employee_id" value="{{ old('employee_id') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter employee id">
+                            <x-input-error :messages="$errors->get('employee_id')" />
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
@@ -181,6 +194,10 @@
                         name: 'name'
                     },
                     {
+                        data: 'employee_id',
+                        name: 'employee_id'
+                    },
+                    {
                         data: 'email',
                         name: 'email'
                     },
@@ -213,6 +230,7 @@
             $.get(url, function(data) {
                 console.log(data);
                 $('#edit_name').val(data.name);
+                $('#edit_employee_id').val(data.employee_id);
                 $('#edit_email').val(data.email);
                 $('#edit_role_id').val(data.role_id);
                 $('#edit_is_active').val(data.is_active).change();

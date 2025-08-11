@@ -146,12 +146,13 @@ class ItemController extends Controller
         if(!$category_id){
             return response()->json('<option value="">Select a subcategory</option>');
         }
-        $subcategories = GoodsSubcategory::where('goods_category_id', $category_id)->pluck('name', 'id');
-        $html = '<option value="">Select a subcategory</option>';
-        foreach($subcategories as $id => $name){
-            $html .= "<option value='{$id}'>{$name}</option>";
-        }
-        return response()->json($html);
+        $subcategories = GoodsSubcategory::where('goods_category_id', $category_id)
+        ->select('id', 'name')
+        ->orderBy('name')
+        ->get();
+
+    return response()->json($subcategories);
+        
     }
     
 }

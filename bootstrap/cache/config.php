@@ -1360,6 +1360,61 @@
     'theme' => 'auto',
     'debug_backtrace_limit' => 50,
   ),
+  'dompdf' => 
+  array (
+    'show_warnings' => false,
+    'public_path' => NULL,
+    'convert_entities' => true,
+    'options' => 
+    array (
+      'font_dir' => 'D:\\laragon\\www\\new erp\\garments_erp\\storage\\fonts',
+      'font_cache' => 'D:\\laragon\\www\\new erp\\garments_erp\\storage\\fonts',
+      'temp_dir' => 'C:\\Users\\mmkit\\AppData\\Local\\Temp',
+      'chroot' => 'D:\\laragon\\www\\new erp\\garments_erp',
+      'allowed_protocols' => 
+      array (
+        'data://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'file://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'http://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'https://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+      ),
+      'artifactPathValidation' => NULL,
+      'log_output_file' => NULL,
+      'enable_font_subsetting' => false,
+      'pdf_backend' => 'CPDF',
+      'default_media_type' => 'screen',
+      'default_paper_size' => 'a4',
+      'default_paper_orientation' => 'portrait',
+      'default_font' => 'serif',
+      'dpi' => 96,
+      'enable_php' => false,
+      'enable_javascript' => true,
+      'enable_remote' => false,
+      'allowed_remote_hosts' => NULL,
+      'font_height_ratio' => 1.1,
+      'enable_html5_parser' => true,
+    ),
+  ),
   'image' => 
   array (
     'driver' => 'Intervention\\Image\\Drivers\\Gd\\Driver',
