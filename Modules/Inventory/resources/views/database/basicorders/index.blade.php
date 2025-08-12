@@ -187,28 +187,28 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style No</label>
-                                    <input class="form-control" type="text" value="Artisanal kale"
+                                    <input class="form-control" name="style_no" type="text" value="Artisanal kale"
                                         id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style Description</label>
-                                    <input class="form-control" type="text" value="Artisanal kale"
+                                    <input class="form-control" name="style_description" type="text" value="Artisanal kale"
                                         id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Order No</label>
-                                    <input class="form-control" type="text" value="Artisanal kale"
+                                    <input class="form-control" name="order_no" type="text" value="Artisanal kale"
                                         id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Season</label>
-                                    <input class="form-control" type="text" value="Artisanal kale"
+                                    <input class="form-control" name="season" type="text" value="Artisanal kale"
                                         id="example-text-input">
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Composition</label>
-                                    <select name="composition" class="form-control" required>
+                                    <select name="composition_id" class="form-control" required>
                                         @foreach ($compositions as $composition)
                                             <option value="{{ $composition->id }}">{{ $composition->composition_name }}
                                             </option>
@@ -269,7 +269,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fabric Treatment</label>
-                                    <select name="fabric_treatment" class="form-control" required>
+                                    <select name="fabric_treatment_id" class="form-control" required>
                                         @foreach ($fabric_treatments as $fabric_treatment)
                                             <option value="{{ $fabric_treatment->id }}">
                                                 {{ $fabric_treatment->fabric_treatment_name }}</option>
@@ -280,7 +280,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Yarn Count </label>
-                                    <select name="yarn_count" class="form-control" required>
+                                    <select name="yarn_count_id" class="form-control" required>
                                         @foreach ($yarn_counts as $yarn_count)
                                             <option value="{{ $yarn_count->id }}">{{ $yarn_count->yarn_count_name }}
                                             </option>
@@ -291,7 +291,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Yarn Category</label>
-                                    <select name="yarn_category" class="form-control" required>
+                                    <select name="yarn_category_id" class="form-control" required>
                                         @foreach ($yarn_categories as $yarn_category)
                                             <option value="{{ $yarn_category->id }}">
                                                 {{ $yarn_category->yarn_category_name }}</option>
@@ -323,7 +323,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Finish Type</label>
-                                    <select name="finish_type" class="form-control" required>
+                                    <select name="finish_type_id" class="form-control" required>
                                         <option value="">Select Finish Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
