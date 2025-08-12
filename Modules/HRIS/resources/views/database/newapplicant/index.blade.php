@@ -13,6 +13,7 @@
                 ],
             ])
         </div>
+
         <div class="col-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <!-- Centered Title -->
@@ -34,6 +35,7 @@
                 @endif
             </div>
         </div>
+        
         <div class="col-lg-4 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">

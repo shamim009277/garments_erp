@@ -25,6 +25,7 @@ use Modules\Inventory\Http\Controllers\Setup\YarnCountController;
 use Modules\Inventory\Http\Controllers\Setup\FabricTypeController;
 use Modules\Inventory\Http\Controllers\Setup\FabricTreatmentsController;
 use Modules\Inventory\Http\Controllers\Setup\ProductCategoryController;
+use Modules\Inventory\Http\Controllers\Database\BasicOrderController;
 
 
 
@@ -147,6 +148,17 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/productcategories/toggle', [ProductCategoryController::class, 'toggleStatus'])->name('productcategories.toggle');
             Route::post('/productcategories/delete', [ProductCategoryController::class, 'destroy'])->name('productcategories.delete');
             Route::resource('productcategories', ProductCategoryController::class)->names('productcategories');
+
+           
+        });
+
+        //Database
+        Route::prefix('database')->name('database.')->group(function () {
+            
+            //BasicOrderController
+            Route::post('/basicorders/toggle', [BasicOrderController::class, 'toggleStatus'])->name('basicorders.toggle');
+            Route::post('/basicorders/delete', [BasicOrderController::class, 'destroy'])->name('basicorders.delete');
+            Route::resource('basicorders', BasicOrderController::class)->names('basicorders');
         });
     });
 });

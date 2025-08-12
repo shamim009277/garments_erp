@@ -1,17 +1,12 @@
 <?php
 
-namespace Modules\Inventory\Models\Setup;
+namespace Modules\Inventory\Http\Requests\Database;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Inventory\Database\Factories\Setup/BasicOrderFactory;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class BasicOrder extends Model
+class BasicOrderRequest extends FormRequest
 {
-    use HasFactory;
-
     // Basic Order Details
     //   $table->enum('order_type', ['Confirmed', 'Pending', 'Cancelled'])->default('Confirmed');
     //   $table->enum('compile_type', ['Always Barcode', 'Manual'])->nullable();
@@ -87,71 +82,55 @@ class BasicOrder extends Model
     //   $table->foreign('fabric_treatment_id')->references('id')->on('inventory_setup_fabric_treatments')->onDelete('restrict');
     //   $table->foreign('yarn_count_id')->references('id')->on('inventory_setup_yarn_counts')->onDelete('restrict');
     //   $table->foreign('yarn_category_id')->references('id')->on('inventory_setup_yarn_categories')->onDelete('restrict');
-    protected $table = 'inventory_databases_orders';
-
-    protected $fillable = [
-        'order_type',
-        'compile_type',
-        'organization_id',
-        'buyer_id',
-        'style_no',
-        'style_description',
-        'order_no',
-        'season',
-        'fitting_type',
-        'product_category_id',
-        'merchandiser_id',
-        'fabric_type_id',
-        'composition_id',
-        'fabric_treatment_id',
-        'yarn_count_id',
-        'yarn_category_id',
-    ];
-
-    //booted
-    protected static function booted()
+    public function rules(): array
     {
-        static::created(function ($basic_order) {
-            $basic_order->created_by = Auth::user()->id;
-        });
-
-        static::updated(function ($basic_order) {
-            $basic_order->updated_by = Auth::user()->id;
-        });
+        // $buyerId = $this->route('buyer');
+        $basicOrderId = $this->route('basicorder');
+        return [
+            'order_type' => ['required', 'string', Rule::in(['Confirmed', 'Pending', 'Cancelled'])],
+            'compile_type' => 'nullable|string',
+            'organization_id' => 'nullable|exists:hris_setup_organizations,id',
+            'buyer_id' => ['required', 'exists:inventory_setup_buyer,id', Rule::unique('inventory_databases_orders', 'buyer_id')->ignore($basicOrderId)],
+            'style_description' => 'nullable|string',
+            'season' => 'nullable|string',
+            'fitting_type' => 'nullable|string',
+            'product_category_id' => 'nullable|exists:inventory_setup_product_categories,id',
+            'merchandiser_id' => 'nullable|exists:users,id',
+            'fabric_type_id' => 'nullable|exists:inventory_setup_fabric_types,id',
+            'composition_id' => 'nullable|exists:inventory_setup_compositions,id',
+            'fabric_treatment_id' => 'nullable|exists:inventory_setup_fabric_treatments,id',
+            'yarn_count_id' => 'nullable|exists:inventory_setup_yarn_counts,id',
+            'yarn_category_id' => 'nullable|exists:inventory_setup_yarn_categories,id',
+        ];
     }
 
-    // protected static function newFactory(): Setup/BasicOrderFactory
-    // {
-    //     // return Setup/BasicOrderFactory::new();
-    // }
-
-    // Order.php
-    public function lots()
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
     {
-        return $this->hasMany(DB::table('inventory_setup_order_lots'), 'order_id', 'id');
+        return true;
     }
-    public function order()
+    //messages
+    public function messages(): array
     {
-        return $this->belongsTo(BasicOrder::class);
-    }
-    public function colors()
-    {
-        return $this->hasMany(DB::table('inventory_setup_order_lot_colors'), 'order_lot_id', 'id');
-    }
-
-    // OrderLotColor.php
-    public function lot()
-    {
-        return $this->belongsTo(DB::table('inventory_setup_order_lots'), 'order_lot_id', 'id');
-    }
-    public function sizes()
-    {
-        return $this->hasMany(DB::table('inventory_setup_order_lot_color_sizes'), 'order_lot_color_id', 'id');
-    }
-
-    // OrderLotColorSize.php
-    public function color()
-    {
-        return $this->belongsTo(DB::table('inventory_setup_order_lot_colors'), 'order_lot_color_id', 'id');
+        return [
+            'order_type.required' => 'Order type is required',
+            'order_type.in' => 'Order type is invalid',
+            'compile_type.string' => 'Compile type must be a string',
+            'organization_id.exists' => 'Organization does not exist',
+            'buyer_id.required' => 'Buyer is required',
+            'buyer_id.exists' => 'Buyer does not exist',
+            'style_description.string' => 'Style description must be a string',
+            'season.string' => 'Season must be a string',
+            'fitting_type.string' => 'Fitting type must be a string',
+            'product_category_id.exists' => 'Product category does not exist',
+            'merchandiser_id.exists' => 'Merchandiser does not exist',
+            'fabric_type_id.exists' => 'Fabric type does not exist',
+            'composition_id.exists' => 'Composition does not exist',
+            'fabric_treatment_id.exists' => 'Fabric treatment does not exist',
+            'yarn_count_id.exists' => 'Yarn count does not exist',
+            'yarn_category_id.exists' => 'Yarn category does not exist',
+        ];
     }
 }
