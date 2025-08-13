@@ -5,6 +5,7 @@ namespace Modules\HRIS\Http\Controllers\Database;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Setup\LeaveClassification;
 
 class LeaveApplicationController extends Controller
@@ -57,4 +58,17 @@ class LeaveApplicationController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id) {}
+
+
+    public function getLeaveInfo(Request $request)
+    {
+        $employee = Employee::with(['designation:id,designation','department:id,department','employeePersonal:employee_id,mobile,national_id,birth_certificate'])
+                  ->where('employee_id', $request->employee_id)
+                  ->select('id','employee_id','name','designation_id','department_id','joining_date')
+                  ->first();
+
+        return response()->json([
+           'employee' => $employee,
+        ]);
+    }
 }

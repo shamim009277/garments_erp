@@ -203,6 +203,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('employee-gatepass', EmpGatePassController::class)->names('employee-gatepass');
 
             Route::post('/leave-application/reasons', [LeaveApplicationController::class, 'getReasons'])->name('leave-application.reasons');
+            Route::post('/leave/info', [LeaveApplicationController::class, 'getLeaveInfo'])->name('leave.info');
             Route::resource('leave-application', LeaveApplicationController::class)->names('leave-application');
         });
 
@@ -216,6 +217,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         //Settings
         Route::prefix('settings')->name('settings.')->group(function () {
             Route::resource('hr-settings', SettingController::class)->names('hr-settings');
+            Route::post('/fetch-user', [ForwardApproveController::class, 'fetchUser'])->name('forward-approve.fetch-user');
+            Route::post('/fetch-approved-data', [ForwardApproveController::class, 'fetchApprovedData'])->name('forward-approve.fetch-approved-data');
+            Route::post('/fetch-forward-data', [ForwardApproveController::class, 'fetchForwardData'])->name('forward-approve.fetch-forward-data');
+            Route::post('/delete-approved-user', [ForwardApproveController::class, 'deleteApprovedUser'])->name('forward-approve.delete-approved-user');
+            Route::post('/replace-user', [ForwardApproveController::class, 'replaceUser'])->name('forward-approve.replace-user');
             Route::resource('forward-approve', ForwardApproveController::class)->names('forward-approve');
         });
     });

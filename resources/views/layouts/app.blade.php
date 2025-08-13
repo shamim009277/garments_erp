@@ -148,6 +148,11 @@
             background-color: #F8F9FA !important;
             border: 1px solid #E9E9EF !important;
         }
+
+        .disabled-select {
+            cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
+        }
     </style>
     @stack('styles')
 </head>

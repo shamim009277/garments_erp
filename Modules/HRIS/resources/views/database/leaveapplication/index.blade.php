@@ -250,6 +250,64 @@
             }
 
             $('#start_date,#end_date').trigger('change');
+
+            function employeeInfo() {
+                let employeeId = $("#employee_id").val();
+
+                if (employeeId.length >= 6) {
+                    $.ajax({
+                        url: "{{ route('hris.database.leave.info') }}",
+                        type: "POST",
+                        data: {
+                            employee_id: employeeId
+                          },
+                        success: function (response) {
+                            $("#name").val('');
+                            $("#designation").val('');
+                            $("#department").val('');
+                            $("#join_date").val('');
+                            $("#mobile").val('');
+                            $("#nid_birth_certificate").val('');
+                            $("#designation_id").val('');
+                            $("#department_id").val('');
+
+                            if (response.employee && Object.keys(response.employee).length > 0) {
+                            console.log(response);
+
+                            $("#name").val(response.employee.name || '');
+                            $("#designation").val(response.employee.designation?.designation || '');
+                            $("#department").val(response.employee.department?.department || '');
+                            $("#join_date").val(response.employee.joining_date || '');
+                            $("#mobile").val(response.employee.employee_personal?.mobile || '');
+
+                            if (response.employee.employee_personal?.national_id) {
+                                $("#nid_birth_certificate").val(response.employee.employee_personal.national_id);
+                            }
+                            if (response.employee.employee_personal?.birth_certificate) {
+                                $("#nid_birth_certificate").val(response.employee.employee_personal.birth_certificate);
+                            }
+                            $("#designation_id").val(response.employee.designation_id || '');
+                            $("#department_id").val(response.employee.department_id || '');
+                        } else {
+
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to load employee info.',
+                        });
+                    }
+                    });
+                }
+            }
+
+
+            employeeInfo();
+            $("#employee_id").on("input", function () {
+                employeeInfo();
+            });
         });
 
     </script>
