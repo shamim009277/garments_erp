@@ -90,7 +90,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Order Type</label>
-                                    <select name="order_type" class="form-control" required>
+                                    <select name="order_type" class="form-control form-control-sm" required>
                                         <option value="Confirmed">Confirmed</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Cancelled">Cancelled</option>
@@ -100,7 +100,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Compile Type</label>
-                                    <select name="compile_type" class="form-control" required>
+                                    <select name="compile_type" class="form-control form-control-sm" required>
                                         <option value="Always Barcode">Always Barcode</option>
                                         <option value="Manual">Manual</option>
                                     </select>
@@ -110,7 +110,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Organization <span
                                             class="text-danger">*</span></label>
-                                    <select name="organization_id" class="form-control" required>
+                                    <select name="organization_id" class="form-control form-control-sm" required>
                                         @foreach ($organizations as $organization)
                                             <option value="{{ $organization->id }}">{{ $organization->name }}</option>
                                         @endforeach
@@ -121,7 +121,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Buyer <span
                                             class="text-danger">*</span></label>
-                                    <select name="buyer_id" class="form-control" required>
+                                    <select name="buyer_id" class="form-control form-control-sm" required>
                                         @foreach ($buyers as $buyer)
                                             <option value="{{ $buyer->id }}">{{ $buyer->buyer_name }}</option>
                                         @endforeach
@@ -131,13 +131,13 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style No</label>
-                                    <input class="form-control" name="style_no" type="text" id="example-text-input">
+                                    <input class="form-control form-control-sm" name="style_no" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style Description</label>
-                                    <input class="form-control" name="style_description" type="text"
+                                    <input class="form-control form-control-sm" name="style_description" type="text"
                                         id="example-text-input">
                                 </div>
                             </div>
@@ -145,19 +145,19 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Order No <span
                                             class="text-danger">(Auto)</span></label>
-                                    <input class="form-control" name="order_no" type="text" id="example-text-input">
+                                    <input class="form-control form-control-sm" name="order_no" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Season</label>
-                                    <input class="form-control" name="season" type="text" id="example-text-input">
+                                    <input class="form-control form-control-sm" name="season" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fitting Type</label>
-                                    <select name="fitting_type" class="form-control" required>
+                                    <select name="fitting_type" class="form-control form-control-sm" required>
                                         <option>Select Fitting Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
@@ -169,7 +169,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Product Category <span
                                             class="text-danger">*</span></label>
-                                    <select name="product_category_id" class="form-control" required>
+                                    <select name="product_category_id" class="form-control form-control-sm" required>
                                         @foreach ($product_categories as $product_category)
                                             <option value="{{ $product_category->id }}">
                                                 {{ $product_category->product_category_name }}</option>
@@ -181,7 +181,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Merchandiser <span
                                             class="text-danger">*</span></label>
-                                    <select name="merchandiser_id" class="form-control" required>
+                                    <select name="merchandiser_id" class="form-control form-control-sm" required>
                                         @foreach ($merchandisers as $merchandiser)
                                             <option value="{{ $merchandiser->id }}">{{ $merchandiser->name }}</option>
                                         @endforeach
@@ -192,7 +192,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fabric Type <span
                                             class="text-danger">*</span></label>
-                                    <select name="fabric_type_id" class="form-control" required>
+                                    <select name="fabric_type_id" class="form-control form-control-sm" required>
                                         @foreach ($fabric_types as $fabric_type)
                                             <option value="{{ $fabric_type->id }}">{{ $fabric_type->fabric_type_name }}
                                             </option>
@@ -204,7 +204,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Composition <span
                                             class="text-danger">*</span></label>
-                                    <select name="composition_id" class="form-control" required>
+                                    <select name="composition_id" class="form-control form-control-sm" required>
                                         @foreach ($compositions as $composition)
                                             <option value="{{ $composition->id }}">{{ $composition->composition_name }}
                                             </option>
@@ -215,7 +215,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fabric Treatment</label>
-                                    <select name="fabric_treatment_id" class="form-control" required>
+                                    <select name="fabric_treatment_id" class="form-control form-control-sm" required>
                                         @foreach ($fabric_treatments as $fabric_treatment)
                                             <option value="{{ $fabric_treatment->id }}">
                                                 {{ $fabric_treatment->fabric_treatment_name }}</option>
@@ -226,7 +226,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Yarn Count </label>
-                                    <select name="yarn_count_id" class="form-control" required>
+                                    <select name="yarn_count_id" class="form-control form-control-sm" required>
                                         @foreach ($yarn_counts as $yarn_count)
                                             <option value="{{ $yarn_count->id }}">{{ $yarn_count->yarn_count_name }}
                                             </option>
@@ -237,7 +237,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Yarn Category</label>
-                                    <select name="yarn_category_id" class="form-control" required>
+                                    <select name="yarn_category_id" class="form-control form-control-sm" required>
                                         @foreach ($yarn_categories as $yarn_category)
                                             <option value="{{ $yarn_category->id }}">
                                                 {{ $yarn_category->yarn_category_name }}</option>
@@ -249,27 +249,27 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">GSM <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="gsm" id="gsm">
+                                    <input class="form-control form-control-sm" type="text" name="gsm" id="gsm">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">BW GSM <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="bw_gsm" id="bw_gsm">
+                                    <input class="form-control form-control-sm" type="text" name="bw_gsm" id="bw_gsm">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Finish Diameter <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="finished_dia" id="finished_dia">
+                                    <input class="form-control form-control-sm" type="number" name="finished_dia" id="finished_dia">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Finish Type</label>
-                                    <select name="finish_type" class="form-control" required>
+                                    <select name="finish_type" class="form-control form-control-sm" required>
                                         <option>Select Finish Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
@@ -280,7 +280,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Print Type</label>
-                                    <select name="print_type" class="form-control" required>
+                                    <select name="print_type" class="form-control form-control-sm" required>
                                         <option>Select Print Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
@@ -292,14 +292,14 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Print Price Per Dzn <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="print_price_per_dzn"
+                                    <input class="form-control form-control-sm" type="number" name="print_price_per_dzn"
                                         id="print_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">embroidery type</label>
-                                    <select name="embroidery_type" class="form-control" required>
+                                    <select name="embroidery_type" class="form-control form-control-sm" required>
                                         <option>Select embroidery type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
@@ -310,14 +310,14 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">embroidery price per dzn</label>
-                                    <input class="form-control" type="number" name="embroidery_price_per_dzn"
+                                    <input class="form-control form-control-sm" type="number" name="embroidery_price_per_dzn"
                                         id="embroidery_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">wash type</label>
-                                    <select name="wash_type" class="form-control" required>
+                                    <select name="wash_type" class="form-control form-control-sm" required>
                                         <option>Select wash type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
@@ -329,14 +329,14 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">garment dye price per dzn</label>
-                                    <input class="form-control" type="number" name="garment_dye_price_per_dzn"
+                                    <input class="form-control form-control-sm" type="number" name="garment_dye_price_per_dzn"
                                         id="garment_dye_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">order date</label>
-                                    <input class="form-control" type="date" name="order_date"
+                                    <input class="form-control form-control-sm" type="date" name="order_date"
                                         value="<?php echo e(date('Y-m-d')); ?>" id="order_date">
                                 </div>
                             </div>
@@ -344,13 +344,13 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">unit price <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="unit_price" id="unit_price">
+                                    <input class="form-control form-control-sm" type="number" name="unit_price" id="unit_price">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">cm price per dzn</label>
-                                    <input class="form-control" type="number" name="cm_price_per_dzn"
+                                    <input class="form-control form-control-sm" type="number" name="cm_price_per_dzn"
                                         id="cm_price_per_dzn">
                                 </div>
                             </div>
@@ -359,7 +359,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Order Quantity <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="order_quantity"
+                                    <input class="form-control form-control-sm" type="text" name="order_quantity"
                                         id="order_quantity">
                                 </div>
                             </div>
@@ -367,7 +367,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Extra Cutting Percent <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="extra_cutting_percent"
+                                    <input class="form-control form-control-sm" type="number" name="extra_cutting_percent"
                                         id="extra_cutting_percent">
                                 </div>
                             </div>
@@ -375,7 +375,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fabric Booking Needed <span
                                             class="text-danger">*</span></label>
-                                    <select name="fabric_booking_needed" class="form-control" required>
+                                    <select name="fabric_booking_needed" class="form-control form-control-sm" required>
                                         <option>Select fabric booking needed</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
@@ -388,7 +388,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fabric Consumption (kg/dzn) <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="fabric_consumption_kg_dz"
+                                    <input class="form-control form-control-sm" type="number" name="fabric_consumption_kg_dz"
                                         id="fabric_consumption_kg_dz">
                                 </div>
                             </div>
@@ -396,7 +396,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Kd Allowance Percent <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="kd_allowance_percent"
+                                    <input class="form-control form-control-sm" type="number" name="kd_allowance_percent"
                                         id="kd_allowance_percent">
                                 </div>
                             </div>
@@ -404,7 +404,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Cutting Consumption
                                         (yards/pcs)</label>
-                                    <input class="form-control" type="number" name="cutting_consumption_yards_pcs"
+                                    <input class="form-control form-control-sm" type="number" name="cutting_consumption_yards_pcs"
                                         id="cutting_consumption_yards_pcs">
                                 </div>
                             </div>
@@ -412,7 +412,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Booking Consumption
                                         (yards/pcs)</label>
-                                    <input class="form-control" type="number" name="booking_consumption_yards_pcs"
+                                    <input class="form-control form-control-sm" type="number" name="booking_consumption_yards_pcs"
                                         id="booking_consumption_yards_pcs">
                                 </div>
                             </div>
@@ -421,7 +421,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Delivery Mode <span
                                             class="text-danger">*</span></label>
-                                    <select name="delivery_mode" class="form-control" required>
+                                    <select name="delivery_mode" class="form-control form-control-sm" required>
                                         <option>Select delivery_mode</option>
                                         <option value="Sea">Sea</option>
                                         <option value="Air">Air</option>
@@ -432,14 +432,14 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Delivery Date</label>
-                                    <input class="form-control" type="date" name="delivery_date" id="delivery_date">
+                                    <input class="form-control form-control-sm" type="date" name="delivery_date" id="delivery_date">
                                 </div>
                             </div>
 
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">trims required approved</label>
-                                    <select name="trims_required_approved" class="form-control" required>
+                                    <select name="trims_required_approved" class="form-control form-control-sm" required>
                                         <option>Select trims required approved</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
@@ -449,7 +449,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">closed</label>
-                                    <select name="closed" class="form-control" required>
+                                    <select name="closed" class="form-control form-control-sm" required>
                                         <option>Select closed</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
@@ -459,7 +459,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">fabric from stock</label>
-                                    <select name="fabric_from_stock" class="form-control" required>
+                                    <select name="fabric_from_stock" class="form-control form-control-sm" required>
                                         <option>Select fabric from stock</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
