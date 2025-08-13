@@ -47,16 +47,30 @@
                 </div>
                 <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
                     <ul class="nav-custom">
-                        <li class="nav-custom-item">
-                            <input type="checkbox" id="basicorder1">
-                            <label class="nav-custom-link" for="basicorder1"><span class="nav-custom-caret"></span> Basic
-                                Order 1</label>
-                        </li>
-                        <li class="nav-custom-item">
-                            <input type="checkbox" id="basicorder2">
-                            <label class="nav-custom-link" for="basicorder2"><span class="nav-custom-caret"></span> Basic
-                                Order 2</label>
-                        </li>
+                        @foreach ($buyers as $buyer)
+                            @php
+                                $buyerOrders = collect($ListOfOrders)->where('buyer_id', $buyer->id);
+
+                            @endphp
+                            <li class="nav-custom-item">
+                                <input type="checkbox" id="buyer{{ $buyer->id }}">
+                                <label class="nav-custom-link" for="buyer{{ $buyer->id }}"><span
+                                        class="nav-custom-caret"></span> {{ $buyer->buyer_name }}
+                                    ({{ $buyerOrders->count() }})</label>
+                                <div class="nav-custom-content">
+                                    <ul class="nav-custom">
+                                        @foreach ($buyerOrders as $order)
+                                            <li class="nav-custom-item">
+                                                <a href="{{ route('inventory.database.basicorders.show', $order->id) }}">
+                                                    <label class="nav-custom-link" for="order{{ $order->id }}"><span
+                                                            class="nav-custom-caret"></span> {!! $order->order_no !!}: {!! $order->style_no !!}</label>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -68,79 +82,7 @@
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input
                         Parameters For New Basic Order ...</h6>
                 </div>
-                <!-- This is my Table for Basic Orders -->
-                {{-- // Basic Order Details
-                    //   $table->enum('order_type', ['Confirmed', 'Pending', 'Cancelled'])->default('Confirmed');
-                    //   $table->enum('compile_type', ['Always Barcode', 'Manual'])->nullable();
 
-
-                    //   $table->unsignedBigInteger('organization_id');    // Texeurop (BD) Ltd etc.
-                    //   $table->unsignedBigInteger('buyer_id'); // buyer_id
-
-
-                    //   $table->string('style_no')->unique();
-                    //   $table->string('style_description')->nullable();
-                    //   $table->string('order_no')->unique();
-                    //   $table->string('season')->nullable();
-                    //   $table->string('fitting_type')->nullable();
-
-                    //   // Basic Order Details
-                    //   $table->unsignedBigInteger('product_category_id');
-                    //   $table->unsignedBigInteger('merchandiser_id');
-
-                    //   $table->unsignedBigInteger('fabric_type_id');
-                    //   $table->unsignedBigInteger('composition_id');
-                    //   $table->unsignedBigInteger('fabric_treatment_id'); // All Over Print, Yarn Dyed
-                    //   $table->unsignedBigInteger('yarn_count_id');
-                    //   $table->unsignedBigInteger('yarn_category_id');
-
-
-                    //   $table->string('gsm')->nullable();
-                    //   $table->string('bw_gsm')->nullable();
-                    //   $table->decimal('finished_dia', 8, 2)->nullable();
-                    //   $table->string('finish_type')->nullable();
-
-                    //   // Print & Embroidery
-                    //   $table->string('print_type')->nullable();
-                    //   $table->decimal('print_price_per_dzn', 8, 2)->default(0);
-                    //   $table->string('embroidery_type')->nullable();
-                    //   $table->decimal('embroidery_price_per_dzn', 8, 2)->default(0);
-                    //   $table->string('wash_type')->nullable();
-
-                    //   // Pricing & Costing
-                    //   $table->decimal('garment_dye_price_per_dzn', 8, 2)->default(0);
-                    //   $table->date('order_date');
-                    //   $table->decimal('unit_price', 8, 2);
-                    //   $table->decimal('cm_price_per_dzn', 8, 2)->default(0);
-
-                    //   // Quantities
-                    //   $table->integer('order_quantity');
-                    //   $table->decimal('extra_cutting_percent', 5, 2)->default(0);
-                    //   $table->boolean('fabric_booking_needed')->default(false);
-
-                    //   // Consumption
-                    //   $table->decimal('fabric_consumption_kg_dz', 8, 3)->nullable();
-                    //   $table->decimal('kd_allowance_percent', 5, 2)->nullable();
-                    //   $table->decimal('cutting_consumption_yards_pcs', 8, 3)->nullable();
-                    //   $table->decimal('booking_consumption_yards_pcs', 8, 3)->nullable();
-
-                    //   // Delivery
-                    //   $table->string('delivery_mode')->nullable(); // By Sea / Air / Road
-                    //   $table->date('delivery_date')->nullable();
-                    //   $table->boolean('trims_required_approved')->default(false);
-                    //   $table->boolean('closed')->default(false);
-                    //   $table->boolean('fabric_from_stock')->default(false);
-
-                    //   //foreign key
-                    //   $table->foreign('organization_id')->references('id')->on('hris_setup_organizations')->onDelete('restrict');
-                    //   $table->foreign('buyer_id')->references('id')->on('inventory_setup_buyer')->onDelete('restrict');
-                    //   $table->foreign('product_category_id')->references('id')->on('inventory_setup_product_categories')->onDelete('restrict');
-                    //   $table->foreign('merchandiser_id')->references('id')->on('users')->onDelete('restrict');
-                    //   $table->foreign('fabric_type_id')->references('id')->on('inventory_setup_fabric_types')->onDelete('restrict');
-                    //   $table->foreign('composition_id')->references('id')->on('inventory_setup_compositions')->onDelete('restrict');
-                    //   $table->foreign('fabric_treatment_id')->references('id')->on('inventory_setup_fabric_treatments')->onDelete('restrict');
-                    //   $table->foreign('yarn_count_id')->references('id')->on('inventory_setup_yarn_counts')->onDelete('restrict');
-                    //   $table->foreign('yarn_category_id')->references('id')->on('inventory_setup_yarn_categories')->onDelete('restrict'); --}}
                 <div class="card-body">
                     <form action="{{ route('inventory.database.basicorders.store') }}" method="POST">
                         @csrf
@@ -166,7 +108,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Organization</label>
+                                    <label for="example-text-input" class="form-label">Organization <span
+                                            class="text-danger">*</span></label>
                                     <select name="organization_id" class="form-control" required>
                                         @foreach ($organizations as $organization)
                                             <option value="{{ $organization->id }}">{{ $organization->name }}</option>
@@ -176,7 +119,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Buyer</label>
+                                    <label for="example-text-input" class="form-label">Buyer <span
+                                            class="text-danger">*</span></label>
                                     <select name="buyer_id" class="form-control" required>
                                         @foreach ($buyers as $buyer)
                                             <option value="{{ $buyer->id }}">{{ $buyer->buyer_name }}</option>
@@ -187,36 +131,34 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style No</label>
-                                    <input class="form-control" name="style_no" type="text" value="Artisanal kale"
-                                        id="example-text-input">
+                                    <input class="form-control" name="style_no" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style Description</label>
-                                    <input class="form-control" name="style_description" type="text" value="Artisanal kale"
+                                    <input class="form-control" name="style_description" type="text"
                                         id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Order No</label>
-                                    <input class="form-control" name="order_no" type="text" value="Artisanal kale"
-                                        id="example-text-input">
+                                    <label for="example-text-input" class="form-label">Order No <span
+                                            class="text-danger">(Auto)</span></label>
+                                    <input class="form-control" name="order_no" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Season</label>
-                                    <input class="form-control" name="season" type="text" value="Artisanal kale"
-                                        id="example-text-input">
+                                    <input class="form-control" name="season" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fitting Type</label>
                                     <select name="fitting_type" class="form-control" required>
-                                        <option value="">Select Fitting Type</option>
+                                        <option>Select Fitting Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -225,7 +167,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Product Category</label>
+                                    <label for="example-text-input" class="form-label">Product Category <span
+                                            class="text-danger">*</span></label>
                                     <select name="product_category_id" class="form-control" required>
                                         @foreach ($product_categories as $product_category)
                                             <option value="{{ $product_category->id }}">
@@ -236,7 +179,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Merchandiser</label>
+                                    <label for="example-text-input" class="form-label">Merchandiser <span
+                                            class="text-danger">*</span></label>
                                     <select name="merchandiser_id" class="form-control" required>
                                         @foreach ($merchandisers as $merchandiser)
                                             <option value="{{ $merchandiser->id }}">{{ $merchandiser->name }}</option>
@@ -246,8 +190,9 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Fabric Type</label>
-                                    <select name="fabric_type" class="form-control" required>
+                                    <label for="example-text-input" class="form-label">Fabric Type <span
+                                            class="text-danger">*</span></label>
+                                    <select name="fabric_type_id" class="form-control" required>
                                         @foreach ($fabric_types as $fabric_type)
                                             <option value="{{ $fabric_type->id }}">{{ $fabric_type->fabric_type_name }}
                                             </option>
@@ -257,7 +202,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Composition</label>
+                                    <label for="example-text-input" class="form-label">Composition <span
+                                            class="text-danger">*</span></label>
                                     <select name="composition_id" class="form-control" required>
                                         @foreach ($compositions as $composition)
                                             <option value="{{ $composition->id }}">{{ $composition->composition_name }}
@@ -301,30 +247,30 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">GSM</label>
-                                    <input class="form-control" type="text" name="gsm" value="Artisanal kale"
-                                        id="gsm">
+                                    <label for="example-text-input" class="form-label">GSM <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="gsm" id="gsm">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">BW GSM</label>
-                                    <input class="form-control" type="text" name="bw_gsm" value="Artisanal kale"
-                                        id="bw_gsm">
+                                    <label for="example-text-input" class="form-label">BW GSM <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="bw_gsm" id="bw_gsm">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Finish Diameter</label>
-                                    <input class="form-control" type="text" name="finished_dia"
-                                        value="Artisanal kale" id="finished_dia">
+                                    <label for="example-text-input" class="form-label">Finish Diameter <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="finished_dia" id="finished_dia">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Finish Type</label>
-                                    <select name="finish_type_id" class="form-control" required>
-                                        <option value="">Select Finish Type</option>
+                                    <select name="finish_type" class="form-control" required>
+                                        <option>Select Finish Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -335,7 +281,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Print Type</label>
                                     <select name="print_type" class="form-control" required>
-                                        <option value="">Select Print Type</option>
+                                        <option>Select Print Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -344,16 +290,17 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Print Price Per Dzn</label>
-                                    <input class="form-control" type="text" name="print_price_per_dzn"
-                                        value="Artisanal kale" id="print_price_per_dzn">
+                                    <label for="example-text-input" class="form-label">Print Price Per Dzn <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="print_price_per_dzn"
+                                        id="print_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">embroidery type</label>
                                     <select name="embroidery_type" class="form-control" required>
-                                        <option value="">Select embroidery type</option>
+                                        <option>Select embroidery type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -363,15 +310,15 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">embroidery price per dzn</label>
-                                    <input class="form-control" type="text" name="embroidery_price_per_dzn"
-                                        value="Artisanal kale" id="embroidery_price_per_dzn">
+                                    <input class="form-control" type="number" name="embroidery_price_per_dzn"
+                                        id="embroidery_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">wash type</label>
                                     <select name="wash_type" class="form-control" required>
-                                        <option value="">Select wash type</option>
+                                        <option>Select wash type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -382,53 +329,56 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">garment dye price per dzn</label>
-                                    <input class="form-control" type="text" name="garment_dye_price_per_dzn"
-                                        value="Artisanal kale" id="garment_dye_price_per_dzn">
+                                    <input class="form-control" type="number" name="garment_dye_price_per_dzn"
+                                        id="garment_dye_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">order date</label>
                                     <input class="form-control" type="date" name="order_date"
-                                        value="{{ date('Y-m-d') }}" id="order_date">
+                                        value="<?php echo e(date('Y-m-d')); ?>" id="order_date">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">unit price</label>
-                                    <input class="form-control" type="text" name="unit_price" value="Artisanal kale"
-                                        id="unit_price">
+                                    <label for="example-text-input" class="form-label">unit price <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="unit_price" id="unit_price">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">cm price per dzn</label>
-                                    <input class="form-control" type="text" name="cm_price_per_dzn"
-                                        value="Artisanal kale" id="cm_price_per_dzn">
+                                    <input class="form-control" type="number" name="cm_price_per_dzn"
+                                        id="cm_price_per_dzn">
                                 </div>
                             </div>
                             {{-- Quantities --}}
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Order Quantity</label>
+                                    <label for="example-text-input" class="form-label">Order Quantity <span
+                                            class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="order_quantity"
-                                        value="Artisanal kale" id="order_quantity">
+                                        id="order_quantity">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Extra Cutting Percent</label>
-                                    <input class="form-control" type="text" name="extra_cutting_percent"
-                                        value="Artisanal kale" id="extra_cutting_percent">
+                                    <label for="example-text-input" class="form-label">Extra Cutting Percent <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="extra_cutting_percent"
+                                        id="extra_cutting_percent">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Fabric Booking Needed</label>
+                                    <label for="example-text-input" class="form-label">Fabric Booking Needed <span
+                                            class="text-danger">*</span></label>
                                     <select name="fabric_booking_needed" class="form-control" required>
-                                        <option value="">Select fabric booking needed</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option>Select fabric booking needed</option>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -436,40 +386,43 @@
                             {{-- Consumption --}}
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Fabric Consumption (kg/dzn)</label>
-                                    <input class="form-control" type="text" name="fabric_consumption_kg_dz"
-                                        value="Artisanal kale" id="fabric_consumption_kg_dz">
+                                    <label for="example-text-input" class="form-label">Fabric Consumption (kg/dzn) <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="fabric_consumption_kg_dz"
+                                        id="fabric_consumption_kg_dz">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Kd Allowance Percent</label>
-                                    <input class="form-control" type="text" name="kd_allowance_percent"
-                                        value="Artisanal kale" id="kd_allowance_percent">
+                                    <label for="example-text-input" class="form-label">Kd Allowance Percent <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="kd_allowance_percent"
+                                        id="kd_allowance_percent">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Cutting Consumption
                                         (yards/pcs)</label>
-                                    <input class="form-control" type="text" name="cutting_consumption_yards_pcs"
-                                        value="Artisanal kale" id="cutting_consumption_yards_pcs">
+                                    <input class="form-control" type="number" name="cutting_consumption_yards_pcs"
+                                        id="cutting_consumption_yards_pcs">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Booking Consumption
                                         (yards/pcs)</label>
-                                    <input class="form-control" type="text" name="booking_consumption_yards_pcs"
-                                        value="Artisanal kale" id="booking_consumption_yards_pcs">
+                                    <input class="form-control" type="number" name="booking_consumption_yards_pcs"
+                                        id="booking_consumption_yards_pcs">
                                 </div>
                             </div>
                             {{-- Delivery --}}
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Delivery Mode</label>
+                                    <label for="example-text-input" class="form-label">Delivery Mode <span
+                                            class="text-danger">*</span></label>
                                     <select name="delivery_mode" class="form-control" required>
-                                        <option value="">Select delivery_mode</option>
+                                        <option>Select delivery_mode</option>
                                         <option value="Sea">Sea</option>
                                         <option value="Air">Air</option>
                                         <option value="Road">Road</option>
@@ -479,8 +432,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Delivery Date</label>
-                                    <input class="form-control" type="date" name="delivery_date"
-                                        value="Artisanal kale" id="delivery_date">
+                                    <input class="form-control" type="date" name="delivery_date" id="delivery_date">
                                 </div>
                             </div>
 
@@ -488,9 +440,9 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">trims required approved</label>
                                     <select name="trims_required_approved" class="form-control" required>
-                                        <option value="">Select trims required approved</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option>Select trims required approved</option>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -498,9 +450,9 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">closed</label>
                                     <select name="closed" class="form-control" required>
-                                        <option value="">Select closed</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option>Select closed</option>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -508,9 +460,9 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">fabric from stock</label>
                                     <select name="fabric_from_stock" class="form-control" required>
-                                        <option value="">Select fabric from stock</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option>Select fabric from stock</option>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                             </div>

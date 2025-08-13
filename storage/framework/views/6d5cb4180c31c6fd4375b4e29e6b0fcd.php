@@ -32,8 +32,8 @@
                             <?php $__currentLoopData = $parentDepartments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $parentDepartment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr id="row-<?php echo e($parentDepartment->id); ?>">
                                     <td><?php echo e($key + 1); ?></td>
-                                    <td><?php echo e($parentDepartment->parent_department); ?></td>
-                                    <td><?php echo e($parentDepartment->parent_department_bn); ?></td>
+                                    <td><?php echo e($parentDepartment->department); ?></td>
+                                    <td><?php echo e($parentDepartment->department_bn); ?></td>
                                     <td>
                                         <div class="square-switch">
                                             <input type="checkbox" id="square-switch3<?php echo e($parentDepartment->id); ?>" class="organization-toggle" data-id="<?php echo e($parentDepartment->id); ?>" switch="bool" <?php echo e($parentDepartment->is_active ? 'checked' : ''); ?> />
@@ -58,14 +58,14 @@
                                                         <?php echo method_field('PUT'); ?>
                                                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => $parentDepartment->parent_department,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => $parentDepartment->department,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartment->parent_department),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartment->department),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -78,14 +78,14 @@
 <?php endif; ?>
                                                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => $parentDepartment->parent_department_bn,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => $parentDepartment->department_bn,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartment->parent_department_bn),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartment->department_bn),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -161,14 +161,14 @@
                         <?php echo csrf_field(); ?>
                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => old('parent_department'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => old('department'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('parent_department')),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'department','label' => 'Name','type' => 'text','placeholder' => 'Enter name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('department')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -181,14 +181,14 @@
 <?php endif; ?>
                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => old('parent_department_bn'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => old('department_bn'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('parent_department_bn')),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'department_bn','label' => 'Bangla Name','type' => 'text','placeholder' => 'Enter bangla name','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('department_bn')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>

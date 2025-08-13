@@ -33,8 +33,8 @@
                             <?php $__currentLoopData = $parentDesignations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $parentDesignation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr id="row-<?php echo e($parentDesignation->id); ?>">
                                     <td><?php echo e($key + 1); ?></td>
-                                    <td><?php echo e($parentDesignation->parent_designation); ?></td>
-                                    <td><?php echo e($parentDesignation->parent_designation_bn); ?></td>
+                                    <td><?php echo e($parentDesignation->designation); ?></td>
+                                    <td><?php echo e($parentDesignation->designation_bn); ?></td>
                                     <td><?php echo e($parentDesignation->approved_mp); ?></td>
                                     <td>
                                         <div class="square-switch">
@@ -60,14 +60,14 @@
                                                         <?php echo method_field('PUT'); ?>
                                                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => $parentDesignation->parent_designation,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => $parentDesignation->designation,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDesignation->parent_designation),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDesignation->designation),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -80,14 +80,14 @@
 <?php endif; ?>
                                                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => $parentDesignation->parent_designation_bn,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => $parentDesignation->designation_bn,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDesignation->parent_designation_bn),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDesignation->designation_bn),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -183,14 +183,14 @@
                         <?php echo csrf_field(); ?>
                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => old('parent_designation'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => old('designation'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('parent_designation')),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'designation','label' => 'Parent Designation','type' => 'text','placeholder' => 'Enter parent designation','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('designation')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -203,14 +203,14 @@
 <?php endif; ?>
                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'parent_designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => old('parent_designation_bn'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => old('designation_bn'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('parent_designation_bn')),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'designation_bn','label' => 'Parent Designation(Bangla)','type' => 'text','placeholder' => 'Enter parent designation(bangla)','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('designation_bn')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>

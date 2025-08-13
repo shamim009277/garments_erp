@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 
 class BasicOrderRequest extends FormRequest
 {
-    // Basic Order Details
+    //   Basic Order Details
     //   $table->enum('order_type', ['Confirmed', 'Pending', 'Cancelled'])->default('Confirmed');
     //   $table->enum('compile_type', ['Always Barcode', 'Manual'])->nullable();
 
@@ -90,7 +90,7 @@ class BasicOrderRequest extends FormRequest
             'order_type' => ['required', 'string', Rule::in(['Confirmed', 'Pending', 'Cancelled'])],
             'compile_type' => 'nullable|string',
             'organization_id' => 'nullable|exists:hris_setup_organizations,id',
-            'buyer_id' => ['required', 'exists:inventory_setup_buyer,id', Rule::unique('inventory_databases_orders', 'buyer_id')->ignore($basicOrderId)],
+
             'style_description' => 'nullable|string',
             'season' => 'nullable|string',
             'fitting_type' => 'nullable|string',
@@ -119,8 +119,7 @@ class BasicOrderRequest extends FormRequest
             'order_type.in' => 'Order type is invalid',
             'compile_type.string' => 'Compile type must be a string',
             'organization_id.exists' => 'Organization does not exist',
-            'buyer_id.required' => 'Buyer is required',
-            'buyer_id.exists' => 'Buyer does not exist',
+
             'style_description.string' => 'Style description must be a string',
             'season.string' => 'Season must be a string',
             'fitting_type.string' => 'Fitting type must be a string',

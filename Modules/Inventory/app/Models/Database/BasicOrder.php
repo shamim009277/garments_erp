@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\Inventory\Database\Factories\Database/BasicOrderFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Modules\Inventory\Models\Setup\Buyer;
+use Modules\Inventory\Models\Setup\Organization;
+use Modules\Inventory\Models\Setup\ProductCategory;
+use Modules\Inventory\Models\Setup\Merchandiser;
+use Modules\Inventory\Models\Setup\FabricType;
+use Modules\Inventory\Models\Setup\Composition;
+use Modules\Inventory\Models\Setup\FabricTreatments;
+use Modules\Inventory\Models\Setup\YarnCount;
+use Modules\Inventory\Models\Setup\YarnCategory;
 
 class BasicOrder extends Model
 {
@@ -154,5 +162,10 @@ class BasicOrder extends Model
     public function color()
     {
         return $this->belongsTo(DB::table('inventory_setup_order_lot_colors'), 'order_lot_color_id', 'id');
+    }
+    //buyer
+    public function buyer()
+    {
+        return $this->belongsTo(Buyer::class);
     }
 }
