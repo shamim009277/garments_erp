@@ -46,16 +46,31 @@
                 </div>
                 <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
                     <ul class="nav-custom">
-                        <li class="nav-custom-item">
-                            <input type="checkbox" id="basicorder1">
-                            <label class="nav-custom-link" for="basicorder1"><span class="nav-custom-caret"></span> Basic
-                                Order 1</label>
-                        </li>
-                        <li class="nav-custom-item">
-                            <input type="checkbox" id="basicorder2">
-                            <label class="nav-custom-link" for="basicorder2"><span class="nav-custom-caret"></span> Basic
-                                Order 2</label>
-                        </li>
+                        <?php $__currentLoopData = $buyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
+                                $buyerOrders = collect($ListOfOrders)->where('buyer_id', $buyer->id);
+
+                            ?>
+                            <li class="nav-custom-item">
+                                <input type="checkbox" id="buyer<?php echo e($buyer->id); ?>">
+                                <label class="nav-custom-link" for="buyer<?php echo e($buyer->id); ?>"><span
+                                        class="nav-custom-caret"></span> <?php echo e($buyer->buyer_name); ?>
+
+                                    (<?php echo e($buyerOrders->count()); ?>)</label>
+                                <div class="nav-custom-content">
+                                    <ul class="nav-custom">
+                                        <?php $__currentLoopData = $buyerOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <li class="nav-custom-item">
+                                                <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>">
+                                                    <label class="nav-custom-link" for="order<?php echo e($order->id); ?>"><span
+                                                            class="nav-custom-caret"></span> <?php echo $order->order_no; ?>: <?php echo $order->style_no; ?></label>
+                                                </a>
+                                            </li>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </ul>
+                                </div>
+                            </li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
             </div>
@@ -67,7 +82,7 @@
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input
                         Parameters For New Basic Order ...</h6>
                 </div>
-                
+
                 <div class="card-body">
                     <form action="<?php echo e(route('inventory.database.basicorders.store')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
@@ -93,7 +108,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Organization <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Organization <span
+                                            class="text-danger">*</span></label>
                                     <select name="organization_id" class="form-control" required>
                                         <?php $__currentLoopData = $organizations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $organization): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($organization->id); ?>"><?php echo e($organization->name); ?></option>
@@ -103,7 +119,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Buyer <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Buyer <span
+                                            class="text-danger">*</span></label>
                                     <select name="buyer_id" class="form-control" required>
                                         <?php $__currentLoopData = $buyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($buyer->id); ?>"><?php echo e($buyer->buyer_name); ?></option>
@@ -114,36 +131,34 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style No</label>
-                                    <input class="form-control" name="style_no" type="text" 
-                                        id="example-text-input">
+                                    <input class="form-control" name="style_no" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Style Description</label>
-                                    <input class="form-control" name="style_description" type="text" 
+                                    <input class="form-control" name="style_description" type="text"
                                         id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Order No <span class="text-danger">(Auto)</span></label>
-                                    <input class="form-control" name="order_no" type="text" 
-                                        id="example-text-input">
+                                    <label for="example-text-input" class="form-label">Order No <span
+                                            class="text-danger">(Auto)</span></label>
+                                    <input class="form-control" name="order_no" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Season</label>
-                                    <input class="form-control" name="season" type="text" 
-                                        id="example-text-input">
+                                    <input class="form-control" name="season" type="text" id="example-text-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fitting Type</label>
                                     <select name="fitting_type" class="form-control" required>
-                                        <option >Select Fitting Type</option>
+                                        <option>Select Fitting Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -152,7 +167,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Product Category <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Product Category <span
+                                            class="text-danger">*</span></label>
                                     <select name="product_category_id" class="form-control" required>
                                         <?php $__currentLoopData = $product_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($product_category->id); ?>">
@@ -163,7 +179,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Merchandiser <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Merchandiser <span
+                                            class="text-danger">*</span></label>
                                     <select name="merchandiser_id" class="form-control" required>
                                         <?php $__currentLoopData = $merchandisers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $merchandiser): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($merchandiser->id); ?>"><?php echo e($merchandiser->name); ?></option>
@@ -173,7 +190,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Fabric Type <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Fabric Type <span
+                                            class="text-danger">*</span></label>
                                     <select name="fabric_type_id" class="form-control" required>
                                         <?php $__currentLoopData = $fabric_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fabric_type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($fabric_type->id); ?>"><?php echo e($fabric_type->fabric_type_name); ?>
@@ -185,7 +203,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Composition <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Composition <span
+                                            class="text-danger">*</span></label>
                                     <select name="composition_id" class="form-control" required>
                                         <?php $__currentLoopData = $compositions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $composition): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($composition->id); ?>"><?php echo e($composition->composition_name); ?>
@@ -231,30 +250,30 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">GSM <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="gsm" 
-                                        id="gsm">
+                                    <label for="example-text-input" class="form-label">GSM <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="gsm" id="gsm">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">BW GSM <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="bw_gsm" 
-                                        id="bw_gsm">
+                                    <label for="example-text-input" class="form-label">BW GSM <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="bw_gsm" id="bw_gsm">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Finish Diameter <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="finished_dia"
-                                         id="finished_dia">
+                                    <label for="example-text-input" class="form-label">Finish Diameter <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="finished_dia" id="finished_dia">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Finish Type</label>
                                     <select name="finish_type" class="form-control" required>
-                                        <option >Select Finish Type</option>
+                                        <option>Select Finish Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -265,7 +284,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Print Type</label>
                                     <select name="print_type" class="form-control" required>
-                                        <option >Select Print Type</option>
+                                        <option>Select Print Type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -274,16 +293,17 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Print Price Per Dzn <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Print Price Per Dzn <span
+                                            class="text-danger">*</span></label>
                                     <input class="form-control" type="number" name="print_price_per_dzn"
-                                         id="print_price_per_dzn">
+                                        id="print_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">embroidery type</label>
                                     <select name="embroidery_type" class="form-control" required>
-                                        <option >Select embroidery type</option>
+                                        <option>Select embroidery type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -294,14 +314,14 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">embroidery price per dzn</label>
                                     <input class="form-control" type="number" name="embroidery_price_per_dzn"
-                                         id="embroidery_price_per_dzn">
+                                        id="embroidery_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">wash type</label>
                                     <select name="wash_type" class="form-control" required>
-                                        <option >Select wash type</option>
+                                        <option>Select wash type</option>
                                         <option value="Regular">Regular</option>
                                         <option value="Plus">Plus</option>
                                         <option value="Slim">Slim</option>
@@ -313,7 +333,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">garment dye price per dzn</label>
                                     <input class="form-control" type="number" name="garment_dye_price_per_dzn"
-                                         id="garment_dye_price_per_dzn">
+                                        id="garment_dye_price_per_dzn">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -325,38 +345,41 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">unit price <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="number" name="unit_price" 
-                                        id="unit_price">
+                                    <label for="example-text-input" class="form-label">unit price <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="number" name="unit_price" id="unit_price">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">cm price per dzn</label>
                                     <input class="form-control" type="number" name="cm_price_per_dzn"
-                                         id="cm_price_per_dzn">
+                                        id="cm_price_per_dzn">
                                 </div>
                             </div>
                             
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Order Quantity <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Order Quantity <span
+                                            class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="order_quantity"
-                                         id="order_quantity">
+                                        id="order_quantity">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Extra Cutting Percent <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Extra Cutting Percent <span
+                                            class="text-danger">*</span></label>
                                     <input class="form-control" type="number" name="extra_cutting_percent"
-                                         id="extra_cutting_percent">
+                                        id="extra_cutting_percent">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Fabric Booking Needed <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Fabric Booking Needed <span
+                                            class="text-danger">*</span></label>
                                     <select name="fabric_booking_needed" class="form-control" required>
-                                        <option >Select fabric booking needed</option>
+                                        <option>Select fabric booking needed</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
@@ -366,16 +389,18 @@
                             
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Fabric Consumption (kg/dzn) <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Fabric Consumption (kg/dzn) <span
+                                            class="text-danger">*</span></label>
                                     <input class="form-control" type="number" name="fabric_consumption_kg_dz"
-                                         id="fabric_consumption_kg_dz">
+                                        id="fabric_consumption_kg_dz">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Kd Allowance Percent <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Kd Allowance Percent <span
+                                            class="text-danger">*</span></label>
                                     <input class="form-control" type="number" name="kd_allowance_percent"
-                                         id="kd_allowance_percent">
+                                        id="kd_allowance_percent">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -383,7 +408,7 @@
                                     <label for="example-text-input" class="form-label">Cutting Consumption
                                         (yards/pcs)</label>
                                     <input class="form-control" type="number" name="cutting_consumption_yards_pcs"
-                                         id="cutting_consumption_yards_pcs">
+                                        id="cutting_consumption_yards_pcs">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -391,15 +416,16 @@
                                     <label for="example-text-input" class="form-label">Booking Consumption
                                         (yards/pcs)</label>
                                     <input class="form-control" type="number" name="booking_consumption_yards_pcs"
-                                         id="booking_consumption_yards_pcs">
+                                        id="booking_consumption_yards_pcs">
                                 </div>
                             </div>
                             
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Delivery Mode <span class="text-danger">*</span></label>
+                                    <label for="example-text-input" class="form-label">Delivery Mode <span
+                                            class="text-danger">*</span></label>
                                     <select name="delivery_mode" class="form-control" required>
-                                        <option >Select delivery_mode</option>
+                                        <option>Select delivery_mode</option>
                                         <option value="Sea">Sea</option>
                                         <option value="Air">Air</option>
                                         <option value="Road">Road</option>
@@ -409,8 +435,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Delivery Date</label>
-                                    <input class="form-control" type="date" name="delivery_date"
-                                         id="delivery_date">
+                                    <input class="form-control" type="date" name="delivery_date" id="delivery_date">
                                 </div>
                             </div>
 
@@ -418,7 +443,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">trims required approved</label>
                                     <select name="trims_required_approved" class="form-control" required>
-                                        <option >Select trims required approved</option>
+                                        <option>Select trims required approved</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
@@ -428,7 +453,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">closed</label>
                                     <select name="closed" class="form-control" required>
-                                        <option >Select closed</option>
+                                        <option>Select closed</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
@@ -438,7 +463,7 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">fabric from stock</label>
                                     <select name="fabric_from_stock" class="form-control" required>
-                                        <option >Select fabric from stock</option>
+                                        <option>Select fabric from stock</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>

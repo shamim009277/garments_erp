@@ -1,9 +1,9 @@
-@extends('layouts.app')
-@section('title', 'INVENTORY')
-@section('content')
+
+<?php $__env->startSection('title', 'INVENTORY'); ?>
+<?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-12">
-            @include('components.breadcrumb', [
+            <?php echo $__env->make('components.breadcrumb', [
                 'title' => 'INVENTORY',
                 'subtitle' => 'Basic Orders',
                 'breadcrumbs' => [
@@ -11,31 +11,31 @@
                     ['label' => 'Database', 'url' => route('inventory.index')],
                     ['label' => 'Basic Orders', 'url' => route('inventory.database.basicorders.index')],
                 ],
-            ])
+            ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
         </div>
         <div class="col-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <!-- Centered Title -->
                 <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
-                    Basic Orders({{$basicorder->order_no}})
+                    Basic Orders(<?php echo e($basicorder->order_no); ?>)
                 </h4>
 
                 <!-- Search Input + Button in One Line -->
                 <form action="#" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2"
                     style="max-width: 400px;" role="search">
-                    @csrf
+                    <?php echo csrf_field(); ?>
                     <input class="form-control form-control-sm me-2" type="search" name="search"
                         placeholder="Basic Order No ..." aria-label="Search">
                     <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
                             width="14" height="14" class="me-1"></i> Search</button>
                 </form>
-                @if (1)
+                <?php if(1): ?>
                     <!-- Back Button -->
-                    <a href="{{ route('inventory.database.basicorders.index') }}"
+                    <a href="<?php echo e(route('inventory.database.basicorders.index')); ?>"
                         class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
                         <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
                     </a>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
 
@@ -47,30 +47,31 @@
                 </div>
                 <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
                     <ul class="nav-custom">
-                        @foreach ($buyers as $buyer)
-                            @php
+                        <?php $__currentLoopData = $buyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
                                 $buyerOrders = collect($ListOfOrders)->where('buyer_id', $buyer->id);
 
-                            @endphp
+                            ?>
                             <li class="nav-custom-item">
-                                <input type="checkbox" id="buyer{{ $buyer->id }}">
-                                <label class="nav-custom-link" for="buyer{{ $buyer->id }}"><span
-                                        class="nav-custom-caret"></span> {{ $buyer->buyer_name }}
-                                    ({{ $buyerOrders->count() }})</label>
+                                <input type="checkbox" id="buyer<?php echo e($buyer->id); ?>">
+                                <label class="nav-custom-link" for="buyer<?php echo e($buyer->id); ?>"><span
+                                        class="nav-custom-caret"></span> <?php echo e($buyer->buyer_name); ?>
+
+                                    (<?php echo e($buyerOrders->count()); ?>)</label>
                                 <div class="nav-custom-content">
                                     <ul class="nav-custom">
-                                        @foreach ($buyerOrders as $order)
+                                        <?php $__currentLoopData = $buyerOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li class="nav-custom-item">
-                                                <a href="{{ route('inventory.database.basicorders.show', $order->id) }}">
-                                                    <label class="nav-custom-link" for="order{{ $order->id }}"><span
-                                                            class="nav-custom-caret"></span> {!! $order->order_no !!}: {!! $order->style_no !!}</label>
+                                                <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>">
+                                                    <label class="nav-custom-link" for="order<?php echo e($order->id); ?>"><span
+                                                            class="nav-custom-caret"></span> <?php echo $order->order_no; ?>: <?php echo $order->style_no; ?></label>
                                                 </a>
                                             </li>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>
                             </li>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
             </div>
@@ -81,13 +82,13 @@
                 <div class="card-body px-0 py-0" style="min-height: 500px;">
                     <ul class="nav nav-tabs nav-tabs-custom" role="tablist" style="background-color: #5559ca; color: white;border-radius: 0px !important;">
                         <li class="nav-item">
-                            <a href="#" class="nav-link border-none {{ $tab == 1 ? 'active' : '' }}" title="Basic" role="tab" style="hover: white !important;">
+                            <a href="#" class="nav-link border-none <?php echo e($tab == 1 ? 'active' : ''); ?>" title="Basic" role="tab" style="hover: white !important;">
                                 <span class="d-block d-sm-none"><i class="fa fa-user"></i></span>
                                 <span class="d-none d-sm-block">Basic Order Info</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link border-none {{ $tab == 2 ? 'active' : '' }}" title="Lot Info" role="tab">
+                            <a href="#" class="nav-link border-none <?php echo e($tab == 2 ? 'active' : ''); ?>" title="Lot Info" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-credit-card"></i></span>
                                 <span class="d-none d-sm-block">Lot Info</span>
                             </a>
@@ -96,16 +97,16 @@
                     </ul>
 
                     <div class="tab-content text-muted">
-                        @if($tab == 1)
-                        <div class="tab-pane {{ $tab == 1 ? 'active' : '' }}    " id="basic" role="tabpanel">
-                            @include('inventory::database.basicorders.tab1')
+                        <?php if($tab == 1): ?>
+                        <div class="tab-pane <?php echo e($tab == 1 ? 'active' : ''); ?>    " id="basic" role="tabpanel">
+                            <?php echo $__env->make('inventory::database.basicorders.tab1', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                         </div>
-                        @endif
-                        @if($tab == 2)
-                        <div class="tab-pane {{ $tab == 2 ? 'active' : '' }}" id="lot" role="tabpanel">
-                            @include('inventory::database.basicorders.tab2')
+                        <?php endif; ?>
+                        <?php if($tab == 2): ?>
+                        <div class="tab-pane <?php echo e($tab == 2 ? 'active' : ''); ?>" id="lot" role="tabpanel">
+                            <?php echo $__env->make('inventory::database.basicorders.tab2', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                         </div>
-                        @endif
+                        <?php endif; ?>
                         
                     </div>
                 </div>
@@ -113,9 +114,9 @@
         </div>
 
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
     <script>
         let lotIndex = 0;
 
@@ -200,4 +201,6 @@
             }
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\new erp\garments_erp\Modules\Inventory\resources\views\database\basicorders\show.blade.php ENDPATH**/ ?>

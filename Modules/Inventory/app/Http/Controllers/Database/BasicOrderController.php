@@ -138,9 +138,9 @@ class BasicOrderController extends Controller
         $ListOfOrders = BasicOrder::with('buyer')->get();
 
         $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
-
+        $tab = 1;
         $basicorder = BasicOrder::findOrFail($id);
-        return view('inventory::database.basicorders.show', compact('basicorder','basicorders','buyers','organizations','product_categories','merchandisers','fabric_types','compositions','fabric_treatments','yarn_counts','yarn_categories','ListOfOrdersUniqueBuyer','ListOfOrders'));
+        return view('inventory::database.basicorders.show', compact('basicorder','basicorders','buyers','organizations','product_categories','merchandisers','fabric_types','compositions','fabric_treatments','yarn_counts','yarn_categories','ListOfOrdersUniqueBuyer','ListOfOrders','tab'));
     }
 
     /**
@@ -157,6 +157,7 @@ class BasicOrderController extends Controller
      */
     public function update(BasicOrderRequest $request, $id)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try {
             BasicOrder::findOrFail($id)->update($request->validated());
