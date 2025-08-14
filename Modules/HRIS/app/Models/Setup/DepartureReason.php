@@ -23,12 +23,13 @@ class DepartureReason extends Model
 
     public static function booted()
     {
-        static::created(function ($departureReason) {
-            $departureReason->created_by = Auth::user()->id;
+        static::creating(function ($departureReason) {
+            $departureReason->created_by = Auth::id();
+            $departureReason->updated_by = Auth::id();
         });
 
-        static::updated(function ($departureReason) {
-            $departureReason->updated_by = Auth::user()->id;
+        static::updating(function ($departureReason) {
+            $departureReason->updated_by = Auth::id();
         });
     }
 
@@ -37,8 +38,4 @@ class DepartureReason extends Model
         return $query->where('is_active', true);
     }
 
-    // protected static function newFactory(): Setup\DepartureReasonFactory
-    // {
-    //     // return Setup\DepartureReasonFactory::new();
-    // }
 }

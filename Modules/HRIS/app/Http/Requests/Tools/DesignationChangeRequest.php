@@ -11,7 +11,13 @@ class DesignationChangeRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'employee_id'       => ['required', 'integer', 'exists:hris_database_employee_basic,employee_id'],
+            'designation_id'    => ['required', 'integer', 'exists:hris_setup_designations,id'],
+            'org_id'            => ['required', 'integer', 'exists:hris_setup_organizations,id'],
+            'department_id'     => ['required', 'integer', 'exists:hris_setup_departments,id'],
+            'reason'            => ['nullable', 'string', 'max:255'],
+        ];
     }
 
     /**

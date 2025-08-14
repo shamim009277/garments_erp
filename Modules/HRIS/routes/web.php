@@ -184,6 +184,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
             // photo sign
             Route::post('/photosign/delete', [PhotoSignController::class, 'destroy'])->name('photosign.delete');
+            Route::post('/photosign/info', [PhotoSignController::class, 'info'])->name('photosign.info');
             Route::resource('photosign', PhotoSignController::class)->names('photosign');
         });
 
@@ -200,6 +201,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         //tools
         Route::prefix('tools')->name('tools.')->group(function () {
             Route::resource('designationchange', DesignationChangeController::class)->names('designationchange');
+
+            Route::post('/departure/info', [DepartureController::class, 'employeeInfo'])->name('departure.info');
             Route::resource('departure', DepartureController::class)->names('departure');
         });
     });

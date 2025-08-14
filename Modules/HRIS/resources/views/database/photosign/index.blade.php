@@ -9,153 +9,155 @@
         border: none !important;
         border-collapse: collapse;
     }
+    .responsive-table {
+        width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+    }
+
+    .responsive-table th {
+        text-align: center;
+        padding: 8px;
+    }
+
+    .img-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #000;
+        overflow: hidden;
+        margin: auto;
+    }
+
+    /* Photo container */
+    .photo-box {
+        width: 128px;
+        height: 148px;
+    }
+
+    /* Signature container */
+    .signature-box {
+        width: 300px;
+        height: 100px;
+    }
+
+    .img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (max-width: 576px) {
+        .photo-box,
+        .signature-box {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            aspect-ratio: 128 / 148;
+        }
+        .signature-box {
+            aspect-ratio: 300 / 100;
+        }
+    }
 </style>
     <div class="row">
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Photo Sign',
+                'subtitle' => 'Photo & Signature',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Database', 'url' => route('hris.index')],
-                    ['label' => 'Photo Sign', 'url' => route('hris.database.photosign.index')],
+                    ['label' => 'Photo & Signature', 'url' => route('hris.database.photosign.index')],
                 ],
             ])
         </div>
-        <div class="col-lg-2">
-            
-        </div>
-        <div class="col-lg-8">
-            <form action="{{ route('hris.database.photosign.store') }}" id="applicantForm" method="POST">
+        <div class="col-lg-8" style="margin:0px auto;">
+            <form action="{{ route('hris.database.photosign.store') }}" id="applicantForm" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="card alert-info alert-top-border">
+                <div class="card alert-primary alert-top-border">
                     <div class="card-header d-flex justify-content-between align-items-center flex-wrap px-10 py-12" style="padding: 16px 20px">
                         <h6 class="my-0 text-primary d-flex align-items-center gap-1"><i data-feather="list" width="18" height="18"></i>
-                            Photo Sign
+                            Photo & Signature
                         </h6>
                     </div>
 
                     <div class="card-body" style="min-height: 500px;max-height: 500px; overflow-y: auto;">
-                        <div class="row g-2">
+                        <div class="row">
                             <!-- Employee basic info -->
-                            <div class="col-md-4">
+                            <div class="col-lg-7">
                                 <table class="table table-bordered" id="employeeInfoTable" width="100%">
                                     <tr>
                                         <th width="30%" style="border: none;">Employee ID</th>
-                                        <td width="70%" style="border: none;"><x-input-group name="empId" id="empId" type="text" placeholder="Employee ID"/></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="employee_id" class="form-control-sm" id="employee_id" type="text" placeholder="Employee ID" autocomplete="off" required/></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Name</th>
-                                        <td width="70%" style="border: none;"><x-input-group name="empName" id="empName" type="text" placeholder="Employee Name" readonly/></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" id="name" type="text" placeholder="Employee Name" readonly/></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Designation</th>
-                                        <td width="70%" style="border: none;"><x-input-group name="curDesig" id="curDesig" type="text" placeholder="Designation" readonly/></td>
+                                        <input type="hidden" name="designation_id" id="designation_id">
+                                        <td width="70%" style="border: none;"><x-text-input name="designation" class="form-control-sm" id="designation" type="text" placeholder="Designation" readonly/></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Department</th>
-                                        <td width="70%" style="border: none;"><x-input-group name="curDept" id="curDept" type="text" placeholder="Department" readonly/></td>
+                                        <input type="hidden" name="department_id" id="department_id">
+                                        <td width="70%" style="border: none;"><x-text-input name="department" class="form-control-sm" id="department" type="text" placeholder="Department" readonly/></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Joining Date</th>
-                                        <td width="70%" style="border: none;"><x-input-group name="joinDate" id="joinDate" type="text" placeholder="Joining Date" readonly/></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="join_date" class="form-control-sm" id="join_date" type="text" placeholder="Joining Date" readonly/></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%" style="border: none;">NID/Birth Certificate</th>
+                                        <td width="70%" style="border: none;"><x-text-input name="nid_birth_certificate" class="form-control-sm" id="nid_birth_certificate" type="text" placeholder="NID/Birth Certificate" readonly/></td>
                                     </tr>
                                 </table>
                             </div>
 
                             <!-- Upload new photo & signature -->
-                            <div class="col-md-4" style="height:450px; width:300px; border:1px solid #ddd; overflow:hidden;">
-                                <table class="table" width="100%">
+                            <div class="col-lg-5" style="height:450px; border:1px solid #ddd; overflow:hidden;">
+                                <table class="responsive-table">
                                     <tr>
-                                        <th class="text-center" colspan="2">Photo (128x148)</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center mb-2">
-                                            {{--                <img id="photoPreview" src="#" alt="New Photo" style="height:148px; width:128px; object-fit:cover; border:1px solid #ddd; display:none;">
-                                            --}}     
-                                            <div class="text-center mt-3">
-                                                {{-- <label class="text-primary fw-bold">Photo</label> --}}
-                                                <div class="border border-dark mx-auto" style="width:128px; height:148px;">
-                                                    <img id="photoPreview" src="{{ asset('images/placeholder.png') }}" style="width:128px;height:148px;object-fit:cover;" />
-                                                </div>
-                                            </div>                                  
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center mb-2">
-                                            <input type="file" name="photo" id="photo" accept="image/*" class="form-control form-control-sm">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center" colspan="2">Sign (300x150)</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center mb-2">
-                                            {{--    <img id="signaturePreview" src="#" alt="New Signature" style="height:150px; width:300px; object-fit:contain; border:1px solid #ddd; display:none;"> --}}    
-                                            <div class="text-center mt-3">
-                                                {{-- <label class="text-primary fw-bold">Signature</label> --}}
-                                                <div class="border border-dark mx-auto" style="width:300px; height:100px;">
-                                                    <img id="signaturePreview" src="{{ asset('images/placeholder.png') }}" style="width:300px;height:100px;object-fit:cover;" />
-                                                </div>
-                                            </div>                              
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center mb-2">
-                                            <input type="file" name="signature" id="signature" accept="image/*" class="form-control form-control-sm">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <!-- Existing photo & signature -->
-                            <div class="col-md-4" style="height:450px; width:300px; border:1px solid #ddd; overflow:hidden;">
-                                <table class="table" width="100%">
-                                    <tr>
-                                        <th class="text-center" colspan="2">Existing Photo</th>
+                                        <th colspan="2">Photo (128x148)</th>
                                     </tr>
                                     <tr>
                                         <td class="text-center">
-                                            <div class="border border-dark mx-auto" style="width:128px; height:148px;">
-                                            <img 
-                                                id="existingPhoto" 
-                                                src="{{ $existingPhoto ?? '#' }}" 
-                                                alt="Existing Photo" 
-                                                class="border img-fluid img-thumbnail"
-                                                style="height:148px; width:128px; object-fit:cover;"
-                                            >
+                                            <div class="img-wrapper photo-box">
+                                                <img id="photoPreview" src="{{ asset('/images/placeholder.png') }}" alt="Photo Preview">
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="text-center" colspan="2">Existing Signature</th>
+                                        <td class="text-center">
+                                            <input type="file" name="photo" id="photo" accept="image/*" class="form-control mt-2">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">Sign (300x150)</th>
                                     </tr>
                                     <tr>
                                         <td class="text-center">
-                                            <div class="border border-dark mx-auto" style="width:300px; height:100px;">
-                                                <img 
-                                                    id="existingSignature" 
-                                                    src="{{ $existingSignature ?? '#' }}" 
-                                                    alt="Existing Signature" 
-                                                    class="border img-fluid"
-                                                    style="height:100px; width:300px; object-fit:contain; border:1px solid #ddd;"
-                                                >
+                                            <div class="img-wrapper signature-box">
+                                                <img id="signaturePreview" src="{{ asset('images/placeholder.png') }}" alt="Signature Preview">
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            <input type="file" name="signature" id="signature" accept="image/*" class="form-control mt-2">
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-
                     </div>
                     <div class="card-footer" style="padding:14px 20px;">
-                        <x-primary-button class="float-start btn-sm submitBtn">Assign</x-primary-button>
+                        <x-primary-button type="submit" class="float-start btn-sm submitBtn">Assign</x-primary-button>
                     </div>
                 </div>
             </form>
-        </div>
-        <div class="col-lg-2">
-            
         </div>
     </div>
 @endsection
@@ -181,13 +183,73 @@
             readURL(this, '#signaturePreview');
         });
 
-        // Demo behaviour: auto-fill display fields when Employee ID loses focus
-        $('#empId').on('blur', function () {
-            if (this.value.trim() === 'E001') {
-                $('#empName').val('John Doe');
-            } else {
-                $('#empName').val('');
+        function employeeInfo() {
+            let employeeId = $("#employee_id").val();
+
+            if (employeeId.length >= 6) {
+                $.ajax({
+                    url: "{{ route('hris.database.photosign.info') }}",
+                    type: "POST",
+                data: {
+                    employee_id: employeeId
+                },
+                success: function (response) {
+                    $("#name").val('');
+                    $("#designation").val('');
+                    $("#department").val('');
+                    $("#join_date").val('');
+                    $("#mobile").val('');
+                    $("#nid_birth_certificate").val('');
+                    $("#designation_id").val('');
+                    $("#department_id").val('');
+
+                    if (response && Object.keys(response).length > 0) {
+                        console.log(response);
+
+                        $("#name").val(response.name || '');
+                        $("#designation").val(response.designation?.designation || '');
+                        $("#department").val(response.department?.department || '');
+                        $("#join_date").val(response.joining_date || '');
+                        $("#mobile").val(response.employee_personal?.mobile || '');
+
+                        if (response.photo) {
+                            $('#photoPreview').attr('src', '/storage/' + response.photo);
+                        }
+                        if (response.signature) {
+                            $('#signaturePreview').attr('src', '/storage/' + response.signature);
+                        }
+
+                        if (response.employee_personal?.national_id) {
+                            $("#nid_birth_certificate").val(response.employee_personal.national_id);
+                        }
+                        if (response.employee_personal?.birth_certificate) {
+                            $("#nid_birth_certificate").val(response.employee_personal.birth_certificate);
+                        }
+                        $("#designation_id").val(response.designation_id || '');
+                        $("#department_id").val(response.department_id || '');
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to load employee info.',
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Failed to load employee info.',
+                    });
+                }
+                });
             }
+        }
+
+
+        employeeInfo();
+        $("#employee_id").on("input", function () {
+            employeeInfo();
         });
     </script>
 @endpush

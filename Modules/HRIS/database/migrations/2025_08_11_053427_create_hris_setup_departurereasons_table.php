@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('reason');
             $table->string('reason_short_name');
             $table->boolean('is_active')->default(true);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->useCurrent();
+            $table->unsignedBigInteger('updated_by')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
         });
     }
