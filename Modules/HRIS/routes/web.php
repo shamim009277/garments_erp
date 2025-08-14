@@ -34,6 +34,10 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
+use Modules\HRIS\Http\Controllers\Tools\DesignationChangeController;
+use Modules\HRIS\Http\Controllers\Tools\DepartureController;
+use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
+use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     //Route::resource('hris', HRISController::class)->names('hris');
@@ -141,6 +145,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/degrees/toggle', [DegreeController::class, 'toggleStatus'])->name('degrees.toggle');
             Route::post('/degrees/delete', [DegreeController::class, 'destroy'])->name('degrees.delete');
             Route::resource('degrees', DegreeController::class)->names('degrees');
+
+            //Departure Reason
+            Route::post('/departurereasons/toggle', [DepartureReasonController::class, 'toggleStatus'])->name('departurereasons.toggle');
+            Route::post('/departurereasons/delete', [DepartureReasonController::class, 'destroy'])->name('departurereasons.delete');
+            Route::resource('departurereasons', DepartureReasonController::class)->names('departurereasons');
         });
 
         //Database
@@ -172,6 +181,10 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('employee-reference', EmployeeReferenceController::class)->names('employee-reference');
             Route::post('/employee-service/delete', [EmployeeServiceController::class, 'destroy'])->name('employee-service.delete');
             Route::resource('employee-service', EmployeeServiceController::class)->names('employee-service');
+
+            // photo sign
+            Route::post('/photosign/delete', [PhotoSignController::class, 'destroy'])->name('photosign.delete');
+            Route::resource('photosign', PhotoSignController::class)->names('photosign');
         });
 
         //Reports
@@ -183,5 +196,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
         //Settings
         Route::resource('settings', SettingController::class)->names('setting');
+
+        //tools
+        Route::prefix('tools')->name('tools.')->group(function () {
+            Route::resource('designationchange', DesignationChangeController::class)->names('designationchange');
+            Route::resource('departure', DepartureController::class)->names('departure');
+        });
     });
 });
