@@ -47,7 +47,7 @@ class ColorController extends Controller
      */
     public function store(ColorRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         DB::beginTransaction();
         try {
             //create color code with prefix INV-

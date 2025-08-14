@@ -1,9 +1,12 @@
 <div class="card alert-info alert-top-border padding-card">
     <div class="card-header">
         <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input
-            Parameters For New Basic Order ...</h6>
+            Parameters For Basic Order {!! $basicorder->order_no !!}</h6>
     </div>
+    @php 
 
+    // dd($basicorder);
+    @endphp
     <div class="card-body">
         <form action="{{ route('inventory.database.basicorders.update', $basicorder->id) }}" method="POST">
             @csrf
@@ -54,13 +57,13 @@
                 <div class="col-lg-3">
                     <div class="mb-3">
                         <label for="example-text-input" class="form-label">Style No</label>
-                        <input class="form-control form-control-sm" name="style_no" type="text" id="example-text-input">
+                        <input class="form-control form-control-sm" name="style_no" type="text" id="example-text-input" value="{{ $basicorder->style_no }}">
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="mb-3">
                         <label for="example-text-input" class="form-label">Style Description</label>
-                        <input class="form-control form-control-sm" name="style_description" type="text"
+                        <input class="form-control form-control-sm" name="style_description" type="text" value="{{ $basicorder->style_description }}"
                             id="example-text-input">
                     </div>
                 </div>
@@ -68,13 +71,13 @@
                     <div class="mb-3">
                         <label for="example-text-input" class="form-label">Order No <span
                                 class="text-danger">(Auto)</span></label>
-                        <input class="form-control form-control-sm" name="order_no" type="text" id="example-text-input">
+                        <input class="form-control form-control-sm" name="order_no" type="text" id="example-text-input" value="{{ $basicorder->order_no }}" readonly>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="mb-3">
                         <label for="example-text-input" class="form-label">Season</label>
-                        <input class="form-control form-control-sm" name="season" type="text" id="example-text-input">
+                        <input class="form-control form-control-sm" name="season" type="text" id="example-text-input" value="{{ $basicorder->season }}">
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -82,9 +85,9 @@
                         <label for="example-text-input" class="form-label">Fitting Type</label>
                         <select name="fitting_type" class="form-control form-control-sm" required>
                             <option>Select Fitting Type</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Plus">Plus</option>
-                            <option value="Slim">Slim</option>
+                            <option value="Regular" {{ $basicorder->fitting_type == 'Regular' ? 'selected' : '' }}>Regular</option>
+                            <option value="Plus" {{ $basicorder->fitting_type == 'Plus' ? 'selected' : '' }}>Plus</option>
+                            <option value="Slim" {{ $basicorder->fitting_type == 'Slim' ? 'selected' : '' }}>Slim</option>
                         </select>
                     </div>
                 </div>
@@ -194,9 +197,9 @@
                         <label for="example-text-input" class="form-label">Finish Type</label>
                         <select name="finish_type" class="form-control form-control-sm" required>
                             <option>Select Finish Type</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Plus">Plus</option>
-                            <option value="Slim">Slim</option>
+                            <option value="Regular" {{ $basicorder->finish_type == 'Regular' ? 'selected' : '' }}>Regular</option>
+                            <option value="Plus" {{ $basicorder->finish_type == 'Plus' ? 'selected' : '' }}>Plus</option>
+                            <option value="Slim" {{ $basicorder->finish_type == 'Slim' ? 'selected' : '' }}>Slim</option>
                         </select>
                     </div>
                 </div>
@@ -205,9 +208,9 @@
                         <label for="example-text-input" class="form-label">Print Type</label>
                         <select name="print_type" class="form-control form-control-sm" required>
                             <option>Select Print Type</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Plus">Plus</option>
-                            <option value="Slim">Slim</option>
+                            <option value="Regular" {{ $basicorder->print_type == 'Regular' ? 'selected' : '' }}>Regular</option>
+                            <option value="Plus" {{ $basicorder->print_type == 'Plus' ? 'selected' : '' }}>Plus</option>
+                            <option value="Slim" {{ $basicorder->print_type == 'Slim' ? 'selected' : '' }}>Slim</option>
                         </select>
                     </div>
                 </div>
@@ -224,9 +227,9 @@
                         <label for="example-text-input" class="form-label">embroidery type</label>
                         <select name="embroidery_type" class="form-control form-control-sm" required>
                             <option>Select embroidery type</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Plus">Plus</option>
-                            <option value="Slim">Slim</option>
+                            <option value="Regular" {{ $basicorder->embroidery_type == 'Regular' ? 'selected' : '' }}>Regular</option>
+                            <option value="Plus" {{ $basicorder->embroidery_type == 'Plus' ? 'selected' : '' }}>Plus</option>
+                            <option value="Slim" {{ $basicorder->embroidery_type == 'Slim' ? 'selected' : '' }}>Slim</option>
                         </select>
                     </div>
                 </div>
@@ -242,9 +245,9 @@
                         <label for="example-text-input" class="form-label">wash type</label>
                         <select name="wash_type" class="form-control form-control-sm" required>
                             <option>Select wash type</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Plus">Plus</option>
-                            <option value="Slim">Slim</option>
+                            <option value="Regular" {{ $basicorder->wash_type == 'Regular' ? 'selected' : '' }}>Regular</option>
+                            <option value="Plus" {{ $basicorder->wash_type == 'Plus' ? 'selected' : '' }}>Plus</option>
+                            <option value="Slim" {{ $basicorder->wash_type == 'Slim' ? 'selected' : '' }}>Slim</option>
                         </select>
                     </div>
                 </div>
@@ -300,8 +303,8 @@
                                 class="text-danger">*</span></label>
                         <select name="fabric_booking_needed" class="form-control form-control-sm" required>
                             <option>Select fabric booking needed</option>
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
+                            <option value="1" {{ $basicorder->fabric_booking_needed == 1 ? 'selected' : '' }}>Yes</option>
+                            <option value="0" {{ $basicorder->fabric_booking_needed == 0 ? 'selected' : '' }}>No</option>
                         </select>
                     </div>
                 </div>
@@ -346,9 +349,9 @@
                                 class="text-danger">*</span></label>
                         <select name="delivery_mode" class="form-control form-control-sm" required>
                             <option>Select delivery_mode</option>
-                            <option value="Sea">Sea</option>
-                            <option value="Air">Air</option>
-                            <option value="Road">Road</option>
+                            <option value="Sea" {{ $basicorder->delivery_mode == 'Sea' ? 'selected' : '' }}>Sea</option>
+                            <option value="Air" {{ $basicorder->delivery_mode == 'Air' ? 'selected' : '' }}>Air</option>
+                            <option value="Road" {{ $basicorder->delivery_mode == 'Road' ? 'selected' : '' }}>Road</option>
                         </select>
                     </div>
                 </div>
@@ -392,9 +395,9 @@
 
                 <div class="col-lg-12">
                     {{-- save and go to next --}}
-                    <button type="submit" class="btn btn-primary float-end me-2">Save and Go to Next</button>
+                    <button type="submit" class="btn btn-primary float-end me-2">Update and Go to Next</button>
                     {{-- save and close --}}
-                    <button type="#" class="btn btn-success float-end me-2">Save and Close</button>
+                    <button type="#" class="btn btn-success float-end me-2">Update and Close</button>
                     {{-- cancel --}}
                     <button type="#" class="btn btn-danger float-end me-2">Cancel</button>
                 </div>

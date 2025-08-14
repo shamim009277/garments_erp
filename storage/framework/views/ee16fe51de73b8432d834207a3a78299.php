@@ -1,0 +1,1 @@
+<?php /**PATH D:\laragon\www\new erp\garments_erp\Modules\Inventory\resources\views\database\basicorders\tab3.blade.php ENDPATH**/ ?>

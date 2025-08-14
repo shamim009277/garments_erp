@@ -12,6 +12,9 @@ use Modules\Inventory\Models\Setup\FabricType;
 use Modules\Inventory\Models\Setup\Composition;
 use Modules\Inventory\Models\Setup\FabricTreatments;
 use Modules\Inventory\Models\Setup\YarnCount;
+use Modules\Inventory\Models\Setup\Lot;
+use Modules\Inventory\Models\Setup\Color;
+use Modules\Inventory\Models\Setup\Size;
 use Modules\Inventory\Http\Requests\Database\BasicOrderRequest;
 
 use App\Models\User;
@@ -45,7 +48,7 @@ class BasicOrderController extends Controller
 
 
 
-        return view('inventory::database.basicorders.index', compact('basicorders', 'organizations', 'buyers', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories','ListOfOrdersUniqueBuyer','ListOfOrders'));
+        return view('inventory::database.basicorders.index', compact('basicorders', 'organizations', 'buyers', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders'));
     }
 
     /**
@@ -63,7 +66,7 @@ class BasicOrderController extends Controller
     {
         // dd($request->all());
         DB::beginTransaction();
-        
+
         try {
             BasicOrder::create([
                 'order_type' => $request->order_type,
@@ -122,25 +125,69 @@ class BasicOrderController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $basicorders = BasicOrder::all();
-        $buyers = Buyer::all();
-        $organizations = Organization::all();
-        $product_categories = ProductCategory::all();
-        $merchandisers = User::all();
-        $fabric_types = FabricType::all();
-        $compositions = Composition::all();
-        $fabric_treatments = FabricTreatments::all();
-        $yarn_counts = YarnCount::all();
-        $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
-        //DB::enableQueryLog();
-        $ListOfOrders = BasicOrder::with('buyer')->get();
 
-        $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
-        $tab = 1;
-        $basicorder = BasicOrder::findOrFail($id);
-        return view('inventory::database.basicorders.show', compact('basicorder','basicorders','buyers','organizations','product_categories','merchandisers','fabric_types','compositions','fabric_treatments','yarn_counts','yarn_categories','ListOfOrdersUniqueBuyer','ListOfOrders','tab'));
+        $tab = intval($request->get('tab'));
+        if ($tab == 1) {
+            $basicorders = BasicOrder::all();
+            $buyers = Buyer::all();
+            $organizations = Organization::all();
+            $product_categories = ProductCategory::all();
+            $merchandisers = User::all();
+            $fabric_types = FabricType::all();
+            $compositions = Composition::all();
+            $fabric_treatments = FabricTreatments::all();
+            $yarn_counts = YarnCount::all();
+            $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
+
+            $ListOfOrders = BasicOrder::with('buyer')->get();
+
+            $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
+            $basicorder = BasicOrder::findOrFail($id);
+            // dd($basicorder);
+            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab'));
+        } elseif ($tab == 2) {
+            $basicorders = BasicOrder::all();
+            $buyers = Buyer::all();
+            $organizations = Organization::all();
+            $product_categories = ProductCategory::all();
+            $merchandisers = User::all();
+            $fabric_types = FabricType::all();
+            $compositions = Composition::all();
+            $fabric_treatments = FabricTreatments::all();
+            $yarn_counts = YarnCount::all();
+            $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
+
+            $ListOfOrders = BasicOrder::with('buyer')->get();
+            $lots = DB::table('inventory_setup_order_lots')->where('order_id', $id)->get();
+            $colors = Color::all();
+            $sizes = Size::all();
+
+            $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
+            $basicorder = BasicOrder::findOrFail($id);
+            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes'));
+        } elseif ($tab == 3) {
+            $basicorders = BasicOrder::all();
+            $buyers = Buyer::all();
+            $organizations = Organization::all();
+            $product_categories = ProductCategory::all();
+            $merchandisers = User::all();
+            $fabric_types = FabricType::all();
+            $compositions = Composition::all();
+            $fabric_treatments = FabricTreatments::all();
+            $yarn_counts = YarnCount::all();
+            $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
+
+            $ListOfOrders = BasicOrder::with('buyer')->get();
+            $lots = DB::table('inventory_setup_order_lots')->where('order_id', $id)->get();
+            $colors = Color::all();
+            $sizes = Size::all();
+
+            $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
+            $basicorder = BasicOrder::findOrFail($id);
+            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes'));
+        }
     }
 
     /**
@@ -157,18 +204,75 @@ class BasicOrderController extends Controller
      */
     public function update(BasicOrderRequest $request, $id)
     {
-        // dd($request->all());
+        // dd($request);
         DB::beginTransaction();
         try {
             BasicOrder::findOrFail($id)->update($request->validated());
             DB::commit();
-            return redirect()->route('inventory.database.basicorders.index')->with('success', 'Basic Order updated successfully');
+            $basicorders = BasicOrder::all();
+            $buyers = Buyer::all();
+            $organizations = Organization::all();
+            $product_categories = ProductCategory::all();
+            $merchandisers = User::all();
+            $fabric_types = FabricType::all();
+            $compositions = Composition::all();
+            $fabric_treatments = FabricTreatments::all();
+            $yarn_counts = YarnCount::all();
+            $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
+            //DB::enableQueryLog();
+            $ListOfOrders = BasicOrder::with('buyer')->get();
+            $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
+            $tab = 2;
+            $basicorder = BasicOrder::findOrFail($id);
+            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab'));
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update basic order: ' . $th->getMessage());
         }
     }
-
+    //storeLotsColorsSizes
+    public function storeLotsColorsSizes(Request $request, $id)
+    {
+        // dd($request->all());
+        // get the basic order
+        $basicorder = BasicOrder::findOrFail($id);
+        
+        foreach ($request->lots as $lotInput) {
+            $lot = $basicorder->lots()->create([
+                'lot_no' => $lotInput['lot_no'],
+                'po_no' => 1,
+                'lot_description' => 1,
+                'lot_status' => 1,
+                'lot_quantity' => 1,
+                'lot_remarks' => 1,
+                'shipping_date' => 1,
+                'expected_shipping_date' => 1,
+                'actual_shipping_date' => 1,
+            ]);
+            // forcolor 
+            foreach ($lotInput['colors'] as $colorInput) {
+                $color = $lot->colors()->create([
+                    'color_name' => $colorInput['color_name'],
+                    
+                ]);
+            }
+            // for size
+            foreach ($lotInput['sizes'] as $sizeInput) {
+                $size = $lot->sizes()->create([
+                    'size_name' => $sizeInput['size_name'],
+                    'quantity' => $sizeInput['quantity'],
+                ]);
+            }
+        }
+        DB::beginTransaction();
+        try {
+            DB::commit();
+            return redirect()->route('inventory.database.basicorders.show', $id)->with('success', 'Lots colors sizes stored successfully');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to store lots colors sizes: ' . $th->getMessage());
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */

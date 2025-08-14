@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->string('lot_no'); // Lot identifier
+            $table->string('po_no')->nullable(); // po identifier
             $table->string('lot_description')->nullable();
             $table->string('lot_status')->nullable();
             $table->integer('lot_quantity')->nullable();

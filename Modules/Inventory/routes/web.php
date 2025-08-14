@@ -159,6 +159,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/basicorders/toggle', [BasicOrderController::class, 'toggleStatus'])->name('basicorders.toggle');
             Route::post('/basicorders/delete', [BasicOrderController::class, 'destroy'])->name('basicorders.delete');
             Route::resource('basicorders', BasicOrderController::class)->names('basicorders');
+            // inventory.database.basicorders.lots-colors-sizes.store
+            Route::post('/basicorders/lots-colors-sizes/store/{id}', [BasicOrderController::class, 'storeLotsColorsSizes'])->name('basicorders.lots-colors-sizes.store');
         });
     });
 });
