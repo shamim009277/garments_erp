@@ -10,6 +10,7 @@ use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Organization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HRIS\Models\Database\EmployeePersonal;
 // use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
 
 class Employee extends Model
@@ -147,6 +148,9 @@ class Employee extends Model
 
     public function pthana() {
         return $this->belongsTo(Thana::class);
+    }
+    public function employeePersonal() {
+        return $this->hasOne(EmployeePersonal::class, 'employee_id', 'employee_id');
     }
 
     // protected static function newFactory(): Database\EmployeeFactory

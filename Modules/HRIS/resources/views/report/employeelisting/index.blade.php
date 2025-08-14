@@ -121,7 +121,7 @@
                                     <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
                                         @foreach ($designations as $designation)
                                             <div class="form-check">
-                                                <input type="checkbox" name="designation_id[]" class="form-check-input designationID" id="desg{{ $designation['id'] }}" checked>
+                                                <input type="checkbox" name="designation_id[]" class="form-check-input designationID" id="desg{{ $designation['id'] }}" value="{{ $designation['id'] }}" checked>
                                                 <label class="form-check-label" for="desg{{ $designation['id'] }}">{{ $designation['designation'] }}</label>
                                             </div>
                                         @endforeach
@@ -174,11 +174,11 @@
                                                 </tr>
                                                 <tr>
                                                     <th>
-                                                        <input type="checkbox" id="all_blood_group" checked>
+                                                        <input type="checkbox" name="all_blood_group" id="all_blood_group" checked>
                                                         <label class="m-0" for="all_blood_group">All Blood Group</label>
                                                     </th>
                                                     <td id="all_blood_group_section">
-                                                        <x-select-input name="blood_group" id="blood_group" class="select2" :options="['O+' => 'O+', 'O-' => 'O-', 'A+' => 'A+', 'A-' => 'A-', 'B+' => 'B+', 'B-' => 'B-', 'AB+' => 'AB+', 'AB-' => 'AB-', 'N/A' => 'N/A']" placeholder="Blood Group" />
+                                                        <x-select-input name="blood_group[]" id="blood_group" class="select2 blood_group" :options="['O+' => 'O+', 'O-' => 'O-', 'A+' => 'A+', 'A-' => 'A-', 'B+' => 'B+', 'B-' => 'B-', 'AB+' => 'AB+', 'AB-' => 'AB-', 'N/A' => 'N/A']" placeholder="Blood Group" :selected="old('blood_group', $bloodGroups)" disabled/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -193,13 +193,13 @@
                                                 <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                        <x-text-input name="start_date[]" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                        <x-text-input name="end_date[]" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -356,11 +356,27 @@
         if (selectedValue == '1') {
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
         } else if (selectedValue == '2') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', false);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+        } else if (selectedValue == '3') {
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
+        } else if (selectedValue == '4') {
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', false);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
         } else {
             $('.designationID').prop('disabled', false);
             $('.departmentID').prop('disabled', false);
