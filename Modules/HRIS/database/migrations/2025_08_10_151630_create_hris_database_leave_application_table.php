@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('designation_id');
-            $table->unsignedBigInteger('leave_type_id');
+            $table->enum('leave_type_id', ['SL','CL','EL','ML','SPL','LWOP']);
             $table->unsignedBigInteger('reason_id');
             $table->date('application_date');
             $table->date('start_date');
@@ -41,10 +41,18 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
 
-            $table->index(['form_id','employee_id','application_date','is_forward','is_approved','is_rejected','forward_by','approved_by','rejected_by']);
+            $table->index(['form_id']);
+            $table->index(['employee_id']);
+            $table->index(['application_date']);
+            $table->index(['is_forward']);
+            $table->index(['is_approved']);
+            $table->index(['is_rejected']);
+            $table->index(['forward_by']);
+            $table->index(['approved_by']);
+            $table->index(['rejected_by']);
+            $table->index(['leave_type_id']);
 
-            $table->foreign('leave_type_id')->references('id')->on('hris_setup_leaveclassifications')->onDelete('cascade');
-            $table->foreign('reason_id')->references('id')->on('hris_setup_leave_reasons')->onDelete('cascade');
+            $table->foreign('reason_id')->references('id')->on('hris_setup_leavereason')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('hris_setup_departments')->onDelete('cascade');
             $table->foreign('designation_id')->references('id')->on('hris_setup_designations')->onDelete('cascade');
         });

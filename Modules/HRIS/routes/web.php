@@ -212,6 +212,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
             Route::post('/leave-application/reasons', [LeaveApplicationController::class, 'getReasons'])->name('leave-application.reasons');
             Route::post('/leave/info', [LeaveApplicationController::class, 'getLeaveInfo'])->name('leave.info');
+            Route::post('/getleavereason', [LeaveApplicationController::class, 'getLeaveReason'])->name('getleavereason');
             Route::resource('leave-application', LeaveApplicationController::class)->names('leave-application');
             // photo sign
             Route::post('/photosign/delete', [PhotoSignController::class, 'destroy'])->name('photosign.delete');

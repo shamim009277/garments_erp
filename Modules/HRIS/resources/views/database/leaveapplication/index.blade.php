@@ -22,116 +22,121 @@
             </div>
         </div>
         <div class="col-lg-8 pe-lg-0">
-            <div class="card alert-primary alert-top-border padding-card">
-                <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input Parameters For Leave Application</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-5 pe-lg-0">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th style="width: 30%">Employee ID</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" required />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Leave Type</th>
-                                        <td style="width: 70%">
-                                            <x-select-input name="leave_type_id" id="leave_type_id" class="select2" :options="$leave_types" required />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Reason</th>
-                                        <td style="width: 70%">
-                                            <x-select-input name="reason_id" id="reason_id" class="select2" :options="[]" required />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Start Date</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="start_date" type="date" id="start_date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="Start Date" required/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">End Date</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="end_date" type="date" id="end_date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="End Date" required/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Days</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="days" id="days" label="" class="form-control-sm" value="1" placeholder="Days" required readonly/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-lg-5 pe-lg-0">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th style="width: 30%">Name</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="name" id="name" label="" class="form-control-sm" placeholder="Name" required readonly/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Designation</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="designation" id="designation" label="" class="form-control-sm" placeholder="Designation" required readonly/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Department</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="department" id="department" label="" class="form-control-sm" placeholder="Department" required readonly/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Join Date</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="join_date" type="text" id="join_date" label="" class="form-control-sm" placeholder="Join Date" required readonly/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Input Date</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="date" type="text" id="date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="Date" required readonly/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th style="width: 30%">Remarks</th>
-                                        <td style="width: 70%">
-                                            <x-text-input name="remarks" id="remarks" label="" class="form-control-sm" placeholder="Remarks" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-lg-2">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th style="width: 100%;text-align: center">Photo</th>
-                                    </tr>
-                                    <tr>
-                                        <td style="display: flex; justify-content: center; align-items: center;">
-                                            <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo" class="img-fluid" style="width: 300px; height: 200px; object-fit: cover; padding: 8px;">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <form action="{{ route('hris.database.leave-application.store') }}" method="POST">
+                @csrf
+                <div class="card alert-primary alert-top-border padding-card">
+                    <div class="card-header">
+                        <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input Parameters For Leave Application</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 pe-lg-0">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 30%">Employee ID</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" required />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Leave Type</th>
+                                            <td style="width: 70%">
+                                                <x-select-input name="leave_type_id" id="leave_type_id" class="select2" :options="$leave_types" required disabled />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Reason</th>
+                                            <td style="width: 70%">
+                                                <x-select-input name="reason_id" id="reason_id" class="select2" :options="[]" required />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Start Date</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="start_date" type="date" id="start_date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="Start Date" required/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">End Date</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="end_date" type="date" id="end_date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="End Date" required/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Days</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="days" id="days" label="" class="form-control-sm" value="1" placeholder="Days" required readonly/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-5 pe-lg-0">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 30%">Name</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="name" id="name" label="" class="form-control-sm" placeholder="Name" required readonly/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Designation</th>
+                                            <td style="width: 70%">
+                                                <input type="hidden" name="designation_id" id="designation_id" class="form-control-sm" placeholder="Designation" required readonly/>
+                                                <x-text-input name="designation" id="designation" label="" class="form-control-sm" placeholder="Designation" required readonly/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Department</th>
+                                            <td style="width: 70%">
+                                                <input type="hidden" name="department_id" id="department_id" class="form-control-sm" placeholder="Department" required readonly/>
+                                                <x-text-input name="department" id="department" label="" class="form-control-sm" placeholder="Department" required readonly/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Join Date</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="join_date" type="text" id="join_date" label="" class="form-control-sm" placeholder="Join Date" required readonly/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Application Date</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="application_date" type="text" id="application_date" label="" class="form-control-sm" value="{{ date('Y-m-d', strtotime($date)) }}" placeholder="Application Date" required readonly/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 30%">Remarks</th>
+                                            <td style="width: 70%">
+                                                <x-text-input name="remarks" id="remarks" label="" class="form-control-sm" placeholder="Remarks" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-2">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 100%;text-align: center">Photo</th>
+                                        </tr>
+                                        <tr>
+                                            <td style="display: flex; justify-content: center; align-items: center;">
+                                                <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo" id="photo" class="img-fluid" style="width: 160px; height: 180px; object-fit: cover; padding: 8px;">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <div class="card-footer" style="padding:10px 20px;">
+                        <x-primary-button type="submit" class="btn btn-sm btn-primary">Submit</x-primary-button>
+                    </div>
                 </div>
-                <div class="card-footer" style="padding:10px 20px;">
-                    <x-primary-button type="submit" class="btn btn-sm btn-primary">Submit</x-primary-button>
-                </div>
-            </div>
+            </form>
         </div>
         <div class="col-lg-4">
             <div class="card alert-primary alert-top-border padding-card">
@@ -183,7 +188,6 @@
                                     <x-text-input name="ELB" id="ELB" label="" class="form-control-sm text-center" placeholder="0" readonly/>
                                 </td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -272,7 +276,6 @@
                             $("#department_id").val('');
 
                             if (response.employee && Object.keys(response.employee).length > 0) {
-                            console.log(response);
 
                             $("#name").val(response.employee.name || '');
                             $("#designation").val(response.employee.designation?.designation || '');
@@ -288,8 +291,16 @@
                             }
                             $("#designation_id").val(response.employee.designation_id || '');
                             $("#department_id").val(response.employee.department_id || '');
-                        } else {
 
+                            if (response.employee.photo) {
+                                $('#photo').attr('src', '/storage/' + response.employee.photo);
+                            }
+
+                            if(response.employee.department){
+                                $("#leave_type_id").prop('disabled', false);
+                            }
+                        } else {
+                            $("#leave_type_id").prop('disabled', true);
                         }
                     },
                     error: function () {
@@ -300,6 +311,17 @@
                         });
                     }
                     });
+                }else{
+                    $("#name").val('');
+                    $("#designation").val('');
+                    $("#department").val('');
+                    $("#join_date").val('');
+                    $("#mobile").val('');
+                    $("#nid_birth_certificate").val('');
+                    $("#designation_id").val('');
+                    $("#department_id").val('');
+                    $("#leave_type_id").prop('disabled', true);
+                    $('#photo').attr('src', "{{ asset('backend/assets/images/demo.png') }}");
                 }
             }
 
@@ -308,7 +330,40 @@
             $("#employee_id").on("input", function () {
                 employeeInfo();
             });
-        });
 
+            $("#leave_type_id").on("change", function () {
+                let leaveType = $(this).val();
+                let departmentId = $("#department_id").val();
+                if (departmentId) {
+                    $.ajax({
+                        url: "{{ route('hris.database.getleavereason') }}",
+                        type: "POST",
+                        data: {
+                            leave_type: leaveType
+                        },
+                        success: function (response) {
+                            $('#reason_id').empty();
+                            $('#reason_id').append('<option value="">Select Reason</option>');
+                            $.each(response, function(key, value) {
+                                $('#reason_id').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to load leave type info.',
+                            });
+                        }
+                    });
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Please Input Valid Employee ID First',
+                    });
+                }
+            });
+        });
     </script>
 @endpush

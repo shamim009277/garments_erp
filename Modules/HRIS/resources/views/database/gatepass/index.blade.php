@@ -136,7 +136,7 @@
                                         </tr>
                                         <tr>
                                             <td style="display: flex; justify-content: center; align-items: center;">
-                                                <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo" class="img-fluid" style="width: 300px; height: 200px; object-fit: cover; padding: 8px;">
+                                                <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo" id="photo" class="img-fluid" style="width: 160px; height: 220px; object-fit: cover; padding: 8px;">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -278,6 +278,9 @@
                             }
                             if (response.employee_personal?.birth_certificate) {
                                 $("#nid_birth_certificate").val(response.employee_personal.birth_certificate);
+                            }
+                            if (response.photo) {
+                                $('#photo').attr('src', '/storage/' + response.photo);
                             }
                             $("#designation_id").val(response.designation_id || '');
                             $("#department_id").val(response.department_id || '');

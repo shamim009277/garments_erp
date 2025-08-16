@@ -51,7 +51,6 @@ class DesignationChangeController extends Controller
 
         DB::beginTransaction();
         try {
-
             $designationChange = DesignationChange::create([
                 'date'                => now()->format('Y-m-d'),
                 'employee_id'         => $request->employee_id,

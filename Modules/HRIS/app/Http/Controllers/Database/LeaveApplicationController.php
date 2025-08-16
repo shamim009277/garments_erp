@@ -6,7 +6,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Setup\LeaveReason;
+use Modules\HRIS\Models\Database\LeaveApplication;
 use Modules\HRIS\Models\Setup\LeaveClassification;
+use Modules\HRIS\Http\Requests\Database\LeaveApplicationRequest;
 
 class LeaveApplicationController extends Controller
 {
@@ -31,7 +34,14 @@ class LeaveApplicationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(LeaveApplicationRequest $request) {
+         try {
+            $leaveApplication = LeaveApplication::create($request->validated());
+            return redirect()->route('hris.database.leave-application.index')->with('success', 'Leave Application created successfully');
+         } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+         }
+    }
 
     /**
      * Show the specified resource.
@@ -64,11 +74,17 @@ class LeaveApplicationController extends Controller
     {
         $employee = Employee::with(['designation:id,designation','department:id,department','employeePersonal:employee_id,mobile,national_id,birth_certificate'])
                   ->where('employee_id', $request->employee_id)
-                  ->select('id','employee_id','name','designation_id','department_id','joining_date')
+                  ->select('id','employee_id','name','designation_id','department_id','joining_date','photo')
                   ->first();
 
         return response()->json([
            'employee' => $employee,
         ]);
+    }
+
+    public function getLeaveReason(Request $request)
+    {
+        $leave_reason = LeaveReason::active()->whereJsonContains('classification_id', $request->leave_type)->pluck('reason','id');
+        return response()->json($leave_reason);
     }
 }

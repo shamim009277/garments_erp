@@ -109,7 +109,7 @@
                                             <th>Photo</th>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <img id="photoPreview" src="" alt="Photo Preview" class="img-fluid rounded shadow-sm">
+                                                    <img id="photoPreview" src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo Preview" class="img-fluid rounded shadow-sm">
                                                 </div>
                                             </td>
                                         </tr>
