@@ -35,6 +35,9 @@ class UserController extends Controller
                 ->addColumn('role', function ($row) {
                     return $row->role->name ?? '-';
                 })
+                ->addColumn('employee_id', function ($row) {
+                    return $row->employee_id ?? '-';
+                })
                 ->editColumn('is_active', function ($row) {
                     return '
                     <div class="square-switch">

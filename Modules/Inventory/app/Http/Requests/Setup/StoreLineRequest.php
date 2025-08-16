@@ -12,7 +12,7 @@ class StoreLineRequest extends FormRequest
      */
     public function rules(): array
     {
-        $storeLineId = $this->route('storelines');
+        $storeLineId = $this->route('storeline');
         // $table->bigIncrements('id');
         // $table->string('line_code', 50)->unique();
         // $table->string('name', 100);

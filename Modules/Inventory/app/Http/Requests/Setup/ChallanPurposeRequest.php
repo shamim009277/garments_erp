@@ -11,7 +11,7 @@ class ChallanPurposeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $challanPurposeId = $this->route('challanpurposes');
+        $challanPurposeId = $this->route('challanpurpose');
         return [
             'purpose_name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_challan_purposes', 'purpose_name')->ignore($challanPurposeId)],
             'description' => 'nullable|string',

@@ -41,7 +41,7 @@ class StoreLocationRequest extends FormRequest
     // $table->timestamps();
     public function rules(): array
     {
-        $storeLocationId = $this->route('storelocations');
+        $storeLocationId = $this->route('storelocation');
         return [
             'name' => ['required', 'string', 'max:30', Rule::unique('inventory_setup_store_locations', 'name')->ignore($storeLocationId)],
             'address_line_1' => 'required',

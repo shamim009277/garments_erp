@@ -16,7 +16,7 @@ class ParentDepartment extends Model
      */
     protected $table = 'hris_setup_parent_departments';
 
-    protected $fillable = ['parent_department', 'parent_department_bn', 'is_active', 'created_by', 'updated_by'];
+    protected $fillable = ['department', 'department_bn', 'is_active', 'created_by', 'updated_by'];
     /**
      * The attributes that should be cast.
      */
