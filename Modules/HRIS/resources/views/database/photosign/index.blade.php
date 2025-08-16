@@ -125,7 +125,7 @@
                                     <tr>
                                         <td class="text-center">
                                             <div class="img-wrapper photo-box">
-                                                <img id="photoPreview" src="{{ asset('/images/placeholder.png') }}" alt="Photo Preview">
+                                                <img id="photoPreview" src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo Preview">
                                             </div>
                                         </td>
                                     </tr>
@@ -140,7 +140,7 @@
                                     <tr>
                                         <td class="text-center">
                                             <div class="img-wrapper signature-box">
-                                                <img id="signaturePreview" src="{{ asset('images/placeholder.png') }}" alt="Signature Preview">
+                                                <img id="signaturePreview" src="{{ asset('backend/assets/images/sig.png') }}" alt="Signature Preview">
                                             </div>
                                         </td>
                                     </tr>
@@ -215,7 +215,7 @@
                         if (response.photo) {
                             $('#photoPreview').attr('src', '/storage/' + response.photo);
                         }
-                        if (response.signature) {
+                        if (response.signature || response.signature != null) {
                             $('#signaturePreview').attr('src', '/storage/' + response.signature);
                         }
 
