@@ -8,6 +8,7 @@
             <div class="card-body">
                 <form method="POST" action="<?php echo e(route('inventory.database.basicorders.lots-colors-sizes.store', $basicorder->id)); ?>">
                     <?php echo csrf_field(); ?>
+                    <input type="hidden" name="order_id" value="<?php echo e($basicorder->id); ?>">
                     <div class="row">
                         <div class="col-lg-12">
                             <h3 class="text-primary">Order Lots ( <?php echo $basicorder->order_quantity; ?>)</h3>
@@ -238,6 +239,7 @@
                                     <div class="sizes-container">
                                         <div class="size" data-size-index="0">
                                             <div class="row">
+                                                <div class="col-lg-4">
                                                 <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'lots[${lotIndex}][colors][0][sizes][0][size_name]','label' => 'Size Name','placeholder' => 'Enter size name','options' => $sizes->pluck('size_name', 'id'),'value' => old('lots.${lotIndex}.colors.0.sizes.0.size_name'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -258,6 +260,8 @@
 <?php $component = $__componentOriginal243648788f657c94d456cacfc3f7cdc3; ?>
 <?php unset($__componentOriginal243648788f657c94d456cacfc3f7cdc3); ?>
 <?php endif; ?>
+                                                </div>
+                                                <div class="col-lg-4">
                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'lots[${lotIndex}][colors][0][sizes][0][quantity]','label' => 'Quantity','placeholder' => 'Enter quantity','value' => old('lots.${lotIndex}.colors.0.sizes.0.quantity'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -278,6 +282,7 @@
 <?php $component = $__componentOriginal66a280159691934507706df376ef5a6a; ?>
 <?php unset($__componentOriginal66a280159691934507706df376ef5a6a); ?>
 <?php endif; ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -359,7 +364,7 @@
 <?php unset($__componentOriginal243648788f657c94d456cacfc3f7cdc3); ?>
 <?php endif; ?>
                                     </div>
-                                    <div class="col-lg-4">
+                                        <div class="col-lg-4">
                                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'lots[${lotIdx}][colors][${colorCount}][sizes][0][quantity]','label' => 'Quantity','placeholder' => 'Enter quantity','value' => old('lots.${lotIdx}.colors.${colorCount}.sizes.0.quantity'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -380,8 +385,8 @@
 <?php $component = $__componentOriginal66a280159691934507706df376ef5a6a; ?>
 <?php unset($__componentOriginal66a280159691934507706df376ef5a6a); ?>
 <?php endif; ?>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                         <button type="button" class="btn btn-primary btn-sm mt-2 add-size-btn">Add Size</button>
                     </div>

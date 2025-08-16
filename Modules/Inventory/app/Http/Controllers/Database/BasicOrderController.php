@@ -236,12 +236,12 @@ class BasicOrderController extends Controller
         // dd($request->all());
         // get the basic order
         $basicorder = BasicOrder::findOrFail($id);
-        
+
         foreach ($request->lots as $lotInput) {
             $lot = $basicorder->lots()->create([
                 'lot_no' => $lotInput['lot_no'],
                 'po_no' => 1,
-                'lot_description' => 1,
+                'order_id' => $basicorder->id,
                 'lot_status' => 1,
                 'lot_quantity' => 1,
                 'lot_remarks' => 1,
@@ -253,7 +253,8 @@ class BasicOrderController extends Controller
             foreach ($lotInput['colors'] as $colorInput) {
                 $color = $lot->colors()->create([
                     'color_name' => $colorInput['color_name'],
-                    
+                    'quantity' => $colorInput['quantity'],
+                    'lot_id' => $lot->id,
                 ]);
             }
             // for size
@@ -261,6 +262,7 @@ class BasicOrderController extends Controller
                 $size = $lot->sizes()->create([
                     'size_name' => $sizeInput['size_name'],
                     'quantity' => $sizeInput['quantity'],
+                    'lot_id' => $lot->id,
                 ]);
             }
         }

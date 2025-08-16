@@ -120,7 +120,7 @@ class ItemController extends Controller
             'model' => $request->model,
             'type' => $request->type,
             'remarks' => $request->remarks,
-            'is_active' => $request->is_active,
+            
         ]);
         return redirect()->route('inventory.setup.items.index')->with('success', 'Item updated successfully');
     }

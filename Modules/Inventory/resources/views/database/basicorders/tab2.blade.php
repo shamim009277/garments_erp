@@ -8,6 +8,7 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('inventory.database.basicorders.lots-colors-sizes.store', $basicorder->id) }}">
                     @csrf
+                    <input type="hidden" name="order_id" value="{{ $basicorder->id }}">
                     <div class="row">
                         <div class="col-lg-12">
                             <h3 class="text-primary">Order Lots ( {!! $basicorder->order_quantity !!})</h3>
@@ -133,13 +134,17 @@
                                     <div class="sizes-container">
                                         <div class="size" data-size-index="0">
                                             <div class="row">
+                                                <div class="col-lg-4">
                                                 <x-select-input-group name="lots[${lotIndex}][colors][0][sizes][0][size_name]"
                                                                 label="Size Name" placeholder="Enter size name"
                                                                 :options="$sizes->pluck('size_name', 'id')"
                                                                 :value="old('lots.${lotIndex}.colors.0.sizes.0.size_name')" required />
+                                                </div>
+                                                <div class="col-lg-4">
                                                 <x-input-group name="lots[${lotIndex}][colors][0][sizes][0][quantity]"
                                                                 label="Quantity" placeholder="Enter quantity"
                                                                 :value="old('lots.${lotIndex}.colors.0.sizes.0.quantity')" required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -188,12 +193,12 @@
                                                                 :options="$sizes->pluck('size_name', 'id')"
                                                                 :value="old('lots.${lotIdx}.colors.${colorCount}.sizes.0.size_name')" required />
                                     </div>
-                                    <div class="col-lg-4">
+                                        <div class="col-lg-4">
                                         <x-input-group name="lots[${lotIdx}][colors][${colorCount}][sizes][0][quantity]"
                                                                 label="Quantity" placeholder="Enter quantity"
                                                                 :value="old('lots.${lotIdx}.colors.${colorCount}.sizes.0.quantity')" required />
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                         <button type="button" class="btn btn-primary btn-sm mt-2 add-size-btn">Add Size</button>
                     </div>
