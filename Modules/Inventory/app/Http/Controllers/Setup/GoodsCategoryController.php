@@ -59,7 +59,7 @@ class GoodsCategoryController extends Controller
                 'is_active' => $request->is_active,
             ]);
             DB::commit();
-            return redirect()->route('inventory.goodscategories.index')->with('success', 'Goods Category created successfully');
+            return redirect()->route('inventory.setup.goodscategories.index')->with('success', 'Goods Category created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to create Goods Category: ' . $e->getMessage());
@@ -93,7 +93,7 @@ class GoodsCategoryController extends Controller
             DB::beginTransaction();
             GoodsCategory::find($id)->update($request->validated());
             DB::commit();
-            return redirect()->route('inventory.goodscategories.index')->with('success', 'Goods Category updated successfully');
+            return redirect()->route('inventory.setup.goodscategories.index')->with('success', 'Goods Category updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update Goods Category: ' . $e->getMessage());

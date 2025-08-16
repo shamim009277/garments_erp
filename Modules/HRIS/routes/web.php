@@ -40,6 +40,10 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
+use Modules\HRIS\Http\Controllers\Tools\DesignationChangeController;
+use Modules\HRIS\Http\Controllers\Tools\DepartureController;
+use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
+use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -148,6 +152,10 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/degrees/delete', [DegreeController::class, 'destroy'])->name('degrees.delete');
             Route::resource('degrees', DegreeController::class)->names('degrees');
 
+            //Departure Reason
+            Route::post('/departurereasons/toggle', [DepartureReasonController::class, 'toggleStatus'])->name('departurereasons.toggle');
+            Route::post('/departurereasons/delete', [DepartureReasonController::class, 'destroy'])->name('departurereasons.delete');
+            Route::resource('departurereasons', DepartureReasonController::class)->names('departurereasons');
             //EmpGatepassPurpose
             Route::post('/gatepass_purpose/toggle', [EmpGatepassPurposeController::class, 'toggleStatus'])->name('gatepass_purpose.toggle');
             Route::post('/gatepass_purpose/delete', [EmpGatepassPurposeController::class, 'destroy'])->name('gatepass_purpose.delete');
@@ -205,6 +213,10 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/leave-application/reasons', [LeaveApplicationController::class, 'getReasons'])->name('leave-application.reasons');
             Route::post('/leave/info', [LeaveApplicationController::class, 'getLeaveInfo'])->name('leave.info');
             Route::resource('leave-application', LeaveApplicationController::class)->names('leave-application');
+            // photo sign
+            Route::post('/photosign/delete', [PhotoSignController::class, 'destroy'])->name('photosign.delete');
+            Route::post('/photosign/info', [PhotoSignController::class, 'info'])->name('photosign.info');
+            Route::resource('photosign', PhotoSignController::class)->names('photosign');
         });
 
         //Reports
@@ -223,6 +235,13 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/delete-approved-user', [ForwardApproveController::class, 'deleteApprovedUser'])->name('forward-approve.delete-approved-user');
             Route::post('/replace-user', [ForwardApproveController::class, 'replaceUser'])->name('forward-approve.replace-user');
             Route::resource('forward-approve', ForwardApproveController::class)->names('forward-approve');
+        });
+
+        //tools
+        Route::prefix('tools')->name('tools.')->group(function () {
+            Route::resource('designationchange', DesignationChangeController::class)->names('designationchange');
+            Route::post('/departure/info', [DepartureController::class, 'employeeInfo'])->name('departure.info');
+            Route::resource('departure', DepartureController::class)->names('departure');
         });
     });
 });

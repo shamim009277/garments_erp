@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <script>document.write(new Date().getFullYear())</script> © {{ $general->short_name }}.
+                <script>document.write(new Date().getFullYear())</script> © {{ $general->full_name }}.
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    {{ $general->short_name }} <a href="#!" class="text-decoration-underline">{{ $general->footer_text }}</a>
+                    {{ $general->full_name }} <a href="#!" class="text-decoration-underline"></a>
                 </div>
             </div>
         </div>

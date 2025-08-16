@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Inventory\Http\Controllers\InventoryController;
 use App\Http\Middleware\ModuleActive;
-use Modules\Inventory\Http\Controllers\Setup\BuyerController;
+
 use Modules\Inventory\Http\Controllers\Setup\StoreTypeController;
 use Modules\Inventory\Http\Controllers\Setup\StoreLineController;
 use Modules\Inventory\Http\Controllers\Setup\RackLocationController;
@@ -12,6 +12,23 @@ use Modules\Inventory\Http\Controllers\Setup\SupplierTypeController;
 use Modules\Inventory\Http\Controllers\Setup\SupplierController;
 use Modules\Inventory\Http\Controllers\Setup\ChallanPurposeController;
 use Modules\Inventory\Http\Controllers\Setup\GoodsCategoryController;
+use Modules\Inventory\Http\Controllers\Setup\GoodsSubCategoryController;
+use Modules\Inventory\Http\Controllers\Setup\CountryController; 
+use Modules\Inventory\Http\Controllers\Setup\ColorGroupController;
+use Modules\Inventory\Http\Controllers\Setup\ColorController;
+use Modules\Inventory\Http\Controllers\Setup\SizeController;
+use Modules\Inventory\Http\Controllers\Setup\SizeGroupController;
+use Modules\Inventory\Http\Controllers\Setup\BuyerController;
+use Modules\Inventory\Http\Controllers\Setup\ItemController;
+use Modules\Inventory\Http\Controllers\Setup\CompositionController;
+use Modules\Inventory\Http\Controllers\Setup\YarnCountController;
+use Modules\Inventory\Http\Controllers\Setup\FabricTypeController;
+use Modules\Inventory\Http\Controllers\Setup\FabricTreatmentsController;
+use Modules\Inventory\Http\Controllers\Setup\ProductCategoryController;
+
+
+
+
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->group(function () {
     Route::resource('inventory', InventoryController::class)->names('inventory');
@@ -23,11 +40,6 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/parties/toggle', [InventoryController::class, 'toggleStatus'])->name('parties.toggle');
             Route::post('/parties/delete', [InventoryController::class, 'destroy'])->name('parties.delete');
             Route::resource('parties', InventoryController::class)->names('parties');
-
-            //Buyer
-            Route::post('/buyers/toggle', [BuyerController::class, 'toggleStatus'])->name('buyers.toggle');
-            Route::post('/buyers/delete', [BuyerController::class, 'destroy'])->name('buyers.delete');
-            Route::resource('buyers', BuyerController::class)->names('buyers');
 
             //StoreTypeController
             Route::post('/storetypes/toggle', [StoreTypeController::class, 'toggleStatus'])->name('storetypes.toggle');
@@ -68,6 +80,73 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/goodscategories/toggle', [GoodsCategoryController::class, 'toggleStatus'])->name('goodscategories.toggle');
             Route::post('/goodscategories/delete', [GoodsCategoryController::class, 'destroy'])->name('goodscategories.delete');
             Route::resource('goodscategories', GoodsCategoryController::class)->names('goodscategories');
+
+            //GoodsSubCategoryController
+            Route::post('/goodsSubCategories/toggle', [GoodsSubCategoryController::class, 'toggleStatus'])->name('goodsSubCategories.toggle');
+            Route::post('/goodsSubCategories/delete', [GoodsSubCategoryController::class, 'destroy'])->name('goodsSubCategories.delete');
+            Route::resource('goodsSubCategories', GoodsSubCategoryController::class)->names('goodsSubCategories');
+
+            //CountryController
+            Route::post('/countries/toggle', [CountryController::class, 'toggleStatus'])->name('countries.toggle');
+            Route::post('/countries/delete', [CountryController::class, 'destroy'])->name('countries.delete');
+            Route::resource('countries', CountryController::class)->names('countries');
+
+            //ColorGroupController
+            Route::post('/colorgroups/toggle', [ColorGroupController::class, 'toggleStatus'])->name('colorgroups.toggle');
+            Route::post('/colorgroups/delete', [ColorGroupController::class, 'destroy'])->name('colorgroups.delete');
+            Route::resource('colorgroups', ColorGroupController::class)->names('colorgroups');
+
+            //ColorController
+            Route::post('/colors/toggle', [ColorController::class, 'toggleStatus'])->name('colors.toggle');
+            Route::post('/colors/delete', [ColorController::class, 'destroy'])->name('colors.delete');
+            Route::resource('colors', ColorController::class)->names('colors');
+
+            //SizeGroupController
+            Route::post('/sizegroups/toggle', [SizeGroupController::class, 'toggleStatus'])->name('sizegroups.toggle');
+            Route::post('/sizegroups/delete', [SizeGroupController::class, 'destroy'])->name('sizegroups.delete');
+            Route::resource('sizegroups', SizeGroupController::class)->names('sizegroups');
+
+            //SizeController
+            Route::post('/sizes/toggle', [SizeController::class, 'toggleStatus'])->name('sizes.toggle');
+            Route::post('/sizes/delete', [SizeController::class, 'destroy'])->name('sizes.delete');
+            Route::resource('sizes', SizeController::class)->names('sizes');
+
+            //BuyerController
+            Route::post('/buyers/toggle', [BuyerController::class, 'toggleStatus'])->name('buyers.toggle');
+            Route::post('/buyers/delete', [BuyerController::class, 'destroy'])->name('buyers.delete');
+            Route::resource('buyers', BuyerController::class)->names('buyers');
+
+            //ItemController
+            Route::post('/items/toggle', [ItemController::class, 'toggleStatus'])->name('items.toggle');
+            Route::post('/items/delete', [ItemController::class, 'destroy'])->name('items.delete');
+            Route::resource('items', ItemController::class)->names('items');
+            //for ajax call
+            Route::get('/inventory/setup/items/get-subcategories', [ItemController::class, 'getSubcategories'])->name('items.getSubcategories');
+
+            //CompositionController
+            Route::post('/compositions/toggle', [CompositionController::class, 'toggleStatus'])->name('compositions.toggle');
+            Route::post('/compositions/delete', [CompositionController::class, 'destroy'])->name('compositions.delete');
+            Route::resource('compositions', CompositionController::class)->names('compositions');
+
+            //YarnCountController
+            Route::post('/yarncounts/toggle', [YarnCountController::class, 'toggleStatus'])->name('yarncounts.toggle');
+            Route::post('/yarncounts/delete', [YarnCountController::class, 'destroy'])->name('yarncounts.delete');
+            Route::resource('yarncounts', YarnCountController::class)->names('yarncounts');
+
+            //FabricTypeController
+            Route::post('/fabictypes/toggle', [FabricTypeController::class, 'toggleStatus'])->name('fabictypes.toggle');
+            Route::post('/fabictypes/delete', [FabricTypeController::class, 'destroy'])->name('fabictypes.delete');
+            Route::resource('fabictypes', FabricTypeController::class)->names('fabictypes');
+
+            //FabricTreatmentsController
+            Route::post('/fabictreatments/toggle', [FabricTreatmentsController::class, 'toggleStatus'])->name('fabictreatments.toggle');
+            Route::post('/fabictreatments/delete', [FabricTreatmentsController::class, 'destroy'])->name('fabictreatments.delete');
+            Route::resource('fabictreatments', FabricTreatmentsController::class)->names('fabictreatments');
+
+            //ProductCategoryController
+            Route::post('/productcategories/toggle', [ProductCategoryController::class, 'toggleStatus'])->name('productcategories.toggle');
+            Route::post('/productcategories/delete', [ProductCategoryController::class, 'destroy'])->name('productcategories.delete');
+            Route::resource('productcategories', ProductCategoryController::class)->names('productcategories');
         });
     });
 });
