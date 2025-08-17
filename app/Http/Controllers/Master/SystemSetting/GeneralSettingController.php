@@ -52,7 +52,15 @@ class GeneralSettingController extends Controller
                 $generalSettings->favicon_path = $faviconPath['path'];
             }
 
-            $generalSettings->save();
+            if ($generalSettings->isDirty()) {
+                $generalSettings->save();
+
+                //Clear cache
+                cache()->forget('general_settings');
+                return back()->with('success', 'Settings updated successfully!');
+            } else {
+                return back()->with('info', 'No changes detected, nothing to update.');
+            }
         } catch (\Throwable $th) {
             return redirect()->route('master.system-settings.general-settings')->with('error', 'General Settings Updated Failed: ' . $th->getMessage());
         }
