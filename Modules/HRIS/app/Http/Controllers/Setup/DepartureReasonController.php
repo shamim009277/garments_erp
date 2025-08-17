@@ -48,12 +48,12 @@ class DepartureReasonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {
+    public function destroy(Request $request) {
         try {
-            DepartureReason::findOrFail($id)->delete();
-            return redirect()->route('hris.setup.departurereasons.index')->with('success', 'Departure reason deleted successfully');
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Failed to delete departure reason: ' . $th->getMessage());
+            DepartureReason::findOrFail($request->id)->delete();
+            return response()->json(['success' => true, 'message' => 'Departure reason deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Departure reason deletion failed: ' . $e->getMessage()]);
         }
     }
 

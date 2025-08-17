@@ -30,7 +30,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-5 pe-lg-0">
+                            <div class="col-lg-5 col-md-6 pe-lg-0 pe-md-0">
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr>
@@ -72,7 +72,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-lg-5 pe-lg-0">
+                            <div class="col-lg-5 col-md-6 pe-lg-0 pe-md-0">
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr>
@@ -116,7 +116,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-2" style="padding:0px;">
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr>
@@ -124,7 +124,7 @@
                                         </tr>
                                         <tr>
                                             <td style="display: flex; justify-content: center; align-items: center;">
-                                                <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo" id="photo" class="img-fluid" style="width: 160px; height: 180px; object-fit: cover; padding: 8px;">
+                                                <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo" id="photo" class="img-fluid" style="width: 160px; height: 180px; object-fit: cover; padding: 2px;">
                                             </td>
                                         </tr>
                                     </tbody>
