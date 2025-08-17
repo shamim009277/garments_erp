@@ -43,7 +43,7 @@
                     <form id="user_form" action="{{ route('hris.settings.forward-approve.store') }}" method="POST">
                         @csrf
                         <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <table class="table table-sm" style="width: 100%">
                                 <tbody>
                                     <tr>
@@ -93,22 +93,24 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-lg-8 pe-lg-0 ps-lg-0">
+                        <div class="col-lg-7 ps-lg-0">
                             <div class="card padding-card">
-                                <div class="card-body" style="min-height: 350px;max-height: 350px;overflow-y: auto">
-                                    <table class="table table-sm table-striped table-hover" id="user_table" style="width: 100%">
-                                        <thead style="position: sticky;top: -20px;background-color: #4f85bc !important" class="table-light">
-                                            <tr>
-                                                <th width="25%">EmployeeID</th>
-                                                <th width="25%">Name</th>
-                                                <th width="25%" class="text-center">Department</th>
-                                                <th width="25%" class="text-center">Category</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="user_table_body"></tbody>
-                                    </table>
+                                <div class="card-body" style="min-height: 350px;max-height: 350px;overflow-y: auto;padding: 2px 2px !important">
+                                    <div style="overflow-x: auto;">
+                                        <table class="table table-sm table-striped table-hover" id="user_table" style="width: 100%">
+                                            <thead style="position: sticky;top: -20px;background-color: #4f85bc !important" class="table-light">
+                                                <tr>
+                                                    <th width="25%">EmployeeID</th>
+                                                    <th width="25%">Name</th>
+                                                    <th width="25%" class="text-center">Department</th>
+                                                    <th width="25%" class="text-center">Category</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="user_table_body"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <div class="card-footer" style="padding: 12px 20px !important">
+                                <div class="card-footer" style="padding: 12px 10px !important">
                                     <div class="d-flex flex-wrap gap-2">
                                         <button type="button" class="btn btn-sm btn-outline-success" id="check_all_add">
                                             <i data-feather="check-square" width="14" height="14"></i> Check All
