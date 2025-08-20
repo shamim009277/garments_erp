@@ -50,7 +50,7 @@ class DepartureController extends Controller
 
     public function employeeInfo(Request $request) {
         $employee = Employee::with(['designation:id,designation','department:id,department','employeePersonal:employee_id,mobile,national_id,birth_certificate'])
-                ->where('employee_id', $request->employee_id)
+                ->where('employee_id', (int)$request->employee_id)
                 ->select('id','employee_id','name','designation_id','department_id','joining_date','photo','signature','reason','salaried','leaving_date','leaving_note','mtreturn_date','org_id')
                 ->first();
         return response()->json($employee);

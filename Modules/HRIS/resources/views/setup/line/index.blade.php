@@ -5,70 +5,61 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Leave Reason',
+                'subtitle' => 'Line',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Setup', 'url' => route('hris.index')],
-                    ['label' => 'Leave Reason', 'url' => route('hris.setup.leavereason.index')],
+                    ['label' => 'Line', 'url' => route('hris.setup.lines.index')],
                 ],
             ])
         </div>
         <div class="col-lg-8 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Leave Reason List</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Line List</h6>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
                         <thead>
                             <tr>
                                 <th width="5%">SL</th>
-                                <th width="40%">Reason</th>
-                                <th width="30%">Leave Type</th>
+                                <th width="15%">Code</th>
+                                <th width="25%">Line</th>
                                 <th width="15%">Is Active</th>
-                                <th width="10%">Actions</th>
+                                <th width="15%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($leavereasons as $key => $leavereason)
-                                <tr id="row-{{ $leavereason->id }}">
+                            @foreach ($lines as $key => $line)
+                                <tr id="row-{{ $line->id }}">
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $leavereason->reason }}</td>
-                                    <td>{{ is_array($leavereason->classification_id) ? implode(', ', $leavereason->classification_id) : 'N/A' }}</td>
+                                    <td>{{ $line->code }}</td>
+                                    <td>{{ $line->line }}</td>
                                     <td>
                                         <div class="square-switch">
-                                            <input type="checkbox" id="square-switch3{{ $leavereason->id }}" class="leavereason-toggle" data-id="{{ $leavereason->id }}" switch="bool" {{ $leavereason->is_active ? 'checked' : '' }} />
-                                            <label for="square-switch3{{ $leavereason->id }}" data-on-label="Yes" data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
+                                            <input type="checkbox" id="square-switch3{{ $line->id }}" class="line-toggle" data-id="{{ $line->id }}" switch="bool" {{ $line->is_active ? 'checked' : '' }} />
+                                            <label for="square-switch3{{ $line->id }}" data-on-label="Yes" data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $leavereason->id }}"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-leavereason" data-id="{{ $leavereason->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                        <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $line->id }}"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-line" data-id="{{ $line->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
                                     </td>
-
-                                    <div id="editModal{{ $leavereason->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+                                    <div id="editModal{{ $line->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h6 class="modal-title" id="myModalLabel">Edit Leave Classification</h6>
+                                                    <h6 class="modal-title" id="myModalLabel">Edit Line</h6>
                                                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <form id="editForm{{ $leavereason->id }}" action="{{ route('hris.setup.leavereason.update', $leavereason->id) }}" method="POST">
+                                                <form id="editForm{{ $line->id }}" action="{{ route('hris.setup.lines.update', $line->id) }}" method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
-                                                        <x-input-group name="reason" label="Reason" type="text" placeholder="Enter reason" :value="$leavereason->reason" required />
-                                                        <x-select-multiple-input
-                                                            name="classification_id[]"
-                                                            id="classification_id_edit_{{ $leavereason->id }}"
-                                                            class="select2 multiselect mb-2"
-                                                            :options="$types"
-                                                            :selected="$leavereason->classification_id ?? []"
-                                                            multiple
-                                                            required
-                                                        />
-                                                        <x-select-input-group name="is_active" label="Is Active"  :options="['1' => 'Active', '0' => 'Inactive']" :selected="$leavereason->is_active" required />
+                                                        <x-input-group name="line" label="Line" type="text" placeholder="Enter line" :value="$line->line" required />
+                                                        <x-input-group name="line_code" label="Code" type="text" placeholder="Enter line code" :value="$line->line_code" required />
+                                                        <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$line->is_active" required />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
@@ -89,26 +80,15 @@
         <div class="col-lg-4">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Leave Reason ...</h6>
+                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Line ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('hris.setup.leavereason.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('hris.setup.lines.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="reason" label="Leave Reason" type="text" placeholder="Enter leave reason" :value="old('reason')" required />
-                        <label for="classification_id">Leave Classification <span class="text-danger">*</span></label>
-                        <x-select-multiple-input
-                            name="classification_id[]"
-                            id="classification_id_add"
-                            class="select2 multiselect mb-2"
-                            :options="$types"
-                            :selected="old('classification_id', [])"
-                            multiple
-                            required
-                        />
-                        <br><br>
+                        <x-input-group name="line" label="Line" type="text" placeholder="Line-1 " :value="old('line')" required />
+                        <x-input-group name="code" label="Code" type="text" placeholder="Code like 1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" :value="old('code')" required />
                         <x-select-input-group
                             name="is_active"
-                            class="mb-2"
                             label="Is Active?"
                             :options="['1' => 'Active', '0' => 'Inactive']"
                             :selected="old('is_active', '1')"
@@ -126,23 +106,11 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#classification_id_add').select2({
-                placeholder: 'Select Leave Classification',
-                allowClear: true,
-                multiple: true,
-            });
-
-            $('.select2.multiselect').each(function() {
-                if (!$(this).hasClass('select2-hidden-accessible')) {
-                    $(this).select2();
-                }
-            });
-
-            $('.leavereason-toggle').on('change', function() {
+            $('.line-toggle').on('change', function() {
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('hris.setup.leavereason.toggle') }}',
+                    url: '{{ route('hris.setup.lines.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -163,9 +131,9 @@
             });
         });
 
-        $(document).on('click', '.delete-leavereason', function(e) {
+        $(document).on('click', '.delete-line', function(e) {
             e.preventDefault();
-            let leavereasonId = $(this).data('id');
+            let lineId = $(this).data('id');
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -177,19 +145,19 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('hris.setup.leavereason.delete') }}',
+                        url: '{{ route('hris.setup.lines.delete') }}',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            id: leavereasonId
+                            id: lineId
                         },
                         success: function(response) {
                             Swal.fire(
                                 'Deleted!',
-                                'Leave Reason has been deleted.',
+                                'Line has been deleted.',
                                 'success'
                             );
-                            $('#row-' + leavereasonId).remove();
+                            $('#row-' + lineId).remove();
                         },
                         error: function() {
                             Swal.fire(
@@ -202,7 +170,7 @@
                 } else {
                     Swal.fire(
                         'Cancelled!',
-                        'Leave Reason has not been deleted.',
+                        'Line has not been deleted.',
                         'error'
                     );
                 }

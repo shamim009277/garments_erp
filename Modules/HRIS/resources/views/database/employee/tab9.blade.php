@@ -151,6 +151,27 @@
                             </tr>
                         </table>
                     </div>
+                    <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
+                        <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
+                            <h6 class="text-primary">Emergency Contact</h6>
+                            <tr>
+                                <th width="35%" style="border: none;">Name</th>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="emergency_name" id="emergency_name" class="form-control-sm" value="{{ $employee_personal->emergency_name??old('emergency_name') }}" placeholder="Name" /></td>
+                            </tr>
+                            <tr>
+                                <th width="35%" style="border: none;">Mobile Number</th>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="emergency_mobile" id="emergency_mobile" pattern="(01)[0-9]{9}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" class="form-control-sm" value="{{ $employee_personal->emergency_mobile??old('emergency_mobile') }}" placeholder="Mobile Number" /></td>
+                            </tr>
+                            <tr>
+                                <th width="35%" style="border: none;">Relation</th>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="emergency_relation" id="emergency_relation" class="form-control-sm" value="{{ $employee_personal->emergency_relation??old('emergency_relation') }}" placeholder="Relation" /></td>
+                            </tr>
+                            <tr>
+                                <th width="35%" style="border: none;">Address</th>
+                                <td width="65%" style="border: none;"><x-text-input type="text" name="emergency_address" id="emergency_address" class="form-control-sm" value="{{ $employee_personal->emergency_address??old('emergency_address') }}" placeholder="Address" /></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

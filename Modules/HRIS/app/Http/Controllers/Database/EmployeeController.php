@@ -8,6 +8,8 @@ use Modules\HRIS\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Modules\HRIS\Models\Setup\Sex;
 use Illuminate\Support\Facades\Log;
+use Modules\HRIS\Models\Setup\Line;
+use Modules\HRIS\Models\Setup\Unit;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Setup\Shift;
@@ -54,10 +56,11 @@ class EmployeeController extends Controller
 
         $districts = District::active()->pluck('name', 'id');
         $shifts = Shift::active()->pluck('shift', 'shift');
+        $units = Unit::active()->pluck('unit', 'code');
         $organizations = Organization::active()->pluck('short_name', 'id');
         $applicants = Applicant::with(['department:id,department', 'designation:id,designation'])->active()->fileEntry()->where('entry_date', '>=', $lst_30_days)->where('file_entry','!=', 'C')->where('final_status', 1)->get();
         $unique_department = $applicants->unique('department_id');
-        return view('hris::database.employee.index', compact('designations', 'departments', 'districts', 'applicants', 'unique_department', 'shifts', 'organizations'));
+        return view('hris::database.employee.index', compact('designations', 'departments', 'districts', 'applicants', 'unique_department', 'shifts', 'organizations', 'units'));
     }
 
     /**
@@ -156,9 +159,11 @@ class EmployeeController extends Controller
 
             $districts = District::active()->pluck('name', 'id');
             $thanas = Thana::active()->pluck('name', 'id');
+            $units = Unit::active()->pluck('unit', 'code');
+            $lines = Line::active()->pluck('line', 'code');
             $shifts = Shift::active()->pluck('shift', 'shift');
             $organizations = Organization::active()->pluck('short_name', 'id');
-            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'designations' => $designations, 'departments' => $departments, 'districts' => $districts, 'thanas' => $thanas, 'shifts' => $shifts, 'organizations' => $organizations]);
+            return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'designations' => $designations, 'departments' => $departments, 'districts' => $districts, 'thanas' => $thanas, 'shifts' => $shifts, 'organizations' => $organizations, 'units' => $units, 'lines' => $lines]);
         }else if($request->get('tab') == 2){
             $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id','org_id')->find($id);
@@ -236,33 +241,33 @@ class EmployeeController extends Controller
             $employee->fill($employeeData);
 
             $hasEmployeeChanges = $employee->isDirty();
-            $employeeBangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
+            // $employeeBangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
 
-            $banglaData = [
-                'org_id'                => $employee->org_id,
-                'name_bangla'           => $employee->name,
-                'fname_bangla'          => $employee->father_name,
-                'mname_bangla'          => $employee->mother_name,
-                'pdistrict_id_bangla'   => $employee->pdistrict_id,
-                'pthana_id_bangla'      => $employee->pthana_id,
-                'ppost_office_bangla'   => $employee->ppost_office,
-                'pvillage_bangla'       => $employee->pvillage,
-                'mdistrict_id_bangla'   => $employee->mdistrict_id,
-                'mthana_id_bangla'      => $employee->mthana_id,
-                'mpost_office_bangla'   => $employee->mpost_office,
-                'mvillage_bangla'       => $employee->mvillage,
-            ];
+            // $banglaData = [
+            //     'org_id'                => $employee->org_id,
+            //     'name_bangla'           => $employee->name,
+            //     'fname_bangla'          => $employee->father_name,
+            //     'mname_bangla'          => $employee->mother_name,
+            //     'pdistrict_id_bangla'   => $employee->pdistrict_id,
+            //     'pthana_id_bangla'      => $employee->pthana_id,
+            //     'ppost_office_bangla'   => $employee->ppost_office,
+            //     'pvillage_bangla'       => $employee->pvillage,
+            //     'mdistrict_id_bangla'   => $employee->mdistrict_id,
+            //     'mthana_id_bangla'      => $employee->mthana_id,
+            //     'mpost_office_bangla'   => $employee->mpost_office,
+            //     'mvillage_bangla'       => $employee->mvillage,
+            // ];
 
-            $hasBanglaChanges = false;
+            // $hasBanglaChanges = false;
 
-            if ($employeeBangla) {
-                $employeeBangla->fill($banglaData);
-                $hasBanglaChanges = $employeeBangla->isDirty();
-            } else {
-                $hasBanglaChanges = true;
-            }
+            // if ($employeeBangla) {
+            //     $employeeBangla->fill($banglaData);
+            //     $hasBanglaChanges = $employeeBangla->isDirty();
+            // } else {
+            //     $hasBanglaChanges = true;
+            // }
 
-            if (!$hasEmployeeChanges && !$hasBanglaChanges) {
+            if (!$hasEmployeeChanges) {
                 DB::rollBack();
                 return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('info', 'No changes detected. Nothing was updated.');
             }
@@ -273,17 +278,17 @@ class EmployeeController extends Controller
                 $employee->save();
             }
 
-            if ($employeeBangla) {
-                if ($hasBanglaChanges) {
-                    $employeeBangla->updated_by = Auth::id();
-                    $employeeBangla->save();
-                }
-            } else {
-                $banglaData['employee_id'] = $employee->employee_id;
-                $banglaData['created_by'] = Auth::id();
-                $banglaData['updated_by'] = Auth::id();
-                EmployeeBangla::create($banglaData);
-            }
+            // if ($employeeBangla) {
+            //     if ($hasBanglaChanges) {
+            //         $employeeBangla->updated_by = Auth::id();
+            //         $employeeBangla->save();
+            //     }
+            // } else {
+            //     $banglaData['employee_id'] = $employee->employee_id;
+            //     $banglaData['created_by'] = Auth::id();
+            //     $banglaData['updated_by'] = Auth::id();
+            //     EmployeeBangla::create($banglaData);
+            // }
 
             DB::commit();
             return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('success', 'Employee updated successfully');
@@ -311,6 +316,16 @@ class EmployeeController extends Controller
     public function getGrade($designation_id) {
         $grades = Designation::select('id','grade')->find($designation_id);
         return response()->json($grades);
+    }
+
+    public function getUnit($unit_id) {
+        $units = Unit::where('code', $unit_id)->first();
+        if($units){
+            $lines = array_combine(json_decode($units->line_id), json_decode($units->line));
+            return response()->json($lines);
+        }else{
+            return response()->json(null);
+        }
     }
 
     public function getSearch(Request $request) {
@@ -358,7 +373,6 @@ class EmployeeController extends Controller
                 if ($employee_personal->isDirty()) {
                     $employee_personal->update($validated);
 
-                    //$translate = new TextTranslateService();
                     EmployeeBangla::where('employee_id', $request->employee_id)->update([
                         'nname_bangla'       => $employee_personal->nominee_name,
                         'relation_bangla'    => $employee_personal->relation,
@@ -375,7 +389,6 @@ class EmployeeController extends Controller
                 }
             } else {
                 $personal = EmployeePersonal::create($validated);
-                //$translate = new TextTranslateService();
                 if ($personal) {
                     EmployeeBangla::where('employee_id', $request->employee_id)->update([
                         'nname_bangla'       => $personal->nominee_name,
@@ -409,16 +422,13 @@ class EmployeeController extends Controller
         try {
             $validated = $request->validated();
 
-            // Ensure employee_id is scalar, not array
             $employee_id = is_array($validated['employee_id']) ? $validated['employee_id'][0] : $validated['employee_id'];
             $new_document_ids = $validated['document_id'];
 
-            // Ensure document_id is array
             if (!is_array($new_document_ids)) {
                 $new_document_ids = [$new_document_ids];
             }
 
-            // Get existing document IDs for that employee
             $existingDocuments = EmployeeDocument::where('employee_id', $employee_id)
                 ->pluck('document_id')
                 ->toArray();

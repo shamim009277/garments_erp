@@ -158,8 +158,6 @@
                 $("#department_id").val('');
 
                 if (response && Object.keys(response).length > 0) {
-                    console.log(response);
-
                     $("#name").val(response.name || '');
                     $("#designation").val(response.designation?.designation || '');
                     $("#department").val(response.department?.department || '');

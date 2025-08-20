@@ -36,7 +36,8 @@ class EmployeeRequest extends FormRequest
             'joining_date' => 'required|date',
             'confirmation_date' => 'required|date|after_or_equal:joining_date',
             'punch_category' => 'required|in:1,2,3',
-            'refrerence_shift' => 'required|in:G',
+            'refrerence_shift' => 'required|in:A,B,C,D,E,F,G,M,N',
+            'refrerence_holiday' => 'required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
             'refrerence_date' => 'nullable|date',
             'mtreturn_date' => 'nullable|date',
 

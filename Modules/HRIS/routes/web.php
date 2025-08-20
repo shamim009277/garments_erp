@@ -4,6 +4,8 @@ use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
 use Modules\HRIS\Http\Controllers\HRISController;
 use Modules\HRIS\Http\Controllers\Setup\SexController;
+use Modules\HRIS\Http\Controllers\Setup\LineController;
+use Modules\HRIS\Http\Controllers\Setup\UnitController;
 use Modules\HRIS\Http\Controllers\Setup\GradeController;
 use Modules\HRIS\Http\Controllers\Setup\ShiftController;
 use Modules\HRIS\Http\Controllers\Setup\ThanaController;
@@ -13,23 +15,30 @@ use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\DocumentController;
 use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Tools\CalenderController;
+use Modules\HRIS\Http\Controllers\Tools\DepartureController;
 use Modules\HRIS\Http\Controllers\Settings\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeController;
 use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveReasonController;
 use Modules\HRIS\Http\Controllers\Database\ApplicantController;
+use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
 use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
+use Modules\HRIS\Http\Controllers\Tools\ShiftingListController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
 use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
+use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
+use Modules\HRIS\Http\Controllers\Tools\EditShiftingListController;
 use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
 use Modules\HRIS\Http\Controllers\Setup\EmpGatepassReasonController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
+use Modules\HRIS\Http\Controllers\Tools\DesignationChangeController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
 use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
@@ -40,10 +49,6 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
-use Modules\HRIS\Http\Controllers\Tools\DesignationChangeController;
-use Modules\HRIS\Http\Controllers\Tools\DepartureController;
-use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
-use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -170,6 +175,16 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/leavereason/toggle', [LeaveReasonController::class, 'toggleStatus'])->name('leavereason.toggle');
             Route::post('/leavereason/delete', [LeaveReasonController::class, 'destroy'])->name('leavereason.delete');
             Route::resource('leavereason', LeaveReasonController::class)->names('leavereason');
+
+            //Line
+            Route::post('/lines/toggle', [LineController::class, 'toggleStatus'])->name('lines.toggle');
+            Route::post('/lines/delete', [LineController::class, 'destroy'])->name('lines.delete');
+            Route::resource('lines', LineController::class)->names('lines');
+
+            //Unit
+            Route::post('/units/toggle', [UnitController::class, 'toggleStatus'])->name('units.toggle');
+            Route::post('/units/delete', [UnitController::class, 'destroy'])->name('units.delete');
+            Route::resource('units', UnitController::class)->names('units');
         });
 
         //Database
@@ -181,6 +196,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
 
+            Route::get('/unit/{id}', [EmployeeController::class, 'getUnit'])->name('employee.getUnit');
             Route::get('/designation/{id}', [EmployeeController::class, 'getGrade'])->name('employee.getGrade');
             Route::get('/district/{district_id}', [EmployeeController::class, 'getThana'])->name('employee.getThana');
             Route::post('/search', [EmployeeController::class, 'getSearch'])->name('employee.search');
@@ -243,6 +259,9 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('designationchange', DesignationChangeController::class)->names('designationchange');
             Route::post('/departure/info', [DepartureController::class, 'employeeInfo'])->name('departure.info');
             Route::resource('departure', DepartureController::class)->names('departure');
+            Route::resource('calender', CalenderController::class)->names('calender');
+            Route::resource('shiftinglist', ShiftingListController::class)->names('shiftinglist');
+            Route::resource('edit-shiftinglist', EditShiftingListController::class)->names('edit-shiftinglist');
         });
     });
 });
