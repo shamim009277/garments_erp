@@ -159,7 +159,7 @@
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="joining_date_section">
-                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date" type="date" placeholder="Enter joining date" :value="old('joining_date', $unique_applicant ? $unique_applicant->joining_date : null)" />
+                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date" class="holiday-date" type="date" placeholder="Enter joining date" :value="old('joining_date', $unique_applicant ? $unique_applicant->joining_date : null)" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="proposed_salary_section">
@@ -195,10 +195,12 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            let holidays = @json($holidays);
             flatpickr("#joining_date", {
                 dateFormat: "Y-m-d",
                 allowInput: false,
-                minDate: "{{ $today }}"
+                minDate: "{{ $today }}",
+                disable: holidays,
             });
 
             $('#birth_certificate_section').hide();

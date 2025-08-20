@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->useCurrent();
             $table->unsignedBigInteger('updated_by')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamps();
 
             $table->index('date');
             $table->index('year');

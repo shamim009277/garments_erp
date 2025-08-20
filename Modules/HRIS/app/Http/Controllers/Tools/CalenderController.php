@@ -18,7 +18,8 @@ class CalenderController extends Controller
     public function index()
     {
         $year = Carbon::now()->year;
-        return view('hris::tools.calender.index', compact('year'));
+        $calender = Calender::whereYear('date', $year)->select('id','date', 'note', 'holiday', 'public_holiday')->get();
+        return view('hris::tools.calender.index', compact('year', 'calender'));
     }
 
     /**
@@ -86,28 +87,40 @@ class CalenderController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('hris::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('hris::edit');
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id) {
+        $validated = $request->validate([
+            'note' => 'nullable|string|max:255',
+            'holiday' => 'nullable|string|max:50',
+            'public_holiday' => 'nullable|string|max:50',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
+        try {
+            $calender = Calender::findOrFail($id);
+            $calender->fill($validated);
+            $calender->save();
+
+            cache()->forget('holidays');
+            cache()->remember('holidays', 1440, function () {
+                return Calender::where('holiday', 'Y')
+                                ->where('year', Carbon::now()->year)
+                                ->pluck('date')
+                                ->map(fn($date) => $date->format('Y-m-d'))
+                                ->toArray();
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Calender updated successfully',
+                'data' => $calender
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update calender: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }
