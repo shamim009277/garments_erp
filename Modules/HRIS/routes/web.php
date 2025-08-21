@@ -41,6 +41,7 @@ use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
 use Modules\HRIS\Http\Controllers\Tools\DesignationChangeController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
 use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
+use Modules\HRIS\Http\Controllers\Tools\ExceptionalHolidayController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApplicationController;
@@ -49,6 +50,7 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
+use Modules\HRIS\Http\Controllers\Tools\EditExceptionalHolidayController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -262,6 +264,9 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('calender', CalenderController::class)->names('calender');
             Route::resource('shiftinglist', ShiftingListController::class)->names('shiftinglist');
             Route::resource('edit-shiftinglist', EditShiftingListController::class)->names('edit-shiftinglist');
+            Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
+            Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');
+            Route::resource('editexceptional-holidays', EditExceptionalHolidayController::class)->names('editexceptional-holidays');
         });
     });
 });

@@ -130,6 +130,10 @@ class Employee extends Model
         return $query->where('reason', 'L');
     }
 
+    public function scopeShiftingDuty($query) {
+        return $query->where('shifting_duty', 'Y');
+    }
+
     public function department() {
         return $this->belongsTo(Department::class);
     }
