@@ -13,8 +13,18 @@ return new class extends Migration
     {
         Schema::create('hris_tools_shifting_list', function (Blueprint $table) {
             $table->id();
-            
+            $table->unsignedBigInteger('employee_id');
+            $table->year('year');
+            $table->date('date');
+            $table->enum('shift', ['A','B','C','D','E','F','G','H','M','N']);
+            $table->unsignedBigInteger('created_by')->useCurrent();
+            $table->unsignedBigInteger('updated_by')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
+
+            $table->index('employee_id');
+            $table->index('year');
+            $table->index('date');
+            $table->index('shift');
         });
     }
 

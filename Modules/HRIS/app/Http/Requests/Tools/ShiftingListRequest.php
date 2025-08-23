@@ -11,7 +11,11 @@ class ShiftingListRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'year' => 'required|numeric',
+            'department_id' => 'required',
+            'parent_department_id' => 'required',
+        ];
     }
 
     /**
