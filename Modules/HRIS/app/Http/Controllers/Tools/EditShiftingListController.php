@@ -2,8 +2,10 @@
 
 namespace Modules\HRIS\Http\Controllers\Tools;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Modules\HRIS\Models\Tools\ShiftingList;
 
 class EditShiftingListController extends Controller
 {
@@ -12,7 +14,9 @@ class EditShiftingListController extends Controller
      */
     public function index()
     {
-        return view('hris::index');
+        $startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endDate   = Carbon::now()->endOfMonth()->format('Y-m-d');
+        return view('hris::tools.editshiftinglist.index', compact('startDate', 'endDate'));
     }
 
     /**
@@ -26,7 +30,22 @@ class EditShiftingListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(Request $request) {
+        //dd($request->all());
+        if($request->form == 1){
+            $shiftingLists = ShiftingList::with('employeeBasic')->where('date', $request->date)->get();
+            return response()->json([
+                'success' => true,
+                'data' => $shiftingLists
+            ]);
+        }else if($request->form == 2){
+            $shiftingLists = ShiftingList::with('employeeBasic')->where('employee_id', (int)$request->emp_id)->whereBetween('date', [$request->start_date, $request->end_date])->get();
+            return response()->json([
+                'success' => true,
+                'data' => $shiftingLists
+            ]);
+        }
+    }
 
     /**
      * Show the specified resource.

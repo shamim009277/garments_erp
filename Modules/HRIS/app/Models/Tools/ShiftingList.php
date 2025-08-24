@@ -4,6 +4,8 @@ namespace Modules\HRIS\Models\Tools;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Modules\HRIS\Models\Database\Employee;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\HRIS\Database\Factories\Tools\ShiftingListFactory;
 
@@ -33,5 +35,10 @@ class ShiftingList extends Model
         static::updating(function ($shifting_list) {
             $shifting_list->updated_by = Auth::id();
         });
+    }
+
+    public function employeeBasic():BelongsTo
+    {
+        return $this->belongsTo(Employee::class, 'employee_id', 'employee_id')->select('employee_id','name','joining_date');
     }
 }

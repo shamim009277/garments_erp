@@ -23,12 +23,12 @@ class LeaveApplication extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id','employee_id');
     }
 
     public function leaveReason()
     {
-        return $this->belongsTo(LeaveReason::class, 'leave_reason_id');
+        return $this->belongsTo(LeaveReason::class, 'reason_id');
     }
 
     public function department()
@@ -48,7 +48,7 @@ class LeaveApplication extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('status', 1);
+        return $query->where('is_active', 1);
     }
 
     public function scopeRejected($query)
@@ -86,10 +86,4 @@ class LeaveApplication extends Model
             $leaveApplication->updated_by = Auth::id();
         });
     }
-
-
-    // protected static function newFactory(): Database\LeaveApplicationFactory
-    // {
-    //     // return Database\LeaveApplicationFactory::new();
-    // }
 }

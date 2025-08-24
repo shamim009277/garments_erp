@@ -43,6 +43,6 @@ class ExceptionalHoliday extends Model
 
     public function employeeBasic(): BelongsTo
     {
-        return $this->belongsTo(Employee::class,'employee_id','employee_id')->select('employee_id','name');
+        return $this->belongsTo(Employee::class,'employee_id','employee_id')->select('employee_id','name','joining_date');
     }
 }

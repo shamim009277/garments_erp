@@ -151,10 +151,9 @@ class ShiftingListController extends Controller
 
                 $endTime = microtime(true);
                 $executionTime = round($endTime - $startTime, 2);
+                $message = "Shifting list generated successfully. " ."Total inserted: " . $totalInserted . " rows. " ."Time taken: " . $executionTime . " seconds.";
 
-                return redirect()->back()->with('success', "Shifting list generated successfully.
-                    Total inserted: {$totalInserted} rows.
-                    Time taken: {$executionTime} seconds.");
+                return redirect()->back()->with('success', $message);
             }
         } catch (\Throwable $th) {
            return redirect()->back()->with('error', $th->getMessage());

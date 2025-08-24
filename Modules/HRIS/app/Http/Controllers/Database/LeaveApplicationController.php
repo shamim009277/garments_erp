@@ -73,7 +73,7 @@ class LeaveApplicationController extends Controller
     public function getLeaveInfo(Request $request)
     {
         $employee = Employee::with(['designation:id,designation','department:id,department','employeePersonal:employee_id,mobile,national_id,birth_certificate'])
-                  ->where('employee_id', $request->employee_id)
+                  ->where('employee_id', (int)$request->employee_id)
                   ->select('id','employee_id','name','designation_id','department_id','joining_date','photo')
                   ->first();
 

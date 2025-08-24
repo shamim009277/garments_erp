@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div class="card-footer" style="padding:10px 20px;">
-                        <x-primary-button type="submit" class="btn btn-sm btn-primary">Submit</x-primary-button>
+                        <x-primary-button id="submitBtn" type="submit" class="btn btn-sm btn-primary float-end submitBtn">Submit</x-primary-button>
                     </div>
                 </div>
             </form>

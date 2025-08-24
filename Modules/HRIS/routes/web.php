@@ -30,6 +30,8 @@ use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
 use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
+use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
+use Modules\HRIS\Http\Controllers\Database\LeaveForwardController;
 use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
@@ -195,7 +197,6 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/new-applicants/search', [ApplicantController::class, 'getSearch'])->name('new-applicants.search');
             Route::post('/new-applicants/delete', [ApplicantController::class, 'destroy'])->name('new-applicants.delete');
             Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
-
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
 
             Route::get('/unit/{id}', [EmployeeController::class, 'getUnit'])->name('employee.getUnit');
@@ -232,6 +233,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/leave/info', [LeaveApplicationController::class, 'getLeaveInfo'])->name('leave.info');
             Route::post('/getleavereason', [LeaveApplicationController::class, 'getLeaveReason'])->name('getleavereason');
             Route::resource('leave-application', LeaveApplicationController::class)->names('leave-application');
+            Route::resource('leave-forward', LeaveForwardController::class)->names('leave-forward');
+            Route::resource('leave-approve', LeaveApproveController::class)->names('leave-approve');
             // photo sign
             Route::post('/photosign/delete', [PhotoSignController::class, 'destroy'])->name('photosign.delete');
             Route::post('/photosign/info', [PhotoSignController::class, 'info'])->name('photosign.info');

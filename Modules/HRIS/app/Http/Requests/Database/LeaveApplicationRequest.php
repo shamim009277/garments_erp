@@ -14,7 +14,7 @@ class LeaveApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id'    => 'required|integer|exists:hris_database_employee_basic,employee_id',
+            'employee_id'    => 'required',
             'department_id'  => 'required|integer|exists:hris_setup_departments,id',
             'designation_id' => 'required|integer|exists:hris_setup_designations,id',
             'leave_type_id'  => 'required|in:SL,CL,EL,ML,SPL,LWOP',
