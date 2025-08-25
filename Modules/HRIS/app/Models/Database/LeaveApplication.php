@@ -56,9 +56,19 @@ class LeaveApplication extends Model
         return $query->where('is_rejected', 'Y');
     }
 
+    public function scopeNotRejected($query)
+    {
+        return $query->where('is_rejected', 'N');
+    }
+
     public function scopeApproved($query)
     {
         return $query->where('is_approved', 'Y');
+    }
+
+    public function scopeNotApproved($query)
+    {
+        return $query->where('is_approved', 'N');
     }
 
     public function scopeForwarded($query)

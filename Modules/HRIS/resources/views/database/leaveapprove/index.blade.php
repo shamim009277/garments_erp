@@ -273,43 +273,55 @@ $(document).ready(function() {
             return;
         }
 
-        $.ajax({
-            url: '{{ route('hris.database.leave-approve.store') }}',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                form_id: form_id,
-                form: 1,
-                start_date: start_date,
-                end_date: end_date,
-                days: days
-            },
-            beforeSend: function() {
-                Swal.fire({
-                    title: 'Please wait...',
-                    text: 'Processing selected leave applications...',
-                    allowOutsideClick: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(response) {
-                Swal.close();
-                if (response.status === 'success') {
-                    Swal.fire('Success', response.message, 'success');
-
-                    // Remove checked rows from table
-                    $('.row_checkbox:checked').each(function() {
-                        $(this).closest('tr').fadeOut(300, function() {
-                            $(this).remove();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, discard it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route('hris.database.leave-approve.store') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        form_id: form_id,
+                        form: 1,
+                        start_date: start_date,
+                        end_date: end_date,
+                        days: days
+                    },
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Please wait...',
+                            text: 'Processing selected leave applications...',
+                            allowOutsideClick: false,
+                            didOpen: () => Swal.showLoading()
                         });
-                    });
-                } else {
-                    Swal.fire('Error', response.message, 'error');
-                }
-            },
-            error: function(xhr, status, error) {
-                Swal.close();
-                Swal.fire('Error', error, 'error');
+                    },
+                    success: function(response) {
+                        Swal.close();
+                        if (response.status === 'success') {
+                            Swal.fire('Success', response.message, 'success');
+
+                            // Remove checked rows from table
+                            $('.row_checkbox:checked').each(function() {
+                                $(this).closest('tr').fadeOut(300, function() {
+                                    $(this).remove();
+                                });
+                            });
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.close();
+                        Swal.fire('Error', error, 'error');
+                    }
+                });
             }
         });
     });
