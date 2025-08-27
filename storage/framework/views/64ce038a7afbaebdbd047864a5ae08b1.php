@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title', 'INVENTORY'); ?>
 <?php $__env->startSection('content'); ?>
     <div class="row">
@@ -62,7 +61,7 @@
                                     <ul class="nav-custom">
                                         <?php $__currentLoopData = $buyerOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li class="nav-custom-item">
-                                                <a href="<?php echo e(route('inventory.database.basicorders.show', ['basicorder' => $order->id, 'tab' => 1])); ?>">
+                                                <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>?tab=1">
                                                     <label class="nav-custom-link" for="order<?php echo e($order->id); ?>"><span
                                                             class="nav-custom-caret"></span> <?php echo $order->order_no; ?>: <?php echo $order->style_no; ?></label>
                                                 </a>
@@ -82,20 +81,20 @@
                 <div class="card-body px-0 py-0" style="min-height: 500px;">
                     <ul class="nav nav-tabs nav-tabs-custom" role="tablist" style="background-color: #5559ca; color: white;border-radius: 0px !important;">
                         <li class="nav-item">
-                            <a href="<?php echo e(route('inventory.database.basicorders.show', ['basicorder' => $basicorder->id, 'tab' => 1])); ?>" class="nav-link border-none <?php echo e($tab == 1 ? 'active' : ''); ?>" title="Basic" role="tab" style="hover: white !important;">
+                            <a href="<?php echo e(route('inventory.database.basicorders.show', $basicorder->id)); ?>" class="nav-link border-none <?php echo e($tab == 1 ? 'active' : ''); ?>" title="Basic" role="tab" style="hover: white !important;">
                                 <span class="d-block d-sm-none"><i class="fa fa-user"></i></span>
                                 <span class="d-none d-sm-block">Basic Order Info</span>
                             </a>
                         </li>
                        
                         <li class="nav-item">
-                            <a href="<?php echo e(route('inventory.database.basicorders.show', ['basicorder' => $basicorder->id, 'tab' => 2])); ?>" class="nav-link border-none <?php echo e($tab == 2 ? 'active' : ''); ?>" title="Lot/Ship Info" role="tab">
+                            <a href="<?php echo e(route('inventory.database.basicorders.show', $basicorder->id)); ?>?tab=2" class="nav-link border-none <?php echo e($tab == 2 ? 'active' : ''); ?>" title="Lot/Ship Info" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-credit-card"></i></span>
                                 <span class="d-none d-sm-block">Lot/Ship Info</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('inventory.database.basicorders.show', ['basicorder' => $basicorder->id, 'tab' => 3])); ?>" class="nav-link border-none <?php echo e($tab == 3 ? 'active' : ''); ?>" title="Color and Size Info" role="tab">
+                            <a href="<?php echo e(route('inventory.database.basicorders.show', $basicorder->id)); ?>?tab=3" class="nav-link border-none <?php echo e($tab == 3 ? 'active' : ''); ?>" title="Color and Size Info" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-credit-card"></i></span>
                                 <span class="d-none d-sm-block">Color and Size Info</span>
                             </a>

@@ -27,24 +27,7 @@ class BasicOrder extends Model
     
     protected $table = 'inventory_databases_orders';
 
-    protected $fillable = [
-        'order_type',
-        'compile_type',
-        'organization_id',
-        'buyer_id',
-        'style_no',
-        'style_description',
-        'order_no',
-        'season',
-        'fitting_type',
-        'product_category_id',
-        'merchandiser_id',
-        'fabric_type_id',
-        'composition_id',
-        'fabric_treatment_id',
-        'yarn_count_id',
-        'yarn_category_id',
-    ];
+    protected $guarded = [];
 
     //booted
     protected static function booted()
@@ -57,12 +40,6 @@ class BasicOrder extends Model
             $basic_order->updated_by = Auth::user()->id;
         });
     }
-
-    // protected static function newFactory(): Setup/BasicOrderFactory
-    // {
-    //     // return Setup/BasicOrderFactory::new();
-    // }
-
     // Order.php
     public function lots()
     {

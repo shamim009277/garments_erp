@@ -64,9 +64,50 @@ class BasicOrderController extends Controller
      */
     public function store(BasicOrderRequest $request)
     {
-        // dd($request->all());
+        dd($request->all());
         DB::beginTransaction();
-
+//         "_token" => "wiucAnv10HInLQrdHz6ogCnvGBhQuHO6QaBBzkpS"
+//   "order_type" => "Confirmed"
+//   "compile_type" => "Always Barcode"
+//   "organization_id" => "4"
+//   "buyer_id" => "4"
+//   "style_no" => "Meyers Lloyd Associates"
+//   "style_description" => "Tyson Vazquez Inc"
+//   "order_no" => "Tran and Kline LLC"
+//   "season" => "Marsh Faulkner Plc"
+//   "fitting_type" => "Slim"
+//   "product_category_id" => "1"
+//   "merchandiser_id" => "1"
+//   "fabric_type_id" => "1"
+//   "composition_id" => "1"
+//   "fabric_treatment_id" => "1"
+//   "yarn_count_id" => "1"
+//   "yarn_category_id" => "1"
+//   "gsm" => "Sint adipisicing rei"
+//   "bw_gsm" => "Recusandae Voluptas"
+//   "finished_dia" => "58"
+//   "finish_type" => "Plus"
+//   "print_type" => "Regular"
+//   "print_price_per_dzn" => "223"
+//   "embroidery_type" => "Plus"
+//   "embroidery_price_per_dzn" => "786"
+//   "wash_type" => "Regular"
+//   "garment_dye_price_per_dzn" => "730"
+//   "order_date" => "1997-09-19"
+//   "unit_price" => "521"
+//   "cm_price_per_dzn" => "878"
+//   "order_quantity" => "294"
+//   "extra_cutting_percent" => "34"
+//   "fabric_booking_needed" => "1"
+//   "fabric_consumption_kg_dz" => "67"
+//   "kd_allowance_percent" => "81"
+//   "cutting_consumption_yards_pcs" => "45"
+//   "booking_consumption_yards_pcs" => "29"
+//   "delivery_mode" => "Road"
+//   "delivery_date" => "1980-03-11"
+//   "trims_required_approved" => "Select trims required approved"
+//   "closed" => "0"
+//   "fabric_from_stock" => "Select fabric from stock"
         try {
             BasicOrder::create([
                 'order_type' => $request->order_type,
@@ -127,8 +168,8 @@ class BasicOrderController extends Controller
      */
     public function show(Request $request, $id)
     {
-
-        $tab = intval($request->get('tab'));
+        // dd($request->all());
+        $tab = intval($request->query('tab'));
         if ($tab == 1) {
             $basicorders = BasicOrder::all();
             $buyers = Buyer::all();
@@ -140,9 +181,7 @@ class BasicOrderController extends Controller
             $fabric_treatments = FabricTreatments::all();
             $yarn_counts = YarnCount::all();
             $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
-
             $ListOfOrders = BasicOrder::with('buyer')->get();
-
             $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
             $basicorder = BasicOrder::findOrFail($id);
             // dd($basicorder);
@@ -233,7 +272,7 @@ class BasicOrderController extends Controller
     //storeLotsColorsSizes
     public function storeLotsColorsSizes(Request $request, $id)
     {
-        // dd($request->all());
+        dd($request->all());
         // get the basic order
         $basicorder = BasicOrder::findOrFail($id);
 

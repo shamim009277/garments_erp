@@ -61,7 +61,7 @@
                                     <ul class="nav-custom">
                                         <?php $__currentLoopData = $buyerOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li class="nav-custom-item">
-                                                <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>">
+                                                <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>?tab=1">
                                                     <label class="nav-custom-link" for="order<?php echo e($order->id); ?>"><span
                                                             class="nav-custom-caret"></span> <?php echo $order->order_no; ?>: <?php echo $order->style_no; ?></label>
                                                 </a>

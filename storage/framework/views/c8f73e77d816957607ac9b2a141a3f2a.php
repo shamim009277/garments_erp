@@ -1,9 +1,8 @@
-@extends('layouts.app')
-@section('title', 'INVENTORY')
-@section('content')
+<?php $__env->startSection('title', 'INVENTORY'); ?>
+<?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-12">
-            @include('components.breadcrumb', [
+            <?php echo $__env->make('components.breadcrumb', [
                 'title' => 'INVENTORY',
                 'subtitle' => 'Basic Orders',
                 'breadcrumbs' => [
@@ -11,7 +10,7 @@
                     ['label' => 'Database', 'url' => route('inventory.index')],
                     ['label' => 'Basic Orders', 'url' => route('inventory.database.basicorders.index')],
                 ],
-            ])
+            ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
         </div>
         <div class="col-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
@@ -23,19 +22,19 @@
                 <!-- Search Input + Button in One Line -->
                 <form action="#" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2"
                     style="max-width: 400px;" role="search">
-                    @csrf
+                    <?php echo csrf_field(); ?>
                     <input class="form-control form-control-sm me-2" type="search" name="search"
                         placeholder="Basic Order No ..." aria-label="Search">
                     <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
                             width="14" height="14" class="me-1"></i> Search</button>
                 </form>
-                @if (1)
+                <?php if(1): ?>
                     <!-- Back Button -->
-                    <a href="{{ route('inventory.database.basicorders.index') }}"
+                    <a href="<?php echo e(route('inventory.database.basicorders.index')); ?>"
                         class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
                         <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
                     </a>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
 
@@ -47,30 +46,31 @@
                 </div>
                 <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
                     <ul class="nav-custom">
-                        @foreach ($buyers as $buyer)
-                            @php
+                        <?php $__currentLoopData = $buyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
                                 $buyerOrders = collect($ListOfOrders)->where('buyer_id', $buyer->id);
 
-                            @endphp
+                            ?>
                             <li class="nav-custom-item">
-                                <input type="checkbox" id="buyer{{ $buyer->id }}">
-                                <label class="nav-custom-link" for="buyer{{ $buyer->id }}"><span
-                                        class="nav-custom-caret"></span> {{ $buyer->buyer_name }}
-                                    ({{ $buyerOrders->count() }})</label>
+                                <input type="checkbox" id="buyer<?php echo e($buyer->id); ?>">
+                                <label class="nav-custom-link" for="buyer<?php echo e($buyer->id); ?>"><span
+                                        class="nav-custom-caret"></span> <?php echo e($buyer->buyer_name); ?>
+
+                                    (<?php echo e($buyerOrders->count()); ?>)</label>
                                 <div class="nav-custom-content">
                                     <ul class="nav-custom">
-                                        @foreach ($buyerOrders as $order)
+                                        <?php $__currentLoopData = $buyerOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li class="nav-custom-item">
-                                                <a href="{{ route('inventory.database.basicorders.show', $order->id) }}?tab=1">
-                                                    <label class="nav-custom-link" for="order{{ $order->id }}"><span
-                                                            class="nav-custom-caret"></span> {!! $order->order_no !!}: {!! $order->style_no !!}</label>
+                                                <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>?tab=1">
+                                                    <label class="nav-custom-link" for="order<?php echo e($order->id); ?>"><span
+                                                            class="nav-custom-caret"></span> <?php echo $order->order_no; ?>: <?php echo $order->style_no; ?></label>
                                                 </a>
                                             </li>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>
                             </li>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
             </div>
@@ -84,8 +84,8 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('inventory.database.basicorders.store') }}" method="POST">
-                        @csrf
+                    <form action="<?php echo e(route('inventory.database.basicorders.store')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">
@@ -111,9 +111,9 @@
                                     <label for="example-text-input" class="form-label">Organization <span
                                             class="text-danger">*</span></label>
                                     <select name="organization_id" class="form-control form-control-sm" required>
-                                        @foreach ($organizations as $organization)
-                                            <option value="{{ $organization->id }}">{{ $organization->name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $organizations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $organization): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($organization->id); ?>"><?php echo e($organization->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -122,9 +122,9 @@
                                     <label for="example-text-input" class="form-label">Buyer <span
                                             class="text-danger">*</span></label>
                                     <select name="buyer_id" class="form-control form-control-sm" required>
-                                        @foreach ($buyers as $buyer)
-                                            <option value="{{ $buyer->id }}">{{ $buyer->buyer_name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $buyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($buyer->id); ?>"><?php echo e($buyer->buyer_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -170,10 +170,10 @@
                                     <label for="example-text-input" class="form-label">Product Category <span
                                             class="text-danger">*</span></label>
                                     <select name="product_category_id" class="form-control form-control-sm" required>
-                                        @foreach ($product_categories as $product_category)
-                                            <option value="{{ $product_category->id }}">
-                                                {{ $product_category->product_category_name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $product_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($product_category->id); ?>">
+                                                <?php echo e($product_category->product_category_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -182,9 +182,9 @@
                                     <label for="example-text-input" class="form-label">Merchandiser <span
                                             class="text-danger">*</span></label>
                                     <select name="merchandiser_id" class="form-control form-control-sm" required>
-                                        @foreach ($merchandisers as $merchandiser)
-                                            <option value="{{ $merchandiser->id }}">{{ $merchandiser->name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $merchandisers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $merchandiser): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($merchandiser->id); ?>"><?php echo e($merchandiser->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -193,10 +193,11 @@
                                     <label for="example-text-input" class="form-label">Fabric Type <span
                                             class="text-danger">*</span></label>
                                     <select name="fabric_type_id" class="form-control form-control-sm" required>
-                                        @foreach ($fabric_types as $fabric_type)
-                                            <option value="{{ $fabric_type->id }}">{{ $fabric_type->fabric_type_name }}
+                                        <?php $__currentLoopData = $fabric_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fabric_type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($fabric_type->id); ?>"><?php echo e($fabric_type->fabric_type_name); ?>
+
                                             </option>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -205,10 +206,11 @@
                                     <label for="example-text-input" class="form-label">Composition <span
                                             class="text-danger">*</span></label>
                                     <select name="composition_id" class="form-control form-control-sm" required>
-                                        @foreach ($compositions as $composition)
-                                            <option value="{{ $composition->id }}">{{ $composition->composition_name }}
+                                        <?php $__currentLoopData = $compositions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $composition): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($composition->id); ?>"><?php echo e($composition->composition_name); ?>
+
                                             </option>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -216,10 +218,10 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fabric Treatment</label>
                                     <select name="fabric_treatment_id" class="form-control form-control-sm" required>
-                                        @foreach ($fabric_treatments as $fabric_treatment)
-                                            <option value="{{ $fabric_treatment->id }}">
-                                                {{ $fabric_treatment->fabric_treatment_name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $fabric_treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fabric_treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($fabric_treatment->id); ?>">
+                                                <?php echo e($fabric_treatment->fabric_treatment_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -227,10 +229,11 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Yarn Count </label>
                                     <select name="yarn_count_id" class="form-control form-control-sm" required>
-                                        @foreach ($yarn_counts as $yarn_count)
-                                            <option value="{{ $yarn_count->id }}">{{ $yarn_count->yarn_count_name }}
+                                        <?php $__currentLoopData = $yarn_counts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $yarn_count): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($yarn_count->id); ?>"><?php echo e($yarn_count->yarn_count_name); ?>
+
                                             </option>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -238,10 +241,10 @@
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Yarn Category</label>
                                     <select name="yarn_category_id" class="form-control form-control-sm" required>
-                                        @foreach ($yarn_categories as $yarn_category)
-                                            <option value="{{ $yarn_category->id }}">
-                                                {{ $yarn_category->yarn_category_name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $yarn_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $yarn_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($yarn_category->id); ?>">
+                                                <?php echo e($yarn_category->yarn_category_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -325,7 +328,7 @@
                                     </select>
                                 </div>
                             </div>
-                            {{-- Pricing & Costing --}}
+                            
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">garment dye price per dzn</label>
@@ -354,7 +357,7 @@
                                         id="cm_price_per_dzn">
                                 </div>
                             </div>
-                            {{-- Quantities --}}
+                            
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Order Quantity <span
@@ -383,7 +386,7 @@
                                 </div>
                             </div>
 
-                            {{-- Consumption --}}
+                            
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Fabric Consumption (kg/dzn) <span
@@ -416,7 +419,7 @@
                                         id="booking_consumption_yards_pcs">
                                 </div>
                             </div>
-                            {{-- Delivery --}}
+                            
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Delivery Mode <span
@@ -468,11 +471,11 @@
                             </div>
 
                             <div class="col-lg-12">
-                                {{-- save and go to next --}}
+                                
                                 <button type="submit" class="btn btn-primary float-end me-2">Save and Go to Next</button>
-                                {{-- save and close --}}
+                                
                                 <button type="#" class="btn btn-success float-end me-2">Save and Close</button>
-                                {{-- cancel --}}
+                                
                                 <button type="#" class="btn btn-danger float-end me-2">Cancel</button>
                             </div>
 
@@ -483,9 +486,9 @@
         </div>
 
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
     <script>
         let lotIndex = 0;
 
@@ -570,4 +573,6 @@
             }
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\new erp\garments_erp\Modules/Inventory\resources/views/database/basicorders/index.blade.php ENDPATH**/ ?>
