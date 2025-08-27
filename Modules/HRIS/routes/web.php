@@ -34,6 +34,7 @@ use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
 use Modules\HRIS\Http\Controllers\Database\LeaveForwardController;
 use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
+use Modules\HRIS\Http\Controllers\Database\BulkIncrementController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
 use Modules\HRIS\Http\Controllers\Tools\EditShiftingListController;
@@ -49,6 +50,7 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApplicationController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeIncrementController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
@@ -239,6 +241,10 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/photosign/delete', [PhotoSignController::class, 'destroy'])->name('photosign.delete');
             Route::post('/photosign/info', [PhotoSignController::class, 'info'])->name('photosign.info');
             Route::resource('photosign', PhotoSignController::class)->names('photosign');
+
+            // Bulk Increment
+            Route::resource('bulk-increment', BulkIncrementController::class)->names('bulk-increment');
+            Route::resource('employee-increment', EmployeeIncrementController::class)->names('employee-increment');
         });
 
         //Reports
