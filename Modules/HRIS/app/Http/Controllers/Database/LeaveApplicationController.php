@@ -10,9 +10,11 @@ use Modules\HRIS\Models\Setup\LeaveReason;
 use Modules\HRIS\Models\Database\LeaveApplication;
 use Modules\HRIS\Models\Setup\LeaveClassification;
 use Modules\HRIS\Http\Requests\Database\LeaveApplicationRequest;
+use App\Traits\LeaveBalance;
 
 class LeaveApplicationController extends Controller
 {
+    use LeaveBalance;
     /**
      * Display a listing of the resource.
      */
@@ -77,8 +79,11 @@ class LeaveApplicationController extends Controller
                   ->select('id','employee_id','name','designation_id','department_id','joining_date','photo')
                   ->first();
 
+        $leaveBalance = $this->calculateAccrualUpToToday($request->employee_id);
+
         return response()->json([
            'employee' => $employee,
+           'leaveBalance' => $leaveBalance,
         ]);
     }
 

@@ -21,6 +21,13 @@
                 ],
             ])
         </div>
+        <div class="col-12 mb-3">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
+                   Edit Exceptional Holiday
+                </h4>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-2 ps-lg-0" style="margin:0px auto;"></div>

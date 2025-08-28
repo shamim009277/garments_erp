@@ -277,39 +277,43 @@
 
                             if (response.employee && Object.keys(response.employee).length > 0) {
 
-                            $("#name").val(response.employee.name || '');
-                            $("#designation").val(response.employee.designation?.designation || '');
-                            $("#department").val(response.employee.department?.department || '');
-                            $("#join_date").val(response.employee.joining_date || '');
-                            $("#mobile").val(response.employee.employee_personal?.mobile || '');
+                                $("#name").val(response.employee.name || '');
+                                $("#designation").val(response.employee.designation?.designation || '');
+                                $("#department").val(response.employee.department?.department || '');
+                                $("#join_date").val(response.employee.joining_date || '');
+                                $("#mobile").val(response.employee.employee_personal?.mobile || '');
 
-                            if (response.employee.employee_personal?.national_id) {
-                                $("#nid_birth_certificate").val(response.employee.employee_personal.national_id);
-                            }
-                            if (response.employee.employee_personal?.birth_certificate) {
-                                $("#nid_birth_certificate").val(response.employee.employee_personal.birth_certificate);
-                            }
-                            $("#designation_id").val(response.employee.designation_id || '');
-                            $("#department_id").val(response.employee.department_id || '');
+                                if (response.employee.employee_personal?.national_id) {
+                                    $("#nid_birth_certificate").val(response.employee.employee_personal.national_id);
+                                }
+                                if (response.employee.employee_personal?.birth_certificate) {
+                                    $("#nid_birth_certificate").val(response.employee.employee_personal.birth_certificate);
+                                }
+                                $("#designation_id").val(response.employee.designation_id || '');
+                                $("#department_id").val(response.employee.department_id || '');
 
-                            if (response.employee.photo) {
-                                $('#photo').attr('src', '/storage/' + response.employee.photo);
+                                if (response.employee.photo) {
+                                    $('#photo').attr('src', '/storage/' + response.employee.photo);
+                                }
+
+                                if(response.employee.department){
+                                    $("#leave_type_id").prop('disabled', false);
+                                }
+                            } else {
+                                $("#leave_type_id").prop('disabled', true);
                             }
 
-                            if(response.employee.department){
-                                $("#leave_type_id").prop('disabled', false);
+                            if(response.leaveBalance){
+
                             }
-                        } else {
-                            $("#leave_type_id").prop('disabled', true);
+                        },
+                        error: function () {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to load employee info.',
+                            });
                         }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Failed to load employee info.',
-                        });
-                    }
                     });
                 }else{
                     $("#name").val('');

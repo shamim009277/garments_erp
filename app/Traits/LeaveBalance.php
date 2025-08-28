@@ -5,6 +5,7 @@ namespace App\Traits;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Database\LeaveApplication;
 
 trait LeaveBalance
 {
@@ -13,7 +14,7 @@ trait LeaveBalance
         $today = now();
         $yearStart = $today->copy()->startOfYear();
 
-        $employee = Employee::select('id','joining_date')->findOrFail($employeeId);
+        $employee = Employee::where('employee_id', $employeeId)->select('id','joining_date')->first();
         $joining  = Carbon::parse($employee->joining_date);
 
         // ১ বছরের চাকরি পূর্ণ কি না
@@ -34,66 +35,71 @@ trait LeaveBalance
         //     ->where('status', 'absent')
         //     ->count();
 
-        // $effectiveAttendance = max(0, $totalMarkedDays - $absentDays);
+        $totalMarkedDays = 0;
+        $absentDays = 0;
 
-        // $CL_DAYS_PER_CREDIT = 26;
-        // $CL_CAP_PER_YEAR    = 14;
+        $effectiveAttendance = max(0, $totalMarkedDays - $absentDays);
 
-        // $clEarned = intdiv($effectiveAttendance, $CL_DAYS_PER_CREDIT);
-        // $clEarned = min($clEarned, $CL_CAP_PER_YEAR);
+        $CL_DAYS_PER_CREDIT = 26;
+        $CL_CAP_PER_YEAR    = 14;
 
-        // $clUsed = Leave::where('employee_id', $employeeId)
-        //     ->whereBetween('start_date', [$windowStart, $windowEnd])
-        //     ->whereHas('leaveType', fn($q) => $q->where('code', 'CL'))
-        //     ->sum('days');
+        $clEarned = intdiv($effectiveAttendance, $CL_DAYS_PER_CREDIT);
+        $clEarned = min($clEarned, $CL_CAP_PER_YEAR);
 
-        // $clRemaining = max(0, $clEarned - $clUsed);
+        $clUsed = LeaveApplication::where('employee_id', $employeeId)
+            ->whereBetween('start_date', [$windowStart, $windowEnd])
+            ->whereHas('leaveType', fn($q) => $q->where('code', 'CL'))
+            ->sum('days');
+
+        $clRemaining = max(0, $clEarned - $clUsed);
 
         // ===== SL Calculation =====
-        // $SL_ANNUAL_QUOTA = 8;
+        $SL_ANNUAL_QUOTA = 10;
 
-        // $eligibleMonths = $this->diffInMonthsInclusive($windowStart, $windowEnd);
-        // $slEarned = (int) floor(($eligibleMonths / 12) * $SL_ANNUAL_QUOTA);
+        $eligibleMonths = $this->diffInMonthsInclusive($windowStart, $windowEnd);
+        $slEarned = (int) floor(($eligibleMonths / 12) * $SL_ANNUAL_QUOTA);
 
-        // $slUsed = Leave::where('employee_id', $employeeId)
-        //     ->whereBetween('start_date', [$windowStart, $windowEnd])
-        //     ->whereHas('leaveType', fn($q) => $q->where('code', 'SL'))
-        //     ->sum('days');
+        $slUsed = LeaveApplication::where('employee_id', $employeeId)
+            ->whereBetween('start_date', [$windowStart, $windowEnd])
+            ->whereHas('leaveType', fn($q) => $q->where('code', 'SL'))
+            ->sum('days');
 
-        // $slRemaining = max(0, $slEarned - $slUsed);
+        $slRemaining = max(0, $slEarned - $slUsed);
 
-        // return [
-        //     'window' => [
-        //         'start' => $windowStart->toDateString(),
-        //         'end'   => $windowEnd->toDateString(),
-        //     ],
-        //     'CL' => [
-        //         'earned' => $clEarned,
-        //         'used' => (int) $clUsed,
-        //         'remaining' => $clRemaining,
-        //     ],
-        //     'SL' => [
-        //         'earned' => $slEarned,
-        //         'used' => (int) $slUsed,
-        //         'remaining' => $slRemaining,
-        //     ],
-        // ];
         return [
             'window' => [
                 'start' => $windowStart->toDateString(),
                 'end'   => $windowEnd->toDateString(),
             ],
             'CL' => [
-                'earned' => 2,
-                'used' => (int) 5,
-                'remaining' => 7,
+                'earned' => $clEarned,
+                'earned_yearly' => 14,
+                'used' => (int) $clUsed,
+                'remaining' => $clRemaining,
             ],
             'SL' => [
-                'earned' => 8,
-                'used' => (int) 2,
-                'remaining' => 6,
+                'earned' => $slEarned,
+                'earned_yearly' => 10,
+                'used' => (int) $slUsed,
+                'remaining' => $slRemaining,
             ],
         ];
+        // return [
+        //     'window' => [
+        //         'start' => $windowStart->toDateString(),
+        //         'end'   => $windowEnd->toDateString(),
+        //     ],
+        //     'CL' => [
+        //         'earned' => 2,
+        //         'used' => (int) 5,
+        //         'remaining' => 7,
+        //     ],
+        //     'SL' => [
+        //         'earned' => 8,
+        //         'used' => (int) 2,
+        //         'remaining' => 6,
+        //     ],
+        // ];
     }
 
     /**

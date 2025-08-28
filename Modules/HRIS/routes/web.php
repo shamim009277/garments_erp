@@ -20,6 +20,7 @@ use Modules\HRIS\Http\Controllers\Tools\DepartureController;
 use Modules\HRIS\Http\Controllers\Settings\SettingController;
 use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeController;
+use Modules\HRIS\Http\Controllers\Database\LeaveAllController;
 use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveReasonController;
 use Modules\HRIS\Http\Controllers\Database\ApplicantController;
@@ -237,6 +238,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('leave-application', LeaveApplicationController::class)->names('leave-application');
             Route::resource('leave-forward', LeaveForwardController::class)->names('leave-forward');
             Route::resource('leave-approve', LeaveApproveController::class)->names('leave-approve');
+
+            Route::resource('leave-all', LeaveAllController::class)->names('leave-all');
             // photo sign
             Route::post('/photosign/delete', [PhotoSignController::class, 'destroy'])->name('photosign.delete');
             Route::post('/photosign/info', [PhotoSignController::class, 'info'])->name('photosign.info');
