@@ -16,35 +16,29 @@
                                 <label class="form-label">Lots</label>
                                 <div id="lotsContainer">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot No.</label>
                                                 <input type="text" class="form-control" name="lots[0][lot_no]"
                                                     placeholder="Lot No." required>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">PO No.</label>
                                                 <input type="text" class="form-control" name="lots[0][po_no]"
                                                     placeholder="PO No.">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Lot Description</label>
-                                                <input type="text" class="form-control"
-                                                    name="lots[0][lot_description]" placeholder="Lot Description">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Shipping Date</label>
                                                 <input type="date" class="form-control" name="lots[0][shipping_date]"
                                                     placeholder="Shipping Date">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Expected Shipping Date</label>
                                                 <input type="date" class="form-control"
@@ -52,22 +46,15 @@
                                                     placeholder="Expected Shipping Date">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Actual Shipping Date</label>
-                                                <input type="date" class="form-control"
-                                                    name="lots[0][actual_shipping_date]"
-                                                    placeholder="Actual Shipping Date">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot Quantity</label>
                                                 <input type="number" class="form-control" name="lots[0][lot_quantity]"
                                                     placeholder="Lot Quantity">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot Remarks</label>
                                                 <input type="text" class="form-control" name="lots[0][lot_remarks]"
@@ -155,34 +142,37 @@
                                             </div>
                                             {{-- load edit modal --}}
                                             <div class="modal fade" id="editModal{{ $lot->id }}" tabindex="-1"
-                                                aria-labelledby="editModalLabel{{ $lot->id }}" aria-hidden="true">
+                                                aria-labelledby="editModalLabel{{ $lot->id }}"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editModalLabel{{ $lot->id }}">Edit
+                                                            <h5 class="modal-title"
+                                                                id="editModalLabel{{ $lot->id }}">Edit
                                                                 Lot</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form id="moduleForm"
-                                                                action="#"
+                                                                action="{{ route('inventory.database.basicorders.update_lots', $lot->id) }}"
                                                                 method="POST">
                                                                 @csrf
-                                                                @method('PUT')
-            
-                                                                <x-input-group name="lot_no" label="Lot No." :value="$lot->lot_no"
-                                                                    required />
-                                                                <x-input-group name="po_no" label="PO No." :value="$lot->po_no"
-                                                                    required />
-                                                                <x-input-group name="lot_quantity" label="Lot Quantity" :value="$lot->lot_quantity"
-                                                                    required />
-                                                                <x-input-group name="shipping_date" label="Shipping Date" :value="$lot->shipping_date"
-                                                                    required />
-                                                                <x-input-group name="expected_shipping_date" label="Expected Shipping Date" :value="$lot->expected_shipping_date"
+                                                                @method('POST')
+
+                                                                <x-input-group name="lot_no" label="Lot No."
+                                                                    :value="$lot->lot_no" required />
+                                                                <x-input-group name="po_no" label="PO No."
+                                                                    :value="$lot->po_no" required />
+                                                                <x-input-group name="lot_quantity"
+                                                                    label="Lot Quantity" :value="$lot->lot_quantity" required />
+                                                                <x-input-group name="shipping_date"
+                                                                    label="Shipping Date" :value="$lot->shipping_date" required />
+                                                                <x-input-group name="expected_shipping_date"
+                                                                    label="Expected Shipping Date" :value="$lot->expected_shipping_date"
                                                                     required />
                                                                 <x-primary-button
-                                                                    class="float-start btn-sm submitBtn">Save</x-primary-button>
+                                                                    class="float-start btn-sm submitBtn">Update</x-primary-button>
                                                             </form>
                                                         </div>
                                                     </div>

@@ -280,20 +280,6 @@ class BasicOrderController extends Controller
     //storeLots
     public function storeLots(Request $request, $id)
     {
-        // dd($request->all());
-        // {{-- $table->unsignedBigInteger('order_id');
-        //     $table->string('lot_no'); // Lot identifier
-        //     $table->string('po_no')->nullable(); // po identifier
-        //     $table->string('lot_description')->nullable();
-        //     $table->string('lot_status')->nullable();
-        //     $table->integer('lot_quantity')->nullable();
-        //     $table->string('lot_remarks')->nullable();
-        //     $table->date('shipping_date')->nullable();
-        //     $table->date('expected_shipping_date')->nullable();
-        //     $table->date('actual_shipping_date')->nullable(); --}}
-        //     {{-- //foreign key --}}
-        //     {{-- $table->foreign('order_id')->references('id')->on('inventory_databases_orders')->onDelete('restrict'); --}}
-
         DB::beginTransaction();
         try {
             $basicorders = BasicOrder::all();
@@ -341,6 +327,56 @@ class BasicOrderController extends Controller
             return redirect()->back()->with('error', 'Failed to store lots: ' . $th->getMessage());
         }
     }
+    //updateLots
+    public function updateLots(Request $request, $id)
+    {
+        // dd($id, $request->all());
+        DB::beginTransaction();
+        try {
+            $orderlot = DB::table('inventory_setup_order_lots')->where('id', $id)->update(
+                [
+                    'lot_quantity' => $request->lot_quantity,
+                    'lot_remarks' => $request->lot_remarks,
+                    'shipping_date' => $request->shipping_date,
+                    'expected_shipping_date' => $request->expected_shipping_date,
+                    'actual_shipping_date' => $request->actual_shipping_date,
+                    'po_no' => $request->po_no,
+                ]
+            );
+            DB::commit();
+            $orderlot = DB::table('inventory_setup_order_lots')->where('id', $id)->first();
+            // dd($orderlot);
+            $tab = 2;
+            $basicorders = BasicOrder::all();
+            $basicorder = BasicOrder::where('id', $orderlot->order_id)->first();
+            // dd($basicorder);
+            $buyers = Buyer::all();
+            $organizations = Organization::all();
+            $product_categories = ProductCategory::all();
+            $merchandisers = User::all();
+            $fabric_types = FabricType::all();
+            $compositions = Composition::all();
+            $fabric_treatments = FabricTreatments::all();
+            $yarn_counts = YarnCount::all();
+            $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
+            //DB::enableQueryLog();
+            $ListOfOrders = BasicOrder::with('buyer')->get();
+            $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
+            $lots = DB::table('inventory_setup_order_lots')->where('id', $id)->get();
+            // dd($lots);
+            if(empty($lots)){
+                $lots = [];
+            }
+            // dd($lots->count());
+            $colors = Color::all();
+            $sizes = Size::all();
+            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes'))->with('success', 'Lots updated successfully');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to update lots: ' . $th->getMessage());
+        }
+    }
+    
     public function destroy($id)
     {
         DB::beginTransaction();

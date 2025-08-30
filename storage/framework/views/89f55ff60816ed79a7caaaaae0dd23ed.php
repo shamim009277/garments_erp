@@ -16,35 +16,29 @@
                                 <label class="form-label">Lots</label>
                                 <div id="lotsContainer">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot No.</label>
                                                 <input type="text" class="form-control" name="lots[0][lot_no]"
                                                     placeholder="Lot No." required>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">PO No.</label>
                                                 <input type="text" class="form-control" name="lots[0][po_no]"
                                                     placeholder="PO No.">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Lot Description</label>
-                                                <input type="text" class="form-control"
-                                                    name="lots[0][lot_description]" placeholder="Lot Description">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Shipping Date</label>
                                                 <input type="date" class="form-control" name="lots[0][shipping_date]"
                                                     placeholder="Shipping Date">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Expected Shipping Date</label>
                                                 <input type="date" class="form-control"
@@ -52,22 +46,15 @@
                                                     placeholder="Expected Shipping Date">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Actual Shipping Date</label>
-                                                <input type="date" class="form-control"
-                                                    name="lots[0][actual_shipping_date]"
-                                                    placeholder="Actual Shipping Date">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot Quantity</label>
                                                 <input type="number" class="form-control" name="lots[0][lot_quantity]"
                                                     placeholder="Lot Quantity">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot Remarks</label>
                                                 <input type="text" class="form-control" name="lots[0][lot_remarks]"
@@ -155,22 +142,24 @@
                                             </div>
                                             
                                             <div class="modal fade" id="editModal<?php echo e($lot->id); ?>" tabindex="-1"
-                                                aria-labelledby="editModalLabel<?php echo e($lot->id); ?>" aria-hidden="true">
+                                                aria-labelledby="editModalLabel<?php echo e($lot->id); ?>"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editModalLabel<?php echo e($lot->id); ?>">Edit
+                                                            <h5 class="modal-title"
+                                                                id="editModalLabel<?php echo e($lot->id); ?>">Edit
                                                                 Lot</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form id="moduleForm"
-                                                                action="#"
+                                                                action="<?php echo e(route('inventory.database.basicorders.update_lots', $lot->id)); ?>"
                                                                 method="POST">
                                                                 <?php echo csrf_field(); ?>
-                                                                <?php echo method_field('PUT'); ?>
-            
+                                                                <?php echo method_field('POST'); ?>
+
                                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'lot_no','label' => 'Lot No.','value' => $lot->lot_no,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -280,7 +269,7 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'float-start btn-sm submitBtn']); ?>Save <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['class' => 'float-start btn-sm submitBtn']); ?>Update <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginald411d1792bd6cc877d687758b753742c)): ?>
 <?php $attributes = $__attributesOriginald411d1792bd6cc877d687758b753742c; ?>
@@ -304,8 +293,6 @@
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endif; ?>
-
-
             </div>
         </div>
     </div>
