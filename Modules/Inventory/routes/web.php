@@ -161,6 +161,12 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::resource('basicorders', BasicOrderController::class)->names('basicorders');
             // inventory.database.basicorders.lots-colors-sizes.store
             Route::post('/basicorders/lots-colors-sizes/store/{id}', [BasicOrderController::class, 'storeLotsColorsSizes'])->name('basicorders.lots-colors-sizes.store');
+            // inventory.database.basicorders.lots
+            Route::post('/basicorders/lots/store/{id}', [BasicOrderController::class, 'storeLots'])->name('basicorders.lots.store');
+            // inventory.database.basicorders.colors.store
+            // Route::post('/basicorders/colors/store/{id}', [BasicOrderController::class, 'storeColors'])->name('basicorders.colors.store');
+            // inventory.database.basicorders.sizes.store
+            // Route::post('/basicorders/sizes/store/{id}', [BasicOrderController::class, 'storeSizes'])->name('basicorders.sizes.store');
         });
     });
 });

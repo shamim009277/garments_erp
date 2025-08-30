@@ -64,50 +64,9 @@ class BasicOrderController extends Controller
      */
     public function store(BasicOrderRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         DB::beginTransaction();
-//         "_token" => "wiucAnv10HInLQrdHz6ogCnvGBhQuHO6QaBBzkpS"
-//   "order_type" => "Confirmed"
-//   "compile_type" => "Always Barcode"
-//   "organization_id" => "4"
-//   "buyer_id" => "4"
-//   "style_no" => "Meyers Lloyd Associates"
-//   "style_description" => "Tyson Vazquez Inc"
-//   "order_no" => "Tran and Kline LLC"
-//   "season" => "Marsh Faulkner Plc"
-//   "fitting_type" => "Slim"
-//   "product_category_id" => "1"
-//   "merchandiser_id" => "1"
-//   "fabric_type_id" => "1"
-//   "composition_id" => "1"
-//   "fabric_treatment_id" => "1"
-//   "yarn_count_id" => "1"
-//   "yarn_category_id" => "1"
-//   "gsm" => "Sint adipisicing rei"
-//   "bw_gsm" => "Recusandae Voluptas"
-//   "finished_dia" => "58"
-//   "finish_type" => "Plus"
-//   "print_type" => "Regular"
-//   "print_price_per_dzn" => "223"
-//   "embroidery_type" => "Plus"
-//   "embroidery_price_per_dzn" => "786"
-//   "wash_type" => "Regular"
-//   "garment_dye_price_per_dzn" => "730"
-//   "order_date" => "1997-09-19"
-//   "unit_price" => "521"
-//   "cm_price_per_dzn" => "878"
-//   "order_quantity" => "294"
-//   "extra_cutting_percent" => "34"
-//   "fabric_booking_needed" => "1"
-//   "fabric_consumption_kg_dz" => "67"
-//   "kd_allowance_percent" => "81"
-//   "cutting_consumption_yards_pcs" => "45"
-//   "booking_consumption_yards_pcs" => "29"
-//   "delivery_mode" => "Road"
-//   "delivery_date" => "1980-03-11"
-//   "trims_required_approved" => "Select trims required approved"
-//   "closed" => "0"
-//   "fabric_from_stock" => "Select fabric from stock"
+        
         try {
             BasicOrder::create([
                 'order_type' => $request->order_type,
@@ -152,8 +111,7 @@ class BasicOrderController extends Controller
                 'closed' => $request->closed,
                 'fabric_from_stock' => $request->fabric_from_stock,
                 'style_complexity_notes' => 'N/A',
-                'created_by' => Auth::user()->id,
-                'updated_by' => Auth::user()->id,
+                
             ]);
             DB::commit();
             return redirect()->route('inventory.database.basicorders.index')->with('success', 'Basic Order created successfully');
@@ -200,6 +158,11 @@ class BasicOrderController extends Controller
 
             $ListOfOrders = BasicOrder::with('buyer')->get();
             $lots = DB::table('inventory_setup_order_lots')->where('order_id', $id)->get();
+            // dd($lots);
+            if(empty($lots)){
+                $lots = [];
+            }
+            // dd($lots->count());
             $colors = Color::all();
             $sizes = Size::all();
 
@@ -243,7 +206,7 @@ class BasicOrderController extends Controller
      */
     public function update(BasicOrderRequest $request, $id)
     {
-        // dd($request);
+        // dd($request->validated());
         DB::beginTransaction();
         try {
             BasicOrder::findOrFail($id)->update($request->validated());
@@ -261,7 +224,7 @@ class BasicOrderController extends Controller
             //DB::enableQueryLog();
             $ListOfOrders = BasicOrder::with('buyer')->get();
             $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
-            $tab = 2;
+            $tab = 1;
             $basicorder = BasicOrder::findOrFail($id);
             return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab'));
         } catch (\Throwable $th) {
@@ -314,9 +277,70 @@ class BasicOrderController extends Controller
             return redirect()->back()->with('error', 'Failed to store lots colors sizes: ' . $th->getMessage());
         }
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+    //storeLots
+    public function storeLots(Request $request, $id)
+    {
+        // dd($request->all());
+        // {{-- $table->unsignedBigInteger('order_id');
+        //     $table->string('lot_no'); // Lot identifier
+        //     $table->string('po_no')->nullable(); // po identifier
+        //     $table->string('lot_description')->nullable();
+        //     $table->string('lot_status')->nullable();
+        //     $table->integer('lot_quantity')->nullable();
+        //     $table->string('lot_remarks')->nullable();
+        //     $table->date('shipping_date')->nullable();
+        //     $table->date('expected_shipping_date')->nullable();
+        //     $table->date('actual_shipping_date')->nullable(); --}}
+        //     {{-- //foreign key --}}
+        //     {{-- $table->foreign('order_id')->references('id')->on('inventory_databases_orders')->onDelete('restrict'); --}}
+
+        DB::beginTransaction();
+        try {
+            $basicorders = BasicOrder::all();
+            $buyers = Buyer::all();
+            $organizations = Organization::all();
+            $product_categories = ProductCategory::all();
+            $merchandisers = User::all();
+            $fabric_types = FabricType::all();
+            $compositions = Composition::all();
+            $fabric_treatments = FabricTreatments::all();
+            $yarn_counts = YarnCount::all();
+            $yarn_categories = DB::table('inventory_setup_yarn_categories')->get();
+
+            $ListOfOrders = BasicOrder::with('buyer')->get();
+            $lots = DB::table('inventory_setup_order_lots')->where('order_id', $id)->get();
+            // dd($lots);
+            if(empty($lots)){
+                $lots = [];
+            }
+            // dd($lots->count());
+            $colors = Color::all();
+            $sizes = Size::all();
+
+            $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
+            $basicorder = BasicOrder::findOrFail($id);
+            foreach ($request->lots as $lotInput) {
+                $basicorder = BasicOrder::findOrFail($id);
+                $lot = $basicorder->lots()->create([
+                    'lot_no' => $lotInput['lot_no'],
+                    'po_no' => $lotInput['po_no'],
+                    'order_id' => $basicorder->id,
+                    'lot_status' => 1,
+                    'lot_quantity' => $lotInput['lot_quantity'],
+                    'lot_remarks' => $lotInput['lot_remarks'],
+                    'shipping_date' => $lotInput['shipping_date'],
+                    'expected_shipping_date' => $lotInput['expected_shipping_date'],
+                    'actual_shipping_date' => $lotInput['actual_shipping_date'],
+                ]);
+            }
+            DB::commit();
+            $tab = 2;
+            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes'))->with('success', 'Lots stored successfully');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to store lots: ' . $th->getMessage());
+        }
+    }
     public function destroy($id)
     {
         DB::beginTransaction();

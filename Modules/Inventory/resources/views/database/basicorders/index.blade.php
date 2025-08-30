@@ -143,15 +143,14 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Order No <span
-                                            class="text-danger">(Auto)</span></label>
-                                    <input class="form-control form-control-sm" name="order_no" type="text" id="example-text-input">
+                                    <label for="example-text-input" class="form-label">Actual Order No </label>
+                                    <input class="form-control form-control-sm" name="order_no" type="text" id="order_no">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Season</label>
-                                    <input class="form-control form-control-sm" name="season" type="text" id="example-text-input">
+                                    <input class="form-control form-control-sm" name="season" type="text" id="season">
                                 </div>
                             </div>
                             <div class="col-lg-3">

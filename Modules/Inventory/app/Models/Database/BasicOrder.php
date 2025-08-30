@@ -43,7 +43,7 @@ class BasicOrder extends Model
     // Order.php
     public function lots()
     {
-        return $this->hasMany(OrderLot::class);
+        return $this->hasMany(OrderLot::class, 'order_id');
     }
     public function order()
     {
@@ -51,7 +51,7 @@ class BasicOrder extends Model
     }
     public function colors()
     {
-        return $this->hasMany(OrderLotColor::class);
+        return $this->hasMany(OrderLotColor::class, 'order_id');
     }
 
     // OrderLotColor.php

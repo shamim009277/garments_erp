@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::BPcMrhHa6SLPFEfr',
+            '_route' => 'generated::aILYReNTJ2joHokY',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::veJ8foQ1iH7ieFEq',
+            '_route' => 'generated::5txUqHj7N6hk8NX1',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::nCVP0RUPN1LyOeMd',
+            '_route' => 'generated::N4KDuoXJT6gRaWZ6',
           ),
           1 => NULL,
           2 => 
@@ -6435,7 +6435,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|([^/]++)(?|(*:666)|/edit(*:679)|(*:687))|set(?|up/(?|nationalities/([^/]++)(?|(*:733)|/edit(*:746)|(*:754))|maritalstatus/([^/]++)(?|(*:788)|/edit(*:801)|(*:809))|s(?|ex/([^/]++)(?|(*:836)|/edit(*:849)|(*:857))|ourcereferences/([^/]++)(?|(*:893)|/edit(*:906)|(*:914))|hifts/([^/]++)(?|(*:940)|/edit(*:953)|(*:961)))|religions/([^/]++)(?|(*:992)|/edit(*:1005)|(*:1014))|d(?|i(?|visions/([^/]++)(?|(*:1051)|/edit(*:1065)|(*:1074))|stricts/([^/]++)(?|(*:1103)|/edit(*:1117)|(*:1126)))|ocuments/([^/]++)(?|(*:1157)|/edit(*:1171)|(*:1180))|e(?|partments/([^/]++)(?|(*:1215)|/edit(*:1229)|(*:1238))|signations/([^/]++)(?|(*:1270)|/edit(*:1284)|(*:1293))|grees/([^/]++)(?|(*:1320)|/edit(*:1334)|(*:1343))))|thanas/([^/]++)(?|(*:1373)|/edit(*:1387)|(*:1396))|unions/([^/]++)(?|(*:1424)|/edit(*:1438)|(*:1447))|e(?|ducationboards/([^/]++)(?|(*:1487)|/edit(*:1501)|(*:1510))|mployeecategories/([^/]++)(?|(*:1549)|/edit(*:1563)|(*:1572)))|organizations/([^/]++)(?|(*:1608)|/edit(*:1622)|(*:1631))|leaveclassifications/([^/]++)(?|(*:1673)|/edit(*:1687)|(*:1696))|parentde(?|partments/([^/]++)(?|(*:1738)|/edit(*:1752)|(*:1761))|signations/([^/]++)(?|(*:1793)|/edit(*:1807)|(*:1816)))|gatepass_(?|purpose/([^/]++)(?|(*:1858)|/edit(*:1872)|(*:1881))|reason/([^/]++)(?|(*:1909)|/edit(*:1923)|(*:1932))))|tings/(?|hr\\-settings/([^/]++)(?|(*:1977)|/edit(*:1991)|(*:2000))|forward\\-approve/([^/]++)(?|(*:2038)|/edit(*:2052)|(*:2061))))|database/(?|new\\-applicants/([^/]++)(?|(*:2112)|/edit(*:2126)|(*:2135))|employee(?|\\-(?|idassign/([^/]++)(?|(*:2181)|/edit(*:2195)|(*:2204))|e(?|ducation/([^/]++)(?|(*:2238)|/edit(*:2252)|(*:2261))|xperience/([^/]++)(?|(*:2292)|/edit(*:2306)|(*:2315)))|training/([^/]++)(?|(*:2346)|/edit(*:2360)|(*:2369))|reference/([^/]++)(?|(*:2400)|/edit(*:2414)|(*:2423))|service/([^/]++)(?|(*:2452)|/edit(*:2466)|(*:2475)))|/([^/]++)(?|(*:2498)|/edit(*:2512)|(*:2521)))|d(?|esignation/([^/]++)(*:2555)|istrict/([^/]++)(*:2580)))|report/employee\\-listings/([^/]++)(?|(*:2628)|/edit(*:2642)|(*:2651)))|/inventory/(?|([^/]++)(?|(*:2687)|/edit(*:2701)|(*:2710))|setup/(?|p(?|arties/([^/]++)(?|(*:2751)|/edit(*:2765)|(*:2774))|roductcategories/([^/]++)(?|(*:2812)|/edit(*:2826)|(*:2835)))|s(?|tore(?|types/([^/]++)(?|(*:2874)|/edit(*:2888)|(*:2897))|l(?|ines/([^/]++)(?|(*:2927)|/edit(*:2941)|(*:2950))|ocations/([^/]++)(?|(*:2980)|/edit(*:2994)|(*:3003))))|upplier(?|types/([^/]++)(?|(*:3042)|/edit(*:3056)|(*:3065))|s/([^/]++)(?|(*:3088)|/edit(*:3102)|(*:3111)))|ize(?|groups/([^/]++)(?|(*:3146)|/edit(*:3160)|(*:3169))|s/([^/]++)(?|(*:3192)|/edit(*:3206)|(*:3215))))|racklocations/([^/]++)(?|(*:3252)|/edit(*:3266)|(*:3275))|c(?|hallanpurposes/([^/]++)(?|(*:3315)|/edit(*:3329)|(*:3338))|o(?|untries/([^/]++)(?|(*:3371)|/edit(*:3385)|(*:3394))|lor(?|groups/([^/]++)(?|(*:3428)|/edit(*:3442)|(*:3451))|s/([^/]++)(?|(*:3474)|/edit(*:3488)|(*:3497)))|mpositions/([^/]++)(?|(*:3530)|/edit(*:3544)|(*:3553))))|goods(?|categories/([^/]++)(?|(*:3595)|/edit(*:3609)|(*:3618))|SubCategories/([^/]++)(?|(*:3653)|/edit(*:3667)|(*:3676)))|buyers/([^/]++)(?|(*:3705)|/edit(*:3719)|(*:3728))|items/([^/]++)(?|(*:3755)|/edit(*:3769)|(*:3778))|yarncounts/([^/]++)(?|(*:3810)|/edit(*:3824)|(*:3833))|fabict(?|ypes/([^/]++)(?|(*:3868)|/edit(*:3882)|(*:3891))|reatments/([^/]++)(?|(*:3922)|/edit(*:3936)|(*:3945))))|database/basicorders/(?|([^/]++)(?|(*:3992)|/edit(*:4006)|(*:4015))|lots\\-colors\\-sizes/store/([^/]++)(*:4059)))|/payroll/([^/]++)(?|(*:4090)|/edit(*:4104)|(*:4113))|/storage/(.*)(*:4136))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|([^/]++)(?|(*:666)|/edit(*:679)|(*:687))|set(?|up/(?|nationalities/([^/]++)(?|(*:733)|/edit(*:746)|(*:754))|maritalstatus/([^/]++)(?|(*:788)|/edit(*:801)|(*:809))|s(?|ex/([^/]++)(?|(*:836)|/edit(*:849)|(*:857))|ourcereferences/([^/]++)(?|(*:893)|/edit(*:906)|(*:914))|hifts/([^/]++)(?|(*:940)|/edit(*:953)|(*:961)))|religions/([^/]++)(?|(*:992)|/edit(*:1005)|(*:1014))|d(?|i(?|visions/([^/]++)(?|(*:1051)|/edit(*:1065)|(*:1074))|stricts/([^/]++)(?|(*:1103)|/edit(*:1117)|(*:1126)))|ocuments/([^/]++)(?|(*:1157)|/edit(*:1171)|(*:1180))|e(?|partments/([^/]++)(?|(*:1215)|/edit(*:1229)|(*:1238))|signations/([^/]++)(?|(*:1270)|/edit(*:1284)|(*:1293))|grees/([^/]++)(?|(*:1320)|/edit(*:1334)|(*:1343))))|thanas/([^/]++)(?|(*:1373)|/edit(*:1387)|(*:1396))|unions/([^/]++)(?|(*:1424)|/edit(*:1438)|(*:1447))|e(?|ducationboards/([^/]++)(?|(*:1487)|/edit(*:1501)|(*:1510))|mployeecategories/([^/]++)(?|(*:1549)|/edit(*:1563)|(*:1572)))|organizations/([^/]++)(?|(*:1608)|/edit(*:1622)|(*:1631))|leaveclassifications/([^/]++)(?|(*:1673)|/edit(*:1687)|(*:1696))|parentde(?|partments/([^/]++)(?|(*:1738)|/edit(*:1752)|(*:1761))|signations/([^/]++)(?|(*:1793)|/edit(*:1807)|(*:1816)))|gatepass_(?|purpose/([^/]++)(?|(*:1858)|/edit(*:1872)|(*:1881))|reason/([^/]++)(?|(*:1909)|/edit(*:1923)|(*:1932))))|tings/(?|hr\\-settings/([^/]++)(?|(*:1977)|/edit(*:1991)|(*:2000))|forward\\-approve/([^/]++)(?|(*:2038)|/edit(*:2052)|(*:2061))))|database/(?|new\\-applicants/([^/]++)(?|(*:2112)|/edit(*:2126)|(*:2135))|employee(?|\\-(?|idassign/([^/]++)(?|(*:2181)|/edit(*:2195)|(*:2204))|e(?|ducation/([^/]++)(?|(*:2238)|/edit(*:2252)|(*:2261))|xperience/([^/]++)(?|(*:2292)|/edit(*:2306)|(*:2315)))|training/([^/]++)(?|(*:2346)|/edit(*:2360)|(*:2369))|reference/([^/]++)(?|(*:2400)|/edit(*:2414)|(*:2423))|service/([^/]++)(?|(*:2452)|/edit(*:2466)|(*:2475)))|/([^/]++)(?|(*:2498)|/edit(*:2512)|(*:2521)))|d(?|esignation/([^/]++)(*:2555)|istrict/([^/]++)(*:2580)))|report/employee\\-listings/([^/]++)(?|(*:2628)|/edit(*:2642)|(*:2651)))|/inventory/(?|([^/]++)(?|(*:2687)|/edit(*:2701)|(*:2710))|setup/(?|p(?|arties/([^/]++)(?|(*:2751)|/edit(*:2765)|(*:2774))|roductcategories/([^/]++)(?|(*:2812)|/edit(*:2826)|(*:2835)))|s(?|tore(?|types/([^/]++)(?|(*:2874)|/edit(*:2888)|(*:2897))|l(?|ines/([^/]++)(?|(*:2927)|/edit(*:2941)|(*:2950))|ocations/([^/]++)(?|(*:2980)|/edit(*:2994)|(*:3003))))|upplier(?|types/([^/]++)(?|(*:3042)|/edit(*:3056)|(*:3065))|s/([^/]++)(?|(*:3088)|/edit(*:3102)|(*:3111)))|ize(?|groups/([^/]++)(?|(*:3146)|/edit(*:3160)|(*:3169))|s/([^/]++)(?|(*:3192)|/edit(*:3206)|(*:3215))))|racklocations/([^/]++)(?|(*:3252)|/edit(*:3266)|(*:3275))|c(?|hallanpurposes/([^/]++)(?|(*:3315)|/edit(*:3329)|(*:3338))|o(?|untries/([^/]++)(?|(*:3371)|/edit(*:3385)|(*:3394))|lor(?|groups/([^/]++)(?|(*:3428)|/edit(*:3442)|(*:3451))|s/([^/]++)(?|(*:3474)|/edit(*:3488)|(*:3497)))|mpositions/([^/]++)(?|(*:3530)|/edit(*:3544)|(*:3553))))|goods(?|categories/([^/]++)(?|(*:3595)|/edit(*:3609)|(*:3618))|SubCategories/([^/]++)(?|(*:3653)|/edit(*:3667)|(*:3676)))|buyers/([^/]++)(?|(*:3705)|/edit(*:3719)|(*:3728))|items/([^/]++)(?|(*:3755)|/edit(*:3769)|(*:3778))|yarncounts/([^/]++)(?|(*:3810)|/edit(*:3824)|(*:3833))|fabict(?|ypes/([^/]++)(?|(*:3868)|/edit(*:3882)|(*:3891))|reatments/([^/]++)(?|(*:3922)|/edit(*:3936)|(*:3945))))|database/basicorders/(?|([^/]++)(?|(*:3992)|/edit(*:4006)|(*:4015))|lots(?|\\-colors\\-sizes/store/([^/]++)(*:4062)|/store/([^/]++)(*:4086))))|/payroll/([^/]++)(?|(*:4118)|/edit(*:4132)|(*:4141))|/storage/(.*)(*:4164))/?$}sDu',
     ),
     3 => 
     array (
@@ -12443,7 +12443,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4059 => 
+      4062 => 
       array (
         0 => 
         array (
@@ -12465,7 +12465,29 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4090 => 
+      4086 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.basicorders.lots.store',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4118 => 
       array (
         0 => 
         array (
@@ -12488,7 +12510,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4104 => 
+      4132 => 
       array (
         0 => 
         array (
@@ -12511,7 +12533,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4113 => 
+      4141 => 
       array (
         0 => 
         array (
@@ -12553,7 +12575,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4136 => 
+      4164 => 
       array (
         0 => 
         array (
@@ -12817,7 +12839,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::BPcMrhHa6SLPFEfr' => 
+    'generated::aILYReNTJ2joHokY' => 
     array (
       'methods' => 
       array (
@@ -12846,7 +12868,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bcc0000000000000000";}}',
-        'as' => 'generated::BPcMrhHa6SLPFEfr',
+        'as' => 'generated::aILYReNTJ2joHokY',
       ),
       'fallback' => false,
       'defaults' => 
@@ -13091,7 +13113,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::veJ8foQ1iH7ieFEq' => 
+    'generated::5txUqHj7N6hk8NX1' => 
     array (
       'methods' => 
       array (
@@ -13112,7 +13134,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::veJ8foQ1iH7ieFEq',
+        'as' => 'generated::5txUqHj7N6hk8NX1',
       ),
       'fallback' => false,
       'defaults' => 
@@ -13432,7 +13454,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::nCVP0RUPN1LyOeMd' => 
+    'generated::N4KDuoXJT6gRaWZ6' => 
     array (
       'methods' => 
       array (
@@ -13453,7 +13475,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::nCVP0RUPN1LyOeMd',
+        'as' => 'generated::N4KDuoXJT6gRaWZ6',
       ),
       'fallback' => false,
       'defaults' => 
@@ -36583,6 +36605,45 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.database.basicorders.lots.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/basicorders/lots/store/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\BasicOrderController@storeLots',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\BasicOrderController@storeLots',
+        'as' => 'inventory.database.basicorders.lots.store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -37065,7 +37126,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000e0c0000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000e0d0000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

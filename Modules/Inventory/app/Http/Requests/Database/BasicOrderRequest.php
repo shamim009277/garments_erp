@@ -90,6 +90,7 @@ class BasicOrderRequest extends FormRequest
             'order_type' => ['required', 'string', Rule::in(['Confirmed', 'Pending', 'Cancelled'])],
             'compile_type' => 'nullable|string',
             'organization_id' => 'nullable|exists:hris_setup_organizations,id',
+            'order_quantity' => 'required|integer',
 
             'style_description' => 'nullable|string',
             'season' => 'nullable|string',
