@@ -163,12 +163,15 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/basicorders/lots-colors-sizes/store/{id}', [BasicOrderController::class, 'storeLotsColorsSizes'])->name('basicorders.lots-colors-sizes.store');
             // inventory.database.basicorders.lots
             Route::post('/basicorders/lots/store/{id}', [BasicOrderController::class, 'storeLots'])->name('basicorders.lots.store');
-            // inventory.database.basicorders.colors.store
-            // Route::post('/basicorders/colors/store/{id}', [BasicOrderController::class, 'storeColors'])->name('basicorders.colors.store');
-            // inventory.database.basicorders.sizes.store
-            // Route::post('/basicorders/sizes/store/{id}', [BasicOrderController::class, 'storeSizes'])->name('basicorders.sizes.store');
-            // inventory.database.basicorders.update_lots
+            // inventory.database.basicorders.colors_sizes.store
+            Route::post('/basicorders/colors_sizes/store/{id}', [BasicOrderController::class, 'storeColorsSizes'])->name('basicorders.colors_sizes.store');
+
             Route::post('/basicorders/update_lots/{id}', [BasicOrderController::class, 'updateLots'])->name('basicorders.update_lots');
+            //swift Url Calling 
+            Route::get('basicorders/lot/{lot}/colors', [BasicOrderController::class, 'getColors'])->name('basicorders.lot.colors');
+            Route::get('basicorders/color/{color}/sizes', [BasicOrderController::class, 'getSizes'])->name('basicorders.color.sizes');
+            Route::get('basicorders/size_group/{size_group}/sizes', [BasicOrderController::class, 'getSizesBySizeGroup'])->name('basicorders.size_group.sizes');
+
         });
     });
 });

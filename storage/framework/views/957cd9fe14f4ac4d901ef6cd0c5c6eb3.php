@@ -32,20 +32,26 @@
                                 <option value="">Select Size Group</option>
                             </select>
                         </div>
+                        <div class="col-md-4">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Size</th>
+                                        <th>Quantity(PCS )</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="size-container">
+                                    
+                                </tbody>
+                            </table>
+                           
+                        </div>
                         
-                            <div class="col-md-2 border" style="border: 1px solid #ced4da; border-radius: 0.25rem;">
-                                <label class="form-label">Size</label>
-                                <select class="form-select" name="size_id" id="size_id">
-                                    <option value="">Select Size</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 border" style="border: 1px solid #ced4da; border-radius: 0.25rem;">
-                                <label class="form-label">Quantity</label>
-                                <input type="number" class="form-control" name="quantity">
-                            </div>
-                                            
+                        
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </div>
                 </form>
 
             </div>
@@ -63,7 +69,7 @@
         var sizeSelect = document.getElementById('size_id');
         colorSelect.innerHTML = '<option value="">Select Color</option>';
         sizeGroupSelect.innerHTML = '<option value="">Select Size Group</option>';
-        sizeSelect.innerHTML = '<option value="">Select Size</option>';
+        // sizeSelect.innerHTML = '<option value="">Select Size</option>';
         $.getJSON('/inventory/database/basicorders/lot/' + lotId + '/colors', function(colors) {
             colors.forEach(color => {
                 var option = document.createElement('option');
@@ -79,7 +85,7 @@
         var sizeGroupSelect = document.getElementById('size_group_id');
         var sizeSelect = document.getElementById('size_id');
         sizeGroupSelect.innerHTML = '<option value="">Select Size Group</option>';
-        sizeSelect.innerHTML = '<option value="">Select Size</option>';
+        // sizeSelect.innerHTML = '<option value="">Select Size</option>';
         $.getJSON('/inventory/database/basicorders/color/' + colorId + '/sizes', function(sizesgroup) {
             sizesgroup.forEach(sizegroup => {
                 var option = document.createElement('option');
@@ -92,13 +98,18 @@
 
     document.getElementById('size_group_id').addEventListener('change', function() {
         var sizeGroupId = this.value;
-        var sizeSelect = document.getElementById('size_id');
-        sizeSelect.innerHTML = '<option value="">Select Size</option>';
+        var sizeSelect = document.getElementById('size-container');
+       
         $.getJSON('/inventory/database/basicorders/size_group/' + sizeGroupId + '/sizes', function(sizes) {
             sizes.forEach(size => {
-                var option = document.createElement('option');
-                option.value = size.id;
-                option.text = size.size_name + ' (' + size.size_quantity + ')';
+                var option = document.createElement('tr');
+                option.innerHTML = `
+                <td>
+                    <input type="hidden" name="size_ids[]" value="${size.id}">
+                    ${size.size_name}
+                </td>
+                <td><input type="text" class="form-control" name="sizes[${size.id}]" value="0"></td>
+                `;
                 sizeSelect.appendChild(option);
             });
         });
@@ -141,4 +152,4 @@
         });
     });
 </script>
-<?php /**PATH D:\laragon\www\new erp\garments_erp\Modules\Inventory\resources\views\database\basicorders\tab3.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\laragon\www\new erp\garments_erp\Modules/Inventory\resources/views/database/basicorders/tab3.blade.php ENDPATH**/ ?>

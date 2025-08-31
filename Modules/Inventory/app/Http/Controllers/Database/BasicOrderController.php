@@ -12,9 +12,11 @@ use Modules\Inventory\Models\Setup\FabricType;
 use Modules\Inventory\Models\Setup\Composition;
 use Modules\Inventory\Models\Setup\FabricTreatments;
 use Modules\Inventory\Models\Setup\YarnCount;
-use Modules\Inventory\Models\Setup\Lot;
 use Modules\Inventory\Models\Setup\Color;
+use Modules\Inventory\Models\Setup\ColorGroup;
 use Modules\Inventory\Models\Setup\Size;
+use Modules\Inventory\Models\Setup\SizeGroup;
+
 use Modules\Inventory\Http\Requests\Database\BasicOrderRequest;
 
 use App\Models\User;
@@ -185,10 +187,16 @@ class BasicOrderController extends Controller
             $lots = DB::table('inventory_setup_order_lots')->where('order_id', $id)->get();
             $colors = Color::all();
             $sizes = Size::all();
+            $sizeGroups = SizeGroup::all();
+
+            if(empty($lots)){
+                $lots = [];
+            }
+            
 
             $ListOfOrdersUniqueBuyer = $ListOfOrders->unique('buyer_id');
             $basicorder = BasicOrder::findOrFail($id);
-            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes'));
+            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes', 'sizeGroups'));
         }
     }
 
@@ -376,7 +384,29 @@ class BasicOrderController extends Controller
             return redirect()->back()->with('error', 'Failed to update lots: ' . $th->getMessage());
         }
     }
-    
+    //storeColorsSizes
+    public function storeColorsSizes(Request $request, $id)
+    {
+        dd(request()->all());
+        DB::beginTransaction();
+        try {
+            $basicorder = BasicOrder::findOrFail($id);
+            $basicorder->colors()->create([
+                'color_id' => $request->color_id,
+                'order_id' => $basicorder->id,
+            ]);
+            $basicorder->sizes()->create([
+                'size_id' => $request->size_id,
+                'order_id' => $basicorder->id,
+            ]);
+            DB::commit();
+            $tab = 3;
+            return redirect()->back()->with('success', 'Colors and sizes stored successfully');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to store colors and sizes: ' . $th->getMessage());
+        }
+    }
     public function destroy($id)
     {
         DB::beginTransaction();
@@ -388,5 +418,24 @@ class BasicOrderController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to delete basic order: ' . $th->getMessage());
         }
+    }
+
+
+    //swift Url Calling 
+    // getColors
+    public function getColors($id){
+        $colors = Color::all();
+        return response()->json($colors);
+    }
+    //getSizes
+    public function getSizes($id){
+        $sizesgroup = SizeGroup::all();
+        // dd($sizesgroup);
+        return response()->json($sizesgroup);
+    }
+    //getSizesBySizeGroup
+    public function getSizesBySizeGroup($id){
+        $sizes = Size::where('size_group_id', $id)->get();
+        return response()->json($sizes);
     }
 }
