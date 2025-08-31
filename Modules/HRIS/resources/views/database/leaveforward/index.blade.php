@@ -90,21 +90,15 @@
                                             <td style="white-space: nowrap;">{{ $leaveApplication->department->department }}</td>
                                             <td style="white-space: nowrap;">{{ $leaveApplication->employee->joining_date }}</td>
                                             <td style="white-space: nowrap;">
-                                                <input type="text" id="start_date{{ $leaveApplication->form_id }}" class="form-control form-control-sm start_date"
-                                                    name="start_date[]" value="{{ $leaveApplication->start_date }}"
-                                                    {{ $leaveApplication->is_writable ? '' : 'readonly' }}>
+                                                <input type="text" id="start_date{{ $leaveApplication->form_id }}" class="form-control form-control-sm start_date" name="start_date[]" value="{{ $leaveApplication->start_date }}" {{ $leaveApplication->is_writable ? '' : 'readonly' }}>
                                             </td>
 
                                             <td style="white-space: nowrap;">
-                                                <input type="text" id="end_date{{ $leaveApplication->form_id }}" class="form-control form-control-sm end_date"
-                                                    name="end_date[]" value="{{ $leaveApplication->end_date }}"
-                                                    {{ $leaveApplication->is_writable ? '' : 'readonly' }}>
+                                                <input type="text" id="end_date{{ $leaveApplication->form_id }}" class="form-control form-control-sm end_date" name="end_date[]" value="{{ $leaveApplication->end_date }}" {{ $leaveApplication->is_writable ? '' : 'readonly' }}>
                                             </td>
 
                                             <td style="text-align: center; white-space: nowrap;">
-                                                <input type="text" id="days{{ $leaveApplication->form_id }}" class="form-control form-control-sm days"
-                                                    name="days[]" value="{{ $leaveApplication->days }}"
-                                                    {{ $leaveApplication->is_writable ? '' : 'readonly' }} style="text-align: center;">
+                                                <input type="text" id="days{{ $leaveApplication->form_id }}" class="form-control form-control-sm days" name="days[]" value="{{ $leaveApplication->days }}" {{ $leaveApplication->is_writable ? '' : 'readonly' }} style="text-align: center;">
                                             </td>
                                             <td style="text-align: center; white-space: nowrap;">{{ $leaveApplication->balance??0 }}</td>
                                             <td style="text-align: center; white-space: nowrap;">{{ $leaveApplication->leave_type_id }}</td>

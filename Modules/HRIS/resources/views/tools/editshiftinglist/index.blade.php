@@ -123,7 +123,6 @@
                                     <th width="25%">Date</th>
                                     <th width="25%">Joining Date</th>
                                     <th width="25%">Shift</th>
-                                    <th width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="employeedata"></tbody>
@@ -174,12 +173,7 @@
                                     <td>${emp.employee_basic.name}</td>
                                     <td>${emp.date}</td>
                                     <td>${emp.employee_basic.joining_date}</td>
-                                    <td>${emp.shift}</td>
-                                    <td>
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-Display"
-                                        data-id="${emp.id}" style="padding: 4px 6px;">
-                                        <i class="fas fa-trash"></i></a>
-                                    </td>
+                                    <td><input type="text" name="shift" id="shift" data-id="${emp.id}" data-emp-id="${emp.employee_id}" class="form-control form-control-sm shift" value="${emp.shift}" /></td>
                                 </tr>
                             `;
                         });
@@ -289,12 +283,7 @@
                                     <td>${emp.employee_basic.name}</td>
                                     <td>${emp.date}</td>
                                     <td>${emp.employee_basic.joining_date}</td>
-                                    <td>${emp.shift}</td>
-                                    <td>
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-Display"
-                                        data-id="${emp.id}" style="padding: 4px 6px;">
-                                        <i class="fas fa-trash"></i></a>
-                                    </td>
+                                    <td><input type="text" name="shift" id="shift" data-id="${emp.id}" data-emp-id="${emp.employee_id}" class="form-control form-control-sm shift" value="${emp.shift}" /></td>
                                 </tr>
                             `;
                         });
@@ -376,6 +365,33 @@
                             'info'
                         );
                     }
+                }
+            });
+        });
+
+        $(document).on("blur", ".shift", function () {
+            let shift = $(this).val();
+            let id = $(this).data("id");
+            let form = 1;
+
+            $.ajax({
+                url: "{{ url('hris/tools/edit-shiftinglist') }}/" + id,
+                type: "PUT",
+                data: {
+                    shift: shift,
+                    form: form,
+                    _token: "{{ csrf_token() }}",
+
+                },
+                success: function (response) {
+                    if(response.success){
+                        toastr.success(response.message);
+                    }else{
+                        toastr.error(response.message);
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong!");
                 }
             });
         });

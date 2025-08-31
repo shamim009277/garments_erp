@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\LeaveReason;
+use Modules\HRIS\Models\Setup\LeaveClassification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\HRIS\Database\Factories\Database\LeaveConfirmationFactory;
 
@@ -51,6 +52,11 @@ class LeaveConfirmation extends Model
     public function leaveReason()
     {
         return $this->belongsTo(LeaveReason::class, 'reason_id','reason_id');
+    }
+
+    public function leaveType()
+    {
+        return $this->belongsTo(LeaveClassification::class, 'leave_type_id','code');
     }
 
     public static function booted()

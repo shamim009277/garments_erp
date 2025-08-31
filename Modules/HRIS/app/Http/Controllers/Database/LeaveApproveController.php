@@ -2,22 +2,37 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Setup\LeaveReason;
 use Modules\HRIS\Models\Database\LeaveApplication;
 use Modules\HRIS\Models\Setup\LeaveClassification;
 use Modules\HRIS\Models\Database\LeaveConfirmation;
+use App\Traits\LeaveBalance;
 
 class LeaveApproveController extends Controller
 {
+    use LeaveBalance;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $leaveApplications = LeaveApplication::active()->forwarded()->notRejected()->notApproved()->with('employee:id,employee_id,name,joining_date', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->orderBy('department_id', 'desc')->get();
+        $time = Carbon::now()->format('Y-m-d');
+        $time = Carbon::parse($time)->subDay(10)->format('Y-m-d');
+        $start_date = Carbon::parse($time)->startOfMonth()->format('Y-m-d');
+        $end_date = Carbon::parse($time)->endOfMonth()->format('Y-m-d');
+
+        if(Auth::user()->role == 'Super Admin') {
+            $leaveApplications = LeaveApplication::active()->forwarded()->notRejected()->notApproved()->with('employee:id,employee_id,name,joining_date', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->orderBy('department_id', 'desc')->whereBetween('application_date', [$start_date, $end_date])->get();
+        }else {
+            $forwardids = DB::table('hris_settings_employee_leave_forwardapprove')->where('category_id', '2')->where('user_id', Auth::user()->id)->pluck('employee_id')->toArray();
+            $leaveApplications = LeaveApplication::active()->forwarded()->notRejected()->notApproved()->with('employee:id,employee_id,name,joining_date', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->orderBy('department_id', 'desc')->whereBetween('application_date', [$start_date, $end_date])->whereIn('employee_id', $forwardids)->get();
+        }
+
         return view('hris::database.leaveapprove.index', compact('leaveApplications'));
     }
 
@@ -207,7 +222,9 @@ class LeaveApproveController extends Controller
         $leaveApplication = LeaveApplication::active()->forwarded()->notRejected()->with('employee:id,employee_id,name,joining_date,photo', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->where('id', $id)->first();
         $reasons = LeaveReason::where('id',$leaveApplication->reason_id)->pluck('reason','id');
         $leave_types = LeaveClassification::pluck('signification','code');
-        return view('hris::database.leaveapprove.show', compact('leaveApplication','reasons','leave_types'));
+
+        $leaveBalance = $this->calculateAccrualUpToToday($leaveApplication->employee_id);
+        return view('hris::database.leaveapprove.show', compact('leaveApplication','reasons','leave_types','leaveBalance'));
     }
 
     /**

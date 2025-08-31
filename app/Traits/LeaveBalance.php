@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Database\LeaveApplication;
+use Modules\HRIS\Models\Database\LeaveConfirmation;
 
 trait LeaveBalance
 {
@@ -23,7 +24,7 @@ trait LeaveBalance
 
         // Window start
         $windowStart = $hasOneYearAtYearStart ? $yearStart : $joining;
-        $windowEnd   = $today; // Today পর্যন্ত হিসাব
+        $windowEnd   = $today;
 
         // ===== CL Calculation =====
         // $totalMarkedDays = Attendance::where('employee_id', $employeeId)
@@ -44,14 +45,20 @@ trait LeaveBalance
         $CL_CAP_PER_YEAR    = 14;
 
         $clEarned = intdiv($effectiveAttendance, $CL_DAYS_PER_CREDIT);
-        $clEarned = min($clEarned, $CL_CAP_PER_YEAR);
+        //$clEarned = min($clEarned, $CL_CAP_PER_YEAR);
 
         $clUsed = LeaveApplication::where('employee_id', $employeeId)
             ->whereBetween('start_date', [$windowStart, $windowEnd])
             ->whereHas('leaveType', fn($q) => $q->where('code', 'CL'))
             ->sum('days');
 
+        $clActualUsed = LeaveConfirmation::where('employee_id', $employeeId)
+            ->whereBetween('start_date', [$windowStart, $windowEnd])
+            ->whereHas('leaveType', fn($q) => $q->where('code', 'CL'))
+            ->sum('days');
+
         $clRemaining = max(0, $clEarned - $clUsed);
+        $clActualRemaining = max(0, $clEarned - $clActualUsed);
 
         // ===== SL Calculation =====
         $SL_ANNUAL_QUOTA = 10;
@@ -64,7 +71,13 @@ trait LeaveBalance
             ->whereHas('leaveType', fn($q) => $q->where('code', 'SL'))
             ->sum('days');
 
+        $slActualUsed = LeaveConfirmation::where('employee_id', $employeeId)
+            ->whereBetween('start_date', [$windowStart, $windowEnd])
+            ->whereHas('leaveType', fn($q) => $q->where('code', 'SL'))
+            ->sum('days');
+
         $slRemaining = max(0, $slEarned - $slUsed);
+        $slActualRemaining = max(0, $slEarned - $slActualUsed);
 
         return [
             'window' => [
@@ -75,31 +88,19 @@ trait LeaveBalance
                 'earned' => $clEarned,
                 'earned_yearly' => 14,
                 'used' => (int) $clUsed,
+                'actual_used' => (int) $clActualUsed,
                 'remaining' => $clRemaining,
+                'actual_remaining' => $clActualRemaining,
             ],
             'SL' => [
                 'earned' => $slEarned,
                 'earned_yearly' => 10,
                 'used' => (int) $slUsed,
+                'actual_used' => (int) $slActualUsed,
                 'remaining' => $slRemaining,
+                'actual_remaining' => $slActualRemaining,
             ],
         ];
-        // return [
-        //     'window' => [
-        //         'start' => $windowStart->toDateString(),
-        //         'end'   => $windowEnd->toDateString(),
-        //     ],
-        //     'CL' => [
-        //         'earned' => 2,
-        //         'used' => (int) 5,
-        //         'remaining' => 7,
-        //     ],
-        //     'SL' => [
-        //         'earned' => 8,
-        //         'used' => (int) 2,
-        //         'remaining' => 6,
-        //     ],
-        // ];
     }
 
     /**

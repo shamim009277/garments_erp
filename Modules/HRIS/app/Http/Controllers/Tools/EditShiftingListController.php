@@ -31,7 +31,6 @@ class EditShiftingListController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        //dd($request->all());
         if($request->form == 1){
             $shiftingLists = ShiftingList::with('employeeBasic')->where('date', $request->date)->get();
             return response()->json([
@@ -66,7 +65,31 @@ class EditShiftingListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id) {
+        $request->validate([
+            'form' => 'required',
+            'shift' => 'required|exists:hris_setup_shifts,shift',
+            'id' => 'required',
+        ]);
+
+        try {
+            if($request->form == 1){
+                $shiftingList = ShiftingList::find($id);
+
+                $shiftingList->shift = $request->shift;
+                $shiftingList->save();
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Shift updated successfully'
+            ]);
+        } catch (\Throwable $th) {
+           return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

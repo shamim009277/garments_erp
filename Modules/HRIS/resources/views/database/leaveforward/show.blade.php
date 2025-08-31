@@ -165,25 +165,25 @@
                             <tr>
                                 <th style="width: 40%">Casual Leave</th>
                                 <td style="width: 20%">
-                                    <x-text-input name="CLA" id="CLA" label="" class="form-control-sm text-center" placeholder="0" readonly/>
+                                    <x-text-input name="CLA" id="CLA" label="" class="form-control-sm text-center" value="{{ $avail = $leaveApplication->leave_type_id == 'CL' ? ($leaveBalance[$leaveApplication->leave_type_id]['earned'] ?? 0) : 0 }}" placeholder="0" readonly/>
                                 </td>
                                 <td style="width: 20%">
-                                    <x-text-input name="CLT" id="CLT" label="" class="form-control-sm text-center" placeholder="0" readonly/>
+                                    <x-text-input name="CLT" id="CLT" label="" class="form-control-sm text-center" value="{{ $taken = $leaveApplication->leave_type_id == 'CL' ? ($leaveBalance[$leaveApplication->leave_type_id]['actual_used'] ?? 0) : 0 }}" placeholder="0" readonly/>
                                 </td>
                                 <td style="width: 20%">
-                                    <x-text-input name="CLB" id="CLB" label="" class="form-control-sm text-center" placeholder="0" readonly/>
+                                    <x-text-input name="CLB" id="CLB" label="" class="form-control-sm text-center" value="{{ $avail - $taken }}" placeholder="0" readonly/>
                                 </td>
                             </tr>
                             <tr>
                                 <th style="width: 40%">Sick Leave</th>
                                 <td style="width: 20%">
-                                    <x-text-input name="SLA" id="SLA" label="" class="form-control-sm text-center" placeholder="0" readonly/>
+                                    <x-text-input name="SLA" id="SLA" label="" class="form-control-sm text-center" value="{{ $avail = $leaveApplication->leave_type_id == 'SL' ? ($leaveBalance[$leaveApplication->leave_type_id]['earned_yearly'] ?? 0) : 0 }}" placeholder="0" readonly/>
                                 </td>
                                 <td style="width: 20%">
-                                    <x-text-input name="SLT" id="SLT" label="" class="form-control-sm text-center" placeholder="0" readonly/>
+                                    <x-text-input name="SLT" id="SLT" label="" class="form-control-sm text-center" value="{{ $taken = $leaveApplication->leave_type_id == 'SL' ? ($leaveBalance[$leaveApplication->leave_type_id]['actual_used'] ?? 0) : 0 }}" placeholder="0" readonly/>
                                 </td>
                                 <td style="width: 20%">
-                                    <x-text-input name="SLB" id="SLB" label="" class="form-control-sm text-center" placeholder="0" readonly/>
+                                    <x-text-input name="SLB" id="SLB" label="" class="form-control-sm text-center" value="{{ $avail - $taken }}" placeholder="0" readonly/>
                                 </td>
                             </tr>
                             <tr>

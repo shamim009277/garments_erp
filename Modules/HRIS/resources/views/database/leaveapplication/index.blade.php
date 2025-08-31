@@ -304,7 +304,14 @@
                             }
 
                             if(response.leaveBalance){
+                                $("#CLA").val(response.leaveBalance.CL.earned_yearly);
+                                $("#CLT").val(response.leaveBalance.CL.used);
+                                $("#CLB").val(response.leaveBalance.CL.earned_yearly - response.leaveBalance.CL.used);
 
+                                $("#SLA").val(response.leaveBalance.SL.earned_yearly);
+                                $("#SLT").val(response.leaveBalance.SL.used);
+                                $("#SLB").val(response.leaveBalance.SL.earned_yearly - response.leaveBalance.SL.used);
+                                $("#ELA").val(response.leaveBalance.EL.earned_yearly);
                             }
                         },
                         error: function () {
@@ -326,6 +333,15 @@
                     $("#department_id").val('');
                     $("#leave_type_id").prop('disabled', true);
                     $('#photo').attr('src', "{{ asset('backend/assets/images/demo.png') }}");
+
+                    $("#CLA").val(0);
+                    $("#CLT").val(0);
+                    $("#CLB").val(0);
+
+                    $("#SLA").val(0);
+                    $("#SLT").val(0);
+                    $("#SLB").val(0);
+                    $("#ELA").val(0);
                 }
             }
 
