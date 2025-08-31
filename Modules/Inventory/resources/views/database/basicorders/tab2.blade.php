@@ -63,8 +63,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="addMoreLots">Add More Lots</button>
-                                <button type="button" class="btn btn-danger" id="removeLots">Remove Lots</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -162,14 +161,14 @@
 
                                                                 <x-input-group name="lot_no" label="Lot No."
                                                                     :value="$lot->lot_no" required />
-                                                                <x-input-group name="po_no" label="PO No."
+                                                                <x-input-group name="po_no"  label="PO No."
                                                                     :value="$lot->po_no" required />
                                                                 <x-input-group name="lot_quantity"
-                                                                    label="Lot Quantity" :value="$lot->lot_quantity" required />
+                                                                    label="Lot Quantity" type="number" :value="$lot->lot_quantity" required />
                                                                 <x-input-group name="shipping_date"
-                                                                    label="Shipping Date" :value="$lot->shipping_date" required />
+                                                                    label="Shipping Date" type="date" :value="$lot->shipping_date" required />
                                                                 <x-input-group name="expected_shipping_date"
-                                                                    label="Expected Shipping Date" :value="$lot->expected_shipping_date"
+                                                                    label="Expected Shipping Date" type="date" :value="$lot->expected_shipping_date"
                                                                     required />
                                                                 <x-primary-button
                                                                     class="float-start btn-sm submitBtn">Update</x-primary-button>

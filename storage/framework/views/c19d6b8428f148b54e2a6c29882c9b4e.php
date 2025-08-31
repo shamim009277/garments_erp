@@ -16,35 +16,29 @@
                                 <label class="form-label">Lots</label>
                                 <div id="lotsContainer">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot No.</label>
                                                 <input type="text" class="form-control" name="lots[0][lot_no]"
                                                     placeholder="Lot No." required>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">PO No.</label>
                                                 <input type="text" class="form-control" name="lots[0][po_no]"
                                                     placeholder="PO No.">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Lot Description</label>
-                                                <input type="text" class="form-control"
-                                                    name="lots[0][lot_description]" placeholder="Lot Description">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Shipping Date</label>
                                                 <input type="date" class="form-control" name="lots[0][shipping_date]"
                                                     placeholder="Shipping Date">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Expected Shipping Date</label>
                                                 <input type="date" class="form-control"
@@ -52,22 +46,15 @@
                                                     placeholder="Expected Shipping Date">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Actual Shipping Date</label>
-                                                <input type="date" class="form-control"
-                                                    name="lots[0][actual_shipping_date]"
-                                                    placeholder="Actual Shipping Date">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot Quantity</label>
                                                 <input type="number" class="form-control" name="lots[0][lot_quantity]"
                                                     placeholder="Lot Quantity">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label">Lot Remarks</label>
                                                 <input type="text" class="form-control" name="lots[0][lot_remarks]"
@@ -76,8 +63,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="addMoreLots">Add More Lots</button>
-                                <button type="button" class="btn btn-danger" id="removeLots">Remove Lots</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -215,14 +201,14 @@
 <?php endif; ?>
                                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'lot_quantity','label' => 'Lot Quantity','value' => $lot->lot_quantity,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'lot_quantity','label' => 'Lot Quantity','type' => 'number','value' => $lot->lot_quantity,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'lot_quantity','label' => 'Lot Quantity','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->lot_quantity),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'lot_quantity','label' => 'Lot Quantity','type' => 'number','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->lot_quantity),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -235,14 +221,14 @@
 <?php endif; ?>
                                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'shipping_date','label' => 'Shipping Date','value' => $lot->shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'shipping_date','label' => 'Shipping Date','type' => 'date','value' => $lot->shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'shipping_date','label' => 'Shipping Date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->shipping_date),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'shipping_date','label' => 'Shipping Date','type' => 'date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->shipping_date),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -255,14 +241,14 @@
 <?php endif; ?>
                                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','value' => $lot->expected_shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','type' => 'date','value' => $lot->expected_shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->expected_shipping_date),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','type' => 'date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->expected_shipping_date),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -282,7 +268,7 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'float-start btn-sm submitBtn']); ?>Save <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['class' => 'float-start btn-sm submitBtn']); ?>Update <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginald411d1792bd6cc877d687758b753742c)): ?>
 <?php $attributes = $__attributesOriginald411d1792bd6cc877d687758b753742c; ?>

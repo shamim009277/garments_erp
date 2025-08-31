@@ -63,8 +63,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="addMoreLots">Add More Lots</button>
-                                <button type="button" class="btn btn-danger" id="removeLots">Remove Lots</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -202,14 +201,14 @@
 <?php endif; ?>
                                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'lot_quantity','label' => 'Lot Quantity','value' => $lot->lot_quantity,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'lot_quantity','label' => 'Lot Quantity','type' => 'number','value' => $lot->lot_quantity,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'lot_quantity','label' => 'Lot Quantity','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->lot_quantity),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'lot_quantity','label' => 'Lot Quantity','type' => 'number','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->lot_quantity),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -222,14 +221,14 @@
 <?php endif; ?>
                                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'shipping_date','label' => 'Shipping Date','value' => $lot->shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'shipping_date','label' => 'Shipping Date','type' => 'date','value' => $lot->shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'shipping_date','label' => 'Shipping Date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->shipping_date),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'shipping_date','label' => 'Shipping Date','type' => 'date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->shipping_date),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -242,14 +241,14 @@
 <?php endif; ?>
                                                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','value' => $lot->expected_shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','type' => 'date','value' => $lot->expected_shipping_date,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->expected_shipping_date),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'expected_shipping_date','label' => 'Expected Shipping Date','type' => 'date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($lot->expected_shipping_date),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>

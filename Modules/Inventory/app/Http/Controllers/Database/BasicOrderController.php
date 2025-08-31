@@ -295,11 +295,9 @@ class BasicOrderController extends Controller
 
             $ListOfOrders = BasicOrder::with('buyer')->get();
             $lots = DB::table('inventory_setup_order_lots')->where('order_id', $id)->get();
-            // dd($lots);
             if(empty($lots)){
                 $lots = [];
             }
-            // dd($lots->count());
             $colors = Color::all();
             $sizes = Size::all();
 
@@ -316,12 +314,12 @@ class BasicOrderController extends Controller
                     'lot_remarks' => $lotInput['lot_remarks'],
                     'shipping_date' => $lotInput['shipping_date'],
                     'expected_shipping_date' => $lotInput['expected_shipping_date'],
-                    'actual_shipping_date' => $lotInput['actual_shipping_date'],
+                    'actual_shipping_date' => $lotInput['expected_shipping_date'],
                 ]);
             }
             DB::commit();
             $tab = 2;
-            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes'))->with('success', 'Lots stored successfully');
+            return redirect()->back()->with('success', 'Lots stored successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to store lots: ' . $th->getMessage());
@@ -339,14 +337,14 @@ class BasicOrderController extends Controller
                     'lot_remarks' => $request->lot_remarks,
                     'shipping_date' => $request->shipping_date,
                     'expected_shipping_date' => $request->expected_shipping_date,
-                    'actual_shipping_date' => $request->actual_shipping_date,
+                    'actual_shipping_date' => $request->expected_shipping_date,
                     'po_no' => $request->po_no,
                 ]
             );
             DB::commit();
             $orderlot = DB::table('inventory_setup_order_lots')->where('id', $id)->first();
             // dd($orderlot);
-            $tab = 2;
+            $tab = '?tab=2';
             $basicorders = BasicOrder::all();
             $basicorder = BasicOrder::where('id', $orderlot->order_id)->first();
             // dd($basicorder);
@@ -370,7 +368,9 @@ class BasicOrderController extends Controller
             // dd($lots->count());
             $colors = Color::all();
             $sizes = Size::all();
-            return view('inventory::database.basicorders.show', compact('basicorder', 'basicorders', 'buyers', 'organizations', 'product_categories', 'merchandisers', 'fabric_types', 'compositions', 'fabric_treatments', 'yarn_counts', 'yarn_categories', 'ListOfOrdersUniqueBuyer', 'ListOfOrders', 'tab', 'lots', 'colors', 'sizes'))->with('success', 'Lots updated successfully');
+            $tab = "{{ route('inventory.database.basicorders.show', $basicorder->id) }}?tab=2";
+            return redirect()->back()->with('success', 'Lots updated successfully');
+            // return redirect()->route('inventory.database.basicorders.show', [$basicorder->id, $tab])->with('success', 'Lots updated successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update lots: ' . $th->getMessage());
