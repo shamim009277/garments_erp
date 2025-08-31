@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', isset($role) ? 'Role Update' : 'Role Create')
+@push('styles')
+    <style>
+        input[type="checkbox"] {
+            display: inline-block !important;
+            opacity: 1 !important;
+        }
+    </style>
+@endpush
 @section('content')
     @php
         $isEdit = isset($role) && $role !== null;

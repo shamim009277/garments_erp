@@ -25,6 +25,7 @@ use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveReasonController;
 use Modules\HRIS\Http\Controllers\Database\ApplicantController;
 use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
+use Modules\HRIS\Http\Controllers\Report\LeaveReportController;
 use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
 use Modules\HRIS\Http\Controllers\Tools\ShiftingListController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
@@ -252,9 +253,14 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
         //Reports
         Route::prefix('report')->name('report.')->group(function () {
+
             Route::get('/employee-listings/preview', [EmployeeListingReportController::class, 'previewData'])->name('employee-listings.form.preview');
             Route::post('/employee-listings/preview', [EmployeeListingReportController::class, 'preview'])->name('employee-listings.report.preview');
             Route::resource('employee-listings', EmployeeListingReportController::class)->names('employee-listings');
+
+            Route::get('/leave-report/preview', [LeaveReportController::class, 'previewData'])->name('leave-report.form.preview');
+            Route::post('/leave-report/preview', [LeaveReportController::class, 'preview'])->name('leave-report.report.preview');
+            Route::resource('leave-report', LeaveReportController::class)->names('leave-report');
         });
 
         //Settings
