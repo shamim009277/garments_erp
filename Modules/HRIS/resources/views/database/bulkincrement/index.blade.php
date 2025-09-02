@@ -91,10 +91,7 @@
                                                 <th>Designation</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr class="tabledata">
-                                            </tr>
-                                        </tbody>
+                                        <tbody id="tabledata"></tbody>
                                     </table>
                                 </div>
                                 <div class="btn-toolbar">
@@ -105,26 +102,26 @@
                                 <table class="table table-sm table-striped table-hover" style="width: 100%">
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="joining_date_to">Increment Date</label>
+                                            <label class="m-0" for="increment_date">Increment Date</label>
                                         </td>
                                         <td width="60%" id="category_section">
-                                            <x-text-input type="date" name="joining_date_to" id="joining_date_to" class="form-control form-control-sm" value="{{ $lastMonthStart }}" placeholder="Joining Date To" required />
+                                            <x-text-input type="date" name="increment_date" id="increment_date" class="form-control form-control-sm" value="{{ $lastMonthStart }}" placeholder="Joining Date To" required />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="joining_date_to">Effective Date</label>
+                                            <label class="m-0" for="effective_date">Effective Date</label>
                                         </td>
                                         <td width="60%" id="category_section">
-                                            <x-text-input type="date" name="joining_date_to" id="joining_date_to" class="form-control form-control-sm" value="{{ $lastMonthStart }}" placeholder="Joining Date To" required />
+                                            <x-text-input type="date" name="effective_date" id="effective_date" class="form-control form-control-sm" value="{{ $lastMonthStart }}" placeholder="Joining Date To" required />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="joining_date_to">Arrear Upto Date</label>
+                                            <label class="m-0" for="arrear_upto_date">Arrear Upto Date</label>
                                         </td>
                                         <td width="60%" id="category_section">
-                                            <x-text-input type="date" name="joining_date_to" id="joining_date_to" class="form-control form-control-sm" value="{{ $lastMonthEnd }}" placeholder="Joining Date To" required />
+                                            <x-text-input type="date" name="arrear_upto_date" id="arrear_upto_date" class="form-control form-control-sm" value="" placeholder="Arrear Upto Date" />
                                         </td>
                                     </tr>
 
@@ -138,18 +135,18 @@
                                     </tr>
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="increment_source">Increment Value</label>
+                                            <label class="m-0" for="increment_value">Increment Value</label>
                                         </td>
-                                        <td width="60%" id="category_section">
+                                        <td width="60%" id="increment_value">
                                             <x-select-input name="increment_value" id="increment_value" class="select2" :options="['P' => 'Percentage', 'F' => 'Flat']" placeholder="Increment Value" required />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="joining_date_to">Amount (P/F)</label>
+                                            <label class="m-0" for="amount">Amount (P/F)</label>
                                         </td>
                                         <td width="60%" id="category_section">
-                                            <input type="number" name="increment_on_gross_amount" id="increment_on_gross_amount" min="0" class="form-control form-control-sm" placeholder="Flat/Percentage Amount" required />
+                                            <input type="number" name="amount" id="amount" min="0" class="form-control form-control-sm" placeholder="Flat/Percentage Amount" required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -173,7 +170,7 @@
                         </div>
                     </div>
                     <div class="card-footer" style="padding:10px 20px;">
-                        <button type="button" id="submitBtn" class="btn btn-sm btn-danger float-end" style="margin-right: 10px;"> <i data-feather="log-out" width="14" height="14"></i> Submit</button>
+                        <button type="submit" id="submitBtn" class="btn btn-sm btn-danger float-end add_user_button" style="margin-right: 10px;" disabled> <i data-feather="log-out" width="14" height="14"></i> Submit</button>
                     </div>
                 </div>
             </form>
@@ -183,248 +180,120 @@
 
 @push('scripts')
 <script>
-$(document).ready(function() {
-    function calculateDays(start, end) {
-        let startDate = new Date(start);
-        let endDate = new Date(end);
-
-        if (isNaN(startDate) || isNaN(endDate)) return 0;
-
-        let diffTime = endDate - startDate;
-        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 inclusive
-        return diffDays > 0 ? diffDays : 0;
-    }
-
-    function toggleButtons() {
-        let anyChecked = $('.row_checkbox:checked').length > 0;
-        $('#discardBtn, #submitBtn').prop('disabled', !anyChecked);
-    }
-
-    // Check all checkboxes
-    $('#check_all_forward').click(function() {
-        $('.row_checkbox').prop('checked', true).trigger('change');
-    });
-
-    // Uncheck all checkboxes
-    $('#uncheck_all_forward').click(function() {
-        $('.row_checkbox').prop('checked', false).trigger('change');
-    });
-
-    // On single checkbox change
-    $(document).on('change', '.row_checkbox', function() {
-        let row = $(this).closest('tr'); // get current row
-        let isChecked = $(this).is(':checked');
-        row.find('.start_date, .end_date').prop('readonly', !isChecked);
-        toggleButtons();
-    });
-
-    // Initial check on page load
-    toggleButtons();
-
-    // Trigger change on page load to set initial readonly status
-    $('.row_checkbox').each(function() {
-        $(this).trigger('change');
-    });
-
-    // Store previous valid value
-    let previousValues = {};
-
-    // Save previous value on focus
-    $(document).on('focus', '.start_date, .end_date', function() {
-        previousValues[$(this).attr('id')] = $(this).val();
-    });
-
-    // On date change, update days column
-    $(document).on('blur', '.start_date, .end_date', function() {
-        let row = $(this).closest('tr');
-        let startInput = row.find('.start_date');
-        let endInput = row.find('.end_date');
-
-        let start = startInput.val();
-        let end = endInput.val();
-
-        if (!start || !end) {
-            row.find('span[id^="days"]').text(0);
-            return;
+    $(document).ready(function() {
+        let allCategory = $('#all_category').is(':checked');
+        if(allCategory){
+            $('#employee_category_id').prop('disabled', true);
+            $('#all_category_section').addClass('disabled-select');
         }
+        handleToggle('#all_category', '#employee_category_id', '#all_category_section');
 
-        let startDate = new Date(start);
-        let endDate = new Date(end);
-
-        // Validation: start date cannot be after end date
-        if (startDate > endDate) {
-           Swal.fire({
-                title: 'Error!',
-                text: 'Start Date cannot be after End Date! Or End Date cannot be before Start Date! please check the dates.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-
-            // Restore previous values
-            if (previousValues[startInput.attr('id')]) {
-                startInput.val(previousValues[startInput.attr('id')]);
-            }
-            if (previousValues[endInput.attr('id')]) {
-                endInput.val(previousValues[endInput.attr('id')]);
-            }
-
-            // Recalculate days with previous values
-            let prevDays = calculateDays(startInput.val(), endInput.val());
-            row.find('span[id^="days"]').text(prevDays);
-            return;
-        }
-
-        // If valid, update days
-        let days = calculateDays(start, end);
-        row.find('span[id^="days"]').text(days);
-    });
-
-    $('.start_date, .end_date').each(function() {
-        previousValues[$(this).attr('id')] = $(this).val();
-    });
-
-    //leave discard
-    $('#discardBtn').click(function() {
-        let form_id = [];
-        let start_date = [];
-        let end_date = [];
-        let days = [];
-
-        $('.row_checkbox:checked').each(function() {
-            let row = $(this).closest('tr');
-            let id = $(this).val();
-            let start = row.find('.start_date').val();
-            let end = row.find('.end_date').val();
-            let day = row.find('.days').val();
-            form_id.push(id);
-            start_date.push(start);
-            end_date.push(end);
-            days.push(day);
+        $('#all_category').on('change', function () {
+            handleToggle('#all_category', '#employee_category_id', '#all_category_section');
         });
 
-        if (form_id.length === 0) {
-            Swal.fire('Warning', 'No row selected!', 'warning');
-            return;
+        $('#all_department').on('change', function () {
+            handleToggle('#all_department', '#department_id', '#all_department_section');
+        });
+
+        function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
+            const isChecked = $(checkboxSelector).is(':checked');
+
+            $(selectSelector)
+                .prop('disabled', isChecked)
+                .val(null).trigger('change');
+
+            $(selectSelector).toggleClass('disabled-select', isChecked);
+            $(sectionSelector).toggleClass('disabled-select', isChecked);
         }
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "This action cannot be undone!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, discard it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
+
+        $('#check_all').on('click', function () {
+            let checkboxes = $('.add_user');
+
+            if (checkboxes.length > 0) {
+                checkboxes.prop('checked', true);
+                $('#check_all').prop('disabled', true);
+                $('#uncheck_all').prop('disabled', false);
+                handleAddUser();
+            } else {
+                toastr.error('No found to check all');
+            }
+        });
+
+        $('#uncheck_all').on('click', function () {
+            let checkboxes = $('.add_user');
+
+            if (checkboxes.length > 0) {
+                checkboxes.prop('checked', false);
+                $('#check_all').prop('disabled', false);
+                $('#uncheck_all').prop('disabled', true);
+                handleAddUser();
+            } else {
+                toastr.error('No found to uncheck all');
+            }
+        });
+
+        $(document).on('change', '.add_user', function () {
+            handleAddUser();
+        });
+
+        function handleAddUser() {
+            let checkedCount = $('.add_user:checked').length;
+            if (checkedCount > 0) {
+                $('.add_user_button').prop('disabled', false);
+            } else {
+                $('.add_user_button').prop('disabled', true);
+            }
+        }
+
+        //Fetch user
+        $('#org_id,#department_id,#employee_category_id,#category_id').on('change', function () {
+            fetchDesignation();
+        });
+
+        function fetchDesignation() {
+            let org_id = $('#org_id').val();
+            let category_id = $('#category_id').val();
+            let department_id = $('#department_id').val();
+            let employee_category_id = $('#employee_category_id').val();
+
+            let all_department = $('#all_department').is(':checked');
+            let all_category = $('#all_category').is(':checked');
+
+            if((all_department || (department_id !== null && department_id !== '')) && (all_category || (employee_category_id !== null && employee_category_id !== '')) && (org_id !== null && org_id !== '')&& (category_id !== null && category_id !== '')){
                 $.ajax({
-                    url: '{{ route('hris.database.leave-approve.store') }}',
-                    type: 'POST',
+                    url: "{{ route('hris.database.fetch-designation') }}",
+                    type: "POST",
                     data: {
-                        _token: '{{ csrf_token() }}',
-                        form_id: form_id,
-                        form: 1,
-                        start_date: start_date,
-                        end_date: end_date,
-                        days: days
+                        org_id: org_id,
+                        category_id: category_id,
+                        department_id: department_id,
+                        employee_category_id: employee_category_id,
+                        _token: "{{ csrf_token() }}"
                     },
-                    beforeSend: function() {
-                        Swal.fire({
-                            title: 'Please wait...',
-                            text: 'Processing selected leave applications...',
-                            allowOutsideClick: false,
-                            didOpen: () => Swal.showLoading()
+                    success: function (response) {
+                        $('#tabledata').html('');
+                        response.forEach(designation => {
+                            $('#tabledata').append(`
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="designation_id[]" id="designation_${designation.designation.id}" class="add_user" value="${designation.designation.id}">
+                                        <label class="m-0" for="designation_${designation.designation.id}">${designation.designation.designation}</label>
+                                    </td>
+                                </tr>
+                            `);
                         });
                     },
-                    success: function(response) {
-                        Swal.close();
-                        if (response.status === 'success') {
-                            Swal.fire('Success', response.message, 'success');
-
-                            // Remove checked rows from table
-                            $('.row_checkbox:checked').each(function() {
-                                $(this).closest('tr').fadeOut(300, function() {
-                                    $(this).remove();
-                                });
-                            });
-                        } else {
-                            Swal.fire('Error', response.message, 'error');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.close();
-                        Swal.fire('Error', error, 'error');
+                    error: function (xhr, status, error) {
+                        toastr.error(error);
                     }
                 });
+            }else{
+                toastr.error('Please select all necessary parameters');
+                $('#tabledata').html('');
             }
-        });
+        };
     });
-
-    //leave discard
-    $('#submitBtn').click(function() {
-        let form_id = [];
-        let start_date = [];
-        let end_date = [];
-        let days = [];
-
-        $('.row_checkbox:checked').each(function() {
-            let row = $(this).closest('tr');
-            let id = $(this).val();
-            let start = row.find('.start_date').val();
-            let end = row.find('.end_date').val();
-            let day = row.find('.days').val();
-            form_id.push(id);
-            start_date.push(start);
-            end_date.push(end);
-            days.push(day);
-        });
-
-        if (form_id.length === 0) {
-            Swal.fire('Warning', 'No row selected!', 'warning');
-            return;
-        }
-
-        $.ajax({
-            url: '{{ route('hris.database.leave-approve.store') }}',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                form_id: form_id,
-                form: 2,
-                start_date: start_date,
-                end_date: end_date,
-                days: days
-            },
-            beforeSend: function() {
-                Swal.fire({
-                    title: 'Please wait...',
-                    text: 'Processing selected leave applications...',
-                    allowOutsideClick: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(response) {
-                Swal.close();
-                if (response.status === 'success') {
-                    Swal.fire('Success', response.message, 'success');
-
-                    // Remove checked rows from table
-                    $('.row_checkbox:checked').each(function() {
-                        $(this).closest('tr').fadeOut(300, function() {
-                            $(this).remove();
-                        });
-                    });
-                } else {
-                    Swal.fire('Error', response.message, 'error');
-                }
-            },
-            error: function(xhr, status, error) {
-                Swal.close();
-                Swal.fire('Error', error, 'error');
-            }
-        });
-    });
-
-});
 </script>
 @endpush
