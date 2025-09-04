@@ -16,7 +16,8 @@ class UnitsController extends Controller
     {
         $rots = Unit::active()->where('is_root', 1)->pluck('name', 'id')->toArray();
         $units = Unit::active()->with('children')->get();
-        return view('master.setup.unit.index', compact('rots', 'units'));
+        $standards = ['W' => 'Weight', 'L' => 'Length', 'V' => 'Volume', 'Q' => 'Quantity'];
+        return view('master.setup.unit.index', compact('rots', 'units', 'standards'));
     }
 
     /**

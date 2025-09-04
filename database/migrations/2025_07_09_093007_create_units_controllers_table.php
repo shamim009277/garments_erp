@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->foreign('root_id')->references('id')->on('master_setup_units')->cascadeOnDelete();
             $table->char('is_root', 1)->default('N');
+            $table->char('unit_standards', 1)->nullable()->comment('W=Weight, L=Length, V=Volume, Q=Quantity');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();

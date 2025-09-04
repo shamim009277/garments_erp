@@ -57,7 +57,7 @@
             </div>
 
 
-            {{-- @if (1)
+            @if (1)
             <div class="card-body">
                 <form method="POST" action="{{ route('inventory.database.basicorders.colors_sizes.store', $basicorder->id) }}">
                     @csrf
@@ -114,7 +114,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-            @endif --}}
+            @endif
         </div>
     </div>
 </div>

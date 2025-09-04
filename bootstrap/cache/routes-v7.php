@@ -92,7 +92,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::agPjWsTHrLaKV8oh',
+            '_route' => 'generated::UNmYQGQh1j9hlOpg',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +221,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::iZGCpZjMNuC01KNH',
+            '_route' => 'generated::OfymT3A9HM4iRZpX',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +351,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::bbIV3JcEQi5vhfVA',
+            '_route' => 'generated::b3y0VXtgNwumjdiW',
           ),
           1 => NULL,
           2 => 
@@ -6246,6 +6246,100 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/inventory/setup/forapppannel/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/forapppannel/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/forapppannel' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/setup/forapppannel/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/inventory/database/basicorders/toggle' => 
       array (
         0 => 
@@ -6327,6 +6421,587 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'inventory.database.basicorders.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitions/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitions' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitions/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitionmains/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitionmains' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitionmains/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitiondetails' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitiondetails.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitiondetails.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/purrequisitiondetails/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitiondetails.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqforwarding/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqforwarding' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqforwarding/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqpricing/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqpricing' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqpricing/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqapproval/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqapproval' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqapproval/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqaccclearance/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqaccclearance' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqaccclearance/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqfinalapproval/search' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.search',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqfinalapproval' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/inventory/database/reqfinalapproval/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.create',
           ),
           1 => NULL,
           2 => 
@@ -6435,7 +7110,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|([^/]++)(?|(*:666)|/edit(*:679)|(*:687))|set(?|up/(?|nationalities/([^/]++)(?|(*:733)|/edit(*:746)|(*:754))|maritalstatus/([^/]++)(?|(*:788)|/edit(*:801)|(*:809))|s(?|ex/([^/]++)(?|(*:836)|/edit(*:849)|(*:857))|ourcereferences/([^/]++)(?|(*:893)|/edit(*:906)|(*:914))|hifts/([^/]++)(?|(*:940)|/edit(*:953)|(*:961)))|religions/([^/]++)(?|(*:992)|/edit(*:1005)|(*:1014))|d(?|i(?|visions/([^/]++)(?|(*:1051)|/edit(*:1065)|(*:1074))|stricts/([^/]++)(?|(*:1103)|/edit(*:1117)|(*:1126)))|ocuments/([^/]++)(?|(*:1157)|/edit(*:1171)|(*:1180))|e(?|partments/([^/]++)(?|(*:1215)|/edit(*:1229)|(*:1238))|signations/([^/]++)(?|(*:1270)|/edit(*:1284)|(*:1293))|grees/([^/]++)(?|(*:1320)|/edit(*:1334)|(*:1343))))|thanas/([^/]++)(?|(*:1373)|/edit(*:1387)|(*:1396))|unions/([^/]++)(?|(*:1424)|/edit(*:1438)|(*:1447))|e(?|ducationboards/([^/]++)(?|(*:1487)|/edit(*:1501)|(*:1510))|mployeecategories/([^/]++)(?|(*:1549)|/edit(*:1563)|(*:1572)))|organizations/([^/]++)(?|(*:1608)|/edit(*:1622)|(*:1631))|leaveclassifications/([^/]++)(?|(*:1673)|/edit(*:1687)|(*:1696))|parentde(?|partments/([^/]++)(?|(*:1738)|/edit(*:1752)|(*:1761))|signations/([^/]++)(?|(*:1793)|/edit(*:1807)|(*:1816)))|gatepass_(?|purpose/([^/]++)(?|(*:1858)|/edit(*:1872)|(*:1881))|reason/([^/]++)(?|(*:1909)|/edit(*:1923)|(*:1932))))|tings/(?|hr\\-settings/([^/]++)(?|(*:1977)|/edit(*:1991)|(*:2000))|forward\\-approve/([^/]++)(?|(*:2038)|/edit(*:2052)|(*:2061))))|database/(?|new\\-applicants/([^/]++)(?|(*:2112)|/edit(*:2126)|(*:2135))|employee(?|\\-(?|idassign/([^/]++)(?|(*:2181)|/edit(*:2195)|(*:2204))|e(?|ducation/([^/]++)(?|(*:2238)|/edit(*:2252)|(*:2261))|xperience/([^/]++)(?|(*:2292)|/edit(*:2306)|(*:2315)))|training/([^/]++)(?|(*:2346)|/edit(*:2360)|(*:2369))|reference/([^/]++)(?|(*:2400)|/edit(*:2414)|(*:2423))|service/([^/]++)(?|(*:2452)|/edit(*:2466)|(*:2475)))|/([^/]++)(?|(*:2498)|/edit(*:2512)|(*:2521)))|d(?|esignation/([^/]++)(*:2555)|istrict/([^/]++)(*:2580)))|report/employee\\-listings/([^/]++)(?|(*:2628)|/edit(*:2642)|(*:2651)))|/inventory/(?|([^/]++)(?|(*:2687)|/edit(*:2701)|(*:2710))|setup/(?|p(?|arties/([^/]++)(?|(*:2751)|/edit(*:2765)|(*:2774))|roductcategories/([^/]++)(?|(*:2812)|/edit(*:2826)|(*:2835)))|s(?|tore(?|types/([^/]++)(?|(*:2874)|/edit(*:2888)|(*:2897))|l(?|ines/([^/]++)(?|(*:2927)|/edit(*:2941)|(*:2950))|ocations/([^/]++)(?|(*:2980)|/edit(*:2994)|(*:3003))))|upplier(?|types/([^/]++)(?|(*:3042)|/edit(*:3056)|(*:3065))|s/([^/]++)(?|(*:3088)|/edit(*:3102)|(*:3111)))|ize(?|groups/([^/]++)(?|(*:3146)|/edit(*:3160)|(*:3169))|s/([^/]++)(?|(*:3192)|/edit(*:3206)|(*:3215))))|racklocations/([^/]++)(?|(*:3252)|/edit(*:3266)|(*:3275))|c(?|hallanpurposes/([^/]++)(?|(*:3315)|/edit(*:3329)|(*:3338))|o(?|untries/([^/]++)(?|(*:3371)|/edit(*:3385)|(*:3394))|lor(?|groups/([^/]++)(?|(*:3428)|/edit(*:3442)|(*:3451))|s/([^/]++)(?|(*:3474)|/edit(*:3488)|(*:3497)))|mpositions/([^/]++)(?|(*:3530)|/edit(*:3544)|(*:3553))))|goods(?|categories/([^/]++)(?|(*:3595)|/edit(*:3609)|(*:3618))|SubCategories/([^/]++)(?|(*:3653)|/edit(*:3667)|(*:3676)))|buyers/([^/]++)(?|(*:3705)|/edit(*:3719)|(*:3728))|items/([^/]++)(?|(*:3755)|/edit(*:3769)|(*:3778))|yarncounts/([^/]++)(?|(*:3810)|/edit(*:3824)|(*:3833))|fabict(?|ypes/([^/]++)(?|(*:3868)|/edit(*:3882)|(*:3891))|reatments/([^/]++)(?|(*:3922)|/edit(*:3936)|(*:3945))))|database/basicorders/(?|([^/]++)(?|(*:3992)|/edit(*:4006)|(*:4015))|lot(?|s(?|\\-colors\\-sizes/store/([^/]++)(*:4065)|/store/([^/]++)(*:4089))|/([^/]++)/colors(*:4115))|color(?|s_sizes/store/([^/]++)(*:4155)|/([^/]++)/sizes(*:4179))|update_lots/([^/]++)(*:4209)|size_group/([^/]++)/sizes(*:4243)))|/payroll/([^/]++)(?|(*:4274)|/edit(*:4288)|(*:4297))|/storage/(.*)(*:4320))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|([^/]++)(?|(*:666)|/edit(*:679)|(*:687))|set(?|up/(?|nationalities/([^/]++)(?|(*:733)|/edit(*:746)|(*:754))|maritalstatus/([^/]++)(?|(*:788)|/edit(*:801)|(*:809))|s(?|ex/([^/]++)(?|(*:836)|/edit(*:849)|(*:857))|ourcereferences/([^/]++)(?|(*:893)|/edit(*:906)|(*:914))|hifts/([^/]++)(?|(*:940)|/edit(*:953)|(*:961)))|religions/([^/]++)(?|(*:992)|/edit(*:1005)|(*:1014))|d(?|i(?|visions/([^/]++)(?|(*:1051)|/edit(*:1065)|(*:1074))|stricts/([^/]++)(?|(*:1103)|/edit(*:1117)|(*:1126)))|ocuments/([^/]++)(?|(*:1157)|/edit(*:1171)|(*:1180))|e(?|partments/([^/]++)(?|(*:1215)|/edit(*:1229)|(*:1238))|signations/([^/]++)(?|(*:1270)|/edit(*:1284)|(*:1293))|grees/([^/]++)(?|(*:1320)|/edit(*:1334)|(*:1343))))|thanas/([^/]++)(?|(*:1373)|/edit(*:1387)|(*:1396))|unions/([^/]++)(?|(*:1424)|/edit(*:1438)|(*:1447))|e(?|ducationboards/([^/]++)(?|(*:1487)|/edit(*:1501)|(*:1510))|mployeecategories/([^/]++)(?|(*:1549)|/edit(*:1563)|(*:1572)))|organizations/([^/]++)(?|(*:1608)|/edit(*:1622)|(*:1631))|leaveclassifications/([^/]++)(?|(*:1673)|/edit(*:1687)|(*:1696))|parentde(?|partments/([^/]++)(?|(*:1738)|/edit(*:1752)|(*:1761))|signations/([^/]++)(?|(*:1793)|/edit(*:1807)|(*:1816)))|gatepass_(?|purpose/([^/]++)(?|(*:1858)|/edit(*:1872)|(*:1881))|reason/([^/]++)(?|(*:1909)|/edit(*:1923)|(*:1932))))|tings/(?|hr\\-settings/([^/]++)(?|(*:1977)|/edit(*:1991)|(*:2000))|forward\\-approve/([^/]++)(?|(*:2038)|/edit(*:2052)|(*:2061))))|database/(?|new\\-applicants/([^/]++)(?|(*:2112)|/edit(*:2126)|(*:2135))|employee(?|\\-(?|idassign/([^/]++)(?|(*:2181)|/edit(*:2195)|(*:2204))|e(?|ducation/([^/]++)(?|(*:2238)|/edit(*:2252)|(*:2261))|xperience/([^/]++)(?|(*:2292)|/edit(*:2306)|(*:2315)))|training/([^/]++)(?|(*:2346)|/edit(*:2360)|(*:2369))|reference/([^/]++)(?|(*:2400)|/edit(*:2414)|(*:2423))|service/([^/]++)(?|(*:2452)|/edit(*:2466)|(*:2475)))|/([^/]++)(?|(*:2498)|/edit(*:2512)|(*:2521)))|d(?|esignation/([^/]++)(*:2555)|istrict/([^/]++)(*:2580)))|report/employee\\-listings/([^/]++)(?|(*:2628)|/edit(*:2642)|(*:2651)))|/inventory/(?|([^/]++)(?|(*:2687)|/edit(*:2701)|(*:2710))|setup/(?|p(?|arties/([^/]++)(?|(*:2751)|/edit(*:2765)|(*:2774))|roductcategories/([^/]++)(?|(*:2812)|/edit(*:2826)|(*:2835)))|s(?|tore(?|types/([^/]++)(?|(*:2874)|/edit(*:2888)|(*:2897))|l(?|ines/([^/]++)(?|(*:2927)|/edit(*:2941)|(*:2950))|ocations/([^/]++)(?|(*:2980)|/edit(*:2994)|(*:3003))))|upplier(?|types/([^/]++)(?|(*:3042)|/edit(*:3056)|(*:3065))|s/([^/]++)(?|(*:3088)|/edit(*:3102)|(*:3111)))|ize(?|groups/([^/]++)(?|(*:3146)|/edit(*:3160)|(*:3169))|s/([^/]++)(?|(*:3192)|/edit(*:3206)|(*:3215))))|racklocations/([^/]++)(?|(*:3252)|/edit(*:3266)|(*:3275))|c(?|hallanpurposes/([^/]++)(?|(*:3315)|/edit(*:3329)|(*:3338))|o(?|untries/([^/]++)(?|(*:3371)|/edit(*:3385)|(*:3394))|lor(?|groups/([^/]++)(?|(*:3428)|/edit(*:3442)|(*:3451))|s/([^/]++)(?|(*:3474)|/edit(*:3488)|(*:3497)))|mpositions/([^/]++)(?|(*:3530)|/edit(*:3544)|(*:3553))))|goods(?|categories/([^/]++)(?|(*:3595)|/edit(*:3609)|(*:3618))|SubCategories/([^/]++)(?|(*:3653)|/edit(*:3667)|(*:3676)))|buyers/([^/]++)(?|(*:3705)|/edit(*:3719)|(*:3728))|items/([^/]++)(?|(*:3755)|/edit(*:3769)|(*:3778))|yarncounts/([^/]++)(?|(*:3810)|/edit(*:3824)|(*:3833))|f(?|abict(?|ypes/([^/]++)(?|(*:3871)|/edit(*:3885)|(*:3894))|reatments/([^/]++)(?|(*:3925)|/edit(*:3939)|(*:3948)))|orapppannel/([^/]++)(?|(*:3982)|/edit(*:3996)|(*:4005))))|database/(?|basicorders/(?|([^/]++)(?|(*:4055)|/edit(*:4069)|(*:4078))|lot(?|s(?|\\-colors\\-sizes/store/([^/]++)(*:4128)|/store/([^/]++)(*:4152))|/([^/]++)/colors(*:4178))|color(?|s_sizes/store/([^/]++)(*:4218)|/([^/]++)/sizes(*:4242))|update_lots/([^/]++)(*:4272)|size_group/([^/]++)/sizes(*:4306))|purrequisition(?|s/([^/]++)(?|(*:4346)|/edit(*:4360)|(*:4369))|mains/(?|multiplestatus/([^/]++)(*:4411)|([^/]++)(?|(*:4431)|/edit(*:4445)|(*:4454)))|details/([^/]++)(?|(*:4484)|/edit(*:4498)|(*:4507)))|req(?|f(?|orwarding/(?|multiplestatus/([^/]++)(*:4564)|([^/]++)(?|(*:4584)|/edit(*:4598)|(*:4607)))|inalapproval/(?|multiplestatus/([^/]++)(*:4657)|([^/]++)(?|(*:4677)|/edit(*:4691)|(*:4700))))|pricing/(?|multiplestatus/([^/]++)(*:4746)|([^/]++)(?|(*:4766)|/edit(*:4780)|(*:4789)))|a(?|pproval/(?|multiplestatus/([^/]++)(*:4838)|([^/]++)(?|(*:4858)|/edit(*:4872)|(*:4881)))|ccclearance/(?|multiplestatus/([^/]++)(*:4930)|([^/]++)(?|(*:4950)|/edit(*:4964)|(*:4973)))))))|/payroll/([^/]++)(?|(*:5008)|/edit(*:5022)|(*:5031))|/storage/(.*)(*:5054))/?$}sDu',
     ),
     3 => 
     array (
@@ -12179,7 +12854,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3868 => 
+      3871 => 
       array (
         0 => 
         array (
@@ -12202,7 +12877,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3882 => 
+      3885 => 
       array (
         0 => 
         array (
@@ -12225,7 +12900,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3891 => 
+      3894 => 
       array (
         0 => 
         array (
@@ -12267,7 +12942,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3922 => 
+      3925 => 
       array (
         0 => 
         array (
@@ -12290,7 +12965,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3936 => 
+      3939 => 
       array (
         0 => 
         array (
@@ -12313,7 +12988,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3945 => 
+      3948 => 
       array (
         0 => 
         array (
@@ -12355,7 +13030,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3992 => 
+      3982 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.show',
+          ),
+          1 => 
+          array (
+            0 => 'forapppannel',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3996 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.edit',
+          ),
+          1 => 
+          array (
+            0 => 'forapppannel',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4005 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.update',
+          ),
+          1 => 
+          array (
+            0 => 'forapppannel',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.setup.forapppannel.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'forapppannel',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4055 => 
       array (
         0 => 
         array (
@@ -12378,7 +13141,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4006 => 
+      4069 => 
       array (
         0 => 
         array (
@@ -12401,7 +13164,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4015 => 
+      4078 => 
       array (
         0 => 
         array (
@@ -12443,7 +13206,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4065 => 
+      4128 => 
       array (
         0 => 
         array (
@@ -12465,7 +13228,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4089 => 
+      4152 => 
       array (
         0 => 
         array (
@@ -12487,7 +13250,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4115 => 
+      4178 => 
       array (
         0 => 
         array (
@@ -12510,7 +13273,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4155 => 
+      4218 => 
       array (
         0 => 
         array (
@@ -12532,7 +13295,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4179 => 
+      4242 => 
       array (
         0 => 
         array (
@@ -12555,7 +13318,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4209 => 
+      4272 => 
       array (
         0 => 
         array (
@@ -12577,7 +13340,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4243 => 
+      4306 => 
       array (
         0 => 
         array (
@@ -12600,7 +13363,843 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4274 => 
+      4346 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.show',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisition',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4360 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.edit',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisition',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4369 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.update',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisition',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitions.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisition',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4411 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.multiplestatus',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4431 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.show',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitionmain',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4445 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.edit',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitionmain',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4454 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.update',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitionmain',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitionmains.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitionmain',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4484 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitiondetails.show',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitiondetail',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4498 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitiondetails.edit',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitiondetail',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4507 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitiondetails.update',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitiondetail',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.purrequisitiondetails.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'purrequisitiondetail',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4564 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.multiplestatus',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4584 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.show',
+          ),
+          1 => 
+          array (
+            0 => 'reqforwarding',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4598 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.edit',
+          ),
+          1 => 
+          array (
+            0 => 'reqforwarding',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4607 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.update',
+          ),
+          1 => 
+          array (
+            0 => 'reqforwarding',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqforwarding.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'reqforwarding',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4657 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.multiplestatus',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4677 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.show',
+          ),
+          1 => 
+          array (
+            0 => 'reqfinalapproval',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4691 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.edit',
+          ),
+          1 => 
+          array (
+            0 => 'reqfinalapproval',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4700 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.update',
+          ),
+          1 => 
+          array (
+            0 => 'reqfinalapproval',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqfinalapproval.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'reqfinalapproval',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4746 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.multiplestatus',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4766 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.show',
+          ),
+          1 => 
+          array (
+            0 => 'reqpricing',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4780 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.edit',
+          ),
+          1 => 
+          array (
+            0 => 'reqpricing',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4789 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.update',
+          ),
+          1 => 
+          array (
+            0 => 'reqpricing',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqpricing.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'reqpricing',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4838 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.multiplestatus',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4858 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.show',
+          ),
+          1 => 
+          array (
+            0 => 'reqapproval',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4872 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.edit',
+          ),
+          1 => 
+          array (
+            0 => 'reqapproval',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4881 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.update',
+          ),
+          1 => 
+          array (
+            0 => 'reqapproval',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqapproval.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'reqapproval',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4930 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.multiplestatus',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4950 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.show',
+          ),
+          1 => 
+          array (
+            0 => 'reqaccclearance',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4964 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.edit',
+          ),
+          1 => 
+          array (
+            0 => 'reqaccclearance',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4973 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.update',
+          ),
+          1 => 
+          array (
+            0 => 'reqaccclearance',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'inventory.database.reqaccclearance.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'reqaccclearance',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      5008 => 
       array (
         0 => 
         array (
@@ -12623,7 +14222,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4288 => 
+      5022 => 
       array (
         0 => 
         array (
@@ -12646,7 +14245,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4297 => 
+      5031 => 
       array (
         0 => 
         array (
@@ -12688,7 +14287,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4320 => 
+      5054 => 
       array (
         0 => 
         array (
@@ -12952,7 +14551,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::agPjWsTHrLaKV8oh' => 
+    'generated::UNmYQGQh1j9hlOpg' => 
     array (
       'methods' => 
       array (
@@ -12981,7 +14580,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bcc0000000000000000";}}',
-        'as' => 'generated::agPjWsTHrLaKV8oh',
+        'as' => 'generated::UNmYQGQh1j9hlOpg',
       ),
       'fallback' => false,
       'defaults' => 
@@ -13226,7 +14825,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::iZGCpZjMNuC01KNH' => 
+    'generated::OfymT3A9HM4iRZpX' => 
     array (
       'methods' => 
       array (
@@ -13247,7 +14846,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::iZGCpZjMNuC01KNH',
+        'as' => 'generated::OfymT3A9HM4iRZpX',
       ),
       'fallback' => false,
       'defaults' => 
@@ -13567,7 +15166,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::bbIV3JcEQi5vhfVA' => 
+    'generated::b3y0VXtgNwumjdiW' => 
     array (
       'methods' => 
       array (
@@ -13588,7 +15187,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::bbIV3JcEQi5vhfVA',
+        'as' => 'generated::b3y0VXtgNwumjdiW',
       ),
       'fallback' => false,
       'defaults' => 
@@ -36323,6 +37922,362 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.setup.forapppannel.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/forapppannel/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@toggleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@toggleStatus',
+        'as' => 'inventory.setup.forapppannel.toggle',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/forapppannel/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@destroy',
+        'as' => 'inventory.setup.forapppannel.delete',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/forapppannel',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.forapppannel.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/forapppannel/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.forapppannel.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/setup/forapppannel',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.forapppannel.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/forapppannel/{forapppannel}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.forapppannel.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/setup/forapppannel/{forapppannel}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.forapppannel.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/setup/forapppannel/{forapppannel}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.forapppannel.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.setup.forapppannel.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/setup/forapppannel/{forapppannel}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.setup.forapppannel.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Setup\\ForwardApprovePannelController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'inventory.database.basicorders.toggle' => 
     array (
       'methods' => 
@@ -36955,6 +38910,2737 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'inventory.database.purrequisitions.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/purrequisitions/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@search',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@search',
+        'as' => 'inventory.database.purrequisitions.search',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitions.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitions',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitions.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitions.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitions/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitions.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitions.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/purrequisitions',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitions.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitions.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitions/{purrequisition}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitions.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitions.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitions/{purrequisition}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitions.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitions.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/purrequisitions/{purrequisition}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitions.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitions.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/purrequisitions/{purrequisition}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitions.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurchaseRequisitionController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@search',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@search',
+        'as' => 'inventory.database.purrequisitionmains.search',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.multiplestatus' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains/multiplestatus/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@multipleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@multipleStatus',
+        'as' => 'inventory.database.purrequisitionmains.multiplestatus',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitionmains.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitionmains.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitionmains.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains/{purrequisitionmain}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitionmains.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains/{purrequisitionmain}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitionmains.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains/{purrequisitionmain}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitionmains.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitionmains.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/purrequisitionmains/{purrequisitionmain}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitionmains.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionMainController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitiondetails.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitiondetails',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitiondetails.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitiondetails.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitiondetails/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitiondetails.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitiondetails.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/purrequisitiondetails',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitiondetails.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitiondetails.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitiondetails/{purrequisitiondetail}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitiondetails.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitiondetails.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/purrequisitiondetails/{purrequisitiondetail}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitiondetails.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitiondetails.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/purrequisitiondetails/{purrequisitiondetail}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitiondetails.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.purrequisitiondetails.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/purrequisitiondetails/{purrequisitiondetail}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.purrequisitiondetails.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\PurRequisitionDetailController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqforwarding/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@search',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@search',
+        'as' => 'inventory.database.reqforwarding.search',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.multiplestatus' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqforwarding/multiplestatus/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@multipleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@multipleStatus',
+        'as' => 'inventory.database.reqforwarding.multiplestatus',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqforwarding',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqforwarding.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqforwarding/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqforwarding.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/reqforwarding',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqforwarding.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqforwarding/{reqforwarding}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqforwarding.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqforwarding/{reqforwarding}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqforwarding.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/reqforwarding/{reqforwarding}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqforwarding.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqforwarding.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/reqforwarding/{reqforwarding}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqforwarding.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqForwardingController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqpricing/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@search',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@search',
+        'as' => 'inventory.database.reqpricing.search',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.multiplestatus' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqpricing/multiplestatus/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@multipleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@multipleStatus',
+        'as' => 'inventory.database.reqpricing.multiplestatus',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqpricing',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqpricing.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqpricing/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqpricing.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/reqpricing',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqpricing.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqpricing/{reqpricing}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqpricing.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqpricing/{reqpricing}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqpricing.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/reqpricing/{reqpricing}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqpricing.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqpricing.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/reqpricing/{reqpricing}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqpricing.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqPricingController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqapproval/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@search',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@search',
+        'as' => 'inventory.database.reqapproval.search',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.multiplestatus' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqapproval/multiplestatus/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@multipleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@multipleStatus',
+        'as' => 'inventory.database.reqapproval.multiplestatus',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqapproval',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqapproval.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqapproval/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqapproval.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/reqapproval',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqapproval.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqapproval/{reqapproval}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqapproval.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqapproval/{reqapproval}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqapproval.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/reqapproval/{reqapproval}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqapproval.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqapproval.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/reqapproval/{reqapproval}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqapproval.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqApprovalController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqaccclearance/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@search',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@search',
+        'as' => 'inventory.database.reqaccclearance.search',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.multiplestatus' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqaccclearance/multiplestatus/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@multipleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@multipleStatus',
+        'as' => 'inventory.database.reqaccclearance.multiplestatus',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqaccclearance',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqaccclearance.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqaccclearance/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqaccclearance.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/reqaccclearance',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqaccclearance.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqaccclearance/{reqaccclearance}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqaccclearance.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqaccclearance/{reqaccclearance}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqaccclearance.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/reqaccclearance/{reqaccclearance}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqaccclearance.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqaccclearance.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/reqaccclearance/{reqaccclearance}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqaccclearance.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqAccClearanceController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.search' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval/search',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@search',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@search',
+        'as' => 'inventory.database.reqfinalapproval.search',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.multiplestatus' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval/multiplestatus/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@multipleStatus',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@multipleStatus',
+        'as' => 'inventory.database.reqfinalapproval.multiplestatus',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqfinalapproval.index',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@index',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@index',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqfinalapproval.create',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@create',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@create',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqfinalapproval.store',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@store',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@store',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval/{reqfinalapproval}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqfinalapproval.show',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@show',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@show',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval/{reqfinalapproval}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqfinalapproval.edit',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@edit',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@edit',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval/{reqfinalapproval}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqfinalapproval.update',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@update',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@update',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'inventory.database.reqfinalapproval.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'inventory/database/reqfinalapproval/{reqfinalapproval}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:inventory',
+        ),
+        'as' => 'inventory.database.reqfinalapproval.destroy',
+        'uses' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@destroy',
+        'controller' => 'Modules\\Inventory\\Http\\Controllers\\Database\\ReqFinalApprovalController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'inventory/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'api.payroll.index' => 
     array (
       'methods' => 
@@ -37437,7 +42123,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000e120000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000e600000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

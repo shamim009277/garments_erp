@@ -13,7 +13,7 @@ use Modules\Inventory\Http\Controllers\Setup\SupplierController;
 use Modules\Inventory\Http\Controllers\Setup\ChallanPurposeController;
 use Modules\Inventory\Http\Controllers\Setup\GoodsCategoryController;
 use Modules\Inventory\Http\Controllers\Setup\GoodsSubCategoryController;
-use Modules\Inventory\Http\Controllers\Setup\CountryController; 
+use Modules\Inventory\Http\Controllers\Setup\CountryController;
 use Modules\Inventory\Http\Controllers\Setup\ColorGroupController;
 use Modules\Inventory\Http\Controllers\Setup\ColorController;
 use Modules\Inventory\Http\Controllers\Setup\SizeController;
@@ -25,7 +25,23 @@ use Modules\Inventory\Http\Controllers\Setup\YarnCountController;
 use Modules\Inventory\Http\Controllers\Setup\FabricTypeController;
 use Modules\Inventory\Http\Controllers\Setup\FabricTreatmentsController;
 use Modules\Inventory\Http\Controllers\Setup\ProductCategoryController;
+use Modules\Inventory\Http\Controllers\Setup\ForwardApprovePannelController;
+
+
 use Modules\Inventory\Http\Controllers\Database\BasicOrderController;
+
+
+
+
+use Modules\Inventory\Http\Controllers\Database\PurchaseRequisitionController;
+use Modules\Inventory\Http\Controllers\Database\PurRequisitionMainController;
+use Modules\Inventory\Http\Controllers\Database\PurRequisitionDetailController;
+
+use Modules\Inventory\Http\Controllers\Database\ReqForwardingController;
+use Modules\Inventory\Http\Controllers\Database\ReqPricingController;
+use Modules\Inventory\Http\Controllers\Database\ReqFinalApprovalController;
+use Modules\Inventory\Http\Controllers\Database\ReqAccClearanceController;
+use Modules\Inventory\Http\Controllers\Database\ReqApprovalController;
 
 
 
@@ -51,7 +67,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/storelines/toggle', [StoreLineController::class, 'toggleStatus'])->name('storelines.toggle');
             Route::post('/storelines/delete', [StoreLineController::class, 'destroy'])->name('storelines.delete');
             Route::resource('storelines', StoreLineController::class)->names('storelines');
- 
+
             //RackLocationController
             Route::post('/racklocations/toggle', [RackLocationController::class, 'toggleStatus'])->name('racklocations.toggle');
             Route::post('/racklocations/delete', [RackLocationController::class, 'destroy'])->name('racklocations.delete');
@@ -149,12 +165,15 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/productcategories/delete', [ProductCategoryController::class, 'destroy'])->name('productcategories.delete');
             Route::resource('productcategories', ProductCategoryController::class)->names('productcategories');
 
-           
+            //ForwardApprovePannelController
+            Route::post('/forapppannel/toggle', [ForwardApprovePannelController::class, 'toggleStatus'])->name('forapppannel.toggle');
+            Route::post('/forapppannel/delete', [ForwardApprovePannelController::class, 'destroy'])->name('forapppannel.delete');
+            Route::resource('forapppannel', ForwardApprovePannelController::class)->names('forapppannel');
         });
 
         //Database
         Route::prefix('database')->name('database.')->group(function () {
-            
+
             //BasicOrderController
             Route::post('/basicorders/toggle', [BasicOrderController::class, 'toggleStatus'])->name('basicorders.toggle');
             Route::post('/basicorders/delete', [BasicOrderController::class, 'destroy'])->name('basicorders.delete');
@@ -167,11 +186,38 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':inventory'])->gro
             Route::post('/basicorders/colors_sizes/store/{id}', [BasicOrderController::class, 'storeColorsSizes'])->name('basicorders.colors_sizes.store');
 
             Route::post('/basicorders/update_lots/{id}', [BasicOrderController::class, 'updateLots'])->name('basicorders.update_lots');
-            //swift Url Calling 
+            //swift Url Calling
             Route::get('basicorders/lot/{lot}/colors', [BasicOrderController::class, 'getColors'])->name('basicorders.lot.colors');
             Route::get('basicorders/color/{color}/sizes', [BasicOrderController::class, 'getSizes'])->name('basicorders.color.sizes');
             Route::get('basicorders/size_group/{size_group}/sizes', [BasicOrderController::class, 'getSizesBySizeGroup'])->name('basicorders.size_group.sizes');
 
+            //protoy
+            Route::put('purrequisitions/search', [PurchaseRequisitionController::class, 'search'])->name('purrequisitions.search');
+            Route::resource('purrequisitions', PurchaseRequisitionController::class)->names('purrequisitions');
+            Route::put('purrequisitionmains/search', [PurRequisitionMainController::class, 'search'])->name('purrequisitionmains.search');
+            Route::put('purrequisitionmains/multiplestatus/{id}', [PurRequisitionMainController::class, 'multipleStatus'])->name('purrequisitionmains.multiplestatus');
+            Route::resource('purrequisitionmains', PurRequisitionMainController::class)->names('purrequisitionmains');
+            Route::resource('purrequisitiondetails', PurRequisitionDetailController::class)->names('purrequisitiondetails');
+
+            Route::put('reqforwarding/search', [ReqForwardingController::class, 'search'])->name('reqforwarding.search');
+            Route::put('reqforwarding/multiplestatus/{id}', [ReqForwardingController::class, 'multipleStatus'])->name('reqforwarding.multiplestatus');
+            Route::resource('reqforwarding', ReqForwardingController::class)->names('reqforwarding');
+
+            Route::put('reqpricing/search', [ReqPricingController::class, 'search'])->name('reqpricing.search');
+            Route::put('reqpricing/multiplestatus/{id}', [ReqPricingController::class, 'multipleStatus'])->name('reqpricing.multiplestatus');
+            Route::resource('reqpricing', ReqPricingController::class)->names('reqpricing');
+
+            Route::put('reqapproval/search', [ReqApprovalController::class, 'search'])->name('reqapproval.search');
+            Route::put('reqapproval/multiplestatus/{id}', [ReqApprovalController::class, 'multipleStatus'])->name('reqapproval.multiplestatus');
+            Route::resource('reqapproval', ReqApprovalController::class)->names('reqapproval');
+
+            Route::put('reqaccclearance/search', [ReqAccClearanceController::class, 'search'])->name('reqaccclearance.search');
+            Route::put('reqaccclearance/multiplestatus/{id}', [ReqAccClearanceController::class, 'multipleStatus'])->name('reqaccclearance.multiplestatus');
+            Route::resource('reqaccclearance', ReqAccClearanceController::class)->names('reqaccclearance');
+
+            Route::put('reqfinalapproval/search', [ReqFinalApprovalController::class, 'search'])->name('reqfinalapproval.search');
+            Route::put('reqfinalapproval/multiplestatus/{id}', [ReqFinalApprovalController::class, 'multipleStatus'])->name('reqfinalapproval.multiplestatus');
+            Route::resource('reqfinalapproval', ReqFinalApprovalController::class)->names('reqfinalapproval');
         });
     });
 });
