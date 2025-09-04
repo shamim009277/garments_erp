@@ -154,7 +154,7 @@
                                             <label class="m-0" for="house_rent_basic">HR % Basic</label>
                                         </td>
                                         <td width="60%" id="category_section">
-                                            <input type="text" name="house_rent_basic" id="house_rent_basic" class="form-control form-control-sm" value="{{ (int)$hroption->house_rant_percent_basic }} %"  placeholder="House Rant % Basic" required readonly/>
+                                            <input type="text" name="house_rent_basic" id="house_rent_basic" class="form-control form-control-sm" value="{{ (int)$hroption->house_rant_percent_basic }}"  placeholder="House Rant % Basic" required readonly/>
                                         </td>
                                     </tr>
                                     <tr>

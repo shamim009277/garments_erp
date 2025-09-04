@@ -12,6 +12,7 @@ use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Setup\EmployeeCategory;
+use Modules\HRIS\Models\Database\EmployeeIncrement;
 use Modules\HRIS\Http\Requests\Database\BulkIncrementRequest;
 
 class BulkIncrementController extends Controller
@@ -35,7 +36,6 @@ class BulkIncrementController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(BulkIncrementRequest $request) {
-
         $from = Carbon::parse($request->joining_date_from)->format('m-d');
         $to   = Carbon::parse($request->joining_date_to)->format('m-d');
         $oneYearAgo = Carbon::now()->subYear()->format('Y-m-d');
@@ -43,7 +43,10 @@ class BulkIncrementController extends Controller
         $employees = Employee::with(['designation' => function($q) use ($request) {
                 $q->select('id', 'designation', 'category_code');
             }])
-            ->select('id', 'employee_id', 'name', 'org_id','designation_id')
+            ->with(['employeeSalary' => function($q) {
+                $q->select('id', 'employee_id', 'gross_salary', 'basic', 'medical_allowance', 'home_allowance', 'food_allowance', 'conveyance');
+            }])
+            ->select('id', 'employee_id', 'name', 'org_id','designation_id','department_id','line','unit')
             ->where('org_id', $request->org_id)
             ->where('reason', 'N')
             ->where('joining_date', '<=', $oneYearAgo)
@@ -63,7 +66,80 @@ class BulkIncrementController extends Controller
             )
             ->get();
 
+            try {
+                $incrementSource   = $request->increment_source;
+                $incrementType     = $request->increment_value;
+                $amount            = $request->amount;
 
+                $commonData = [
+                    'increment_date'     => $request->increment_date,
+                    'effective_date'     => $request->effective_date,
+                    'arrear_upto_date'   => $request->arrear_upto_date,
+                    'increment_type_id'  => null,
+                    'increment_source'   => $incrementSource,
+                    'increment_value'    => $incrementType,
+                    'house_rent_basic'   => $request->house_rent_basic,
+                    'enforce'            => 0,
+                    'remarks'            => $request->remarks,
+                    'is_active'          => true,
+                    'created_by'         => Auth::id(),
+                    'updated_by'         => Auth::id(),
+                ];
+                $incrementMonth = Carbon::parse($request->increment_date)->format('Y-m');
+
+                $chunks = collect($employees)->chunk(100);
+
+                foreach ($chunks as $chunk) {
+                    $rows = [];
+
+                    foreach ($chunk as $employee) {
+                        $salary = $employee->employeeSalary;
+
+                        // চেক করা হবে, একই মাসে আগে থেকে ইনক্রিমেন্ট আছে কিনা
+                        $alreadyExists = EmployeeIncrement::where('employee_id', $employee->employee_id)
+                            ->whereRaw("DATE_FORMAT(increment_date, '%Y-%m') = ?", [$incrementMonth])
+                            ->exists();
+
+                        if ($alreadyExists) {
+                            continue;
+                        }
+
+                        $baseSalary = $incrementSource === 'B'
+                            ? $salary->basic
+                            : $salary->gross_salary;
+
+                        $incrementValue = $incrementType === 'P'
+                            ? round($baseSalary * ($amount / 100))
+                            : round($baseSalary + $amount);
+
+                        $rows[] = array_merge($commonData, [
+                            'employee_id'        => $employee->employee_id,
+                            'org_id'             => $employee->org_id,
+                            'department_id'      => $employee->department_id,
+                            'designation_id'     => $employee->designation_id,
+                            'line'               => $employee->line??0,
+                            'unit'               => $employee->unit??0,
+                            'new_department_id'  => $employee->department_id,
+                            'new_designation_id' => $employee->designation_id,
+                            'gross_salary'       => $salary->gross_salary,
+                            'basic'              => $salary->basic,
+                            'medical_allowance'  => $salary->medical_allowance,
+                            'home_allowance'     => $salary->home_allowance,
+                            'food_allowance'     => $salary->food_allowance,
+                            'conveyance'         => $salary->conveyance,
+                            'amount'             => $incrementValue,
+                        ]);
+                    }
+                    if (!empty($rows)) {
+                        EmployeeIncrement::insert($rows);
+                        return redirect()->back()->with('success', 'Bulk increment created successfully');
+                    }else{
+                        return redirect()->back()->with('error', 'No data found for this selection');
+                    }
+                }
+            } catch (\Throwable $th) {
+                 return redirect()->back()->with('error', $th->getMessage());
+            }
     }
 
     /**

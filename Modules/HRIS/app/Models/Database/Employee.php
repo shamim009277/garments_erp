@@ -165,6 +165,10 @@ class Employee extends Model
         return $this->hasOne(EmployeePersonal::class, 'employee_id', 'employee_id');
     }
 
+    public function employeeSalary() {
+        return $this->hasOne(EmployeeSalary::class, 'employee_id', 'employee_id');
+    }
+
     // protected static function newFactory(): Database\EmployeeFactory
     // {
     //     // return Database\EmployeeFactory::new();

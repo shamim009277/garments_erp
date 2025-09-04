@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('hris_database_employee_increments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('designation_id');
@@ -44,16 +45,18 @@ return new class extends Migration
             $table->index('employee_id');
             $table->index('increment_date');
             $table->index('effective_date');
-            $table->index('arrear_upto_date');
+            $table->index('arrear_upto_date')->nullable();
             $table->index('increment_source');
             $table->index('increment_value');
             $table->index('enforce');
 
             $table->foreign('department_id')->references('id')->on('hris_setup_departments')->onDelete('cascade');
+            $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');
             $table->foreign('designation_id')->references('id')->on('hris_setup_designations')->onDelete('cascade');
             $table->foreign('new_department_id')->references('id')->on('hris_setup_departments')->onDelete('cascade');
             $table->foreign('new_designation_id')->references('id')->on('hris_setup_designations')->onDelete('cascade');
             $table->foreign('increment_type_id')->references('id')->on('hris_setup_increment_types')->onDelete('cascade');
+
         });
     }
 
