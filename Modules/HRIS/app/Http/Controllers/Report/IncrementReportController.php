@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Organization;
-use Modules\HRIS\Models\Setup\EmployeeCategory;
 use Modules\HRIS\Models\Setup\ParentDepartment;
 use Modules\HRIS\Models\Setup\EmpGatepassPurpose;
 
-class MovementPassReportController extends Controller
+class IncrementReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +23,8 @@ class MovementPassReportController extends Controller
         $parentDepartments = ParentDepartment::with('departments')->whereHas('departments') ->orderBy('department', 'asc') ->get();
         $designations = Designation::orderBy('designation', 'asc')->get();
         $gatepass_purposes = EmpGatepassPurpose::pluck('purpose', 'id')->toArray();
-        return view('hris::report.movementpass.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'gatepass_purposes'));
+
+        return view('hris::report.increment.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'gatepass_purposes'));
     }
 
     /**

@@ -4,7 +4,10 @@ namespace Modules\HRIS\Models\Database;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Modules\HRIS\Models\Setup\Department;
+use Modules\HRIS\Models\Setup\Designation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 // use Modules\HRIS\Database\Factories\Database\EmployeeIncrementFactory;
 
 class EmployeeIncrement extends Model
@@ -56,6 +59,31 @@ class EmployeeIncrement extends Model
         static::updating(function ($increment) {
             $increment->updated_by = Auth::id();
         });
+    }
+
+    public function employeeBasic() : BelongsTo
+    {
+        return $this->belongsTo(Employee::class,'employee_id','employee_id');
+    }
+
+    public function department() : BelongsTo
+    {
+        return $this->belongsTo(Department::class,'department_id','id');
+    }
+
+    public function designation() : BelongsTo
+    {
+        return $this->belongsTo(Designation::class,'designation_id','id');
+    }
+
+    public function newDepartment() : BelongsTo
+    {
+        return $this->belongsTo(Department::class,'new_department_id','id');
+    }
+
+    public function newDesignation() : BelongsTo
+    {
+        return $this->belongsTo(Designation::class,'new_designation_id','id');
     }
 
     // protected static function newFactory(): Database\EmployeeIncrementFactory

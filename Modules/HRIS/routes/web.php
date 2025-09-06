@@ -34,9 +34,12 @@ use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
 use Modules\HRIS\Http\Controllers\Database\LeaveForwardController;
+use Modules\HRIS\Http\Controllers\Report\ShiftingReportController;
 use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Database\BulkIncrementController;
+use Modules\HRIS\Http\Controllers\Report\ApplicantReportController;
+use Modules\HRIS\Http\Controllers\Report\IncrementReportController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
 use Modules\HRIS\Http\Controllers\Tools\EditShiftingListController;
@@ -49,6 +52,7 @@ use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
 use Modules\HRIS\Http\Controllers\Tools\ExceptionalHolidayController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
+use Modules\HRIS\Http\Controllers\Database\IncrementEnforceController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApplicationController;
 use Modules\HRIS\Http\Controllers\Report\MovementPassReportController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
@@ -251,6 +255,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/fetch-designation', [BulkIncrementController::class, 'fetchDesignation'])->name('fetch-designation');
             Route::resource('bulk-increment', BulkIncrementController::class)->names('bulk-increment');
             Route::resource('employee-increment', EmployeeIncrementController::class)->names('employee-increment');
+            Route::resource('increment-enforce', IncrementEnforceController::class)->names('increment-enforce');
         });
 
         //Reports
@@ -267,6 +272,21 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::get('/movement-pass/preview', [MovementPassReportController::class, 'previewData'])->name('movement-pass.form.preview');
             Route::post('/movement-pass/preview', [MovementPassReportController::class, 'preview'])->name('movement-pass.report.preview');
             Route::resource('movement-pass', MovementPassReportController::class)->names('movement-pass');
+
+            //Shifting Report
+            Route::get('/shifting-report/preview', [ShiftingReportController::class, 'previewData'])->name('shifting-report.form.preview');
+            Route::post('/shifting-report/preview', [ShiftingReportController::class, 'preview'])->name('shifting-report.report.preview');
+            Route::resource('shifting-report', ShiftingReportController::class)->names('shifting-report');
+
+            //Applicant Report
+            Route::get('/applicant-report/preview', [ApplicantReportController::class, 'previewData'])->name('applicant-report.form.preview');
+            Route::post('/applicant-report/preview', [ApplicantReportController::class, 'preview'])->name('applicant-report.report.preview');
+            Route::resource('applicant-report', ApplicantReportController::class)->names('applicant-report');
+
+            //Increment Report
+            Route::get('/increment-report/preview', [IncrementReportController::class, 'previewData'])->name('increment-report.form.preview');
+            Route::post('/increment-report/preview', [IncrementReportController::class, 'preview'])->name('increment-report.report.preview');
+            Route::resource('increment-report', IncrementReportController::class)->names('increment-report');
         });
 
         //Settings
