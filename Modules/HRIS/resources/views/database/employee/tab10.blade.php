@@ -21,6 +21,14 @@
                                 <th width="30%" style="border: none;">মাতার নাম </th>
                                 <td width="70%" style="border: none;"><x-text-input name="mname_bangla" id="mname_bangla" class="form-control-sm" value="{{ $employee_bangla->mname_bangla }}" placeholder="মাতার নাম" required /></td>
                             </tr>
+                            <tr>
+                                <th width="30%" style="border: none;">স্বামী/স্ত্রী</th>
+                                <td width="70%" style="border: none;"><x-text-input name="spouse_name_bangla" id="spouse_name_bangla" class="form-control-sm" placeholder="স্বামী/স্ত্রী" value="{{ old('spouse_name_bangla',$employee_bangla->spouse_name_bangla) }}" /></td>
+                            </tr>
+                            <tr>
+                                <th style="border: none;">&nbsp; &nbsp;</th>
+                                <td style="border: none;">&nbsp; &nbsp;</td>
+                            </tr>
                         </table>
                     </div>
 
@@ -35,25 +43,38 @@
                                 <td width="70%" style="border: none;"><x-text-input name="conduct" id="conduct" class="form-control-sm" placeholder="আচরণ" value="{{ old('conduct',$employee_bangla->conduct) }}" /></td>
                             </tr>
                             <tr>
-                                <th width="30%" style="border: none;">স্বামী/স্ত্রী</th>
-                                <td width="70%" style="border: none;"><x-text-input name="spouse_name_bangla" id="spouse_name_bangla" class="form-control-sm" placeholder="স্বামী/স্ত্রী" value="{{ old('spouse_name_bangla',$employee_bangla->spouse_name_bangla) }}" /></td>
+                                <th width="30%" style="border: none;">নমিনির নাম </th>
+                                <td width="70%" style="border: none;"><x-text-input name="nname_bangla" id="nname_bangla" class="form-control-sm" placeholder="নমিনির নাম" value="{{ old('nname_bangla',$employee_bangla->nname_bangla) }}" required /></td>
+                            </tr>
+                            <tr>
+                                <th width="30%" style="border: none;">মোবাইল নাম্বার </th>
+                                <td width="70%" style="border: none;"><x-text-input name="nmobile_number" id="mobile_number" pattern="[0-9]{11}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" class="form-control-sm" placeholder="নমিনির মোবাইল নাম্বার" value="{{ old('nmobile_number',$employee_bangla->nmobile_number) }}" required /></td>
+                            </tr>
+                            <tr>
+                                <th width="30%" style="border: none;">সম্পর্ক </th>
+                                <td width="70%" style="border: none;"><x-text-input name="nominee_relation" id="nominee_relation" class="form-control-sm" placeholder="নমিনির সম্পর্ক" value="{{ old('nominee_relation',$employee_bangla->nominee_relation) }}" required /></td>
                             </tr>
                         </table>
                     </div>
 
                     <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
+                            <h5 class="text-primary font-weight-bold">জরুরী যোগাযোগ</h5>
                             <tr>
-                                <th width="30%" style="border: none;">নমিনির নাম </th>
-                                <td width="70%" style="border: none;"><x-text-input name="nname_bangla" id="nname_bangla" class="form-control-sm" placeholder="নমিনির নাম" value="{{ old('nname_bangla',$employee_bangla->nname_bangla) }}" required /></td>
+                                <th width="30%" style="border: none;">নাম</th>
+                                <td width="70%" style="border: none;"><x-text-input type="text" name="emergency_name" id="emergency_name" class="form-control-sm" value="{{ $employee_bangla->emergency_name??old('emergency_name') }}" placeholder="নাম" /></td>
                             </tr>
                             <tr>
-                                <th width="30%" style="border: none;">মোবাইল নাম্বার </th>
-                                <td width="70%" style="border: none;"><x-text-input name="mobile_number" id="mobile_number" pattern="[0-9]{11}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" class="form-control-sm" placeholder="মোবাইল নাম্বার" value="{{ old('mobile_number',$employee_bangla->mobile_number) }}" required /></td>
+                                <th width="30%" style="border: none;">মোবাইল নাম্বার</th>
+                                <td width="70%" style="border: none;"><x-text-input type="text" name="emergency_mobile" id="emergency_mobile" pattern="(01)[0-9]{9}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" class="form-control-sm" value="{{ $employee_bangla->emergency_mobile??old('emergency_mobile') }}" placeholder="মোবাইল নাম্বার" /></td>
                             </tr>
                             <tr>
-                                <th width="30%" style="border: none;">সম্পর্ক </th>
-                                <td width="70%" style="border: none;"><x-text-input name="spouse_name_bangla" id="spouse_name_bangla" class="form-control-sm" placeholder="স্বামী/স্ত্রী" value="{{ old('spouse_name_bangla',$employee_bangla->spouse_name_bangla) }}" required /></td>
+                                <th width="30%" style="border: none;">সম্পর্ক</th>
+                                <td width="70%" style="border: none;"><x-text-input type="text" name="emergency_relation" id="emergency_relation" class="form-control-sm" value="{{ $employee_bangla->emergency_relation??old('emergency_relation') }}" placeholder="সম্পর্ক" /></td>
+                            </tr>
+                            <tr>
+                                <th width="30%" style="border: none;">ঠিকানা</th>
+                                <td width="70%" style="border: none;"><x-text-input type="text" name="emergency_address" id="emergency_address" class="form-control-sm" value="{{ $employee_bangla->emergency_address??old('emergency_address') }}" placeholder="ঠিকানা" /></td>
                             </tr>
                         </table>
                     </div>

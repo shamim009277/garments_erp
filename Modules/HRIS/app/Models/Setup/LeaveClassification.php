@@ -30,11 +30,6 @@ class LeaveClassification extends Model
         'is_active' => 'boolean',
     ];
 
-    // protected static function newFactory(): Setup\LeaveClassificationFactory
-    // {
-    //     // return Setup\LeaveClassificationFactory::new();
-    // }
-
     public static function booted()
     {
         static::created(function ($leaveClassification) {
@@ -44,5 +39,10 @@ class LeaveClassification extends Model
         static::updated(function ($leaveClassification) {
             $leaveClassification->updated_by = Auth::user()->id;
         });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }

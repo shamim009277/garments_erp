@@ -1,5 +1,18 @@
 @extends('layouts.app')
 @section('title', 'HRIS')
+@push('styles')
+    <style>
+        .select2-selection{
+            height: 35px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            height: 32px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow{
+            height: 32px !important;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -69,9 +82,9 @@
                                                         @method('PUT')
                                                         <x-input-group name="designation" label="Designation" type="text" placeholder="Enter designation" :value="old('designation', $designation->designation)" required />
                                                         <x-input-group name="designation_bn" label="Designation(Bangla)" placeholder="Enter designation(bangla)" :value="old('designation_bn', $designation->designation_bn)" />
-                                                        <x-select-search-input name="parent_designation_id" label="Parent Designation" :options="$parentDesignations" :selected="old('parent_designation_id', $designation->parent_designation_id)" required />
+                                                        <x-select-input-group class="select2" name="parent_designation_id" label="Parent Designation" :options="$parentDesignations" :selected="old('parent_designation_id', $designation->parent_designation_id)" required />
                                                         <x-input-group name="grade" label="Grade" placeholder="Enter grade" :value="old('grade', $designation->grade)" required />
-                                                        <x-select-search-input name="category_code" label="Category" :options="$categories" :selected="old('category_code', $designation->category_code)" required />
+                                                        <x-select-input-group name="category_code" class="select2" label="Category" :options="$categories" :selected="old('category_code', $designation->category_code)" required />
                                                         <x-input-group name="approved_mp" label="Approved MP" type="number" placeholder="Enter approved mp" :value="old('approved_mp', $designation->approved_mp)" required />
                                                         <x-select-input-group name="is_attn_bonus" label="Is Attn Bonus?" :options="['1' => 'Yes', '0' => 'No']" :selected="old('is_attn_bonus', $designation->is_attn_bonus)" required />
                                                         <x-input-group name="attendance_bonus" label="Attendance Bonus" type="number" placeholder="Enter attendance bonus" :value="old('attendance_bonus', $designation->attendance_bonus)" required />
@@ -106,9 +119,9 @@
                         @csrf
                         <x-input-group name="designation" label="Designation" type="text" placeholder="Enter designation" :value="old('designation')" required />
                         <x-input-group name="designation_bn" label="Designation(Bangla)" placeholder="Enter designation(bangla)" :value="old('designation_bn')" />
-                        <x-select-search-input name="parent_designation_id" label="Parent Designation" :options="$parentDesignations" :selected="old('parent_designation_id')" required />
+                        <x-select-input-group name="parent_designation_id" class="select2" label="Parent Designation" :options="$parentDesignations" :selected="old('parent_designation_id')" required />
                         <x-input-group name="grade" label="Grade" placeholder="Enter grade" :value="old('grade')" required />
-                        <x-select-search-input name="category_code" label="Category" :options="$categories" :selected="old('category_code')" required />
+                        <x-select-input-group name="category_code" class="select2" label="Category" :options="$categories" :selected="old('category_code')" required />
                         <x-input-group name="approved_mp" label="Approved MP" type="number" placeholder="Enter approved mp" :value="old('approved_mp')" required />
                         <x-select-input-group name="is_attn_bonus" label="Is Attn Bonus?" :options="['1' => 'Yes', '0' => 'No']" :selected="old('is_attn_bonus', '1')" required />
                         <x-input-group name="attendance_bonus" label="Attendance Bonus" type="number" placeholder="Enter attendance bonus" :value="old('attendance_bonus')" required />

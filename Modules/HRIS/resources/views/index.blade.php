@@ -9,7 +9,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);"><i data-feather="home"
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i data-feather="home"
                                     class="icon-xs align-middle me-1"></i></a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
                         <li class="breadcrumb-item active">Starter Page</li>

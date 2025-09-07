@@ -14,7 +14,6 @@
             background-color: #b7bbf5 !important;
             border: 1px solid #b7bbf5 !important;
         }
-
     </style>
 @endpush
 @section('content')
@@ -41,18 +40,20 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-4">
+                    <form id="user_form" action="{{ route('hris.settings.forward-approve.store') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                        <div class="col-lg-5">
                             <table class="table table-sm" style="width: 100%">
                                 <tbody>
                                     <tr>
                                         <td colspan="2" style="width: 100%">
-                                            <x-select-input name="org_id" id="org_id" class="select2" :options="$organizations" :selected="old('org_id', '1')" placeholder="Select" />
+                                            <x-select-input name="org_id" id="org_id" class="select2" :options="$organizations" :selected="old('org_id', '1')" placeholder="Select" required />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="width: 100%">
-                                            <x-select-input name="blood_group" id="blood_group" class="select2" :options="['1' => 'Leave', '2' => 'Movement Pass']" :selected="old('blood_group', '2')" placeholder="Select" />
+                                            <x-select-input name="type" id="type" class="select2" :options="['1' => 'Leave', '2' => 'Movement Pass']" :selected="old('type', '2')" placeholder="Select" required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -75,58 +76,41 @@
                                     </tr>
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="all_category">Users</label>
+                                            <label class="m-0" for="user_id">Users</label>
                                         </td>
-                                        <td width="60%" id="all_category_section">
-                                            <x-select-input name="user_id" id="user_id" class="select2" :options="['1' => 'User 1', '2' => 'User 2']" placeholder="User ID" />
+                                        <td width="60%" id="user_section">
+                                            <x-select-input name="user_id" id="user_id" class="select2" :options="$activeUsers" placeholder="User ID" required />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="all_category">Forward/Approve</label>
+                                            <label class="m-0" for="category_id">Forward/Approve</label>
                                         </td>
-                                        <td width="60%" id="all_category_section">
-                                            <x-select-input name="category_id" id="category_id" class="select2" :options="['1' => 'Forward', '2' => 'Approve']" placeholder="Category ID" />
+                                        <td width="60%" id="category_section">
+                                            <x-select-input name="category_id" id="category_id" class="select2" :options="['1' => 'Forward', '2' => 'Approve']" placeholder="Category ID" required />
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-lg-8 pe-lg-0 ps-lg-0">
+                        <div class="col-lg-7 ps-lg-0">
                             <div class="card padding-card">
-                                <div class="card-body" style="min-height: 350px;max-height: 350px;overflow-y: auto">
-                                    <table class="table table-sm table-striped table-hover" style="width: 100%">
-                                    <thead style="position: sticky;top: -20px;background-color: #4f85bc !important" class="table-light">
-                                        <tr>
-                                            <th width="25%">EmployeeID</th>
-                                            <th width="25%">Name</th>
-                                            <th width="25%">Department</th>
-                                            <th width="25%">Category</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="employee_id[]" id="employee_id" class="add_user">
-                                                <label class="m-0" for="employee_id">001</label>
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Department 1</td>
-                                            <td>Category 1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" name="employee_id[]" id="employee_id" class="add_user">
-                                                <label class="m-0" for="employee_id">002</label>
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Department 1</td>
-                                            <td>Category 1</td>
-                                        </tr>
-                                    </tbody>
-                                    </table>
+                                <div class="card-body" style="min-height: 350px;max-height: 350px;overflow-y: auto;padding: 2px 2px !important">
+                                    <div style="overflow-x: auto;">
+                                        <table class="table table-sm table-striped table-hover" id="user_table" style="width: 100%">
+                                            <thead style="position: sticky;top: -20px;background-color: #4f85bc !important" class="table-light">
+                                                <tr>
+                                                    <th width="25%">EmployeeID</th>
+                                                    <th width="25%">Name</th>
+                                                    <th width="25%" class="text-center">Department</th>
+                                                    <th width="25%" class="text-center">Category</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="user_table_body"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <div class="card-footer" style="padding: 12px 20px !important">
+                                <div class="card-footer" style="padding: 12px 10px !important">
                                     <div class="d-flex flex-wrap gap-2">
                                         <button type="button" class="btn btn-sm btn-outline-success" id="check_all_add">
                                             <i data-feather="check-square" width="14" height="14"></i> Check All
@@ -134,14 +118,13 @@
                                         <button type="button" class="btn btn-sm btn-outline-primary" id="uncheck_all_add">
                                             <i data-feather="x-square" width="14" height="14"></i> Uncheck All
                                         </button>
-                                        <x-primary-button type="button" id="add_user_button" class="btn btn-sm btn-primary float-end" disabled>Add User</x-primary-button>
+                                        <x-primary-button type="submit" id="add_user_button" class="btn btn-sm btn-primary float-end" disabled>Add User</x-primary-button>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -159,7 +142,7 @@
                                     <label class="m-0" for="existing_user">Existing User</label>
                                 </th>
                                 <td width="60%">
-                                    <x-select-input name="existing_user" id="existing_user" class="select2" :options="['1' => 'Leave', '2' => 'Movement Pass']" :selected="old('existing_user', '2')" placeholder="Select" />
+                                    <x-select-input name="existing_user" id="existing_user" class="select2" :options="$activeUsers" :selected="old('existing_user', '2')" placeholder="Select" />
                                 </td>
                             </tr>
                             <tr>
@@ -167,20 +150,20 @@
                                     <label class="m-0" for="replace_user">Replace User</label>
                                 </th>
                                 <td width="60%">
-                                    <x-select-input name="replace_user" id="replace_user" class="select2" :options="['1' => 'Leave', '2' => 'Movement Pass']" :selected="old('replace_user', '2')" placeholder="Select" />
+                                    <x-select-input name="replace_user" id="replace_user" class="select2" :options="$activeUsers" :selected="old('replace_user', '2')" placeholder="Select" />
                                 </td>
                             </tr>
                             <tr>
                                 <td width="40%">
-                                    <label class="m-0" for="all_category">Forward/Approve</label>
+                                    <label class="m-0" for="category_id">Forward/Approve</label>
                                 </td>
-                                <td width="60%" id="all_category_section">
-                                    <x-select-input name="category_id" id="category_idd" class="select2" :options="['1' => 'Forward', '2' => 'Approve']" placeholder="Category ID" />
+                                <td width="60%" id="forward_approve_section">
+                                    <x-select-input name="replace_category_id" id="replace_category_id" class="select2" :options="['1' => 'Forward', '2' => 'Approve']" :selected="old('replace_category_id', '1')" placeholder="Category ID" />
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" style="width: 100%">
-                                    <button type="button" class="btn btn-sm btn-primary float-end">Replace</button>
+                                    <button type="button" class="btn btn-sm btn-primary float-end" id="replace_button" disabled>Replace</button>
                                 </td>
                             </tr>
                         </thead>
@@ -202,7 +185,7 @@
 
                         <!-- Button -->
                         <div class="col-12 col-md-auto text-md-end">
-                            <x-select-input name="user_id" class="select2" :options="['1'=>'User 1', '2'=>'User 2']" placeholder="User ID" width="100%" />
+                            <x-select-input name="forward_user_id" id="forward_user_id" class="select2" :options="$activeUsers" placeholder="User ID" width="100%" />
                         </div>
                     </div>
                 </div>
@@ -214,36 +197,11 @@
                                     <th width="20%">EmployeeID</th>
                                     <th width="25%">Name</th>
                                     <th width="25%">Department</th>
-                                    <th width="25%">Category</th>
+                                    <th width="25%" class="text-center">Category</th>
                                     <th width="10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="employee_id[]" id="employee_id" class="form-check-input forward_user">
-                                        <label class="m-0" for="employee_id">002</label>
-                                    </td>
-                                    <td>John Doe</td>
-                                    <td>Department 1</td>
-                                    <td>Category 1</td>
-                                    <td class="text-center">
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-forward-user" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="employee_id[]" id="employee_id" class="form-check-input forward_user">
-                                        <label class="m-0" for="employee_id">003</label>
-                                    </td>
-                                    <td>John Doe</td>
-                                    <td>Department 1</td>
-                                    <td>Category 1</td>
-                                    <td class="text-center">
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-forward-user" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody id="forward_user_table_body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -278,7 +236,7 @@
 
                         <!-- Button -->
                         <div class="col-12 col-md-auto text-md-end">
-                            <x-select-input name="user_id" class="select2" :options="['1'=>'User 1', '2'=>'User 2']" placeholder="User ID" width="100%" />
+                            <x-select-input name="approved_user_id" id="approved_user_id" class="select2" :options="$activeUsers" placeholder="User ID" width="100%" />
                         </div>
                     </div>
                 </div>
@@ -290,36 +248,11 @@
                                     <th width="20%">EmployeeID</th>
                                     <th width="25%">Name</th>
                                     <th width="25%">Department</th>
-                                    <th width="20%">Category</th>
+                                    <th width="20%" class="text-center">Category</th>
                                     <th width="10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                <td>
-                                    <input type="checkbox" name="employee_id[]" id="employee_id" class="form-check-input approved_user">
-                                    <label class="m-0" for="employee_id">002</label>
-                                </td>
-                                <td>John Doe</td>
-                                <td>Department 1</td>
-                                <td>Category 1</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-forward-user" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
-                                </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="employee_id[]" id="employee_id" class="form-check-input approved_user">
-                                        <label class="m-0" for="employee_id">003</label>
-                                    </td>
-                                    <td>John Doe</td>
-                                    <td>Department 1</td>
-                                    <td>Category 1</td>
-                                    <td class="text-center">
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-forward-user" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody id="approved_user_table_body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -443,18 +376,100 @@
                 }
             }
 
-            $('.add_user').on('change', function () {
+            $(document).on('change', '.add_user', function () {
                 handleAddUser();
             });
 
-            $('.forward_user').on('change', function () {
+            $(document).on('change', '.forward_user', function () {
                 handleForwardUser();
             });
 
-            $('.approved_user').on('change', function () {
+            $(document).on('change', '.approved_user', function () {
                 handleApprovedUser();
             });
 
+            //Fetch user
+            $('#org_id,#department_id,#employee_category_id,#user_id,#type,#category_id').on('change', function () {
+                fetchUser();
+            });
+
+            function fetchUser() {
+                let org_id = $('#org_id').val();
+                let user_id = $('#user_id').val();
+                let type = $('#type').val();
+                let category_id = $('#category_id').val();
+                let department_id = $('#department_id').val();
+                let employee_category_id = $('#employee_category_id').val();
+
+                let all_department = $('#all_department').is(':checked');
+                let all_category = $('#all_category').is(':checked');
+
+                if((all_department || (department_id !== null && department_id !== '')) && (all_category || (employee_category_id !== null && employee_category_id !== '')) && (org_id !== null && org_id !== '')&& (user_id !== null && user_id !== '')&& (type !== null && type !== '')&& (category_id !== null && category_id !== '')){
+                    $.ajax({
+                        url: "{{ route('hris.settings.forward-approve.fetch-user') }}",
+                        type: "POST",
+                        data: {
+                            org_id: org_id,
+                            user_id: user_id,
+                            type: type,
+                            category_id: category_id,
+                            department_id: department_id,
+                            employee_category_id: employee_category_id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function (response) {
+                            $('#user_table_body').html('');
+                            response.forEach(emp => {
+                                $('#user_table_body').append(`
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="employee_id[]" id="employee_${emp.id}" class="add_user" value="${emp.employee_id}">
+                                            <label class="m-0" for="employee_${emp.id}">${emp.employee_id}</label>
+                                        </td>
+                                        <td>${emp.name ?? ''}</td>
+                                        <td class="text-center">${emp.department?.department ?? ''}</td>
+                                        <td class="text-center">${emp.designation?.category_code ?? ''}</td>
+                                    </tr>
+                                `);
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                }else{
+                    $('#user_table_body').html('');
+                }
+            };
+
+            //Existing user & Replace user
+            let isResetting = false;
+
+            $('#existing_user,#replace_user').on('change', function () {
+                if (isResetting) return;
+
+                let existing_user = $('#existing_user').val();
+                let replace_user = $('#replace_user').val();
+
+                if (existing_user == replace_user) {
+                    Swal.fire(
+                        'Error!',
+                        'Existing user and replace user cannot be same.',
+                        'error'
+                    );
+                    isResetting = true;
+                    $('#replace_user').val('').trigger('change');
+                    isResetting = false;
+                }
+
+                if (existing_user && replace_user) {
+                    $('#replace_button').prop('disabled', false);
+                } else {
+                    $('#replace_button').prop('disabled', true);
+                }
+            });
+
+            //Add User
             $('#add_user_button').on('click', function () {
                 let checkedCount = $('.add_user:checked').length;
                 if (checkedCount > 0) {
@@ -465,6 +480,427 @@
                         'Please select at least one user.',
                         'error'
                     );
+                }
+            });
+
+            //Movement pass holay only approve
+            $('#type').on('change', function () {
+                let type = $(this).val();
+                if (type == 2) {
+                    $('#category_id').val('2').trigger('change');
+                    $('#category_id').prop('disabled', true);
+                    $('#category_id').addClass('disabled-select');
+
+                    $('#replace_category_id').val('2').trigger('change');
+                    $('#replace_category_id').prop('disabled', true);
+                    $('#replace_category_id').addClass('disabled-select');
+                }else{
+                    $('#category_id').prop('disabled', false);
+                    $('#category_id').removeClass('disabled-select');
+
+                    $('#replace_category_id').prop('disabled', false);
+                    $('#replace_category_id').removeClass('disabled-select');
+                }
+            });
+            $('#type').trigger('change');
+
+            //Fetch Approved data
+            $('#approved_user_id').on('change', function () {
+                fetchApprovedData();
+            });
+
+            $('#forward_user_id').on('change', function () {
+                fetchForwardData();
+            });
+
+            function fetchApprovedData() {
+                let approved_user_id = $('#approved_user_id').val();
+                let type = $('#type').val();
+                let org_id = $('#org_id').val();
+
+                if((org_id !== null && org_id !== '')&& (approved_user_id !== null && approved_user_id !== '')&& (type !== null && type !== '')){
+                    $.ajax({
+                        url: "{{ route('hris.settings.forward-approve.fetch-approved-data') }}",
+                        type: "POST",
+                        data: {
+                            org_id: org_id,
+                            approved_user_id: approved_user_id,
+                            type: type,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            $('#approved_user_table_body').empty();
+                            if(response.length == 0){
+                                $('#approved_user_table_body').append(`
+                                    <tr>
+                                        <td colspan="5" class="text-center">No data found</td>
+                                    </tr>
+                                `);
+                            }else{
+                                response.forEach(emp => {
+                                let row = `
+                                    <tr id="row-${emp.id}">
+                                        <td>
+                                            <input type="checkbox" name="employee_id[]" id="employee_${emp.id}" class="form-check-input approved_user" value="${emp.id}">
+                                            <label class="m-0" for="employee_${emp.id}">${emp.employee_id}</label>
+                                        </td>
+                                        <td>${emp.name}</td>
+                                        <td>${emp.department ?? ''}</td>
+                                        <td class="text-center">${emp.category_code ?? ''}</td>
+                                        <td class="text-center">
+                                             <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-approved-user" data-id="${emp.id}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                `;
+
+                                $('#approved_user_table_body').append(row);
+                            });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                }else{
+                    $('#approved_user_table_body').html('');
+                }
+            }
+
+            function fetchForwardData() {
+                let forward_user_id = $('#forward_user_id').val();
+                let type = $('#type').val();
+                let org_id = $('#org_id').val();
+                if(type == 1){
+                    if((org_id !== null && org_id !== '')&& (forward_user_id !== null && forward_user_id !== '')&& (type !== null && type !== '')){
+                        $.ajax({
+                            url: "{{ route('hris.settings.forward-approve.fetch-forward-data') }}",
+                            type: "POST",
+                        data: {
+                            org_id: org_id,
+                            forward_user_id: forward_user_id,
+                            type: type,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            $('#forward_user_table_body').empty();
+                            if(response.length == 0){
+                                $('#forward_user_table_body').append(`
+                                    <tr>
+                                        <td colspan="5" class="text-center">No data found</td>
+                                    </tr>
+                                `);
+                            }else{
+                                response.forEach(emp => {
+                                let row = `
+                                    <tr id="rowf-${emp.id}">
+                                        <td>
+                                            <input type="checkbox" name="employee_id[]" id="employee_${emp.id}" class="form-check-input forward_user" value="${emp.id}">
+                                            <label class="m-0" for="employee_${emp.id}">${emp.employee_id}</label>
+                                        </td>
+                                        <td>${emp.name}</td>
+                                        <td>${emp.department ?? ''}</td>
+                                        <td class="text-center">${emp.category_code ?? ''}</td>
+                                        <td class="text-center">
+                                             <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-forward-user" data-id="${emp.id}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                `;
+
+                                $('#forward_user_table_body').append(row);
+                            });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                    }else{
+                        $('#forward_user_table_body').html('');
+                    }
+                }else if(type == 2){
+                    Swal.fire(
+                        'Error!',
+                        'Movement pass does not have forward approval.',
+                        'error'
+                    );
+                }
+            }
+
+            $(document).on('click', '.delete-approved-user', function(e) {
+                e.preventDefault();
+                let approvedUserId = $(this).data('id');
+                let type = $('#type').val();
+                let form = 1;
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('hris.settings.forward-approve.delete-approved-user') }}',
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: approvedUserId,
+                                type: type,
+                                form: form,
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Approved user has been deleted.',
+                                    'success'
+                                );
+                                $('#row-' + approvedUserId).remove();
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else {
+                        Swal.fire(
+                            'Cancelled!',
+                            'Approved user has not been deleted.',
+                            'error'
+                        );
+                    }
+                });
+            });
+
+            $(document).on('click', '.delete-forward-user', function(e) {
+                e.preventDefault();
+                let forwardUserId = $(this).data('id');
+                let type = $('#type').val();
+                let form = 3;
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('hris.settings.forward-approve.delete-approved-user') }}',
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: forwardUserId,
+                                type: type,
+                                form: form,
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Approved user has been deleted.',
+                                    'success'
+                                );
+                                $('#rowf-' + forwardUserId).remove();
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else {
+                        Swal.fire(
+                            'Cancelled!',
+                            'Approved user has not been deleted.',
+                            'error'
+                        );
+                    }
+                });
+            });
+
+            $(document).on('click', '#delete_all_approved', function(e) {
+                e.preventDefault();
+                let type = $('#type').val();
+                let approvedUserIds = [];
+                let form = 2;
+                $('.approved_user:checked').each(function() {
+                    approvedUserIds.push($(this).val());
+                });
+                if(approvedUserIds.length == 0){
+                    Swal.fire(
+                        'Error!',
+                        'Please select at least one user.',
+                        'error'
+                    );
+                    return;
+                }
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('hris.settings.forward-approve.delete-approved-user') }}',
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: approvedUserIds,
+                                type: type,
+                                form: form
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Forward user has been deleted.',
+                                    'success'
+                                );
+                                $('.approved_user:checked').each(function() {
+                                    $(this).closest('tr').remove();
+                                });
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else {
+                        Swal.fire(
+                            'Cancelled!',
+                            'Forward user has not been deleted.',
+                            'error'
+                        );
+                    }
+                });
+            });
+
+            $(document).on('click', '#delete_all_forward', function(e) {
+                e.preventDefault();
+                let type = $('#type').val();
+                let forwardUserIds = [];
+                let form = 4;
+                $('.forward_user:checked').each(function() {
+                    forwardUserIds.push($(this).val());
+                });
+                if(forwardUserIds.length == 0){
+                    Swal.fire(
+                        'Error!',
+                        'Please select at least one user.',
+                        'error'
+                    );
+                    return;
+                }
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('hris.settings.forward-approve.delete-approved-user') }}',
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: forwardUserIds,
+                                type: type,
+                                form: form
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Forward user has been deleted.',
+                                    'success'
+                                );
+                                $('.forward_user:checked').each(function() {
+                                    $(this).closest('tr').remove();
+                                });
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else {
+                        Swal.fire(
+                            'Cancelled!',
+                            'Forward user has not been deleted.',
+                            'error'
+                        );
+                    }
+                });
+            });
+
+            //Replace User
+            $(document).on('click','#replace_button', function () {
+                let existing_user = $('#existing_user').val();
+                let replace_user = $('#replace_user').val();
+                let type = $('#type').val();
+                let replace_category_id = $('#replace_category_id').val();
+
+                if ((existing_user != null || existing_user != '') && (replace_user != null || replace_user != '')) {
+                    $.ajax({
+                        url: '{{ route('hris.settings.forward-approve.replace-user') }}',
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            existing_user: existing_user,
+                            replace_user: replace_user,
+                            type: type,
+                            replace_category_id: replace_category_id,
+                        },
+                        success: function(response) {
+                            if(response.error){
+                                Swal.fire(
+                                    'Error!',
+                                    response.error,
+                                    'error'
+                                );
+                            }else if(response.success){
+                                Swal.fire(
+                                    'Success!',
+                                    response.message,
+                                    'success'
+                                );
+                                isResetting = true;
+                                $('#existing_user').val('').trigger('change');
+                                $('#replace_user').val('').trigger('change');
+                                $('#replace_button').prop('disabled', true);
+                            }
+                        },
+                        error: function() {
+                            Swal.fire(
+                                'Error!',
+                                'Something went wrong.',
+                                'error'
+                            );
+                        }
+                    });
                 }
             });
         });

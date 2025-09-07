@@ -73,4 +73,15 @@ class User extends Authenticatable
             }
         });
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function getActiveUserAttribute()
+    {
+        $employeeId = $this->employee_id ?? 'N/A';
+        return $this->name . '(' . $employeeId . ')';
+    }
 }

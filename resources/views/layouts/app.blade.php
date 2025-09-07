@@ -31,6 +31,8 @@
     <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <style>
         table tr th {
             padding: 6px !important;
@@ -140,6 +142,16 @@
         .choices__inner{
             background-color: #F8F9FA !important;
             border-radius: 0.25rem !important;
+        }
+
+        .select2-container--default .select2-selection--multiple{
+            background-color: #F8F9FA !important;
+            border: 1px solid #E9E9EF !important;
+        }
+
+        .disabled-select {
+            cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
         }
     </style>
     @stack('styles')
@@ -279,6 +291,13 @@
         $(document).on('shown.bs.modal', '.modal', function () {
             $(this).find('.select2').select2({
                 dropdownParent: $(this)
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("input[type='date']", {
+                dateFormat: "Y-m-d",
+                allowInput: true,
             });
         });
     </script>

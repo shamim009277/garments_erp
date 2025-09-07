@@ -1,5 +1,18 @@
 @extends('layouts.app')
 @section('title', 'HRIS')
+@push('styles')
+    <style>
+        .select2-selection{
+            height: 35px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            height: 32px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow{
+            height: 32px !important;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -61,7 +74,7 @@
                                                         @method('PUT')
                                                         <x-input-group name="department" label="Name" type="text" placeholder="Enter name" :value="$department->department" required />
                                                         <x-input-group name="department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="$department->department_bn" />
-                                                        <x-select-search-input name="parent_department_id" label="Parent Department" :options="$parentDepartments" :selected="$department->parent_department_id" required />
+                                                        <x-select-input-group name="parent_department_id" class="select2" label="Parent Department" :options="$parentDepartments" :selected="$department->parent_department_id" required />
                                                         <x-input-group name="approved_mp" label="Approved Man Power" type="number" placeholder="Enter approved man power" :value="$department->approved_mp" />
                                                         <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$department->is_active" required />
                                                     </div>
@@ -91,7 +104,7 @@
                         @csrf
                         <x-input-group name="department" label="Name" type="text" placeholder="Enter name" :value="old('department')" required />
                         <x-input-group name="department_bn" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="old('department_bn')" />
-                        <x-select-search-input name="parent_department_id" label="Parent Department" :options="$parentDepartments" :selected="old('parent_department_id')" required />
+                        <x-select-input-group name="parent_department_id" class="select2" label="Parent Department" :options="$parentDepartments" :selected="old('parent_department_id')" required />
                         <x-input-group name="approved_mp" label="Approved Man Power" type="number" placeholder="Enter approved man power" :value="old('approved_mp')" />
                         <x-select-input-group
                             name="is_active"

@@ -38,7 +38,7 @@
                 <div class="card-header">
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Pending Applicant List</h6>
                 </div>
-                <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
+                <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
                     <ul class="nav-custom">
                         @foreach ($unique_department as $department)
                             @php
@@ -119,8 +119,12 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <tr>
-                                                <th width="30%" style="border: none;">Line</th>
-                                                <td width="70%" style="border: none;"><x-text-input name="line" id="line" type="text" class="form-control-sm" placeholder="Line" /></td>
+                                                <th width="30%" style="border: none;">Unit </th>
+                                                <td width="70%" style="border: none;"><x-select-input name="unit" id="unit" class="select2" :options="$units" required /></td>
+                                            </tr>
+                                            <tr>
+                                                <th width="30%" style="border: none;">Line </th>
+                                                <td width="70%" style="border: none;"><x-select-input name="line" id="line" class="select2" :options="[]" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Grade </th>
@@ -134,10 +138,6 @@
                                                 <th width="30%" style="border: none;">Confirm Date </th>
                                                 <td width="70%" style="border: none;"><x-text-input name="confirmation_date" id="confirmation_date" type="date" class="form-control-sm" placeholder="Confirm Date" required readonly /></td>
                                             </tr>
-                                            <tr>
-                                                <th style="border: none;">&nbsp; &nbsp;</th>
-                                                <td style="border: none;">&nbsp; &nbsp;</td>
-                                            </tr>
                                         </table>
                                     </div>
                                 </div>
@@ -145,7 +145,9 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
-                                            <h6 class="text-primary font-weight-bold">Present Address</h6>
+                                            <tr>
+                                                <th colspan="2" style="border: none;"><span class="text-primary">Present Address</span> </th>
+                                            </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="pdistrict_id" id="pdistrict_id" class="select2" :options="$districts" required /></td>
@@ -172,7 +174,9 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
-                                            <h6 class="text-primary font-weight-bold">Mailing Address</h6>
+                                            <tr>
+                                                <th colspan="2" style="border: none;"><span class="text-primary">Mailing Address</span> </th>
+                                            </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="mdistrict_id" id="mdistrict_id" class="select2" :options="$districts" required /></td>
@@ -211,31 +215,35 @@
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Shifting Duty? </th>
-                                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="Y" required /></td>
+                                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="N" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Reference Shift? </th>
+                                        <th width="30%" style="border: none;">Ref. Shift? </th>
                                         <td width="70%" style="border: none;"><x-select-input name="refrerence_shift" id="refrerence_shift" class="select2" :options="$shifts" selected="G" required /></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Reference Date </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="refrerence_date" type="date" id="refrerence_date" class="form-control-sm" placeholder="Reference Date" required /></td>
+                                        <th width="30%" style="border: none;">Ref. Holiday? </th>
+                                        <td width="70%" style="border: none;"><x-select-input name="refrerence_holiday" id="refrerence_holiday" class="select2" :options="['Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday','Saturday'=>'Saturday']" selected="Friday" required /></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%" style="border: none;">Ref. Date </th>
+                                        <td width="70%" style="border: none;"><x-text-input name="refrerence_date" type="date" id="refrerence_date" class="form-control-sm" placeholder="Reference Date" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" id="name" placeholder="Name" value="{{ old('name') }}" required /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" id="name" placeholder="Name" value="{{ old('name') }}" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Father Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" value="{{ old('father_name') }}" required /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" value="{{ old('father_name') }}" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Mother Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="mother_name" class="form-control-sm" id="mother_name" placeholder="Mother Name" value="{{ old('mother_name') }}" required /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="mother_name" class="form-control-sm" id="mother_name" placeholder="Mother Name" value="{{ old('mother_name') }}" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Spouse Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="spouse_name" class="form-control-sm" id="spouse_name" placeholder="Spouse Name" value="{{ old('spouse_name') }}" /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="spouse_name" class="form-control-sm" id="spouse_name" placeholder="Spouse Name" value="{{ old('spouse_name') }}" autocomplete="off" /></td>
                                     </tr>
                                 </table>
                             </div>
@@ -313,6 +321,24 @@
                 }
             });
 
+            $('#unit').on('change', function() {
+                $('#line').empty();
+                let unitcode = $(this).val();
+                if (unitcode) {
+                    $.ajax({
+                        url: '/hris/database/unit/' + unitcode,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#line').empty();
+                            $('#line').append('<option value="">Select Line</option>');
+                            $.each(data, function(key, value) {
+                                $('#line').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
 
             $('#joining_date').on('change', function () {
                 const joiningDateVal = $(this).val();
@@ -338,6 +364,7 @@
                 $('#pdistrict_id').trigger('change');
                 $('#mdistrict_id').trigger('change');
                 $('#designation_id').trigger('change');
+                $('#unit').trigger('change');
             });
 
 
