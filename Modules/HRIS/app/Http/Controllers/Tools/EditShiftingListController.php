@@ -69,7 +69,6 @@ class EditShiftingListController extends Controller
         $request->validate([
             'form' => 'required',
             'shift' => 'required|exists:hris_setup_shifts,shift',
-            'id' => 'required',
         ]);
 
         try {

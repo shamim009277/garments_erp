@@ -32,7 +32,8 @@ return new class extends Migration
             $table->date('arrear_upto_date');
             $table->unsignedBigInteger('increment_type_id')->default(0);
             $table->enum('increment_source', ['B', 'G']);
-            $table->enum('increment_value', ['P', 'F']);
+            $table->enum('increment_value_type', ['P', 'F']);
+            $table->decimal('increment_value',18,2);
             $table->decimal('amount', 18, 2);
             $table->decimal('house_rent_basic', 18, 2);
             $table->integer('enforce')->default(0);

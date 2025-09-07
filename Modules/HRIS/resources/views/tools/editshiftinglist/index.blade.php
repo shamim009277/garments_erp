@@ -96,7 +96,7 @@
                                     </div>
                                 </td>
                                 <td width="20%" style="border: none;">
-                                    <x-primary-button id="submitBtn" class="btn-sm btn-danger submitBtn float-end display" type="submit">Change</x-primary-button>
+                                    <x-primary-button id="submitBtn" class="btn-sm btn-danger submitBtn float-end re-generate" type="submit">Re-Generate</x-primary-button>
                                 </td>
                             </tr>
                         </tbody>
@@ -162,7 +162,7 @@
                 },
                 success: function(response) {
                     $('#employeedata').empty();
-
+                    console.log(response);
                     if (response.success && response.data.length > 0) {
                         let row = ``;
                         response.data.forEach(emp => {
@@ -194,45 +194,45 @@
         });
 
 
-        $(document).on('click', '.delete-Display', function(e) {
-            let id = $(this).data('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '{{ route('hris.tools.editexceptional-holidays.delete') }}',
-                        type: 'POST',
-                        data: {
-                            id: id,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Holiday has been deleted.',
-                                    'success'
-                                );
-                                $('#row-' + id).remove();
-                            } else {
-                                Swal.fire(
-                                    'Error!',
-                                    'Holiday has not been deleted.',
-                                    'error'
-                                );
-                            }
-                        }
-                    });
-                }
-            });
-        });
+        // $(document).on('click', '.delete-Display', function(e) {
+        //     let id = $(this).data('id');
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "You won't be able to revert this!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             $.ajax({
+        //                 url: '{{ route('hris.tools.editexceptional-holidays.delete') }}',
+        //                 type: 'POST',
+        //                 data: {
+        //                     id: id,
+        //                     _token: '{{ csrf_token() }}'
+        //                 },
+        //                 success: function(response) {
+        //                     if (response.success) {
+        //                         Swal.fire(
+        //                             'Deleted!',
+        //                             'Holiday has been deleted.',
+        //                             'success'
+        //                         );
+        //                         $('#row-' + id).remove();
+        //                     } else {
+        //                         Swal.fire(
+        //                             'Error!',
+        //                             'Holiday has not been deleted.',
+        //                             'error'
+        //                         );
+        //                     }
+        //                 }
+        //             });
+        //         }
+        //     });
+        // });
 
         $(document).on('click', '.display-date', function(e) {
             e.preventDefault();
@@ -391,7 +391,7 @@
                     }
                 },
                 error: function (xhr) {
-                    toastr.error("Something went wrong!");
+                    toastr.error(xhr.responseJSON.message);
                 }
             });
         });

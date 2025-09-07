@@ -22,7 +22,7 @@ class BulkIncrementRequest extends FormRequest
             'effective_date' => 'required|date',
             'arrear_upto_date' => 'nullable|date',
             'increment_source' => 'required',
-            'increment_value' => 'required',
+            'increment_value_type' => 'required',
             'remarks' => 'nullable|string|max:255',
         ];
     }

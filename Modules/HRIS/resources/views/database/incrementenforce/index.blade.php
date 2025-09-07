@@ -87,7 +87,10 @@
                                             <td style="text-align: center;">{{ $data->effective_date }}</td>
                                             <td style="text-align: center;">{{ $data->arrear_upto_date }}</td>
                                             <td style="text-align: center;">{{ $data->increment_source }}</td>
-                                            <td style="text-align: center;">{{ $data->increment_value }}</td>
+                                            <td style="text-align: center;">
+                                                {{ $data->increment_value }}
+                                                {{ $data->increment_value_type }}
+                                            </td>
                                             <td style="text-align: center;">{{ $data->amount }}</td>
                                             <td style="text-align: center;">{{ $data->house_rent_basic }}</td>
                                             <td>-</td>
