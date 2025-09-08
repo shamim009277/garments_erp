@@ -41,6 +41,7 @@ class EmployeeIncrement extends Model
         'increment_type_id',
         'increment_source',
         'increment_value',
+        'increment_value_type',
         'house_rent_basic',
         'enforce',
         'remarks',
@@ -84,6 +85,11 @@ class EmployeeIncrement extends Model
     public function newDesignation() : BelongsTo
     {
         return $this->belongsTo(Designation::class,'new_designation_id','id');
+    }
+
+    public function getIncrementValueTypeAttribute($value)
+    {
+        return $value == 'P' ? '%' : 'Tk';
     }
 
     // protected static function newFactory(): Database\EmployeeIncrementFactory

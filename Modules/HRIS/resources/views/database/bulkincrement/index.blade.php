@@ -135,10 +135,10 @@
                                     </tr>
                                     <tr>
                                         <td width="40%">
-                                            <label class="m-0" for="increment_value">Increment Value</label>
+                                            <label class="m-0" for="increment_value_type">Value Type</label>
                                         </td>
                                         <td width="60%" id="increment_value">
-                                            <x-select-input name="increment_value" id="increment_value" class="select2" :options="['P' => 'Percentage', 'F' => 'Flat']" placeholder="Increment Value" required />
+                                            <x-select-input name="increment_value_type" id="increment_value_type" class="select2" :options="['P' => 'Percentage', 'F' => 'Flat']" placeholder="Increment Value" required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -146,7 +146,7 @@
                                             <label class="m-0" for="amount">Amount (P/F)</label>
                                         </td>
                                         <td width="60%" id="category_section">
-                                            <input type="number" name="amount" id="amount" min="0" class="form-control form-control-sm" placeholder="Flat/Percentage Amount" required />
+                                            <input type="number" name="amount" id="amount" step="any" min="0" class="form-control form-control-sm" placeholder="Flat/Percentage Amount" required />
                                         </td>
                                     </tr>
                                     <tr>

@@ -70,10 +70,10 @@
                                             <x-input-group name="emp_id" id="emp_id" class="form-control-sm" type="text" value="{{ old('emp_id') }}" placeholder="Employee ID" required />
                                         </div>
                                         <div class="col-4">
-                                            <x-select-input name="shift" id="shift" class="select2" value="{{ old('shift') }}" placeholder="Shift" required :options="['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12']" />
+                                            <x-select-input name="shift" id="shift" class="select2" value="{{ old('shift') }}" placeholder="Shift" required :options="$shifts" />
                                         </div>
                                         <div class="col-4">
-                                            <x-select-input name="to_shift" class="select2" value="{{ old('to_shift') }}" placeholder="To Shift" required :options="['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12']" />
+                                            <x-select-input name="to_shift" id="to_shift" class="select2" value="{{ old('to_shift') }}" placeholder="To Shift" required :options="$shifts" />
                                         </div>
                                     </div>
                                 </td>
@@ -91,12 +91,12 @@
                                             <x-text-input name="end_date" id="end_date" class="form-control-sm" type="date" value="{{ $endDate }}" required readonly />
                                         </div>
                                         <div class="col-4">
-                                            <x-select-input name="to_shift" id="to_shift" label="To Shift" class="select2" type="text" value="{{ old('to_shift') }}" placeholder="To Shift" required :options="['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12']" />
+                                            <x-select-input name="holiday" id="holiday" class="select2" value="{{ old('holiday') }}" placeholder="Holiday" required :options="['Saturday'=>'Saturday','Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday']" />
                                         </div>
                                     </div>
                                 </td>
                                 <td width="20%" style="border: none;">
-                                    <x-primary-button id="submitBtn" class="btn-sm btn-danger submitBtn float-end display" type="submit">Change</x-primary-button>
+                                    <x-primary-button id="submitBtn" class="btn-sm btn-danger submitBtn float-end re-generate" type="submit">Re-Generate</x-primary-button>
                                 </td>
                             </tr>
                         </tbody>
@@ -137,6 +137,18 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $('#shift').select2({
+            placeholder: "Shift",
+            allowClear: true,
+            width: '100%'
+        });
+
+        $('#to_shift').select2({
+            placeholder: "To Shift",
+            allowClear: true,
+            width: '100%'
+        });
+
         $(document).on('click', '.display', function(e) {
             e.preventDefault();
             let displayDate = $('#display_date').val();
@@ -162,7 +174,7 @@
                 },
                 success: function(response) {
                     $('#employeedata').empty();
-
+                    console.log(response);
                     if (response.success && response.data.length > 0) {
                         let row = ``;
                         response.data.forEach(emp => {
@@ -194,45 +206,45 @@
         });
 
 
-        $(document).on('click', '.delete-Display', function(e) {
-            let id = $(this).data('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '{{ route('hris.tools.editexceptional-holidays.delete') }}',
-                        type: 'POST',
-                        data: {
-                            id: id,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Holiday has been deleted.',
-                                    'success'
-                                );
-                                $('#row-' + id).remove();
-                            } else {
-                                Swal.fire(
-                                    'Error!',
-                                    'Holiday has not been deleted.',
-                                    'error'
-                                );
-                            }
-                        }
-                    });
-                }
-            });
-        });
+        // $(document).on('click', '.delete-Display', function(e) {
+        //     let id = $(this).data('id');
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "You won't be able to revert this!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             $.ajax({
+        //                 url: '{{ route('hris.tools.editexceptional-holidays.delete') }}',
+        //                 type: 'POST',
+        //                 data: {
+        //                     id: id,
+        //                     _token: '{{ csrf_token() }}'
+        //                 },
+        //                 success: function(response) {
+        //                     if (response.success) {
+        //                         Swal.fire(
+        //                             'Deleted!',
+        //                             'Holiday has been deleted.',
+        //                             'success'
+        //                         );
+        //                         $('#row-' + id).remove();
+        //                     } else {
+        //                         Swal.fire(
+        //                             'Error!',
+        //                             'Holiday has not been deleted.',
+        //                             'error'
+        //                         );
+        //                     }
+        //                 }
+        //             });
+        //         }
+        //     });
+        // });
 
         $(document).on('click', '.display-date', function(e) {
             e.preventDefault();
@@ -306,31 +318,52 @@
             let endDate = $('#end_date').val();
             let empId = $('#emp_id').val();
             let holiday = $('#holiday').val();
+            let shift = $('#shift').val();
+            let to_shift = $('#to_shift').val();
             let form = 3;
 
-            if(startDate == '' || endDate == '' || empId == '' || holiday == ''){
+            if(startDate == '' || endDate == '' || empId == '' || shift == ''){
                 Swal.fire(
                     'Error!',
-                    'Please fill all Employee ID, Start Date, End Date and Holiday fields.',
+                    'Please fill all Employee ID, Start Date, End Date and Shift fields.',
+                    'error'
+                );
+                return;
+            }
+
+            // if(to_shift == shift){
+            //     Swal.fire(
+            //         'Error!',
+            //         'To Shift cannot be same as Shift.',
+            //         'error'
+            //     );
+            //     return;
+            // }
+
+            if (shift !== '' && to_shift !== '' && holiday === '') {
+                Swal.fire(
+                    'Error!',
+                    'If Shift and To Shift are filled, Holiday cannot be empty.',
                     'error'
                 );
                 return;
             }
 
             $.ajax({
-                url: '{{ route('hris.tools.editexceptional-holidays.store') }}',
+                url: '{{ route('hris.tools.edit-shiftinglist.store') }}',
                 type: 'POST',
                 data: {
                     emp_id: empId,
                     start_date: startDate,
                     end_date: endDate,
                     holiday: holiday,
+                    shift: shift,
+                    to_shift: to_shift,
                     form: form,
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
                     $('#employeedata').empty();
-
                     if (response.success && response.data.length > 0) {
                         Swal.fire(
                             'Success!',
@@ -391,7 +424,7 @@
                     }
                 },
                 error: function (xhr) {
-                    toastr.error("Something went wrong!");
+                    toastr.error(xhr.responseJSON.message);
                 }
             });
         });

@@ -68,7 +68,7 @@ class BulkIncrementController extends Controller
 
             try {
                 $incrementSource   = $request->increment_source;
-                $incrementType     = $request->increment_value;
+                $incrementType     = $request->increment_value_type;
                 $amount            = $request->amount;
 
                 $commonData = [
@@ -77,7 +77,8 @@ class BulkIncrementController extends Controller
                     'arrear_upto_date'   => $request->arrear_upto_date,
                     'increment_type_id'  => null,
                     'increment_source'   => $incrementSource,
-                    'increment_value'    => $incrementType,
+                    'increment_value_type' => $incrementType,
+                    'increment_value' => $amount,
                     'house_rent_basic'   => $request->house_rent_basic,
                     'enforce'            => 0,
                     'remarks'            => $request->remarks,
