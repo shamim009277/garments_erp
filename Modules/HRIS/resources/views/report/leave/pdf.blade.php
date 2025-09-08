@@ -177,16 +177,16 @@
 
     <!-- PDF Body -->
     @if($title == 1)
-    <h3 style="text-align:center; margin: 20px 0px;">Department-wise Listing of Employees</h3>
+    <h3 style="text-align:center; margin: 20px 0px;">Department-wise Daily Leave Register</h3>
     @endif
     @if($title == 2)
-    <h3 style="text-align:center; margin: 20px 0px;">Designation-wise Listing of Employees</h3>
+    <h3 style="text-align:center; margin: 20px 0px;">Designation-wise Daily Leave Register</h3>
     @endif
     @if($title == 3)
-    <h3 style="text-align:center; margin: 20px 0px;">Employees Joined Within Date Range</h3>
+    <h3 style="text-align:center; margin: 20px 0px;">Employee-wise Daily Leave Register</h3>
     @endif
     @if($title == 4)
-    <h3 style="text-align:center; margin: 20px 0px;">Employees With Blood Group</h3>
+    <h3 style="text-align:center; margin: 20px 0px;">Leave-wise Daily Leave Register</h3>
     @endif
 
 

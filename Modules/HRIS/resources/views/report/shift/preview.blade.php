@@ -5,11 +5,11 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Employee Listing',
+                'subtitle' => 'Shifting Report',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Report', 'url' => route('hris.index')],
-                    ['label' => 'Employee Listing', 'url' => route('hris.report.employee-listings.index')],
+                    ['label' => 'Shifting Report', 'url' => route('hris.report.shifting-report.index')],
                 ],
             ])
         </div>
@@ -17,13 +17,13 @@
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
                     @if($title == 1)
-                        <h6 class="my-0 text-primary text-center">Department-wise Listing of Employees</h6>
+                        <h6 class="my-0 text-primary text-center">Department-wise Daily Shift</h6>
                     @elseif($title == 2)
-                        <h6 class="my-0 text-primary text-center">Designation-wise Listing of Employees</h6>
+                        <h6 class="my-0 text-primary text-center">Designation-wise Daily Shift</h6>
                     @elseif($title == 3)
-                        <h6 class="my-0 text-primary text-center">Employees Joined Within Date Range</h6>
+                        <h6 class="my-0 text-primary text-center">Department-wise Monthly Shift</h6>
                     @elseif($title == 4)
-                        <h6 class="my-0 text-primary text-center">Employees With Blood Group</h6>
+                        <h6 class="my-0 text-primary text-center">Designation-wise Monthly Shift</h6>
                     @endif
                     <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
                 </div>
