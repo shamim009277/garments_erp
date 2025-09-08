@@ -36,7 +36,7 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Employee Listing',
+                'subtitle' => 'Movement Pass Report',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Report', 'url' => route('hris.index')],
