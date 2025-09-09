@@ -28,13 +28,12 @@ class AppServiceProvider extends ServiceProvider
         }));
 
         // Holidays
-        View::share('holidays', cache()->remember('holidays', 3600, function () {
-            return Calender::where('holiday', 'Y')->where('year', Carbon::now()->year)->pluck('date')
-                    ->map(function($date) {
-                        return $date->format('Y-m-d');
-                    })
-                    ->toArray();
-            }));
+        // View::share('holidays', cache()->remember('holidays', 3600, function () {
+        //     return Calender::where('holiday', 'Y')->where('year', Carbon::now()->year)->pluck('date')
+        //             ->map(function($date) {
+        //                 return $date->format('Y-m-d');
+        //             })
+        //             ->toArray();
+        //     }));
     }
 }
-
