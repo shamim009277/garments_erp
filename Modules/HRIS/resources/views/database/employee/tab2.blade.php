@@ -121,5 +121,15 @@
         $('#basic').val(isNaN(basic) ? 0 : basic);
         $('#home_allowance').val(isNaN(house_rent) ? 0 : house_rent);
     });
+
+    $(document).on('change', '#salary_from_bank', function(e) {
+        e.preventDefault();
+        let salary_from_bank = $(this).val();
+        if (salary_from_bank == 'Y') {
+            $('#account_no').prop('required', true);
+        } else {
+            $('#account_no').prop('required', false);
+        }
+    });
 </script>
 @endpush

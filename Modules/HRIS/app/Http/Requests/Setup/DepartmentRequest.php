@@ -11,9 +11,10 @@ class DepartmentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $departmentId = $this->route('department');
         return [
-            'department' => 'required|string|max:100|unique:hris_setup_departments,department',
-            'department_bn' => 'nullable|string|max:100|unique:hris_setup_departments,department_bn',
+            'department' => 'required|string|max:100|unique:hris_setup_departments,department' . ($departmentId ? ',' . $departmentId : ''),
+            'department_bn' => 'nullable|string|max:100|unique:hris_setup_departments,department_bn' . ($departmentId ? ',' . $departmentId : ''),
             'parent_department_id' => 'required|exists:hris_setup_parent_departments,id',
             'approved_mp' => 'nullable|numeric',
             'is_active' => 'nullable|boolean',

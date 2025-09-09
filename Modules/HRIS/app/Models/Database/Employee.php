@@ -2,6 +2,7 @@
 
 namespace Modules\HRIS\Models\Database;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Setup\Thana;
 use Illuminate\Database\Eloquent\Model;
@@ -9,8 +10,8 @@ use Modules\HRIS\Models\Setup\District;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Organization;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\HRIS\Models\Database\EmployeePersonal;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
 
 class Employee extends Model
@@ -37,6 +38,7 @@ class Employee extends Model
         'mpost_office',
         'mvillage',
         'pdistrict_id',
+        'shifting_duty',
         'pthana_id',
         'ppost_office',
         'pvillage',
@@ -45,6 +47,7 @@ class Employee extends Model
         'punch_category',
         'refrerence_shift',
         'refrerence_date',
+        'refrerence_holiday',
         'mtreturn_date',
         'father_name',
         'mother_name',
@@ -86,8 +89,13 @@ class Employee extends Model
         });
     }
 
-    public function scopeActive($query) {
-        return $query->where('is_active', true);
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true)
+            ->where(function($q) {
+                $q->where('reason', 'N')
+                ->orWhere('leaving_date', '>=', Carbon::today());
+            });
     }
 
     public function scopeInactive($query) {
@@ -122,6 +130,10 @@ class Employee extends Model
         return $query->where('reason', 'L');
     }
 
+    public function scopeShiftingDuty($query) {
+        return $query->where('shifting_duty', 'Y');
+    }
+
     public function department() {
         return $this->belongsTo(Department::class);
     }
@@ -151,6 +163,10 @@ class Employee extends Model
     }
     public function employeePersonal() {
         return $this->hasOne(EmployeePersonal::class, 'employee_id', 'employee_id');
+    }
+
+    public function employeeSalary() {
+        return $this->hasOne(EmployeeSalary::class, 'employee_id', 'employee_id');
     }
 
     // protected static function newFactory(): Database\EmployeeFactory

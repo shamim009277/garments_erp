@@ -26,7 +26,8 @@ class EmployeeBangla extends Model
         'fname_bangla',
         'mname_bangla',
         'nname_bangla',
-        'relation_bangla',
+        'nmobile_number',
+        'nominee_relation',
         'national_id_bangla',
         'mdistrict_id_bangla',
         'mthana_id_bangla',
@@ -42,7 +43,11 @@ class EmployeeBangla extends Model
         'nvillage_bangla',
         'identification',
         'conduct',
-        'spouse_name_bangla'
+        'spouse_name_bangla',
+        'emergency_name',
+        'emergency_relation',
+        'emergency_address',
+        'emergency_mobile',
     ];
 
     public function employee() : BelongsTo

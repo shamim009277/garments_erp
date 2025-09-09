@@ -50,6 +50,10 @@ class EmployeePersonalRequest extends FormRequest
             'nthana_id'               => 'nullable|exists:hris_setup_thanas,id',
             'npost_office'            => 'nullable|string|max:255',
             'nvillage'                => 'nullable|string|max:255',
+            'emergency_name'          => 'nullable|string|max:100',
+            'emergency_relation'      => 'nullable|string|max:50',
+            'emergency_address'       => 'nullable|string|max:255',
+            'emergency_mobile'        => 'nullable|string|max:20',
         ];
     }
 

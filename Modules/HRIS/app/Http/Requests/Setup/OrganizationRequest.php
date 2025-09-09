@@ -14,9 +14,9 @@ class OrganizationRequest extends FormRequest
     {
         $organizationId = $this->route('organization');
         return [
-            'name' => ['required', 'string', 'max:30', Rule::unique('hris_setup_organizations', 'name')->ignore($organizationId)],
-            'bn_name' => ['nullable', 'string', 'max:30'],
-            'short_name' => ['required', 'string', 'max:10', Rule::unique('hris_setup_organizations', 'short_name')->ignore($organizationId)],
+            'name' => ['required', 'string', 'max:200', Rule::unique('hris_setup_organizations', 'name')->ignore($organizationId)],
+            'bn_name' => ['nullable', 'string', 'max:200'],
+            'short_name' => ['required', 'string', 'max:30', Rule::unique('hris_setup_organizations', 'short_name')->ignore($organizationId)],
             'is_active' => ['required', 'boolean'],
         ];
     }

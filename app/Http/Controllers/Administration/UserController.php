@@ -83,6 +83,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role_id' => $request->role_id,
+                'employee_id' => $request->employee_id,
                 'is_active' => $request->is_active,
             ]);
             // Role assign
@@ -123,6 +124,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role_id' => $request->role_id,
+                'employee_id' => $request->employee_id,
                 'is_active' => $request->is_active,
             ]);
             // Role assign

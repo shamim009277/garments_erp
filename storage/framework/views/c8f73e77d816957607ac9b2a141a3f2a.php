@@ -61,7 +61,11 @@
                                     <ul class="nav-custom">
                                         <?php $__currentLoopData = $buyerOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li class="nav-custom-item">
+<<<<<<< HEAD
                                                 <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>?tab=1">
+=======
+                                                <a href="<?php echo e(route('inventory.database.basicorders.show', $order->id)); ?>">
+>>>>>>> bc147530873fb46f9c3fd35fb216fae3d39703a5
                                                     <label class="nav-custom-link" for="order<?php echo e($order->id); ?>"><span
                                                             class="nav-custom-caret"></span> <?php echo $order->order_no; ?>: <?php echo $order->style_no; ?></label>
                                                 </a>
@@ -143,14 +147,24 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <label for="example-text-input" class="form-label">Actual Order No </label>
                                     <input class="form-control form-control-sm" name="order_no" type="text" id="order_no">
+=======
+                                    <label for="example-text-input" class="form-label">Order No <span
+                                            class="text-danger">(Auto)</span></label>
+                                    <input class="form-control form-control-sm" name="order_no" type="text" id="example-text-input">
+>>>>>>> bc147530873fb46f9c3fd35fb216fae3d39703a5
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="example-text-input" class="form-label">Season</label>
+<<<<<<< HEAD
                                     <input class="form-control form-control-sm" name="season" type="text" id="season">
+=======
+                                    <input class="form-control form-control-sm" name="season" type="text" id="example-text-input">
+>>>>>>> bc147530873fb46f9c3fd35fb216fae3d39703a5
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -488,7 +502,94 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
+<<<<<<< HEAD
     
+=======
+    <script>
+        let lotIndex = 0;
+
+        document.getElementById('add-lot-btn').addEventListener('click', function() {
+            lotIndex++;
+            let lotsContainer = document.getElementById('lots-container');
+
+            let lotHtml = `
+        <div class="lot" data-lot-index="${lotIndex}">
+            <label>Lot No:</label>
+            <input type="text" name="lots[${lotIndex}][lot_no]" required>
+    
+            <h4>Colors</h4>
+            <div class="colors-container">
+                <div class="color" data-color-index="0">
+                    <label>Color Name:</label>
+                    <input type="text" name="lots[${lotIndex}][colors][0][color_name]" required>
+    
+                    <h5>Sizes</h5>
+                    <div class="sizes-container">
+                        <div class="size" data-size-index="0">
+                            <label>Size Name:</label>
+                            <input type="text" name="lots[${lotIndex}][colors][0][sizes][0][size_name]" required>
+                            <label>Quantity:</label>
+                            <input type="number" name="lots[${lotIndex}][colors][0][sizes][0][quantity]" min="0" required>
+                        </div>
+                    </div>
+                    <button type="button" class="add-size-btn">Add Size</button>
+                </div>
+            </div>
+            <button type="button" class="add-color-btn">Add Color</button>
+        </div>
+        `;
+            lotsContainer.insertAdjacentHTML('beforeend', lotHtml);
+        });
+
+        // Delegate event listeners for add color and add size buttons
+        document.getElementById('lots-container').addEventListener('click', function(e) {
+            if (e.target.classList.contains('add-color-btn')) {
+                let lotDiv = e.target.closest('.lot');
+                let lotIdx = lotDiv.getAttribute('data-lot-index');
+
+                let colorsContainer = lotDiv.querySelector('.colors-container');
+                let colorCount = colorsContainer.querySelectorAll('.color').length;
+                let colorHtml = `
+            <div class="color" data-color-index="${colorCount}">
+                <label>Color Name:</label>
+                <input type="text" name="lots[${lotIdx}][colors][${colorCount}][color_name]" required>
+    
+                <h5>Sizes</h5>
+                <div class="sizes-container">
+                    <div class="size" data-size-index="0">
+                        <label>Size Name:</label>
+                        <input type="text" name="lots[${lotIdx}][colors][${colorCount}][sizes][0][size_name]" required>
+                        <label>Quantity:</label>
+                        <input type="number" name="lots[${lotIdx}][colors][${colorCount}][sizes][0][quantity]" min="0" required>
+                    </div>
+                </div>
+                <button type="button" class="add-size-btn">Add Size</button>
+            </div>
+            `;
+                colorsContainer.insertAdjacentHTML('beforeend', colorHtml);
+            }
+
+            if (e.target.classList.contains('add-size-btn')) {
+                let colorDiv = e.target.closest('.color');
+                let lotDiv = e.target.closest('.lot');
+                let lotIdx = lotDiv.getAttribute('data-lot-index');
+                let colorIdx = colorDiv.getAttribute('data-color-index');
+
+                let sizesContainer = colorDiv.querySelector('.sizes-container');
+                let sizeCount = sizesContainer.querySelectorAll('.size').length;
+                let sizeHtml = `
+            <div class="size" data-size-index="${sizeCount}">
+                <label>Size Name:</label>
+                <input type="text" name="lots[${lotIdx}][colors][${colorIdx}][sizes][${sizeCount}][size_name]" required>
+                <label>Quantity:</label>
+                <input type="number" name="lots[${lotIdx}][colors][${colorIdx}][sizes][${sizeCount}][quantity]" min="0" required>
+            </div>
+            `;
+                sizesContainer.insertAdjacentHTML('beforeend', sizeHtml);
+            }
+        });
+    </script>
+>>>>>>> bc147530873fb46f9c3fd35fb216fae3d39703a5
 <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\new erp\garments_erp\Modules/Inventory\resources/views/database/basicorders/index.blade.php ENDPATH**/ ?>
