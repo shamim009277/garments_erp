@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class ParentDepartmentController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.parent-department.view')->only('index');
+        $this->middleware('permission:hris.parent-department.add')->only('store');
+        $this->middleware('permission:hris.parent-department.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.parent-department.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -53,5 +61,5 @@ class ParentDepartmentController extends Controller
     }
     public function toggleStatus(Request $request) {
         return $this->ToggleStatusTrait($request, ParentDepartment::class);
-    }    
+    }
 }

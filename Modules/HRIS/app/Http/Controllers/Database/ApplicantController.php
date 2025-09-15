@@ -14,6 +14,13 @@ use DB;
 
 class ApplicantController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.new-applicants.view')->only('index','show','getSearch');
+        $this->middleware('permission:hris.new-applicants.add')->only('store');
+        $this->middleware('permission:hris.new-applicants.edit')->only(['edit', 'update']);
+        $this->middleware('permission:hris.new-applicants.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

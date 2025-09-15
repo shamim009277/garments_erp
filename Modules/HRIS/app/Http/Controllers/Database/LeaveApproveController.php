@@ -16,6 +16,14 @@ use App\Traits\LeaveBalance;
 class LeaveApproveController extends Controller
 {
     use LeaveBalance;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.leave-approve.view')->only('index');
+        $this->middleware('permission:hris.leave-approve.add')->only('store');
+        $this->middleware('permission:hris.leave-approve.edit')->only(['edit', 'update']);
+        $this->middleware('permission:hris.leave-approve.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

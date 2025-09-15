@@ -14,6 +14,14 @@ use App\Traits\ToggleStatus;
 class UnitController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.units.view')->only('index');
+        $this->middleware('permission:hris.units.add')->only('store');
+        $this->middleware('permission:hris.units.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.units.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

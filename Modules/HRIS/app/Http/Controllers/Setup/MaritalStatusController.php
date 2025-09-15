@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class MaritalStatusController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.marital-status.view')->only('index');
+        $this->middleware('permission:hris.marital-status.add')->only('store');
+        $this->middleware('permission:hris.marital-status.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.marital-status.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

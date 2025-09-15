@@ -12,6 +12,14 @@ use App\Traits\ToggleStatus;
 class DepartmentController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.department.view')->only('index');
+        $this->middleware('permission:hris.department.add')->only('store');
+        $this->middleware('permission:hris.department.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.department.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

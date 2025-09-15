@@ -26,7 +26,6 @@ class IncrementEnforceController extends Controller
         $lastMonthStart = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
         $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
         $datas = EmployeeIncrement::with(['employeeBasic:id,employee_id,joining_date,name','department:id,department','designation:id,designation','newDepartment:id,department','newDesignation:id,designation'])->where('enforce', 0)->whereBetween('increment_date', [$lastMonthStart, $lastMonthEnd])->get();
-        //dd($datas);
         return view('hris::database.incrementenforce.index', compact('datas'));
     }
 

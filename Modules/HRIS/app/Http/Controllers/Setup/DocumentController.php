@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class DocumentController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.document.view')->only('index');
+        $this->middleware('permission:hris.document.add')->only('store');
+        $this->middleware('permission:hris.document.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.document.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -18,7 +26,7 @@ class DocumentController extends Controller
     {
         $documents = Document::all();
         return view('hris::setup.document.index', compact('documents'));
-        
+
     }
 
 

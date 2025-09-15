@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class ParentDesignationController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.parent-designation.view')->only('index');
+        $this->middleware('permission:hris.parent-designation.add')->only('store');
+        $this->middleware('permission:hris.parent-designation.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.parent-designation.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

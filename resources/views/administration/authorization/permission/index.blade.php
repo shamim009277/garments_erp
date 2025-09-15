@@ -250,7 +250,6 @@
                     url: `/administration/menu/${moduleId}/childs`,
                     type: 'GET',
                     success: function(data) {
-                        console.log(data);
                         menuSelect.empty().append('<option value="">Select Menu</option>');
 
                         if (data.length > 0) {

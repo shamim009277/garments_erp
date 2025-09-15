@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class LineController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.line.view')->only('index');
+        $this->middleware('permission:hris.line.add')->only('store');
+        $this->middleware('permission:hris.line.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.line.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
