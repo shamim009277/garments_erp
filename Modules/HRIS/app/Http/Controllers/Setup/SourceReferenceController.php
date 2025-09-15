@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class SourceReferenceController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.reference-source.view')->only('index');
+        $this->middleware('permission:hris.reference-source.add')->only('store');
+        $this->middleware('permission:hris.reference-source.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.reference-source.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class DivisionController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.division.view')->only('index');
+        $this->middleware('permission:hris.division.add')->only('store');
+        $this->middleware('permission:hris.division.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.division.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

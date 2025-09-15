@@ -9,6 +9,12 @@ use Modules\HRIS\Http\Requests\Database\EmployeeExperienceRequest;
 
 class EmployeeExperienceController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.employee.experienceadd')->only('store');
+        $this->middleware('permission:hris.employee.experienceedit')->only(['update']);
+        $this->middleware('permission:hris.employee.experiencedelete')->only(['destroy']);
+    }
     /**
      * Store a newly created resource in storage.
      */

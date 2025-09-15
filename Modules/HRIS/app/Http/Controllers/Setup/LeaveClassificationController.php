@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class LeaveClassificationController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.leave-classification.view')->only('index');
+        $this->middleware('permission:hris.leave-classification.add')->only('store');
+        $this->middleware('permission:hris.leave-classification.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.leave-classification.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,28 +42,28 @@ class LeaveClassificationController extends Controller
         } */
         try {
             $data = $request->validated();
-    
+
             // Calculate pay_ratio based on code
             switch (strtoupper($data['code'])) {
                 case 'CL':
-                    $data['pay_ratio'] = round(365 / 10, 2); 
+                    $data['pay_ratio'] = round(365 / 10, 2);
                     break;
                 case 'SL':
-                    $data['pay_ratio'] = round(365 / 14, 2); 
+                    $data['pay_ratio'] = round(365 / 14, 2);
                     break;
                 case 'EL':
-                    $data['pay_ratio'] = round(365 / 30, 2); 
+                    $data['pay_ratio'] = round(365 / 30, 2);
                 default:
-                    $data['pay_ratio'] = 1.00; 
+                    $data['pay_ratio'] = 1.00;
                     break;
             }
-    
+
             LeaveClassification::create($data);
-    
+
             return redirect()
                 ->route('hris.setup.leaveclassifications.index')
                 ->with('success', 'Leave Classification created successfully');
-    
+
         } catch (\Exception $e) {
             return redirect()
                 ->back()

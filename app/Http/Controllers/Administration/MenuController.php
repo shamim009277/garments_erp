@@ -186,7 +186,7 @@ class MenuController extends Controller
 
     public function getMenuChilds($id)
     {
-        $childs = Menu::where('module_id', $id)->whereNull('parent_id')->where('has_child', false)->orWhereNotNull('parent_id')->where('has_child', false)->get();
+        $childs = Menu::where('module_id', $id)->whereNull('parent_id')->where('has_child', false)->orWhereNotNull('parent_id')->where('has_child', false)->where('module_id', $id)->get();
         return response()->json($childs);
     }
 }

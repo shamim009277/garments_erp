@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class EducationBoardController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.education-board.view')->only('index');
+        $this->middleware('permission:hris.education-board.add')->only('store');
+        $this->middleware('permission:hris.education-board.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.education-board.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

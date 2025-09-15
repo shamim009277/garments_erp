@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class OrganizationController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.organizations.view')->only('index');
+        $this->middleware('permission:hris.organizations.add')->only('store');
+        $this->middleware('permission:hris.organizations.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.organizations.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

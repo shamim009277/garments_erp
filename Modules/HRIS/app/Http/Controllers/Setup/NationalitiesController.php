@@ -12,6 +12,14 @@ use Modules\HRIS\Http\Requests\Setup\NationalitiesRequest;
 class NationalitiesController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.nationalities.view')->only('index');
+        $this->middleware('permission:hris.nationalities.add')->only('store');
+        $this->middleware('permission:hris.nationalities.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.nationalities.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
