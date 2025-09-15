@@ -10,6 +10,12 @@ use Modules\HRIS\Http\Requests\Database\EmployeeEducationRequest;
 
 class EmployeeEducationController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.employee.educationadd')->only('store');
+        $this->middleware('permission:hris.employee.educationedit')->only(['update']);
+        $this->middleware('permission:hris.employee.educationdelete')->only(['destroy']);
+    }
     /**
      * Store a newly created resource in storage.
      */

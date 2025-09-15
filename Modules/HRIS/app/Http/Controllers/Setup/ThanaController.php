@@ -12,6 +12,14 @@ use App\Traits\ToggleStatus;
 class ThanaController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.thanas.view')->only('index');
+        $this->middleware('permission:hris.thanas.add')->only('store');
+        $this->middleware('permission:hris.thanas.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.thanas.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class ReligionController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.religions.view')->only('index');
+        $this->middleware('permission:hris.religions.add')->only('store');
+        $this->middleware('permission:hris.religions.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.religions.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

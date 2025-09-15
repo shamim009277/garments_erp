@@ -13,6 +13,14 @@ use Modules\HRIS\Http\Requests\Setup\LeaveReasonRequest;
 class LeaveReasonController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.leave-reason.view')->only('index');
+        $this->middleware('permission:hris.leave-reason.add')->only('store');
+        $this->middleware('permission:hris.leave-reason.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.leave-reason.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

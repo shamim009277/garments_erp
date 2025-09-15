@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class DegreeController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.degree.view')->only('index');
+        $this->middleware('permission:hris.degree.add')->only('store');
+        $this->middleware('permission:hris.degree.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.degree.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
