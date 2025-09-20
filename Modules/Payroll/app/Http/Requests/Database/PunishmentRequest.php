@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Payroll\Http\Requests\Tools;
+namespace Modules\Payroll\Http\Requests\Database;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdvanceProcessRequest extends FormRequest
+class PunishmentRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,10 +12,8 @@ class AdvanceProcessRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'org_id' => 'required',
-            'month' => 'required',
-            'year' => 'required',
+            'employee_id' => 'required',
+            'punishment_date' => 'required|array',
         ];
     }
 
