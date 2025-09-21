@@ -17,6 +17,11 @@ use Modules\HRIS\Http\Requests\Database\BulkIncrementRequest;
 
 class IncrementEnforceController extends Controller
 {
+
+    function __construct() {
+        $this->middleware('permission:hris.increment-enforce.view')->only('index');
+        $this->middleware('permission:hris.increment-enforce.add')->only('store');
+    }
     /**
      * Display a listing of the resource.
      */
