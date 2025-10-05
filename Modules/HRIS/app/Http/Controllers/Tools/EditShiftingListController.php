@@ -53,13 +53,13 @@ class EditShiftingListController extends Controller
         } elseif ($request->form == 3) {
             $employee = Employee::active()
                 ->where('employee_id', (int) $request->emp_id)
-                ->select('employee_id', 'name', 'joining_date', 'shift', 'shifting_duty', 'refrerence_shift')
+                ->select('employee_id','org_id','name', 'joining_date','shifting_duty', 'refrerence_shift')
                 ->first();
 
-            // ShiftingList::where('employee_id',$request->emp_id)->whereBetween('date',[$request->start_date,$request->end_date])->delete();
-            // $lastid = DB::table('hris_tools_shifting_list')->orderBy('id','DESC')->first();
-            // $lastid = $lastid ? $lastid->id+1 : 1;
-            // DB::update("ALTER TABLE hris_tools_shifting_list AUTO_INCREMENT = ".$lastid.";");
+            ShiftingList::where('employee_id',$request->emp_id)->whereBetween('date',[$request->start_date,$request->end_date])->delete();
+            $lastid = DB::table('hris_tools_shifting_list')->orderBy('id','DESC')->first();
+            $lastid = $lastid ? $lastid->id+1 : 1;
+            DB::update("ALTER TABLE hris_tools_shifting_list AUTO_INCREMENT = ".$lastid.";");
 
             if (!$employee) {
                 return response()->json([
@@ -93,6 +93,7 @@ class EditShiftingListController extends Controller
                         $rows[] = [
                             'year'        => (int) $year,
                             'employee_id' => $employee->employee_id,
+                            'org_id'      => (int)$employee->org_id,
                             'date'        => $date->format('Y-m-d'),
                             'shift'       => $shift2,
                             'created_by'  => Auth::id(),
@@ -108,22 +109,28 @@ class EditShiftingListController extends Controller
             } else {
                 while ($date->lte($endDate)) {
                     $rows[] = [
+                        'employee_id' => (int)$employee->employee_id,
                         'year'        => (int) $year,
-                        'employee_id' => $employee->employee_id,
+                        'org_id'      => (int)$employee->org_id,
                         'date'        => $date->format('Y-m-d'),
-                        'shift'       => $employee->refrerence_shift, // spelling check
+                        'shift'       => $request->shift,
                         'created_by'  => Auth::id(),
                         'updated_by'  => Auth::id(),
                     ];
                     $date->addDay();
                 }
-
                 ShiftingList::insert($rows);
             }
+
+            $shiftingLists = ShiftingList::with('employeeBasic')
+                    ->where('employee_id', (int) $request->emp_id)
+                    ->whereBetween('date', [$request->start_date, $request->end_date])
+                    ->get();
 
             return response()->json([
                 'success' => true,
                 'message' => 'Shifting list saved successfully',
+                'data'    => $shiftingLists,
             ]);
         }
 
