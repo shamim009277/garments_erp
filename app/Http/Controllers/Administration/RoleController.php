@@ -36,18 +36,19 @@ class RoleController extends Controller
     {
         $datas = Module::where('is_active', 1)
             ->whereHas('menus', function ($q) {
-                $q->where('is_active', 1)->whereHas('permissions', function ($q2) {
+                $q->where('is_active', 1)
+                ->whereHas('permissions', function ($q2) {
                     $q2->where('is_active', 1);
                 });
             })
             ->with(['menus' => function ($query) {
-                $query->where('is_active', 1)->with([
-                    'permissions' => function ($query) {
+                $query->where('is_active', 1)
+                    ->with(['permissions' => function ($query) {
                         $query->where('is_active', 1);
-                    }
-                ]);
+                    }]);
             }])
             ->get();
+
         $role = null;
         return view('administration.authorization.role.create', compact('datas', 'role'));
     }

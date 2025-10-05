@@ -10,6 +10,11 @@ use Modules\HRIS\Models\Database\EmployeePersonal;
 
 class PhotoSignController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.emp-photo-signature.view')->only('index','info');
+        $this->middleware('permission:hris.emp-photo-signature.add')->only('store');
+    }
     /**
      * Display a listing of the resource.
      */

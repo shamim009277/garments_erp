@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class SexController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.sex.view')->only('index');
+        $this->middleware('permission:hris.sex.add')->only('store');
+        $this->middleware('permission:hris.sex.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.sex.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

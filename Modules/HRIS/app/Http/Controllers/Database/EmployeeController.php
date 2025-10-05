@@ -44,6 +44,14 @@ use Modules\HRIS\Http\Requests\Database\EmployeePersonalRequest;
 
 class EmployeeController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.employee.view')->only('index','show','getEmployeeInfo','getSearch');
+        $this->middleware('permission:hris.employee.add')->only('store');
+        $this->middleware('permission:hris.employee.edit')->only(['edit', 'update','storeEmployeeSalary','storeEmployeeDocument','storeEmployeePersonal','storeEmployeeBangla','storeEmployeeExperience']);
+        $this->middleware('permission:hris.employee.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

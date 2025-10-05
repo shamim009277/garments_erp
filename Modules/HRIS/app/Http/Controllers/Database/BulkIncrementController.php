@@ -17,6 +17,13 @@ use Modules\HRIS\Http\Requests\Database\BulkIncrementRequest;
 
 class BulkIncrementController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.bulk-increment.view')->only('index');
+        $this->middleware('permission:hris.bulk-increment.add')->only('store');
+        $this->middleware('permission:hris.bulk-increment.edit')->only(['edit', 'update']);
+        $this->middleware('permission:hris.bulk-increment.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +35,7 @@ class BulkIncrementController extends Controller
         $lastMonthStart = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
         $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
         $hroption = Setting::active()->first();
-        //dd($hroption);
+
         return view('hris::database.bulkincrement.index', compact('departments', 'organizations', 'employeeCategories', 'lastMonthStart', 'lastMonthEnd', 'hroption'));
     }
 

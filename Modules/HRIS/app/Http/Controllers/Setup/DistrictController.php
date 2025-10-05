@@ -12,6 +12,14 @@ use App\Traits\ToggleStatus;
 class DistrictController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.district.view')->only('index');
+        $this->middleware('permission:hris.district.add')->only('store');
+        $this->middleware('permission:hris.district.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.district.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

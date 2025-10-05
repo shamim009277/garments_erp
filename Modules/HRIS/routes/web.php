@@ -24,6 +24,7 @@ use Modules\HRIS\Http\Controllers\Database\LeaveAllController;
 use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveReasonController;
 use Modules\HRIS\Http\Controllers\Database\ApplicantController;
+use Modules\HRIS\Http\Controllers\Database\ELPaymentController;
 use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
 use Modules\HRIS\Http\Controllers\Report\LeaveReportController;
 use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
@@ -32,12 +33,14 @@ use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
 use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
+use Modules\HRIS\Http\Controllers\Tools\MaternityEntryController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
 use Modules\HRIS\Http\Controllers\Database\LeaveForwardController;
 use Modules\HRIS\Http\Controllers\Report\ShiftingReportController;
 use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
 use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
 use Modules\HRIS\Http\Controllers\Database\BulkIncrementController;
+use Modules\HRIS\Http\Controllers\Database\ELCalculationController;
 use Modules\HRIS\Http\Controllers\Report\ApplicantReportController;
 use Modules\HRIS\Http\Controllers\Report\IncrementReportController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
@@ -256,6 +259,9 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('bulk-increment', BulkIncrementController::class)->names('bulk-increment');
             Route::resource('employee-increment', EmployeeIncrementController::class)->names('employee-increment');
             Route::resource('increment-enforce', IncrementEnforceController::class)->names('increment-enforce');
+
+            Route::resource('elcalculation', ELCalculationController::class)->names('elcalculation');
+            Route::resource('elpayment', ELPaymentController::class)->names('elpayment');
         });
 
         //Reports
@@ -313,6 +319,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
             Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');
             Route::resource('editexceptional-holidays', EditExceptionalHolidayController::class)->names('editexceptional-holidays');
+            Route::resource('maternity-entry', MaternityEntryController::class)->names('maternity-entry');
         });
     });
 });

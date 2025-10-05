@@ -12,6 +12,14 @@ use Modules\HRIS\Http\Requests\Setup\EmpGatepassReasonRequest;
 class EmpGatepassReasonController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.gate-pass-reason.view')->only('index');
+        $this->middleware('permission:hris.gate-pass-reason.add')->only('store');
+        $this->middleware('permission:hris.gate-pass-reason.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.gate-pass-reason.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
