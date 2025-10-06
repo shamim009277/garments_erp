@@ -1,4 +1,17 @@
 <?php $__env->startSection('title', 'HRIS'); ?>
+<?php $__env->startPush('styles'); ?>
+    <style>
+        .select2-selection{
+            height: 35px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            height: 32px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow{
+            height: 32px !important;
+        }
+    </style>
+<?php $__env->stopPush(); ?>
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-12">
@@ -98,25 +111,25 @@
 <?php $component = $__componentOriginal66a280159691934507706df376ef5a6a; ?>
 <?php unset($__componentOriginal66a280159691934507706df376ef5a6a); ?>
 <?php endif; ?>
-                                                        <?php if (isset($component)) { $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'parent_department_id','label' => 'Parent Department','options' => $parentDepartments,'selected' => $department->parent_department_id,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('select-search-input'); ?>
+                                                        <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'parent_department_id','class' => 'select2','label' => 'Parent Department','options' => $parentDepartments,'selected' => $department->parent_department_id,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_department_id','label' => 'Parent Department','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartments),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($department->parent_department_id),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'parent_department_id','class' => 'select2','label' => 'Parent Department','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartments),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($department->parent_department_id),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2)): ?>
-<?php $attributes = $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2; ?>
-<?php unset($__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2); ?>
+<?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $attributes = $__attributesOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2)): ?>
-<?php $component = $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2; ?>
-<?php unset($__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2); ?>
+<?php if (isset($__componentOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $component = $__componentOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__componentOriginal243648788f657c94d456cacfc3f7cdc3); ?>
 <?php endif; ?>
                                                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
@@ -241,25 +254,25 @@
 <?php $component = $__componentOriginal66a280159691934507706df376ef5a6a; ?>
 <?php unset($__componentOriginal66a280159691934507706df376ef5a6a); ?>
 <?php endif; ?>
-                        <?php if (isset($component)) { $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'parent_department_id','label' => 'Parent Department','options' => $parentDepartments,'selected' => old('parent_department_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('select-search-input'); ?>
+                        <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'parent_department_id','class' => 'select2','label' => 'Parent Department','options' => $parentDepartments,'selected' => old('parent_department_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'parent_department_id','label' => 'Parent Department','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartments),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('parent_department_id')),'required' => true]); ?>
+<?php $component->withAttributes(['name' => 'parent_department_id','class' => 'select2','label' => 'Parent Department','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($parentDepartments),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('parent_department_id')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2)): ?>
-<?php $attributes = $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2; ?>
-<?php unset($__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2); ?>
+<?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $attributes = $__attributesOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2)): ?>
-<?php $component = $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2; ?>
-<?php unset($__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2); ?>
+<?php if (isset($__componentOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $component = $__componentOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__componentOriginal243648788f657c94d456cacfc3f7cdc3); ?>
 <?php endif; ?>
                         <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>

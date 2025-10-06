@@ -411,14 +411,14 @@
                                 <div class="col-lg-4 col-md-6 pr-0" id="joining_date_section">
                                     <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'joining_date','label' => 'Joining Date','id' => 'joining_date','type' => 'date','pattern' => '[0-9]{10,30}','placeholder' => 'Enter joining date','value' => old('joining_date', $unique_applicant ? $unique_applicant->joining_date : null)]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'joining_date','label' => 'Joining Date','id' => 'joining_date','class' => 'holiday-date','type' => 'date','placeholder' => 'Enter joining date','value' => old('joining_date', $unique_applicant ? $unique_applicant->joining_date : null)]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'joining_date','label' => 'Joining Date','id' => 'joining_date','type' => 'date','pattern' => '[0-9]{10,30}','placeholder' => 'Enter joining date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('joining_date', $unique_applicant ? $unique_applicant->joining_date : null))]); ?>
+<?php $component->withAttributes(['name' => 'joining_date','label' => 'Joining Date','id' => 'joining_date','class' => 'holiday-date','type' => 'date','placeholder' => 'Enter joining date','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('joining_date', $unique_applicant ? $unique_applicant->joining_date : null))]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -539,6 +539,14 @@
 <?php $__env->startPush('scripts'); ?>
     <script>
         $(document).ready(function() {
+            let holidays = <?php echo json_encode($holidays, 15, 512) ?>;
+            flatpickr("#joining_date", {
+                dateFormat: "Y-m-d",
+                allowInput: false,
+                minDate: "<?php echo e($today); ?>",
+                disable: holidays,
+            });
+
             $('#birth_certificate_section').hide();
             $('#identification_type').on('change', function() {
                 let identification_type = $(this).val();

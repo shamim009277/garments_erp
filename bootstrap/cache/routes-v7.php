@@ -86,13 +86,33 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/sanctum/csrf-cookie' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sanctum.csrf-cookie',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/up' => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'generated::UNmYQGQh1j9hlOpg',
+            '_route' => 'generated::6CrRGwyPgAZ43PZw',
           ),
           1 => NULL,
           2 => 
@@ -221,7 +241,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::OfymT3A9HM4iRZpX',
+            '_route' => 'generated::LNIQ0tJA3Trr9ZU8',
           ),
           1 => NULL,
           2 => 
@@ -351,7 +371,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::b3y0VXtgNwumjdiW',
+            '_route' => 'generated::GVtXyZFkMsOB6Utc',
           ),
           1 => NULL,
           2 => 
@@ -3014,6 +3034,100 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/hris/setup/departurereasons/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/departurereasons/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/departurereasons' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/departurereasons/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/hris/setup/gatepass_purpose/toggle' => 
       array (
         0 => 
@@ -3189,6 +3303,288 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'hris.setup.gatepass_reason.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/leavereason/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/leavereason/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/leavereason' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/leavereason/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/lines/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/lines/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/lines' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/lines/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/units/toggle' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.toggle',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/units/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/units' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/setup/units/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.create',
           ),
           1 => NULL,
           2 => 
@@ -3435,6 +3831,25 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'hris.database.employee.document',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-info' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee.info',
           ),
           1 => NULL,
           2 => 
@@ -3878,19 +4293,856 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/hris/report/employee-listings/preview' => 
+      '/hris/database/employee-gatepass/reasons' => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'hris.report.employee-listings.preview',
+            '_route' => 'hris.database.employee-gatepass.reasons',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-gatepass/in' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.in',
           ),
           1 => NULL,
           2 => 
           array (
             'GET' => 0,
             'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.in.update',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-gatepass/out' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.out',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.out.update',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-gatepass' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-gatepass/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-application/reasons' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.reasons',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave/info' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave.info',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/getleavereason' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.getleavereason',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-application' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-application/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-forward' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-forward.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-forward.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-forward/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-forward.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-approve' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-approve.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-approve.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-approve/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-approve.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-all' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-all.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-all.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/leave-all/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-all.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/photosign/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/photosign/info' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.info',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/photosign' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/photosign/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/fetch-designation' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.fetch-designation',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/bulk-increment' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.bulk-increment.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.bulk-increment.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/bulk-increment/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.bulk-increment.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-increment' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-increment.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-increment.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/employee-increment/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-increment.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/increment-enforce' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.increment-enforce.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.increment-enforce.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/increment-enforce/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.increment-enforce.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/elcalculation' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elcalculation.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elcalculation.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/elcalculation/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elcalculation.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/elpayment' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elpayment.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elpayment.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/database/elpayment/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elpayment.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/employee-listings/preview' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.employee-listings.form.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.employee-listings.report.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
           ),
           3 => NULL,
           4 => false,
@@ -3941,6 +5193,466 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'hris.report.employee-listings.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/leave-report/preview' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.form.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.report.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/leave-report' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/leave-report/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/movement-pass/preview' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.form.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.report.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/movement-pass' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/movement-pass/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/shifting-report/preview' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.form.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.report.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/shifting-report' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/shifting-report/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/applicant-report/preview' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.form.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.report.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/applicant-report' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/applicant-report/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/increment-report/preview' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.form.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.report.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/increment-report' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/report/increment-report/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.create',
           ),
           1 => NULL,
           2 => 
@@ -4010,6 +5722,101 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/hris/settings/fetch-user' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.fetch-user',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/fetch-approved-data' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.fetch-approved-data',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/fetch-forward-data' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.fetch-forward-data',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/delete-approved-user' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.delete-approved-user',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/settings/replace-user' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.settings.forward-approve.replace-user',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/hris/settings/forward-approve' => 
       array (
         0 => 
@@ -4053,6 +5860,492 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'hris.settings.forward-approve.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/designationchange' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.designationchange.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.designationchange.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/designationchange/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.designationchange.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/departure/info' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.info',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/departure' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/departure/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/calender' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.calender.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.calender.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/calender/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.calender.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/shiftinglist' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.shiftinglist.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.shiftinglist.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/shiftinglist/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.shiftinglist.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/edit-shiftinglist' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.edit-shiftinglist.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.edit-shiftinglist.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/edit-shiftinglist/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.edit-shiftinglist.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/exceptional-holidays' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.exceptional-holidays.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.exceptional-holidays.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/exceptional-holidays/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.exceptional-holidays.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/editexceptional-holidays/delete' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.delete',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/editexceptional-holidays' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/editexceptional-holidays/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/maternity-entry' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.maternity-entry.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.maternity-entry.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/hris/tools/maternity-entry/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.maternity-entry.create',
           ),
           1 => NULL,
           2 => 
@@ -7107,10 +9400,141 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/payroll/database/employee/info' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.employee.info',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/payroll/database/advance' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/payroll/database/advance/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/payroll/tools/advance-process' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.tools.advance-process.index',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.tools.advance-process.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/payroll/tools/advance-process/create' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.tools.advance-process.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|([^/]++)(?|(*:666)|/edit(*:679)|(*:687))|set(?|up/(?|nationalities/([^/]++)(?|(*:733)|/edit(*:746)|(*:754))|maritalstatus/([^/]++)(?|(*:788)|/edit(*:801)|(*:809))|s(?|ex/([^/]++)(?|(*:836)|/edit(*:849)|(*:857))|ourcereferences/([^/]++)(?|(*:893)|/edit(*:906)|(*:914))|hifts/([^/]++)(?|(*:940)|/edit(*:953)|(*:961)))|religions/([^/]++)(?|(*:992)|/edit(*:1005)|(*:1014))|d(?|i(?|visions/([^/]++)(?|(*:1051)|/edit(*:1065)|(*:1074))|stricts/([^/]++)(?|(*:1103)|/edit(*:1117)|(*:1126)))|ocuments/([^/]++)(?|(*:1157)|/edit(*:1171)|(*:1180))|e(?|partments/([^/]++)(?|(*:1215)|/edit(*:1229)|(*:1238))|signations/([^/]++)(?|(*:1270)|/edit(*:1284)|(*:1293))|grees/([^/]++)(?|(*:1320)|/edit(*:1334)|(*:1343))))|thanas/([^/]++)(?|(*:1373)|/edit(*:1387)|(*:1396))|unions/([^/]++)(?|(*:1424)|/edit(*:1438)|(*:1447))|e(?|ducationboards/([^/]++)(?|(*:1487)|/edit(*:1501)|(*:1510))|mployeecategories/([^/]++)(?|(*:1549)|/edit(*:1563)|(*:1572)))|organizations/([^/]++)(?|(*:1608)|/edit(*:1622)|(*:1631))|leaveclassifications/([^/]++)(?|(*:1673)|/edit(*:1687)|(*:1696))|parentde(?|partments/([^/]++)(?|(*:1738)|/edit(*:1752)|(*:1761))|signations/([^/]++)(?|(*:1793)|/edit(*:1807)|(*:1816)))|gatepass_(?|purpose/([^/]++)(?|(*:1858)|/edit(*:1872)|(*:1881))|reason/([^/]++)(?|(*:1909)|/edit(*:1923)|(*:1932))))|tings/(?|hr\\-settings/([^/]++)(?|(*:1977)|/edit(*:1991)|(*:2000))|forward\\-approve/([^/]++)(?|(*:2038)|/edit(*:2052)|(*:2061))))|database/(?|new\\-applicants/([^/]++)(?|(*:2112)|/edit(*:2126)|(*:2135))|employee(?|\\-(?|idassign/([^/]++)(?|(*:2181)|/edit(*:2195)|(*:2204))|e(?|ducation/([^/]++)(?|(*:2238)|/edit(*:2252)|(*:2261))|xperience/([^/]++)(?|(*:2292)|/edit(*:2306)|(*:2315)))|training/([^/]++)(?|(*:2346)|/edit(*:2360)|(*:2369))|reference/([^/]++)(?|(*:2400)|/edit(*:2414)|(*:2423))|service/([^/]++)(?|(*:2452)|/edit(*:2466)|(*:2475)))|/([^/]++)(?|(*:2498)|/edit(*:2512)|(*:2521)))|d(?|esignation/([^/]++)(*:2555)|istrict/([^/]++)(*:2580)))|report/employee\\-listings/([^/]++)(?|(*:2628)|/edit(*:2642)|(*:2651)))|/inventory/(?|([^/]++)(?|(*:2687)|/edit(*:2701)|(*:2710))|setup/(?|p(?|arties/([^/]++)(?|(*:2751)|/edit(*:2765)|(*:2774))|roductcategories/([^/]++)(?|(*:2812)|/edit(*:2826)|(*:2835)))|s(?|tore(?|types/([^/]++)(?|(*:2874)|/edit(*:2888)|(*:2897))|l(?|ines/([^/]++)(?|(*:2927)|/edit(*:2941)|(*:2950))|ocations/([^/]++)(?|(*:2980)|/edit(*:2994)|(*:3003))))|upplier(?|types/([^/]++)(?|(*:3042)|/edit(*:3056)|(*:3065))|s/([^/]++)(?|(*:3088)|/edit(*:3102)|(*:3111)))|ize(?|groups/([^/]++)(?|(*:3146)|/edit(*:3160)|(*:3169))|s/([^/]++)(?|(*:3192)|/edit(*:3206)|(*:3215))))|racklocations/([^/]++)(?|(*:3252)|/edit(*:3266)|(*:3275))|c(?|hallanpurposes/([^/]++)(?|(*:3315)|/edit(*:3329)|(*:3338))|o(?|untries/([^/]++)(?|(*:3371)|/edit(*:3385)|(*:3394))|lor(?|groups/([^/]++)(?|(*:3428)|/edit(*:3442)|(*:3451))|s/([^/]++)(?|(*:3474)|/edit(*:3488)|(*:3497)))|mpositions/([^/]++)(?|(*:3530)|/edit(*:3544)|(*:3553))))|goods(?|categories/([^/]++)(?|(*:3595)|/edit(*:3609)|(*:3618))|SubCategories/([^/]++)(?|(*:3653)|/edit(*:3667)|(*:3676)))|buyers/([^/]++)(?|(*:3705)|/edit(*:3719)|(*:3728))|items/([^/]++)(?|(*:3755)|/edit(*:3769)|(*:3778))|yarncounts/([^/]++)(?|(*:3810)|/edit(*:3824)|(*:3833))|f(?|abict(?|ypes/([^/]++)(?|(*:3871)|/edit(*:3885)|(*:3894))|reatments/([^/]++)(?|(*:3925)|/edit(*:3939)|(*:3948)))|orapppannel/([^/]++)(?|(*:3982)|/edit(*:3996)|(*:4005))))|database/(?|basicorders/(?|([^/]++)(?|(*:4055)|/edit(*:4069)|(*:4078))|lot(?|s(?|\\-colors\\-sizes/store/([^/]++)(*:4128)|/store/([^/]++)(*:4152))|/([^/]++)/colors(*:4178))|color(?|s_sizes/store/([^/]++)(*:4218)|/([^/]++)/sizes(*:4242))|update_lots/([^/]++)(*:4272)|size_group/([^/]++)/sizes(*:4306))|purrequisition(?|s/([^/]++)(?|(*:4346)|/edit(*:4360)|(*:4369))|mains/(?|multiplestatus/([^/]++)(*:4411)|([^/]++)(?|(*:4431)|/edit(*:4445)|(*:4454)))|details/([^/]++)(?|(*:4484)|/edit(*:4498)|(*:4507)))|req(?|f(?|orwarding/(?|multiplestatus/([^/]++)(*:4564)|([^/]++)(?|(*:4584)|/edit(*:4598)|(*:4607)))|inalapproval/(?|multiplestatus/([^/]++)(*:4657)|([^/]++)(?|(*:4677)|/edit(*:4691)|(*:4700))))|pricing/(?|multiplestatus/([^/]++)(*:4746)|([^/]++)(?|(*:4766)|/edit(*:4780)|(*:4789)))|a(?|pproval/(?|multiplestatus/([^/]++)(*:4838)|([^/]++)(?|(*:4858)|/edit(*:4872)|(*:4881)))|ccclearance/(?|multiplestatus/([^/]++)(*:4930)|([^/]++)(?|(*:4950)|/edit(*:4964)|(*:4973)))))))|/payroll/([^/]++)(?|(*:5008)|/edit(*:5022)|(*:5031))|/storage/(.*)(*:5054))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/reset\\-password/([^/]++)(*:106)|/verify\\-email/([^/]++)/([^/]++)(*:146)|/a(?|dministration/(?|m(?|odules/([^/]++)(?|(*:198)|/edit(*:211)|(*:219))|enu(?|/([^/]++)/(?|parents(*:254)|childs(*:268))|s/([^/]++)(?|(*:290)|/edit(*:303)|(*:311))))|authorization/(?|permissions/([^/]++)(?|(*:362)|/edit(*:375)|(*:383))|roles/([^/]++)(?|(*:409)|/edit(*:422)|(*:430))|users/([^/]++)(?|(*:456)|/edit(*:469)|(*:477))))|pi/v1/(?|hris/([^/]++)(?|(*:513))|inventories/([^/]++)(?|(*:545))|payrolls/([^/]++)(?|(*:574))))|/master/setup/units/([^/]++)(?|(*:616)|/edit(*:629)|(*:637))|/hris/(?|([^/]++)(?|(*:666)|/edit(*:679)|(*:687))|set(?|up/(?|nationalities/([^/]++)(?|(*:733)|/edit(*:746)|(*:754))|maritalstatus/([^/]++)(?|(*:788)|/edit(*:801)|(*:809))|s(?|ex/([^/]++)(?|(*:836)|/edit(*:849)|(*:857))|ourcereferences/([^/]++)(?|(*:893)|/edit(*:906)|(*:914))|hifts/([^/]++)(?|(*:940)|/edit(*:953)|(*:961)))|religions/([^/]++)(?|(*:992)|/edit(*:1005)|(*:1014))|d(?|i(?|visions/([^/]++)(?|(*:1051)|/edit(*:1065)|(*:1074))|stricts/([^/]++)(?|(*:1103)|/edit(*:1117)|(*:1126)))|ocuments/([^/]++)(?|(*:1157)|/edit(*:1171)|(*:1180))|e(?|part(?|ments/([^/]++)(?|(*:1218)|/edit(*:1232)|(*:1241))|urereasons/([^/]++)(?|(*:1273)|/edit(*:1287)|(*:1296)))|signations/([^/]++)(?|(*:1329)|/edit(*:1343)|(*:1352))|grees/([^/]++)(?|(*:1379)|/edit(*:1393)|(*:1402))))|thanas/([^/]++)(?|(*:1432)|/edit(*:1446)|(*:1455))|uni(?|ons/([^/]++)(?|(*:1486)|/edit(*:1500)|(*:1509))|ts/([^/]++)(?|(*:1533)|/edit(*:1547)|(*:1556)))|e(?|ducationboards/([^/]++)(?|(*:1597)|/edit(*:1611)|(*:1620))|mployeecategories/([^/]++)(?|(*:1659)|/edit(*:1673)|(*:1682)))|organizations/([^/]++)(?|(*:1718)|/edit(*:1732)|(*:1741))|l(?|eave(?|classifications/([^/]++)(?|(*:1789)|/edit(*:1803)|(*:1812))|reason/([^/]++)(?|(*:1840)|/edit(*:1854)|(*:1863)))|ines/([^/]++)(?|(*:1890)|/edit(*:1904)|(*:1913)))|parentde(?|partments/([^/]++)(?|(*:1956)|/edit(*:1970)|(*:1979))|signations/([^/]++)(?|(*:2011)|/edit(*:2025)|(*:2034)))|gatepass_(?|purpose/([^/]++)(?|(*:2076)|/edit(*:2090)|(*:2099))|reason/([^/]++)(?|(*:2127)|/edit(*:2141)|(*:2150))))|tings/(?|hr\\-settings/([^/]++)(?|(*:2195)|/edit(*:2209)|(*:2218))|forward\\-approve/([^/]++)(?|(*:2256)|/edit(*:2270)|(*:2279))))|database/(?|new\\-applicants/([^/]++)(?|(*:2330)|/edit(*:2344)|(*:2353))|e(?|mployee(?|\\-(?|i(?|dassign/([^/]++)(?|(*:2405)|/edit(*:2419)|(*:2428))|ncrement/([^/]++)(?|(*:2458)|/edit(*:2472)|(*:2481)))|e(?|ducation/([^/]++)(?|(*:2516)|/edit(*:2530)|(*:2539))|xperience/([^/]++)(?|(*:2570)|/edit(*:2584)|(*:2593)))|training/([^/]++)(?|(*:2624)|/edit(*:2638)|(*:2647))|reference/([^/]++)(?|(*:2678)|/edit(*:2692)|(*:2701))|service/([^/]++)(?|(*:2730)|/edit(*:2744)|(*:2753))|gatepass/([^/]++)(?|(*:2783)|/edit(*:2797)|(*:2806)))|/([^/]++)(?|(*:2829)|/edit(*:2843)|(*:2852)))|l(?|calculation/([^/]++)(?|(*:2890)|/edit(*:2904)|(*:2913))|payment/([^/]++)(?|(*:2942)|/edit(*:2956)|(*:2965))))|unit/([^/]++)(*:2990)|d(?|esignation/([^/]++)(*:3022)|istrict/([^/]++)(*:3047))|leave\\-(?|a(?|pp(?|lication/([^/]++)(?|(*:3096)|/edit(*:3110)|(*:3119))|rove/([^/]++)(?|(*:3145)|/edit(*:3159)|(*:3168)))|ll/([^/]++)(?|(*:3193)|/edit(*:3207)|(*:3216)))|forward/([^/]++)(?|(*:3246)|/edit(*:3260)|(*:3269)))|photosign/([^/]++)(?|(*:3301)|/edit(*:3315)|(*:3324))|bulk\\-increment/([^/]++)(?|(*:3361)|/edit(*:3375)|(*:3384))|increment\\-enforce/([^/]++)(?|(*:3424)|/edit(*:3438)|(*:3447)))|report/(?|employee\\-listings/([^/]++)(?|(*:3498)|/edit(*:3512)|(*:3521))|leave\\-report/([^/]++)(?|(*:3556)|/edit(*:3570)|(*:3579))|movement\\-pass/([^/]++)(?|(*:3615)|/edit(*:3629)|(*:3638))|shifting\\-report/([^/]++)(?|(*:3676)|/edit(*:3690)|(*:3699))|applicant\\-report/([^/]++)(?|(*:3738)|/edit(*:3752)|(*:3761))|increment\\-report/([^/]++)(?|(*:3800)|/edit(*:3814)|(*:3823)))|tools/(?|de(?|signationchange/([^/]++)(?|(*:3875)|/edit(*:3889)|(*:3898))|parture/([^/]++)(?|(*:3927)|/edit(*:3941)|(*:3950)))|calender/([^/]++)(?|(*:3981)|/edit(*:3995)|(*:4004))|shiftinglist/([^/]++)(?|(*:4038)|/edit(*:4052)|(*:4061))|e(?|dit(?|\\-shiftinglist/([^/]++)(?|(*:4107)|/edit(*:4121)|(*:4130))|exceptional\\-holidays/([^/]++)(?|(*:4173)|/edit(*:4187)|(*:4196)))|xceptional\\-holidays/([^/]++)(?|(*:4239)|/edit(*:4253)|(*:4262)))|maternity\\-entry/([^/]++)(?|(*:4301)|/edit(*:4315)|(*:4324))))|/inventory/(?|([^/]++)(?|(*:4361)|/edit(*:4375)|(*:4384))|setup/(?|p(?|arties/([^/]++)(?|(*:4425)|/edit(*:4439)|(*:4448))|roductcategories/([^/]++)(?|(*:4486)|/edit(*:4500)|(*:4509)))|s(?|tore(?|types/([^/]++)(?|(*:4548)|/edit(*:4562)|(*:4571))|l(?|ines/([^/]++)(?|(*:4601)|/edit(*:4615)|(*:4624))|ocations/([^/]++)(?|(*:4654)|/edit(*:4668)|(*:4677))))|upplier(?|types/([^/]++)(?|(*:4716)|/edit(*:4730)|(*:4739))|s/([^/]++)(?|(*:4762)|/edit(*:4776)|(*:4785)))|ize(?|groups/([^/]++)(?|(*:4820)|/edit(*:4834)|(*:4843))|s/([^/]++)(?|(*:4866)|/edit(*:4880)|(*:4889))))|racklocations/([^/]++)(?|(*:4926)|/edit(*:4940)|(*:4949))|c(?|hallanpurposes/([^/]++)(?|(*:4989)|/edit(*:5003)|(*:5012))|o(?|untries/([^/]++)(?|(*:5045)|/edit(*:5059)|(*:5068))|lor(?|groups/([^/]++)(?|(*:5102)|/edit(*:5116)|(*:5125))|s/([^/]++)(?|(*:5148)|/edit(*:5162)|(*:5171)))|mpositions/([^/]++)(?|(*:5204)|/edit(*:5218)|(*:5227))))|goods(?|categories/([^/]++)(?|(*:5269)|/edit(*:5283)|(*:5292))|SubCategories/([^/]++)(?|(*:5327)|/edit(*:5341)|(*:5350)))|buyers/([^/]++)(?|(*:5379)|/edit(*:5393)|(*:5402))|items/([^/]++)(?|(*:5429)|/edit(*:5443)|(*:5452))|yarncounts/([^/]++)(?|(*:5484)|/edit(*:5498)|(*:5507))|f(?|abict(?|ypes/([^/]++)(?|(*:5545)|/edit(*:5559)|(*:5568))|reatments/([^/]++)(?|(*:5599)|/edit(*:5613)|(*:5622)))|orapppannel/([^/]++)(?|(*:5656)|/edit(*:5670)|(*:5679))))|database/(?|basicorders/(?|([^/]++)(?|(*:5729)|/edit(*:5743)|(*:5752))|lot(?|s(?|\\-colors\\-sizes/store/([^/]++)(*:5802)|/store/([^/]++)(*:5826))|/([^/]++)/colors(*:5852))|color(?|s_sizes/store/([^/]++)(*:5892)|/([^/]++)/sizes(*:5916))|update_lots/([^/]++)(*:5946)|size_group/([^/]++)/sizes(*:5980))|purrequisition(?|s/([^/]++)(?|(*:6020)|/edit(*:6034)|(*:6043))|mains/(?|multiplestatus/([^/]++)(*:6085)|([^/]++)(?|(*:6105)|/edit(*:6119)|(*:6128)))|details/([^/]++)(?|(*:6158)|/edit(*:6172)|(*:6181)))|req(?|f(?|orwarding/(?|multiplestatus/([^/]++)(*:6238)|([^/]++)(?|(*:6258)|/edit(*:6272)|(*:6281)))|inalapproval/(?|multiplestatus/([^/]++)(*:6331)|([^/]++)(?|(*:6351)|/edit(*:6365)|(*:6374))))|pricing/(?|multiplestatus/([^/]++)(*:6420)|([^/]++)(?|(*:6440)|/edit(*:6454)|(*:6463)))|a(?|pproval/(?|multiplestatus/([^/]++)(*:6512)|([^/]++)(?|(*:6532)|/edit(*:6546)|(*:6555)))|ccclearance/(?|multiplestatus/([^/]++)(*:6604)|([^/]++)(?|(*:6624)|/edit(*:6638)|(*:6647)))))))|/payroll/(?|([^/]++)(?|(*:6685)|/edit(*:6699)|(*:6708))|database/advance/([^/]++)(?|(*:6746)|/edit(*:6760)|(*:6769))|tools/advance\\-process/([^/]++)(?|(*:6813)|/edit(*:6827)|(*:6836)))|/storage/(.*)(*:6860))/?$}sDu',
     ),
     3 => 
     array (
@@ -8848,7 +11272,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1215 => 
+      1218 => 
       array (
         0 => 
         array (
@@ -8871,7 +11295,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1229 => 
+      1232 => 
       array (
         0 => 
         array (
@@ -8894,7 +11318,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1238 => 
+      1241 => 
       array (
         0 => 
         array (
@@ -8936,7 +11360,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1270 => 
+      1273 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.show',
+          ),
+          1 => 
+          array (
+            0 => 'departurereason',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1287 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.edit',
+          ),
+          1 => 
+          array (
+            0 => 'departurereason',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1296 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.update',
+          ),
+          1 => 
+          array (
+            0 => 'departurereason',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.departurereasons.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'departurereason',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1329 => 
       array (
         0 => 
         array (
@@ -8959,7 +11471,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1284 => 
+      1343 => 
       array (
         0 => 
         array (
@@ -8982,7 +11494,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1293 => 
+      1352 => 
       array (
         0 => 
         array (
@@ -9024,7 +11536,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1320 => 
+      1379 => 
       array (
         0 => 
         array (
@@ -9047,7 +11559,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1334 => 
+      1393 => 
       array (
         0 => 
         array (
@@ -9070,7 +11582,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1343 => 
+      1402 => 
       array (
         0 => 
         array (
@@ -9112,7 +11624,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1373 => 
+      1432 => 
       array (
         0 => 
         array (
@@ -9135,7 +11647,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1387 => 
+      1446 => 
       array (
         0 => 
         array (
@@ -9158,7 +11670,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1396 => 
+      1455 => 
       array (
         0 => 
         array (
@@ -9200,7 +11712,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1424 => 
+      1486 => 
       array (
         0 => 
         array (
@@ -9223,7 +11735,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1438 => 
+      1500 => 
       array (
         0 => 
         array (
@@ -9246,7 +11758,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1447 => 
+      1509 => 
       array (
         0 => 
         array (
@@ -9288,7 +11800,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1487 => 
+      1533 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.show',
+          ),
+          1 => 
+          array (
+            0 => 'unit',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1547 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.edit',
+          ),
+          1 => 
+          array (
+            0 => 'unit',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1556 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.update',
+          ),
+          1 => 
+          array (
+            0 => 'unit',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.units.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'unit',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1597 => 
       array (
         0 => 
         array (
@@ -9311,7 +11911,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1501 => 
+      1611 => 
       array (
         0 => 
         array (
@@ -9334,7 +11934,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1510 => 
+      1620 => 
       array (
         0 => 
         array (
@@ -9376,7 +11976,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1549 => 
+      1659 => 
       array (
         0 => 
         array (
@@ -9399,7 +11999,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1563 => 
+      1673 => 
       array (
         0 => 
         array (
@@ -9422,7 +12022,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1572 => 
+      1682 => 
       array (
         0 => 
         array (
@@ -9464,7 +12064,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1608 => 
+      1718 => 
       array (
         0 => 
         array (
@@ -9487,7 +12087,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1622 => 
+      1732 => 
       array (
         0 => 
         array (
@@ -9510,7 +12110,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1631 => 
+      1741 => 
       array (
         0 => 
         array (
@@ -9552,7 +12152,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1673 => 
+      1789 => 
       array (
         0 => 
         array (
@@ -9575,7 +12175,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1687 => 
+      1803 => 
       array (
         0 => 
         array (
@@ -9598,7 +12198,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1696 => 
+      1812 => 
       array (
         0 => 
         array (
@@ -9640,7 +12240,183 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1738 => 
+      1840 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.show',
+          ),
+          1 => 
+          array (
+            0 => 'leavereason',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1854 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.edit',
+          ),
+          1 => 
+          array (
+            0 => 'leavereason',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1863 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.update',
+          ),
+          1 => 
+          array (
+            0 => 'leavereason',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.leavereason.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'leavereason',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1890 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.show',
+          ),
+          1 => 
+          array (
+            0 => 'line',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1904 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.edit',
+          ),
+          1 => 
+          array (
+            0 => 'line',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1913 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.update',
+          ),
+          1 => 
+          array (
+            0 => 'line',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.setup.lines.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'line',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1956 => 
       array (
         0 => 
         array (
@@ -9663,7 +12439,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1752 => 
+      1970 => 
       array (
         0 => 
         array (
@@ -9686,7 +12462,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1761 => 
+      1979 => 
       array (
         0 => 
         array (
@@ -9728,7 +12504,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1793 => 
+      2011 => 
       array (
         0 => 
         array (
@@ -9751,7 +12527,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1807 => 
+      2025 => 
       array (
         0 => 
         array (
@@ -9774,7 +12550,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1816 => 
+      2034 => 
       array (
         0 => 
         array (
@@ -9816,7 +12592,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1858 => 
+      2076 => 
       array (
         0 => 
         array (
@@ -9839,7 +12615,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1872 => 
+      2090 => 
       array (
         0 => 
         array (
@@ -9862,7 +12638,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1881 => 
+      2099 => 
       array (
         0 => 
         array (
@@ -9904,7 +12680,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1909 => 
+      2127 => 
       array (
         0 => 
         array (
@@ -9927,7 +12703,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1923 => 
+      2141 => 
       array (
         0 => 
         array (
@@ -9950,7 +12726,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1932 => 
+      2150 => 
       array (
         0 => 
         array (
@@ -9992,7 +12768,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1977 => 
+      2195 => 
       array (
         0 => 
         array (
@@ -10015,7 +12791,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1991 => 
+      2209 => 
       array (
         0 => 
         array (
@@ -10038,7 +12814,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2000 => 
+      2218 => 
       array (
         0 => 
         array (
@@ -10080,7 +12856,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2038 => 
+      2256 => 
       array (
         0 => 
         array (
@@ -10103,7 +12879,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2052 => 
+      2270 => 
       array (
         0 => 
         array (
@@ -10126,7 +12902,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2061 => 
+      2279 => 
       array (
         0 => 
         array (
@@ -10168,7 +12944,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2112 => 
+      2330 => 
       array (
         0 => 
         array (
@@ -10191,7 +12967,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2126 => 
+      2344 => 
       array (
         0 => 
         array (
@@ -10214,7 +12990,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2135 => 
+      2353 => 
       array (
         0 => 
         array (
@@ -10256,7 +13032,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2181 => 
+      2405 => 
       array (
         0 => 
         array (
@@ -10279,7 +13055,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2195 => 
+      2419 => 
       array (
         0 => 
         array (
@@ -10302,7 +13078,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2204 => 
+      2428 => 
       array (
         0 => 
         array (
@@ -10344,7 +13120,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2238 => 
+      2458 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-increment.show',
+          ),
+          1 => 
+          array (
+            0 => 'employee_increment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2472 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-increment.edit',
+          ),
+          1 => 
+          array (
+            0 => 'employee_increment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2481 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-increment.update',
+          ),
+          1 => 
+          array (
+            0 => 'employee_increment',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-increment.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'employee_increment',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2516 => 
       array (
         0 => 
         array (
@@ -10367,7 +13231,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2252 => 
+      2530 => 
       array (
         0 => 
         array (
@@ -10390,7 +13254,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2261 => 
+      2539 => 
       array (
         0 => 
         array (
@@ -10432,7 +13296,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2292 => 
+      2570 => 
       array (
         0 => 
         array (
@@ -10455,7 +13319,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2306 => 
+      2584 => 
       array (
         0 => 
         array (
@@ -10478,7 +13342,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2315 => 
+      2593 => 
       array (
         0 => 
         array (
@@ -10520,7 +13384,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2346 => 
+      2624 => 
       array (
         0 => 
         array (
@@ -10543,7 +13407,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2360 => 
+      2638 => 
       array (
         0 => 
         array (
@@ -10566,7 +13430,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2369 => 
+      2647 => 
       array (
         0 => 
         array (
@@ -10608,7 +13472,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2400 => 
+      2678 => 
       array (
         0 => 
         array (
@@ -10631,7 +13495,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2414 => 
+      2692 => 
       array (
         0 => 
         array (
@@ -10654,7 +13518,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2423 => 
+      2701 => 
       array (
         0 => 
         array (
@@ -10696,7 +13560,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2452 => 
+      2730 => 
       array (
         0 => 
         array (
@@ -10719,7 +13583,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2466 => 
+      2744 => 
       array (
         0 => 
         array (
@@ -10742,7 +13606,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2475 => 
+      2753 => 
       array (
         0 => 
         array (
@@ -10784,7 +13648,95 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2498 => 
+      2783 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.show',
+          ),
+          1 => 
+          array (
+            0 => 'employee_gatepass',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2797 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.edit',
+          ),
+          1 => 
+          array (
+            0 => 'employee_gatepass',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2806 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.update',
+          ),
+          1 => 
+          array (
+            0 => 'employee_gatepass',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee-gatepass.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'employee_gatepass',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2829 => 
       array (
         0 => 
         array (
@@ -10807,7 +13759,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2512 => 
+      2843 => 
       array (
         0 => 
         array (
@@ -10830,7 +13782,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2521 => 
+      2852 => 
       array (
         0 => 
         array (
@@ -10872,7 +13824,206 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2555 => 
+      2890 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elcalculation.show',
+          ),
+          1 => 
+          array (
+            0 => 'elcalculation',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2904 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elcalculation.edit',
+          ),
+          1 => 
+          array (
+            0 => 'elcalculation',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2913 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elcalculation.update',
+          ),
+          1 => 
+          array (
+            0 => 'elcalculation',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elcalculation.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'elcalculation',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2942 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elpayment.show',
+          ),
+          1 => 
+          array (
+            0 => 'elpayment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2956 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elpayment.edit',
+          ),
+          1 => 
+          array (
+            0 => 'elpayment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      2965 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elpayment.update',
+          ),
+          1 => 
+          array (
+            0 => 'elpayment',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.elpayment.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'elpayment',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2990 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.employee.getUnit',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3022 => 
       array (
         0 => 
         array (
@@ -10895,7 +14046,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2580 => 
+      3047 => 
       array (
         0 => 
         array (
@@ -10918,7 +14069,623 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2628 => 
+      3096 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.show',
+          ),
+          1 => 
+          array (
+            0 => 'leave_application',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3110 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.edit',
+          ),
+          1 => 
+          array (
+            0 => 'leave_application',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3119 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.update',
+          ),
+          1 => 
+          array (
+            0 => 'leave_application',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-application.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'leave_application',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3145 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-approve.show',
+          ),
+          1 => 
+          array (
+            0 => 'leave_approve',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3159 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-approve.edit',
+          ),
+          1 => 
+          array (
+            0 => 'leave_approve',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3168 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-approve.update',
+          ),
+          1 => 
+          array (
+            0 => 'leave_approve',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-approve.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'leave_approve',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3193 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-all.show',
+          ),
+          1 => 
+          array (
+            0 => 'leave_all',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3207 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-all.edit',
+          ),
+          1 => 
+          array (
+            0 => 'leave_all',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3216 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-all.update',
+          ),
+          1 => 
+          array (
+            0 => 'leave_all',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-all.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'leave_all',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3246 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-forward.show',
+          ),
+          1 => 
+          array (
+            0 => 'leave_forward',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3260 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-forward.edit',
+          ),
+          1 => 
+          array (
+            0 => 'leave_forward',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3269 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-forward.update',
+          ),
+          1 => 
+          array (
+            0 => 'leave_forward',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.leave-forward.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'leave_forward',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3301 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.show',
+          ),
+          1 => 
+          array (
+            0 => 'photosign',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3315 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.edit',
+          ),
+          1 => 
+          array (
+            0 => 'photosign',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3324 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.update',
+          ),
+          1 => 
+          array (
+            0 => 'photosign',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.photosign.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'photosign',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3361 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.bulk-increment.show',
+          ),
+          1 => 
+          array (
+            0 => 'bulk_increment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3375 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.bulk-increment.edit',
+          ),
+          1 => 
+          array (
+            0 => 'bulk_increment',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3384 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.bulk-increment.update',
+          ),
+          1 => 
+          array (
+            0 => 'bulk_increment',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.bulk-increment.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'bulk_increment',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3424 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.increment-enforce.show',
+          ),
+          1 => 
+          array (
+            0 => 'increment_enforce',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3438 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.increment-enforce.edit',
+          ),
+          1 => 
+          array (
+            0 => 'increment_enforce',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3447 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.increment-enforce.update',
+          ),
+          1 => 
+          array (
+            0 => 'increment_enforce',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.database.increment-enforce.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'increment_enforce',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3498 => 
       array (
         0 => 
         array (
@@ -10941,7 +14708,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2642 => 
+      3512 => 
       array (
         0 => 
         array (
@@ -10964,7 +14731,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2651 => 
+      3521 => 
       array (
         0 => 
         array (
@@ -11006,7 +14773,1151 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2687 => 
+      3556 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.show',
+          ),
+          1 => 
+          array (
+            0 => 'leave_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3570 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.edit',
+          ),
+          1 => 
+          array (
+            0 => 'leave_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3579 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.update',
+          ),
+          1 => 
+          array (
+            0 => 'leave_report',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.leave-report.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'leave_report',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3615 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.show',
+          ),
+          1 => 
+          array (
+            0 => 'movement_pass',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3629 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.edit',
+          ),
+          1 => 
+          array (
+            0 => 'movement_pass',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3638 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.update',
+          ),
+          1 => 
+          array (
+            0 => 'movement_pass',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.movement-pass.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'movement_pass',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3676 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.show',
+          ),
+          1 => 
+          array (
+            0 => 'shifting_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3690 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.edit',
+          ),
+          1 => 
+          array (
+            0 => 'shifting_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3699 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.update',
+          ),
+          1 => 
+          array (
+            0 => 'shifting_report',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.shifting-report.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'shifting_report',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3738 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.show',
+          ),
+          1 => 
+          array (
+            0 => 'applicant_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3752 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.edit',
+          ),
+          1 => 
+          array (
+            0 => 'applicant_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3761 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.update',
+          ),
+          1 => 
+          array (
+            0 => 'applicant_report',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.applicant-report.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'applicant_report',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3800 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.show',
+          ),
+          1 => 
+          array (
+            0 => 'increment_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3814 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.edit',
+          ),
+          1 => 
+          array (
+            0 => 'increment_report',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3823 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.update',
+          ),
+          1 => 
+          array (
+            0 => 'increment_report',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.report.increment-report.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'increment_report',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3875 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.designationchange.show',
+          ),
+          1 => 
+          array (
+            0 => 'designationchange',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3889 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.designationchange.edit',
+          ),
+          1 => 
+          array (
+            0 => 'designationchange',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3898 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.designationchange.update',
+          ),
+          1 => 
+          array (
+            0 => 'designationchange',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.designationchange.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'designationchange',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3927 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.show',
+          ),
+          1 => 
+          array (
+            0 => 'departure',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3941 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.edit',
+          ),
+          1 => 
+          array (
+            0 => 'departure',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      3950 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.update',
+          ),
+          1 => 
+          array (
+            0 => 'departure',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.departure.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'departure',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3981 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.calender.show',
+          ),
+          1 => 
+          array (
+            0 => 'calender',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      3995 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.calender.edit',
+          ),
+          1 => 
+          array (
+            0 => 'calender',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4004 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.calender.update',
+          ),
+          1 => 
+          array (
+            0 => 'calender',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.calender.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'calender',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4038 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.shiftinglist.show',
+          ),
+          1 => 
+          array (
+            0 => 'shiftinglist',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4052 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.shiftinglist.edit',
+          ),
+          1 => 
+          array (
+            0 => 'shiftinglist',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4061 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.shiftinglist.update',
+          ),
+          1 => 
+          array (
+            0 => 'shiftinglist',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.shiftinglist.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'shiftinglist',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4107 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.edit-shiftinglist.show',
+          ),
+          1 => 
+          array (
+            0 => 'edit_shiftinglist',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4121 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.edit-shiftinglist.edit',
+          ),
+          1 => 
+          array (
+            0 => 'edit_shiftinglist',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4130 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.edit-shiftinglist.update',
+          ),
+          1 => 
+          array (
+            0 => 'edit_shiftinglist',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.edit-shiftinglist.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'edit_shiftinglist',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4173 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.show',
+          ),
+          1 => 
+          array (
+            0 => 'editexceptional_holiday',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4187 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.edit',
+          ),
+          1 => 
+          array (
+            0 => 'editexceptional_holiday',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4196 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.update',
+          ),
+          1 => 
+          array (
+            0 => 'editexceptional_holiday',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.editexceptional-holidays.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'editexceptional_holiday',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4239 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.exceptional-holidays.show',
+          ),
+          1 => 
+          array (
+            0 => 'exceptional_holiday',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4253 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.exceptional-holidays.edit',
+          ),
+          1 => 
+          array (
+            0 => 'exceptional_holiday',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4262 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.exceptional-holidays.update',
+          ),
+          1 => 
+          array (
+            0 => 'exceptional_holiday',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.exceptional-holidays.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'exceptional_holiday',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4301 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.maternity-entry.show',
+          ),
+          1 => 
+          array (
+            0 => 'maternity_entry',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4315 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.maternity-entry.edit',
+          ),
+          1 => 
+          array (
+            0 => 'maternity_entry',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      4324 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.maternity-entry.update',
+          ),
+          1 => 
+          array (
+            0 => 'maternity_entry',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'hris.tools.maternity-entry.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'maternity_entry',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      4361 => 
       array (
         0 => 
         array (
@@ -11029,7 +15940,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2701 => 
+      4375 => 
       array (
         0 => 
         array (
@@ -11052,7 +15963,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2710 => 
+      4384 => 
       array (
         0 => 
         array (
@@ -11094,7 +16005,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2751 => 
+      4425 => 
       array (
         0 => 
         array (
@@ -11117,7 +16028,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2765 => 
+      4439 => 
       array (
         0 => 
         array (
@@ -11140,7 +16051,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2774 => 
+      4448 => 
       array (
         0 => 
         array (
@@ -11182,7 +16093,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2812 => 
+      4486 => 
       array (
         0 => 
         array (
@@ -11205,7 +16116,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2826 => 
+      4500 => 
       array (
         0 => 
         array (
@@ -11228,7 +16139,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2835 => 
+      4509 => 
       array (
         0 => 
         array (
@@ -11270,7 +16181,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2874 => 
+      4548 => 
       array (
         0 => 
         array (
@@ -11293,7 +16204,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2888 => 
+      4562 => 
       array (
         0 => 
         array (
@@ -11316,7 +16227,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2897 => 
+      4571 => 
       array (
         0 => 
         array (
@@ -11358,7 +16269,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2927 => 
+      4601 => 
       array (
         0 => 
         array (
@@ -11381,7 +16292,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2941 => 
+      4615 => 
       array (
         0 => 
         array (
@@ -11404,7 +16315,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2950 => 
+      4624 => 
       array (
         0 => 
         array (
@@ -11446,7 +16357,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2980 => 
+      4654 => 
       array (
         0 => 
         array (
@@ -11469,7 +16380,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2994 => 
+      4668 => 
       array (
         0 => 
         array (
@@ -11492,7 +16403,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3003 => 
+      4677 => 
       array (
         0 => 
         array (
@@ -11534,7 +16445,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3042 => 
+      4716 => 
       array (
         0 => 
         array (
@@ -11557,7 +16468,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3056 => 
+      4730 => 
       array (
         0 => 
         array (
@@ -11580,7 +16491,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3065 => 
+      4739 => 
       array (
         0 => 
         array (
@@ -11622,7 +16533,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3088 => 
+      4762 => 
       array (
         0 => 
         array (
@@ -11645,7 +16556,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3102 => 
+      4776 => 
       array (
         0 => 
         array (
@@ -11668,7 +16579,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3111 => 
+      4785 => 
       array (
         0 => 
         array (
@@ -11710,7 +16621,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3146 => 
+      4820 => 
       array (
         0 => 
         array (
@@ -11733,7 +16644,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3160 => 
+      4834 => 
       array (
         0 => 
         array (
@@ -11756,7 +16667,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3169 => 
+      4843 => 
       array (
         0 => 
         array (
@@ -11798,7 +16709,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3192 => 
+      4866 => 
       array (
         0 => 
         array (
@@ -11821,7 +16732,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3206 => 
+      4880 => 
       array (
         0 => 
         array (
@@ -11844,7 +16755,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3215 => 
+      4889 => 
       array (
         0 => 
         array (
@@ -11886,7 +16797,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3252 => 
+      4926 => 
       array (
         0 => 
         array (
@@ -11909,7 +16820,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3266 => 
+      4940 => 
       array (
         0 => 
         array (
@@ -11932,7 +16843,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3275 => 
+      4949 => 
       array (
         0 => 
         array (
@@ -11974,7 +16885,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3315 => 
+      4989 => 
       array (
         0 => 
         array (
@@ -11997,7 +16908,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3329 => 
+      5003 => 
       array (
         0 => 
         array (
@@ -12020,7 +16931,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3338 => 
+      5012 => 
       array (
         0 => 
         array (
@@ -12062,7 +16973,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3371 => 
+      5045 => 
       array (
         0 => 
         array (
@@ -12085,7 +16996,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3385 => 
+      5059 => 
       array (
         0 => 
         array (
@@ -12108,7 +17019,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3394 => 
+      5068 => 
       array (
         0 => 
         array (
@@ -12150,7 +17061,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3428 => 
+      5102 => 
       array (
         0 => 
         array (
@@ -12173,7 +17084,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3442 => 
+      5116 => 
       array (
         0 => 
         array (
@@ -12196,7 +17107,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3451 => 
+      5125 => 
       array (
         0 => 
         array (
@@ -12238,7 +17149,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3474 => 
+      5148 => 
       array (
         0 => 
         array (
@@ -12261,7 +17172,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3488 => 
+      5162 => 
       array (
         0 => 
         array (
@@ -12284,7 +17195,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3497 => 
+      5171 => 
       array (
         0 => 
         array (
@@ -12326,7 +17237,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3530 => 
+      5204 => 
       array (
         0 => 
         array (
@@ -12349,7 +17260,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3544 => 
+      5218 => 
       array (
         0 => 
         array (
@@ -12372,7 +17283,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3553 => 
+      5227 => 
       array (
         0 => 
         array (
@@ -12414,7 +17325,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3595 => 
+      5269 => 
       array (
         0 => 
         array (
@@ -12437,7 +17348,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3609 => 
+      5283 => 
       array (
         0 => 
         array (
@@ -12460,7 +17371,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3618 => 
+      5292 => 
       array (
         0 => 
         array (
@@ -12502,7 +17413,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3653 => 
+      5327 => 
       array (
         0 => 
         array (
@@ -12525,7 +17436,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3667 => 
+      5341 => 
       array (
         0 => 
         array (
@@ -12548,7 +17459,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3676 => 
+      5350 => 
       array (
         0 => 
         array (
@@ -12590,7 +17501,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3705 => 
+      5379 => 
       array (
         0 => 
         array (
@@ -12613,7 +17524,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3719 => 
+      5393 => 
       array (
         0 => 
         array (
@@ -12636,7 +17547,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3728 => 
+      5402 => 
       array (
         0 => 
         array (
@@ -12678,7 +17589,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3755 => 
+      5429 => 
       array (
         0 => 
         array (
@@ -12701,7 +17612,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3769 => 
+      5443 => 
       array (
         0 => 
         array (
@@ -12724,7 +17635,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3778 => 
+      5452 => 
       array (
         0 => 
         array (
@@ -12766,7 +17677,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3810 => 
+      5484 => 
       array (
         0 => 
         array (
@@ -12789,7 +17700,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3824 => 
+      5498 => 
       array (
         0 => 
         array (
@@ -12812,7 +17723,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3833 => 
+      5507 => 
       array (
         0 => 
         array (
@@ -12854,7 +17765,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3871 => 
+      5545 => 
       array (
         0 => 
         array (
@@ -12877,7 +17788,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3885 => 
+      5559 => 
       array (
         0 => 
         array (
@@ -12900,7 +17811,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3894 => 
+      5568 => 
       array (
         0 => 
         array (
@@ -12942,7 +17853,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3925 => 
+      5599 => 
       array (
         0 => 
         array (
@@ -12965,7 +17876,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3939 => 
+      5613 => 
       array (
         0 => 
         array (
@@ -12988,7 +17899,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3948 => 
+      5622 => 
       array (
         0 => 
         array (
@@ -13030,7 +17941,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3982 => 
+      5656 => 
       array (
         0 => 
         array (
@@ -13053,7 +17964,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3996 => 
+      5670 => 
       array (
         0 => 
         array (
@@ -13076,7 +17987,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4005 => 
+      5679 => 
       array (
         0 => 
         array (
@@ -13118,7 +18029,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4055 => 
+      5729 => 
       array (
         0 => 
         array (
@@ -13141,7 +18052,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4069 => 
+      5743 => 
       array (
         0 => 
         array (
@@ -13164,7 +18075,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4078 => 
+      5752 => 
       array (
         0 => 
         array (
@@ -13206,7 +18117,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4128 => 
+      5802 => 
       array (
         0 => 
         array (
@@ -13228,7 +18139,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4152 => 
+      5826 => 
       array (
         0 => 
         array (
@@ -13250,7 +18161,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4178 => 
+      5852 => 
       array (
         0 => 
         array (
@@ -13273,7 +18184,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4218 => 
+      5892 => 
       array (
         0 => 
         array (
@@ -13295,7 +18206,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4242 => 
+      5916 => 
       array (
         0 => 
         array (
@@ -13318,7 +18229,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4272 => 
+      5946 => 
       array (
         0 => 
         array (
@@ -13340,7 +18251,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4306 => 
+      5980 => 
       array (
         0 => 
         array (
@@ -13363,7 +18274,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4346 => 
+      6020 => 
       array (
         0 => 
         array (
@@ -13386,7 +18297,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4360 => 
+      6034 => 
       array (
         0 => 
         array (
@@ -13409,7 +18320,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4369 => 
+      6043 => 
       array (
         0 => 
         array (
@@ -13451,7 +18362,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4411 => 
+      6085 => 
       array (
         0 => 
         array (
@@ -13473,7 +18384,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4431 => 
+      6105 => 
       array (
         0 => 
         array (
@@ -13496,7 +18407,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4445 => 
+      6119 => 
       array (
         0 => 
         array (
@@ -13519,7 +18430,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4454 => 
+      6128 => 
       array (
         0 => 
         array (
@@ -13561,7 +18472,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4484 => 
+      6158 => 
       array (
         0 => 
         array (
@@ -13584,7 +18495,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4498 => 
+      6172 => 
       array (
         0 => 
         array (
@@ -13607,7 +18518,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4507 => 
+      6181 => 
       array (
         0 => 
         array (
@@ -13649,7 +18560,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4564 => 
+      6238 => 
       array (
         0 => 
         array (
@@ -13671,7 +18582,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4584 => 
+      6258 => 
       array (
         0 => 
         array (
@@ -13694,7 +18605,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4598 => 
+      6272 => 
       array (
         0 => 
         array (
@@ -13717,7 +18628,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4607 => 
+      6281 => 
       array (
         0 => 
         array (
@@ -13759,7 +18670,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4657 => 
+      6331 => 
       array (
         0 => 
         array (
@@ -13781,7 +18692,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4677 => 
+      6351 => 
       array (
         0 => 
         array (
@@ -13804,7 +18715,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4691 => 
+      6365 => 
       array (
         0 => 
         array (
@@ -13827,7 +18738,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4700 => 
+      6374 => 
       array (
         0 => 
         array (
@@ -13869,7 +18780,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4746 => 
+      6420 => 
       array (
         0 => 
         array (
@@ -13891,7 +18802,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4766 => 
+      6440 => 
       array (
         0 => 
         array (
@@ -13914,7 +18825,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4780 => 
+      6454 => 
       array (
         0 => 
         array (
@@ -13937,7 +18848,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4789 => 
+      6463 => 
       array (
         0 => 
         array (
@@ -13979,7 +18890,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4838 => 
+      6512 => 
       array (
         0 => 
         array (
@@ -14001,7 +18912,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4858 => 
+      6532 => 
       array (
         0 => 
         array (
@@ -14024,7 +18935,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4872 => 
+      6546 => 
       array (
         0 => 
         array (
@@ -14047,7 +18958,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4881 => 
+      6555 => 
       array (
         0 => 
         array (
@@ -14089,7 +19000,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4930 => 
+      6604 => 
       array (
         0 => 
         array (
@@ -14111,7 +19022,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4950 => 
+      6624 => 
       array (
         0 => 
         array (
@@ -14134,7 +19045,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4964 => 
+      6638 => 
       array (
         0 => 
         array (
@@ -14157,7 +19068,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4973 => 
+      6647 => 
       array (
         0 => 
         array (
@@ -14199,7 +19110,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5008 => 
+      6685 => 
       array (
         0 => 
         array (
@@ -14222,7 +19133,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5022 => 
+      6699 => 
       array (
         0 => 
         array (
@@ -14245,7 +19156,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5031 => 
+      6708 => 
       array (
         0 => 
         array (
@@ -14287,7 +19198,183 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5054 => 
+      6746 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.show',
+          ),
+          1 => 
+          array (
+            0 => 'advance',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      6760 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.edit',
+          ),
+          1 => 
+          array (
+            0 => 'advance',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      6769 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.update',
+          ),
+          1 => 
+          array (
+            0 => 'advance',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.database.advance.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'advance',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      6813 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.tools.advance-process.show',
+          ),
+          1 => 
+          array (
+            0 => 'advance_process',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      6827 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.tools.advance-process.edit',
+          ),
+          1 => 
+          array (
+            0 => 'advance_process',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      6836 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.tools.advance-process.update',
+          ),
+          1 => 
+          array (
+            0 => 'advance_process',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+            'PATCH' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'payroll.tools.advance-process.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'advance_process',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      6860 => 
       array (
         0 => 
         array (
@@ -14551,7 +19638,44 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::UNmYQGQh1j9hlOpg' => 
+    'sanctum.csrf-cookie' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'sanctum/csrf-cookie',
+      'action' => 
+      array (
+        'uses' => 'Laravel\\Sanctum\\Http\\Controllers\\CsrfCookieController@show',
+        'controller' => 'Laravel\\Sanctum\\Http\\Controllers\\CsrfCookieController@show',
+        'namespace' => NULL,
+        'prefix' => 'sanctum',
+        'where' => 
+        array (
+        ),
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'as' => 'sanctum.csrf-cookie',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'generated::6CrRGwyPgAZ43PZw' => 
     array (
       'methods' => 
       array (
@@ -14579,8 +19703,8 @@ app('router')->setCompiledRoutes(
                     return response(\\Illuminate\\Support\\Facades\\View::file(\'D:\\\\laragon\\\\www\\\\new erp\\\\garments_erp\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000bcc0000000000000000";}}',
-        'as' => 'generated::UNmYQGQh1j9hlOpg',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000013550000000000000000";}}',
+        'as' => 'generated::6CrRGwyPgAZ43PZw',
       ),
       'fallback' => false,
       'defaults' => 
@@ -14825,7 +19949,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::OfymT3A9HM4iRZpX' => 
+    'generated::LNIQ0tJA3Trr9ZU8' => 
     array (
       'methods' => 
       array (
@@ -14846,7 +19970,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::OfymT3A9HM4iRZpX',
+        'as' => 'generated::LNIQ0tJA3Trr9ZU8',
       ),
       'fallback' => false,
       'defaults' => 
@@ -15166,7 +20290,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::b3y0VXtgNwumjdiW' => 
+    'generated::GVtXyZFkMsOB6Utc' => 
     array (
       'methods' => 
       array (
@@ -15187,7 +20311,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::b3y0VXtgNwumjdiW',
+        'as' => 'generated::GVtXyZFkMsOB6Utc',
       ),
       'fallback' => false,
       'defaults' => 
@@ -25226,6 +30350,362 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'hris.setup.departurereasons.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/departurereasons/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@toggleStatus',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@toggleStatus',
+        'as' => 'hris.setup.departurereasons.toggle',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/departurereasons/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@destroy',
+        'as' => 'hris.setup.departurereasons.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/departurereasons',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.departurereasons.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/departurereasons/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.departurereasons.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/departurereasons',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.departurereasons.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/departurereasons/{departurereason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.departurereasons.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/departurereasons/{departurereason}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.departurereasons.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/setup/departurereasons/{departurereason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.departurereasons.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.departurereasons.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/setup/departurereasons/{departurereason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.departurereasons.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\DepartureReasonController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'hris.setup.gatepass_purpose.toggle' => 
     array (
       'methods' => 
@@ -25938,6 +31418,1074 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'hris.setup.leavereason.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/leavereason/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@toggleStatus',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@toggleStatus',
+        'as' => 'hris.setup.leavereason.toggle',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/leavereason/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@destroy',
+        'as' => 'hris.setup.leavereason.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/leavereason',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.leavereason.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/leavereason/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.leavereason.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/leavereason',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.leavereason.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/leavereason/{leavereason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.leavereason.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/leavereason/{leavereason}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.leavereason.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/setup/leavereason/{leavereason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.leavereason.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.leavereason.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/setup/leavereason/{leavereason}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.leavereason.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LeaveReasonController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/lines/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@toggleStatus',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@toggleStatus',
+        'as' => 'hris.setup.lines.toggle',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/lines/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@destroy',
+        'as' => 'hris.setup.lines.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/lines',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.lines.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/lines/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.lines.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/lines',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.lines.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/lines/{line}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.lines.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/lines/{line}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.lines.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/setup/lines/{line}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.lines.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.lines.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/setup/lines/{line}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.lines.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\LineController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.toggle' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/units/toggle',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@toggleStatus',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@toggleStatus',
+        'as' => 'hris.setup.units.toggle',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/units/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@destroy',
+        'as' => 'hris.setup.units.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/units',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.units.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/units/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.units.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/setup/units',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.units.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/units/{unit}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.units.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/setup/units/{unit}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.units.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/setup/units/{unit}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.units.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.setup.units.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/setup/units/{unit}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.setup.units.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Setup\\UnitController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/setup',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'hris.database.new-applicants.search' => 
     array (
       'methods' => 
@@ -26572,6 +33120,46 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'hris.database.employee.getUnit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/unit/{id}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getUnit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getUnit',
+        'as' => 'hris.database.employee.getUnit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'hris.database.employee.getGrade' => 
     array (
       'methods' => 
@@ -26827,6 +33415,45 @@ app('router')->setCompiledRoutes(
         'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@storeEmployeeDocument',
         'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@storeEmployeeDocument',
         'as' => 'hris.database.employee.document',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee.info' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-info',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getEmployeeInfo',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeController@getEmployeeInfo',
+        'as' => 'hris.database.employee.info',
         'namespace' => NULL,
         'prefix' => 'hris/database',
         'where' => 
@@ -28710,7 +35337,3496 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'hris.report.employee-listings.preview' => 
+    'hris.database.employee-gatepass.reasons' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-gatepass/reasons',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getReasons',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getReasons',
+        'as' => 'hris.database.employee-gatepass.reasons',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.in' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-gatepass/in',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeIn',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeIn',
+        'as' => 'hris.database.employee-gatepass.in',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.in.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-gatepass/in',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeInUpdate',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeInUpdate',
+        'as' => 'hris.database.employee-gatepass.in.update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.out' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-gatepass/out',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeOut',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeOut',
+        'as' => 'hris.database.employee-gatepass.out',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.out.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-gatepass/out',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeOutUpdate',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@getEmployeeOutUpdate',
+        'as' => 'hris.database.employee-gatepass.out.update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-gatepass',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-gatepass.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-gatepass/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-gatepass.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-gatepass',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-gatepass.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-gatepass/{employee_gatepass}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-gatepass.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-gatepass/{employee_gatepass}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-gatepass.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/employee-gatepass/{employee_gatepass}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-gatepass.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-gatepass.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/employee-gatepass/{employee_gatepass}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-gatepass.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmpGatePassController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.reasons' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/leave-application/reasons',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@getReasons',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@getReasons',
+        'as' => 'hris.database.leave-application.reasons',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave.info' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/leave/info',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@getLeaveInfo',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@getLeaveInfo',
+        'as' => 'hris.database.leave.info',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.getleavereason' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/getleavereason',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@getLeaveReason',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@getLeaveReason',
+        'as' => 'hris.database.getleavereason',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-application',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-application.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-application/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-application.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/leave-application',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-application.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-application/{leave_application}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-application.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-application/{leave_application}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-application.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/leave-application/{leave_application}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-application.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-application.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/leave-application/{leave_application}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-application.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApplicationController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-forward.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-forward',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-forward.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-forward.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-forward/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-forward.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-forward.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/leave-forward',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-forward.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-forward.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-forward/{leave_forward}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-forward.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-forward.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-forward/{leave_forward}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-forward.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-forward.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/leave-forward/{leave_forward}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-forward.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-forward.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/leave-forward/{leave_forward}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-forward.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveForwardController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-approve.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-approve',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-approve.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-approve.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-approve/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-approve.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-approve.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/leave-approve',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-approve.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-approve.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-approve/{leave_approve}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-approve.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-approve.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-approve/{leave_approve}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-approve.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-approve.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/leave-approve/{leave_approve}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-approve.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-approve.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/leave-approve/{leave_approve}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-approve.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveApproveController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-all.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-all',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-all.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-all.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-all/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-all.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-all.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/leave-all',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-all.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-all.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-all/{leave_all}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-all.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-all.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/leave-all/{leave_all}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-all.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-all.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/leave-all/{leave_all}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-all.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.leave-all.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/leave-all/{leave_all}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.leave-all.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\LeaveAllController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/photosign/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@destroy',
+        'as' => 'hris.database.photosign.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.info' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/photosign/info',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@info',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@info',
+        'as' => 'hris.database.photosign.info',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/photosign',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.photosign.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/photosign/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.photosign.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/photosign',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.photosign.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/photosign/{photosign}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.photosign.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/photosign/{photosign}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.photosign.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/photosign/{photosign}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.photosign.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.photosign.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/photosign/{photosign}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.photosign.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\PhotoSignController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.fetch-designation' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/fetch-designation',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@fetchDesignation',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@fetchDesignation',
+        'as' => 'hris.database.fetch-designation',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.bulk-increment.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/bulk-increment',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.bulk-increment.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.bulk-increment.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/bulk-increment/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.bulk-increment.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.bulk-increment.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/bulk-increment',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.bulk-increment.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.bulk-increment.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/bulk-increment/{bulk_increment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.bulk-increment.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.bulk-increment.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/bulk-increment/{bulk_increment}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.bulk-increment.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.bulk-increment.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/bulk-increment/{bulk_increment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.bulk-increment.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.bulk-increment.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/bulk-increment/{bulk_increment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.bulk-increment.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\BulkIncrementController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-increment.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-increment',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-increment.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-increment.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-increment/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-increment.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-increment.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/employee-increment',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-increment.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-increment.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-increment/{employee_increment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-increment.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-increment.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/employee-increment/{employee_increment}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-increment.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-increment.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/employee-increment/{employee_increment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-increment.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.employee-increment.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/employee-increment/{employee_increment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.employee-increment.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\EmployeeIncrementController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.increment-enforce.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/increment-enforce',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.increment-enforce.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.increment-enforce.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/increment-enforce/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.increment-enforce.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.increment-enforce.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/increment-enforce',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.increment-enforce.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.increment-enforce.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/increment-enforce/{increment_enforce}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.increment-enforce.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.increment-enforce.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/increment-enforce/{increment_enforce}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.increment-enforce.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.increment-enforce.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/increment-enforce/{increment_enforce}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.increment-enforce.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.increment-enforce.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/increment-enforce/{increment_enforce}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.increment-enforce.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\IncrementEnforceController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elcalculation.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elcalculation',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elcalculation.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elcalculation.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elcalculation/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elcalculation.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elcalculation.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/elcalculation',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elcalculation.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elcalculation.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elcalculation/{elcalculation}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elcalculation.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elcalculation.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elcalculation/{elcalculation}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elcalculation.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elcalculation.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/elcalculation/{elcalculation}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elcalculation.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elcalculation.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/elcalculation/{elcalculation}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elcalculation.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELCalculationController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elpayment.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elpayment',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elpayment.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elpayment.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elpayment/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elpayment.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elpayment.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/database/elpayment',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elpayment.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elpayment.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elpayment/{elpayment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elpayment.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elpayment.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/database/elpayment/{elpayment}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elpayment.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elpayment.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/database/elpayment/{elpayment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elpayment.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.database.elpayment.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/database/elpayment/{elpayment}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.database.elpayment.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Database\\ELPaymentController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.employee-listings.form.preview' => 
     array (
       'methods' => 
       array (
@@ -28729,7 +38845,46 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@previewData',
         'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@previewData',
-        'as' => 'hris.report.employee-listings.preview',
+        'as' => 'hris.report.employee-listings.form.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.employee-listings.report.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/employee-listings/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@preview',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\EmployeeListingReportController@preview',
+        'as' => 'hris.report.employee-listings.report.preview',
         'namespace' => NULL,
         'prefix' => 'hris/report',
         'where' => 
@@ -29028,6 +39183,1791 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'hris.report.leave-report.form.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/leave-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@previewData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@previewData',
+        'as' => 'hris.report.leave-report.form.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.report.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/leave-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@preview',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@preview',
+        'as' => 'hris.report.leave-report.report.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/leave-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.leave-report.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/leave-report/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.leave-report.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/leave-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.leave-report.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/leave-report/{leave_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.leave-report.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/leave-report/{leave_report}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.leave-report.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/report/leave-report/{leave_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.leave-report.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.leave-report.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/report/leave-report/{leave_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.leave-report.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\LeaveReportController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.form.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/movement-pass/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@previewData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@previewData',
+        'as' => 'hris.report.movement-pass.form.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.report.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/movement-pass/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@preview',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@preview',
+        'as' => 'hris.report.movement-pass.report.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/movement-pass',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.movement-pass.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/movement-pass/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.movement-pass.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/movement-pass',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.movement-pass.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/movement-pass/{movement_pass}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.movement-pass.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/movement-pass/{movement_pass}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.movement-pass.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/report/movement-pass/{movement_pass}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.movement-pass.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.movement-pass.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/report/movement-pass/{movement_pass}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.movement-pass.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\MovementPassReportController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.form.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/shifting-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@previewData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@previewData',
+        'as' => 'hris.report.shifting-report.form.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.report.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/shifting-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@preview',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@preview',
+        'as' => 'hris.report.shifting-report.report.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/shifting-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.shifting-report.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/shifting-report/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.shifting-report.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/shifting-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.shifting-report.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/shifting-report/{shifting_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.shifting-report.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/shifting-report/{shifting_report}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.shifting-report.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/report/shifting-report/{shifting_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.shifting-report.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.shifting-report.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/report/shifting-report/{shifting_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.shifting-report.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ShiftingReportController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.form.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/applicant-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@previewData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@previewData',
+        'as' => 'hris.report.applicant-report.form.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.report.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/applicant-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@preview',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@preview',
+        'as' => 'hris.report.applicant-report.report.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/applicant-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.applicant-report.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/applicant-report/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.applicant-report.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/applicant-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.applicant-report.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/applicant-report/{applicant_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.applicant-report.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/applicant-report/{applicant_report}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.applicant-report.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/report/applicant-report/{applicant_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.applicant-report.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.applicant-report.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/report/applicant-report/{applicant_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.applicant-report.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\ApplicantReportController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.form.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/increment-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@previewData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@previewData',
+        'as' => 'hris.report.increment-report.form.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.report.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/increment-report/preview',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@preview',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@preview',
+        'as' => 'hris.report.increment-report.report.preview',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/increment-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.increment-report.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/increment-report/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.increment-report.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/report/increment-report',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.increment-report.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/increment-report/{increment_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.increment-report.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/report/increment-report/{increment_report}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.increment-report.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/report/increment-report/{increment_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.increment-report.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.report.increment-report.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/report/increment-report/{increment_report}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.report.increment-report.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Report\\IncrementReportController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'hris.settings.hr-settings.index' => 
     array (
       'methods' => 
@@ -29286,6 +41226,201 @@ app('router')->setCompiledRoutes(
         'as' => 'hris.settings.hr-settings.destroy',
         'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@destroy',
         'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\SettingController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.fetch-user' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/settings/fetch-user',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@fetchUser',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@fetchUser',
+        'as' => 'hris.settings.forward-approve.fetch-user',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.fetch-approved-data' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/settings/fetch-approved-data',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@fetchApprovedData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@fetchApprovedData',
+        'as' => 'hris.settings.forward-approve.fetch-approved-data',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.fetch-forward-data' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/settings/fetch-forward-data',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@fetchForwardData',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@fetchForwardData',
+        'as' => 'hris.settings.forward-approve.fetch-forward-data',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.delete-approved-user' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/settings/delete-approved-user',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@deleteApprovedUser',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@deleteApprovedUser',
+        'as' => 'hris.settings.forward-approve.delete-approved-user',
+        'namespace' => NULL,
+        'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.settings.forward-approve.replace-user' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/settings/replace-user',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@replaceUser',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@replaceUser',
+        'as' => 'hris.settings.forward-approve.replace-user',
         'namespace' => NULL,
         'prefix' => 'hris/settings',
         'where' => 
@@ -29566,6 +41701,2308 @@ app('router')->setCompiledRoutes(
         'controller' => 'Modules\\HRIS\\Http\\Controllers\\Settings\\ForwardApproveController@destroy',
         'namespace' => NULL,
         'prefix' => 'hris/settings',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.designationchange.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/designationchange',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.designationchange.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.designationchange.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/designationchange/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.designationchange.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.designationchange.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/designationchange',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.designationchange.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.designationchange.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/designationchange/{designationchange}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.designationchange.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.designationchange.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/designationchange/{designationchange}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.designationchange.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.designationchange.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/designationchange/{designationchange}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.designationchange.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.designationchange.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/designationchange/{designationchange}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.designationchange.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DesignationChangeController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.info' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/departure/info',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@employeeInfo',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@employeeInfo',
+        'as' => 'hris.tools.departure.info',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/departure',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.departure.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/departure/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.departure.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/departure',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.departure.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/departure/{departure}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.departure.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/departure/{departure}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.departure.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/departure/{departure}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.departure.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.departure.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/departure/{departure}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.departure.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\DepartureController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.calender.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/calender',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.calender.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.calender.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/calender/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.calender.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.calender.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/calender',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.calender.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.calender.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/calender/{calender}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.calender.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.calender.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/calender/{calender}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.calender.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.calender.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/calender/{calender}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.calender.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.calender.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/calender/{calender}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.calender.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\CalenderController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.shiftinglist.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/shiftinglist',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.shiftinglist.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.shiftinglist.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/shiftinglist/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.shiftinglist.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.shiftinglist.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/shiftinglist',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.shiftinglist.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.shiftinglist.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/shiftinglist/{shiftinglist}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.shiftinglist.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.shiftinglist.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/shiftinglist/{shiftinglist}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.shiftinglist.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.shiftinglist.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/shiftinglist/{shiftinglist}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.shiftinglist.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.shiftinglist.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/shiftinglist/{shiftinglist}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.shiftinglist.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ShiftingListController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.edit-shiftinglist.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/edit-shiftinglist',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.edit-shiftinglist.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.edit-shiftinglist.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/edit-shiftinglist/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.edit-shiftinglist.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.edit-shiftinglist.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/edit-shiftinglist',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.edit-shiftinglist.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.edit-shiftinglist.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/edit-shiftinglist/{edit_shiftinglist}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.edit-shiftinglist.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.edit-shiftinglist.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/edit-shiftinglist/{edit_shiftinglist}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.edit-shiftinglist.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.edit-shiftinglist.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/edit-shiftinglist/{edit_shiftinglist}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.edit-shiftinglist.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.edit-shiftinglist.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/edit-shiftinglist/{edit_shiftinglist}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.edit-shiftinglist.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditShiftingListController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.exceptional-holidays.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/exceptional-holidays',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.exceptional-holidays.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.exceptional-holidays.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/exceptional-holidays/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.exceptional-holidays.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.exceptional-holidays.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/exceptional-holidays',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.exceptional-holidays.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.exceptional-holidays.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/exceptional-holidays/{exceptional_holiday}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.exceptional-holidays.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.exceptional-holidays.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/exceptional-holidays/{exceptional_holiday}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.exceptional-holidays.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.exceptional-holidays.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/exceptional-holidays/{exceptional_holiday}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.exceptional-holidays.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.exceptional-holidays.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/exceptional-holidays/{exceptional_holiday}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.exceptional-holidays.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\ExceptionalHolidayController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays/delete',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@destroy',
+        'as' => 'hris.tools.editexceptional-holidays.delete',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.editexceptional-holidays.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.editexceptional-holidays.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.editexceptional-holidays.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays/{editexceptional_holiday}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.editexceptional-holidays.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays/{editexceptional_holiday}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.editexceptional-holidays.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays/{editexceptional_holiday}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.editexceptional-holidays.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.editexceptional-holidays.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/editexceptional-holidays/{editexceptional_holiday}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.editexceptional-holidays.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\EditExceptionalHolidayController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.maternity-entry.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/maternity-entry',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.maternity-entry.index',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@index',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@index',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.maternity-entry.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/maternity-entry/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.maternity-entry.create',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@create',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@create',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.maternity-entry.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'hris/tools/maternity-entry',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.maternity-entry.store',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@store',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@store',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.maternity-entry.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/maternity-entry/{maternity_entry}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.maternity-entry.show',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@show',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@show',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.maternity-entry.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'hris/tools/maternity-entry/{maternity_entry}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.maternity-entry.edit',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@edit',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@edit',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.maternity-entry.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'hris/tools/maternity-entry/{maternity_entry}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.maternity-entry.update',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@update',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@update',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'hris.tools.maternity-entry.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'hris/tools/maternity-entry/{maternity_entry}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:hris',
+        ),
+        'as' => 'hris.tools.maternity-entry.destroy',
+        'uses' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@destroy',
+        'controller' => 'Modules\\HRIS\\Http\\Controllers\\Tools\\MaternityEntryController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'hris/tools',
         'where' => 
         array (
         ),
@@ -42107,6 +56544,601 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'payroll.database.advance.employee.info' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'payroll/database/employee/info',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@employeeInfo',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@employeeInfo',
+        'as' => 'payroll.database.advance.employee.info',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.database.advance.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/database/advance',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.database.advance.index',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@index',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@index',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.database.advance.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/database/advance/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.database.advance.create',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@create',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@create',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.database.advance.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'payroll/database/advance',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.database.advance.store',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@store',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@store',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.database.advance.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/database/advance/{advance}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.database.advance.show',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@show',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@show',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.database.advance.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/database/advance/{advance}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.database.advance.edit',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@edit',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@edit',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.database.advance.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'payroll/database/advance/{advance}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.database.advance.update',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@update',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@update',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.database.advance.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'payroll/database/advance/{advance}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.database.advance.destroy',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@destroy',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Database\\AdvanceController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'payroll/database',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.tools.advance-process.index' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/tools/advance-process',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.tools.advance-process.index',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@index',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@index',
+        'namespace' => NULL,
+        'prefix' => 'payroll/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.tools.advance-process.create' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/tools/advance-process/create',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.tools.advance-process.create',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@create',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@create',
+        'namespace' => NULL,
+        'prefix' => 'payroll/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.tools.advance-process.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'payroll/tools/advance-process',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.tools.advance-process.store',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@store',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@store',
+        'namespace' => NULL,
+        'prefix' => 'payroll/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.tools.advance-process.show' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/tools/advance-process/{advance_process}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.tools.advance-process.show',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@show',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@show',
+        'namespace' => NULL,
+        'prefix' => 'payroll/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.tools.advance-process.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'payroll/tools/advance-process/{advance_process}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.tools.advance-process.edit',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@edit',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@edit',
+        'namespace' => NULL,
+        'prefix' => 'payroll/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.tools.advance-process.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+        1 => 'PATCH',
+      ),
+      'uri' => 'payroll/tools/advance-process/{advance_process}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.tools.advance-process.update',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@update',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@update',
+        'namespace' => NULL,
+        'prefix' => 'payroll/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'payroll.tools.advance-process.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'payroll/tools/advance-process/{advance_process}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+          3 => 'App\\Http\\Middleware\\ModuleActive:payroll',
+        ),
+        'as' => 'payroll.tools.advance-process.destroy',
+        'uses' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@destroy',
+        'controller' => 'Modules\\Payroll\\Http\\Controllers\\Tools\\AdvanceProcessController@destroy',
+        'namespace' => NULL,
+        'prefix' => 'payroll/tools',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'storage.local' => 
     array (
       'methods' => 
@@ -42123,7 +57155,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000e600000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000016590000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

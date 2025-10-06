@@ -1,4 +1,12 @@
 <?php $__env->startSection('title', isset($role) ? 'Role Update' : 'Role Create'); ?>
+<?php $__env->startPush('styles'); ?>
+    <style>
+        input[type="checkbox"] {
+            display: inline-block !important;
+            opacity: 1 !important;
+        }
+    </style>
+<?php $__env->stopPush(); ?>
 <?php $__env->startSection('content'); ?>
     <?php
         $isEdit = isset($role) && $role !== null;
@@ -79,45 +87,109 @@ unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('name', $role->name ?? 
                                                 <?php if($data->menus->count() > 0): ?>
                                                     <div class="card shadow-sm">
                                                         <div class="card-body">
+                                                            
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input module-check" name="modules[]" value="<?php echo e($data->id); ?><?php echo e($key); ?>" id="module_<?php echo e($data->id); ?><?php echo e($key); ?>" data-target=".module_<?php echo e($data->id); ?><?php echo e($key); ?>" <?php echo e(in_array($data->id, $assignedModules) ? 'checked' : ''); ?>>
-                                                                <label class="form-check-label text-primary fw-semibold" for="module_<?php echo e($data->id); ?><?php echo e($key); ?>"><?php echo e($data->name); ?></label>
+                                                                <input type="checkbox"
+                                                                    class="form-check-input module-check"
+                                                                    name="modules[]"
+                                                                    value="<?php echo e($data->id); ?><?php echo e($key); ?>"
+                                                                    id="module_<?php echo e($data->id); ?><?php echo e($key); ?>"
+                                                                    data-target=".module_<?php echo e($data->id); ?><?php echo e($key); ?>"
+                                                                    <?php echo e(in_array($data->id, $assignedModules) ? 'checked' : ''); ?>>
+                                                                <label class="form-check-label text-primary fw-semibold" for="module_<?php echo e($data->id); ?><?php echo e($key); ?>">
+                                                                    <?php echo e($data->name); ?>
+
+                                                                </label>
                                                             </div>
+
+                                                            
                                                             <?php $__currentLoopData = $data->menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                
                                                                 <?php if($menu->has_child != 1 && $menu->parent_id == null): ?>
                                                                     <div class="mb-3 p-3 rounded shadow-sm">
                                                                         <div class="form-check mb-2">
-                                                                            <input type="checkbox" class="form-check-input menu-check module_<?php echo e($data->id); ?><?php echo e($key); ?>" name="menus[]" value="<?php echo e($menu->id); ?>" id="menu_<?php echo e($menu->id); ?>" data-target=".menu_<?php echo e($menu->id); ?>" <?php echo e(in_array($menu->id, $assignedMenus) ? 'checked' : ''); ?>>
-                                                                            <label class="form-check-label text-info fw-semibold fs-6" for="menu_<?php echo e($menu->id); ?>"><?php echo e($menu->title); ?></label>
+                                                                            <input type="checkbox"
+                                                                                class="form-check-input menu-check module_<?php echo e($data->id); ?><?php echo e($key); ?>"
+                                                                                name="menus[]"
+                                                                                value="<?php echo e($menu->id); ?>"
+                                                                                id="menu_<?php echo e($menu->id); ?>"
+                                                                                data-target=".menu_<?php echo e($menu->id); ?>"
+                                                                                <?php echo e(in_array($menu->id, $assignedMenus) ? 'checked' : ''); ?>>
+                                                                            <label class="form-check-label text-info fw-semibold fs-6" for="menu_<?php echo e($menu->id); ?>">
+                                                                                <?php echo e($menu->title); ?>
+
+                                                                            </label>
                                                                         </div>
+
+                                                                        
                                                                         <div class="row g-3 menu_<?php echo e($menu->id); ?>" style="margin-left: 15px;">
                                                                             <?php $__currentLoopData = $menu->permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                                 <div class="col-6 col-sm-4 col-md-3">
                                                                                     <div class="form-check">
-                                                                                        <input class="form-check-input module_<?php echo e($data->id); ?><?php echo e($key); ?> menu_<?php echo e($menu->id); ?>" type="checkbox" name="permissions[]" value="<?php echo e($permission->name); ?>" <?php echo e(in_array($permission->name, $assignedPermissions) ? 'checked' : ''); ?>>
-                                                                                        <label class="form-check-label" for="perm_<?php echo e($index); ?>"><?php echo e(ucfirst(str_replace('.', ' ', $permission->name))); ?></label>
+                                                                                        <input class="form-check-input module_<?php echo e($data->id); ?><?php echo e($key); ?> menu_<?php echo e($menu->id); ?>"
+                                                                                            type="checkbox"
+                                                                                            name="permissions[]"
+                                                                                            value="<?php echo e($permission->name); ?>"
+                                                                                            <?php echo e(in_array($permission->name, $assignedPermissions) ? 'checked' : ''); ?>>
+                                                                                        <label class="form-check-label" for="perm_<?php echo e($index); ?>">
+                                                                                            <?php echo e(ucfirst(str_replace('.', ' ', $permission->name))); ?>
+
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                                         </div>
                                                                     </div>
-                                                                <?php elseif($menu->has_child == 1 && $menu->parent_id == null): ?>
+                                                                <?php endif; ?>
+
+                                                                
+                                                                <?php if($menu->has_child == 1 && $menu->parent_id == null): ?>
                                                                     <div class="mb-3 p-3 rounded shadow-sm">
                                                                         <div class="form-check mb-2">
-                                                                            <input type="checkbox" class="form-check-input parent-menu-check module_<?php echo e($data->id); ?><?php echo e($key); ?>" name="menus[]" value="<?php echo e($menu->id); ?>" id="menu_<?php echo e($menu->id); ?>" data-target=".parent_menu_<?php echo e($menu->id); ?>" <?php echo e(in_array($menu->id, $assignedMenus) ? 'checked' : ''); ?>>
-                                                                            <label class="form-check-label text-info fw-semibold fs-6" for="menu_<?php echo e($menu->id); ?>"><?php echo e($menu->title); ?></label>
+                                                                            <input type="checkbox"
+                                                                                class="form-check-input parent-menu-check module_<?php echo e($data->id); ?><?php echo e($key); ?>"
+                                                                                name="menus[]"
+                                                                                value="<?php echo e($menu->id); ?>"
+                                                                                id="menu_<?php echo e($menu->id); ?>"
+                                                                                data-target=".parent_menu_<?php echo e($menu->id); ?>"
+                                                                                <?php echo e(in_array($menu->id, $assignedMenus) ? 'checked' : ''); ?>>
+                                                                            <label class="form-check-label text-info fw-semibold fs-6" for="menu_<?php echo e($menu->id); ?>">
+                                                                                <?php echo e($menu->title); ?>
+
+                                                                            </label>
                                                                         </div>
+
+                                                                        
                                                                         <div class="row g-3 parent_menu_<?php echo e($menu->id); ?>" style="margin-left: 15px;">
                                                                             <?php $__currentLoopData = $menu->childs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                                 <div class="form-check mb-2">
-                                                                                    <input type="checkbox" class="form-check-input menu-check1 module_<?php echo e($data->id); ?><?php echo e($key); ?> parent_menu_<?php echo e($menu->id); ?>" name="menus[]" value="<?php echo e($child->id); ?>" id="menu_<?php echo e($child->id); ?>" data-target=".menu_<?php echo e($child->id); ?>" <?php echo e(in_array($child->id, $assignedMenus) ? 'checked' : ''); ?>>
-                                                                                    <label class="form-check-label text-info fw-semibold fs-6" for="menu_<?php echo e($child->id); ?>"><?php echo e($child->title); ?></label>
+                                                                                    <input type="checkbox"
+                                                                                        class="form-check-input menu-check1 module_<?php echo e($data->id); ?><?php echo e($key); ?> parent_menu_<?php echo e($menu->id); ?>"
+                                                                                        name="menus[]"
+                                                                                        value="<?php echo e($child->id); ?>"
+                                                                                        id="menu_<?php echo e($child->id); ?>"
+                                                                                        data-target=".menu_<?php echo e($child->id); ?>"
+                                                                                        <?php echo e(in_array($child->id, $assignedMenus) ? 'checked' : ''); ?>>
+                                                                                    <label class="form-check-label text-info fw-semibold fs-6" for="menu_<?php echo e($child->id); ?>">
+                                                                                        <?php echo e($child->title); ?>
+
+                                                                                    </label>
                                                                                 </div>
+
+                                                                                
                                                                                 <?php $__currentLoopData = $child->permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                                     <div class="col-6 col-sm-4 col-md-3 menu_<?php echo e($child->id); ?>" style="margin:0px !important">
                                                                                         <div class="form-check" style="margin-left: 15px !important">
-                                                                                            <input class="form-check-input module_<?php echo e($data->id); ?><?php echo e($key); ?> menu_<?php echo e($child->id); ?> parent_menu_<?php echo e($menu->id); ?>" type="checkbox" name="permissions[]" value="<?php echo e($permission->name); ?>" id="perm_<?php echo e($index); ?>" <?php echo e(in_array($permission->name, $assignedPermissions) ? 'checked' : ''); ?>>
-                                                                                            <label class="form-check-label" for="perm_<?php echo e($index); ?>"><?php echo e(ucfirst(str_replace('.', ' ', $permission->name))); ?></label>
+                                                                                            <input class="form-check-input module_<?php echo e($data->id); ?><?php echo e($key); ?> menu_<?php echo e($child->id); ?> parent_menu_<?php echo e($menu->id); ?>"
+                                                                                                type="checkbox"
+                                                                                                name="permissions[]"
+                                                                                                value="<?php echo e($permission->name); ?>"
+                                                                                                id="perm_<?php echo e($index); ?>"
+                                                                                                <?php echo e(in_array($permission->name, $assignedPermissions) ? 'checked' : ''); ?>>
+                                                                                            <label class="form-check-label" for="perm_<?php echo e($index); ?>">
+                                                                                                <?php echo e(ucfirst(str_replace('.', ' ', $permission->name))); ?>
+
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -131,6 +203,7 @@ unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('name', $role->name ?? 
                                                 <?php endif; ?>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
+
                                     </div>
                                     <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
@@ -183,114 +256,91 @@ unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('name', $role->name ?? 
 
 <?php $__env->startPush('scripts'); ?>
     <script>
-        $(function() {
-            $(document).ready(function() {
-                $(document).on('change', '.module-check', function() {
-                    const isChecked = $(this).is(':checked');
-                    const menuSelector = $(this).data('target');
-
-                    $(menuSelector).prop('checked', isChecked).trigger('change');
-
-                    $(menuSelector).on('change', function () {
-                        let allChecked = $(menuSelector).length === $(menuSelector + ':checked').length;
-                        $('.module-check').prop('checked', allChecked);
-                    });
-                });
-
-                $(document).on('change', '.menu-check', function() {
-                    const isChecked = $(this).is(':checked');
-                    const childMenuSelector = $(this).data('target');
-
-                    $(childMenuSelector).prop('checked', isChecked);
-
-                    $(childMenuSelector).on('change', function () {
-                        let allChecked = $(childMenuSelector).length === $(childMenuSelector + ':checked').length;
-                        $('.menu-check').prop('checked', allChecked);
-                    });
-                });
-
-                $(document).on('change', '.menu-check1', function() {
-                    const isChecked = $(this).is(':checked');
-                    const childMenuSelector = $(this).data('target');
-
-                    $(childMenuSelector).prop('checked', isChecked);
-
-                    $(childMenuSelector).on('change', function () {
-                        let allChecked = $(childMenuSelector).length === $(childMenuSelector + ':checked').length;
-                        $('.menu-check1').prop('checked', allChecked);
-                    });
-                });
-
-                $(document).on('change', '.parent-menu-check', function() {
-                    const isChecked = $(this).is(':checked');
-                    const childMenuSelector = $(this).data('target');
-
-                    $(childMenuSelector).prop('checked', isChecked);
-
-                    $(childMenuSelector).on('change', function () {
-                        let allChecked = $(childMenuSelector).length === $(childMenuSelector + ':checked').length;
-                        $('.parent-menu-check').prop('checked', allChecked);
-                    });
-                });
+        $(document).ready(function () {
+            // ===== Module Check =====
+            $(document).on('change', '.module-check', function () {
+                let card = $(this).closest('.card');
+                card.find('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
             });
 
-            $(document).on('change', '.menu-toggle', function() {
-                const id = $(this).data('id');
-                const status = $(this).is(':checked') ? 1 : 0;
-                $.ajax({
-                    url: '<?php echo e(route('administration.menu.toggle')); ?>',
-                    type: 'POST',
-                    data: {
-                        id: id,
-                        status: status,
-                        _token: '<?php echo e(csrf_token()); ?>'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success(response.message);
-                        } else {
-                            toastr.error(response.message || 'Update failed!');
-                        }
-                    },
-                    error: function() {
-                        toastr.error('Something went wrong!');
+            // ===== Parent Menu Check =====
+            $(document).on('change', '.parent-menu-check', function () {
+                let parentDiv = $(this).closest('.mb-3.p-3');
+                parentDiv.find('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+                updateModuleCheck($(this).closest('.card'));
+            });
+
+            // ===== Normal Menu Check =====
+            $(document).on('change', '.menu-check', function () {
+                let menuDiv = $(this).closest('.mb-3.p-3');
+                menuDiv.find('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+                updateModuleCheck($(this).closest('.card'));
+            });
+
+            // ===== Child Menu Check =====
+            $(document).on('change', '.menu-check1', function () {
+                let childCheckbox = $(this);
+
+                // শুধুমাত্র নিজে এবং তার permission চেক/আনচেক হবে
+                let childId = childCheckbox.val();
+                $('.menu_' + childId).prop('checked', childCheckbox.prop('checked'));
+
+                // parent menu check update
+                let parentDiv = childCheckbox.closest('.parent_menu_' + childCheckbox.closest('.parent_menu_' + childCheckbox.data('target').replace('.', '')).attr('class').split(' ')[0].replace('.', ''));
+                if (!parentDiv.length) {
+                    // direct parentDiv selector fail হলে closest parent row
+                    parentDiv = childCheckbox.closest('.row').closest('.parent_menu_' + childCheckbox.closest('.row').attr('class').split(' ')[0].replace('.', ''));
+                }
+                updateParentCheck(childCheckbox);
+
+                // module check update
+                updateModuleCheck(childCheckbox.closest('.card'));
+            });
+
+            // ===== Permission Check =====
+            $(document).on('change', 'input[name="permissions[]"]', function () {
+                let checkbox = $(this);
+                let row = checkbox.closest('.row');
+                if (row.length === 0) return;
+
+                // menu checkbox update
+                let menuCheckbox = row.prevAll('input[type="checkbox"]').first();
+                if (menuCheckbox.length > 0) {
+                    let allPermChecked = row.find('input[type="checkbox"]').length === row.find('input[type="checkbox"]:checked').length;
+                    menuCheckbox.prop('checked', allPermChecked);
+                }
+
+                // parent menu update
+                updateParentCheck(checkbox);
+
+                // module update
+                updateModuleCheck(checkbox.closest('.card'));
+            });
+
+            // -------- Helper Functions --------
+            function updateParentCheck(element) {
+                let parentDiv = element.closest('.parent_menu_' + element.closest('.row').attr('class').split(' ')[0].replace('.', ''));
+                if (parentDiv.length === 0) return;
+
+                parentDiv.each(function () {
+                    let allChildChecked = $(this).find('.menu-check1').length === $(this).find('.menu-check1:checked').length;
+                    $(this).closest('.mb-3.p-3').find('.parent-menu-check').prop('checked', allChildChecked);
+                });
+            }
+
+            function updateModuleCheck(card) {
+                let parentMenus = card.find('.parent-menu-check');
+                if (parentMenus.length > 0) {
+                    let allParentChecked = parentMenus.length === parentMenus.filter(':checked').length;
+                    card.find('.module-check').prop('checked', allParentChecked);
+                } else {
+                    let normalMenus = card.find('.menu-check');
+                    if (normalMenus.length > 0) {
+                        let allMenuChecked = normalMenus.length === normalMenus.filter(':checked').length;
+                        card.find('.module-check').prop('checked', allMenuChecked);
                     }
-                });
-            });
-
-
-            $(document).on('click', '.delete-menu', function(e) {
-                e.preventDefault();
-                const menuId = $(this).data('id');
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '<?php echo e(route('administration.menu.delete')); ?>',
-                            type: 'POST',
-                            data: {
-                                _token: '<?php echo e(csrf_token()); ?>',
-                                id: menuId
-                            },
-                            success: function(response) {
-                                Swal.fire('Deleted!', response.message ??
-                                    'Menu deleted.', 'success');
-                                table.ajax.reload(null, false);
-                            },
-                            error: function() {
-                                Swal.fire('Error!', 'Something went wrong.', 'error');
-                            }
-                        });
-                    }
-                });
-            });
+                }
+            }
         });
     </script>
 <?php $__env->stopPush(); ?>

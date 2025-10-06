@@ -415,7 +415,6 @@ unset($__errorArgs, $__bag); ?>" required value="<?php echo e(old('is_active'));
                     url: `/administration/menu/${moduleId}/childs`,
                     type: 'GET',
                     success: function(data) {
-                        console.log(data);
                         menuSelect.empty().append('<option value="">Select Menu</option>');
 
                         if (data.length > 0) {

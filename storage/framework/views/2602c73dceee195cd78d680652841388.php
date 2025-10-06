@@ -112,31 +112,58 @@
                     <div class="col-lg-6 col-md-6 pe-lg-0">
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
-                                <th width="30%" style="border: none;">Line </th>
-                                <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'line','id' => 'line','type' => 'text','class' => 'form-control-sm','value' => ''.e(old('line',$employee->line)).'','placeholder' => 'Line']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('text-input'); ?>
+                                <th width="30%" style="border: none;">Unit </th>
+                                <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'unit','id' => 'unit','class' => 'select2','options' => $units,'selected' => ''.e($employee->unit).'','value' => ''.e(old('unit',$employee->unit)).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'line','id' => 'line','type' => 'text','class' => 'form-control-sm','value' => ''.e(old('line',$employee->line)).'','placeholder' => 'Line']); ?>
+<?php $component->withAttributes(['name' => 'unit','id' => 'unit','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($units),'selected' => ''.e($employee->unit).'','value' => ''.e(old('unit',$employee->unit)).'','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
-<?php $attributes = $__attributesOriginal18c21970322f9e5c938bc954620c12bb; ?>
-<?php unset($__attributesOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $attributes = $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
-<?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
-<?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php if (isset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $component = $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
 <?php endif; ?></td>
                             </tr>
                             <tr>
+                                <th width="30%" style="border: none;">Line </th>
+                                <td width="70%" style="border: none;">
+                                    <?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'line','id' => 'line','class' => 'select2','options' => [],'selected' => ''.e($employee->line).'','value' => ''.e(old('line',$employee->line)).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'line','id' => 'line','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute([]),'selected' => ''.e($employee->line).'','value' => ''.e(old('line',$employee->line)).'','required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $attributes = $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $component = $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?>
+                                    <input type="hidden" name="line_id" id="line_id" value="<?php echo e(old('line_id',$employee->line)); ?>" />
+                                </td>
+                            </tr>
+                            <tr>
                                 <th width="30%" style="border: none;">Grade </th>
-                                <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
+                                <td width="70%" style="border: none;">
+                                    <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'grade','id' => 'grade','type' => 'text','class' => 'form-control-sm','value' => ''.e(old('grade',$employee->grade)).'','placeholder' => 'Grade','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
@@ -155,7 +182,8 @@
 <?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
 <?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
-<?php endif; ?></td>
+<?php endif; ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Salaried </th>
@@ -203,10 +231,6 @@
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
 <?php endif; ?></td>
                             </tr>
-                            <tr>
-                                <th style="border: none;">&nbsp; &nbsp;</th>
-                                <td style="border: none;">&nbsp; &nbsp;</td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -214,7 +238,9 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 pe-lg-0">
                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
-                            <h6 class="text-primary font-weight-bold">Present Address </h6>
+                            <tr>
+                                <th colspan="2" style="border: none;"><span class="text-primary">Present Address</span> </th>
+                            </tr>
                             <tr>
                                 <th width="30%" style="border: none;">District </th>
                                 <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
@@ -317,7 +343,9 @@
                     </div>
                     <div class="col-lg-6 col-md-6 pe-lg-0">
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
-                            <h6 class="text-primary font-weight-bold">Mailing Address</h6>
+                            <tr>
+                                <th colspan="2" style="border: none;"><span class="text-primary">Mailing Address</span> </th>
+                            </tr>
                             <tr>
                                 <th width="30%" style="border: none;">District </th>
                                 <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
@@ -472,14 +500,14 @@
                         <th width="30%" style="border: none;">Shifting Duty? </th>
                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => ['Y' => 'Yes', 'N' => 'No'],'selected' => ''.e($employee->shifting_duty).'','value' => ''.e(old('shifting_duty',$employee->shifting_duty)).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => ['Y' => 'Yes', 'N' => 'No'],'selected' => ''.e($employee->shifting_duty??'N').'','value' => ''.e(old('shifting_duty',$employee->shifting_duty)).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Y' => 'Yes', 'N' => 'No']),'selected' => ''.e($employee->shifting_duty).'','value' => ''.e(old('shifting_duty',$employee->shifting_duty)).'','required' => true]); ?>
+<?php $component->withAttributes(['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Y' => 'Yes', 'N' => 'No']),'selected' => ''.e($employee->shifting_duty??'N').'','value' => ''.e(old('shifting_duty',$employee->shifting_duty)).'','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
@@ -492,17 +520,17 @@
 <?php endif; ?></td>
                     </tr>
                     <tr>
-                        <th width="30%" style="border: none;">Reference Shift? </th>
+                        <th width="30%" style="border: none;">Ref. Shift? </th>
                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'refrerence_shift','id' => 'refrerence_shift','class' => 'select2','options' => $shifts,'selected' => ''.e($employee->refrerence_shift).'','value' => ''.e(old('refrerence_shift',$employee->refrerence_shift)).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'refrerence_shift','id' => 'refrerence_shift','class' => 'select2','options' => $shifts,'selected' => ''.e($employee->refrerence_shift??'G').'','value' => ''.e(old('refrerence_shift',$employee->refrerence_shift)).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'refrerence_shift','id' => 'refrerence_shift','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($shifts),'selected' => ''.e($employee->refrerence_shift).'','value' => ''.e(old('refrerence_shift',$employee->refrerence_shift)).'','required' => true]); ?>
+<?php $component->withAttributes(['name' => 'refrerence_shift','id' => 'refrerence_shift','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($shifts),'selected' => ''.e($employee->refrerence_shift??'G').'','value' => ''.e(old('refrerence_shift',$employee->refrerence_shift)).'','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
@@ -515,7 +543,30 @@
 <?php endif; ?></td>
                     </tr>
                     <tr>
-                        <th width="30%" style="border: none;">Reference Date </th>
+                        <th width="30%" style="border: none;">Ref. Holiday? </th>
+                        <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'refrerence_holiday','id' => 'refrerence_holiday','class' => 'select2','options' => ['Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday','Saturday'=>'Saturday'],'selected' => ''.e($employee->refrerence_holiday??'Friday').'','value' => ''.e(old('refrerence_holiday',$employee->refrerence_holiday)).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'refrerence_holiday','id' => 'refrerence_holiday','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday','Saturday'=>'Saturday']),'selected' => ''.e($employee->refrerence_holiday??'Friday').'','value' => ''.e(old('refrerence_holiday',$employee->refrerence_holiday)).'','required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $attributes = $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $component = $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?></td>
+                    </tr>
+                    <tr>
+                        <th width="30%" style="border: none;">Ref. Date </th>
                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'refrerence_date','type' => 'date','id' => 'refrerence_date','class' => 'form-control-sm','value' => ''.e(old('refrerence_date',$employee->refrerence_date)).'','placeholder' => 'Reference Date','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -656,4 +707,41 @@
     </div>
     </form>
 </div>
+
+<?php $__env->startPush('scripts'); ?>
+    <script>
+        $(document).ready(function () {
+            let line = $('#line_id').val();
+            let unit = $('#unit').val();
+
+            $('#unit').on('change', function () {
+                let unitcode = $(this).val();
+
+                if (unitcode) {
+                    $.ajax({
+                        url: '/hris/database/unit/' + unitcode,
+                        type: 'GET',
+                        success: function (data) {
+                            $('#line').html('<option value="">Select Line</option>');
+                            $.each(data, function (key, value) {
+                                $('#line').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                            if (line) {
+                                $('#line').val(line).trigger('change');
+                            }
+                        }
+                    });
+                } else {
+                    $('#line').html('<option value="">Select Line</option>');
+                }
+            });
+            if (unit) {
+                $('#unit').val(unit).trigger('change');
+            } else {
+                $('#unit').trigger('change');
+            }
+        });
+
+    </script>
+<?php $__env->stopPush(); ?>
 <?php /**PATH D:\laragon\www\new erp\garments_erp\Modules\HRIS\resources\views\database\employee\tab1.blade.php ENDPATH**/ ?>

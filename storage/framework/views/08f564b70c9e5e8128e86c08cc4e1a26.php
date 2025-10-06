@@ -49,7 +49,7 @@
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Listing Report
                     </h6>
                 </div>
-                <form id="employeeListingForm" action="<?php echo e(route('hris.report.employee-listings.preview')); ?>" method="POST" target="_blank">
+                <form id="employeeListingForm" action="<?php echo e(route('hris.report.employee-listings.report.preview')); ?>" method="POST" target="_blank">
                     <?php echo csrf_field(); ?>
                     <div class="card-body">
                         <div class="row">
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 mb-3 pe-lg-0">
+                            <div class="col-lg-3 col-md-6 mb-3 pe-lg-0">
                                 <div class="card alert-info alert-top-border">
                                     <div class="card-header">
                                         <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i> Department</h6>
@@ -113,7 +113,7 @@
 
                             </div>
 
-                            <div class="col-lg-3 mb-3 pe-lg-0">
+                            <div class="col-lg-3 col-md-6 mb-3 pe-lg-0">
                                 <div class="card alert-info alert-top-border">
                                     <div class="card-header">
                                         <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Designation</h6>

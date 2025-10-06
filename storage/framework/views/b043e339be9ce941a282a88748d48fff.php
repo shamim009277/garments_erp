@@ -33,6 +33,7 @@
                                     <th width="">Code</th>
                                     <th width="">Conversion Rate</th>
                                     <th width="">Root</th>
+                                    <th width="">Standards</th>
                                     <th width="">Is Active</th>
                                     <th width="">Actions</th>
                                 </tr>
@@ -45,6 +46,7 @@
                                         <td><?php echo e($unit->code); ?></td>
                                         <td><?php echo e($unit->conversion_rate); ?></td>
                                         <td><?php echo e($unit->root?->name); ?></td>
+                                        <td><?php echo e($standards[$unit->unit_standards]); ?></td>
                                         <td>
                                             <div class="square-switch" style="transform: scale(0.85); transform-origin: left center;">
                                                 <input type="checkbox" id="square-switch3<?php echo e($unit->id); ?>" class="unit-toggle" data-id="<?php echo e($unit->id); ?>" switch="bool" <?php echo e($unit->is_active ? 'checked' : ''); ?> />
@@ -144,6 +146,26 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['name' => 'root_id','label' => 'Root','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($rots),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($unit->root_id),'required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $attributes = $__attributesOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $component = $__componentOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__componentOriginal243648788f657c94d456cacfc3f7cdc3); ?>
+<?php endif; ?>
+                                                            <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'unit_standards','label' => 'Unit Standards','options' => $standards,'selected' => $unit->unit_standards]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input-group'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'unit_standards','label' => 'Unit Standards','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($standards),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($unit->unit_standards)]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
@@ -288,6 +310,26 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['name' => 'root_id','label' => 'Root','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($rots),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('root_id'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $attributes = $__attributesOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
+<?php $component = $__componentOriginal243648788f657c94d456cacfc3f7cdc3; ?>
+<?php unset($__componentOriginal243648788f657c94d456cacfc3f7cdc3); ?>
+<?php endif; ?>
+                        <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'unit_standards','label' => 'Unit Standards','options' => $standards,'selected' => old('unit_standards')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input-group'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'unit_standards','label' => 'Unit Standards','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($standards),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('unit_standards'))]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>

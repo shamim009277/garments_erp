@@ -37,7 +37,7 @@
                 <div class="card-header">
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Pending Applicant List</h6>
                 </div>
-                <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
+                <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
                     <ul class="nav-custom">
                         <?php $__currentLoopData = $unique_department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php
@@ -194,26 +194,49 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <tr>
-                                                <th width="30%" style="border: none;">Line</th>
-                                                <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'line','id' => 'line','type' => 'text','class' => 'form-control-sm','placeholder' => 'Line']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('text-input'); ?>
+                                                <th width="30%" style="border: none;">Unit </th>
+                                                <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'unit','id' => 'unit','class' => 'select2','options' => $units,'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'line','id' => 'line','type' => 'text','class' => 'form-control-sm','placeholder' => 'Line']); ?>
+<?php $component->withAttributes(['name' => 'unit','id' => 'unit','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($units),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
-<?php $attributes = $__attributesOriginal18c21970322f9e5c938bc954620c12bb; ?>
-<?php unset($__attributesOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $attributes = $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
-<?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
-<?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php if (isset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $component = $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th width="30%" style="border: none;">Line </th>
+                                                <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'line','id' => 'line','class' => 'select2','options' => [],'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'line','id' => 'line','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute([]),'required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $attributes = $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $component = $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
 <?php endif; ?></td>
                                             </tr>
                                             <tr>
@@ -285,10 +308,6 @@
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
 <?php endif; ?></td>
                                             </tr>
-                                            <tr>
-                                                <th style="border: none;">&nbsp; &nbsp;</th>
-                                                <td style="border: none;">&nbsp; &nbsp;</td>
-                                            </tr>
                                         </table>
                                     </div>
                                 </div>
@@ -296,7 +315,9 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
-                                            <h6 class="text-primary font-weight-bold">Present Address</h6>
+                                            <tr>
+                                                <th colspan="2" style="border: none;"><span class="text-primary">Present Address</span> </th>
+                                            </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
@@ -399,7 +420,9 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
-                                            <h6 class="text-primary font-weight-bold">Mailing Address</h6>
+                                            <tr>
+                                                <th colspan="2" style="border: none;"><span class="text-primary">Mailing Address</span> </th>
+                                            </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
@@ -554,14 +577,14 @@
                                         <th width="30%" style="border: none;">Shifting Duty? </th>
                                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => ['Y' => 'Yes', 'N' => 'No'],'selected' => 'Y','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => ['Y' => 'Yes', 'N' => 'No'],'selected' => 'N','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Y' => 'Yes', 'N' => 'No']),'selected' => 'Y','required' => true]); ?>
+<?php $component->withAttributes(['name' => 'shifting_duty','id' => 'shifting_duty','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Y' => 'Yes', 'N' => 'No']),'selected' => 'N','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
@@ -574,7 +597,7 @@
 <?php endif; ?></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Reference Shift? </th>
+                                        <th width="30%" style="border: none;">Ref. Shift? </th>
                                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'refrerence_shift','id' => 'refrerence_shift','class' => 'select2','options' => $shifts,'selected' => 'G','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -597,17 +620,40 @@
 <?php endif; ?></td>
                                     </tr>
                                     <tr>
-                                        <th width="30%" style="border: none;">Reference Date </th>
+                                        <th width="30%" style="border: none;">Ref. Holiday? </th>
+                                        <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input','data' => ['name' => 'refrerence_holiday','id' => 'refrerence_holiday','class' => 'select2','options' => ['Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday','Saturday'=>'Saturday'],'selected' => 'Friday','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('select-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'refrerence_holiday','id' => 'refrerence_holiday','class' => 'select2','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday','Saturday'=>'Saturday']),'selected' => 'Friday','required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $attributes = $__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__attributesOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36)): ?>
+<?php $component = $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36; ?>
+<?php unset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
+<?php endif; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%" style="border: none;">Ref. Date </th>
                                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'refrerence_date','type' => 'date','id' => 'refrerence_date','class' => 'form-control-sm','placeholder' => 'Reference Date','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'refrerence_date','type' => 'date','id' => 'refrerence_date','class' => 'form-control-sm','placeholder' => 'Reference Date','autocomplete' => 'off','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'refrerence_date','type' => 'date','id' => 'refrerence_date','class' => 'form-control-sm','placeholder' => 'Reference Date','required' => true]); ?>
+<?php $component->withAttributes(['name' => 'refrerence_date','type' => 'date','id' => 'refrerence_date','class' => 'form-control-sm','placeholder' => 'Reference Date','autocomplete' => 'off','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -623,14 +669,14 @@
                                         <th width="30%" style="border: none;">Name </th>
                                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'name','class' => 'form-control-sm','id' => 'name','placeholder' => 'Name','value' => ''.e(old('name')).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'name','class' => 'form-control-sm','id' => 'name','placeholder' => 'Name','value' => ''.e(old('name')).'','autocomplete' => 'off','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'name','class' => 'form-control-sm','id' => 'name','placeholder' => 'Name','value' => ''.e(old('name')).'','required' => true]); ?>
+<?php $component->withAttributes(['name' => 'name','class' => 'form-control-sm','id' => 'name','placeholder' => 'Name','value' => ''.e(old('name')).'','autocomplete' => 'off','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -646,14 +692,14 @@
                                         <th width="30%" style="border: none;">Father Name </th>
                                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'father_name','class' => 'form-control-sm','id' => 'father_name','placeholder' => 'Father Name','value' => ''.e(old('father_name')).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'father_name','class' => 'form-control-sm','id' => 'father_name','placeholder' => 'Father Name','value' => ''.e(old('father_name')).'','autocomplete' => 'off','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'father_name','class' => 'form-control-sm','id' => 'father_name','placeholder' => 'Father Name','value' => ''.e(old('father_name')).'','required' => true]); ?>
+<?php $component->withAttributes(['name' => 'father_name','class' => 'form-control-sm','id' => 'father_name','placeholder' => 'Father Name','value' => ''.e(old('father_name')).'','autocomplete' => 'off','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -669,14 +715,14 @@
                                         <th width="30%" style="border: none;">Mother Name </th>
                                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'mother_name','class' => 'form-control-sm','id' => 'mother_name','placeholder' => 'Mother Name','value' => ''.e(old('mother_name')).'','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'mother_name','class' => 'form-control-sm','id' => 'mother_name','placeholder' => 'Mother Name','value' => ''.e(old('mother_name')).'','autocomplete' => 'off','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'mother_name','class' => 'form-control-sm','id' => 'mother_name','placeholder' => 'Mother Name','value' => ''.e(old('mother_name')).'','required' => true]); ?>
+<?php $component->withAttributes(['name' => 'mother_name','class' => 'form-control-sm','id' => 'mother_name','placeholder' => 'Mother Name','value' => ''.e(old('mother_name')).'','autocomplete' => 'off','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -692,14 +738,14 @@
                                         <th width="30%" style="border: none;">Spouse Name </th>
                                         <td width="70%" style="border: none;"><?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'spouse_name','class' => 'form-control-sm','id' => 'spouse_name','placeholder' => 'Spouse Name','value' => ''.e(old('spouse_name')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'spouse_name','class' => 'form-control-sm','id' => 'spouse_name','placeholder' => 'Spouse Name','value' => ''.e(old('spouse_name')).'','autocomplete' => 'off']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'spouse_name','class' => 'form-control-sm','id' => 'spouse_name','placeholder' => 'Spouse Name','value' => ''.e(old('spouse_name')).'']); ?>
+<?php $component->withAttributes(['name' => 'spouse_name','class' => 'form-control-sm','id' => 'spouse_name','placeholder' => 'Spouse Name','value' => ''.e(old('spouse_name')).'','autocomplete' => 'off']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -805,6 +851,24 @@
                 }
             });
 
+            $('#unit').on('change', function() {
+                $('#line').empty();
+                let unitcode = $(this).val();
+                if (unitcode) {
+                    $.ajax({
+                        url: '/hris/database/unit/' + unitcode,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#line').empty();
+                            $('#line').append('<option value="">Select Line</option>');
+                            $.each(data, function(key, value) {
+                                $('#line').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
 
             $('#joining_date').on('change', function () {
                 const joiningDateVal = $(this).val();
@@ -830,6 +894,7 @@
                 $('#pdistrict_id').trigger('change');
                 $('#mdistrict_id').trigger('change');
                 $('#designation_id').trigger('change');
+                $('#unit').trigger('change');
             });
 
 
