@@ -6,22 +6,22 @@ use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Modules\HRIS\Models\Setting;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Database\Employee;
-use Modules\HRIS\Models\Setup\Organization;
-use Modules\HRIS\Models\Setup\EmployeeCategory;
+use Modules\HRIS\Models\Database\EmployeeSalary;
 use Modules\HRIS\Models\Database\EmployeeIncrement;
-use Modules\HRIS\Http\Requests\Database\BulkIncrementRequest;
+
 
 class IncrementEnforceController extends Controller
 {
 
-    function __construct() {
-        $this->middleware('permission:hris.increment-enforce.view')->only('index');
-        $this->middleware('permission:hris.increment-enforce.add')->only('store');
-    }
+    // function __construct() {
+    //     $this->middleware('permission:hris.increment-enforce.view')->only('index');
+    //     $this->middleware('permission:hris.increment-enforce.add')->only('store');
+    // }
     /**
      * Display a listing of the resource.
      */
@@ -30,118 +30,137 @@ class IncrementEnforceController extends Controller
 
         $lastMonthStart = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
         $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
-        $datas = EmployeeIncrement::with(['employeeBasic:id,employee_id,joining_date,name','department:id,department','designation:id,designation','newDepartment:id,department','newDesignation:id,designation'])->where('enforce', 0)->whereBetween('increment_date', [$lastMonthStart, $lastMonthEnd])->get();
+        $datas = EmployeeIncrement::with(['employeeBasic:id,employee_id,joining_date,name','department:id,department','designation:id,designation','newDepartment:id,department','newDesignation:id,designation'])->notEnforce()->notDiscard()->whereBetween('increment_date', [$lastMonthStart, $lastMonthEnd])->active()->get();
         return view('hris::database.incrementenforce.index', compact('datas'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BulkIncrementRequest $request) {
-        $from = Carbon::parse($request->joining_date_from)->format('m-d');
-        $to   = Carbon::parse($request->joining_date_to)->format('m-d');
-        $oneYearAgo = Carbon::now()->subYear()->format('Y-m-d');
+    public function store(Request $request)
+    {
+        $ids = (array) $request->input('id');
 
-        $employees = Employee::with(['designation' => function($q) use ($request) {
-                $q->select('id', 'designation', 'category_code');
-            }])
-            ->with(['employeeSalary' => function($q) {
-                $q->select('id', 'employee_id', 'gross_salary', 'basic', 'medical_allowance', 'home_allowance', 'food_allowance', 'conveyance');
-            }])
-            ->select('id', 'employee_id', 'name', 'org_id','designation_id','department_id','line','unit')
-            ->where('org_id', $request->org_id)
-            ->where('reason', 'N')
-            ->where('joining_date', '<=', $oneYearAgo)
-            ->when(!$request->all_department && $request->department_id, fn($q) =>
-                $q->where('department_id', $request->department_id)
-            )
-            ->when(!$request->all_category && $request->employee_category_id, fn($q) =>
-                $q->whereHas('designation', fn($d) =>
-                    $d->where('category_code', $request->employee_category_id)
-                )
-            )
-            ->when($request->joining_date_from && $request->joining_date_to, fn($q) =>
-                $q->whereRaw("DATE_FORMAT(joining_date, '%m-%d') BETWEEN ? AND ?", [$from, $to])
-            )
-            ->when($request->designation_id, fn($q) =>
-                $q->whereIn('designation_id', $request->designation_id)
-            )
-            ->get();
+        if($request->form == 1){
+            if (!empty($ids)) {
+                try {
+                    $alreadyDiscarded = EmployeeIncrement::whereIn('id', $ids)
+                        ->discard()
+                        ->count();
 
-            try {
-                $incrementSource   = $request->increment_source;
-                $incrementType     = $request->increment_value;
-                $amount            = $request->amount;
+                    if ($alreadyDiscarded > 0) {
+                        return response()->json([
+                            'status'  => 'warning',
+                            'message' => $alreadyDiscarded . ' record(s) already discarded!',
+                        ]);
+                    }
 
-                $commonData = [
-                    'increment_date'     => $request->increment_date,
-                    'effective_date'     => $request->effective_date,
-                    'arrear_upto_date'   => $request->arrear_upto_date,
-                    'increment_type_id'  => null,
-                    'increment_source'   => $incrementSource,
-                    'increment_value'    => $incrementType,
-                    'house_rent_basic'   => $request->house_rent_basic,
-                    'enforce'            => 0,
-                    'remarks'            => $request->remarks,
-                    'is_active'          => true,
-                    'created_by'         => Auth::id(),
-                    'updated_by'         => Auth::id(),
-                ];
-                $incrementMonth = Carbon::parse($request->increment_date)->format('Y-m');
+                    EmployeeIncrement::whereIn('id', $ids)->update([
+                        'discard' => 1,
+                    ]);
 
-                $chunks = collect($employees)->chunk(100);
+                    return response()->json([
+                        'ids'     => $ids,
+                        'status'  => 'success',
+                        'message' => 'Data discarded successfully',
+                    ]);
+                } catch (\Throwable $th) {
+                    return response()->json([
+                        'status'  => 'error',
+                        'message' => $th->getMessage(),
+                    ], 500);
+                }
+            }
 
-                foreach ($chunks as $chunk) {
-                    $rows = [];
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'No data selected for discarded',
+            ], 422);
+        }else if($request->form == 2){
+            if (!empty($ids)) {
+                try {
+                    DB::beginTransaction();
 
-                    foreach ($chunk as $employee) {
-                        $salary = $employee->employeeSalary;
+                    // 1. Check already enforced
+                    $alreadyEnforced = EmployeeIncrement::whereIn('id', $ids)->enforce()->count();
 
-                        // চেক করা হবে, একই মাসে আগে থেকে ইনক্রিমেন্ট আছে কিনা
-                        $alreadyExists = EmployeeIncrement::where('employee_id', $employee->employee_id)
-                            ->whereRaw("DATE_FORMAT(increment_date, '%Y-%m') = ?", [$incrementMonth])
-                            ->exists();
+                    if ($alreadyEnforced > 0) {
+                        return response()->json([
+                            'status'  => 'warning',
+                            'message' => $alreadyEnforced . ' record(s) already enforced!',
+                        ]);
+                    }
 
-                        if ($alreadyExists) {
+                    // 2. Load increments + salaries together
+                    $incrementDatas = EmployeeIncrement::with('employeeSalary')
+                        ->whereIn('id', $ids)
+                        ->active()
+                        ->notEnforce()
+                        ->notDiscard()
+                        ->get();
+
+                    foreach ($incrementDatas as $incrementData) {
+                        $empSalary = $incrementData->employeeSalary;
+                        if (!$empSalary) {
                             continue;
                         }
 
-                        $baseSalary = $incrementSource === 'B'
-                            ? $salary->basic
-                            : $salary->gross_salary;
+                        // salary calculation
+                        $initial_salary = ($incrementData->gross_salary + $incrementData->amount);
+                        $medical        = $incrementData->medical_allowance;
+                        $food           = $incrementData->food_allowance;
+                        $convey         = $incrementData->conveyance;
+                        $house_percent  = (int) $incrementData->house_rent_basic;
 
-                        $incrementValue = $incrementType === 'P'
-                            ? round($baseSalary * ($amount / 100))
-                            : round($baseSalary + $amount);
+                        $total_allowance = $medical + $food + $convey;
 
-                        $rows[] = array_merge($commonData, [
-                            'employee_id'        => $employee->employee_id,
-                            'org_id'             => $employee->org_id,
-                            'department_id'      => $employee->department_id,
-                            'designation_id'     => $employee->designation_id,
-                            'line'               => $employee->line??0,
-                            'unit'               => $employee->unit??0,
-                            'new_department_id'  => $employee->department_id,
-                            'new_designation_id' => $employee->designation_id,
-                            'gross_salary'       => $salary->gross_salary,
-                            'basic'              => $salary->basic,
-                            'medical_allowance'  => $salary->medical_allowance,
-                            'home_allowance'     => $salary->home_allowance,
-                            'food_allowance'     => $salary->food_allowance,
-                            'conveyance'         => $salary->conveyance,
-                            'amount'             => $incrementValue,
+                        $basic = 0;
+                        if (($initial_salary - $total_allowance) > 0 && ($house_percent + 100) > 0) {
+                            $basic = round(($initial_salary - $total_allowance) / (($house_percent + 100) / 100));
+                        }
+
+                        // update employee salary (current + old)
+                        $empSalary->update([
+                            'gross_salary'        => $initial_salary,
+                            'basic'               => $basic,
+                            'home_allowance'      => $basic,
+                            'medical_allowance'   => $medical,
+                            'food_allowance'      => $food,
+                            'conveyance'          => $convey,
+
+                            'old_gross_salary'    => $incrementData->gross_salary,
+                            'old_basic'           => $incrementData->basic,
+                            'old_home_allowance'  => $incrementData->home_allowance,
+                            'old_medical_allowance' => $incrementData->medical_allowance,
+                            'old_food_allowance'  => $incrementData->food_allowance,
+                            'old_conveyance'      => $incrementData->conveyance,
                         ]);
                     }
-                    if (!empty($rows)) {
-                        EmployeeIncrement::insert($rows);
-                        return redirect()->back()->with('success', 'Bulk increment created successfully');
-                    }else{
-                        return redirect()->back()->with('error', 'No data found for this selection');
-                    }
+                    EmployeeIncrement::whereIn('id', $ids)->update([
+                        'enforce' => 1,
+                    ]);
+
+                    DB::commit();
+
+                    return response()->json([
+                        'ids'     => $ids,
+                        'status'  => 'success',
+                        'message' => 'Data enforced successfully',
+                    ]);
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+                    return response()->json([
+                        'status'  => 'error',
+                        'message' => $th->getMessage(),
+                    ], 500);
                 }
-            } catch (\Throwable $th) {
-                 return redirect()->back()->with('error', $th->getMessage());
             }
+
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'No data selected for discarded',
+            ], 422);
+        }
     }
 
     /**
