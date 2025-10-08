@@ -10,18 +10,16 @@ use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Organization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Payroll\Database\Factories\Database\AdvanceFactory;
 
 class Advance extends Model
 {
     use HasFactory;
 
     protected $table = 'payroll_database_advance';
-
     /**
      * The attributes that are mass assignable.
      */
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public static function booted()
     {
@@ -37,6 +35,11 @@ class Advance extends Model
         static::updating(function ($advance) {
             $advance->updated_by = Auth::id();
         });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 
     public function employee() : BelongsTo
@@ -58,10 +61,4 @@ class Advance extends Model
     {
         return $this->belongsTo(Designation::class);
     }
-
-
-    // protected static function newFactory(): Database\AdvanceFactory
-    // {
-    //     // return Database\AdvanceFactory::new();
-    // }
 }

@@ -29,6 +29,14 @@
         table tr td{
             border: none !important;
         }
+        .disabled-select {
+            cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
+        }
+        .form-check-input:checked:disabled {
+            background-color: #b7bbf5 !important;
+            border: 1px solid #b7bbf5 !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -57,25 +65,52 @@
                 <div class="card alert-primary alert-top-border">
                     <div class="card-header d-flex align-items-center justify-content-between p-2">
                         <h6 class="my-0 text-primary d-flex align-items-center"><i data-feather="list" width="16" height="16" class="me-2"></i> Department</h6>
-                        <x-text-input name="year" class="form-control-sm w-auto ms-2" type="text" value="{{ date('Y') }}" required readonly />
+
                     </div>
                     <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
                         <!-- Sample departments -->
-                        <div class="department-list">
-                            <!-- Parent 1 -->
-                            @foreach ($parentDepartments as $parentDepartment)
-                            <div class="parent-wrapper">
-                                <label class="parent-label">
-                                    <span class="toggle-btn" data-target="children-{{ $parentDepartment->id }}">[+]</span>
-                                    <input type="checkbox" class="parent-checkbox departmentID" data-id="{{ $parentDepartment->id }}" name="parent_department_id[]" value="{{ $parentDepartment->id }}"> {{ $parentDepartment->department }}
-                                </label>
-                                <div class="collapse" id="children-{{ $parentDepartment->id }}">
-                                    @foreach ($parentDepartment->departments as $department)
-                                    <label><input type="checkbox" class="form-check-input child-of-{{ $parentDepartment->id }} departmentID" name="department_id[]" value="{{ $department->id }}"> {{ $department->department }}</label><br>
+                        <div class="row">
+                            <div class="col-md-6 ps-lg-0">
+                                <div class="department-list">
+                                    <!-- Parent 1 -->
+                                    @foreach ($parentDepartments as $parentDepartment)
+                                        <div class="parent-wrapper">
+                                            <label class="parent-label">
+                                                <span class="toggle-btn" data-target="children-{{ $parentDepartment->id }}">[+]</span>
+                                                <input type="checkbox" class="parent-checkbox departmentID" data-id="{{ $parentDepartment->id }}" name="parent_department_id[]" value="{{ $parentDepartment->id }}"> {{ $parentDepartment->department }}
+                                            </label>
+                                            <div class="collapse" id="children-{{ $parentDepartment->id }}">
+                                                @foreach ($parentDepartment->departments as $department)
+                                                <label><input type="checkbox" class="form-check-input child-of-{{ $parentDepartment->id }} departmentID" name="department_id[]" value="{{ $department->id }}"> {{ $department->department }}</label><br>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
-                            @endforeach
+                            <div class="col-md-6">
+                                <table class="table table-sm" style="width: 100%">
+                                    <tbody>
+                                        <tr>
+                                            <td width="40%">
+                                                <input type="checkbox" name="all_organization" id="all_organization">
+                                                <label class="m-0" for="all_organization">All Org</label>
+                                            </td>
+                                            <td width="60%" id="all_organization_section">
+                                                <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" :selected="1" placeholder="Select Organization" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                <label class="m-0" for="year">Year</label>
+                                            </td>
+                                            <td width="60%">
+                                                <x-text-input name="year" class="form-control-sm" type="text" value="{{ date('Y') }}" required readonly />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer" style="padding:10px 15px;">
@@ -92,6 +127,31 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+        let allOrganization = $('#all_organization').is(':checked');
+        if(allOrganization){
+            $('#organization_id').prop('disabled', true);
+            $('#all_organization_section').addClass('disabled-select');
+        }
+
+        handleToggle('#all_organization', '#organization_id', '#all_organization_section');
+
+        $('#all_organization').on('change', function () {
+
+            handleToggle('#all_organization', '#organization_id', '#all_organization_section');
+        });
+
+        function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
+            const isChecked = $(checkboxSelector).is(':checked');
+            $(selectSelector)
+                .prop('disabled', isChecked)
+                .val(null).trigger('change');
+
+            $(selectSelector).toggleClass('disabled-select', isChecked);
+            $(sectionSelector).toggleClass('disabled-select', isChecked);
+        }
+        $('#organization_id').val(1).trigger('change');
+
+
         $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true)
         $('.toggle-btn').on('click', function (e) {
             e.preventDefault();
@@ -124,20 +184,6 @@
         $('#uncheck_all').on('click', function () {
             $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
         });
-
-
     });
-
-
-
-
-
-
-
-
-
-
-
 </script>
-
 @endpush

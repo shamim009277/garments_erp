@@ -205,47 +205,6 @@
             });
         });
 
-
-        // $(document).on('click', '.delete-Display', function(e) {
-        //     let id = $(this).data('id');
-        //     Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, delete it!'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             $.ajax({
-        //                 url: '{{ route('hris.tools.editexceptional-holidays.delete') }}',
-        //                 type: 'POST',
-        //                 data: {
-        //                     id: id,
-        //                     _token: '{{ csrf_token() }}'
-        //                 },
-        //                 success: function(response) {
-        //                     if (response.success) {
-        //                         Swal.fire(
-        //                             'Deleted!',
-        //                             'Holiday has been deleted.',
-        //                             'success'
-        //                         );
-        //                         $('#row-' + id).remove();
-        //                     } else {
-        //                         Swal.fire(
-        //                             'Error!',
-        //                             'Holiday has not been deleted.',
-        //                             'error'
-        //                         );
-        //                     }
-        //                 }
-        //             });
-        //         }
-        //     });
-        // });
-
         $(document).on('click', '.display-date', function(e) {
             e.preventDefault();
             let startDate = $('#start_date').val();
@@ -284,7 +243,6 @@
                 },
                 success: function(response) {
                     $('#employeedata').empty();
-
                     if (response.success && response.data.length > 0) {
                         let row = ``;
                         response.data.forEach(emp => {
@@ -331,14 +289,14 @@
                 return;
             }
 
-            // if(to_shift == shift){
-            //     Swal.fire(
-            //         'Error!',
-            //         'To Shift cannot be same as Shift.',
-            //         'error'
-            //     );
-            //     return;
-            // }
+            if(to_shift == shift){
+                Swal.fire(
+                    'Error!',
+                    'To Shift cannot be same as Shift.',
+                    'error'
+                );
+                return;
+            }
 
             if (shift !== '' && to_shift !== '' && holiday === '') {
                 Swal.fire(
@@ -364,7 +322,7 @@
                 },
                 success: function(response) {
                     $('#employeedata').empty();
-                    if (response.success && response.data.length > 0) {
+                    if (response.success && response.data && response.data.length > 0) {
                         Swal.fire(
                             'Success!',
                             'Holiday has been generated successfully.',
@@ -372,20 +330,14 @@
                         );
                         let row = ``;
                         response.data.forEach(emp => {
-                            const date = new Date(emp.holiday_date);
-                            const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
-
+                            empId = emp.employee_id.toString().padStart(6, "0");
                             row += `
                                 <tr id="row-${emp.id}">
-                                    <td>${emp.employee_id}</td>
+                                    <td>${empId}</td>
                                     <td>${emp.employee_basic.name}</td>
-                                    <td>${emp.holiday_date}</td>
-                                    <td>${dayName}</td>
-                                    <td>
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-Display"
-                                        data-id="${emp.id}" style="padding: 4px 6px;">
-                                        <i class="fas fa-trash"></i></a>
-                                    </td>
+                                    <td>${emp.date}</td>
+                                    <td>${emp.employee_basic.joining_date}</td>
+                                    <td><input type="text" name="shift" id="shift" data-id="${emp.id}" data-emp-id="${emp.employee_id}" class="form-control form-control-sm shift" value="${emp.shift}" /></td>
                                 </tr>
                             `;
                         });

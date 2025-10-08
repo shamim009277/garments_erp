@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Tools\ShiftingList;
 use Modules\HRIS\Models\Setup\ParentDepartment;
 use Modules\HRIS\Http\Requests\Tools\ShiftingListRequest;
@@ -19,7 +20,8 @@ class ShiftingListController extends Controller
     public function index()
     {
         $parentDepartments = ParentDepartment::with('departments')->whereHas('departments') ->orderBy('department', 'asc') ->get();
-        return view('hris::tools.shiftinglist.index', compact('parentDepartments'));
+        $organizations = Organization::active()->pluck('short_name', 'id');
+        return view('hris::tools.shiftinglist.index', compact('parentDepartments', 'organizations'));
     }
 
     /**
@@ -43,15 +45,22 @@ class ShiftingListController extends Controller
             $start_date = Carbon::createFromDate($year, 1, 1);
             $end_date   = Carbon::createFromDate($year, 12, 31);
 
-            $employees = Employee::active()->whereIn('department_id', $request->department_id)->get();
-            $shifting_duty = ShiftingList::where('year', $year)->get();
+            //$employees = Employee::active()->whereIn('department_id', $request->department_id)->get();
+
+            $employees = Employee::active()->whereIn('department_id', $request->department_id)->when($request->filled('organization_id'), function ($q) use ($request) {
+                        $q->where('org_id', $request->organization_id);
+                    })->get();
+
+            $shifting_duty = ShiftingList::where('year', $year)->when($request->filled('organization_id'), function ($q) use ($request) {
+                        $q->where('org_id', $request->organization_id);
+                    })->get();
 
             if ($shifting_duty->isNotEmpty()) {
                 return redirect()->back()->with('error', 'Shifting list for this year already exists.');
             } else {
                 //Regular Employee
                 $regular_employee = $employees->filter(fn($employee) => $employee->shifting_duty == 'N');
-                $chunks = $regular_employee->chunk(50);
+                $chunks = $regular_employee->chunk(20);
 
                 foreach($chunks as $datas){
                     $rows = [];
@@ -63,7 +72,8 @@ class ShiftingListController extends Controller
                         while ($date->lte($end_date)) {
                             $rows[] = [
                                 'year'           => (int) $year,
-                                'employee_id'    => $employee->employee_id,
+                                'employee_id'    => (int)$employee->employee_id,
+                                'org_id'         => (int)$employee->org_id,
                                 'date'           => $date->format('Y-m-d'),
                                 'shift'          => $employee->refrerence_shift,
                                 'created_by'     => Auth::id(),
@@ -78,9 +88,12 @@ class ShiftingListController extends Controller
 
                 //Shift Employee
                 $shift_employee = $employees->filter(fn($employee) => $employee->shifting_duty == 'Y');
-                $empid = $shift_employee->pluck('employee_id');
-                $shiftdatas = ShiftingList::whereIn('employee_id', $empid)->where('year', $year-1)->get();
-                $chunks = $shift_employee->chunk(50);
+                $empid = $shift_employee->pluck('employee_id')->toArray();
+                $shiftdatas = ShiftingList::whereIn('employee_id', $empid)->when($request->filled('organization_id'), function ($q) use ($request) {
+                            $q->where('org_id', $request->organization_id);
+                        })->where('year', $year-1)->get();
+
+                $chunks = $shift_employee->chunk(20);
 
                 foreach($chunks as $datas){
                     $rows = [];
@@ -135,7 +148,8 @@ class ShiftingListController extends Controller
                             }
                             $rows[] = [
                                 'year'           => (int) $year,
-                                'employee_id'    => $employee->employee_id,
+                                'employee_id'    => (int)$employee->employee_id,
+                                'org_id'         => (int)$employee->org_id,
                                 'date'           => $date->format('Y-m-d'),
                                 'shift'          => $shift2,
                                 'created_by'     => Auth::id(),

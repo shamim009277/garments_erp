@@ -11,7 +11,12 @@ class AdvanceProcessRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'title' => 'required',
+            'org_id' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+        ];
     }
 
     /**

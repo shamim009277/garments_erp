@@ -86,10 +86,14 @@ class DesignationChangeController extends Controller
                     $employeePersonal->save();
                 }
 
+                //designation attendence bonus
+                $designation = Designation::find($request->new_designation_id);
+
                 //update employee salary
                 $employeeSalary = EmployeeSalary::where('employee_id', $request->employee_id)->first();
                 if ($employeeSalary) {
                     $employeeSalary->org_id = $request->new_org_id;
+                    $employeeSalary->attendance_bonus = $designation->attendance_bonus;
                     $employeeSalary->save();
                 }
 
