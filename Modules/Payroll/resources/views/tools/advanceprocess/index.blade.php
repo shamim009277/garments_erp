@@ -37,7 +37,7 @@
                     </div>
                     <div class="card-body" style="overflow-y: auto;">
                         <div class="row">
-                            <div class="col-lg-8 mb-3">
+                            <div class="col-md-8 mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="title" value="1" id="title1" checked>
                                     <label class="form-check-label" for="title1">Advance Process</label>
@@ -53,7 +53,7 @@
                                     <label class="form-check-label" for="title3">Advance Confirm</label>
                                 </div>
                             </div><br><br>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <x-select-input name="org_id" id="org_id" class="select2" :options="$organizations" :selected="old('org_id', '1')" placeholder="Select Organization" required />
                                 <x-select-input name="month" id="month" class="select2" :options="['1' => 'January', '2' => 'February', '3' => 'March', '4' => 'April', '5' => 'May', '6' => 'June', '7' => 'July', '8' => 'August', '9' => 'September', '10' => 'October', '11' => 'November', '12' => 'December']" :selected="$month" placeholder="Select Month" required />
                                 <x-select-input name="year" id="year" class="select2" :options="$yearlist" :selected="date('Y')" placeholder="Select Year" required />

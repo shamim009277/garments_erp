@@ -117,7 +117,7 @@
                                 <x-input-group name="name" label="Name" type="text" placeholder="Enter name" :value="old('name', $unique_applicant ? $unique_applicant->name : null)" required />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-input-group name="name_bangla" label="Name Bangla" type="text" placeholder="Enter name bangla" :value="old('name_bangla', $unique_applicant ? $unique_applicant->name_bangla : null)" required />
+                                <x-input-group name="name_bangla" label="Name Bangla" type="text" placeholder="Enter name bangla" :value="old('name_bangla', $unique_applicant ? $unique_applicant->name_bangla : null)" />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
                                 <x-input-group name="mobile" label="Mobile" type="text" pattern="(01)[0-9]{9}" maxlength="11" placeholder="Enter mobile" :value="old('mobile', $unique_applicant ? $unique_applicant->mobile : null)" required />

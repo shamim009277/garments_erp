@@ -29,7 +29,7 @@ return new class extends Migration
             $table->double('conveyance',18,2)->default(0);
             $table->date('increment_date');
             $table->date('effective_date');
-            $table->date('arrear_upto_date');
+            $table->date('arrear_upto_date')->nullable();
             $table->unsignedBigInteger('increment_type_id')->default(0);
             $table->enum('increment_source', ['B', 'G']);
             $table->enum('increment_value_type', ['P', 'F']);
@@ -37,6 +37,7 @@ return new class extends Migration
             $table->decimal('amount', 18, 2);
             $table->decimal('house_rent_basic', 18, 2);
             $table->integer('enforce')->default(0);
+            $table->integer('discard')->default(0);
             $table->text('remarks')->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by')->useCurrent();
@@ -50,6 +51,7 @@ return new class extends Migration
             $table->index('increment_source');
             $table->index('increment_value');
             $table->index('enforce');
+            $table->index('discard');
 
             $table->foreign('department_id')->references('id')->on('hris_setup_departments')->onDelete('cascade');
             $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');

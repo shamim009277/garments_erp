@@ -44,6 +44,7 @@ class EmployeeIncrement extends Model
         'increment_value_type',
         'house_rent_basic',
         'enforce',
+        'discard',
         'remarks',
         'is_active',
         'created_by',
@@ -65,6 +66,11 @@ class EmployeeIncrement extends Model
     public function employeeBasic() : BelongsTo
     {
         return $this->belongsTo(Employee::class,'employee_id','employee_id');
+    }
+
+    public function employeeSalary()
+    {
+        return $this->hasOne(EmployeeSalary::class, 'employee_id', 'employee_id');
     }
 
     public function department() : BelongsTo
@@ -92,8 +98,27 @@ class EmployeeIncrement extends Model
         return $value == 'P' ? '%' : 'Tk';
     }
 
-    // protected static function newFactory(): Database\EmployeeIncrementFactory
-    // {
-    //     // return Database\EmployeeIncrementFactory::new();
-    // }
+    public function scopeEnforce($query) {
+        return $query->where('enforce', 1);
+    }
+
+    public function scopeNotEnforce($query) {
+        return $query->where('enforce', 0);
+    }
+
+    public function scopeDiscard($query) {
+        return $query->where('discard', 1);
+    }
+
+    public function scopeNotDiscard($query) {
+        return $query->where('discard', 0);
+    }
+
+    public function scopeActive($query) {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeNotActive($query) {
+        return $query->where('is_active', 0);
+    }
 }

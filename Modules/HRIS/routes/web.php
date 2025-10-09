@@ -319,6 +319,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
             Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');
             Route::resource('editexceptional-holidays', EditExceptionalHolidayController::class)->names('editexceptional-holidays');
+            Route::post('/maternity-entry/delete', [MaternityEntryController::class, 'destroy'])->name('maternity-entry.delete');
             Route::resource('maternity-entry', MaternityEntryController::class)->names('maternity-entry');
         });
     });
