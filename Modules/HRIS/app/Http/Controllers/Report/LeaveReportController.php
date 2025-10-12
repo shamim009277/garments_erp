@@ -116,6 +116,112 @@ class LeaveReportController extends Controller
 
                return $pdf->stream('employee.pdf');
             }
+        }elseif($request->title == 3){
+            $request->validate([
+                'department_id' => 'required|array',
+                'start_date' => 'required|array',
+                'end_date' => 'required|array',
+            ]);
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+                    ->whereIn('department_id', $request->department_id)
+                    ->whereBetween('joining_date', [$request->start_date, $request->end_date])
+                    ->when($request->filled('employee_id'), fn($q) =>
+                         $q->where('employee_id', $request->employee_id))
+                         ->when($request->filled('category_id'), function ($q) use ($request) {
+                            $q->whereHas('designation', function ($q2) use ($request) {
+                                $q2->where('category_code', $request->category_id);
+                            });
+                    })
+                    ->when($request->filled('organization_id'), fn($q) =>
+                         $q->where('org_id', $request->organization_id))
+                    ->when($request->filled('designation_id'), fn($q) =>
+                         $q->whereIn('designation_id', $request->designation_id))
+                    ->when($request->filled('district_id'), fn($q) =>
+                         $q->whereIn('mdistrict.id', $request->district_id))
+                    ->orderBy('employee_id', 'asc')
+                    ->get();
+                    
+            $uniqueEmployees = $employees->unique('employee_id')->pluck('employee_id','employee_id');
+            $title = $request->title;
+
+            if($request->view_mode == 1){
+                return view('hris::report.leave.preview', compact('employees','title','uniqueEmployees'));
+            }elseif($request->view_mode == 2){
+                $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueEmployees'))
+                ->setPaper('a4', 'portrait');
+
+               return $pdf->stream('employee.pdf');
+            }   
+        }elseif($request->title == 4){ 
+            $request->validate([
+                'month' => 'required'
+            ]);
+            $month = $request->month;
+
+            $startDate = Carbon::createFromDate(now()->year, $month, 1)->startOfMonth()->toDateString();
+            $endDate   = Carbon::createFromDate(now()->year, $month, 1)->endOfMonth()->toDateString();
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+                    //->whereMonth('joining_date', $request->month)
+                    ->whereBetween('joining_date', [$startDate, $endDate])
+                    ->when($request->filled('employee_id'), fn($q) =>
+                         $q->where('employee_id', $request->employee_id))
+                         ->when($request->filled('category_id'), function ($q) use ($request) {
+                            $q->whereHas('designation', function ($q2) use ($request) {
+                                $q2->where('category_code', $request->category_id);
+                            });
+                    })
+                    ->when($request->filled('organization_id'), fn($q) =>
+                         $q->where('org_id', $request->organization_id))
+                    ->when($request->filled('designation_id'), fn($q) =>
+                         $q->whereIn('designation_id', $request->designation_id))
+                    /* ->when($request->filled('district_id'), fn($q) =>
+                         $q->whereIn('mdistrict.id', $request->district_id))
+                    ->orderBy('mdistrict.id', 'asc') */
+                    ->get();
+            $uniqueDistricts = $employees->unique('mdistrict.id')->pluck('mdistrict.id','mdistrict.id');
+            $title = $request->title;
+
+            if($request->view_mode == 1){
+                return view('hris::report.leave.preview', compact('employees','title','uniqueDistricts'));
+            }elseif($request->view_mode == 2){
+                $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueDistricts'))
+                ->setPaper('a4', 'portrait');
+
+               return $pdf->stream('employee.pdf');
+            }      
+        }elseif($request->title == 5){
+            $request->validate([
+                'organization_id' => 'required|array',
+            ]);
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+                    ->whereIn('org_id', $request->organization_id)
+                    ->when($request->filled('employee_id'), fn($q) =>
+                         $q->where('employee_id', $request->employee_id))
+                         ->when($request->filled('category_id'), function ($q) use ($request) {
+                            $q->whereHas('designation', function ($q2) use ($request) {
+                                $q2->where('category_code', $request->category_id);
+                            });
+                    })
+                    ->when($request->filled('organization_id'), fn($q) =>
+                         $q->where('org_id', $request->organization_id))
+                    ->when($request->filled('designation_id'), fn($q) =>
+                         $q->whereIn('designation_id', $request->designation_id))
+                    ->when($request->filled('district_id'), fn($q) =>
+                         $q->whereIn('mdistrict.id', $request->district_id))
+                    ->orderBy('org_id', 'asc')
+                    ->get();
+
+            $uniqueOrganizations = $employees->unique('org_id')->pluck('org_id','org_id');
+            $title = $request->title;
+
+            if($request->view_mode == 1){
+                return view('hris::report.leave.preview', compact('employees','title','uniqueOrganizations'));
+            }elseif($request->view_mode == 2){
+                $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueOrganizations'))
+                ->setPaper('a4', 'portrait');
+
+               return $pdf->stream('employee.pdf');
+            }      
         }
 
     }

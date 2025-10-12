@@ -77,10 +77,10 @@
                                             <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
                                             <label class="form-check-label" for="title4">Designation-wise Monthly Leave Register</label>
                                         </div>
-                                        <div class="form-check">
+                                        {{-- <div class="form-check">
                                             <input type="radio" id="title5" name="title" value="5"class="form-check-input titles">
                                             <label class="form-check-label" for="title5">Department-wise Monthly Leave Rejected/Discarded</label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

@@ -358,6 +358,7 @@
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
+            //$('#all_blood_group').prop('disabled', true);
             $('#end_date').prop('disabled', true);
         } else if (selectedValue == '2') {
             $('.departmentID').prop('disabled', true);
@@ -377,6 +378,7 @@
             $('.blood_group').prop('disabled', false);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            //$('#all_blood_group').prop('disabled', false);
         } else {
             $('.designationID').prop('disabled', false);
             $('.departmentID').prop('disabled', false);

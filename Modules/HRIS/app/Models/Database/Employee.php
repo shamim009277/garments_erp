@@ -11,7 +11,9 @@ use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Database\EmployeePersonal;
+use Modules\HRIS\Models\Setup\Sex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HRIS\Models\Database\Applicant;
 // use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
 
 class Employee extends Model
@@ -167,6 +169,12 @@ class Employee extends Model
 
     public function employeeSalary() {
         return $this->hasOne(EmployeeSalary::class, 'employee_id', 'employee_id');
+    }
+    public function applicant() {
+        return $this->hasOne(Applicant::class, 'employee_id', 'entry_date');
+    }
+    public function sex() {
+        return $this->belongsTo(Sex::class);
     }
 
     // protected static function newFactory(): Database\EmployeeFactory

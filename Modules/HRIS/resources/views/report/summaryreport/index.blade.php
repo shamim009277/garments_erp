@@ -36,21 +36,21 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Movement Pass Report',
+                'subtitle' => 'Summary Report',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Report', 'url' => route('hris.index')],
-                    ['label' => 'Movement Pass Report', 'url' => route('hris.report.movement-pass.index')],
+                    ['label' => 'Summary Report', 'url' => route('hris.report.summary-report.index')],
                 ],
             ])
         </div>
         <div class="col-lg-12 pr-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Movement Pass Report
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Summary Report
                     </h6>
                 </div>
-                <form id="employeeListingForm" action="{{ route('hris.report.movement-pass.report.preview') }}" method="POST" target="_blank">
+                <form id="employeeListingForm" action="{{ route('hris.report.summary-report.report.preview') }}" method="POST" target="_blank">
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -63,20 +63,22 @@
                                     <div class="card-body" style="max-height:450px;min-height:450px; overflow-y: auto;">
                                         <div class="form-check">
                                             <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
-                                            <label class="form-check-label" for="title1">Department-wise Daily Movement Pass</label>
+                                            <label class="form-check-label" for="title1">Department-wise Distribution of Employees</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
-                                            <label class="form-check-label" for="title2">Designation-wise Daily Movement Pass</label>
+                                            <label class="form-check-label" for="title2">Designation-wise Distribution of Employees</label>
                                         </div>
-                                        <div class="form-check">
+
+                                        {{-- <div class="form-check">
                                             <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
-                                            <label class="form-check-label" for="title3">Department-wise Monthly Movement Pass</label>
+                                            <label class="form-check-label" for="title3">Department-wise Attendance Summary</label>
                                         </div>
+
                                         <div class="form-check">
                                             <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
-                                            <label class="form-check-label" for="title4">Designation-wise Monthly Movement Pass</label>
-                                        </div>
+                                            <label class="form-check-label" for="title4">Designation-wise Attendance Summary</label>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -148,10 +150,10 @@
                                                 <tr>
                                                     <th>
                                                         <input type="checkbox" name="all_category" id="all_category" checked>
-                                                        <label class="m-0" for="all_category">All Purpose</label>
+                                                        <label class="m-0" for="all_category">All Category</label>
                                                     </th>
                                                     <td id="all_category_section">
-                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$gatepass_purposes" placeholder="Category ID" disabled />
+                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$employeeCategories" placeholder="Category ID" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>

@@ -65,6 +65,7 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
 use Modules\HRIS\Http\Controllers\Tools\EditExceptionalHolidayController;
+use Modules\HRIS\Http\Controllers\Report\SummaryReportController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -294,6 +295,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::get('/increment-report/preview', [IncrementReportController::class, 'previewData'])->name('increment-report.form.preview');
             Route::post('/increment-report/preview', [IncrementReportController::class, 'preview'])->name('increment-report.report.preview');
             Route::resource('increment-report', IncrementReportController::class)->names('increment-report');
+
+            //Summary Report
+            Route::get('/summary-report/preview', [SummaryReportController::class, 'previewData'])->name('summary-report.form.preview');
+            Route::post('/summary-report/preview', [SummaryReportController::class, 'preview'])->name('summary-report.report.preview');
+            Route::resource('summary-report', SummaryReportController::class)->names('summary-report');
         });
 
         //Settings

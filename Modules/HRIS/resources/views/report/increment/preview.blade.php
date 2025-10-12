@@ -17,11 +17,11 @@
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
                     @if($title == 1)
-                        <h6 class="my-0 text-primary text-center">Department-wise Listing of Employees</h6>
+                        <h6 class="my-0 text-primary text-center">Department-wise Increment</h6>
                     @elseif($title == 2)
-                        <h6 class="my-0 text-primary text-center">Designation-wise Listing of Employees</h6>
+                        <h6 class="my-0 text-primary text-center">Designation-wise Increment</h6>
                     @elseif($title == 3)
-                        <h6 class="my-0 text-primary text-center">Employees Joined Within Date Range</h6>
+                        <h6 class="my-0 text-primary text-center">Department-wise Increment (New)</h6>
                     @elseif($title == 4)
                         <h6 class="my-0 text-primary text-center">Employees With Blood Group</h6>
                     @endif
@@ -47,13 +47,13 @@
                                 @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $employee->employee_id }}</td>
+                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
+                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
                                         <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                        <td>{{ $employee->mdistrict->name }}</td>
+                                        <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -93,13 +93,13 @@
                                     @if($employee->designation_id == $designation->id)
                                         <tr>
                                             <td>{{ $sl1 }}</td>
-                                            <td>{{ $employee->employee_id }}</td>
+                                            <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                             <td>{{ $employee->name }}</td>
                                             <td>{{ $employee->department->department }}</td>
                                             <td>{{ $employee->designation->designation }}</td>
-                                            <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
+                                            <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
                                             <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                            <td>{{ $employee->mdistrict->name }}</td>
+                                            <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
                                         </tr>
                                         <?php $sl1++; ?>
                                     @endif
@@ -129,13 +129,13 @@
                                 @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $employee->employee_id }}</td>
+                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
+                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
                                         <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                        <td>{{ $employee->mdistrict->name }}</td>
+                                        <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -162,13 +162,13 @@
                                 @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $employee->employee_id }}</td>
+                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
+                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
                                         <td>{{ $employee->employeePersonal->blood_group }}</td>
-                                        <td>{{ $employee->mdistrict->name }}</td>
+                                        <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

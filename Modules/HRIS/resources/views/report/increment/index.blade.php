@@ -36,21 +36,21 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Applicant Report',
+                'subtitle' => 'Increment Report',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Report', 'url' => route('hris.index')],
-                    ['label' => 'Applicant Report', 'url' => route('hris.report.applicant-report.index')],
+                    ['label' => 'Increment Report', 'url' => route('hris.report.increment-report.index')],
                 ],
             ])
         </div>
         <div class="col-lg-12 pr-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Applicant Report
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Increment Report
                     </h6>
                 </div>
-                <form id="employeeListingForm" action="{{ route('hris.report.applicant-report.report.preview') }}" method="POST" target="_blank">
+                <form id="employeeListingForm" action="{{ route('hris.report.increment-report.report.preview') }}" method="POST" target="_blank">
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -63,22 +63,22 @@
                                     <div class="card-body" style="max-height:450px;min-height:450px; overflow-y: auto;">
                                         <div class="form-check">
                                             <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
-                                            <label class="form-check-label" for="title1">Department-wise Daily Applicant Entry</label>
+                                            <label class="form-check-label" for="title1">Department-wise Increment</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
-                                            <label class="form-check-label" for="title2">Designation-wise Daily Applicant Entry</label>
+                                            <label class="form-check-label" for="title2">Designation-wise Increment</label>
                                         </div>
 
-                                        <div class="form-check">
+                                        {{-- <div class="form-check">
                                             <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
-                                            <label class="form-check-label" for="title3">Department-wise Daily Applicant Entry (New)</label>
+                                            <label class="form-check-label" for="title3">Department-wise Increment (New)</label>
                                         </div>
 
                                         <div class="form-check">
                                             <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
-                                            <label class="form-check-label" for="title4">Designation-wise Daily Applicant Entry (New)</label>
-                                        </div>
+                                            <label class="form-check-label" for="title4">Designation-wise Increment (New)</label>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
