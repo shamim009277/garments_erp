@@ -15,6 +15,10 @@ use Modules\HRIS\Models\Database\Employee;
 
 class LeaveReportController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.leave-report.view')->only('index','previewData','preview');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -140,7 +144,7 @@ class LeaveReportController extends Controller
                          $q->whereIn('mdistrict.id', $request->district_id))
                     ->orderBy('employee_id', 'asc')
                     ->get();
-                    
+
             $uniqueEmployees = $employees->unique('employee_id')->pluck('employee_id','employee_id');
             $title = $request->title;
 
@@ -151,8 +155,8 @@ class LeaveReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            }   
-        }elseif($request->title == 4){ 
+            }
+        }elseif($request->title == 4){
             $request->validate([
                 'month' => 'required'
             ]);
@@ -188,7 +192,7 @@ class LeaveReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            }      
+            }
         }elseif($request->title == 5){
             $request->validate([
                 'organization_id' => 'required|array',
@@ -221,7 +225,7 @@ class LeaveReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            }      
+            }
         }
 
     }

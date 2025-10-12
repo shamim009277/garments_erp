@@ -17,6 +17,11 @@ use Modules\HRIS\Models\Setup\Organization;
 
 class EmployeeIncrementController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.employee-increment.view')->only('index');
+        $this->middleware('permission:hris.employee-increment.add')->only(['store','downloadSample']);
+    }
     /**
      * Display a listing of the resource.
      */

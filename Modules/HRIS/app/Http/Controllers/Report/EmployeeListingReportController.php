@@ -18,6 +18,10 @@ use Modules\HRIS\Models\Database\EmployeePersonal;
 
 class EmployeeListingReportController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.listing-report.view')->only('index','previewData','preview');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -77,7 +81,7 @@ class EmployeeListingReportController extends Controller
                     ->orderBy('department_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
-            
+
             $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
             $title = $request->title;
 
@@ -172,7 +176,7 @@ class EmployeeListingReportController extends Controller
             if($request->all_blood_group == true || $request->blood_group == null){
                 $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'employeePersonal:employee_id,blood_group'])
                             ->whereIn('department_id', $request->department_id)
-                            
+
                             ->when($request->filled('employee_id'), fn($q) =>
                                 $q->where('employee_id', $request->employee_id))
                                 ->when($request->filled('category_id'), function ($q) use ($request) {
@@ -210,7 +214,7 @@ class EmployeeListingReportController extends Controller
                             ->orderBy('employee_id', 'asc')
                             ->get();
             }
-            
+
             $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;

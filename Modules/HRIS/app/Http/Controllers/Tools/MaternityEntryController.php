@@ -11,6 +11,13 @@ use Modules\HRIS\Http\Requests\Tools\MaternityEntryRequest;
 
 class MaternityEntryController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.maternity-entry.view')->only('index');
+        $this->middleware('permission:hris.maternity-entry.add')->only('store');
+        $this->middleware('permission:hris.maternity-entry.edit')->only(['edit', 'update']);
+        $this->middleware('permission:hris.maternity-entry.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

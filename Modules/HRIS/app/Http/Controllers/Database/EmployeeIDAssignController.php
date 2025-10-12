@@ -12,6 +12,12 @@ use Modules\HRIS\Http\Requests\Database\EmployeeIDAssignRequest;
 
 class EmployeeIDAssignController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.employee-id-assign.view')->only('index');
+        $this->middleware('permission:hris.employee-id-assign.add')->only('store');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -18,10 +18,8 @@ class EmpGatePassController extends Controller
     {
         $this->middleware('permission:hris.movement-pass.view')->only('index','info');
         $this->middleware('permission:hris.movement-pass.add')->only('store');
-
         $this->middleware('permission:hris.employee-in.view')->only('getEmployeeIn');
         $this->middleware('permission:hris.employee-in.add')->only('getEmployeeInUpdate');
-
         $this->middleware('permission:hris.employee-out.view')->only('getEmployeeOut');
         $this->middleware('permission:hris.employee-out.add')->only('getEmployeeOutUpdate');
     }

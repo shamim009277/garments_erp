@@ -18,10 +18,10 @@ use Modules\HRIS\Models\Database\EmployeeIncrement;
 class IncrementEnforceController extends Controller
 {
 
-    // function __construct() {
-    //     $this->middleware('permission:hris.increment-enforce.view')->only('index');
-    //     $this->middleware('permission:hris.increment-enforce.add')->only('store');
-    // }
+    function __construct() {
+        $this->middleware('permission:hris.increment-enforce.view')->only('index');
+        $this->middleware('permission:hris.increment-enforce.add')->only('store');
+    }
     /**
      * Display a listing of the resource.
      */

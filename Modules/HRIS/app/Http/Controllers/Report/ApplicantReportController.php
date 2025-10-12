@@ -14,6 +14,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ApplicantReportController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.applicant-report.view')->only('index','previewData','preview');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -66,7 +70,7 @@ class ApplicantReportController extends Controller
                     ->when($request->filled('district_id'), fn($q) =>
                          $q->whereIn('mdistrict.id', $request->district_id))
                     ->orderBy('employee_id', 'asc')
-                    ->get(); 
+                    ->get();
             $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
@@ -77,7 +81,7 @@ class ApplicantReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            } 
+            }
         }elseif($request->title == 2){
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,entry_date'])
                     ->when($request->filled('designation_id'), fn($q) =>
@@ -105,7 +109,7 @@ class ApplicantReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            } 
+            }
         }elseif($request->title == 3){
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,entry_date'])
 
@@ -134,7 +138,7 @@ class ApplicantReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            } 
+            }
         }elseif($request->title == 4){
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,entry_date'])
 
@@ -163,11 +167,11 @@ class ApplicantReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            } 
+            }
         }
 
         return view('hris::report.applicant.preview', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'gatepass_purposes'));
     }
 
-    
+
 }

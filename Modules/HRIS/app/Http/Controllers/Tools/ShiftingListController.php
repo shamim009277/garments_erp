@@ -14,6 +14,13 @@ use Modules\HRIS\Http\Requests\Tools\ShiftingListRequest;
 
 class ShiftingListController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.shifting-list.view')->only('index');
+        $this->middleware('permission:hris.shifting-list.add')->only('store');
+        $this->middleware('permission:hris.shifting-list.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.shifting-list.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
