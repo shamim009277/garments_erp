@@ -27,6 +27,12 @@ class EmployeeSalary extends Model
         'food_allowance',
         'other_allowance',
         'conveyance',
+        'old_gross_salary',
+        'old_basic',
+        'old_home_allowance',
+        'old_medical_allowance',
+        'old_food_allowance',
+        'old_conveyance',
         'attendance_bonus',
         'ot_payable',
         'ot_rate',
@@ -53,7 +59,7 @@ class EmployeeSalary extends Model
     ];
 
     public function employee() {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id', 'employee_id');
     }
 
     public function org() {

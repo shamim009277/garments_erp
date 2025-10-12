@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Employee Listing Report</title>
-    <link rel="shortcut icon" href="{{ public_path('backend/assets/images/logo-sm.svg') }}">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />
     <style>
@@ -138,26 +137,30 @@
             z-index: 0;
         }
     </style>
-
 </head>
+@php
+    $logoPath = $general->logo_path
+        ? public_path('storage/' . $general->logo_path)
+        : public_path('backend/assets/images/logo-sm.svg');
+@endphp
 <body>
     <!-- Watermark -->
     <div class="watermark">
         {{ $general->full_name }} - {{ now()->format('Y') }}
     </div>
-    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
+    <img src="{{ $logoPath ?? asset('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
     <!-- Header -->
     <header>
         <div style="display: flex; align-items: center;">
             <!-- Logo -->
             <div>
-                <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;">
+                <img src="{{ $logoPath ?? asset('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;">
             </div>
 
             <!-- Company Info -->
             <div class="company-info">
                 <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $general->full_name }}</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Address, City, Country</div>
+                <div style="font-size: 12px;font-weight: normal; font-family: italic">01, Hariken Road, Dawlotpur, National University, Gazipur</div>
                 <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: info@company.com | Phone: +880123456789</div>
             </div>
         </div>

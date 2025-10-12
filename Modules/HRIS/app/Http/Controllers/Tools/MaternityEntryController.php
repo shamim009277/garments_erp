@@ -16,7 +16,8 @@ class MaternityEntryController extends Controller
      */
     public function index()
     {
-        return view('hris::tools.maternityentry.index');
+        $employees = MaternityEntry::with(['employeeBasic:id,name,employee_id','designation:id,designation','department:id,department'])->select('id','joining_date','org_id','employee_id','designation_id','department_id','notice_date','application_date','leave_start_date','leave_end_date','leave_days','payment','payment_date','approved','is_active')->get();
+        return view('hris::tools.maternityentry.index', compact('employees'));
     }
 
     /**
@@ -32,7 +33,7 @@ class MaternityEntryController extends Controller
      */
     public function store(MaternityEntryRequest $request) {
         try {
-            $employee = Employee::with(['employeePersonal:id,marital_status,sex_code','designation:id,category_code'])->where('employee_id', (int)$request->employee_id)->select('id','employee_id','name','designation_id','department_id')->first();
+            $employee = Employee::with(['employeePersonal:id,employee_id,marital_status,sex_code','designation:id,category_code'])->where('employee_id', (int)$request->employee_id)->select('id','joining_date','org_id','employee_id','name','designation_id','department_id')->first();
             if (!$employee) {
                 return redirect()->back()->with('error', 'Employee not found');
             }
@@ -41,9 +42,14 @@ class MaternityEntryController extends Controller
                 return redirect()->back()->with('error', 'Employee is not married or not female');
             }
 
+            $applied = MaternityEntry::where('employee_id', $employee->employee_id)->where('is_active', 1)->where('approved', 'Y')->count();
+            if ($applied > 2) {
+                return redirect()->back()->with('error', 'Employee has already applied for maternity leave 2 times');
+            }
+
             $data = [
                 'org_id' => $employee->org_id,
-                'employee_id' => $employee->id,
+                'employee_id' => $employee->employee_id,
                 'department_id' => $employee->department_id,
                 'designation_id' => $employee->designation_id,
                 'line' => $employee->line??0,
@@ -86,10 +92,46 @@ class MaternityEntryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id) {
+        $request->validate([
+            'approved' => 'required',
+            'payment' => 'required',
+            'is_active' => 'required',
+        ]);
+        $data = $request->all();
+        try {
+            $maternityEntry = MaternityEntry::find($id);
+            if (!$maternityEntry) {
+                return redirect()->back()->with('error', 'Maternity entry not found');
+            }
+            if($data['approved'] == 'Y'){
+                $data['payment_date'] = date('Y-m-d');
+            }
+
+            $maternityEntry->update($data);
+            return redirect()->back()->with('success', 'Maternity entry updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Maternity entry update failed: ' . $e->getMessage());
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {}
+    public function destroy(Request $request) {
+        try {
+            $maternityEntry = MaternityEntry::find($request->id);
+            if (!$maternityEntry) {
+                return response()->json(['success' => false, 'message' => 'Maternity entry not found']);
+            }
+
+            if ($maternityEntry->approved == 'Y' || $maternityEntry->payment == 'Y') {
+                return response()->json(['success' => false, 'message' => 'Maternity entry cannot be deleted']);
+            }
+            $maternityEntry->delete();
+            return response()->json(['success' => true, 'message' => 'Maternity entry deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => true, 'message' => 'Maternity entry deletion failed: ' . $e->getMessage()]);
+        }
+    }
 }

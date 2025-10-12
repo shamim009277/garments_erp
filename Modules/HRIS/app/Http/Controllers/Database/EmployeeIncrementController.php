@@ -2,13 +2,18 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
+use App\Exports\EmployeeIncrementExport;
+use App\Http\Controllers\Controller;
+use App\Imports\EmployeeIncrementImport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\HRIS\Models\Database\EmployeeIncrement;
 use Modules\HRIS\Models\Setting;
-use App\Http\Controllers\Controller;
 use Modules\HRIS\Models\Setup\Department;
-use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Setup\EmployeeCategory;
+use Modules\HRIS\Models\Setup\Organization;
 
 class EmployeeIncrementController extends Controller
 {
@@ -23,7 +28,12 @@ class EmployeeIncrementController extends Controller
         $lastMonthStart = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
         $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
         $hroption = Setting::active()->first();
-        return view('hris::database.employeeincrement.index', compact('departments', 'organizations', 'employeeCategories', 'lastMonthStart', 'lastMonthEnd', 'hroption'));
+        $incrementTypes = DB::table('hris_setup_increment_types')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->id => $item->id . ' || ' . $item->increment_type];
+            });
+        return view('hris::database.employeeincrement.index', compact('departments', 'organizations', 'employeeCategories', 'lastMonthStart', 'lastMonthEnd', 'hroption', 'incrementTypes'));
     }
 
     /**
@@ -37,7 +47,19 @@ class EmployeeIncrementController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(Request $request) {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        try {
+            Excel::import(new EmployeeIncrementImport($request->house_rent_basic), $request->file('file'));
+
+            return back()->with('success', 'Employee increments imported successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error: '.$e->getMessage());
+        }
+    }
 
     /**
      * Show the specified resource.
@@ -64,4 +86,8 @@ class EmployeeIncrementController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id) {}
+
+    public function downloadSample(){
+        return Excel::download(new EmployeeIncrementExport, 'increment.xlsx');
+    }
 }

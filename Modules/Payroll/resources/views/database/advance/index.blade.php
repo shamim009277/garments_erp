@@ -29,39 +29,53 @@
             </div>
         </div>
         <div class="col-lg-9 pe-lg-0" style="margin:0px auto;">
-            <form action="{{ route('payroll.tools.advance-process.store') }}" id="applicantForm" method="POST">
-                @csrf
-                <div class="card alert-primary alert-top-border">
-                    <div class="card-header" style="padding: 15px 16px;">
-                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Advance List</h6>
-                    </div>
-                    <div class="card-body" style="overflow-y: auto;">
-                       <table class="table table-bordered">
+            <div class="card alert-primary alert-top-border">
+                <div class="card-header" style="padding: 15px 16px;">
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Advance List</h6>
+                </div>
+                <div class="card-body" style="overflow-y: auto;">
+                    <table id="datacom" class="table table-bordered table-striped" width="100%">
                         <thead>
                             <tr>
-                                <th>Sl</th>
+                                <th>Advance ID</th>
                                 <th>Employee ID</th>
                                 <th>Name</th>
                                 <th>Department</th>
                                 <th>Designation</th>
                                 <th>Issue Date</th>
-                                <th>Refund Start Date</th>
-                                <th>Advance Amount</th>
-                                <th>Installment Size</th>
-                                <th>Balance Amount</th>
-                                <th>Refund Amount</th>
+                                <th>R. Start Date</th>
+                                <th>Advance</th>
+                                <th>Installment</th>
+                                <th>Balence</th>
+                                <th>Refund</th>
                                 <th>Reason</th>
                             </tr>
                         </thead>
-                        <tbody id="employeedata"></tbody>
+                        <tbody >
+                            @foreach ($advances as $key => $advance)
+                                <tr>
+                                    <td>{{ $advance->advance_id }}</td>
+                                    <td>{{ str_pad($advance->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
+                                    <td>{{ $advance->employee->name }}</td>
+                                    <td>{{ $advance->department->department }}</td>
+                                    <td>{{ $advance->designation->designation }}</td>
+                                    <td class="text-center">{{ $advance->issue_date }}</td>
+                                    <td class="text-center">{{ $advance->refund_start_date }}</td>
+                                    <td class="text-center">{{ $advance->advance_amount }}</td>
+                                    <td class="text-center">{{ $advance->installment_size }}</td>
+                                    <td class="text-center">{{ $advance->balance_amount }}</td>
+                                    <td class="text-center">{{ $advance->refund_amount }}</td>
+                                    <td>{{ $advance->reason }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
-                    </div>
                 </div>
-            </form>
+            </div>
         </div>
 
         <div class="col-lg-3" style="margin:0px auto;">
-            <form action="{{ route('payroll.tools.advance-process.store') }}" id="applicantForm" method="POST">
+            <form action="{{ route('payroll.database.advance.store') }}" id="applicantForm" method="POST">
                 @csrf
                 <div class="card alert-primary alert-top-border">
                     <div class="card-header" style="padding: 15px 16px;">
@@ -70,8 +84,8 @@
                     <div class="card-body" style="overflow-y: auto;">
                         <x-input-group name="employee_id" id="employee_id" label="Employee ID" type="text" class="form-control-sm" value="{{ old('employee_id') }}" placeholder="Employee ID" required />
                         <x-input-group name="name" label="Name" id="name" type="text" class="form-control-sm" value="{{ old('name') }}" placeholder="Name" required  readonly/>
-                        <x-input-group name="designation" label="Designation" id="designation" type="text" class="form-control-sm" value="{{ old('designation') }}" placeholder="Designation" required  readonly/>
-                        <x-input-group name="department" label="Department" id="department" type="text" class="form-control-sm" value="{{ old('department') }}" placeholder="Department" required  readonly/>
+                        <x-input-group name="designation" label="Designation" id="designation" type="text" class="form-control-sm" value="{{ old('designation') }}" placeholder="Designation" readonly/>
+                        <x-input-group name="department" label="Department" id="department" type="text" class="form-control-sm" value="{{ old('department') }}" placeholder="Department" readonly/>
                         <x-input-group name="issue_date" label="Issue Date" id="issue_date" type="date" class="form-control-sm" value="{{ old('issue_date') }}" placeholder="Issue Date" required  readonly/>
                         <x-input-group name="refund_start_date" label="Refund Start Date" id="refund_start_date" type="date" class="form-control-sm" value="{{ old('refund_start_date') }}" placeholder="Refund Start Date" required />
                         <x-input-group name="advance_amount" label="Amount" id="advance_amount" type="number" class="form-control-sm" value="{{ old('advance_amount') }}" placeholder="Amount" required />
@@ -132,6 +146,17 @@
         employeeInfo();
         $("#employee_id").on("blur", function () {
             employeeInfo();
+        });
+
+        $('#datacom').DataTable({
+            paging: false,
+            lengthChange: false,
+            searching: true,
+            ordering: false,
+            scrollY: "400px",
+            scrollX: true,
+            scrollCollapse: true,
+            fixedHeader: true,
         });
     });
 </script>

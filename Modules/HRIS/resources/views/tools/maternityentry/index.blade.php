@@ -42,7 +42,7 @@
                 </div>
                 <div class="card-body" style="overflow-y: auto;">
                     <div style="overflow-x: auto;">
-                        <table class="table table-sm table-hover table-striped" style="width: 100%">
+                        <table class="table table-sm table-hover table-striped" style="width: 100%;text-align: center;">
                             <thead class="table-light">
                                 <tr>
                                     <th>Sl</th>
@@ -57,10 +57,63 @@
                                     <th>PD Date</th>
                                     <th>Leave Day</th>
                                     <th>Payment</th>
-                                    <th>Action</th>
+                                    <th style="text-align: end;">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="employeedata"></tbody>
+                            <tbody id="employeedata">
+                                @foreach ($employees as $key => $employee)
+                                    <tr id="row-{{ $employee->id }}">
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $employee->employee_id }}</td>
+                                        <td>{{ $employee->employeeBasic->name }}</td>
+                                        <td>{{ $employee->department->department }}</td>
+                                        <td>{{ $employee->designation->designation }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($employee->notice_date)) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($employee->application_date)) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($employee->leave_start_date)) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($employee->leave_end_date)) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($employee->possible_delivery_date)) }}</td>
+                                        <td>{{ $employee->leave_days }}</td>
+                                        <td>
+                                            @if ($employee->payment == 'Y')
+                                                <span class="badge bg-success">Y</span><br>
+                                                {{ date('d-m-Y', strtotime($employee->payment_date)) }}
+                                            @else
+                                                <span class="badge bg-danger">N</span>
+                                            @endif
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $employee->id }}"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-maternity-entry" data-id="{{ $employee->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                        </td>
+
+                                        <div id="editModal{{ $employee->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h6 class="modal-title" id="myModalLabel">Edit Maternity Entry</h6>
+                                                        <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <form id="editForm{{ $employee->id }}" action="{{ route('hris.tools.maternity-entry.update', $employee->id) }}" method="POST">
+                                                        <div class="modal-body">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <x-select-input-group name="approved" label="Is Approved" :options="['Y' => 'Approved', 'N' => 'Not Approved']" :selected="$employee->approved" required />
+                                                            <x-select-input-group name="payment" label="Is Payment" :options="['Y' => 'Paid', 'N' => 'Not Paid']" :selected="$employee->payment" required />
+                                                            <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$employee->is_active" required />
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
+                                                            <x-primary-button id="submitBtn" class="float-start btn-sm submitBtn">Save changes</x-primary-button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -119,27 +172,27 @@
                             <table class="table table-striped mb-0" width="100%">
                                 <tr>
                                     <th width="40%">Notice Date</th>
-                                    <td width="60%"><x-text-input name="notice_date" id="notice_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" required /></td>
+                                    <td width="60%"><x-text-input name="notice_date" id="notice_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" required autocomplete="off" /></td>
                                 </tr>
                                 <tr>
                                     <th>Application Date</th>
-                                    <td><x-text-input name="application_date" id="application_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" required /></td>
+                                    <td><x-text-input name="application_date" id="application_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" required autocomplete="off" /></td>
                                 </tr>
                                 <tr>
                                     <th>PD Date</th>
-                                    <td><x-text-input name="possible_delivery_date" id="possible_delivery_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" /></td>
+                                    <td><x-text-input name="possible_delivery_date" id="possible_delivery_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" autocomplete="off" /></td>
                                 </tr>
                                 <tr>
                                     <th>Leave Start Date</th>
-                                    <td><x-text-input name="leave_start_date" id="leave_start_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" required /></td>
+                                    <td><x-text-input name="leave_start_date" id="leave_start_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" required autocomplete="off" /></td>
                                 </tr>
                                 <tr>
                                     <th>Leave End Date</th>
-                                    <td><x-text-input name="leave_end_date" id="leave_end_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" /></td>
+                                    <td><x-text-input name="leave_end_date" id="leave_end_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" autocomplete="off" /></td>
                                 </tr>
                                 <tr>
                                     <th>Leave Days</th>
-                                    <td><x-text-input name="leave_days" id="leave_days" class="form-control-sm" placeholder="Leave Days" readonly /></td>
+                                    <td><x-text-input name="leave_days" id="leave_days" class="form-control-sm" placeholder="Leave Days" readonly autocomplete="off" /></td>
                                 </tr>
                             </table>
                         </div>
@@ -153,7 +206,6 @@
             </form>
         </div>
     </div>
-
 </div>
 @endsection
 
@@ -293,6 +345,60 @@
         employeeInfo();
         $("#employee_id").on("blur", function () {
             employeeInfo();
+        });
+
+        $(document).on('click', '.delete-maternity-entry', function(e) {
+            e.preventDefault();
+            let maternityEntryId = $(this).data('id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '{{ route('hris.tools.maternity-entry.delete') }}',
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            id: maternityEntryId
+                        },
+                        success: function(response) {
+                            if(response.success){
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Maternity entry has been deleted.',
+                                    'success'
+                                );
+                                $('#row-' + maternityEntryId).remove();
+                            }else{
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function() {
+                            Swal.fire(
+                                'Error!',
+                                'Something went wrong.',
+                                'error'
+                            );
+                        }
+                    });
+                } else {
+                    Swal.fire(
+                        'Cancelled!',
+                        'Maternity entry has not been deleted.',
+                        'error'
+                    );
+                }
+            });
         });
     });
 </script>

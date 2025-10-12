@@ -67,9 +67,9 @@
 
                                 <tbody id="increment_enforce_table_body">
                                      @foreach($datas as $data)
-                                        <tr>
+                                        <tr id="row-{{ $data->id }}">
                                             <td>
-                                                <input type="checkbox" class="form-check-input employee" name="employee_ids[]" value="{{ $data->employee_id }}">
+                                                <input type="checkbox" class="form-check-input employee" name="employee_ids[]" value="{{ $data->id }}">
                                                 {{ str_pad($data->employee_id, 6, '0', STR_PAD_LEFT) }}
                                             </td>
                                             <td>{{ $data->employeeBasic->name }}</td>
@@ -180,9 +180,138 @@
         let checkedCount = $('.employee:checked').length;
         if (checkedCount > 0) {
             $('.submitBtn').prop('disabled', false);
+            $('#discardBtn').prop('disabled', false);
         } else {
             $('.submitBtn').prop('disabled', true);
+            $('#discardBtn').prop('disabled', true);
         }
     }
+
+
+    $(document).on('click', '#discardBtn', function(e) {
+        e.preventDefault();
+        let ids = [];
+        let form = 1;
+
+        $('.employee:checked').each(function() {
+            ids.push($(this).val());
+        });
+        Swal.fire({
+            title: 'Are you sure you want to discard?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Discard it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route('hris.database.increment-enforce.store') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id:ids,
+                        form:form
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if(response.status == 'success'){
+                            Swal.fire(
+                                'Deleted!',
+                                'Increment Enforce has been discard.',
+                                'success'
+                            );
+                            ids.forEach(function(id) {
+                                $('#row-' + id).remove();
+                            });
+                        }else{
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function() {
+                        Swal.fire(
+                            'Error!',
+                            'Something went wrong.',
+                            'error'
+                        );
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'Cancelled!',
+                    'Maternity entry has not been deleted.',
+                    'error'
+                );
+            }
+        });
+    });
+
+    $(document).on('click', '#submitBtn', function(e) {
+        e.preventDefault();
+        let ids = [];
+        let form = 2;
+
+        $('.employee:checked').each(function() {
+            ids.push($(this).val());
+        });
+        Swal.fire({
+            title: 'Are you sure you want to enforce?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Enforce it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route('hris.database.increment-enforce.store') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id:ids,
+                        form:form
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if(response.status == 'success'){
+                            Swal.fire(
+                                'Deleted!',
+                                'Increment Enforce has been enforce.',
+                                'success'
+                            );
+                            ids.forEach(function(id) {
+                                $('#row-' + id).remove();
+                            });
+                        }else{
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function() {
+                        Swal.fire(
+                            'Error!',
+                            'Something went wrong.',
+                            'error'
+                        );
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'Cancelled!',
+                    'Increment Enforce has not been enforce.',
+                    'error'
+                );
+            }
+        });
+    });
 </script>
 @endpush

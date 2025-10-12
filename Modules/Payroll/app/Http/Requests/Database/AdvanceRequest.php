@@ -11,7 +11,13 @@ class AdvanceRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'employee_id' => 'required',
+            'refund_start_date' => 'required|date',
+            'advance_amount' => 'required|numeric',
+            'installment_size' => 'required|numeric',
+            'reason' => 'required|string|max:255',
+        ];
     }
 
     /**

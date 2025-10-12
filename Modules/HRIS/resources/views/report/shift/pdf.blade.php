@@ -156,7 +156,7 @@
             <!-- Company Info -->
             <div class="company-info">
                 <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $general->full_name }}</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Address, City, Country</div>
+                <div style="font-size: 12px;font-weight: normal; font-family: italic">01, Hariken Road, Dawlotpur, National University, Gazipur</div>
                 <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: info@company.com | Phone: +880123456789</div>
             </div>
         </div>

@@ -6,7 +6,7 @@
                 <div class="card-body p-4 p-sm-5">
                     <div class="text-center mb-4">
                         <a href="index.html" class="d-block auth-logo">
-                            <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="28">
+                            <img src="{{ $general->logo_path ? Storage::url($general->logo_path) : asset('backend/assets/images/logo-sm.svg') }}" alt="Logo" height="40">
                             <span class="logo-txt">{{ $general->short_name }}</span>
                         </a>
                     </div>

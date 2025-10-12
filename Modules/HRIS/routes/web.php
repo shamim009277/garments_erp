@@ -258,6 +258,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             // Bulk Increment
             Route::post('/fetch-designation', [BulkIncrementController::class, 'fetchDesignation'])->name('fetch-designation');
             Route::resource('bulk-increment', BulkIncrementController::class)->names('bulk-increment');
+            Route::get('/employee-increment/download-sample', [EmployeeIncrementController::class, 'downloadSample'])->name('employee-increment.download-sample');
             Route::resource('employee-increment', EmployeeIncrementController::class)->names('employee-increment');
             Route::resource('increment-enforce', IncrementEnforceController::class)->names('increment-enforce');
 
@@ -323,6 +324,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
             Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');
             Route::resource('editexceptional-holidays', EditExceptionalHolidayController::class)->names('editexceptional-holidays');
+            Route::post('/maternity-entry/delete', [MaternityEntryController::class, 'destroy'])->name('maternity-entry.delete');
             Route::resource('maternity-entry', MaternityEntryController::class)->names('maternity-entry');
         });
     });

@@ -17,13 +17,13 @@ use Modules\HRIS\Http\Requests\Database\BulkIncrementRequest;
 
 class BulkIncrementController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('permission:hris.bulk-increment.view')->only('index');
-        $this->middleware('permission:hris.bulk-increment.add')->only('store');
-        $this->middleware('permission:hris.bulk-increment.edit')->only(['edit', 'update']);
-        $this->middleware('permission:hris.bulk-increment.delete')->only('destroy');
-    }
+    // function __construct()
+    // {
+    //     $this->middleware('permission:hris.bulk-increment.view')->only('index');
+    //     $this->middleware('permission:hris.bulk-increment.add')->only('store');
+    //     $this->middleware('permission:hris.bulk-increment.edit')->only(['edit', 'update']);
+    //     $this->middleware('permission:hris.bulk-increment.delete')->only('destroy');
+    // }
     /**
      * Display a listing of the resource.
      */
@@ -88,6 +88,7 @@ class BulkIncrementController extends Controller
                     'increment_value' => $amount,
                     'house_rent_basic'   => $request->house_rent_basic,
                     'enforce'            => 0,
+                    'discard'            => 0,
                     'remarks'            => $request->remarks,
                     'is_active'          => true,
                     'created_by'         => Auth::id(),

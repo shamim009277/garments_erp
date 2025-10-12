@@ -3,13 +3,28 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Minia | @yield('title', config('app.name'))</title>
+    <title>{{ $general->short_name }} | @yield('title', config('app.name'))</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
+    @if(isset($general) && $general->favicon_path)
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ Storage::url($general->favicon_path) }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ Storage::url($general->favicon_path) }}">
+        <link rel="apple-touch-icon" href="{{ Storage::url($general->favicon_path) }}">
+    @else
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('backend/assets/images/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('backend/assets/images/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/assets/images/favicon-16x16.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('backend/assets/images/android-chrome-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('backend/assets/images/android-chrome-512x512.png') }}">
+        <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
+    @endif
+
+    <link rel="manifest" href="{{ asset('backend/assets/images/site.webmanifest') }}">
+    <meta name="theme-color" content="#ffffff">
+
     {{-- Select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Choices.js -->
