@@ -51,8 +51,16 @@ class EmployeeListingReportController extends Controller
             $request->validate([
                 'department_id' => 'required|array',
             ]);
+            $line = $request->all_line;
+            if ($line==true) {
+                $line=false;
+            }elseif($line==false){
+                $line=$request->line;
+            }
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
                     ->whereIn('department_id', $request->department_id)
+                    ->when($line==true, fn($q) =>
+                         $q->where('line', $line))
                     ->when($request->filled('employee_id'), fn($q) =>
                          $q->where('employee_id', $request->employee_id))
                          ->when($request->filled('category_id'), function ($q) use ($request) {
@@ -69,7 +77,7 @@ class EmployeeListingReportController extends Controller
                     ->orderBy('department_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
-
+            
             $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
             $title = $request->title;
 
@@ -85,8 +93,16 @@ class EmployeeListingReportController extends Controller
             $request->validate([
                 'designation_id' => 'required|array',
             ]);
+            $line = $request->all_line;
+            if ($line==true) {
+                $line=false;
+            }elseif($line==false){
+                $line=$request->line;
+            }
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
                     ->whereIn('designation_id', $request->designation_id)
+                    ->when($line==true, fn($q) =>
+                         $q->where('line', $line))
                     ->when($request->filled('employee_id'), fn($q) =>
                          $q->where('employee_id', $request->employee_id))
                          ->when($request->filled('category_id'), function ($q) use ($request) {
@@ -150,10 +166,10 @@ class EmployeeListingReportController extends Controller
             }
         }elseif($request->title == 4){
             $request->validate([
-                'department_id' => 'required|array',
-                'blood_group' => 'required|array',
+                'department_id' => 'required|array'
+                //'blood_group' => 'required|array',
             ]);
-            if($request->all_blood_group == true && $request->blood_group == null){
+            if($request->all_blood_group == true || $request->blood_group == null){
                 $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'employeePersonal:employee_id,blood_group'])
                             ->whereIn('department_id', $request->department_id)
                             
@@ -172,7 +188,7 @@ class EmployeeListingReportController extends Controller
                                 $q->whereIn('mdistrict.id', $request->district_id))
                             ->orderBy('employee_id', 'asc')
                             ->get();
-            }elseif($request->all_blood_group == true && $request->blood_group != null){
+            }elseif($request->all_blood_group == true || $request->blood_group != null){
                 $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'employeePersonal:employee_id,blood_group'])
                             ->whereIn('department_id', $request->department_id)
                             ->whereHas('employeePersonal', function ($q) use ($request) {

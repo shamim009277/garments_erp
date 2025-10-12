@@ -70,7 +70,7 @@
                                             <label class="form-check-label" for="title2">Designation-wise Daily Applicant Entry</label>
                                         </div>
 
-                                        <div class="form-check">
+                                       {{--  <div class="form-check">
                                             <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
                                             <label class="form-check-label" for="title3">Department-wise Daily Applicant Entry (New)</label>
                                         </div>
@@ -78,7 +78,7 @@
                                         <div class="form-check">
                                             <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
                                             <label class="form-check-label" for="title4">Designation-wise Daily Applicant Entry (New)</label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

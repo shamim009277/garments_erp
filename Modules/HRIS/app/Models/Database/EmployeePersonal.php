@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Setup\Thana;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HRIS\Models\Setup\District;
+use Modules\HRIS\Models\Setup\Sex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EmployeePersonal extends Model
@@ -45,5 +46,8 @@ class EmployeePersonal extends Model
         static::updating(function ($personal) {
             $personal->updated_by = Auth::id();
         });
+    }
+    public function sex() {
+        return $this->belongsTo(Sex::class);
     }
 }
