@@ -116,6 +116,74 @@ class MovementPassReportController extends Controller
 
                return $pdf->stream('employee.pdf');
             }
+        }elseif($request->title == 3){
+            $request->validate([
+                'department_id' => 'required|array',
+            ]);
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+                    ->whereIn('department_id', $request->department_id)
+                    ->when($request->filled('employee_id'), fn($q) =>
+                         $q->where('employee_id', $request->employee_id))
+                         ->when($request->filled('category_id'), function ($q) use ($request) {
+                            $q->whereHas('designation', function ($q2) use ($request) {
+                                $q2->where('category_code', $request->category_id);
+                            });
+                    })
+                    ->when($request->filled('organization_id'), fn($q) =>
+                         $q->where('org_id', $request->organization_id))
+                    ->when($request->filled('designation_id'), fn($q) =>
+                         $q->whereIn('designation_id', $request->designation_id))
+                    ->when($request->filled('district_id'), fn($q) =>
+                         $q->whereIn('mdistrict.id', $request->district_id))
+                    ->orderBy('designation_id', 'asc')
+                    ->orderBy('employee_id', 'asc')
+                    ->get();
+
+            $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
+            $title = $request->title;
+
+            if($request->view_mode == 1){
+                return view('hris::report.movementpass.preview', compact('employees','title','uniqueDesignations'));
+            }elseif($request->view_mode == 2){
+                $pdf = Pdf::loadView('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'))
+                ->setPaper('a4', 'portrait');
+
+               return $pdf->stream('employee.pdf');
+            }
+        }elseif($request->title == 4){
+            $request->validate([
+                'designation_id' => 'required|array',
+            ]);
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+                    ->whereIn('designation_id', $request->designation_id)
+                    ->when($request->filled('employee_id'), fn($q) =>
+                         $q->where('employee_id', $request->employee_id))
+                         ->when($request->filled('category_id'), function ($q) use ($request) {
+                            $q->whereHas('designation', function ($q2) use ($request) {
+                                $q2->where('category_code', $request->category_id);
+                            });
+                    })
+                    ->when($request->filled('organization_id'), fn($q) =>
+                         $q->where('org_id', $request->organization_id))
+                    ->when($request->filled('designation_id'), fn($q) =>
+                         $q->whereIn('designation_id', $request->designation_id))
+                    ->when($request->filled('district_id'), fn($q) =>
+                         $q->whereIn('mdistrict.id', $request->district_id))
+                    ->orderBy('designation_id', 'asc')
+                    ->orderBy('employee_id', 'asc')
+                    ->get();
+
+            $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
+            $title = $request->title;
+
+            if($request->view_mode == 1){
+                return view('hris::report.movementpass.preview', compact('employees','title','uniqueDesignations'));
+            }elseif($request->view_mode == 2){
+                $pdf = Pdf::loadView('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'))
+                ->setPaper('a4', 'portrait');
+
+               return $pdf->stream('employee.pdf');
+            }
         }
     }
 }

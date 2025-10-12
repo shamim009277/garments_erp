@@ -320,9 +320,9 @@
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
         } else if (selectedValue == '4') {
-            $('.departmentID').prop('disabled', false);
-            $('.designationID').prop('disabled', true);
-            $('.blood_group').prop('disabled', false);
+            $('.departmentID').prop('disabled', true);
+            $('.designationID').prop('disabled', false);
+            $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
         } else {
