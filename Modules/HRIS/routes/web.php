@@ -257,6 +257,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             // Bulk Increment
             Route::post('/fetch-designation', [BulkIncrementController::class, 'fetchDesignation'])->name('fetch-designation');
             Route::resource('bulk-increment', BulkIncrementController::class)->names('bulk-increment');
+            Route::get('/employee-increment/download-sample', [EmployeeIncrementController::class, 'downloadSample'])->name('employee-increment.download-sample');
             Route::resource('employee-increment', EmployeeIncrementController::class)->names('employee-increment');
             Route::resource('increment-enforce', IncrementEnforceController::class)->names('increment-enforce');
 
