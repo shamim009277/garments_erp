@@ -39,7 +39,7 @@ class PhotoSignController extends Controller
 
         try {
             $fileUploadService = new FileUploadService();
-            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            $employee = Employee::where('employee_id', (int)$request->employee_id)->first();
 
             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');
@@ -63,7 +63,7 @@ class PhotoSignController extends Controller
 
     public function info(Request $request) {
         $employee = Employee::with(['designation:id,designation','department:id,department','employeePersonal:employee_id,mobile,national_id,birth_certificate'])
-                ->where('employee_id', $request->employee_id)
+                ->where('employee_id', (int)$request->employee_id)
                 ->select('id','employee_id','name','designation_id','department_id','joining_date','photo','signature')
                 ->first();
         return response()->json($employee);

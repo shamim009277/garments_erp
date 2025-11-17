@@ -61,7 +61,6 @@ class Employee extends Model
     ];
 
     protected $casts = [
-        'ot_payable' => 'boolean',
         'is_active' => 'boolean',
     ];
 

@@ -21,14 +21,18 @@
                 </h4>
 
                 <!-- Search Input + Button in One Line -->
-                <form action="{{ route('hris.database.new-applicants.search') }}" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
+                <form action="{{ route('hris.database.new-applicants.search') }}" method="POST"
+                    class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
                     @csrf
-                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Applicant Card No ..." aria-label="Search">
-                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search" width="14" height="14" class="me-1"></i> Search</button>
+                    <input class="form-control form-control-sm me-2" type="search" name="search"
+                        placeholder="Applicant Card No ..." aria-label="Search">
+                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
+                            width="14" height="14" class="me-1"></i> Search</button>
                 </form>
                 @if ($unique_applicant)
                     <!-- Back Button -->
-                    <a href="{{ route('hris.database.new-applicants.index') }}" class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
+                    <a href="{{ route('hris.database.new-applicants.index') }}"
+                        class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
                         <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
                     </a>
                 @endif
@@ -50,8 +54,11 @@
                                     ->all();
                             @endphp
                             <li class="nav-custom-item">
-                                <input type="checkbox" id="dept{{ $department->department_id }}" {{ $unique_applicant && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
-                                <label class="nav-custom-link" for="dept{{ $department->department_id }}"><span class="nav-custom-caret"></span> {{ $department->department->department }} ({{ collect($pending_applicants)->where('department_id', $department->department_id)->count() }})</label>
+                                <input type="checkbox" id="dept{{ $department->department_id }}"
+                                    {{ $unique_applicant && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
+                                <label class="nav-custom-link" for="dept{{ $department->department_id }}"><span
+                                        class="nav-custom-caret"></span> {{ $department->department->department }}
+                                    ({{ collect($pending_applicants)->where('department_id', $department->department_id)->count() }})</label>
                                 <ul class="nav-custom-content">
                                     @foreach ($applicant_date_wises as $key => $applicants)
                                         @php
@@ -61,11 +68,22 @@
                                                 ->all();
                                         @endphp
                                         <li class="nav-custom-item">
-                                            <input type="checkbox" id="dept{{ $department->department_id }}-{{ $key }}" {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
-                                            <label class="nav-custom-link" style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'background-color: #EBF0F6;' : '' }}" for="dept{{ $department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($pending_applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})</label>
+                                            <input type="checkbox"
+                                                id="dept{{ $department->department_id }}-{{ $key }}"
+                                                {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
+                                            <label class="nav-custom-link"
+                                                style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'background-color: #EBF0F6;' : '' }}"
+                                                for="dept{{ $department->department_id }}-{{ $key }}"><span
+                                                    class="nav-custom-caret"></span>
+                                                {{ Carbon\Carbon::parse($key)->format('d-M-Y') }}
+                                                ({{ collect($pending_applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})
+                                            </label>
                                             <div class="nav-custom-content">
                                                 @foreach ($applicants_date_wises as $applicant)
-                                                    <a href="{{ route('hris.database.new-applicants.show', $applicant->id) }}" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}" class="employee-link">{{ $applicant->id }} :: {{ strtoupper($applicant->name) }}</a>
+                                                    <a href="{{ route('hris.database.new-applicants.show', $applicant->id) }}"
+                                                        style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}"
+                                                        class="employee-link">{{ $applicant->id }} ::
+                                                        {{ strtoupper($applicant->name) }}</a>
                                                 @endforeach
                                             </div>
                                         </li>
@@ -79,27 +97,35 @@
         </div>
 
         <div class="col-lg-8">
-            <form action="{{ $unique_applicant ? route('hris.database.new-applicants.update', $unique_applicant->id) : route('hris.database.new-applicants.store') }}" id="applicantForm" method="POST">
+            <form
+                action="{{ $unique_applicant ? route('hris.database.new-applicants.update', $unique_applicant->id) : route('hris.database.new-applicants.store') }}"
+                id="applicantForm" method="POST">
                 @csrf
                 @if ($unique_applicant)
                     @method('PUT')
                 @endif
                 <div class="card alert-info alert-top-border">
-                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap px-10 py-12" style="padding: 16px 20px">
-                        <h6 class="my-0 text-primary d-flex align-items-center gap-1"><i data-feather="list" width="18" height="18"></i>
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap px-10 py-12"
+                        style="padding: 16px 20px">
+                        <h6 class="my-0 text-primary d-flex align-items-center gap-1"><i data-feather="list" width="18"
+                                height="18"></i>
                             {{ $unique_applicant ? 'Edit Applicant Information' : 'Input Parameters For New Applicant ...' }}
                         </h6>
 
                         <div class="d-flex gap-2 mt-2 mt-md-0">
                             @if ($unique_applicant)
-                                <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}" class="btn btn-danger btn-sm d-flex align-items-center delete-applicant" data-id="{{ $unique_applicant->id }}">
+                                <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}"
+                                    class="btn btn-danger btn-sm d-flex align-items-center delete-applicant"
+                                    data-id="{{ $unique_applicant->id }}">
                                     <i data-feather="trash-2" width="16" height="16" class="me-1"></i> Delete
                                 </a>
                                 <button class="btn btn-warning btn-sm d-flex align-items-center text-white">
                                     <i data-feather="star" width="16" height="16" class="me-1"></i> Sticker
                                 </button>
                             @else
-                                <a href="javascript:void(0);" id="resetForm" class="btn btn-secondary btn-sm d-flex align-items-center"><i data-feather="rotate-ccw" width="16" height="16" class="me-1"></i> Reset</a>
+                                <a href="javascript:void(0);" id="resetForm"
+                                    class="btn btn-secondary btn-sm d-flex align-items-center"><i data-feather="rotate-ccw"
+                                        width="16" height="16" class="me-1"></i> Reset</a>
                             @endif
                         </div>
                     </div>
@@ -112,13 +138,21 @@
                                 </div>
                             @endif
                             <div class="col-lg-4 col-md-6 pr-0">
+                                <x-select-search-input name="org_id" id="org_id" label="Organization" :options="$organizations" :selected="old('org_id', $unique_applicant ? $unique_applicant->org_id : 1)" required />
+                            </div>
+                            <div class="col-lg-4 col-md-6 pr-0">
                                 <x-input-group name="name" label="Name" type="text" placeholder="Enter name" :value="old('name', $unique_applicant ? $unique_applicant->name : null)" required />
+                            </div>
+                            <div class="col-lg-4 col-md-6 pr-0">
+                                <x-input-group name="birth_date" label="Birth Date" type="text" id="birth_date" placeholder="Enter birth date"  :value="old('birth_date', $unique_applicant ? \Carbon\Carbon::parse($unique_applicant->birth_date)->format('d-m-Y') : null)" required />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
                                 <x-input-group name="name_bangla" label="Name Bangla" type="text" placeholder="Enter name bangla" :value="old('name_bangla', $unique_applicant ? $unique_applicant->name_bangla : null)" />
                             </div>
+
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-input-group name="mobile" label="Mobile" type="text" pattern="(01)[0-9]{9}" maxlength="11" placeholder="Enter mobile" :value="old('mobile', $unique_applicant ? $unique_applicant->mobile : null)" required />
+                                <x-input-group name="mobile" label="Mobile" type="text" pattern="(01)[0-9]{9}"
+                                    maxlength="11" placeholder="Enter mobile" :value="old('mobile', $unique_applicant ? $unique_applicant->mobile : null)" required />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">
@@ -132,7 +166,6 @@
                             <div class="col-lg-4 col-md-6 pr-0">
                                 <x-select-search-input name="district_id" label="District" :options="$districts" :selected="old('district_id', $unique_applicant ? $unique_applicant->district_id : null)" required />
                             </div>
-
                             <div class="col-lg-4 col-md-6 pr-0">
                                 <x-select-input-group name="identification_type" id="identification_type" label="Identification Type" :options="['1' => 'National ID', '2' => 'Birth Certificate']" :selected="old('identification_type', $unique_applicant ? $unique_applicant->identification_type : 1)" required />
                             </div>
@@ -159,7 +192,7 @@
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="joining_date_section">
-                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date" class="holiday-date" type="date" placeholder="Enter joining date" :value="old('joining_date', $unique_applicant ? $unique_applicant->joining_date : null)" />
+                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date" class="holiday-date" type="text" placeholder="Enter joining date" :value="old('joining_date', $unique_applicant ? \Carbon\Carbon::parse($unique_applicant->joining_date)->format('d-m-Y') : null)" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="proposed_salary_section">
@@ -184,7 +217,8 @@
                         </div>
                     </div>
                     <div class="card-footer" style="padding:14px 20px;">
-                        <x-primary-button class="float-start btn-sm submitBtn">{{ $unique_applicant ? 'Update' : 'Submit' }}</x-primary-button>
+                        <x-primary-button
+                            class="float-start btn-sm submitBtn">{{ $unique_applicant ? 'Update' : 'Submit' }}</x-primary-button>
                     </div>
                 </div>
             </form>
@@ -197,10 +231,16 @@
         $(document).ready(function() {
             let holidays = @json($holidays);
             flatpickr("#joining_date", {
-                dateFormat: "Y-m-d",
+                dateFormat: "d-m-Y",
                 allowInput: false,
                 minDate: "{{ $today }}",
                 disable: holidays,
+            });
+
+            flatpickr("#birth_date", {
+                dateFormat: "d-m-Y",
+                maxDate: "{{ $maxDate }}",
+                allowInput: false,
             });
 
             $('#birth_certificate_section').hide();
@@ -307,7 +347,8 @@
                         success: function(response) {
                             if (response.success) {
                                 Swal.fire('Deleted!', 'Applicant has been deleted.', 'success');
-                                location.href = '{{ route('hris.database.new-applicants.index') }}';
+                                location.href =
+                                    '{{ route('hris.database.new-applicants.index') }}';
                             } else {
                                 Swal.fire('Error!', response.message);
                             }

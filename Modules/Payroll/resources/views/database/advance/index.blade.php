@@ -23,16 +23,12 @@
         </div>
         <div class="col-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
-                    Employee Advance
-                </h4>
+                <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">Employee Advance</h4>
             </div>
         </div>
         <div class="col-lg-9 pe-lg-0" style="margin:0px auto;">
             <div class="card alert-primary alert-top-border">
-                <div class="card-header" style="padding: 15px 16px;">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Advance List</h6>
-                </div>
+                <div class="card-header" style="padding: 15px 16px;"><h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Advance List</h6></div>
                 <div class="card-body" style="overflow-y: auto;">
                     <table id="datacom" class="table table-bordered table-striped" width="100%">
                         <thead>
@@ -59,8 +55,8 @@
                                     <td>{{ $advance->employee->name }}</td>
                                     <td>{{ $advance->department->department }}</td>
                                     <td>{{ $advance->designation->designation }}</td>
-                                    <td class="text-center">{{ $advance->issue_date }}</td>
-                                    <td class="text-center">{{ $advance->refund_start_date }}</td>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($advance->issue_date)) }}</td>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($advance->refund_start_date)) }}</td>
                                     <td class="text-center">{{ $advance->advance_amount }}</td>
                                     <td class="text-center">{{ $advance->installment_size }}</td>
                                     <td class="text-center">{{ $advance->balance_amount }}</td>
@@ -141,7 +137,6 @@
                 });
             }
         }
-
 
         employeeInfo();
         $("#employee_id").on("blur", function () {
