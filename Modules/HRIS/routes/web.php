@@ -247,6 +247,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/employee-gatepass/in', [EmpGatePassController::class, 'getEmployeeInUpdate'])->name('employee-gatepass.in.update');
             Route::get('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOut'])->name('employee-gatepass.out');
             Route::post('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOutUpdate'])->name('employee-gatepass.out.update');
+            Route::post('/employee-gatepass/employee-info', [EmpGatePassController::class, 'getEmployee'])->name('employee-gatepass.employee.info');
             Route::resource('employee-gatepass', EmpGatePassController::class)->names('employee-gatepass');
 
             Route::post('/leave-application/reasons', [LeaveApplicationController::class, 'getReasons'])->name('leave-application.reasons');
