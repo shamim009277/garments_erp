@@ -46,7 +46,12 @@ class AdvanceProcessController extends Controller
                 if($exist) {
                     return redirect()->back()->with('error', 'Process Advance Not Possible Because Already Processed');
                 }
-                $datas = Advance::where('org_id', $request->org_id)->whereBetween('refund_start_date', [$start_date, $end_date])->where('full_refund', 'N')->get();
+
+                $confirm = AdvanceProcess::where('org_id', $request->org_id)->where('confirm', 'N')->first();
+                if($confirm) {
+                    return redirect()->back()->with('error', 'Please Confirm Previous Process Advance');
+                }
+                $datas = Advance::where('org_id', $request->org_id)->where('refund_start_date', '<=', $end_date)->where('full_refund', 'N')->get();
 
                 $splites = collect($datas)->chunk(100);
                 $rows = [];
@@ -105,6 +110,20 @@ class AdvanceProcessController extends Controller
                     return redirect()->back()->with('error', 'Undo/Revert Not Possible Because Already Confirmed');
                 }
 
+                $advances = AdvanceProcess::where('org_id', $request->org_id)->where('month', $request->month)->where('year', $request->year)->get();
+                foreach ($advances as $advance) {
+                    $processAdvance = collect($advances)->where('id', $advance->id)->first();
+
+                    $balanceAmount = $processAdvance->balance_amount + $processAdvance->amount;
+                    $refundAmount  = $processAdvance->refund_amount - $processAdvance->amount;
+                    $isFullyRefunded = ($refundAmount == $processAdvance->advance_amount) ? 'Y' : 'N';
+
+                    Advance::where('id', $processAdvance->advance_id)->update([
+                        'balance_amount' => $balanceAmount,
+                        'refund_amount'  => $refundAmount,
+                        'full_refund'    => $isFullyRefunded,
+                    ]);
+                }
                 AdvanceProcess::where('org_id', $request->org_id)->where('month', $request->month)->where('year', $request->year)->delete();
 
                 $lastid = AdvanceProcess::orderBy('id','DESC')->first();

@@ -37,7 +37,7 @@
     <!-- Responsive Table css -->
     <link href="{{ asset('backend/assets/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- preloader css -->
-    <link rel="stylesheet" href="{{ asset('backend/assets/css/preloader.min.css') }}" type="text/css" />
+    {{-- <link rel="stylesheet" href="{{ asset('backend/assets/css/preloader.min.css') }}" type="text/css" /> --}}
     <!-- Bootstrap Css -->
     <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -311,7 +311,8 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             flatpickr("input[type='date']", {
-                dateFormat: "Y-m-d",
+                dateFormat: "d-m-Y",
+                defaultDate: new Date(),
                 allowInput: true,
             });
         });

@@ -15,6 +15,7 @@ class ApplicantRequest extends FormRequest
         $applicantId = $this->route('new_applicant')?->id ?? $this->route('new_applicant');
         return [
             'name' => ['required', 'string', 'max:255'],
+            'org_id' => ['required', 'integer'],
             'name_bangla' => ['nullable', 'string', 'max:255'],
             'mobile' => ['required', 'string', 'max:15','regex:/^(?:\01)?(?:\d{11})$/',Rule::unique('hris_database_new_applicant', 'mobile')->ignore($applicantId)],
             'department_id' => ['required', 'integer'],
@@ -26,6 +27,7 @@ class ApplicantRequest extends FormRequest
             'interviewer_employee_id' => ['nullable', 'integer'],
             'interview_status' => ['nullable', 'string', 'max:255'],
             'joining_date' => ['nullable', 'date'],
+            'birth_date' => ['nullable', 'date'],
             'entry_date' => ['nullable', 'date'],
             'proposed_salary' => ['nullable', 'numeric'],
             'determined_salary' => ['nullable', 'numeric'],

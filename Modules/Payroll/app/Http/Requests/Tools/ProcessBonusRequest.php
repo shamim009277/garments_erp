@@ -11,7 +11,13 @@ class ProcessBonusRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'org_id' => 'required|integer',
+            'year' => 'required|integer',
+            'bonus_type' => 'required|in:1,2',
+            'base_date' => 'required|date',
+            'title' => 'required|integer',
+        ];
     }
 
     /**

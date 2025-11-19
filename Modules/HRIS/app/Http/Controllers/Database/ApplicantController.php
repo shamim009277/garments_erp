@@ -2,15 +2,16 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
+use DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Modules\HRIS\Models\Setup\District;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Database\Applicant;
+use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Http\Requests\Database\ApplicantRequest;
-use Carbon\Carbon;
-use DB;
 
 class ApplicantController extends Controller
 {
@@ -28,12 +29,13 @@ class ApplicantController extends Controller
     {
         $today = Carbon::now()->format('Y-m-d');
         $lst_30_days = Carbon::now()->subDays(30)->format('Y-m-d');
+        $maxDate = Carbon::now()->subYears(18)->addDays(1)->format('d-m-Y');
         $departments = Department::active()->pluck('department', 'id');
         $designations = Designation::active()->pluck('designation', 'id');
         $districts = District::active()->pluck('name', 'id');
+        $organizations = Organization::active()->pluck('short_name', 'id');
 
         //\DB::enableQueryLog();
-
         $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation'])
             ->active()
             ->noFileEntry()
@@ -43,12 +45,8 @@ class ApplicantController extends Controller
 
         $unique_applicant = [];
         //dd(\DB::getQueryLog());
-
         $unique_department = $pending_applicants->unique('department_id');
-
-        //dd($unique_department);
-
-        return view('hris::database.newapplicant.index', compact('departments', 'designations', 'districts', 'pending_applicants','unique_applicant','unique_department','today'));
+        return view('hris::database.newapplicant.index', compact('departments', 'designations', 'districts', 'pending_applicants','unique_applicant','unique_department','today','organizations','maxDate'));
     }
 
     /**
@@ -79,6 +77,7 @@ class ApplicantController extends Controller
         try {
             $data = $request->validated();
             $data['entry_date'] = date('Y-m-d');
+            $data['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
             $data['interview_status'] = 'Pending';
             $applicant = Applicant::create($data);
             return redirect()->route('hris.database.new-applicants.show', $applicant->id)->with('success', 'Applicant created successfully');
@@ -96,8 +95,10 @@ class ApplicantController extends Controller
         $departments = Department::active()->pluck('department', 'id');
         $designations = Designation::active()->pluck('designation', 'id');
         $districts = District::active()->pluck('name', 'id');
+        $organizations = Organization::active()->pluck('short_name', 'id');
 
-        $today = Carbon::now()->format('Y-m-d');
+        $today = Carbon::now()->format('d-m-Y');
+        $maxDate = Carbon::now()->subYears(18)->addDays(1)->format('d-m-Y');
         $lst_30_days = Carbon::now()->subDays(30)->format('Y-m-d');
 
         $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation'])
@@ -108,10 +109,9 @@ class ApplicantController extends Controller
             ->get();
 
         $unique_applicant = Applicant::with(['department:id,department', 'designation:id,designation'])->where('id', $id)->first();
-
         $unique_department = $pending_applicants->unique('department_id');
 
-        return view('hris::database.newapplicant.index', compact('applicant', 'departments', 'designations', 'districts', 'pending_applicants', 'unique_applicant', 'unique_department','today'));
+        return view('hris::database.newapplicant.index', compact('applicant', 'departments', 'designations', 'districts', 'pending_applicants', 'unique_applicant', 'unique_department','today','organizations','maxDate'));
     }
 
     /**
@@ -135,8 +135,9 @@ class ApplicantController extends Controller
             if(!isset($data['final_designation_id']) || $data['final_designation_id'] == null){
                 $data['final_designation_id'] = $applicant->designation_id;
             }
+            $data['birth_date'] = Carbon::parse($data['birth_date'])->format('Y-m-d');
             $applicant->update($data);
-            return redirect()->route('hris.database.new-applicants.index')->with('success', 'Applicant updated successfully');
+            return redirect()->back()->with('success', 'Applicant updated successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update applicant: ' . $e->getMessage());
         }
