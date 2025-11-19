@@ -12,6 +12,7 @@ use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Tools\MaternityEntry;
 use Modules\Payroll\Models\Tools\ProcessSalary;
 use Modules\Payroll\Models\Tools\ProcessAttendence;
+use Modules\Payroll\Models\Tools\ProcessHalfSalary;
 
 class ProcessHalfSalaryController extends Controller
 {
@@ -73,6 +74,9 @@ class ProcessHalfSalaryController extends Controller
                 ->get();
             $hroption = Setting::active()->first();
 
+            $insertedCount = 0; // Counter for inserted records
+            $startTime = microtime(true); // Start timer
+
             // Process in chunks
             foreach ($employees->chunk(250) as $splitemp) {
                 $empids = $splitemp->pluck('employee_id')->toArray();
@@ -114,6 +118,7 @@ class ProcessHalfSalaryController extends Controller
                     $wpabsent_days = $attn->whereIn('attn_type', ['LWOP'])->count();
                     $leave_days = $attn->whereIn('attn_type', ['SL', 'CL', 'EL', 'ML', 'SPL', 'LWOP'])->count();
                     $realabsent_days = $attn->whereIn('attn_type', ['AB'])->count();
+                    $late_days = $attn->whereIn('is_late', ['Y'])->count();
 
                     $start = Carbon::parse($start_date);
                     $end = Carbon::parse($end_date);
@@ -169,15 +174,16 @@ class ProcessHalfSalaryController extends Controller
                         $grpay = round(($gross_salary + $oapay) - $basicabdeduct);
                     }
 
-                    $deduction = $bpayforlong;
+                    $deduction = $bpayforlong+$wpabdeduct+$abdeduct+$hrdeduct;
                     $netpayable = ($grpay) - $deduction;
                     $totalnetpayable = ($grpay) - $deduction;
 
                     // Save ProcessSalary
-                    $salarydata = new ProcessSalary();
+                    $salarydata = new ProcessHalfSalary();
                     $salarydata->org_id = $employee->org_id;
                     $salarydata->year = $year;
                     $salarydata->month = $month;
+                    $salarydata->base_date = $date;
                     $salarydata->employee_id = $empid;
                     $salarydata->department_id = $employee->department_id;
                     $salarydata->designation_id = $employee->designation_id;
@@ -187,45 +193,105 @@ class ProcessHalfSalaryController extends Controller
                     $salarydata->reason = $employee->reason;
                     $salarydata->grade = $employee->grade;
                     $salarydata->leaving_date = $employee->leaving_date;
-                    $salarydata->ot_payable = $employee->ot_payable;
                     $salarydata->salary_from_bank = $employee->salary_from_bank;
                     $salarydata->account_no = $employee->account_no;
                     $salarydata->mobile_banking = $employee->mobile_banking;
                     $salarydata->days = $total_days;
+                    $salarydata->late_days = $late_days;
                     $salarydata->absent_days = $absent_days;
                     $salarydata->leave_days = $leave_days;
                     $salarydata->rwh = $rwh;
                     $salarydata->wrh = $gwh;
                     $salarydata->basic = $basic;
-                    $salarydata->home_allowance = $home_allowance;
-                    $salarydata->medical_allowance = $medical_allowance;
-                    $salarydata->food_allowance = $food_allowance;
-                    $salarydata->other_allowance = $other_allowance;
-                    $salarydata->conveyance = $conveyance;
-                    $salarydata->ot_rate = 0;
-                    $salarydata->ot_hour = 0;
-                    $salarydata->ot_amount = 0;
-                    $salarydata->total_ot_hour = 0;
-                    $salarydata->total_ot_amount = 0;
-                    $salarydata->attendance_bonus = 0;
-                    $salarydata->income_tax = 0;
-                    $salarydata->advance_amount = 0;
-                    $salarydata->advance_refund = 0;
-                    $salarydata->other_deduction = 0;
-                    $salarydata->absent_deduction = $abdeduct;
-                    $salarydata->short_deduction = 0;
-                    $salarydata->basic_payable = $bpay;
-                    $salarydata->oa_payable = $oapay;
-                    $salarydata->gross_payable = $grpay;
-                    $salarydata->total_deduction = $deduction;
-                    $salarydata->net_payable = $netpayable;
-                    $salarydata->total_net_payable = $totalnetpayable;
+                    $salarydata->home_allowance = round($home_allowance);
+                    $salarydata->medical_allowance = round($medical_allowance);
+                    $salarydata->food_allowance = round($food_allowance);
+                    $salarydata->other_allowance = round($other_allowance);
+                    $salarydata->conveyance = round($conveyance);
+                    $salarydata->absent_deduction = round($abdeduct);
+                    $salarydata->basic_payable = round($bpay);
+                    $salarydata->oa_payable = round($oapay);
+                    $salarydata->gross_payable = round($grpay);
+                    $salarydata->total_deduction = round($deduction);
+                    $salarydata->net_payable = round($netpayable);
+                    $salarydata->total_net_payable = round($totalnetpayable);
                     $salarydata->confirm = 'N';
                     $salarydata->created_by = Auth::id();
                     $salarydata->save();
+
+                    $insertedCount++;
                 }
             }
-            return redirect()->back()->with('success', 'Salary processed successfully.');
+
+            $endTime = microtime(true);
+            $timeTaken = round($endTime - $startTime, 2);
+            return redirect()->back()->with('success', 'Salary processed successfully. Inserted ' . $insertedCount . ' records. Time taken: ' . $timeTaken . ' seconds.');
+        }else if($request->title == 2){
+            $date = $request->date;
+            $month = Carbon::parse($date)->format('m');
+            $year  = Carbon::parse($date)->format('Y');
+
+            $startTime = microtime(true);
+            $exists = ProcessHalfSalary::where('month', $month)
+                ->where('year', $year)
+                ->where('org_id', $request->org_id)
+                ->exists();
+
+            $confirm = ProcessHalfSalary::where('month', $month)
+                ->where('year', $year)
+                ->where('org_id', $request->org_id)
+                ->where('confirm', 'Y')
+                ->first();
+
+            if($confirm){
+                return redirect()->back()->with('error', 'Salary already confirmed for this month.');
+            }
+
+            if ($exists) {
+                $deletedCount = ProcessHalfSalary::where('month', $month)
+                    ->where('year', $year)
+                    ->where('org_id', $request->org_id)
+                    ->count();
+
+                ProcessHalfSalary::where('month', $month)
+                    ->where('year', $year)
+                    ->where('org_id', $request->org_id)
+                    ->delete();
+
+                $lastId = DB::table('payroll_tools_process_halfsalary')->max('id') ?? 0;
+                $newAutoIncrement = $lastId + 1;
+                DB::statement("ALTER TABLE payroll_tools_process_halfsalary AUTO_INCREMENT = {$newAutoIncrement}");
+
+                $executionTime = round(microtime(true) - $startTime, 3);
+
+                return redirect()->back()->with('success', "✅ Half Salary Process deleted successfully." . "Total deleted rows: {$deletedCount}" . "Time taken: {$executionTime} seconds");
+            } else {
+                return redirect()->back()->with('error', 'No salary data found for this month/year.');
+            }
+        }else if($request->title == 3){
+            $date = $request->date;
+
+            $month = Carbon::parse($date)->format('m');
+            $year  = Carbon::parse($date)->format('Y');
+
+            $startTime = microtime(true);
+            $exists = ProcessHalfSalary::where('month', $month)
+                ->where('year', $year)
+                ->where('org_id', $request->org_id)
+                ->exists();
+
+            if ($exists) {
+                ProcessHalfSalary::where('month', $month)
+                    ->where('year', $year)
+                    ->where('org_id', $request->org_id)
+                    ->update([
+                        'confirm' => 'Y',
+                    ]);
+
+                return redirect()->back()->with('success', "✅ Half Salary Process confirmed successfully.");
+            } else {
+                return redirect()->back()->with('error', 'No salary data found for this month/year.');
+            }
         }
     }
 

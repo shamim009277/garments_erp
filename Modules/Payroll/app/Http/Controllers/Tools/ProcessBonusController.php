@@ -5,7 +5,9 @@ namespace Modules\Payroll\Http\Controllers\Tools;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Setup\Organization;
 use Modules\Payroll\Models\Tools\ProcessBonus;
 use Modules\Payroll\Http\Requests\Tools\ProcessBonusRequest;
@@ -38,6 +40,9 @@ class ProcessBonusController extends Controller
     {
         try {
             if ($request->title == 1) {
+                $startTime = microtime(true);
+                $records = 0;
+
                 $exist = ProcessBonus::where('org_id', $request->org_id)->where('year', $request->year)->where('bonus_type', $request->bonus_type)->first();
                 if ($exist) {
                     return redirect()->back()->with('error', 'Process Advance Not Possible Because Already Processed');
@@ -80,39 +85,32 @@ class ProcessBonusController extends Controller
                     )
                     ->get();
 
-
                 $splites = collect($datas)->chunk(500);
                 $rows = [];
+                $base_date = !empty($request->base_date) && strtotime($request->base_date) ? Carbon::parse($request->base_date)->format('Y-m-d') : null;
 
                 foreach ($splites as $key => $value) {
                     foreach ($value as $key2 => $data) {
+                        $records++;
                         $rows[] = [
                             'employee_id'    => $data->employee_id,
                             'org_id'         => $data->org_id,
-                            'name'           => $data->name,
                             'department_id'  => $data->department_id,
                             'designation_id' => $data->designation_id,
-                            'joining_date'   => $data->joining_date,
-                            'gross_salary'   => $data->gross_salary,
+                            'joining_date'   => ($data->joining_date && strtotime($data->joining_date)) ? Carbon::parse($data->joining_date)->format('Y-m-d') : null,
+                            'leaving_date'   => ($data->leaving_date && strtotime($data->leaving_date)) ? Carbon::parse($data->leaving_date)->format('Y-m-d') : null,
                             'basic'          => $data->basic,
-                            'category_code'  => $data->category_code,
-                            'line'           => $data->line,
-                            'unit'           => $data->unit,
-                            'leaving_date'   => $data->leaving_date,
-                            'org_id'         => $request->org_id,
-                            'bonus_type'     => $request->bonus_type,
-                            'base_date'      => $request->base_date,
-                            'year'           => $request->year,
-                            'department_id'  => $data->department_id,
-                            'designation_id' => $data->designation_id,
-                            'line'           => $data->line,
-                            'unit'           => $data->unit,
                             'category'       => $data->category_code,
-                            'leaving_date'   => $data->leaving_date,
+                            'line'           => $data->line,
+                            'unit'           => $data->unit,
+                            'bonus_type'     => $request->bonus_type,
+                            'base_date'      => $base_date,
+                            'year'           => $request->year,
                             'gross_salary'   => $data->gross_salary,
-                            'basic'          => $data->basic,
                             'amount'         => $data->basic,
                             'confirm'        => 'N',
+                            'created_by'     => Auth::id(),
+                            'updated_by'     => Auth::id(),
                         ];
                     }
                 }
@@ -120,23 +118,26 @@ class ProcessBonusController extends Controller
                 if (!empty($rows)) {
                     ProcessBonus::insert($rows);
                 }
+                $executionTime = round(microtime(true) - $startTime, 3);
 
-                return redirect()->back()->with('success', 'Process Bonus Successfully Completed');
+                Log::info('Process Bonus Execution Time: ' . $executionTime . ' seconds');
+                return redirect()->back()->with('success', 'Process Bonus Successfully Completed. Total Records: ' . $records . '. Execution Time: ' . $executionTime . ' seconds');
             } else if ($request->title == 2) {
                 $exist = ProcessBonus::where('org_id', $request->org_id)->where('year', $request->year)->where('bonus_type', $request->bonus_type)->where('confirm', 'Y')->first();
+                $records = ProcessBonus::where('org_id', $request->org_id)->where('year', $request->year)->where('bonus_type', $request->bonus_type)->count();
                 if ($exist) {
                     return redirect()->back()->with('error', 'Undo/Revert Not Possible Because Already Confirmed');
                 }
-
                 ProcessBonus::where('org_id', $request->org_id)->where('year', $request->year)->where('bonus_type', $request->bonus_type)->delete();
 
                 $lastid = ProcessBonus::orderBy('id', 'DESC')->first();
                 $lastid = $lastid ? $lastid->id + 1 : 1;
                 DB::update("ALTER TABLE payroll_tools_process_bonus AUTO_INCREMENT = " . $lastid . ";");
 
-                return redirect()->back()->with('success', 'Bonus Process Reverted Successfully');
+                return redirect()->back()->with('success', 'Bonus Process Reverted Successfully. Total Records: ' . $records);
             } else if ($request->title == 3) {
                 $exist = ProcessBonus::where('org_id', $request->org_id)->where('year', $request->year)->where('bonus_type', $request->bonus_type)->where('confirm', 'N')->first();
+                $records = ProcessBonus::where('org_id', $request->org_id)->where('year', $request->year)->where('bonus_type', $request->bonus_type)->count();
                 if (!$exist) {
                     return redirect()->back()->with('error', 'No Data Found For Confirmation');
                 }
@@ -146,7 +147,7 @@ class ProcessBonusController extends Controller
                     ->update([
                         'confirm' => 'Y'
                     ]);
-                return redirect()->back()->with('success', 'Bonus Process Confirmed Successfully');
+                return redirect()->back()->with('success', 'Bonus Process Confirmed Successfully. Total Records: ' . $records);
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Something went wrong ' . $th->getMessage());

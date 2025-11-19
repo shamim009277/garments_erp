@@ -28,6 +28,7 @@ class ProcessBonus extends Model
         'unit',
         'category',
         'leaving_date',
+        'joining_date',
         'gross_salary',
         'basic',
         'amount',
@@ -35,6 +36,8 @@ class ProcessBonus extends Model
         'created_by',
         'updated_by',
     ];
+
+    protected $date = ['base_date', 'leaving_date', 'joining_date'];
 
     public function employee()
     {

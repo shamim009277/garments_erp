@@ -12,7 +12,7 @@
 
         body {
             font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 8.5px;
+            font-size: 10px;
             line-height: 1.0;
             color: #000;
             margin: 0;
@@ -33,7 +33,7 @@
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 8px;
+            font-size: 10px;
             font-weight: 500;
             padding-bottom: 1px;
         }
@@ -44,7 +44,7 @@
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 8px;
+            font-size: 10px;
             color: #555;
             border-top: 1px solid #ccc;
             padding-top: 5px;
@@ -80,7 +80,7 @@
         td {
             padding: 2px 3px;
             border: 0.5px solid #ccc;
-            font-size: 8px;
+            font-size: 10px;
             text-align: center;
         }
 
@@ -91,7 +91,7 @@
         table table th,
         table table td {
             padding: 1px 2px;
-            font-size: 8px;
+            font-size: 10px;
             border: none;
         }
 

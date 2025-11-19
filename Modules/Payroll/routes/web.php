@@ -31,7 +31,9 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(fu
         //Database
         Route::prefix('database')->name('database.')->group(function () {
             Route::post('/employee/info', [AdvanceController::class, 'employeeInfo'])->name('advance.employee.info');
+            Route::post('/advance/delete', [AdvanceController::class, 'destroy'])->name('advance.delete');
             Route::resource('advance', AdvanceController::class)->names('advance');
+
             Route::post('/punishment/employee/info', [PunishmentController::class, 'employeeInfo'])->name('punishment.employee.info');
             Route::post('/punishment/delete', [PunishmentController::class, 'destroy'])->name('punishment.delete');
             Route::resource('punishment', PunishmentController::class)->names('punishment');

@@ -47,6 +47,9 @@ class AdvanceController extends Controller
                 return redirect()->back()->with('error', 'Employee salary is less than installment size');
             }
 
+            $issueDate = Carbon::createFromFormat('d-m-Y', $request->issue_date)->format('Y-m-d');
+            $refundStart = Carbon::createFromFormat('d-m-Y', $request->refund_start_date)->format('Y-m-d');
+
             if($empchk && $empsal){
                 $data = $request->all();
                 $data['org_id'] = $empchk->org_id;
@@ -55,6 +58,8 @@ class AdvanceController extends Controller
                 $data['line_id'] = $empchk->line_id??0;
                 $data['unit_id'] = $empchk->unit_id??0;
                 $data['balance_amount'] = $request->advance_amount;
+                $data['issue_date'] = $issueDate;
+                $data['refund_start_date'] = $refundStart;
 
                 $advance = Advance::create($data);
 
@@ -87,12 +92,24 @@ class AdvanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {}
+    public function destroy(Request $request) {
+        try {
+            $advance = Advance::findOrFail($request->id);
+
+            if($advance->refund_amount > 0){
+                return response()->json(['success' => false, 'message' => 'Advance deletion failed: Advance is already refunded']);
+            }else{
+                $advance->delete();
+                return response()->json(['success' => true, 'message' => 'Advance deleted successfully']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Advance deletion failed: ' . $e->getMessage()]);
+        }
+    }
 
     public function employeeInfo(Request $request){
         $employee = Employee::with(['designation:id,designation','department:id,department'])

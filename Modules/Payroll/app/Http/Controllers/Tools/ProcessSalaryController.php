@@ -211,7 +211,7 @@ class ProcessSalaryController extends Controller
                         $grpay = round(($employee->gross_salary + $oapay + $attn_bonus) - $basicabdeduct);
                     }
 
-                    $deduction = $advrefund + $employee->tax + $bpayforlong;
+                    $deduction = $advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct;
                     $netpayable = ($grpay + $otamount) - $deduction;
                     $totalnetpayable = ($grpay + $totalotamount) - $deduction;
 
@@ -244,17 +244,17 @@ class ProcessSalaryController extends Controller
                     $salarydata->food_allowance = $employee->food_allowance;
                     $salarydata->other_allowance = $employee->other_allowance;
                     $salarydata->conveyance = $employee->conveyance;
-                    $salarydata->ot_rate = $otrate;
+                    $salarydata->ot_rate = round($otrate);
                     $salarydata->ot_hour = $othour;
-                    $salarydata->ot_amount = $otamount;
+                    $salarydata->ot_amount = round($otamount);
                     $salarydata->total_ot_hour = $totalothour;
-                    $salarydata->total_ot_amount = $totalotamount;
+                    $salarydata->total_ot_amount = round($totalotamount);
                     $salarydata->attendance_bonus = $attn_bonus;
                     $salarydata->income_tax = $employee->tax;
                     $salarydata->advance_amount = $advamount;
                     $salarydata->advance_refund = $advrefund;
                     $salarydata->other_deduction = 0;
-                    $salarydata->absent_deduction = $abdeduct;
+                    $salarydata->absent_deduction = round($abdeduct);
                     $salarydata->short_deduction = 0;
                     $salarydata->basic_payable = $bpay;
                     $salarydata->oa_payable = $oapay;

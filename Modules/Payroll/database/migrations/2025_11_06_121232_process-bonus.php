@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('unit')->nullable();
             $table->char('category', 1);
             $table->date('leaving_date')->nullable();
+            $table->date('joining_date')->nullable();
             $table->decimal('gross_salary', 18, 2)->default(0);
             $table->decimal('basic', 18, 2)->default(0);
             $table->decimal('amount', 18, 2)->default(0);

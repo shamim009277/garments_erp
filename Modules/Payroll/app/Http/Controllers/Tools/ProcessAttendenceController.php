@@ -115,7 +115,7 @@ class ProcessAttendenceController extends Controller
             $period = CarbonPeriod::create($start_date, $end_date);
             $splitemps = $employees->chunk(300);
 
-            $totalInserted = 0; // 🧮 Total inserted counter
+            $totalInserted = 0;
 
             foreach ($splitemps as $splitemp) {
                 $results = [];
