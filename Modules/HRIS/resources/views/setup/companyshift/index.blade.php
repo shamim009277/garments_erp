@@ -76,7 +76,7 @@
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
-                                                        <x-select-input-group name="company_id" label="Company" :options="$orgList" :selected="$shift->org_id" required />
+                                                        <x-select-input-group name="org_id" label="Company" :options="$orgList" :selected="$shift->org_id" required />
                                                         <x-input-group name="shift" label="Shift" type="text" placeholder="Enter shift" :value="$shift->shift" required />
                                                         <x-input-group name="shift_start" label="Shift Start" type="time" placeholder="Enter shift start" :value="$shift->shift_start" required />
                                                         <x-input-group name="shift_end" label="Shift End" type="time" placeholder="Enter shift end" :value="$shift->shift_end" required />

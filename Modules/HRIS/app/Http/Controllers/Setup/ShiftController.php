@@ -14,10 +14,10 @@ class ShiftController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.shift.view')->only('index');
-        $this->middleware('permission:hris.shift.add')->only('store');
-        $this->middleware('permission:hris.shift.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.shift.delete')->only('destroy');
+        $this->middleware('permission:hris.shifts.view')->only('index');
+        $this->middleware('permission:hris.shifts.add')->only('store');
+        $this->middleware('permission:hris.shifts.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.shifts.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

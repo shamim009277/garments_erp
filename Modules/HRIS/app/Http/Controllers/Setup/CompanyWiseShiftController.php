@@ -16,6 +16,15 @@ class CompanyWiseShiftController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.company-shift.view')->only('index');
+        $this->middleware('permission:hris.company-shift.add')->only('store');
+        $this->middleware('permission:hris.company-shift.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.company-shift.delete')->only('destroy');
+    }
+
     public function index()
     {
         $shifts = CompanyWiseShift::with(['company:id,short_name',])->active()->get();
