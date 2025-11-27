@@ -32,9 +32,8 @@
                 @if ($unique_applicant)
                     <!-- Back Button -->
                     <a href="{{ route('hris.database.new-applicants.index') }}"
-                        class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
-                        <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
-                    </a>
+                        class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2"><i
+                            data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back </a>
                 @endif
             </div>
         </div>
@@ -45,7 +44,7 @@
                         Applicant List</h6>
                 </div>
                 <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
-                    <ul class="nav-custom">
+                    {{-- <ul class="nav-custom">
                         @foreach ($unique_department as $department)
                             @php
                                 $applicant_date_wises = collect($pending_applicants)
@@ -54,11 +53,8 @@
                                     ->all();
                             @endphp
                             <li class="nav-custom-item">
-                                <input type="checkbox" id="dept{{ $department->department_id }}"
-                                    {{ $unique_applicant && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
-                                <label class="nav-custom-link" for="dept{{ $department->department_id }}"><span
-                                        class="nav-custom-caret"></span> {{ $department->department->department }}
-                                    ({{ collect($pending_applicants)->where('department_id', $department->department_id)->count() }})</label>
+                                <input type="checkbox" id="dept{{ $department->department_id }}" {{ $unique_applicant && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
+                                <label class="nav-custom-link" for="dept{{ $department->department_id }}"><span class="nav-custom-caret"></span> {{ $department->department->department }} ({{ collect($pending_applicants)->where('department_id', $department->department_id)->count() }})</label>
                                 <ul class="nav-custom-content">
                                     @foreach ($applicant_date_wises as $key => $applicants)
                                         @php
@@ -68,26 +64,109 @@
                                                 ->all();
                                         @endphp
                                         <li class="nav-custom-item">
-                                            <input type="checkbox"
-                                                id="dept{{ $department->department_id }}-{{ $key }}"
-                                                {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
-                                            <label class="nav-custom-link"
-                                                style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'background-color: #EBF0F6;' : '' }}"
-                                                for="dept{{ $department->department_id }}-{{ $key }}"><span
-                                                    class="nav-custom-caret"></span>
-                                                {{ Carbon\Carbon::parse($key)->format('d-M-Y') }}
-                                                ({{ collect($pending_applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})
-                                            </label>
+                                            <input type="checkbox" id="dept{{ $department->department_id }}-{{ $key }}" {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
+                                            <label class="nav-custom-link" style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'background-color: #EBF0F6;' : '' }}" for="dept{{ $department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($pending_applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})</label>
                                             <div class="nav-custom-content">
                                                 @foreach ($applicants_date_wises as $applicant)
-                                                    <a href="{{ route('hris.database.new-applicants.show', $applicant->id) }}"
-                                                        style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}"
-                                                        class="employee-link">{{ $applicant->id }} ::
-                                                        {{ strtoupper($applicant->name) }}</a>
+                                                    <a href="{{ route('hris.database.new-applicants.show', $applicant->id) }}" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}" class="employee-link">{{ $applicant->id }} :: {{ strtoupper($applicant->name) }}</a>
                                                 @endforeach
                                             </div>
                                         </li>
                                     @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul> --}}
+                    @php
+                        $companyWise = collect($pending_applicants)->groupBy('org_id');
+                    @endphp
+                    <ul class="nav-custom">
+                        @foreach ($companyWise as $companyId => $companyApplicants)
+                            @php
+                                $companyName = $companyApplicants->first()->Organization->short_name ?? 'N/A';
+                                $departmentWise = $companyApplicants->groupBy('department_id');
+
+                                // Check if selected applicant belongs to this company
+                                $isCompanyActive = $unique_applicant && $unique_applicant->org_id == $companyId;
+                            @endphp
+
+                            {{-- ================= COMPANY LEVEL ================= --}}
+                            <li class="nav-custom-item">
+                                <input type="checkbox" id="company{{ $companyId }}" {{ $isCompanyActive ? 'checked' : '' }}>
+
+                                <label class="nav-custom-link"
+                                    for="company{{ $companyId }}"
+                                    style="{{ $isCompanyActive ? 'background:#EBF0F6;' : '' }}">
+                                    <span class="nav-custom-caret"></span>
+                                    {{ $companyName }} ({{ $companyApplicants->count() }})
+                                </label>
+
+                                <ul class="nav-custom-content">
+
+                                    {{-- ================= DEPARTMENT LEVEL ================= --}}
+                                    @foreach ($departmentWise as $departmentId => $departmentApplicants)
+                                        @php
+                                            $departmentName = $departmentApplicants->first()->department->department ?? 'N/A';
+                                            $dateWise = $departmentApplicants->groupBy('entry_date');
+
+                                            // Check if selected applicant belongs to this department
+                                            $isDepartmentActive = $unique_applicant
+                                                && $unique_applicant->org_id == $companyId
+                                                && $unique_applicant->department_id == $departmentId;
+                                        @endphp
+
+                                        <li class="nav-custom-item">
+                                            <input type="checkbox" id="dept{{ $companyId }}-{{ $departmentId }}" {{ $isDepartmentActive ? 'checked' : '' }}>
+                                            <label class="nav-custom-link"
+                                                for="dept{{ $companyId }}-{{ $departmentId }}"
+                                                style="{{ $isDepartmentActive ? 'background:#EBF0F6;' : '' }}">
+                                                <span class="nav-custom-caret"></span>
+                                                {{ $departmentName }} ({{ $departmentApplicants->count() }})
+                                            </label>
+
+                                            <ul class="nav-custom-content">
+
+                                                {{-- ================= DATE LEVEL ================= --}}
+                                                @foreach ($dateWise as $entryDate => $dateApplicants)
+                                                    @php
+                                                        // Check if selected applicant belongs to this date
+                                                        $isDateActive = $unique_applicant
+                                                            && $unique_applicant->org_id == $companyId
+                                                            && $unique_applicant->department_id == $departmentId
+                                                            && $unique_applicant->entry_date == $entryDate;
+                                                    @endphp
+
+                                                    <li class="nav-custom-item">
+                                                        <input type="checkbox"
+                                                            id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}"
+                                                            {{ $isDateActive ? 'checked' : '' }}>
+
+                                                        <label class="nav-custom-link"
+                                                            for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}"
+                                                            style="{{ $isDateActive ? 'background:#EBF0F6;' : '' }}">
+                                                            <span class="nav-custom-caret"></span>
+                                                            {{ \Carbon\Carbon::parse($entryDate)->format('d-M-Y') }}
+                                                            ({{ $dateApplicants->count() }})
+                                                        </label>
+
+                                                        <div class="nav-custom-content">
+                                                            @foreach ($dateApplicants as $applicant)
+                                                                <a href="{{ route('hris.database.new-applicants.show', $applicant->id) }}"
+                                                                    class="employee-link"
+                                                                    style="{{ $unique_applicant && $unique_applicant->id == $applicant->id
+                                                                                ? 'color:#FF6C37; background:#EBF0F6;'
+                                                                                : '' }}">
+                                                                    {{ $applicant->id }} :: {{ strtoupper($applicant->name) }}
+                                                                </a>
+                                                            @endforeach
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+
+                                            </ul>
+                                        </li>
+                                    @endforeach
+
                                 </ul>
                             </li>
                         @endforeach
@@ -116,12 +195,11 @@
                             @if ($unique_applicant)
                                 <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}"
                                     class="btn btn-danger btn-sm d-flex align-items-center delete-applicant"
-                                    data-id="{{ $unique_applicant->id }}">
-                                    <i data-feather="trash-2" width="16" height="16" class="me-1"></i> Delete
-                                </a>
-                                <button class="btn btn-warning btn-sm d-flex align-items-center text-white">
-                                    <i data-feather="star" width="16" height="16" class="me-1"></i> Sticker
-                                </button>
+                                    data-id="{{ $unique_applicant->id }}"><i data-feather="trash-2" width="16"
+                                        height="16" class="me-1"></i> Delete</a>
+                                <button class="btn btn-warning btn-sm d-flex align-items-center text-white"><i
+                                        data-feather="star" width="16" height="16" class="me-1"></i>
+                                    Sticker</button>
                             @else
                                 <a href="javascript:void(0);" id="resetForm"
                                     class="btn btn-secondary btn-sm d-flex align-items-center"><i data-feather="rotate-ccw"
@@ -134,20 +212,36 @@
                         <div class="row">
                             @if ($unique_applicant)
                                 <div class="col-lg-4 col-md-6 pr-0">
-                                    <x-input-group name="entry_date " label="Entry Date" type="date" placeholder="Enter entry date" :value="old('entry_date', $unique_applicant ? $unique_applicant->entry_date : null)" required readonly />
+                                    <x-input-group name="entry_date " label="Entry Date" type="date"
+                                        placeholder="Enter entry date" :value="old(
+                                            'entry_date',
+                                            $unique_applicant ? $unique_applicant->entry_date : null,
+                                        )" required readonly />
                                 </div>
                             @endif
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-select-search-input name="org_id" id="org_id" label="Organization" :options="$organizations" :selected="old('org_id', $unique_applicant ? $unique_applicant->org_id : 1)" required />
+                                <x-select-search-input name="org_id" id="org_id" label="Organization"
+                                    :options="$organizations" :selected="old('org_id', $unique_applicant ? $unique_applicant->org_id : 1)" required />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-input-group name="name" label="Name" type="text" placeholder="Enter name" :value="old('name', $unique_applicant ? $unique_applicant->name : null)" required />
+                                <x-input-group name="name" label="Name" type="text" placeholder="Enter name"
+                                    :value="old('name', $unique_applicant ? $unique_applicant->name : null)" required />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-input-group name="birth_date" label="Birth Date" type="text" id="birth_date" placeholder="Enter birth date"  :value="old('birth_date', $unique_applicant ? \Carbon\Carbon::parse($unique_applicant->birth_date)->format('d-m-Y') : null)" required />
+                                <x-input-group name="birth_date" label="Birth Date" type="text" id="birth_date"
+                                    placeholder="Enter birth date" :value="old(
+                                        'birth_date',
+                                        $unique_applicant
+                                            ? \Carbon\Carbon::parse($unique_applicant->birth_date)->format('d-m-Y')
+                                            : null,
+                                    )" required />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-input-group name="name_bangla" label="Name Bangla" type="text" placeholder="Enter name bangla" :value="old('name_bangla', $unique_applicant ? $unique_applicant->name_bangla : null)" />
+                                <x-input-group name="name_bangla" label="Name Bangla" type="text"
+                                    placeholder="Enter name bangla" :value="old(
+                                        'name_bangla',
+                                        $unique_applicant ? $unique_applicant->name_bangla : null,
+                                    )" />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">
@@ -156,62 +250,133 @@
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-select-search-input name="department_id" id="department_id" label="Department (Apply For)" :options="$departments" :selected="old('department_id', $unique_applicant ? $unique_applicant->department_id : null)" required />
+                                <x-select-search-input name="department_id" id="department_id"
+                                    label="Department (Apply For)" :options="$departments" :selected="old(
+                                        'department_id',
+                                        $unique_applicant ? $unique_applicant->department_id : null,
+                                    )" required />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-select-search-input name="designation_id" id="designation_id" label="Designation (Apply For)" :options="$designations" :selected="old('designation_id', $unique_applicant ? $unique_applicant->designation_id : null)" required />
+                                <x-select-search-input name="designation_id" id="designation_id"
+                                    label="Designation (Apply For)" :options="$designations" :selected="old(
+                                        'designation_id',
+                                        $unique_applicant ? $unique_applicant->designation_id : null,
+                                    )" required />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-select-search-input name="district_id" label="District" :options="$districts" :selected="old('district_id', $unique_applicant ? $unique_applicant->district_id : null)" required />
+                                <x-select-search-input name="district_id" label="District" :options="$districts"
+                                    :selected="old(
+                                        'district_id',
+                                        $unique_applicant ? $unique_applicant->district_id : null,
+                                    )" required />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-select-input-group name="identification_type" id="identification_type" label="Identification Type" :options="['1' => 'National ID', '2' => 'Birth Certificate']" :selected="old('identification_type', $unique_applicant ? $unique_applicant->identification_type : 1)" required />
+                                <x-select-input-group name="identification_type" id="identification_type"
+                                    label="Identification Type" :options="['1' => 'National ID', '2' => 'Birth Certificate']" :selected="old(
+                                        'identification_type',
+                                        $unique_applicant ? $unique_applicant->identification_type : 1,
+                                    )" required />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0" id="nid_section">
-                                <x-input-group name="national_id" label="National ID" id="national_id" type="number" pattern="[0-9]{10,17}" minlength="10" maxlength="17" placeholder="Enter national id" :value="old('national_id', $unique_applicant ? $unique_applicant->national_id : null)" required />
+                                <x-input-group name="national_id" label="National ID" id="national_id" type="number"
+                                    pattern="[0-9]{10,17}" minlength="10" maxlength="17" placeholder="Enter national id"
+                                    :value="old(
+                                        'national_id',
+                                        $unique_applicant ? $unique_applicant->national_id : null,
+                                    )" required />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0" id="birth_certificate_section">
-                                <x-input-group name="birth_certificate_no" label="Birth Certificate No" id="birth_certificate_no" type="number" pattern="[0-9]{10,30}" minlength="13" maxlength="30" placeholder="Enter birth certificate no" :value="old('birth_certificate_no', $unique_applicant ? $unique_applicant->birth_certificate_no : null)" />
+                                <x-input-group name="birth_certificate_no" label="Birth Certificate No"
+                                    id="birth_certificate_no" type="number" pattern="[0-9]{10,30}" minlength="13"
+                                    maxlength="30" placeholder="Enter birth certificate no" :value="old(
+                                        'birth_certificate_no',
+                                        $unique_applicant ? $unique_applicant->birth_certificate_no : null,
+                                    )" />
                             </div>
 
                             @if ($unique_applicant)
                                 <div class="col-lg-4 col-md-6 pr-0">
-                                    <x-input-group name="interviewer_employee_id" label="Interviewer Employee ID" id="interviewer_employee_id" type="number" pattern="[0-9]{10,30}" minlength="6" maxlength="20" placeholder="Enter interviewer employee id" :value="old('interviewer_employee_id', $unique_applicant ? $unique_applicant->interviewer_employee_id : null)" />
+                                    <x-input-group name="interviewer_employee_id" label="Interviewer Employee ID"
+                                        id="interviewer_employee_id" type="number" pattern="[0-9]{10,30}"
+                                        minlength="6" maxlength="20" placeholder="Enter interviewer employee id"
+                                        :value="old(
+                                            'interviewer_employee_id',
+                                            $unique_applicant ? $unique_applicant->interviewer_employee_id : null,
+                                        )" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0">
-                                    <x-select-input-group name="interview_status" id="interview_status" label="Interview Status" :options="['Pending' => 'Pending', 'Selected' => 'Selected', 'Disqualify' => 'Disqualify', 'Not Recruit' => 'Not Recruit',]" :selected="old('interview_status', $unique_applicant ? $unique_applicant->interview_status : 'Pending')" />
+                                    <x-select-input-group name="interview_status" id="interview_status"
+                                        label="Interview Status" :options="[
+                                            'Pending' => 'Pending',
+                                            'Selected' => 'Selected',
+                                            'Disqualify' => 'Disqualify',
+                                            'Not Recruit' => 'Not Recruit',
+                                        ]" :selected="old(
+                                            'interview_status',
+                                            $unique_applicant ? $unique_applicant->interview_status : 'Pending',
+                                        )" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="final_designation_section">
-                                    <x-select-search-input name="final_designation_id" id="final_designation_id" label="Final Designation" :options="$designations" :selected="old('final_designation_id', $unique_applicant ? $unique_applicant->final_designation_id : null)" />
+                                    <x-select-search-input name="final_designation_id" id="final_designation_id"
+                                        label="Final Designation" :options="$designations" :selected="old(
+                                            'final_designation_id',
+                                            $unique_applicant ? $unique_applicant->final_designation_id : null,
+                                        )" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="joining_date_section">
-                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date" class="holiday-date" type="text" placeholder="Enter joining date" :value="old('joining_date', $unique_applicant ? \Carbon\Carbon::parse($unique_applicant->joining_date)->format('d-m-Y') : null)" />
+                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date"
+                                        class="holiday-date" type="text" placeholder="Enter joining date"
+                                        :value="old(
+                                            'joining_date',
+                                            $unique_applicant
+                                                ? \Carbon\Carbon::parse($unique_applicant->joining_date)->format(
+                                                    'd-m-Y',
+                                                )
+                                                : null,
+                                        )" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="proposed_salary_section">
-                                    <x-input-group name="proposed_salary" label="Proposed Salary" id="proposed_salary" type="number" pattern="[0-9]{10,30}" placeholder="Enter proposed salary" :value="old('proposed_salary', $unique_applicant ? $unique_applicant->proposed_salary : null)" />
+                                    <x-input-group name="proposed_salary" label="Proposed Salary" id="proposed_salary"
+                                        type="number" pattern="[0-9]{10,30}" placeholder="Enter proposed salary"
+                                        :value="old(
+                                            'proposed_salary',
+                                            $unique_applicant ? $unique_applicant->proposed_salary : null,
+                                        )" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="determined_salary_section">
-                                    <x-input-group name="determined_salary" label="Determined Salary" id="determined_salary" type="number" pattern="[0-9]{10,30}" placeholder="Enter determined salary" :value="old('determined_salary', $unique_applicant ? $unique_applicant->determined_salary : null)" />
+                                    <x-input-group name="determined_salary" label="Determined Salary"
+                                        id="determined_salary" type="number" pattern="[0-9]{10,30}"
+                                        placeholder="Enter determined salary" :value="old(
+                                            'determined_salary',
+                                            $unique_applicant ? $unique_applicant->determined_salary : null,
+                                        )" />
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 pr-0" id="remarks_section">
-                                    <x-input-group name="remarks" label="Remarks" id="remarks" type="text" placeholder="Enter remarks" :value="old('remarks', $unique_applicant ? $unique_applicant->remarks : null)" />
+                                    <x-input-group name="remarks" label="Remarks" id="remarks" type="text"
+                                        placeholder="Enter remarks" :value="old(
+                                            'remarks',
+                                            $unique_applicant ? $unique_applicant->remarks : null,
+                                        )" />
                                 </div>
                             @endif
 
                             <div class="col-lg-4 col-md-6 pr-0">
                                 <div class="form-check" style="margin-top: 38px;">
-                                    <input class="form-check-input" type="checkbox" style="display: inline-block;" name="ipe_assessment_required" id="ipe_assessment_required" :checked="{{ old('ipe_assessment_required', $unique_applicant ? $unique_applicant->ipe_assessment_required : null) ? 'checked' : '' }}">
-                                    <label class="form-check-label" for="ipe_assessment_required">IPE Assessment Required</label>
+                                    <input class="form-check-input" type="checkbox" style="display: inline-block;"
+                                        name="ipe_assessment_required" id="ipe_assessment_required"
+                                        :checked="{{ old('ipe_assessment_required', $unique_applicant ? $unique_applicant->ipe_assessment_required : null) ? 'checked' : '' }}">
+                                    <label class="form-check-label" for="ipe_assessment_required">IPE Assessment
+                                        Required</label>
                                 </div>
                             </div>
                         </div>

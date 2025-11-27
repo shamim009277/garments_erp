@@ -36,7 +36,7 @@ class ApplicantController extends Controller
         $organizations = Organization::active()->pluck('short_name', 'id');
 
         //\DB::enableQueryLog();
-        $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation'])
+        $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation','organization:id,short_name'])
             ->active()
             ->noFileEntry()
             ->where('entry_date', '>=', $lst_30_days)
