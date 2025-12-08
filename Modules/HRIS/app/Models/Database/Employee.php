@@ -15,6 +15,7 @@ use Modules\HRIS\Models\Setup\Sex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\HRIS\Models\Database\Applicant;
 // use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
+use Modules\HRIS\Models\Database\EmpGatePass;
 
 class Employee extends Model
 {
@@ -174,6 +175,9 @@ class Employee extends Model
     }
     public function sex() {
         return $this->belongsTo(Sex::class);
+    }
+    public function gatepasses() {
+        return $this->hasMany(EmpGatePass::class, 'employee_id', 'employee_id');
     }
 
     // protected static function newFactory(): Database\EmployeeFactory

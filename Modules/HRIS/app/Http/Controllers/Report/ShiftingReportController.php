@@ -81,6 +81,8 @@ class ShiftingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.shift.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.shift.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -116,6 +118,8 @@ class ShiftingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.shift.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.shift.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -150,6 +154,8 @@ class ShiftingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.shift.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.shift.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -184,6 +190,8 @@ class ShiftingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.shift.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.shift.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 

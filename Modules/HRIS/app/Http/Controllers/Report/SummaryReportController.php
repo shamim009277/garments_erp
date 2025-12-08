@@ -70,8 +70,13 @@ class SummaryReportController extends Controller
                     ->orderBy('employee_id', 'asc')
                     ->get();
 
-            $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
-            $title = $request->title;
+                if($request->view_mode == 1){
+                    return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments'));
+                }elseif($request->view_mode == 2){
+                    ini_set('memory_limit', '2048M');
+                    ini_set('max_execution_time', '300');
+                    $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments'))
+                    ->setPaper('a4', 'portrait');
 
             if($request->view_mode == 1){
                 return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments'));
@@ -79,7 +84,16 @@ class SummaryReportController extends Controller
                 $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments'))
                 ->setPaper('a4', 'portrait');
 
-            return $pdf->stream('employee.pdf');
+                if($request->view_mode == 1){
+                    return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDesignations'));
+                }elseif($request->view_mode == 2){
+                    ini_set('memory_limit', '2048M');
+                    ini_set('max_execution_time', '300');
+                    $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDesignations'))
+                    ->setPaper('a4', 'portrait');
+
+                return $pdf->stream('employee.pdf');
+                }
             }
 
         }elseif($request->title == 2){

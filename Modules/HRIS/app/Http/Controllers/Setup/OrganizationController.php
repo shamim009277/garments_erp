@@ -12,13 +12,13 @@ class OrganizationController extends Controller
 {
     use ToggleStatus;
 
-    function __construct()
+/*     function __construct()
     {
         $this->middleware('permission:hris.organizations.view')->only('index');
         $this->middleware('permission:hris.organizations.add')->only('store');
         $this->middleware('permission:hris.organizations.edit')->only(['edit', 'update','toggleStatus']);
         $this->middleware('permission:hris.organizations.delete')->only('destroy');
-    }
+    } */
     /**
      * Display a listing of the resource.
      */
@@ -58,12 +58,18 @@ class OrganizationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {
-        try {
+    public function destroy(Request $request) {
+      /*   try {
             Organization::findOrFail($id)->delete();
             return redirect()->route('hris.setup.organizations.index')->with('success', 'Organization deleted successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Failed to delete organization: ' . $th->getMessage());
+        } */
+        try {
+            Organization::findOrFail($request->id)->delete();
+            return response()->json(['success' => true, 'message' => 'Organization deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Organization deletion failed: ' . $e->getMessage()]);
         }
     }
 

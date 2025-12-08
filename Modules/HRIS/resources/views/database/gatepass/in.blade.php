@@ -60,7 +60,7 @@
                                     <td>{{ $gatePass->purpose->purpose }}</td>
                                     <td>{{ $gatePass->reason->reason }}</td>
                                     <td>{{ $gatePass->type_id == 1 ? 'Short Time' : 'Full Day' }}</td>
-                                    <td>{{ $gatePass->approvedBy->name }}</td>
+                                    <td>{{ $gatePass->approvedBy->name ?? 'N/A'}}</td>
                                     <td>
                                         <strong class="text-primary">{{ $gatePass->start_time }}</strong>
                                     </td>

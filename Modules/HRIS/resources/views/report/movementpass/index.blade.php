@@ -63,19 +63,19 @@
                                     <div class="card-body" style="max-height:450px;min-height:450px; overflow-y: auto;">
                                         <div class="form-check">
                                             <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
-                                            <label class="form-check-label" for="title1">Department-wise Daily Movement Pass</label>
+                                            <label class="form-check-label" for="title1">Department-wise Monthly Movement Pass</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
-                                            <label class="form-check-label" for="title2">Designation-wise Daily Movement Pass</label>
+                                            <label class="form-check-label" for="title2">Designation-wise Monthly Movement Pass</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
-                                            <label class="form-check-label" for="title3">Department-wise Monthly Movement Pass</label>
+                                            <label class="form-check-label" for="title3">Department-wise Dates Movement Pass</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
-                                            <label class="form-check-label" for="title4">Designation-wise Monthly Movement Pass</label>
+                                            <label class="form-check-label" for="title4">Designation-wise Dates Movement Pass</label>
                                         </div>
                                     </div>
                                 </div>
@@ -157,13 +157,13 @@
                                                 <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="start_date[]" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="end_date[]" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -305,24 +305,28 @@
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#month').prop('disabled', false);
         } else if (selectedValue == '2') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', false);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#month').prop('disabled', false);
         } else if (selectedValue == '3') {
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
+            $('#month').prop('disabled', true);
         } else if (selectedValue == '4') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', false);
             $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
+            $('#month').prop('disabled', true);
         } else {
             $('.designationID').prop('disabled', false);
             $('.departmentID').prop('disabled', false);
