@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\HRIS\Models\Setup\District;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
+use Modules\HRIS\Models\Setup\Organization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\HRIS\Models\Database\Employee;
@@ -23,6 +24,7 @@ class Applicant extends Model
      */
     protected $fillable = [
         'name',
+        'org_id',
         'name_bangla',
         'mobile',
         'department_id',
@@ -34,6 +36,7 @@ class Applicant extends Model
         'interviewer_employee_id',
         'interview_status',
         'joining_date',
+        'birth_date',
         'entry_date',
         'proposed_salary',
         'determined_salary',
@@ -60,11 +63,17 @@ class Applicant extends Model
     protected $dates = [
         'joining_date',
         'entry_date',
+        'birth_date',
     ];
 
     protected $appends = [
         'interview_status_label',
     ];
+
+    public function organization() : BelongsTo
+    {
+        return $this->belongsTo(Organization::class,'org_id','id');
+    }
 
     public function getInterviewStatusLabelAttribute()
     {

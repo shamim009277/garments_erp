@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Database\EmpGatePass;
 use Modules\HRIS\Models\Setup\EmpGatepassReason;
 use Modules\HRIS\Models\Setup\EmpGatepassPurpose;
@@ -16,12 +17,10 @@ class EmpGatePassController extends Controller
 {
    /*  function __construct()
     {
-        $this->middleware('permission:hris.movement-pass.view')->only('index','info');
-        $this->middleware('permission:hris.movement-pass.add')->only('store');
-
+        $this->middleware('permission:hris.employee-gatepass.view')->only('index','getEmployee');
+        $this->middleware('permission:hris.employee-gatepass.add')->only('store');
         $this->middleware('permission:hris.employee-in.view')->only('getEmployeeIn');
         $this->middleware('permission:hris.employee-in.add')->only('getEmployeeInUpdate');
-
         $this->middleware('permission:hris.employee-out.view')->only('getEmployeeOut');
         $this->middleware('permission:hris.employee-out.add')->only('getEmployeeOutUpdate');
     } */
@@ -39,6 +38,10 @@ class EmpGatePassController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(EmpGatePassRequest $request) {
+        $approvedis = DB::table('hris_settings_employee_gatepass_approve')->where('user_id', Auth::user()->id)->pluck('employee_id')->toArray();
+        if (!in_array($request->employee_id, $approvedis)) {
+            return redirect()->back()->with('error', 'You are not authorized to approve this employee gate pass.');
+        }
         //check if employee gate pass already exists
         $overlapExists = DB::table('hris_database_employee_gatepass')
             ->where('employee_id', $request->employee_id)
@@ -131,4 +134,18 @@ class EmpGatePassController extends Controller
         DB::commit();
         return response()->json(['status' => 'success', 'message' => 'Employee gate pass updated successfully']);
     }
+
+    public function getEmployee(Request $request){
+        $approvedis = DB::table('hris_settings_employee_gatepass_approve')->where('user_id', Auth::user()->id)->pluck('employee_id')->toArray();
+        if (!in_array((int)$request->employee_id, $approvedis)) {
+            return response()->json(['status' => 'error', 'message' => 'You are not authorized to approve this employee gate pass.']);
+        }else{
+            $employee = Employee::with(['designation:id,designation','department:id,department','employeePersonal:employee_id,mobile,national_id,birth_certificate'])
+                  ->where('employee_id', (int)$request->employee_id)
+                  ->select('id','employee_id','name','designation_id','department_id','joining_date','photo')
+                  ->first();
+            return response()->json($employee);
+        }
+    }
+
 }

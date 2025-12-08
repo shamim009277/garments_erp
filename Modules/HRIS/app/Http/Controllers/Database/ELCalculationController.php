@@ -9,6 +9,13 @@ use Carbon\Carbon;
 
 class ELCalculationController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.elcalculation.view')->only('index');
+        $this->middleware('permission:hris.elcalculation.add')->only('store');
+        $this->middleware('permission:hris.elcalculation.edit')->only(['edit', 'update']);
+        $this->middleware('permission:hris.elcalculation.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

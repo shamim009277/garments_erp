@@ -43,6 +43,7 @@ use Modules\HRIS\Http\Controllers\Database\BulkIncrementController;
 use Modules\HRIS\Http\Controllers\Database\ELCalculationController;
 use Modules\HRIS\Http\Controllers\Report\ApplicantReportController;
 use Modules\HRIS\Http\Controllers\Report\IncrementReportController;
+use Modules\HRIS\Http\Controllers\Setup\CompanyWiseShiftController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
 use Modules\HRIS\Http\Controllers\Tools\EditShiftingListController;
@@ -145,6 +146,12 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/shifts/delete', [ShiftController::class, 'destroy'])->name('shifts.delete');
             Route::resource('shifts', ShiftController::class)->names('shifts');
 
+            //Company Wise Shift
+            Route::post('/companywise-shifts/toggle', [CompanyWiseShiftController::class, 'toggleStatus'])->name('companywise-shifts.toggle');
+            Route::post('/companywise-shifts/shift-details', [CompanyWiseShiftController::class, 'shiftDetails'])->name('companywise-shifts.shift-details');
+            Route::post('/companywise-shifts/delete', [CompanyWiseShiftController::class, 'destroy'])->name('companywise-shifts.delete');
+            Route::resource('companywise-shifts', CompanyWiseShiftController::class)->names('companywise-shifts');
+
             //Leave Classification
             Route::post('/leaveclassifications/toggle', [LeaveClassificationController::class, 'toggleStatus'])->name('leaveclassifications.toggle');
             Route::post('/leaveclassifications/delete', [LeaveClassificationController::class, 'destroy'])->name('leaveclassifications.delete');
@@ -241,6 +248,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/employee-gatepass/in', [EmpGatePassController::class, 'getEmployeeInUpdate'])->name('employee-gatepass.in.update');
             Route::get('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOut'])->name('employee-gatepass.out');
             Route::post('/employee-gatepass/out', [EmpGatePassController::class, 'getEmployeeOutUpdate'])->name('employee-gatepass.out.update');
+            Route::post('/employee-gatepass/employee-info', [EmpGatePassController::class, 'getEmployee'])->name('employee-gatepass.employee.info');
             Route::resource('employee-gatepass', EmpGatePassController::class)->names('employee-gatepass');
 
             Route::post('/leave-application/reasons', [LeaveApplicationController::class, 'getReasons'])->name('leave-application.reasons');

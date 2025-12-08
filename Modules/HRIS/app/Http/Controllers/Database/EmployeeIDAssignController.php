@@ -12,6 +12,12 @@ use Modules\HRIS\Http\Requests\Database\EmployeeIDAssignRequest;
 
 class EmployeeIDAssignController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.employee-id-assign.view')->only('index');
+        $this->middleware('permission:hris.employee-id-assign.add')->only('store');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +26,7 @@ class EmployeeIDAssignController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $lst_30_days = Carbon::now()->subDays(30)->format('Y-m-d');
         $designations = Designation::active()->pluck('designation', 'id');
-        $applicants = Applicant::with(['department:id,department', 'designation:id,designation'])->active()->where('entry_date', '>=', $lst_30_days)->where('final_status', 1)->get();
+        $applicants = Applicant::with(['department:id,department', 'designation:id,designation','organization:id,short_name'])->active()->where('entry_date', '>=', $lst_30_days)->where('final_status', 1)->get();
         $pending_applicants = $applicants->where('file_entry', 'N');
         $selected_applicants = $applicants->where('file_entry', 'Y');
 

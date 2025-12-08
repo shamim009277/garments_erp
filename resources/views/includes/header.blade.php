@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="{{ route('dashboard') }}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24">
+                        <img src="{{ $general->logo_path ? Storage::url($general->logo_path) : asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24"> <span class="logo-txt">Minia</span>
+                        <img src="{{ $general->logo_path ? Storage::url($general->logo_path) : asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24"> <span class="logo-txt">{{ $general->short_name??'Minia' }}</span>
                     </span>
                 </a>
 
                 <a href="{{ route('dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24">
+                        <img src="{{ $general->logo_path ? Storage::url($general->logo_path) : asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24"> <span class="logo-txt">Minia</span>
+                        <img src="{{ $general->logo_path ? Storage::url($general->logo_path) : asset('backend/assets/images/logo-sm.svg') }}" alt="" height="24"> <span class="logo-txt">{{ $general->short_name??'Minia' }}</span>
                     </span>
                 </a>
             </div>

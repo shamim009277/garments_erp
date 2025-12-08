@@ -23,16 +23,12 @@
         </div>
         <div class="col-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
-                    Employee Advance
-                </h4>
+                <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">Employee Advance</h4>
             </div>
         </div>
         <div class="col-lg-9 pe-lg-0" style="margin:0px auto;">
             <div class="card alert-primary alert-top-border">
-                <div class="card-header" style="padding: 15px 16px;">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Advance List</h6>
-                </div>
+                <div class="card-header" style="padding: 15px 16px;"><h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Advance List</h6></div>
                 <div class="card-body" style="overflow-y: auto;">
                     <table id="datacom" class="table table-bordered table-striped" width="100%">
                         <thead>
@@ -49,23 +45,27 @@
                                 <th>Balence</th>
                                 <th>Refund</th>
                                 <th>Reason</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody >
                             @foreach ($advances as $key => $advance)
-                                <tr>
+                                <tr id="row-{{ $advance->id }}">
                                     <td>{{ $advance->advance_id }}</td>
                                     <td>{{ str_pad($advance->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                                     <td>{{ $advance->employee->name }}</td>
                                     <td>{{ $advance->department->department }}</td>
                                     <td>{{ $advance->designation->designation }}</td>
-                                    <td class="text-center">{{ $advance->issue_date }}</td>
-                                    <td class="text-center">{{ $advance->refund_start_date }}</td>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($advance->issue_date)) }}</td>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($advance->refund_start_date)) }}</td>
                                     <td class="text-center">{{ $advance->advance_amount }}</td>
                                     <td class="text-center">{{ $advance->installment_size }}</td>
                                     <td class="text-center">{{ $advance->balance_amount }}</td>
                                     <td class="text-center">{{ $advance->refund_amount }}</td>
                                     <td>{{ $advance->reason }}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-advance" data-id="{{ $advance->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -142,7 +142,6 @@
             }
         }
 
-
         employeeInfo();
         $("#employee_id").on("blur", function () {
             employeeInfo();
@@ -157,6 +156,60 @@
             scrollX: true,
             scrollCollapse: true,
             fixedHeader: true,
+        });
+    });
+
+    $(document).on('click', '.delete-advance', function(e) {
+        e.preventDefault();
+        let advanceId = $(this).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route('payroll.database.advance.delete') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: advanceId
+                    },
+                    success: function(response) {
+                        if(response.success == true){
+                            Swal.fire(
+                                'Deleted!',
+                                'Advance has been deleted.',
+                                'success'
+                            );
+                            $('#row-' + advanceId).remove();
+                        }else{
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function() {
+                        Swal.fire(
+                            'Error!',
+                            'Something went wrong.',
+                            'error'
+                        );
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'Cancelled!',
+                    'Advance has not been deleted.',
+                    'error'
+                );
+            }
         });
     });
 </script>

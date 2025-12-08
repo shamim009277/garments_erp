@@ -14,6 +14,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ShiftingReportController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.shifting-report.view')->only('index','previewData','preview');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -70,7 +74,7 @@ class ShiftingReportController extends Controller
                     ->orderBy('designation_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
-            
+
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
 
@@ -84,7 +88,7 @@ class ShiftingReportController extends Controller
 
                return $pdf->stream('employee.pdf');
             }
-            
+
         }elseif($request->title == 2){
             $request->validate([
                 'designation_id' => 'required|array',
@@ -107,7 +111,7 @@ class ShiftingReportController extends Controller
                     ->orderBy('designation_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
-            
+
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
 
@@ -143,7 +147,7 @@ class ShiftingReportController extends Controller
                     ->orderBy('designation_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
-            
+
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
 
@@ -156,7 +160,7 @@ class ShiftingReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            }   
+            }
         }elseif($request->title == 4){
             $request->validate([
                 'designation_id' => 'required|array',
@@ -179,7 +183,7 @@ class ShiftingReportController extends Controller
                     ->orderBy('designation_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
-            
+
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
 
@@ -192,7 +196,7 @@ class ShiftingReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            }   
+            }
         }
     }
 }

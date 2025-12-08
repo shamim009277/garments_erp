@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\DB;
 
 class ApplicantReportController extends Controller
 {
-    
+    function __construct()
+    {
+        $this->middleware('permission:hris.applicant-report.view')->only('index','previewData','preview');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -60,18 +63,23 @@ class ApplicantReportController extends Controller
             $request->validate([
                 'department_id' => 'required|array',
             ]);
-            $start_date = date('Y-m-d', strtotime($request->start_date));
-            $end_date   = date('Y-m-d', strtotime($request->end_date));
-
-            $employees = Applicant::with(['department', 'designation', 'district'])
-                ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
-                    $q->whereBetween('entry_date', [$start_date, $end_date]);
-                })
-                ->when($request->filled('department_id'), function ($q) use ($request) {
-                    $q->whereIn('department_id', $request->department_id);
-                })
-                ->orderBy('entry_date', 'asc')
-                ->get();
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,entry_date'])
+                    ->whereIn('department_id', $request->department_id)
+                    ->when($request->filled('employee_id'), fn($q) =>
+                         $q->where('employee_id', $request->employee_id))
+                         ->when($request->filled('category_id'), function ($q) use ($request) {
+                            $q->whereHas('designation', function ($q2) use ($request) {
+                                $q2->where('category_code', $request->category_id);
+                            });
+                    })
+                    ->when($request->filled('organization_id'), fn($q) =>
+                         $q->where('org_id', $request->organization_id))
+                    ->when($request->filled('designation_id'), fn($q) =>
+                         $q->whereIn('designation_id', $request->designation_id))
+                    ->when($request->filled('district_id'), fn($q) =>
+                         $q->whereIn('mdistrict.id', $request->district_id))
+                    ->orderBy('employee_id', 'asc')
+                    ->get();
             $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
@@ -84,7 +92,7 @@ class ApplicantReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            } 
+            }
         }elseif($request->title == 2){
 
             $start_date = date('Y-m-d', strtotime($request->start_date));
@@ -111,7 +119,7 @@ class ApplicantReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            } 
+            }
         }elseif($request->title == 3){
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,entry_date'])
 
@@ -142,7 +150,7 @@ class ApplicantReportController extends Controller
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
-            } 
+            }
         }elseif($request->title == 4){
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,entry_date'])
 
@@ -185,8 +193,8 @@ class ApplicantReportController extends Controller
                 ->when($request->filled('department_id'), function ($q) use ($request) {
                     $q->whereIn('department_id', $request->department_id);
                 })
-                ->where('final_status', 1) // ✅ শুধু final_status = 1
-                ->whereNotNull('employee_id') // ✅ যাদের employee_id আছে শুধু তাদের
+                ->where('final_status', 1) 
+                ->whereNotNull('employee_id') 
                 ->orderBy('entry_date', 'asc')
                 ->orderBy('entry_date', 'asc')
                 ->get();
@@ -254,10 +262,9 @@ class ApplicantReportController extends Controller
                     'default_font' => 'solaimanlipi',
                     'tempDir' => storage_path('app/mpdf-temp'),
 
-                    // ✅ এই তিনটি সেটিং বাংলা ঠিক রাখবে:
                     'autoScriptToLang' => true,
                     'autoLangToFont' => true,
-                    'useOTL' => true, // এখানে দিও, property নয়!
+                    'useOTL' => true, 
                 ]);
 
                 $html = view('hris::report.applicant.applicantpdf', compact('employees'))->render();

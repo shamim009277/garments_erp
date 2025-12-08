@@ -17,7 +17,7 @@
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <!-- Centered Title -->
                 <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
-                   Employee Gate Pass
+                    Employee Gate Pass
                 </h4>
             </div>
         </div>
@@ -26,7 +26,8 @@
                 @csrf
                 <div class="card alert-primary alert-top-border padding-card">
                     <div class="card-header">
-                        <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input Parameters For Emp Gate Pass</h6>
+                        <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input
+                            Parameters For Emp Gate Pass</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -36,45 +37,56 @@
                                         <tr>
                                             <th style="width: 30%">Employee ID</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" autocomplete="off" required />
+                                                <x-text-input name="employee_id" id="employee_id" label=""
+                                                    class="form-control-sm" placeholder="Employee ID" autocomplete="off"
+                                                    required />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Name</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="name" id="name" label="" class="form-control-sm" placeholder="Employee Name" required readonly/>
+                                                <x-text-input name="name" id="name" label=""
+                                                    class="form-control-sm" placeholder="Employee Name" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Designation</th>
                                             <td style="width: 70%">
-                                                <input type="hidden" name="designation_id" id="designation_id" class="form-control-sm" placeholder="Designation"/>
-                                                <x-text-input name="designation" id="designation" label="" class="form-control-sm" placeholder="Designation" required readonly/>
+                                                <input type="hidden" name="designation_id" id="designation_id"
+                                                    class="form-control-sm" placeholder="Designation" />
+                                                <x-text-input name="designation" id="designation" label=""
+                                                    class="form-control-sm" placeholder="Designation" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Department</th>
                                             <td style="width: 70%">
-                                                <input type="hidden" name="department_id" id="department_id" class="form-control-sm" placeholder="Department"/>
-                                                <x-text-input name="department" id="department" label="" class="form-control-sm" placeholder="Department" required readonly/>
+                                                <input type="hidden" name="department_id" id="department_id"
+                                                    class="form-control-sm" placeholder="Department" />
+                                                <x-text-input name="department" id="department" label=""
+                                                    class="form-control-sm" placeholder="Department" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Join Date</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="join_date" id="join_date" label="" class="form-control-sm" placeholder="Join Date" required readonly/>
+                                                <x-text-input name="join_date" id="join_date" label=""
+                                                    class="form-control-sm" placeholder="Join Date" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Mobile</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="mobile" id="mobile" label="" class="form-control-sm" placeholder="Mobile" required readonly/>
+                                                <x-text-input name="mobile" id="mobile" label=""
+                                                    class="form-control-sm" placeholder="Mobile" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">NID/BC</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="nid_birth_certificate" id="nid_birth_certificate" label="" class="form-control-sm" placeholder="NID/Birth Certificate" required readonly/>
+                                                <x-text-input name="nid_birth_certificate" id="nid_birth_certificate"
+                                                    label="" class="form-control-sm"
+                                                    placeholder="NID/Birth Certificate" required readonly />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -86,43 +98,52 @@
                                         <tr>
                                             <th style="width: 30%">Date</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="date" id="date" label="" class="form-control-sm" value="{{ $date }}" placeholder="Date" required readonly/>
+                                                <x-text-input name="date" id="date" label=""
+                                                    class="form-control-sm" value="{{ $date }}" placeholder="Date"
+                                                    required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Purpose</th>
                                             <td style="width: 70%">
-                                                <x-select-input name="purpose_id" id="purpose_id" class="select2" :options="$purposes" required />
+                                                <x-select-input name="purpose_id" id="purpose_id" class="select2"
+                                                    :options="$purposes" required />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Reason</th>
                                             <td style="width: 70%">
-                                                <x-select-input name="reason_id" id="reason_id" class="select2" :options="[]" required />
+                                                <x-select-input name="reason_id" id="reason_id" class="select2"
+                                                    :options="[]" required />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Type</th>
                                             <td style="width: 70%">
-                                                <x-select-input name="type_id" id="type_id" class="select2" :options="['1' => 'Short Time', '2' => 'Full Day']" selected="1" required />
+                                                <x-select-input name="type_id" id="type_id" class="select2"
+                                                    :options="['1' => 'Short Time', '2' => 'Full Day']" selected="1" required />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Start Time</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="start_time" type="time" id="start_time" label="" class="form-control-sm" placeholder="Start Time" required/>
+                                                <x-text-input name="start_time" type="time" id="start_time"
+                                                    label="" class="form-control-sm" placeholder="Start Time"
+                                                    required />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">End Time</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="end_time" type="time" id="end_time" label="" class="form-control-sm" placeholder="End Time"/>
+                                                <x-text-input name="end_time" type="time" id="end_time"
+                                                    label="" class="form-control-sm" placeholder="End Time" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="width: 30%">Duration</th>
                                             <td style="width: 70%">
-                                                <x-text-input name="duration" id="duration" label="" class="form-control-sm" placeholder="Duration" readonly/>
+                                                <x-text-input name="duration" id="duration" label=""
+                                                    class="form-control-sm" placeholder="Duration" readonly />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -136,7 +157,9 @@
                                         </tr>
                                         <tr>
                                             <td style="display: flex; justify-content: center; align-items: center;">
-                                                <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo" id="photo" class="img-fluid" style="width: 160px; height: 220px; object-fit: cover; padding: 2px;">
+                                                <img src="{{ asset('backend/assets/images/demo.png') }}" alt="Photo"
+                                                    id="photo" class="img-fluid"
+                                                    style="width: 160px; height: 220px; object-fit: cover; padding: 2px;">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -145,7 +168,8 @@
                         </div>
                     </div>
                     <div class="card-footer" style="padding:10px 20px;">
-                        <x-primary-button id="submitBtn" type="submit" class="btn btn-sm btn-primary submitBtn">Submit</x-primary-button>
+                        <x-primary-button id="submitBtn" type="submit"
+                            class="btn btn-sm btn-primary submitBtn">Submit</x-primary-button>
                     </div>
                 </div>
             </form>
@@ -155,8 +179,8 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function () {
-            $("#type_id").change(function () {
+        $(document).ready(function() {
+            $("#type_id").change(function() {
                 if ($(this).val() == 1) {
                     $("#end_time").prop('disabled', false);
                     $("#end_time").prop('required', true);
@@ -168,7 +192,7 @@
                 }
             });
 
-            $("#purpose_id").on('change', function () {
+            $("#purpose_id").on('change', function() {
                 let purposeId = $(this).val();
                 let departmentId = $("#department_id").val();
                 if (departmentId) {
@@ -178,25 +202,27 @@
                         data: {
                             purpose_id: purposeId,
                             department_id: departmentId
-                    },
-                    success: function (response) {
-                        if (response) {
-                            $('#reason_id').empty();
-                            $('#reason_id').append('<option value="">Select Reason</option>');
-                            $.each(response, function(key, value) {
-                                $('#reason_id').append('<option value="' + key + '">' + value + '</option>');
+                        },
+                        success: function(response) {
+                            if (response) {
+                                $('#reason_id').empty();
+                                $('#reason_id').append(
+                                    '<option value="">Select Reason</option>');
+                                $.each(response, function(key, value) {
+                                    $('#reason_id').append('<option value="' + key +
+                                        '">' + value + '</option>');
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to load reasons.',
                             });
                         }
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Failed to load reasons.',
-                        });
-                    }
-                });
-                }else{
+                    });
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error!',
@@ -246,66 +272,56 @@
 
             function employeeInfo() {
                 let employeeId = $("#employee_id").val();
-
                 if (employeeId.length >= 6) {
                     $.ajax({
-                        url: "{{ route('hris.database.employee.info') }}",
+                        url: "{{ route('hris.database.employee-gatepass.employee.info') }}",
                         type: "POST",
-                    data: {
-                        employee_id: employeeId
-                    },
-                    success: function (response) {
-                        $("#name").val('');
-                        $("#designation").val('');
-                        $("#department").val('');
-                        $("#join_date").val('');
-                        $("#mobile").val('');
-                        $("#nid_birth_certificate").val('');
-                        $("#designation_id").val('');
-                        $("#department_id").val('');
-
-                        if (response && Object.keys(response).length > 0) {
-                            console.log(response);
-
-                            $("#name").val(response.name || '');
-                            $("#designation").val(response.designation?.designation || '');
-                            $("#department").val(response.department?.department || '');
-                            $("#join_date").val(response.joining_date || '');
-                            $("#mobile").val(response.employee_personal?.mobile || '');
-
-                            if (response.employee_personal?.national_id) {
-                                $("#nid_birth_certificate").val(response.employee_personal.national_id);
+                        data: {
+                            employee_id: employeeId
+                        },
+                        success: function(response) {
+                            if (response.status === "error") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Unauthorized!',
+                                    text: response.message,
+                                });
+                                return;
                             }
-                            if (response.employee_personal?.birth_certificate) {
-                                $("#nid_birth_certificate").val(response.employee_personal.birth_certificate);
+                            $("#name, #designation, #department, #join_date, #mobile, #nid_birth_certificate, #designation_id, #department_id").val('');
+                            let data = response.data ?? response;
+
+                            if (data && Object.keys(data).length > 0) {
+
+                                $("#name").val(data.name || '');
+                                $("#designation").val(data.designation?.designation || '');
+                                $("#department").val(data.department?.department || '');
+                                $("#join_date").val(data.joining_date || '');
+                                $("#mobile").val(data.employee_personal?.mobile || '');
+
+                                $("#nid_birth_certificate").val(data.employee_personal?.national_id ||data.employee_personal?.birth_certificate ||'' );
+
+                                if (data.photo) {
+                                    $('#photo').attr('src', '/storage/' + data.photo);
+                                }
+                                $("#designation_id").val(data.designation_id || '');
+                                $("#department_id").val(data.department_id || '');
                             }
-                            if (response.photo) {
-                                $('#photo').attr('src', '/storage/' + response.photo);
-                            }
-                            $("#designation_id").val(response.designation_id || '');
-                            $("#department_id").val(response.department_id || '');
-                        } else {
-                            // Swal.fire({
-                            //     icon: 'error',
-                            //     title: 'Error!',
-                            //     text: 'Failed to load employee info.',
-                            // });
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to load employee info.',
+                            });
                         }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Failed to load employee info.',
-                        });
-                    }
+
                     });
                 }
             }
 
-
             employeeInfo();
-            $("#employee_id").on("input", function () {
+            $("#employee_id").on("input", function() {
                 employeeInfo();
             });
         });
