@@ -16,13 +16,13 @@ class LeaveForwardController extends Controller
 {
     use LeaveBalance;
 
-    function __construct()
+    /* function __construct()
     {
         $this->middleware('permission:hris.leave-forward.view')->only('index');
         $this->middleware('permission:hris.leave-forward.add')->only('store');
         $this->middleware('permission:hris.leave-forward.edit')->only(['edit', 'update']);
         $this->middleware('permission:hris.leave-forward.delete')->only('destroy');
-    }
+    } */
     /**
      * Display a listing of the resource.
      */

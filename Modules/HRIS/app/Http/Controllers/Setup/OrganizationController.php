@@ -67,7 +67,6 @@ class OrganizationController extends Controller
                 $data['path'] = $logoPath['path'];
             }
 
-            // Update data
             $organization->update($data);
             cache()->forget('ornizations_data');
 

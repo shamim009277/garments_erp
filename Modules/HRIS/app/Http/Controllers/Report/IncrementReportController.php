@@ -84,6 +84,8 @@ class IncrementReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.increment.preview', compact('employees','title','uniqueDepartments'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.increment.pdf', compact('employees','title','uniqueDepartments'))
                 ->setPaper('a4', 'portrait');
 
@@ -118,6 +120,8 @@ class IncrementReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.increment.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.increment.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 

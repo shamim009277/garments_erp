@@ -10,6 +10,7 @@ use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Organization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HRIS\Models\Database\Employee;
 // use Modules\HRIS\Database\Factories\Database\ApplicantFactory;
 
 class Applicant extends Model
@@ -17,7 +18,6 @@ class Applicant extends Model
     use HasFactory;
 
     protected $table = 'hris_database_new_applicant';
-
     /**
      * The attributes that are mass assignable.
      */

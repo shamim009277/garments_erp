@@ -128,16 +128,17 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {
-        $item = Item::findOrFail($id);
-        $item->delete();
-        return redirect()->route('inventory.setup.items.index')->with('success', 'Item deleted successfully');
+    public function destroy(Request $request) {
+        try {
+            Item::findOrFail($request->id)->delete();
+            return response()->json(['success' => true, 'message' => 'Item deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Item deletion failed: ' . $e->getMessage()]);
+        }
     }
-    //toggleStatus
-    public function toggleStatus(Request $request)
-    {
-        return $this->toggleStatusTrait($request, Item::class);
+
+    public function toggleStatus(Request $request) {
+        return $this->ToggleStatusTrait($request, Item::class);
     }
     //getSubcategories
     public function getSubcategories(Request $request)
