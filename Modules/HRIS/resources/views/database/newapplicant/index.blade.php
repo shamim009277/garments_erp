@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('title', 'HRIS')
+@push('styles')
+<style>
+    .no-calendar {
+        pointer-events: none;
+        background-color: #848485;
+
+    }
+</style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -94,9 +103,7 @@
                             <li class="nav-custom-item">
                                 <input type="checkbox" id="company{{ $companyId }}" {{ $isCompanyActive ? 'checked' : '' }}>
 
-                                <label class="nav-custom-link"
-                                    for="company{{ $companyId }}"
-                                    style="{{ $isCompanyActive ? 'background:#EBF0F6;' : '' }}">
+                                <label class="nav-custom-link" for="company{{ $companyId }}" style="{{ $isCompanyActive ? 'background:#f2b14b; border-radius: 3px;' : '' }}">
                                     <span class="nav-custom-caret"></span>
                                     {{ $companyName }} ({{ $companyApplicants->count() }})
                                 </label>
@@ -117,9 +124,7 @@
 
                                         <li class="nav-custom-item">
                                             <input type="checkbox" id="dept{{ $companyId }}-{{ $departmentId }}" {{ $isDepartmentActive ? 'checked' : '' }}>
-                                            <label class="nav-custom-link"
-                                                for="dept{{ $companyId }}-{{ $departmentId }}"
-                                                style="{{ $isDepartmentActive ? 'background:#EBF0F6;' : '' }}">
+                                            <label class="nav-custom-link" for="dept{{ $companyId }}-{{ $departmentId }}" style="{{ $isDepartmentActive ? 'background:#D75350; border-radius: 3px;' : '' }}">
                                                 <span class="nav-custom-caret"></span>
                                                 {{ $departmentName }} ({{ $departmentApplicants->count() }})
                                             </label>
@@ -141,9 +146,7 @@
                                                             id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}"
                                                             {{ $isDateActive ? 'checked' : '' }}>
 
-                                                        <label class="nav-custom-link"
-                                                            for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}"
-                                                            style="{{ $isDateActive ? 'background:#EBF0F6;' : '' }}">
+                                                        <label class="nav-custom-link" for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}" style="{{ $isDateActive ? 'background:#75bcf5; border-radius: 3px;' : '' }}">
                                                             <span class="nav-custom-caret"></span>
                                                             {{ \Carbon\Carbon::parse($entryDate)->format('d-M-Y') }}
                                                             ({{ $dateApplicants->count() }})
@@ -152,10 +155,7 @@
                                                         <div class="nav-custom-content">
                                                             @foreach ($dateApplicants as $applicant)
                                                                 <a href="{{ route('hris.database.new-applicants.show', $applicant->id) }}"
-                                                                    class="employee-link"
-                                                                    style="{{ $unique_applicant && $unique_applicant->id == $applicant->id
-                                                                                ? 'color:#FF6C37; background:#EBF0F6;'
-                                                                                : '' }}">
+                                                                    class="employee-link" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #ffffff; background:#4549A2; border-radius: 3px;' : '' }}">
                                                                     {{ $applicant->id }} :: {{ strtoupper($applicant->name) }}
                                                                 </a>
                                                             @endforeach
@@ -201,9 +201,7 @@
                                         data-feather="star" width="16" height="16" class="me-1"></i>
                                     Sticker</button>
                             @else
-                                <a href="javascript:void(0);" id="resetForm"
-                                    class="btn btn-secondary btn-sm d-flex align-items-center"><i data-feather="rotate-ccw"
-                                        width="16" height="16" class="me-1"></i> Reset</a>
+                                <a href="javascript:void(0);" id="resetForm" class="btn btn-secondary btn-sm d-flex align-items-center"><i data-feather="rotate-ccw" width="16" height="16" class="me-1"></i> Reset</a>
                             @endif
                         </div>
                     </div>
@@ -212,11 +210,11 @@
                         <div class="row">
                             @if ($unique_applicant)
                                 <div class="col-lg-4 col-md-6 pr-0">
-                                    <x-input-group name="entry_date " label="Entry Date" type="date"
+                                    <x-input-group name="entry_date "  label="Entry Date" type="date"
                                         placeholder="Enter entry date" :value="old(
                                             'entry_date',
                                             $unique_applicant ? $unique_applicant->entry_date : null,
-                                        )" required readonly />
+                                        )" required readonly class="no-calendar" />
                                 </div>
                             @endif
                             <div class="col-lg-4 col-md-6 pr-0">
@@ -263,6 +261,14 @@
                                         'designation_id',
                                         $unique_applicant ? $unique_applicant->designation_id : null,
                                     )" required />
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 pr-0">
+                                <x-select-search-input name="line" id="line"
+                                    label="Line (Apply For)" :options="$lines" :selected="old(
+                                        'line',
+                                        $unique_applicant ? $unique_applicant->line : null,
+                                    )" />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">
@@ -470,16 +476,7 @@
         });
 
         $('#resetForm').on('click', function() {
-            $('#name').val('');
-            $('#name_bn').val('');
-            $('#mobile').val('');
-            $('#national_id').val('');
-            $('#birth_certificate_no').val('');
-            $('#email').val('');
-            $('#department_id').val('').trigger('change');
-            $('#designation_id').val('').trigger('change');
-            $('#district_id').val('').trigger('change');
-            $('#final_designation_id').val('').trigger('change');
+            window.location.reload();
         });
 
         $(document).ready(function() {

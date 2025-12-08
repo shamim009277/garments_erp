@@ -19,6 +19,11 @@ class Organization extends Model
         'name',
         'bn_name',
         'short_name',
+        'address',
+        'email',
+        'phone',
+        'icon_name',
+        'path',
         'is_active',
         'created_by',
         'updated_by',
@@ -37,12 +42,21 @@ class Organization extends Model
         static::updated(function ($organization) {
             $organization->updated_by = Auth::user()->id;
         });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('id', $accessId);
+                }
+            }
+        });
     }
 
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
-
 
 }

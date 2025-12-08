@@ -76,6 +76,16 @@ class EmployeeSalary extends Model
         static::updating(function ($employee) {
             $employee->updated_by = Auth::id();
         });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
+        });
     }
 
     public function scopeActive($query) {

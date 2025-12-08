@@ -100,6 +100,16 @@ class EmployeeBangla extends Model
         static::updating(function ($employeeb) {
             $employeeb->updated_by = Auth::id();
         });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
+        });
     }
 
     public function scopeActive($query) {

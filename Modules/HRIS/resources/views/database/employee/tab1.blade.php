@@ -37,12 +37,12 @@
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
                                 <th width="30%" style="border: none;">Unit </th>
-                                <td width="70%" style="border: none;"><x-select-input name="unit" id="unit" class="select2" :options="$units" selected="{{ $employee->unit }}" value="{{ old('unit',$employee->unit) }}" required /></td>
+                                <td width="70%" style="border: none;"><x-select-input name="unit" id="unit" class="select2" :options="$units" selected="{{ $employee->unit }}" value="{{ old('unit',$employee->unit) }}" /></td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Line </th>
                                 <td width="70%" style="border: none;">
-                                    <x-select-input name="line" id="line" class="select2" :options="[]" selected="{{ $employee->line }}" value="{{ old('line',$employee->line) }}" required />
+                                    <x-select-input name="line" id="line" class="select2" :options="[]" selected="{{ $employee->line }}" value="{{ old('line',$employee->line) }}" />
                                     <input type="hidden" name="line_id" id="line_id" value="{{ old('line_id',$employee->line) }}" />
                                 </td>
                             </tr>

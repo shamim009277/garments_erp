@@ -88,6 +88,16 @@ class Employee extends Model
             $employee->line = $employee->line ?? 0;
             $employee->grade = $employee->grade ?? 0;
         });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
+        });
     }
 
     public function scopeActive($query)
@@ -175,9 +185,4 @@ class Employee extends Model
     public function sex() {
         return $this->belongsTo(Sex::class);
     }
-
-    // protected static function newFactory(): Database\EmployeeFactory
-    // {
-    //     // return Database\EmployeeFactory::new();
-    // }
 }

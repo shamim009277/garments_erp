@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('hris_database_new_applicant', function (Blueprint $table) {
-            $table->unsignedBigInteger('org_id')->nullable()->after('id');
-            $table->date('birth_date')->nullable()->after('joining_date');
+            $table->integer('line')->default(0)->after('district_id');
         });
     }
 
@@ -23,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('hris_database_new_applicant', function (Blueprint $table) {
-            $table->dropColumn('org_id');
-            $table->dropColumn('birth_date');
+            $table->dropColumn('line');
         });
     }
 };

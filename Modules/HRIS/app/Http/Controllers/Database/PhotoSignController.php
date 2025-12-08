@@ -12,8 +12,8 @@ class PhotoSignController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:hris.emp-photo-signature.view')->only('index','info');
-        $this->middleware('permission:hris.emp-photo-signature.add')->only('store');
+        $this->middleware('permission:hris.emp-photo-sign.view')->only('index','info');
+        $this->middleware('permission:hris.emp-photo-sign.add')->only('store');
     }
     /**
      * Display a listing of the resource.

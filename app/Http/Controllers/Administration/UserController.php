@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Models\User;
+use App\Traits\ToggleStatus;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Administration\UserRequest;
 use Yajra\DataTables\Facades\DataTables;
-use App\Traits\ToggleStatus;
+use Modules\HRIS\Models\Setup\Organization;
+use App\Http\Requests\Administration\UserRequest;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::select('users.*');
+            $data = User::select('users.*')->with('organization');
 
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -36,7 +37,19 @@ class UserController extends Controller
                     return $row->role->name ?? '-';
                 })
                 ->addColumn('employee_id', function ($row) {
-                    return $row->employee_id ?? '-';
+                    if ($row->employee_id) {
+                        return str_pad($row->employee_id, 6, '0', STR_PAD_LEFT);
+                    }
+                    return '-';
+                })
+                ->addColumn('access_label', function ($row) {
+                    if ($row->access_id == 0) {
+                        return 'All Organization';
+                    } elseif ($row->access_id) {
+                        return $row->organization->short_name;
+                    } else {
+                        return '-';
+                    }
                 })
                 ->editColumn('is_active', function ($row) {
                     return '
@@ -60,8 +73,11 @@ class UserController extends Controller
                 })
                 ->make(true);
         }
+
         $roles = Role::select('id', 'name')->get();
-        return view('administration.authorization.user.index', compact('roles'));
+        $organizations = Organization::select('id', 'short_name')->orderBy('short_name', 'asc')->get();
+
+        return view('administration.authorization.user.index', compact('roles','organizations'));
     }
 
     /**
@@ -122,6 +138,7 @@ class UserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'access_id' => $request->access_id,
                 'password' => Hash::make($request->password),
                 'role_id' => $request->role_id,
                 'employee_id' => $request->employee_id,

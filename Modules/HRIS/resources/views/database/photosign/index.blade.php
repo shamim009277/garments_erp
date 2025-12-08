@@ -117,7 +117,7 @@
                             </div>
 
                             <!-- Upload new photo & signature -->
-                            <div class="col-lg-5" style="height:450px; border:1px solid #ddd; overflow:hidden;">
+                            <div class="col-lg-5" style="min-height:450px; border:1px solid #ddd; overflow:hidden;">
                                 <table class="responsive-table">
                                     <tr>
                                         <th colspan="2">Photo (128x148)</th>
