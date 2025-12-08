@@ -14,7 +14,7 @@ use Modules\HRIS\Http\Requests\Database\EmpGatePassRequest;
 
 class EmpGatePassController extends Controller
 {
-    function __construct()
+   /*  function __construct()
     {
         $this->middleware('permission:hris.movement-pass.view')->only('index','info');
         $this->middleware('permission:hris.movement-pass.add')->only('store');
@@ -24,7 +24,7 @@ class EmpGatePassController extends Controller
 
         $this->middleware('permission:hris.employee-out.view')->only('getEmployeeOut');
         $this->middleware('permission:hris.employee-out.add')->only('getEmployeeOutUpdate');
-    }
+    } */
     /**
      * Display a listing of the resource.
      */

@@ -10,7 +10,9 @@ use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Setup\EmployeeCategory;
 use Modules\HRIS\Models\Setup\ParentDepartment;
 use Modules\HRIS\Models\Setup\EmpGatepassPurpose;
+use Modules\HRIS\Models\Database\EmpGatePass;
 use Modules\HRIS\Models\Database\Employee;
+
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class MovementPassReportController extends Controller
@@ -46,37 +48,39 @@ class MovementPassReportController extends Controller
             'employee_id' => 'nullable|numeric|min:6',
             'view_mode' => 'required|string|min:1|max:1',
             'organization_id' => 'required|integer|min:1|max:1',
+            //'organization_id' => 'required|integer|min:1|max:9',
         ]);
 
         if($request->title == 1){
             $request->validate([
                 'department_id' => 'required|array',
             ]);
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
-                    ->whereIn('department_id', $request->department_id)
-                    ->when($request->filled('employee_id'), fn($q) =>
-                         $q->where('employee_id', $request->employee_id))
-                         ->when($request->filled('category_id'), function ($q) use ($request) {
-                            $q->whereHas('designation', function ($q2) use ($request) {
-                                $q2->where('category_code', $request->category_id);
-                            });
-                    })
-                    ->when($request->filled('organization_id'), fn($q) =>
-                         $q->where('org_id', $request->organization_id))
-                    ->when($request->filled('designation_id'), fn($q) =>
-                         $q->whereIn('designation_id', $request->designation_id))
-                    ->when($request->filled('district_id'), fn($q) =>
-                         $q->whereIn('mdistrict.id', $request->district_id))
-                    ->orderBy('designation_id', 'asc')
-                    ->orderBy('employee_id', 'asc')
-                    ->get();
+
+            $employees = Employee::with(['department', 'designation', 'gatepasses' => function ($q) use ($request) {
+                if ($request->filled('month')) {
+                    $q->whereMonth('date', $request->month);
+                }
+            }])
+            ->whereHas('gatepasses', function ($q) use ($request) {
+                if ($request->filled('month')) {
+                    $q->whereMonth('date', $request->month);
+                }
+            })
+            /* ->when($request->filled('organization_id'), fn($q) =>
+                         $q->where('org_id', $request->organization_id)) */
+            //->where('org_id', $request->organization_id)
+            ->whereIn('department_id', $request->department_id)
+            ->orderBy('employee_id', 'asc')
+            ->get();
 
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
 
             if($request->view_mode == 1){
-                return view('hris::report.movementpass.preview', compact('employees','title','uniqueDesignations'));
+                return view('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -86,24 +90,20 @@ class MovementPassReportController extends Controller
             $request->validate([
                 'designation_id' => 'required|array',
             ]);
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
-                    ->whereIn('designation_id', $request->designation_id)
-                    ->when($request->filled('employee_id'), fn($q) =>
-                         $q->where('employee_id', $request->employee_id))
-                         ->when($request->filled('category_id'), function ($q) use ($request) {
-                            $q->whereHas('designation', function ($q2) use ($request) {
-                                $q2->where('category_code', $request->category_id);
-                            });
-                    })
-                    ->when($request->filled('organization_id'), fn($q) =>
-                         $q->where('org_id', $request->organization_id))
-                    ->when($request->filled('designation_id'), fn($q) =>
-                         $q->whereIn('designation_id', $request->designation_id))
-                    ->when($request->filled('district_id'), fn($q) =>
-                         $q->whereIn('mdistrict.id', $request->district_id))
-                    ->orderBy('designation_id', 'asc')
-                    ->orderBy('employee_id', 'asc')
-                    ->get();
+
+            $employees = Employee::with(['department', 'designation', 'gatepasses' => function ($q) use ($request) {
+                if ($request->filled('month')) {
+                    $q->whereMonth('date', $request->month);
+                }
+            }])
+            ->whereHas('gatepasses', function ($q) use ($request) {
+                if ($request->filled('month')) {
+                    $q->whereMonth('date', $request->month);
+                }
+            })
+            ->whereIn('designation_id', $request->designation_id)
+            ->orderBy('employee_id', 'asc')
+            ->get();
 
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
@@ -111,6 +111,8 @@ class MovementPassReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.movementpass.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -120,24 +122,21 @@ class MovementPassReportController extends Controller
             $request->validate([
                 'department_id' => 'required|array',
             ]);
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
-                    ->whereIn('department_id', $request->department_id)
-                    ->when($request->filled('employee_id'), fn($q) =>
-                         $q->where('employee_id', $request->employee_id))
-                         ->when($request->filled('category_id'), function ($q) use ($request) {
-                            $q->whereHas('designation', function ($q2) use ($request) {
-                                $q2->where('category_code', $request->category_id);
-                            });
-                    })
-                    ->when($request->filled('organization_id'), fn($q) =>
-                         $q->where('org_id', $request->organization_id))
-                    ->when($request->filled('designation_id'), fn($q) =>
-                         $q->whereIn('designation_id', $request->designation_id))
-                    ->when($request->filled('district_id'), fn($q) =>
-                         $q->whereIn('mdistrict.id', $request->district_id))
-                    ->orderBy('designation_id', 'asc')
-                    ->orderBy('employee_id', 'asc')
-                    ->get();
+
+            $start_date = date('Y-m-d', strtotime($request->start_date));
+            $end_date   = date('Y-m-d', strtotime($request->end_date));
+
+            $employees = Employee::with(['department', 'designation', 'gatepasses' => function ($q) use ($start_date, $end_date, $request) {
+                $q->whereBetween('date', [$start_date, $end_date]);
+
+            }])
+            ->whereHas('gatepasses', function ($q) use ($start_date, $end_date, $request) {
+                $q->whereBetween('date', [$start_date, $end_date]);
+
+            })
+            ->whereIn('department_id', $request->department_id)
+            ->orderBy('employee_id', 'asc')
+            ->get();
 
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
@@ -145,6 +144,8 @@ class MovementPassReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.movementpass.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -154,24 +155,20 @@ class MovementPassReportController extends Controller
             $request->validate([
                 'designation_id' => 'required|array',
             ]);
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
-                    ->whereIn('designation_id', $request->designation_id)
-                    ->when($request->filled('employee_id'), fn($q) =>
-                         $q->where('employee_id', $request->employee_id))
-                         ->when($request->filled('category_id'), function ($q) use ($request) {
-                            $q->whereHas('designation', function ($q2) use ($request) {
-                                $q2->where('category_code', $request->category_id);
-                            });
-                    })
-                    ->when($request->filled('organization_id'), fn($q) =>
-                         $q->where('org_id', $request->organization_id))
-                    ->when($request->filled('designation_id'), fn($q) =>
-                         $q->whereIn('designation_id', $request->designation_id))
-                    ->when($request->filled('district_id'), fn($q) =>
-                         $q->whereIn('mdistrict.id', $request->district_id))
-                    ->orderBy('designation_id', 'asc')
-                    ->orderBy('employee_id', 'asc')
-                    ->get();
+            
+             $start_date = date('Y-m-d', strtotime($request->start_date));
+            $end_date   = date('Y-m-d', strtotime($request->end_date));
+            $employees = Employee::with(['department', 'designation', 'gatepasses' => function ($q) use ($start_date, $end_date, $request) {
+                $q->whereBetween('date', [$start_date, $end_date]);
+
+            }])
+            ->whereHas('gatepasses', function ($q) use ($start_date, $end_date, $request) {
+                $q->whereBetween('date', [$start_date, $end_date]);
+
+            })
+            ->whereIn('designation_id', $request->designation_id)
+            ->orderBy('employee_id', 'asc')
+            ->get();
 
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
@@ -179,6 +176,8 @@ class MovementPassReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.movementpass.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 

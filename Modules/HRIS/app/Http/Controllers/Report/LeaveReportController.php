@@ -77,6 +77,8 @@ class LeaveReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.leave.preview', compact('employees','title','uniqueDepartments'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueDepartments'))
                 ->setPaper('a4', 'portrait');
 
@@ -111,6 +113,8 @@ class LeaveReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.leave.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -147,6 +151,8 @@ class LeaveReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.leave.preview', compact('employees','title','uniqueEmployees'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueEmployees'))
                 ->setPaper('a4', 'portrait');
 
@@ -184,6 +190,8 @@ class LeaveReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.leave.preview', compact('employees','title','uniqueDistricts'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueDistricts'))
                 ->setPaper('a4', 'portrait');
 
@@ -217,6 +225,8 @@ class LeaveReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.leave.preview', compact('employees','title','uniqueOrganizations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '2048M');
+                ini_set('max_execution_time', '300');
                 $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueOrganizations'))
                 ->setPaper('a4', 'portrait');
 

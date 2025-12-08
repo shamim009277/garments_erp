@@ -66,6 +66,7 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
 use Modules\HRIS\Http\Controllers\Tools\EditExceptionalHolidayController;
 use Modules\HRIS\Http\Controllers\Report\SummaryReportController;
+use Modules\HRIS\Http\Controllers\Report\AutoGenerationReportController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -290,6 +291,8 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::get('/applicant-report/preview', [ApplicantReportController::class, 'previewData'])->name('applicant-report.form.preview');
             Route::post('/applicant-report/preview', [ApplicantReportController::class, 'preview'])->name('applicant-report.report.preview');
             Route::resource('applicant-report', ApplicantReportController::class)->names('applicant-report');
+            Route::get('/test-bangla-pdf', [ApplicantReportController::class, 'generateBanglaPDF']);
+
 
             //Increment Report
             Route::get('/increment-report/preview', [IncrementReportController::class, 'previewData'])->name('increment-report.form.preview');
@@ -300,6 +303,12 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::get('/summary-report/preview', [SummaryReportController::class, 'previewData'])->name('summary-report.form.preview');
             Route::post('/summary-report/preview', [SummaryReportController::class, 'preview'])->name('summary-report.report.preview');
             Route::resource('summary-report', SummaryReportController::class)->names('summary-report');
+
+            //autogeneration report
+            Route::get('/autogeneration-report/preview', [AutoGenerationReportController::class, 'previewData'])->name('autogeneration-report.form.preview');
+            Route::post('/autogeneration-report/preview', [AutoGenerationReportController::class, 'preview'])->name('autogeneration-report.report.preview');
+            Route::resource('autogeneration-report', AutoGenerationReportController::class)->names('autogeneration-report');
+
         });
 
         //Settings

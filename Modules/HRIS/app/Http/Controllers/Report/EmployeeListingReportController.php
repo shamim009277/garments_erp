@@ -84,6 +84,8 @@ class EmployeeListingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '4048M');
+                ini_set('max_execution_time', '600');
                 $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments'))
                 ->setPaper('a4', 'portrait');
 
@@ -124,6 +126,8 @@ class EmployeeListingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '4048M');
+                ini_set('max_execution_time', '600');
                 $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -159,6 +163,8 @@ class EmployeeListingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '4048M');
+                ini_set('max_execution_time', '600');
                 $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 
@@ -217,6 +223,8 @@ class EmployeeListingReportController extends Controller
             if($request->view_mode == 1){
                 return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
             }elseif($request->view_mode == 2){
+                ini_set('memory_limit', '4048M');
+                ini_set('max_execution_time', '600');
                 $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
                 ->setPaper('a4', 'portrait');
 

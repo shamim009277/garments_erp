@@ -177,10 +177,10 @@
 
     <!-- PDF Body -->
     @if($title == 1)
-    <h3 style="text-align:center; margin: 20px 0px;">Department-wise Daily Applicant of Employees</h3>
+    <h3 style="text-align:center; margin: 20px 0px;">Department-wise Date Range Applicant of Employees</h3>
     @endif
     @if($title == 2)
-    <h3 style="text-align:center; margin: 20px 0px;">Designation-wise Daily Applicant of Employees</h3>
+    <h3 style="text-align:center; margin: 20px 0px;">Designation-wise Date Range Applicant of Employees</h3>
     @endif
     @if($title == 3)
     <h3 style="text-align:center; margin: 20px 0px;">Employees Joined Within Date Range</h3>
@@ -194,14 +194,14 @@
         <table style="width: 100%;">
             <thead>
                 <tr>
-                    <th>SL</th>
+                     <th>SL</th>
                     <th>Employee ID</th>
-                    <th>Name</th>
+                    <th>Employee Name</th>
                     <th>Department</th>
                     <th>Designation</th>
                     <th>Category</th>
-                    <th>Join Date</th>
-                    <th>District</th>
+                    <th>Joining Date</th>
+                    <th>Entry Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -213,8 +213,8 @@
                         <td>{{ $employee->department->department ?? '' }}</td>
                         <td>{{ $employee->designation->designation ?? '' }}</td>
                         <td>{{ $employee->designation->category_code ?? '' }}</td>
-                        <td>{{ optional($employee->applicant)->entry_date ? \Carbon\Carbon::parse($employee->applicant->entry_date)->format('d-m-Y') : 'N/A' }}</td>
-                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
+                        <td>{{ $employee->joining_date ? date('d-m-Y', strtotime($employee->joining_date )) : 'N/A' }}</td>
+                        <td>{{ $employee->entry_date ? date('d-m-Y', strtotime($employee->entry_date )) : 'N/A' }}</td>
                     </tr>
                 @empty
                     <tr>
