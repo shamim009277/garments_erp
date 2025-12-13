@@ -46,41 +46,6 @@
                         Applicant List</h6>
                 </div>
                 <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
-                    {{-- <ul class="nav-custom">
-                        @foreach ($unique_department as $department)
-                            @php
-                                $applicant_department_wises = collect($applicants)
-                                    ->where('department_id', $department->department_id)
-                                    ->groupBy('entry_date')
-                                    ->all();
-                                $applicant_count = collect($applicants)->where('department_id', $department->department_id)->count();
-                            @endphp
-
-                            <li class="nav-custom-item">
-                                <input type="checkbox" id="dept{{ $department->department_id }}">
-                                <label class="nav-custom-link" for="dept{{ $department->department_id }}"><span class="nav-custom-caret"></span> {{ $department->department->department }} ({{ $applicant_count }})</label>
-                                <ul class="nav-custom-content">
-                                    @foreach ($applicant_department_wises as $key => $department_wises)
-                                        @php
-                                            $applicants_date_wises = collect($applicants)
-                                                ->where('department_id', $department->department_id)
-                                                ->where('entry_date', $key)
-                                                ->all();
-                                        @endphp
-                                        <li class="nav-custom-item">
-                                            <input type="checkbox" id="dept{{ $department->department_id }}-{{ $key }}">
-                                            <label class="nav-custom-link" for="dept{{ $department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})</label>
-                                            <div class="nav-custom-content">
-                                                @foreach ($applicants_date_wises as $applicant)
-                                                    <a href="javascript:void(0);" data-line="{{ $applicant->line }}" data-org_id="{{ $applicant->org_id }}" data-id="{{ $applicant->employee_id }}" data-department_id="{{ $applicant->department_id }}" data-final_designation_id="{{ $applicant->designation_id }}" data-district_id="{{ $applicant->district_id }}" data-joining_date="{{ $applicant->joining_date }}" data-name="{{ $applicant->name }}" class="employee-link">{{ $applicant->id }} :: {{ $applicant->employee_id }} :: {{ strtoupper($applicant->name) }}</a>
-                                                @endforeach
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
-                    </ul> --}}
                     @php
                         $companyWise = collect($applicants)->groupBy('org_id');
                     @endphp

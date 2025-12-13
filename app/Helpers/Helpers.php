@@ -152,4 +152,11 @@ function calculateLate($start_punch, $end_punch)
     return $workMinutes;
 }
 
+if (! function_exists('selected_org')) {
+    function selected_org($organizations, $uniqueApplicant = null, $default = 1)
+    {
+        return old('org_id', $uniqueApplicant->org_id ?? ($organizations->count() === 1 ? $organizations->keys()->first() : $default));
+    }
+}
+
 

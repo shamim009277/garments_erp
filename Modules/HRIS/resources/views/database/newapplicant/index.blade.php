@@ -53,39 +53,6 @@
                         Applicant List</h6>
                 </div>
                 <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
-                    {{-- <ul class="nav-custom">
-                        @foreach ($unique_department as $department)
-                            @php
-                                $applicant_date_wises = collect($pending_applicants)
-                                    ->where('department_id', $department->department_id)
-                                    ->groupBy('entry_date')
-                                    ->all();
-                            @endphp
-                            <li class="nav-custom-item">
-                                <input type="checkbox" id="dept{{ $department->department_id }}" {{ $unique_applicant && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
-                                <label class="nav-custom-link" for="dept{{ $department->department_id }}"><span class="nav-custom-caret"></span> {{ $department->department->department }} ({{ collect($pending_applicants)->where('department_id', $department->department_id)->count() }})</label>
-                                <ul class="nav-custom-content">
-                                    @foreach ($applicant_date_wises as $key => $applicants)
-                                        @php
-                                            $applicants_date_wises = collect($pending_applicants)
-                                                ->where('department_id', $department->department_id)
-                                                ->where('entry_date', $key)
-                                                ->all();
-                                        @endphp
-                                        <li class="nav-custom-item">
-                                            <input type="checkbox" id="dept{{ $department->department_id }}-{{ $key }}" {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'checked' : '' }}>
-                                            <label class="nav-custom-link" style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $department->department_id ? 'background-color: #EBF0F6;' : '' }}" for="dept{{ $department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($pending_applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})</label>
-                                            <div class="nav-custom-content">
-                                                @foreach ($applicants_date_wises as $applicant)
-                                                    <a href="{{ route('hris.database.new-applicants.show', $applicant->id) }}" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}" class="employee-link">{{ $applicant->id }} :: {{ strtoupper($applicant->name) }}</a>
-                                                @endforeach
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
-                    </ul> --}}
                     @php
                         $companyWise = collect($pending_applicants)->groupBy('org_id');
                     @endphp
@@ -162,11 +129,9 @@
                                                         </div>
                                                     </li>
                                                 @endforeach
-
                                             </ul>
                                         </li>
                                     @endforeach
-
                                 </ul>
                             </li>
                         @endforeach
