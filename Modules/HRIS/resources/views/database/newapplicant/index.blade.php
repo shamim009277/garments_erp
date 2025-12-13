@@ -217,9 +217,18 @@
                                         )" required readonly class="no-calendar" />
                                 </div>
                             @endif
+                            @php
+                                $selectedOrg = old('org_id', $unique_applicant->org_id ?? ($organizations->count() === 1 ? $organizations->keys()->first() : 1));
+                            @endphp
                             <div class="col-lg-4 col-md-6 pr-0">
-                                <x-select-search-input name="org_id" id="org_id" label="Organization"
-                                    :options="$organizations" :selected="old('org_id', $unique_applicant ? $unique_applicant->org_id : 1)" required />
+                                <x-select-search-input
+                                    name="org_id"
+                                    id="org_id"
+                                    label="Organization"
+                                    :options="$organizations"
+                                    :selected="$selectedOrg"
+                                    required
+                                />
                             </div>
                             <div class="col-lg-4 col-md-6 pr-0">
                                 <x-input-group name="name" label="Name" type="text" placeholder="Enter name"
