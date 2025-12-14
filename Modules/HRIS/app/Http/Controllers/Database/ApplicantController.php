@@ -36,7 +36,6 @@ class ApplicantController extends Controller
         $districts = District::active()->pluck('name', 'id');
         $lines = Line::active()->pluck('line', 'code');
         $organizations = Organization::active()->pluck('short_name', 'id');
-
         //\DB::enableQueryLog();
         $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation','organization:id,short_name'])
             ->active()

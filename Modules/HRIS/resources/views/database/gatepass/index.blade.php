@@ -27,7 +27,8 @@
                 <div class="card alert-primary alert-top-border padding-card">
                     <div class="card-header">
                         <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Input
-                            Parameters For Emp Gate Pass</h6>
+                            Parameters For Emp Gate Pass
+                        </h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -167,9 +168,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer" style="padding:10px 20px;">
-                        <x-primary-button id="submitBtn" type="submit"
-                            class="btn btn-sm btn-primary submitBtn">Submit</x-primary-button>
+                    <div class="card-footer px-3 py-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p id="message" class="mb-0" style="color:#FF6C37;font-weight:semi-bold"></p>
+                            <x-primary-button id="submitBtn" type="submit" class="btn btn-sm btn-primary submitBtn">Submit</x-primary-button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -292,7 +295,7 @@
                             let data = response.data ?? response;
 
                             if (data && Object.keys(data).length > 0) {
-
+                                $("#message").text('');
                                 $("#name").val(data.name || '');
                                 $("#designation").val(data.designation?.designation || '');
                                 $("#department").val(data.department?.department || '');
@@ -317,6 +320,17 @@
                         }
 
                     });
+                }else{
+                    $("#name").val('');
+                    $("#designation").val('');
+                    $("#department").val('');
+                    $("#join_date").val('');
+                    $("#mobile").val('');
+                    $("#nid_birth_certificate").val('');
+                    $("#photo").attr('src', "{{ asset('backend/assets/images/demo.png') }}");
+                    $("#designation_id").val('');
+                    $("#department_id").val('');
+                    $("#message").text('Employee ID must be exactly 6 digits');
                 }
             }
 

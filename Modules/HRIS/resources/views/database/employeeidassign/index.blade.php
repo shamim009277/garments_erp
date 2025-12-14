@@ -193,39 +193,6 @@
                                     <h6 class="my-0 text-primary">Applicant List For File Entry</h6>
                                 </div>
                                 <div class="card-body" style="min-height: 450px;max-height: 400px; overflow-y: auto;">
-                                    {{-- <ul class="nav-custom">
-                                        @foreach ($unique_selected_department as $selected_department)
-                                            @php
-                                                $applicant_date_wises = collect($selected_applicants)
-                                                    ->where('department_id', $selected_department->department_id)
-                                                    ->groupBy('entry_date')
-                                                    ->all();
-                                            @endphp
-                                            <li class="nav-custom-item">
-                                                <input type="checkbox" id="deptf{{ $selected_department->department_id }}" {{ $unique_applicant && $unique_applicant->department_id == $selected_department->department_id ? 'checked' : '' }}>
-                                                <label class="nav-custom-link" for="deptf{{ $selected_department->department_id }}"><span class="nav-custom-caret"></span> {{ $selected_department->department->department }} ({{ collect($selected_applicants)->where('department_id', $selected_department->department_id)->count() }})</label>
-                                                <ul class="nav-custom-content">
-                                                    @foreach ($applicant_date_wises as $key => $applicants)
-                                                        @php
-                                                            $applicants_date_wises = collect($selected_applicants)
-                                                                ->where('department_id', $selected_department->department_id)
-                                                                ->where('entry_date', $key)
-                                                                ->all();
-                                                        @endphp
-                                                        <li class="nav-custom-item">
-                                                            <input type="checkbox" id="deptf{{ $selected_department->department_id }}-{{ $key }}" {{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $selected_department->department_id ? 'checked' : '' }}>
-                                                            <label class="nav-custom-link" style="{{ $unique_applicant && $unique_applicant->entry_date == $key && $unique_applicant->department_id == $selected_department->department_id ? 'background-color: #EBF0F6;' : '' }}" for="deptf{{ $selected_department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($pending_applicants)->where('department_id', $selected_department->department_id)->where('entry_date', $key)->count() }})</label>
-                                                            <div class="nav-custom-content">
-                                                                @foreach ($applicants_date_wises as $applicant)
-                                                                    <a href="javascript:void(0);" data-id="{{ $applicant->id }}" data-final_designation_id="{{ $applicant->final_designation_id }}" style="{{ $unique_applicant && $unique_applicant->id == $applicant->id ? 'color: #FF6C37; background-color: #EBF0F6;' : '' }}" class="employee-link">{{ $applicant->id }} :: {{ $applicant->employee_id }} :: {{ strtoupper($applicant->name) }}</a>
-                                                                @endforeach
-                                                            </div>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </li>
-                                        @endforeach
-                                    </ul> --}}
                                     <ul class="nav-custom">
                                         @foreach ($grouped_selected_data as $org_id => $departments)
                                             @php

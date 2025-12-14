@@ -32,7 +32,6 @@ class EmployeeIDAssignController extends Controller
         $selected_applicants = $applicants->where('file_entry', 'Y');
         $organizations = Organization::active()->pluck('short_name', 'id');
 
-        // Group pending applicants for display
         $grouped_data = collect($pending_applicants)
             ->groupBy('org_id')
             ->map(function ($org_items) {

@@ -96,6 +96,7 @@
                                                                     data-line="{{ $applicant->line }}"
                                                                     data-org_id="{{ $applicant->org_id }}"
                                                                     data-id="{{ $applicant->employee_id }}"
+                                                                    data-applicant_id="{{ $applicant->id }}"
                                                                     data-department_id="{{ $applicant->department_id }}"
                                                                     data-final_designation_id="{{ $applicant->designation_id }}"
                                                                     data-district_id="{{ $applicant->district_id }}"
@@ -134,6 +135,12 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0 pe-md-0">
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                                             <tr>
+                                                <th width="30%" style="border: none;">Applicant ID</th>
+                                                <td width="70%" style="border: none;"><x-text-input name="applicant_id"
+                                                        id="applicant_id" class="form-control-sm" placeholder="Applicant ID"
+                                                        required readonly /></td>
+                                            </tr>
+                                            <tr>
                                                 <th width="30%" style="border: none;">Emp ID</th>
                                                 <td width="70%" style="border: none;"><x-text-input name="employee_id"
                                                         id="employee_id" class="form-control-sm" placeholder="Employee ID"
@@ -157,10 +164,6 @@
                                                     <x-text-input name="joining_date" id="joining_date" type="date"
                                                         class="form-control-sm" placeholder="Joining Date" required />
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th style="border: none;">&nbsp; &nbsp;</th>
-                                                <td style="border: none;">&nbsp; &nbsp;</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -278,7 +281,7 @@
                                     <tr>
                                         <th width="30%" style="border: none;">Organization </th>
                                         <td width="70%" style="border: none;"><x-select-input name="org_id"
-                                                id="org_id" class="select2" :options="$organizations" selected="1"
+                                                id="org_id" class="select2" :options="$organizations" :selected="selected_org($organizations)"
                                                 required /></td>
                                     </tr>
                                     <tr>
@@ -473,6 +476,7 @@
 
             $('.employee-link').on('click', function() {
                 const id = $(this).data('id');
+                const applicantId = $(this).data('applicant_id');
                 const departmentId = $(this).data('department_id');
                 const orgId = $(this).data('org_id') ?? 1;
                 const line = $(this).data('line');
@@ -483,6 +487,7 @@
                 const name = $(this).data('name');
 
                 $('#employee_id').val(id);
+                $('#applicant_id').val(applicantId);
                 $('#department_id').val(departmentId).change();
                 $('#org_id').val(orgId).change();
                 $('#line').val(line).change();
