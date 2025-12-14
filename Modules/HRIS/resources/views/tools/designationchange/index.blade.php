@@ -97,7 +97,7 @@
                                         </tr>
                                         <tr>
                                             <th>New Organization</th>
-                                            <td><x-select-input name="new_org_id" id="new_org_id" class="select2" :options="$organizations" selected="{{ old('reason',1) }}" required /></td>
+                                            <td><x-select-input name="new_org_id" id="new_org_id" class="select2" :options="$organizations" :selected="selected_org($organizations)" required /></td>
                                         </tr>
                                         <tr>
                                             <th>Reason</th>

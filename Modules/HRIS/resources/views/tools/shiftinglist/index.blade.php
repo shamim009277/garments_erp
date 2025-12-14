@@ -97,7 +97,7 @@
                                                 <label class="m-0" for="all_organization">All Org</label>
                                             </td>
                                             <td width="60%" id="all_organization_section">
-                                                <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" :selected="1" placeholder="Select Organization" />
+                                                <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" :selected="selected_org($organizations)" placeholder="Select Organization" />
                                             </td>
                                         </tr>
                                         <tr>

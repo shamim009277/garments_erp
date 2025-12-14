@@ -52,8 +52,6 @@ class ShiftingListController extends Controller
             $start_date = Carbon::createFromDate($year, 1, 1);
             $end_date   = Carbon::createFromDate($year, 12, 31);
 
-            //$employees = Employee::active()->whereIn('department_id', $request->department_id)->get();
-
             $employees = Employee::active()->whereIn('department_id', $request->department_id)->when($request->filled('organization_id'), function ($q) use ($request) {
                         $q->where('org_id', $request->organization_id);
                     })->get();

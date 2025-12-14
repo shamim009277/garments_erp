@@ -258,7 +258,6 @@
             }
 
             $('#start_date,#end_date').trigger('change');
-
             function employeeInfo() {
                 let employeeId = $("#employee_id").val();
 

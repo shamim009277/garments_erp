@@ -32,8 +32,9 @@ class EditShiftingListController extends Controller
     public function store(Request $request)
     {
         if ($request->form == 1) {
+            $date = Carbon::parse($request->date);
             $shiftingLists = ShiftingList::with('employeeBasic')
-                ->where('date', $request->date)
+                ->where('date', $date)
                 ->get();
 
             return response()->json([

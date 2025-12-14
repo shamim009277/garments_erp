@@ -45,7 +45,7 @@
                                         <tr>
                                             <td colspan="2" style="width: 100%">
                                                 <x-select-input name="org_id" id="org_id" class="select2"
-                                                    :options="$organizations" :selected="old('org_id', '1')" placeholder="Select" required />
+                                                    :options="$organizations" :selected="selected_org($organizations)" placeholder="Select" required />
                                             </td>
                                         </tr>
                                         <tr>

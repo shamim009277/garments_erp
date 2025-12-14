@@ -35,6 +35,16 @@ class ShiftingList extends Model
         static::updating(function ($shifting_list) {
             $shifting_list->updated_by = Auth::id();
         });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
+        });
     }
 
     public function employeeBasic():BelongsTo
