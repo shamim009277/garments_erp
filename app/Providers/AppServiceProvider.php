@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         }));
 
         View::share('ornizations_data', cache()->remember('ornizations_data', 3600, function () {
-            return Organization::active()->select('name','bn_name','short_name','address','email','phone','icon_name','path')->get();
+            return Organization::active()->select('id','name','bn_name','short_name','address','email','phone','icon_name','path')->get();
         }));
 
         // Holidays

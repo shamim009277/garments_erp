@@ -332,8 +332,7 @@
                         </div>
                     </div>
                     <div class="card-footer" style="padding:14px 20px;">
-                        <x-primary-button
-                            class="float-start btn-sm submitBtn">{{ $unique_applicant ? 'Update' : 'Submit' }}</x-primary-button>
+                        <x-primary-button class="float-start btn-sm submitBtn">{{ $unique_applicant ? 'Update' : 'Submit' }}</x-primary-button>
                     </div>
                 </div>
             </form>

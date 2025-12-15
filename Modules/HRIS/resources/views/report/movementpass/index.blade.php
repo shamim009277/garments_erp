@@ -151,7 +151,7 @@
                                                         <label class="m-0" for="all_category">All Purpose</label>
                                                     </th>
                                                     <td id="all_category_section">
-                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$gatepass_purposes" placeholder="Category ID" disabled />
+                                                        <x-select-input name="purpose_id" id="purpose_id" class="select2" :options="$gatepass_purposes" placeholder="Select Purpose" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -169,13 +169,13 @@
                                                 <tr>
                                                     <th width="40%">Month</th>
                                                     <td width="60%">
-                                                        <x-select-input name="month" id="month" class="select2" :options="['1' => 'January', '2' => 'February', '3' => 'March', '4' => 'April', '5' => 'May', '6' => 'June', '7' => 'July', '8' => 'August', '9' => 'September', '10' => 'October', '11' => 'November', '12' => 'December']" selected="{{ old('month', 1) }}" placeholder="Month" />
+                                                        <x-select-input name="month" id="month" class="select2" :options="$months" selected="{{ old('month', $currentMonth) }}" placeholder="Month" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">Organization</th>
                                                     <td width="60%">
-                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
+                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" :selected="selected_org($organizations)" placeholder="Organization" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -188,7 +188,7 @@
                                         </table>
                                     </div>
                                     <div class="card-footer" style="padding:10px 15px;">
-                                        <button type="submit" class="btn btn-sm btn-primary float-end">Preview</button>
+                                        <button type="submit" class="btn btn-sm btn-primary float-end"><i data-feather="plus" style="width: 16px; height: 16px;"></i> Preview</button>
                                     </div>
                                 </div>
                             </div>
@@ -239,30 +239,25 @@
         $('#check_all').on('click', function () {
             $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
         });
-
         $('#uncheck_all').on('click', function () {
             $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
         });
-
         $('#check_all2').on('click', function () {
             $('.designationID').prop('checked', true);
         });
-
         $('#uncheck_all2').on('click', function () {
             $('.designationID').prop('checked', false);
         });
 
         // Handle All Category and Line
 
-        handleToggle('#all_category', '#category_id', '#all_category_section');
-
+        handleToggle('#all_category', '#purpose_id', '#all_category_section');
         $('#all_category').on('change', function () {
-            handleToggle('#all_category', '#category_id', '#all_category_section');
+            handleToggle('#all_category', '#purpose_id', '#all_category_section');
         });
 
         function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
             const isChecked = $(checkboxSelector).is(':checked');
-
             $(selectSelector)
                 .prop('disabled', isChecked)
                 .val(null).trigger('change');
@@ -333,5 +328,4 @@
         }
     }
 </script>
-
 @endpush
