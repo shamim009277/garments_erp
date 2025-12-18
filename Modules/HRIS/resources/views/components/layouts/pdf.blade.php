@@ -172,21 +172,16 @@
     <x-hris::reports.footer />
 
     <!-- PDF Body -->
-    @if($title == 1)
-        <h3 style="text-align:center; font-size: 12px; margin-top: -10px;">Department-wise Monthly Movement Pass</h3>
-        <p style="text-align:center; font-size: 10px; font-weight: bold; margin-top: -15px;">Month: {{ $months[$month] ?? '' }}</p>
+    @if(!empty($reportTitle))
+        <h3 style="text-align:center; font-size:12px; margin-top:-10px;">
+            {{ $reportTitle }}
+        </h3>
     @endif
-    @if($title == 2)
-        <h3 style="text-align:center; font-size: 12px; margin-top: -10px;">Designation-wise Monthly Movement Pass</h3>
-        <p style="text-align:center; font-size: 10px; font-weight: bold; margin-top: -15px;">Month: {{ $months[$month] ?? '' }}</p>
-    @endif
-    @if($title == 3)
-        <h3 style="text-align:center; font-size: 12px; margin-top: -10px;">Department-wise Dates Movement Pass</h3>
-        <p style="text-align:center; font-size: 10px; font-weight: bold; margin-top: -15px;">Date Range: {{ $start_date }} To {{ $end_date }}</p>
-    @endif
-    @if($title == 4)
-        <h3 style="text-align:center; font-size: 12px; margin-top: -10px;">Designation-wise Dates Movement Pass</h3>
-        <p style="text-align:center; font-size: 10px; font-weight: bold; margin-top: -15px;">Date Range: {{ $start_date }} To {{ $end_date }}</p>
+
+    @if(!empty($reportSubTitle))
+        <p style="text-align:center; font-size:10px; font-weight:bold; margin-top:-15px;">
+            {{ $reportSubTitle }}
+        </p>
     @endif
 
     @yield('content')

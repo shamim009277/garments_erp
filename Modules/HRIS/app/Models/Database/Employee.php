@@ -147,11 +147,11 @@ class Employee extends Model
     }
 
     public function department() {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class,'department_id','id');
     }
 
     public function designation() {
-        return $this->belongsTo(Designation::class);
+        return $this->belongsTo(Designation::class,'designation_id','id');
     }
 
     public function organization() {

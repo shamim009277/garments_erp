@@ -20,7 +20,7 @@ class EmployeeListingReportController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:hris.listing-report.view')->only('index','previewData','preview');
+        $this->middleware('permission:hris.employee-listings.view')->only('index','previewData','preview');
     }
     /**
      * Display a listing of the resource.
@@ -50,7 +50,7 @@ class EmployeeListingReportController extends Controller
             'view_mode' => 'required|string|min:1|max:1',
             'organization_id' => 'required|integer|min:1|max:1',
         ]);
-
+        $orgid = $request->organization_id;
         if($request->title == 1){
             $request->validate([
                 'department_id' => 'required|array',
@@ -86,11 +86,11 @@ class EmployeeListingReportController extends Controller
             $title = $request->title;
 
             if($request->view_mode == 1){
-                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments'));
+                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '4048M');
                 ini_set('max_execution_time', '600');
-                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments'))
+                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','orgid'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
@@ -128,11 +128,11 @@ class EmployeeListingReportController extends Controller
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
             if($request->view_mode == 1){
-                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
+                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '4048M');
                 ini_set('max_execution_time', '600');
-                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
+                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
@@ -140,8 +140,8 @@ class EmployeeListingReportController extends Controller
         }elseif($request->title == 3){
             $request->validate([
                 'department_id' => 'required|array',
-                'start_date' => 'required|array',
-                'end_date' => 'required|array',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
             ]);
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
                     ->whereIn('department_id', $request->department_id)
@@ -164,12 +164,14 @@ class EmployeeListingReportController extends Controller
             $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
+            $start_date = date('Y-m-d', strtotime($request->start_date));
+            $end_date   = date('Y-m-d', strtotime($request->end_date));
             if($request->view_mode == 1){
-                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
+                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid','start_date','end_date'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '4048M');
                 ini_set('max_execution_time', '600');
-                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
+                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid','start_date','end_date'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
@@ -225,11 +227,11 @@ class EmployeeListingReportController extends Controller
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
             if($request->view_mode == 1){
-                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
+                return view('hris::report.employeelisting.preview', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '4048M');
                 ini_set('max_execution_time', '600');
-                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
+                $pdf = Pdf::loadView('hris::report.employeelisting.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');

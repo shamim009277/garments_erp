@@ -18,157 +18,47 @@
                 <div class="card-header">
                     @if($title == 1)
                         <h6 class="my-0 text-primary text-center">Department-wise Daily Shift</h6>
+                        <p class="ms-auto text-center">Date Range: {{ $startDate }} To {{ $endDate }}</p>
                     @elseif($title == 2)
                         <h6 class="my-0 text-primary text-center">Designation-wise Daily Shift</h6>
+                        <p class="ms-auto text-center">Date Range: {{ $startDate }} To {{ $endDate }}</p>
                     @elseif($title == 3)
                         <h6 class="my-0 text-primary text-center">Department-wise Monthly Shift</h6>
+                        <p class="ms-auto text-center">Month: {{ $months[$month] }} {{ $year }}</p>
                     @elseif($title == 4)
                         <h6 class="my-0 text-primary text-center">Designation-wise Monthly Shift</h6>
+                        <p class="ms-auto text-center">Month: {{ $months[$month] }} {{ $year }}</p>
                     @endif
-                    <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
                 </div>
-                @if($title == 1)
+                @if($title == 1 || $title == 2 || $title == 3 || $title == 4)
                 <div class="card-body">
                     <div style="overflow-x: auto;">
                         <table class="table table-bordered table-hover table-striped" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>SL</th>
-                                    <th>Employee ID</th>
+                                    <th class="text-center">Organization</th>
+                                    <th class="text-center">Employee ID</th>
                                     <th>Employee Name</th>
                                     <th>Department</th>
                                     <th>Designation</th>
-                                    <th>Category</th>
-                                    <th>Joining Date</th>
-                                    <th>District</th>
+                                    <th class="text-center">Category</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Shift</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employees as $employee)
+                                @foreach ($shifts as $shift)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->department->department }}</td>
-                                        <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                        <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @elseif($title == 2)
-                <div class="card-body">
-                    <div style="overflow-x: auto;">
-                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Category</th>
-                                    <th>Joining Date</th>
-                                    <th>District</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($uniqueDesignations as $designation)
-                                    <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
-                                        <td></td>
-                                        <td style="text-align: center; color: #5156be;">{!! $designation->designation !!}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <?php $sl1 = 1; ?>
-                                    @foreach ($employees as $employee)
-                                    @if($employee->designation_id == $designation->id)
-                                        <tr>
-                                            <td>{{ $sl1 }}</td>
-                                            <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
-                                            <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                            <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                            <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                                        </tr>
-                                        <?php $sl1++; ?>
-                                    @endif
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @elseif($title == 3)
-                <div class="card-body">
-                    <div style="overflow-x: auto;">
-                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Category</th>
-                                    <th>Joining Date</th>
-                                    <th>District</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employees as $employee)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->department->department }}</td>
-                                        <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                        <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @elseif($title == 4)
-                <div class="card-body">
-                    <div style="overflow-x: auto;">
-                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Category</th>
-                                    <th>Blood Group</th>
-                                    <th>District</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employees as $employee)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->department->department }}</td>
-                                        <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                        <td>{{ $employee->employeePersonal->blood_group }}</td>
-                                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
+                                        <td class="text-center">{{ $shift->employeeBasic->organization->short_name }}</td>
+                                        <td class="text-center">{{ str_pad($shift->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
+                                        <td>{{ $shift->employeeBasic->name }}</td>
+                                        <td>{{ $shift->employeeBasic->department->department }}</td>
+                                        <td>{{ $shift->employeeBasic->designation->designation }}</td>
+                                        <td class="text-center">{{ $shift->employeeBasic->designation->category_code }}</td>
+                                        <td class="text-center">{{ date('d-m-Y',strtotime($shift->date)) }}</td>
+                                        <td class="text-center">{{ $shift->shift }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

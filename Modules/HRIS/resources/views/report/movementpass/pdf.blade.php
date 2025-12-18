@@ -36,28 +36,34 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($datas as $key => $data)
+                @if(count($datas) > 0)
+                    @foreach ($datas as $key => $data)
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                            <td>{{ str_pad($data->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
+                            <td>{{ $data->employee->name }}</td>
+                            <td>{{ $data->department->department }}</td>
+                            <td>{{ $data->designation->designation }}</td>
+                            <td>{{ $data->date }}</td>
+                            <td>{{ date('h:i A', strtotime($data->start_time)) }}</td>
+                            <td>{{ date('h:i A', strtotime($data->end_time)) }}</td>
+                            <td>
+                                @if($data->start_time && $data->end_time)
+                                    {{ \Carbon\Carbon::parse($data->start_time)->diff(\Carbon\Carbon::parse($data->end_time))->format('%h:%I') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>{{ $data->purpose->purpose ?? '-' }}</td>
+                            <td>{{ $data->reason->reason }}</td>
+                            <td>{{ $data->approvedBy->name }}</td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
-                        <td>{{ $key+1 }}</td>
-                        <td>{{ str_pad($data->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                        <td>{{ $data->employee->name }}</td>
-                        <td>{{ $data->department->department }}</td>
-                        <td>{{ $data->designation->designation }}</td>
-                        <td>{{ $data->date }}</td>
-                        <td>{{ date('h:i A', strtotime($data->start_time)) }}</td>
-                        <td>{{ date('h:i A', strtotime($data->end_time)) }}</td>
-                        <td>
-                            @if($data->start_time && $data->end_time)
-                                {{ \Carbon\Carbon::parse($data->start_time)->diff(\Carbon\Carbon::parse($data->end_time))->format('%h:%I') }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                        <td>{{ $data->purpose->purpose ?? '-' }}</td>
-                        <td>{{ $data->reason->reason }}</td>
-                        <td>{{ $data->approvedBy->name }}</td>
+                        <td colspan="12" style="text-align: center; vertical-align: middle;color:#FF6C37">No Data Found <br> <small>Try to change the date range or filter</small></td>
                     </tr>
-                @endforeach
+                @endif
             </tbody>
         </table>
     @endif

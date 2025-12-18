@@ -193,13 +193,13 @@
                                                 <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="start_date[]" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="end_date[]" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
