@@ -144,7 +144,7 @@ class AutoGenerationReportController extends Controller
                 }
 
                 return $mpdf->Output('joining_letter.pdf', 'I');
-            }else if($request->title == 2){
+            }else if($request->title == 2 || $request->title == 3 || $request->title == 4 || $request->title == 5){
                 //Appointment Letter
                 $employees = DB::table('hris_database_employee_basic as e')
                     ->leftJoin('hris_database_employee_salary as s', 'e.employee_id', '=', 's.employee_id')
@@ -153,18 +153,40 @@ class AutoGenerationReportController extends Controller
                     ->leftJoin('hris_setup_departments as d', 'e.department_id', '=', 'd.id')
                     ->leftJoin('hris_setup_designations as des', 'e.designation_id', '=', 'des.id')
                     ->leftJoin('hris_setup_thanas as t', 'b.mthana_id_bangla', '=', 't.id')
+                    ->leftJoin('hris_setup_thanas as t_p', 'b.pthana_id_bangla', '=', 't_p.id')
+                    ->leftJoin('hris_setup_thanas as t_n', 'b.nthana_id_bangla', '=', 't_n.id')
                     ->leftJoin('hris_setup_districts as dis', 'b.mdistrict_id_bangla', '=', 'dis.id')
+                    ->leftJoin('hris_setup_districts as dis_p', 'b.pdistrict_id_bangla', '=', 'dis_p.id')
+                    ->leftJoin('hris_setup_districts as dis_n', 'b.ndistrict_id_bangla', '=', 'dis_n.id')
                     ->select(
                         'e.employee_id as emp_id',
                         'e.employee_id',
+                        'e.joining_date',
+                        'e.grade',
                         'b.name_bangla',
                         'b.fname_bangla',
                         'b.mname_bangla',
                         'b.mvillage_bangla',
+                        'b.pvillage_bangla',
                         'b.mpost_office_bangla',
+                        'b.ppost_office_bangla',
+                        'b.relation_bangla',
+                        'b.identification',
+                        'b.nname_bangla',
+                        'b.nmobile_number',
+                        'b.nvillage_bangla',
+                        'b.npost_office_bangla',
                         'p.mobile',
+                        'p.national_id',
+                        'p.birth_certificate',
+                        'p.birth_date',
+                        'p.sex_code',
                         't.bn_name as thana_name',
+                        't_p.bn_name as thana_name_p',
+                        't_n.bn_name as thana_name_n',
                         'dis.bn_name as district_name',
+                        'dis_p.bn_name as district_name_p',
+                        'dis_n.bn_name as district_name_n',
                         'd.department_bn as department_name',
                         'des.designation_bn as designation_name',
                         's.gross_salary as basic_salary',
@@ -229,9 +251,9 @@ class AutoGenerationReportController extends Controller
                     }
                 }
 
-                return $mpdf->Output('appointment_letter.pdf', 'I');
+                return $mpdf->Output('autogeneration.pdf', 'I');
             }else if($request->title == 3){
-                //
+                
             }else if($request->title == 4){
                 //
             }else if($request->title == 5){

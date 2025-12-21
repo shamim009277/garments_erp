@@ -17,10 +17,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class MovementPassReportController extends Controller
 {
-    function __construct()
+    /* function __construct()
     {
         $this->middleware('permission:hris.movement-pass.view')->only('index','previewData','preview');
-    }
+    } */
     /**
      * Display a listing of the resource.
      */
@@ -81,7 +81,7 @@ class MovementPassReportController extends Controller
             $title = $request->title;
 
             if($request->view_mode == 1){
-                return view('hris::report.movementpass.pdf', compact('employees','title','uniqueDesignations'));
+                return view('hris::report.movementpass.preview', compact('employees','title','uniqueDesignations'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
