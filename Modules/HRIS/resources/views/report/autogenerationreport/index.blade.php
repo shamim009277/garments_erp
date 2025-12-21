@@ -70,18 +70,22 @@
                                             <label class="form-check-label" for="title2">Appointment Letter</label>
                                         </div>
 
-                                       {{--  <div class="form-check">
+                                        <div class="form-check">
                                             <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
-                                            <label class="form-check-label" for="title3">Department-wise Daily Autogeneration Entry (New)</label>
+                                            <label class="form-check-label" for="title3">Nominee</label>
                                         </div>
 
                                         <div class="form-check">
                                             <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
-                                            <label class="form-check-label" for="title4">Designation-wise Daily Autogeneration Entry (New)</label>
-                                        </div> --}}
-                                         <div class="form-check">
+                                            <label class="form-check-label" for="title4">Age</label>
+                                        </div>
+                                        <div class="form-check">
                                             <input type="radio" id="title5" name="title" value="5"class="form-check-input titles">
-                                            <label class="form-check-label" for="title5">Autogeneration Temporary ID Card</label>
+                                            <label class="form-check-label" for="title5">Referance</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="title6" name="title" value="6"class="form-check-input titles">
+                                            <label class="form-check-label" for="title6">Autogeneration Permanent ID Card</label>
                                         </div>
                                     </div>
                                 </div>
@@ -356,7 +360,7 @@
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
         } else if (selectedValue == '4') {
-            $('.departmentID').prop('disabled', false);
+            $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', false);
             $('#start_date').prop('disabled', true);
@@ -364,7 +368,7 @@
         } else if (selectedValue == '5') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
-            $('.blood_group').prop('disabled', false);
+            $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
         } else {

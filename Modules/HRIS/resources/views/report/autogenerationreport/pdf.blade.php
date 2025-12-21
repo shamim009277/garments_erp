@@ -73,6 +73,30 @@
     text-align: justify;
     line-height: 1.2;
 }
+.nominee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.nominee-table th,
+.nominee-table td {
+    border: 1px solid #000;
+    padding: 5px;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.nominee-table th {
+    text-align: center;
+    font-weight: bold;
+}
+
+.signature-footer{
+    position: fixed;
+    bottom: 30px;   /* page bottom থেকে একটু উপরে */
+    left: 40px;
+    right: 40px;
 
 
     .content { margin-top: 20px; font-size: 14px; line-height: 1.6; }
@@ -158,19 +182,53 @@
     <table class="info-table font-body">
         <tr>
             <td>নাম : {{ $employee->name_bangla }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
             <td>পিতার নাম : {{ $employee->fname_bangla }}</td>
-        </tr>
-        <tr>
             <td>মাতার নাম : {{ $employee->mname_bangla ?? '---------'}} </td>
-            <td>মোবাইল : {{ $employee->mobile ?? '---------'}} </td>
+            <td></td>
         </tr>
         <tr>
-            <td>বর্তমান ঠিকানা : {{ $employee->mvillage_bangla }}, {{ $employee->mpost_office_bangla }}</td>
-            <td>জেলা : {{ $employee->district_name }}</td>
+            <td>স্বামী/স্ত্রীর নাম : {{ $employee->relation_bangla ?? '---------'}} </td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
-            <td>যোগদান তারিখ : {{ date('d/m/Y', strtotime($employee->joining_date)) }}</td>
-            <td>পদবী : {{ $employee->designation_name }}</td>
+            <td>বর্তমান ঠিকানা : গ্রাম : {{ $employee->pvillage_bangla }} থানা  : {{ $employee->thana_name_p }} <br> &emsp;&emsp;&emsp;&emsp; ডাকঘর :{{ $employee->ppost_office_bangla }} জেলা : {{ $employee->district_name_p }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+         <tr>
+            <td>স্থায়ী ঠিকানা : গ্রাম : {{ $employee->mvillage_bangla }} থানা  : {{ $employee->thana_name }} <br> &emsp;&emsp;&emsp;&emsp; ডাকঘর :{{ $employee->mpost_office_bangla }} জেলা : {{ $employee->district_name }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+         <tr>
+            <td>জাতীয় পরিচয়পত্র নং : {{ $employee->national_id ?? '---------'}} </td>
+            <td>জন্ম নিবন্ধনপত্র নং : {{ $employee->birth_certificate ?? '---------'}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>সনাক্তকরণ চিহ্ন(যদি থাকে) : {{ $employee->identification ?? '---------'}} </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>জন্ম তারিখ : {{ $employee->birth_date ?? '---------'}} </td>
+            <td> কাজে যোগদানের তারিখ : {{ $employee->joining_date ?? '---------'}} </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>আপনার আবেদনের প্রেক্ষিতে আপনাকে {{  $employee->designation_name ?? '---------'}}  পদে </td>
+            <td>নিয়োগ করা হইলো। গ্রেড নং {{ $employee->grade ?? '---------'}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>আপনার কার্ড নং : {{ $employee->emp_id ?? '---------'}}</td>
+            <td></td>
+            <td></td>
         </tr>
     </table>
 
@@ -396,6 +454,11 @@
             <td> </td>
             <td>আমি এই মর্মে ঘোষনা করছি যে, আমি কারও দ্বারা প্ররোচিত বা প্রলুব্ধ না হয়ে, কারও কোনরুপ জোর-জবরদস্তি ছাড়াই স্বজ্ঞানে ও স্বেচ্ছাই অত্র কারখানায় যোগদান করছি । আমি আরও অঙ্গিকার করছি যে, এই প্রতিষ্ঠানের সকল নিয়ম কানুন সর্বদা মেনে চলব।</td>
         </tr>
+        <tr>
+        <td> </td>
+        <td>আমি  {{ $employee->name_bangla }} স্বজ্ঞানে ও স্বেচ্ছায় এই নিয়োগ পত্রের সকল শর্ত মেনে ও বুঝে স্বাক্ষর করলাম এবং এই নিয়োগ পত্রের এক কপি বুঝে পেলাম ৷
+ </td>
+        </tr>
         
     </table>
 
@@ -441,8 +504,563 @@
         </tr>
     </table>
     @elseif($title == 3)
+    <?php 
+
+        $dob =  Carbon\Carbon::parse($employee->birth_date);
+        $today =  Carbon\Carbon::today();
+
+        $diff = $dob->diff($today);
+
+        $years  = $diff->y;
+        $months = $diff->m;
+        $days   = $diff->d;
+
+        $ageFull = "{$years} বছর {$months} মাস {$days} দিন";
+
+
+    ?>
+        <div class="font-bold" style="text-align: center">
+            মনোনয়ন ফরম – ৪১ <br>
+            [ধারা-১৯, ১৩১(১)(ক), ১৫৫(২), ২৩৪, ২৬৪, ২৬৫ ও ২৭৩ এবং বিধি ১১৮(১), ১৩৬, ২৩২ (২), ২৬২(১), ২৮৯(১) ও ৩২১(১) দ্রষ্টব্য] 
+        </div>
+        <div class="title">
+            (জমা ও বিভিন্নখাতে প্রাপ্য অর্থ পরিশোধের ঘোষনা ও মনোনয়ন ফরম)
+        </div>
+
+        <!-- Employee Info -->
+        <table class="info-table">
+            <tr>
+                <td class="label">১। শ্রমিকের নাম ও ঠিকানা</td>
+                <td class="value">: {{ $employee->name_bangla }}</td>
+                <td class="label" style="text-align: right">লিঙ্গ</td>
+                <td class="value">: @if($employee->sex_code == 'M') পুরুষ @else মহিলা @endif</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td> গ্রাম : {{ $employee->pvillage_bangla }}</td>
+                <td>ডাকঘর : {{ $employee->ppost_office_bangla }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td> থানা : {{ $employee->thana_name_p }}</td>
+                <td>জেলা : {{ $employee->district_name_p }}</td>
+            </tr>
+
+            <tr>
+                <td>২। পিতার নাম</td>
+                <td>: {{ $employee->fname_bangla }}</td>
+                <td>৩। স্বামী/স্ত্রীর নাম</td>
+                <td>: {{ $employee->relation_bangla }}</td>
+            </tr>
+            <tr>
+                <td>৪। মাতার নাম</td>
+                <td>: {{ $employee->mname_bangla }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>৫। জন্ম তারিখ</td>
+                <td>: {{ date('yy-m-d', strtotime($employee->birth_date ?? now())) }}</td>
+                <td>বয়স</td>
+                <td>: {{ $ageFull }}</td>
+            </tr>
+            <tr>
+                <td>৬। সনাক্তকরণ চিহ্ন(যদি থাকে)</td>
+                <td>: {{ $employee->identification ?? '---------'}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>৭। স্থায়ী ঠিকানা</td>
+                <td> গ্রাম : {{ $employee->mvillage_bangla }}</td>
+                <td>ডাকঘর : {{ $employee->mpost_office_bangla }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td> থানা : {{ $employee->thana_name }}</td>
+                <td>জেলা : {{ $employee->district_name }}</td>
+            </tr>
+
+            <tr>
+                <td>৮। মোবাইল নম্বর</td>
+                <td>: {{ $employee->mobile ?? '01XXXXXXXXX' }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>৯। চাকুরীতে যোগদানের তারিখ</td>
+                <td>: {{ $employee->joining_date ?? '' }}</td>
+                <td>১০। পদের নাম</td>
+                <td>: {{ $employee->designation_name }}</td>
+            </tr>
+        </table>
+
+        <!-- Declaration -->
+        <div class="declaration">
+        আমি {{ $employee->name_bangla }} এতদ্বারা ঘোষনা করিতেছি যে, আমার মৃত্যু হইলে বা আমার অবর্তমানে, আমার অনুকুলে জমা ও বিভিন্নখাতে <br>
+        প্রাপ্য টাকা গ্রহনের জন্য আমি নিম্নবর্নিত ব্যক্তিকে / ব্যক্তিগনকে মনোনয়ন দান করিতেছি এবং নির্দেশ দিচ্ছি যে, উক্ত টাকা নিম্নবর্নিত পদ্ধতিতে মনোনীত <br>  
+        ব্যক্তিদের মধ্যে বণ্টন করিতে হইবেঃ
+
+        </div>
+
+        <!-- Nominee Table -->
+        <table class="nominee-table info-table">
+            <tr>
+                <td width="30%">মনোনীত ব্যক্তি/ব্যক্তিদের নাম, ঠিকানা ও ছবি <br>  (নমিনির ছবি ও স্বাক্ষর শ্রমিককর্তৃক সত্যায়িত) <br> এন আইডি নং</td>
+                <td width="15%">সম্পর্ক</td>
+                <td width="10%">বয়স</td>
+                <td width="25%">প্রাপ্য অর্থের বিবরণ</td>
+                <td width="10%">অংশ</td>
+            </tr>
+            <tr>
+                <td width="30%" align="center">(১)</td>
+                <td width="15%" align="center">(২)</td>
+                <td width="10%" align="center">(৩)</td>
+                <td width="25%" align="center">(৪)</td>
+                <td width="10%" align="center">(৫)</td>
+            </tr>
+
+            <tr>
+                <td class="font-bold">
+                    নমিনির নাম : {{ $employee->nname_bangla }} <br>
+                    পিতা/স্বামী : {{ $employee->name_bangla }} <br>
+                    গ্রাম : {{ $employee->nvillage_bangla }} <br>
+                    পোষ্ট : {{ $employee->npost_office_bangla }} <br>
+                    থানা : {{ $employee->thana_name_n }} <br>
+                    জেলা : {{ $employee->district_name_n }}<br>
+                    এন আইডি : {{ $employee->national_id }} <br>
+                    মোবাইল : {{ $employee->nmobile_number }}
+                </td>
+                <td align="center">Brother</td>
+                <td align="center">২০ বছর</td>
+                <td>
+                    জমাপ্রাপ্ত <br>
+                    বকেয়া মজুরী <br>
+                    প্রভিডেন্ট ফান্ড <br>
+                    বীমা <br>
+                    দূর্ঘটনার ক্ষতিপূরন <br>
+                    লভ্যাংশ <br>
+                    অন্যান্য <br>
+                    মোট
+                </td>
+                <td align="center">১০০%</td>
+            </tr>
+        </table>
+        <table class="info-table">
+            <tr>
+                <td>প্রত্যায়ন করিতেছি যে, আমার উপস্থিতিতে জনাব/জনাবা</td>
+                <td>: {{ $employee->nname_bangla ?? '' }}</td>
+                <td></td>
+                <td>লিপিবদ্ধ বিবরণসমূহ পাঠ করিবার পর</td>
+            </tr>
+            <tr>
+                <td>উক্ত ঘোষনা স্বাক্ষর করিয়াছেন।</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>তারিখ সহ মনোনীত ব্যক্তির <br>স্বাক্ষর অথবা টিপসহি</td>
+                <td></td>
+                <td></td>
+                <td>মনোনয়ন প্রদানকারীর শ্রমিকের স্বাক্ষর, টিপসহি ও <br> তারিখ :</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>(শ্রমিক কর্তৃক সত্যায়িত ছবি ) </td>
+                <td></td>
+                <td></td>
+                <td>মালিকের বা প্রধিকারপ্রাপ্ত কর্মকর্তার স্বাক্ষর, টিপসহি ও <br> তারিখ :</td>
+            </tr>
+        </table>
+
+
+        <!-- Signature -->
+        {{-- <table class="signature-section">
+            <tr>
+                <td>
+                    <div class="sign-line"></div>
+                    তারিখ ও স্বাক্ষর<br>
+                    শ্রমিক অথবা টিপসই
+                </td>
+                <td align="right">
+                    <div class="sign-line"></div>
+                    মনোনয়ন প্রদানকারী শ্রমিকের স্বাক্ষর, টিপসই ও তারিখ
+                </td>
+            </tr>
+        </table> --}}
     @elseif($title == 4)
+      {{--   <div class="font-bold" style="text-align: center">
+            <table width="100%">
+                <tr>
+                    <td style="width: 20%"></td>
+                    <td style="width: 20%"></td>
+                    <td class="text-center" style="width: 60%">মনোনয়ন ফরম – ১৫</td>
+                    
+                </tr>
+                 <tr>
+                    <td style="width: 20%"></td>
+                    <td style="width: 20%"></td>
+                    <td class="text-center" style="width: 60%">
+                        ফরম-১৫ [ধারা-৩৪,৩৬,৩৭ ও ২৭৭ এবং ৩৪ (১) ও ৩৬৬ (৪) দ্রষ্টব্য</td>
+                </tr>
+                 <tr>
+                    <td style="width: 20%"></td>
+                    <td style="width: 20%"></td>
+                    <td class="text-center" style="width: 60%"> বয়স ও সক্ষমতার প্রত্যয়নপত্র</td>
+                </tr>
+            </table>
+
+        </div> --}}
+         {{-- <div class="font-bold" style="text-align: center">
+            মনোনয়ন ফরম – ১৫ <br>
+            ফরম-১৫ [ধারা-৩৪,৩৬,৩৭ ও ২৭৭ এবং ৩৪ (১) ও ৩৬৬ (৪) দ্রষ্টব্য <br>
+             বয়স ও সক্ষমতার প্রত্যয়নপত্র
+        </div> --}}
+        {{-- <div class="title">
+            (জমা ও বিভিন্নখাতে প্রাপ্য অর্থ পরিশোধের ঘোষনা ও মনোনয়ন ফরম)
+        </div> --}}
+        <table width="100%" style="margin-bottom: 10px;">
+            <tr>
+                <!-- Left / Center text -->
+                <td style="text-align: center; vertical-align: middle;">
+                    <div class="font-bold">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; মনোনয়ন ফরম – ১৫ <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; ফরম-১৫ [ধারা-৩৪,৩৬,৩৭ ও ২৭৭ এবং ৩৪ (১) ও ৩৬৬ (৪) দ্রষ্টব্য] <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; বয়স ও সক্ষমতার প্রত্যয়নপত্র
+                    </div>
+                </td>
+
+                <!-- Right image -->
+                <td style="width: 80px; text-align: right; vertical-align: middle;">
+                    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" width="120" height="80" alt="Logo">
+                </td>
+            </tr>
+        </table>
+
+        <table class="nominee-table info-table">
+            <tr>
+                <td>বয়স ও সক্ষমতার প্রত্যয়নপত্র</td>
+                <td>বয়স ও সক্ষমতার প্রত্যয়নপত্র</td>
+            </tr>
+            <tr>
+                <td>১. ক্রমিক নং : {{ $employee->employee_id }}</td>
+                <td>১. ক্রমিক নং : {{ $employee->employee_id }}</td>
+            </tr>
+           <tr>
+                <td>তারিখ : {{ $employee->joining_date ?? '' }}</td>
+                <td>তারিখ : {{ $employee->joining_date ?? '' }}</td>
+            </tr>
+            <tr>
+                <td>২। নাম : {{  $employee->name_bangla }}</td>
+                <td  rowspan="3">আমি এই মর্মে প্রত্যয়ন করিতেছি যে,<br>
+                    নাম : {{  $employee->name_bangla }} <br>
+                    পিতার নাম : {{ $employee->fname_bangla }}<br>
+                    মাতার নাম : {{ $employee->mname_bangla }}<br>
+                    ঠিকানা : {{ $employee->mvillage_bangla }} <br>
+                    কে আমি পরীক্ষা করিয়াছি।
+                </td>
+            </tr>
+            <tr>
+                <td>3। পিতার নাম : {{ $employee->fname_bangla }}</td>
+                
+            </tr>
+            <tr>
+                <td>৪। মাতার নাম : {{ $employee->mname_bangla }}</td>
+                
+            </tr>
+            <tr>
+                <td>5। লিঙ্গ : @if($employee->sex_code == 'M') পুরুষ @else মহিলা @endif </td>
+                <td>5। লিঙ্গ : @if($employee->sex_code == 'M') পুরুষ @else মহিলা @endif </td>
+            </tr>
+            <tr>
+                <td>৬. স্থায়ী/যোগাযোগের ঠিকানা : <br>
+                    গ্রাম : {{ $employee->mvillage_bangla }} <br>
+                    পোষ্ট : {{ $employee->mpost_office_bangla }} <br>
+                    থানা : {{ $employee->thana_name }} <br>
+                    জেলা : {{ $employee->district_name }}<br>
+                </td>
+                <td> তিনি প্রতিষ্ঠানে নিযুক্ত হইতে ইচ্ছুক, এবং আমার পরীক্ষা হইতে এইর <br> পাওয়া গিয়েছে যে, তাহার বয় ২৬ বৎসর এবং তিনি প্রতিষ্ঠানে <br> প্রাপ্তবয়স্ক/কিশোর হিসাবে নিযুক্ত হইবার যোগ্য । </td>
+            </tr>
+             <tr>
+                <td>৭. অস্থায়ী/যোগাযোগের ঠিকানা : <br>
+                    গ্রাম : {{ $employee->pvillage_bangla }} <br>
+                    পোষ্ট : {{ $employee->ppost_office_bangla }} <br>
+                    থানা : {{ $employee->thana_name_p }} <br>
+                    জেলা : {{ $employee->district_name_p }}<br></td>
+                <td> তাহার সনাক্তকরনের চিহ্ন :{{ $employee->identification ?? '--'}} </td>
+            </tr>
+            <tr>
+                <td>৮. জন্ম সনদ/শিক্ষা সনদ অনুসারে বয়স/জন্ম তারিখ : {{ $employee->birth_date ?? '' }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>৯. দৈহিক সক্ষমতা : {{ $employee->physical_capacity ?? '' }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>১০. সনাক্তকরনের চিহ্ন : {{ $employee->identification ?? '--'}}</td>
+                <td></td>
+            </tr>
+            {{-- <tr>
+                <td>
+                    <table width="100%" border: 0; border-collapse: collapse;>
+                        <tr>
+                            <td style="text-align:left;">
+                                সংশ্লিষ্ট ব্যক্তির <br> স্বাক্ষর/টিপসহি
+                            </td>
+                            <td style="text-align:right;">
+                                রেজিস্টার্ড চিকিৎসকের <br> স্বাক্ষর
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%" border: 0; border-collapse: collapse;>
+                        <tr>
+                            <td style="text-align:left;">
+                                সংশ্লিষ্ট ব্যক্তির <br> স্বাক্ষর/টিপসহি
+                            </td>
+                            <td style="text-align:right;">
+                                রেজিস্টার্ড চিকিৎসকের <br> স্বাক্ষর
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr> --}}
+        </table>
+        <div class="signature-footer">
+        <table style="width: 100%;">
+            <tr>
+                <td><div><span>সংশিস্নষ্ট ব্যক্তির <br>  স্বাক্ষর/টিপসহি</span></div></td>
+                <td><div><span style="text-align: right"> রেজিস্টার্ড চিকিৎসকের <br>স্বাক্ষর </span> </div></td>
+                <td><div><span> &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; সংশিস্নষ্ট ব্যক্তির <br>&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;  স্বাক্ষর/টিপসহি</span></div></td>
+                <td><div><span style="text-align: right"> রেজিস্টার্ড চিকিৎসকের <br>স্বাক্ষর </span> </div></td>
+            </tr>
+            <tr>
+                 <td></td>
+                <td></td>
+                 <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
     @elseif($title == 5)
+        <table width="100%" style="margin-bottom: 10px;">
+            <tr>
+                <!-- Left / Center text -->
+                <td style="text-align: center; vertical-align: middle;">
+                    <div class="font-bold">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; Back Ground, History and Reference Check Format for security Purpose  <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; শ্রমিক / কর্মকর্তা / কর্মচারীদের জীবন বৃত্তান্তের সত্যায়িত তদন্ত প্রতিবেদন
+                    </div>
+                </td>
+
+                <!-- Right image -->
+                 {{-- <td style="width: 15%; border: 1px solid #000; height: 40px; vertical-align: top; padding: 5px;">সত্যায়িত</td> --}}
+                 <td>
+                    <table width="100%" style="margin-bottom: 10px;">
+                        <tr>
+                            <td style="text-align: center">আঙ্গলের ছাপ</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; border-radius: 45px; border: 1px solid #000; height: 60px; vertical-align: top; padding: 5px;"></td>
+                        </tr>
+                    </table>
+                 </td>
+            </tr>
+        </table>
+        <table width="100%" style="margin-bottom: 10px;">
+            <tr>
+                <td>নাম : {{  $employee->name_bangla ?? '' }}</td>
+                <td style="text-align: left">আইডি: {{ $employee->employee_id ?? '' }}</td>
+            </tr>
+            <tr>
+                <td>তারিখ: {{ $employee->joining_date ?? '' }}</td>
+                <td style="text-align: left">পদবী: {{ $employee->designation_name ?? '' }}</td>
+            </tr>
+        </table>
+        <table width="100%" style="margin-bottom: 10px;">
+             <tr>
+                <td colspan="1">নিরাপত্তার স্বার্থে এবং প্রতিটি শ্রমিক কর্মী ও কর্মকর্তা কর্মচারীর জীবন বৃত্তান্তের সত্যায়িত তদন্ত নীতিগত ভাবে প্রয়োজন। এই প্রয়োজনের কথা বিবেচনা 
+                করিয়া, নিম্নের শুণ্য স্থান সমূহ পূরণ করা হলো।
+                </td>
+            </tr>
+        </table>
+         <table width="100%" style="margin-bottom: 10px;">
+            <tr>
+                <td>তথ্য দাতার বিবরন :</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>নাম: {{  $employee->name_bangla ?? '' }}</td>
+                <td style="text-align: left">বয়স: {{ $ageFull ?? '' }}</td>
+            </tr>
+            <tr>
+                <td>পিতার নাম: {{ $employee->fname_bangla ?? '' }}</td>
+                <td style="text-align: left">পদবী: {{ $employee->designation_name ?? '' }}</td>
+            </tr>
+        </table>
+        <table width="100%" style="margin-bottom: 10px;">
+             <tr>
+                <td style="width: 20%">বর্তমান ঠিকানা :</td>
+                <td style="width: 80%; border: 1px solid #000; height: 60px; vertical-align: top; padding: 5px;"></td>
+            </tr>
+        </table>
+         <table width="80%" style="margin-bottom: 10px;">
+             <tr>
+                <td>তথ্যদাতার সাথে শ্রমিক কর্মী ও কর্মকর্তা/কর্মচারীর সম্পর্ক :</td>
+                <td style="text-align: left">সম্পর্ক :</td>
+            </tr>
+            <tr>
+                <td>শ্রমিক কর্মী ও কর্মকর্তা/কর্মচারী কর্তৃক প্রদত্ত নাম ও ঠিকানা যাচাইকরণ :</td>
+                <td></td>
+            </tr>
+        </table>
+        <table width="100%" style="marge-bottom:10px;">
+             <tr>
+                <td>স্থায়ী/যোগাযোগের ঠিকানা :  গ্রাম : {{ $employee->mvillage_bangla }} </td>
+                <td> থানা : {{ $employee->thana_name }}</td>
+            </tr>
+             <tr>
+                <td>পোষ্ট : {{ $employee->mpost_office_bangla }} </td>
+                <td> জেলা : {{ $employee->district_name }}</td>
+            </tr>
+            </table>
+            <br>
+        <table width="100%" style="marge-bottom:20px;">
+            <tr>
+                <td>অস্থায়ী/যোগাযোগের ঠিকানা : গ্রাম : {{ $employee->pvillage_bangla }} </td>
+                <td>থানা : {{ $employee->thana_name_p }}</td>
+            </tr>
+            <tr>
+                <td>পোষ্ট : {{ $employee->ppost_office_bangla }} </td>
+                <td>  জেলা : {{ $employee->district_name_p }}</td>
+            </tr>
+        </table><br>
+        <table width="100%" style="marge-bottom:20px;">
+            <tr>
+                <td>অন্যান্য যে সকল প্রশ্নের উত্তর প্রয়োজন :</td>
+            </tr>
+        </table>
+        <table class="nominee-table info-table">
+            <tr>
+                <td>১. আপনি ব্যক্তিগত ভাবে তাকে কেমন জানেন ?
+                </td>
+                <td> ভাল
+                </td>
+                <td>তেমন কিছু জানি না
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+            <tr>
+                <td>২. অনাত্নীয় হলে কতদিন ধরে চেনেন ?
+                </td>
+                <td>অনেকদিন
+                </td>
+                <td>কয়েক দিন
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+            <tr>
+                <td>৩. আচরনে বা স্বভাবে কেমন ?
+                </td>
+                <td>ভাল
+                </td>
+                <td>তেমন কিছু জানি না
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+            <tr>
+                <td>৪. তিনি পরিবার যুক্ত সদস্য কিনা ?
+                </td>
+                <td>হ্যাঁ /না
+                </td>
+                <td>তেমন কিছু জানি না
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+            <tr>
+                <td>৫. পলাতক বা নাম পরিবর্তন করেছে কি না ?
+                </td>
+                <td>হ্যাঁ /না
+                </td>
+                <td>তেমন কিছু জানি না
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+            <tr>
+                <td>৬. তিনি যাদের সাথে চলাফেরা করেন তাদের চেনেন কিনা ?
+                </td>
+                <td>হ্যাঁ /না
+                </td>
+                <td>তেমন কিছু জানি না
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+            <tr>
+                <td>৭. তার পরিবারের আর কোন সদস্যকে চেনেন ?
+                </td>
+                <td>হ্যাঁ /না
+                </td>
+                <td>তেমন কিছু জানি না
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+            <tr>
+                <td>৮. তিনি কোন অপরাধী বা সন্ত্রাসী লোকের সাথে চলাফেরা করেন কিনা/ সম্পর্ক আছে কিনা ?
+                </td>
+                <td>হ্যাঁ /না
+                </td>
+                <td>তেমন কিছু জানি না
+                </td>
+                <td>মন্তব্য নাই
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table width="100%" style="marge-bottom:20px;">
+            <tr>
+                <td>Reference Check (প্রতিষ্ঠানের নিরাপত্তা কর্মী কর্তৃক যাচাইকৃত) ঃ আবেদনপত্রে উল্লেখিত বর্তমান ঠিকানা, স্থায়ী ঠিকানা, রেফারেন্সে প্রদত্ত <br>
+                     ব্যক্তিবর্গের নাম পরিচয় সঠিক কিনা ? (হ্যাঁ /না)</td>
+            </tr>
+        </table>
+        <br>
+        <table width="100%" style="marge-bottom:20px;">
+            <tr>
+                <td>History/Employment History Check আবেদন পত্রে উল্লেখিত History / Employment History Check করা হয়েছে <br> কিনা? (হ্যাঁ / না) । প্রদত্ত তথ্য সঠিক কিনা? (হ্যাঁ /না)</td>
+            </tr>
+        </table>
+        <br>
+        <table width="100%">
+            <tr>
+                <td>প্রশ্নকারীর গোপন কোড :</td>
+                <td style="text-align: lerift;">ম্যানেজার, এইচ আর, এডমিন, কমপ্লায়েন্স</td>
+            </tr>
+        </table>
+
+
     @elseif($title == 6)
     @endif
 </body>

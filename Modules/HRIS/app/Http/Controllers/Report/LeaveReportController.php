@@ -16,10 +16,10 @@ use Modules\HRIS\Models\Database\LeaveApplication;
 
 class LeaveReportController extends Controller
 {
-    function __construct()
+    /* function __construct()
     {
         $this->middleware('permission:hris.leave-report.view')->only('index','previewData','preview');
-    }
+    } */
     /**
      * Display a listing of the resource.
      */

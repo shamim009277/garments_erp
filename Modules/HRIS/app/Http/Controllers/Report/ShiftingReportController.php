@@ -16,10 +16,10 @@ use Modules\HRIS\Models\Setup\EmpGatepassPurpose;
 
 class ShiftingReportController extends Controller
 {
-    function __construct()
+   /*  function __construct()
     {
         $this->middleware('permission:hris.shifting-report.view')->only('index','previewData','preview');
-    }
+    } */
     /**
      * Display a listing of the resource.
      */
