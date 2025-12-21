@@ -9,6 +9,7 @@ use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\LeaveReason;
 use Modules\HRIS\Models\Setup\LeaveClassification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Schema;
 // use Modules\HRIS\Database\Factories\Database\LeaveApplicationFactory;
 
 class LeaveApplication extends Model
@@ -94,6 +95,28 @@ class LeaveApplication extends Model
 
         static::updating(function ($leaveApplication) {
             $leaveApplication->updated_by = Auth::id();
+        });
+
+
+        static::addGlobalScope('accessFilter', function ($query) {
+
+            if (!Auth::check()) return;
+
+            $accessId = Auth::user()->access_id;
+            if ($accessId == 0) return;
+
+            $model = $query->getModel();
+            $table = $model->getTable();
+
+            if (Schema::hasColumn($table, 'org_id')) {
+                return $query->where($table . '.org_id', $accessId);
+            }
+
+            if (Schema::hasColumn($table, 'employee_id')) {
+                return $query->whereHas('employee', function ($q) use ($accessId) {
+                    $q->where('org_id', $accessId);
+                });
+            }
         });
     }
 }

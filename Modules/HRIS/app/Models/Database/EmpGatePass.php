@@ -2,15 +2,16 @@
 
 namespace Modules\HRIS\Models\Database;
 
-use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
-use Modules\HRIS\Models\Setup\EmpGatepassReason;
 use Modules\HRIS\Models\Setup\EmpGatepassPurpose;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HRIS\Models\Setup\EmpGatepassReason;
 // use Modules\HRIS\Database\Factories\Database\EmpGatePassFactory;
 
 class EmpGatePass extends Model
@@ -75,10 +76,24 @@ class EmpGatePass extends Model
         static::updating(function ($gatepass) {
             $gatepass->updated_by = Auth::id();
         });
-    }
 
-    // protected static function newFactory(): Database\EmpGatePassFactory
-    // {
-    //     // return Database\EmpGatePassFactory::new();
-    // }
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (!Auth::check()) return;
+
+            $accessId = Auth::user()->access_id;
+            if ($accessId == 0) return;
+
+            $model = $query->getModel();
+            $table = $model->getTable();
+
+            if (Schema::hasColumn($table, 'org_id')) {
+                return $query->where($table . '.org_id', $accessId);
+            }
+            if (Schema::hasColumn($table, 'employee_id')) {
+                return $query->whereHas('employee', function ($q) use ($accessId) {
+                    $q->where('org_id', $accessId);
+                });
+            }
+        });
+    }
 }

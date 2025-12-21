@@ -18,7 +18,6 @@ class Applicant extends Model
     use HasFactory;
 
     protected $table = 'hris_database_new_applicant';
-
     /**
      * The attributes that are mass assignable.
      */
@@ -30,6 +29,7 @@ class Applicant extends Model
         'department_id',
         'designation_id',
         'district_id',
+        'line',
         'identification_type',
         'national_id',
         'birth_certificate_no',
@@ -85,10 +85,22 @@ class Applicant extends Model
         static::creating(function ($applicant) {
             $applicant->created_by = Auth::id();
             $applicant->updated_by = Auth::id();
+            $applicant->line = $applicant->line ?? 0;
         });
 
         static::updating(function ($applicant) {
             $applicant->updated_by = Auth::id();
+            $applicant->line = $applicant->line ?? 0;
+        });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
         });
     }
 
@@ -121,13 +133,4 @@ class Applicant extends Model
     {
         return $this->belongsTo(District::class,'district_id','id');
     }
-    public function employee() : BelongsTo
-    {
-        return $this->belongsTo(Employee::class,'employee_id','id');
-    }
-
-    // protected static function newFactory(): Database\ApplicantFactory
-    // {
-    //     // return Database\ApplicantFactory::new();
-    // }
 }

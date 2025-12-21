@@ -165,7 +165,7 @@
                 beforeSend: function() {
                     Swal.fire({
                         title: 'Please wait...',
-                        text: 'Loading employee holiday data...',
+                        text: 'Loading employee shifting data...',
                         allowOutsideClick: false,
                         didOpen: () => {
                             Swal.showLoading();
@@ -174,7 +174,6 @@
                 },
                 success: function(response) {
                     $('#employeedata').empty();
-                    console.log(response);
                     if (response.success && response.data.length > 0) {
                         let row = ``;
                         response.data.forEach(emp => {

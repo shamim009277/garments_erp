@@ -2,12 +2,13 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Database\Applicant;
+use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Http\Requests\Database\EmployeeIDAssignRequest;
 
 class EmployeeIDAssignController extends Controller
@@ -29,12 +30,30 @@ class EmployeeIDAssignController extends Controller
         $applicants = Applicant::with(['department:id,department', 'designation:id,designation','organization:id,short_name'])->active()->where('entry_date', '>=', $lst_30_days)->where('final_status', 1)->get();
         $pending_applicants = $applicants->where('file_entry', 'N');
         $selected_applicants = $applicants->where('file_entry', 'Y');
+        $organizations = Organization::active()->pluck('short_name', 'id');
+
+        $grouped_data = collect($pending_applicants)
+            ->groupBy('org_id')
+            ->map(function ($org_items) {
+                return $org_items->groupBy('department_id')
+                    ->map(function ($dept_items) {
+                        return $dept_items->groupBy('entry_date');
+                    });
+            });
+
+        $grouped_selected_data = collect($selected_applicants)
+            ->groupBy('org_id')
+            ->map(function ($org_items) {
+                return $org_items->groupBy('department_id')
+                    ->map(function ($dept_items) {
+                        return $dept_items->groupBy('entry_date');
+                    });
+            });
 
         $unique_applicant = [];
-        $unique_department = $pending_applicants->unique('department_id');
-        $unique_selected_department = $selected_applicants->unique('department_id');
 
-        return view('hris::database.employeeidassign.index', compact('pending_applicants', 'unique_applicant', 'unique_department','designations','unique_selected_department','selected_applicants'));
+
+        return view('hris::database.employeeidassign.index', compact('pending_applicants', 'unique_applicant','designations','selected_applicants', 'grouped_data', 'grouped_selected_data', 'organizations'));
     }
 
     /**
@@ -45,7 +64,7 @@ class EmployeeIDAssignController extends Controller
         DB::beginTransaction();
         try {
             $applicant = Applicant::findOrFail($request->applicant_id);
-            $applicant->employee_id = $request->employee_id;
+            $applicant->employee_id = preg_replace('/\s+/', '', $request->employee_id);
             $applicant->final_designation_id = $request->final_designation_id;
             $applicant->recruitment_type = $request->recruitment_type;
             $applicant->file_entry = 'Y';

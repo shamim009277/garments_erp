@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Leave Report</title>
+    <title>@yield('title', 'Report')</title>
     <link rel="shortcut icon" href="{{ public_path('backend/assets/images/logo-sm.svg') }}">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />
@@ -34,7 +34,6 @@
             text-align: center;
             font-size: 14px;
             font-weight: 600;
-            padding-bottom: 10px;
         }
 
         footer {
@@ -77,8 +76,8 @@
         }
 
         th, td {
-            padding: 6px 8px;
-            border: 1px solid #ccc;
+            padding: 2px 4px;
+            border: 0.5px solid #cccccc;
             text-align: left;
         }
 
@@ -87,9 +86,8 @@
         }
 
         .title {
-            font-size: 16px;
+            font-size: 12px;
             font-weight: bold;
-            margin-bottom: 5px;
         }
 
         .sub-title {
@@ -111,7 +109,7 @@
             align-items: center;
             justify-content: center;
             line-height: 1.2;
-            margin-top:-4px;
+            margin-top: -5px;
         }
 
         .watermark {
@@ -140,50 +138,54 @@
         }
     </style>
 </head>
+@php
+    $orgdata = $ornizations_data->where('id', $orgid)->first();
+    $orgname = $orgdata->name ?? ($general->full_name ?? 'Ayasha & Galeya Fashions Ltd');
+    $address = $orgdata->address ?? ('01, Hariken Road, Dawlotpur, National University, Gazipur' ?? '01, Hariken Road, Dawlotpur, National University, Gazipur');
+    $email = $orgdata->email ?? ('info@company.com' ?? 'info@company.com');
+    $phone = $orgdata->phone ?? ('+880123456789' ?? '+880123456789');
+
+    if (!empty($orgdata?->path)) {
+        $logo = public_path('storage/' . $orgdata->path);
+    } elseif (!empty($general?->full_name)) {
+        $logo = public_path('storage/' . $general->logo_path);
+    } else {
+        $logo = public_path('backend/assets/images/logo-sm.svg');
+    }
+@endphp
 <body>
     <!-- Watermark -->
     <div class="watermark">
-        {{ $general->full_name }} - {{ now()->format('Y') }}
+        {{ $orgname }} - {{ now()->format('Y') }}
     </div>
-    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
+    <img src="{{ $logo }}" class="watermark-image" alt="watermark">
     <!-- Header -->
-    <header>
-        <div style="display: flex; align-items: center;">
-            <div><img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;"></div>
-            <div class="company-info">
-                <div style="font-weight: bold; font-size: 14px;">{{ $general->full_name }}</div>
-                <div style="font-size: 11px; font-weight: normal; font-style: italic">01, Hariken Road, Dawlotpur, National University, Gazipur</div>
-                <div style="font-size: 11px; font-weight: normal; font-style: italic">Email: info@company.com | Phone: +880123456789</div>
-            </div>
-        </div>
-        <hr style="border: 1px solid #ccc;">
-    </header>
+    <x-hris::reports.header
+        :orgname="$orgname"
+        :address="$address"
+        :email="$email"
+        :phone="$phone"
+        :logo="$logo"
+    />
 
     <!-- Footer -->
-    <footer>
-        <div style="display: flex; justify-content: space-between; font-size: 10px;">
-            <div>
-                Printed by {{ auth()->user()->name ?? 'System' }}
-            </div>
-            <div>
-                Page <span class="page"></span> | {{ now()->format('d-m-Y h:i A') }}
-            </div>
-        </div>
-    </footer>
+    <x-hris::reports.footer />
 
     <!-- PDF Body -->
-    @if($title == 1)
-        <h3 style="text-align:center; margin: 0px 0px;">Department-wise Daily Leave Register</h3>
-    @endif
-    @if($title == 2)
-        <h3 style="text-align:center; margin: 0px 0px;">Designation-wise Daily Leave Register</h3>
-    @endif
-    @if($title == 3)
-        <h3 style="text-align:center; margin: 0px 0px;">Employee-wise Daily Leave Register</h3>
-    @endif
-    @if($title == 4)
-        <h3 style="text-align:center; margin: 0px 0px;">Designation-wise Monthly Leave Register</h3>
+    @if(!empty($reportTitle))
+        <h3 style="text-align:center; font-size:12px; margin-top:-10px;">
+            {{ $reportTitle }}
+        </h3>
     @endif
 
+    @if(!empty($reportSubTitle))
+        <p style="text-align:center; font-size:10px; font-weight:bold; margin-top:-15px;">
+            {{ $reportSubTitle }}
+        </p>
+    @endif
+
+    @yield('content')
+
+    <x-hris::reports.signature :orgname="$orgname" />
 </body>
 </html>

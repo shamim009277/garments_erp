@@ -99,13 +99,13 @@ class EmpGatePassController extends Controller
 
     public function getEmployeeIn(){
         $date = Carbon::now()->format('Y-m-d');
-        $gatePasses = EmpGatePass::with(['employee:employee_id,name,photo', 'purpose:id,purpose', 'reason:id,reason','department:id,department','designation:id,designation','approvedBy:id,name'])->where('type_id', 1)->whereNotNull('actual_out')->where('actual_in', null)->where('date', $date)->get();
+        $gatePasses = EmpGatePass::with(['employee:employee_id,name,photo,org_id', 'purpose:id,purpose', 'reason:id,reason','department:id,department','designation:id,designation','approvedBy:id,name'])->where('type_id', 1)->whereNotNull('actual_out')->where('actual_in', null)->where('date', $date)->get();
         return view('hris::database.gatepass.in', compact('date', 'gatePasses'));
     }
 
     public function getEmployeeOut(){
         $date = Carbon::now()->format('Y-m-d');
-        $gatePasses = EmpGatePass::with(['employee:employee_id,name,photo', 'purpose:id,purpose', 'reason:id,reason','department:id,department','designation:id,designation','approvedBy:id,name'])->where('actual_out', null)->where('date', $date)->get();
+        $gatePasses = EmpGatePass::with(['employee:employee_id,name,photo,org_id', 'purpose:id,purpose', 'reason:id,reason','department:id,department','designation:id,designation','approvedBy:id,name'])->where('actual_out', null)->where('date', $date)->get();
         return view('hris::database.gatepass.out', compact('date', 'gatePasses'));
     }
 

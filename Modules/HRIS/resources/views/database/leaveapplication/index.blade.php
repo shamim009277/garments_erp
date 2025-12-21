@@ -132,8 +132,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer" style="padding:10px 20px;">
-                        <x-primary-button id="submitBtn" type="submit" class="btn btn-sm btn-primary float-end submitBtn">Submit</x-primary-button>
+
+                    <div class="card-footer px-3 py-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p id="message" class="mb-0" style="color:#FF6C37;font-weight:semi-bold"></p>
+                            <x-primary-button id="submitBtn" type="submit" class="btn btn-sm btn-primary submitBtn">Submit</x-primary-button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -254,7 +258,6 @@
             }
 
             $('#start_date,#end_date').trigger('change');
-
             function employeeInfo() {
                 let employeeId = $("#employee_id").val();
 
@@ -266,6 +269,7 @@
                             employee_id: employeeId
                           },
                         success: function (response) {
+                            $("#message").text('');
                             $("#name").val('');
                             $("#designation").val('');
                             $("#department").val('');
@@ -276,13 +280,11 @@
                             $("#department_id").val('');
 
                             if (response.employee && Object.keys(response.employee).length > 0) {
-
                                 $("#name").val(response.employee.name || '');
                                 $("#designation").val(response.employee.designation?.designation || '');
                                 $("#department").val(response.employee.department?.department || '');
                                 $("#join_date").val(response.employee.joining_date || '');
                                 $("#mobile").val(response.employee.employee_personal?.mobile || '');
-
                                 if (response.employee.employee_personal?.national_id) {
                                     $("#nid_birth_certificate").val(response.employee.employee_personal.national_id);
                                 }
@@ -295,7 +297,6 @@
                                 if (response.employee.photo) {
                                     $('#photo').attr('src', '/storage/' + response.employee.photo);
                                 }
-
                                 if(response.employee.department){
                                     $("#leave_type_id").prop('disabled', false);
                                 }
@@ -342,6 +343,8 @@
                     $("#SLT").val(0);
                     $("#SLB").val(0);
                     $("#ELA").val(0);
+
+                    $("#message").text('Employee ID must be exactly 6 digits');
                 }
             }
 

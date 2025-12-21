@@ -5,7 +5,6 @@ namespace Modules\HRIS\Models\Setup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\HRIS\Database\Factories\Setup\DistrictFactory;
 
 class District extends Model
 {
@@ -52,8 +51,4 @@ class District extends Model
         return $query->where('is_active', true);
     }
 
-    // protected static function newFactory(): Setup\DistrictFactory
-    // {
-    //     // return Setup\DistrictFactory::new();
-    // }
 }

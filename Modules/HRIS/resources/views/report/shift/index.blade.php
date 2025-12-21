@@ -150,28 +150,34 @@
                                                 <tr>
                                                     <th>
                                                         <input type="checkbox" name="all_category" id="all_category" checked>
-                                                        <label class="m-0" for="all_category">All Purpose</label>
+                                                        <label class="m-0" for="all_category">All Category</label>
                                                     </th>
                                                     <td id="all_category_section">
-                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$gatepass_purposes" placeholder="Category ID" disabled />
+                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$employeeCategories" placeholder="Category ID" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="start_date[]" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="end_date[]" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">Month</th>
                                                     <td width="60%">
-                                                        <x-select-input name="month" id="month" class="select2" :options="['1' => 'January', '2' => 'February', '3' => 'March', '4' => 'April', '5' => 'May', '6' => 'June', '7' => 'July', '8' => 'August', '9' => 'September', '10' => 'October', '11' => 'November', '12' => 'December']" selected="{{ old('month', 1) }}" placeholder="Month" />
+                                                        <x-select-input name="month" id="month" class="select2" :options="$months" selected="{{ old('month', 1) }}" placeholder="Month" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">Year</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="year" type="text" id="year" class="form-control-sm" value="{{ old('year', $year) }}" placeholder="Year" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -305,29 +311,38 @@
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
+            $('#year').prop('disabled', true);
+            $('#month').prop('disabled', true);
         } else if (selectedValue == '2') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', false);
             $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
+            $('#year').prop('disabled', true);
+            $('#month').prop('disabled', true);
         } else if (selectedValue == '3') {
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+            $('#year').prop('disabled', false);
+            $('#month').prop('disabled', false);
         } else if (selectedValue == '4') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', false);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#year').prop('disabled', false);
+            $('#month').prop('disabled', false);
         } else {
             $('.designationID').prop('disabled', false);
             $('.departmentID').prop('disabled', false);
+            $('#year').prop('disabled', true);
         }
     }
 </script>

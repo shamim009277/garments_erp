@@ -89,6 +89,16 @@ class Employee extends Model
             $employee->line = $employee->line ?? 0;
             $employee->grade = $employee->grade ?? 0;
         });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
+        });
     }
 
     public function scopeActive($query)
@@ -137,15 +147,15 @@ class Employee extends Model
     }
 
     public function department() {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class,'department_id','id');
     }
 
     public function designation() {
-        return $this->belongsTo(Designation::class);
+        return $this->belongsTo(Designation::class,'designation_id','id');
     }
 
     public function organization() {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class,'org_id','id');
     }
 
     public function mdistrict() {
@@ -179,9 +189,4 @@ class Employee extends Model
     public function gatepasses() {
         return $this->hasMany(EmpGatePass::class, 'employee_id', 'employee_id');
     }
-
-    // protected static function newFactory(): Database\EmployeeFactory
-    // {
-    //     // return Database\EmployeeFactory::new();
-    // }
 }

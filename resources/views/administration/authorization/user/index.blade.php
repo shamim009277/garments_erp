@@ -33,6 +33,7 @@
                                 <th width="20%">Name</th>
                                 <th width="15%">Employee ID</th>
                                 <th width="25%">Email</th>
+                                <th width="25%">Access Label</th>
                                 <th width="25%">Role</th>
                                 <th width="15%">Is Active</th>
                                 <th width="10%">Actions</th>
@@ -88,6 +89,19 @@
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('role_id')" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="access_id" class="form-label">Access Label <span class="text-danger">*</span></label>
+                            <select class="form-control @error('access_id') is-invalid @enderror" data-trigger name="access_id" id="access_id" placeholder="Select Organization" required>
+                                <option value="">Select Organization</option>
+                                <option value="0" selected>All Organization</option>
+                                @foreach ($organizations as $organization)
+                                    <option value="{{ $organization->id }}">
+                                        {{ $organization->short_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('access_id')" />
                         </div>
                         <div class="mb-3">
                             <label for="is_active" class="form-label">Is Active? <span class="text-danger">*</span></label>
@@ -150,6 +164,17 @@
                             <x-input-error :messages="$errors->get('role_id')" />
                         </div>
                         <div class="mb-3">
+                            <label for="access_id" class="form-label">Access Label <span class="text-danger">*</span></label>
+                            <select class="form-control @error('access_id') is-invalid @enderror" name="access_id" id="edit_access_id" placeholder="Select Organization" required>
+                                <option value="">Select Organization</option>
+                                <option value="0">All Organization</option>
+                                @foreach ($organizations as $organization)
+                                    <option value="{{ $organization->id }}">{{ $organization->short_name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('access_id')" />
+                        </div>
+                        <div class="mb-3">
                             <label for="is_active" class="form-label">Is Active? <span class="text-danger">*</span></label>
                             <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" required value="{{ old('is_active') }}" id="edit_is_active">
                                 <option value="1">Active</option>
@@ -202,6 +227,10 @@
                         name: 'email'
                     },
                     {
+                        data: 'access_label',
+                        name: 'access_label'
+                    },
+                    {
                         data: 'role',
                         name: 'role'
                     },
@@ -233,6 +262,7 @@
                 $('#edit_employee_id').val(data.employee_id);
                 $('#edit_email').val(data.email);
                 $('#edit_role_id').val(data.role_id);
+                $('#edit_access_id').val(data.access_id);
                 $('#edit_is_active').val(data.is_active).change();
                 $('#editModal').modal('show');
                 $('#editUserForm').attr('action', "{{ route('administration.authorization.user.update', ':id') }}".replace(':id', id));

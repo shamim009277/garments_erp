@@ -47,7 +47,7 @@
                                 @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                        <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>
@@ -93,7 +93,7 @@
                                     @if($employee->designation_id == $designation->id)
                                         <tr>
                                             <td>{{ $sl1 }}</td>
-                                            <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                            <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                                             <td>{{ $employee->name }}</td>
                                             <td>{{ $employee->department->department }}</td>
                                             <td>{{ $employee->designation->designation }}</td>
@@ -129,7 +129,7 @@
                                 @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                        <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>
@@ -162,7 +162,7 @@
                                 @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                        <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>

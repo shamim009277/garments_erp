@@ -2,7 +2,10 @@
 @section('title', 'HRIS')
 @section('styles')
     <style>
-        .table, tr, th, td {
+        .table,
+        tr,
+        th,
+        td {
             border: none !important;
             border-collapse: collapse;
         }
@@ -25,10 +28,13 @@
         <div class="col-lg-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">Employee</h4>
-                <form action="{{ route('hris.database.employee.search') }}" method="POST" class="d-flex order-0 order-md-1" style="max-width: 400px;" role="search">
+                <form action="{{ route('hris.database.employee.search') }}" method="POST" class="d-flex order-0 order-md-1"
+                    style="max-width: 400px;" role="search">
                     @csrf
-                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Applicant Card No ..." aria-label="Search">
-                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"> <i data-feather="search" width="14" height="14" class="me-1"></i> Search </button>
+                    <input class="form-control form-control-sm me-2" type="search" name="search"
+                        placeholder="Applicant Card No ..." aria-label="Search">
+                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"> <i
+                            data-feather="search" width="14" height="14" class="me-1"></i> Search </button>
                 </form>
             </div>
         </div>
@@ -36,38 +42,74 @@
         <div class="col-lg-3 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Pending Applicant List</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Pending
+                        Applicant List</h6>
                 </div>
                 <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
+                    @php
+                        $companyWise = collect($applicants)->groupBy('org_id');
+                    @endphp
+
                     <ul class="nav-custom">
-                        @foreach ($unique_department as $department)
+                        @foreach ($companyWise as $companyId => $companyApplicants)
                             @php
-                                $applicant_department_wises = collect($applicants)
-                                    ->where('department_id', $department->department_id)
-                                    ->groupBy('entry_date')
-                                    ->all();
-                                $applicant_count = collect($applicants)->where('department_id', $department->department_id)->count();
+                                $companyName = $companyApplicants->first()->Organization->short_name ?? 'N/A';
+                                $departmentWise = $companyApplicants->groupBy('department_id');
                             @endphp
 
                             <li class="nav-custom-item">
-                                <input type="checkbox" id="dept{{ $department->department_id }}">
-                                <label class="nav-custom-link" for="dept{{ $department->department_id }}"><span class="nav-custom-caret"></span> {{ $department->department->department }} ({{ $applicant_count }})</label>
+                                <input type="checkbox" id="company{{ $companyId }}">
+                                <label class="nav-custom-link" for="company{{ $companyId }}">
+                                    <span class="nav-custom-caret"></span>
+                                    {{ $companyName }} ({{ $companyApplicants->count() }})
+                                </label>
+
                                 <ul class="nav-custom-content">
-                                    @foreach ($applicant_department_wises as $key => $department_wises)
+                                    @foreach ($departmentWise as $departmentId => $deptApplicants)
                                         @php
-                                            $applicants_date_wises = collect($applicants)
-                                                ->where('department_id', $department->department_id)
-                                                ->where('entry_date', $key)
-                                                ->all();
+                                            $departmentName = $deptApplicants->first()->department->department ?? 'N/A';
+                                            $dateWise = $deptApplicants->groupBy('entry_date');
                                         @endphp
+
                                         <li class="nav-custom-item">
-                                            <input type="checkbox" id="dept{{ $department->department_id }}-{{ $key }}">
-                                            <label class="nav-custom-link" for="dept{{ $department->department_id }}-{{ $key }}"><span class="nav-custom-caret"></span> {{ Carbon\Carbon::parse($key)->format('d-M-Y') }} ({{ collect($applicants)->where('department_id', $department->department_id)->where('entry_date', $key)->count() }})</label>
-                                            <div class="nav-custom-content">
-                                                @foreach ($applicants_date_wises as $applicant)
-                                                    <a href="javascript:void(0);" data-id="{{ $applicant->employee_id }}" data-department_id="{{ $applicant->department_id }}" data-final_designation_id="{{ $applicant->designation_id }}" data-district_id="{{ $applicant->district_id }}" data-joining_date="{{ $applicant->joining_date }}" data-name="{{ $applicant->name }}" class="employee-link">{{ $applicant->id }} :: {{ $applicant->employee_id }} :: {{ strtoupper($applicant->name) }}</a>
+                                            <input type="checkbox" id="dept{{ $companyId }}-{{ $departmentId }}">
+                                            <label class="nav-custom-link" for="dept{{ $companyId }}-{{ $departmentId }}">
+                                                <span class="nav-custom-caret"></span>
+                                                {{ $departmentName }} ({{ $deptApplicants->count() }})
+                                            </label>
+
+                                            <ul class="nav-custom-content">
+                                                @foreach ($dateWise as $entryDate => $dateApplicants)
+                                                    @php
+                                                        $dateLabel = \Carbon\Carbon::parse($entryDate)->format('d-M-Y');
+                                                    @endphp
+                                                    <li class="nav-custom-item">
+                                                        <input type="checkbox" id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}">
+                                                        <label class="nav-custom-link" for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}">
+                                                            <span class="nav-custom-caret"></span>
+                                                            {{ $dateLabel }} ({{ $dateApplicants->count() }})
+                                                        </label>
+
+                                                        <div class="nav-custom-content">
+                                                            @foreach ($dateApplicants as $applicant)
+                                                                <a href="javascript:void(0);" class="employee-link"
+                                                                    data-line="{{ $applicant->line }}"
+                                                                    data-org_id="{{ $applicant->org_id }}"
+                                                                    data-id="{{ $applicant->employee_id }}"
+                                                                    data-applicant_id="{{ $applicant->id }}"
+                                                                    data-department_id="{{ $applicant->department_id }}"
+                                                                    data-final_designation_id="{{ $applicant->designation_id }}"
+                                                                    data-district_id="{{ $applicant->district_id }}"
+                                                                    data-joining_date="{{ $applicant->joining_date }}"
+                                                                    data-name="{{ $applicant->name }}">
+                                                                    {{ $applicant->id }} :: {{ $applicant->employee_id }}
+                                                                    :: {{ strtoupper($applicant->name) }}
+                                                                </a>
+                                                            @endforeach
+                                                        </div>
+                                                    </li>
                                                 @endforeach
-                                            </div>
+                                            </ul>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -83,7 +125,8 @@
                 @csrf
                 <div class="card alert-info alert-top-border">
                     <div class="card-header d-flex justify-content-between align-items-center px-10 py-12">
-                        <h6 class="my-0 text-primary"><i data-feather="list" width="18" height="18"></i> Input Parameters For New Employee ...</h6>
+                        <h6 class="my-0 text-primary"><i data-feather="list" width="18" height="18"></i> Input
+                            Parameters For New Employee ...</h6>
                     </div>
                     <div class="card-body" style="min-height: 400px;">
                         <div class="row">
@@ -92,26 +135,35 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0 pe-md-0">
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                                             <tr>
+                                                <th width="30%" style="border: none;">Applicant ID</th>
+                                                <td width="70%" style="border: none;"><x-text-input name="applicant_id"
+                                                        id="applicant_id" class="form-control-sm" placeholder="Applicant ID"
+                                                        required readonly /></td>
+                                            </tr>
+                                            <tr>
                                                 <th width="30%" style="border: none;">Emp ID</th>
-                                                <td width="70%" style="border: none;"><x-text-input name="employee_id" id="employee_id" class="form-control-sm" placeholder="Employee ID" required readonly /></td>
+                                                <td width="70%" style="border: none;"><x-text-input name="employee_id"
+                                                        id="employee_id" class="form-control-sm" placeholder="Employee ID"
+                                                        required readonly /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Department </th>
-                                                <td width="70%" style="border: none;"><x-select-input name="department_id" id="department_id" class="select2" :options="$departments" required /></td>
+                                                <td width="70%" style="border: none;"><x-select-input
+                                                        name="department_id" id="department_id" class="select2"
+                                                        :options="$departments" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Designation </th>
-                                                <td width="70%" style="border: none;"><x-select-input name="designation_id" id="designation_id" class="select2" :options="$designations" required /></td>
+                                                <td width="70%" style="border: none;"><x-select-input
+                                                        name="designation_id" id="designation_id" class="select2"
+                                                        :options="$designations" required /></td>
                                             </tr>
                                             <tr>
                                                 <th style="border: none;">Joining Date </th>
                                                 <td style="border: none;">
-                                                    <x-text-input name="joining_date" id="joining_date" type="date" class="form-control-sm" placeholder="Joining Date" required />
+                                                    <x-text-input name="joining_date" id="joining_date" type="date"
+                                                        class="form-control-sm" placeholder="Joining Date" required />
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th style="border: none;">&nbsp; &nbsp;</th>
-                                                <td style="border: none;">&nbsp; &nbsp;</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -120,23 +172,32 @@
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <tr>
                                                 <th width="30%" style="border: none;">Unit </th>
-                                                <td width="70%" style="border: none;"><x-select-input name="unit" id="unit" class="select2" :options="$units" required /></td>
+                                                <td width="70%" style="border: none;"><x-select-input name="unit"
+                                                        id="unit" class="select2" :options="$units" /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Line </th>
-                                                <td width="70%" style="border: none;"><x-select-input name="line" id="line" class="select2" :options="[]" required /></td>
+                                                <td width="70%" style="border: none;"><x-select-input name="line"
+                                                        id="line" class="select2" :options="[]" /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Grade </th>
-                                                <td width="70%" style="border: none;"><x-text-input name="grade" id="grade" type="text" class="form-control-sm" placeholder="Grade" required /></td>
+                                                <td width="70%" style="border: none;"><x-text-input name="grade"
+                                                        id="grade" type="text" class="form-control-sm"
+                                                        placeholder="Grade" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Salaried? </th>
-                                                <td width="70%" style="border: none;"><x-select-input name="salaried" id="salaried" label="Salaried" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="Y" required /></td>
+                                                <td width="70%" style="border: none;"><x-select-input name="salaried"
+                                                        id="salaried" label="Salaried" class="select2" :options="['Y' => 'Yes', 'N' => 'No']"
+                                                        selected="Y" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Confirm Date </th>
-                                                <td width="70%" style="border: none;"><x-text-input name="confirmation_date" id="confirmation_date" type="date" class="form-control-sm" placeholder="Confirm Date" required readonly /></td>
+                                                <td width="70%" style="border: none;"><x-text-input
+                                                        name="confirmation_date" id="confirmation_date" type="date"
+                                                        class="form-control-sm" placeholder="Confirm Date" required
+                                                        readonly /></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -146,28 +207,34 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                                             <tr>
-                                                <th colspan="2" style="border: none;"><span class="text-primary">Present Address</span> </th>
+                                                <th colspan="2" style="border: none;"><span
+                                                        class="text-primary">Present Address</span> </th>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
-                                                <td width="70%" style="border: none;"><x-select-input name="pdistrict_id" id="pdistrict_id" class="select2" :options="$districts" required /></td>
+                                                <td width="70%" style="border: none;"><x-select-input
+                                                        name="pdistrict_id" id="pdistrict_id" class="select2"
+                                                        :options="$districts" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Thana </th>
                                                 <td width="70%" style="border: none;">
-                                                    <x-select-input name="pthana_id" id="pthana_id" class="select2" :options="[]" required />
+                                                    <x-select-input name="pthana_id" id="pthana_id" class="select2"
+                                                        :options="[]" required />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Post Office </th>
                                                 <td width="70%" style="border: none;">
-                                                    <x-text-input name="ppost_office" id="ppost_office" class="form-control-sm" placeholder="Post Office" required />
+                                                    <x-text-input name="ppost_office" id="ppost_office"
+                                                        class="form-control-sm" placeholder="Post Office" required />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Address </th>
                                                 <td width="70%" style="border: none;">
-                                                    <x-text-input name="pvillage" id="pvillage" class="form-control-sm" placeholder="House No/Road No/Village ..." required />
+                                                    <x-text-input name="pvillage" id="pvillage" class="form-control-sm"
+                                                        placeholder="House No/Road No/Village ..." required />
                                                 </td>
                                             </tr>
                                         </table>
@@ -175,28 +242,34 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <tr>
-                                                <th colspan="2" style="border: none;"><span class="text-primary">Mailing Address</span> </th>
+                                                <th colspan="2" style="border: none;"><span
+                                                        class="text-primary">Mailing Address</span> </th>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
-                                                <td width="70%" style="border: none;"><x-select-input name="mdistrict_id" id="mdistrict_id" class="select2" :options="$districts" required /></td>
+                                                <td width="70%" style="border: none;"><x-select-input
+                                                        name="mdistrict_id" id="mdistrict_id" class="select2"
+                                                        :options="$districts" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Thana </th>
                                                 <td width="70%" style="border: none;">
-                                                    <x-select-input name="mthana_id" id="mthana_id" class="select2" :options="[]" required />
+                                                    <x-select-input name="mthana_id" id="mthana_id" class="select2"
+                                                        :options="[]" required />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Post Office </th>
                                                 <td width="70%" style="border: none;">
-                                                    <x-text-input name="mpost_office" id="mpost_office" class="form-control-sm" placeholder="Post Office" required />
+                                                    <x-text-input name="mpost_office" id="mpost_office"
+                                                        class="form-control-sm" placeholder="Post Office" required />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Address </th>
                                                 <td width="70%" style="border: none;">
-                                                    <x-text-input name="mvillage" id="mvillage" class="form-control-sm" placeholder="House No/Road No/Village ..." required />
+                                                    <x-text-input name="mvillage" id="mvillage" class="form-control-sm"
+                                                        placeholder="House No/Road No/Village ..." required />
                                                 </td>
                                             </tr>
                                         </table>
@@ -207,43 +280,75 @@
                                 <table class="table table-striped" id="employeeTable" width="100%">
                                     <tr>
                                         <th width="30%" style="border: none;">Organization </th>
-                                        <td width="70%" style="border: none;"><x-select-input name="org_id" id="org_id" class="select2" :options="$organizations" selected="1" required /></td>
+                                        <td width="70%" style="border: none;"><x-select-input name="org_id"
+                                                id="org_id" class="select2" :options="$organizations" :selected="selected_org($organizations)"
+                                                required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Punch Category </th>
-                                        <td width="70%" style="border: none;"><x-select-input name="punch_category" id="punch_category" class="select2" :options="['1' => 'Single Punch', '2' => 'Double Punch', '3' => 'No Punch']" selected="2" required /></td>
+                                        <td width="70%" style="border: none;"><x-select-input name="punch_category"
+                                                id="punch_category" class="select2" :options="[
+                                                    '1' => 'Single Punch',
+                                                    '2' => 'Double Punch',
+                                                    '3' => 'No Punch',
+                                                ]" selected="2"
+                                                required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Shifting Duty? </th>
-                                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="N" required /></td>
+                                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty"
+                                                id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="N"
+                                                required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Ref. Shift? </th>
-                                        <td width="70%" style="border: none;"><x-select-input name="refrerence_shift" id="refrerence_shift" class="select2" :options="$shifts" selected="G" required /></td>
+                                        <td width="70%" style="border: none;"><x-select-input name="refrerence_shift"
+                                                id="refrerence_shift" class="select2" :options="$shifts" selected="G"
+                                                required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Ref. Holiday? </th>
-                                        <td width="70%" style="border: none;"><x-select-input name="refrerence_holiday" id="refrerence_holiday" class="select2" :options="['Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday','Saturday'=>'Saturday']" selected="Friday" required /></td>
+                                        <td width="70%" style="border: none;"><x-select-input
+                                                name="refrerence_holiday" id="refrerence_holiday" class="select2"
+                                                :options="[
+                                                    'Sunday' => 'Sunday',
+                                                    'Monday' => 'Monday',
+                                                    'Tuesday' => 'Tuesday',
+                                                    'Wednesday' => 'Wednesday',
+                                                    'Thursday' => 'Thursday',
+                                                    'Friday' => 'Friday',
+                                                    'Saturday' => 'Saturday',
+                                                ]" selected="Friday" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Ref. Date </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="refrerence_date" type="date" id="refrerence_date" class="form-control-sm" placeholder="Reference Date" autocomplete="off" required /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="refrerence_date"
+                                                type="date" id="refrerence_date" class="form-control-sm"
+                                                placeholder="Reference Date" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="name" class="form-control-sm" id="name" placeholder="Name" value="{{ old('name') }}" autocomplete="off" required /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="name"
+                                                class="form-control-sm" id="name" placeholder="Name"
+                                                value="{{ old('name') }}" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Father Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" value="{{ old('father_name') }}" autocomplete="off" required /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="father_name"
+                                                class="form-control-sm" id="father_name" placeholder="Father Name"
+                                                value="{{ old('father_name') }}" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Mother Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="mother_name" class="form-control-sm" id="mother_name" placeholder="Mother Name" value="{{ old('mother_name') }}" autocomplete="off" required /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="mother_name"
+                                                class="form-control-sm" id="mother_name" placeholder="Mother Name"
+                                                value="{{ old('mother_name') }}" autocomplete="off" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Spouse Name </th>
-                                        <td width="70%" style="border: none;"><x-text-input name="spouse_name" class="form-control-sm" id="spouse_name" placeholder="Spouse Name" value="{{ old('spouse_name') }}" autocomplete="off" /></td>
+                                        <td width="70%" style="border: none;"><x-text-input name="spouse_name"
+                                                class="form-control-sm" id="spouse_name" placeholder="Spouse Name"
+                                                value="{{ old('spouse_name') }}" autocomplete="off" /></td>
                                     </tr>
                                 </table>
                             </div>
@@ -283,7 +388,8 @@
                             $('#pthana_id').empty();
                             $('#pthana_id').append('<option value="">Select Thana</option>');
                             $.each(data, function(key, value) {
-                                $('#pthana_id').append('<option value="' + key + '">' + value + '</option>');
+                                $('#pthana_id').append('<option value="' + key + '">' +
+                                    value + '</option>');
                             });
                         }
                     });
@@ -314,7 +420,8 @@
                             $('#mthana_id').empty();
                             $('#mthana_id').append('<option value="">Select Thana</option>');
                             $.each(data, function(key, value) {
-                                $('#mthana_id').append('<option value="' + key + '">' + value + '</option>');
+                                $('#mthana_id').append('<option value="' + key + '">' +
+                                    value + '</option>');
                             });
                         }
                     });
@@ -332,7 +439,8 @@
                             $('#line').empty();
                             $('#line').append('<option value="">Select Line</option>');
                             $.each(data, function(key, value) {
-                                $('#line').append('<option value="' + key + '">' + value + '</option>');
+                                $('#line').append('<option value="' + key + '">' +
+                                    value + '</option>');
                             });
                         }
                     });
@@ -340,7 +448,7 @@
             });
 
 
-            $('#joining_date').on('change', function () {
+            $('#joining_date').on('change', function() {
                 const joiningDateVal = $(this).val();
                 const joiningDate = new Date(joiningDateVal);
 
@@ -348,11 +456,9 @@
 
                 if (!isNaN(joiningDate.getTime())) {
                     joiningDate.setMonth(joiningDate.getMonth() + 3);
-
                     const year = joiningDate.getFullYear();
                     const month = String(joiningDate.getMonth() + 1).padStart(2, '0');
                     const day = String(joiningDate.getDate()).padStart(2, '0');
-
                     const formattedDate = `${year}-${month}-${day}`;
 
                     $('#confirmation_date').val(formattedDate);
@@ -370,7 +476,10 @@
 
             $('.employee-link').on('click', function() {
                 const id = $(this).data('id');
+                const applicantId = $(this).data('applicant_id');
                 const departmentId = $(this).data('department_id');
+                const orgId = $(this).data('org_id') ?? 1;
+                const line = $(this).data('line');
                 const finalDesignationId = $(this).data('final_designation_id');
                 const districtId = $(this).data('district_id');
                 const thanaId = $(this).data('thana_id');
@@ -378,7 +487,10 @@
                 const name = $(this).data('name');
 
                 $('#employee_id').val(id);
+                $('#applicant_id').val(applicantId);
                 $('#department_id').val(departmentId).change();
+                $('#org_id').val(orgId).change();
+                $('#line').val(line).change();
                 $('#designation_id').val(finalDesignationId).change();
                 $('#pdistrict_id').val(districtId).change();
                 $('#pthana_id').val(thanaId).change();

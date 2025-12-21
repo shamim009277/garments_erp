@@ -34,10 +34,10 @@ class LeaveForwardController extends Controller
         $end_date = Carbon::parse($time)->endOfMonth()->format('Y-m-d');
 
         if(Auth::user()->role == 'Super Admin') {
-            $leaveApplications = LeaveApplication::active()->pending()->with('employee:id,employee_id,name,joining_date', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->orderBy('department_id', 'desc')->whereBetween('application_date', [$start_date, $end_date])->get();
+            $leaveApplications = LeaveApplication::active()->pending()->with('employee:id,employee_id,name,joining_date,org_id', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->orderBy('department_id', 'desc')->whereBetween('application_date', [$start_date, $end_date])->get();
         }else {
             $forwardids = DB::table('hris_settings_employee_leave_forwardapprove')->where('category_id', '1')->where('user_id', Auth::user()->id)->pluck('employee_id')->toArray();
-            $leaveApplications = LeaveApplication::active()->pending()->with('employee:id,employee_id,name,joining_date', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->orderBy('department_id', 'desc')->whereBetween('application_date', [$start_date, $end_date])->whereIn('employee_id', $forwardids)->get();
+            $leaveApplications = LeaveApplication::active()->pending()->with('employee:id,employee_id,name,joining_date,org_id', 'department:id,department', 'designation:id,designation', 'leaveReason:id,reason')->orderBy('department_id', 'desc')->whereBetween('application_date', [$start_date, $end_date])->whereIn('employee_id', $forwardids)->get();
         }
 
         return view('hris::database.leaveforward.index', compact('leaveApplications'));

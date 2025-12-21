@@ -18,232 +18,67 @@
                 <div class="card-header">
                     @if($title == 1)
                         <h6 class="my-0 text-primary text-center">Department-wise Monthly Movement Pass</h6>
+                        <p class="ms-auto text-center">Month: {{ $months[$month] }}</p>
                     @elseif($title == 2)
                         <h6 class="my-0 text-primary text-center">Designation-wise Monthly Movement Pass</h6>
+                        <p class="ms-auto text-center">Month: {{ $months[$month] }}</p>
                     @elseif($title == 3)
-                        <h6 class="my-0 text-primary text-center">Department-wise Dates Movement Pass</h6>
+                        <h6 class="my-0 text-primary text-center">Department-wise Daily Movement Pass</h6>
+                        <p class="ms-auto text-center">Date Range: {{ $start_date }} To {{ $end_date }}</p>
                     @elseif($title == 4)
-                        <h6 class="my-0 text-primary text-center">Designation-wise Dates Movement Pass</h6>
+                        <h6 class="my-0 text-primary text-center">Designation-wise Daily Movement Pass</h6>
+                        <p class="ms-auto text-center">Date Range: {{ $start_date }} To {{ $end_date }}</p>
                     @endif
-                    <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
                 </div>
-                @if($title == 1)
-                <div class="card-body">
-                    <div style="overflow-x: auto;">
-                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Date</th>
-                                    <th>In Date</th>
-                                    <th>Out Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employees as $employee)
-                                       {{--  <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->department->department }}</td>
-                                        <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
-                                        <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                                         <td>
-                                            @if($employee->gatepasses->isNotEmpty())
-                                                @foreach($employee->gatepasses as $pass)
-                                                    <div>
-                                                        Date: {{ $pass->date }} ;
-                                                        IN: {{ $pass->actual_in ?? '-' }} <br>
-                                                        OUT: {{ $pass->actual_out ?? '-' }}
-                                                    </div>
-                                                @endforeach
-                                            @else
-                                                No GatePass Record
-                                            @endif
-                                        </td> --}}
-                                        @foreach($employee->gatepasses as $pass)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $employee->employee_id }}</td>
-                                            <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>{{ $pass->date }}</td>
-                                            <td>{{ $pass->actual_in ?? '-' }}</td>
-                                            <td>{{ $pass->actual_out ?? '-' }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @elseif($title == 2)
-                <div class="card-body">
-                    <div style="overflow-x: auto;">
-                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Date</th>
-                                    <th>In Date</th>
-                                    <th>Out Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($uniqueDesignations as $designation)
-                                    <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
-                                        <td></td>
-                                        <td style="text-align: center; color: #5156be;">{!! $designation->designation !!}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <?php $sl1 = 1; ?>
-                                    @foreach ($employees as $employee)
-                                    @if($employee->designation_id == $designation->id)
-                                         @foreach($employee->gatepasses as $pass)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $employee->employee_id }}</td>
-                                            <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>{{ $pass->date }}</td>
-                                            <td>{{ $pass->actual_in ?? '-' }}</td>
-                                            <td>{{ $pass->actual_out ?? '-' }}</td>
-                                        </tr>
-                                    @endforeach
-                                        <?php $sl1++; ?>
-                                    @endif
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @elseif($title == 3)
-                <div class="card-body">
-                    <div style="overflow-x: auto;">
-                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Date</th>
-                                    <th>In Date</th>
-                                    <th>Out Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               {{--  @foreach ($employees as $employee)
+
+                @if($title == 1 || $title == 2 || $title == 3 || $title == 4)
+                    <div class="card-body">
+                        <div style="overflow-x: auto;">
+                            <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->department->department }}</td>
-                                        <td>{{ $employee->designation->designation }}</td>
-                                        <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                        <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                                        <td>
-                                        @if($employee->gatepasses->isNotEmpty())
-                                            @foreach ($employee->gatepasses as $gatepass)
-                                                <div>
-                                                    <strong>Date:</strong> {{ $gatepass->date ?? 'N/A' }} |
-                                                    <strong>In:</strong> {{ $gatepass->gate_in ?? '-' }} |
-                                                    <strong>Out:</strong> {{ $gatepass->gate_out ?? '-' }}
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            N/A
-                                        @endif
+                                        <th>SL</th>
+                                        <th>Employee ID</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Designation</th>
+                                        <th>Date</th>
+                                        <th>In Time</th>
+                                        <th>Out Time</th>
+                                        <th>Duration</th>
+                                        <th>Purpose</th>
+                                        <th>Reason</th>
+                                        <th>Approved By</th>
                                     </tr>
-                                @endforeach --}}
-                                @foreach($employees as $employee)
-                                    @foreach($employee->gatepasses as $pass)
+                                </thead>
+                                <tbody>
+                                     @foreach ($datas as $key => $data)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $employee->employee_id }}</td>
-                                            <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>{{ $pass->date }}</td>
-                                            <td>{{ $pass->actual_in ?? '-' }}</td>
-                                            <td>{{ $pass->actual_out ?? '-' }}</td>
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ str_pad($data->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
+                                            <td>{{ $data->employee->name }}</td>
+                                            <td>{{ $data->department->department }}</td>
+                                            <td>{{ $data->designation->designation }}</td>
+                                            <td>{{ $data->date }}</td>
+                                            <td>{{ date('h:i A', strtotime($data->start_time)) }}</td>
+                                            <td>{{ date('h:i A', strtotime($data->end_time)) }}</td>
+
+                                            <td>
+                                                @if($data->start_time && $data->end_time)
+                                                    {{ \Carbon\Carbon::parse($data->start_time)->diff(\Carbon\Carbon::parse($data->end_time))->format('%h:%I') }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>{{ $data->purpose->purpose ?? '-' }}</td>
+                                            <td>{{ $data->reason->reason }}</td>
+                                            <td>{{ $data->approvedBy->name }}</td>
                                         </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
+                                     @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                @elseif($title == 4)
-                <div class="card-body">
-                    <div style="overflow-x: auto;">
-                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Date</th>
-                                    <th>In Date</th>
-                                    <th>Out Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($uniqueDesignations as $designation)
-                                    <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
-                                        <td></td>
-                                        <td style="text-align: center; color: #5156be;">{!! $designation->designation !!}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <?php $sl1 = 1; ?>
-                                    @foreach ($employees as $employee)
-                                    @if($employee->designation_id == $designation->id)
-                                         @foreach($employee->gatepasses as $pass)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $employee->employee_id }}</td>
-                                            <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>{{ $pass->date }}</td>
-                                            <td>{{ $pass->actual_in ?? '-' }}</td>
-                                            <td>{{ $pass->actual_out ?? '-' }}</td>
-                                        </tr>
-                                    @endforeach
-                                        <?php $sl1++; ?>
-                                    @endif
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
                 @endif
             </div>
         </div>
@@ -260,8 +95,8 @@
         'buttons': [
             {
                 'extend': 'excelHtml5',
-                'title': 'Employee Listing',
-                'filename': 'Employee Listing',
+                'title': 'Employee Movement Pass Report',
+                'filename': 'Employee_Movement_Pass_Report',
                 'className': 'btn btn-info btn-sm'
             }
         ]
