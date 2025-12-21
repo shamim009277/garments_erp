@@ -32,6 +32,7 @@ use Modules\HRIS\Http\Controllers\Tools\ShiftingListController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
 use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
+use Modules\HRIS\Http\Controllers\Report\SummaryReportController;
 use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
 use Modules\HRIS\Http\Controllers\Tools\MaternityEntryController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
@@ -64,10 +65,10 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeIncrementController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
+use Modules\HRIS\Http\Controllers\Report\AutoGenerationReportController;
 use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
 use Modules\HRIS\Http\Controllers\Tools\EditExceptionalHolidayController;
-use Modules\HRIS\Http\Controllers\Report\SummaryReportController;
-use Modules\HRIS\Http\Controllers\Report\AutoGenerationReportController;
+use Modules\HRIS\Http\Controllers\Tools\NewEmployeeShiftingListController;
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -337,6 +338,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('departure', DepartureController::class)->names('departure');
             Route::resource('calender', CalenderController::class)->names('calender');
             Route::resource('shiftinglist', ShiftingListController::class)->names('shiftinglist');
+            Route::resource('newshiftinglist', NewEmployeeShiftingListController::class)->names('newshiftinglist');
             Route::resource('edit-shiftinglist', EditShiftingListController::class)->names('edit-shiftinglist');
             Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
             Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');

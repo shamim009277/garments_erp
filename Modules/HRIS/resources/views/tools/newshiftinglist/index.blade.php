@@ -44,51 +44,32 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'HRIS',
-                'subtitle' => 'Shifting List',
+                'subtitle' => 'Shifting List (New Employee)',
                 'breadcrumbs' => [
                     ['label' => 'HRIS', 'url' => route('hris.index')],
                     ['label' => 'Tools', 'url' => route('hris.index')],
-                    ['label' => 'Shifting List', 'url' => route('hris.tools.shiftinglist.index')],
+                    ['label' => 'Shifting List', 'url' => route('hris.tools.newshiftinglist.index')],
                 ],
             ])
         </div>
         <div class="col-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
-                   Shifting List
+                   Shifting List (New Employee)
                 </h4>
             </div>
         </div>
-        <div class="col-lg-6 col-md-8 ps-lg-1 ps-md-1" style="margin:0px auto;">
-            <form action="{{ route('hris.tools.shiftinglist.store') }}" id="applicantForm" method="POST" enctype="multipart/form-data">
+        <div class="col-lg-6 col-md-6 ps-lg-1 ps-md-1" style="margin:0px auto;">
+            <form action="{{ route('hris.tools.newshiftinglist.store') }}" id="applicantForm" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card alert-primary alert-top-border">
                     <div class="card-header d-flex align-items-center justify-content-between p-2">
-                        <h6 class="my-0 text-primary d-flex align-items-center"><i data-feather="list" width="16" height="16" class="me-2"></i> Department</h6>
-
+                        <h6 class="my-0 text-primary d-flex align-items-center"><i data-feather="list" width="16" height="16" class="me-2"></i> New Employee Shifting List</h6>
                     </div>
-                    <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
+                    <div class="card-body" style="max-height:300px;min-height:300px; overflow-y: auto;">
                         <!-- Sample departments -->
                         <div class="row">
-                            <div class="col-md-6 ps-lg-0">
-                                <div class="department-list">
-                                    <!-- Parent 1 -->
-                                    @foreach ($parentDepartments as $parentDepartment)
-                                        <div class="parent-wrapper">
-                                            <label class="parent-label">
-                                                <span class="toggle-btn" data-target="children-{{ $parentDepartment->id }}">[+]</span>
-                                                <input type="checkbox" class="parent-checkbox departmentID" data-id="{{ $parentDepartment->id }}" name="parent_department_id[]" value="{{ $parentDepartment->id }}"> {{ $parentDepartment->department }}
-                                            </label>
-                                            <div class="collapse" id="children-{{ $parentDepartment->id }}">
-                                                @foreach ($parentDepartment->departments as $department)
-                                                <label><input type="checkbox" class="form-check-input child-of-{{ $parentDepartment->id }} departmentID" name="department_id[]" value="{{ $department->id }}"> {{ $department->department }}</label><br>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <table class="table table-sm" style="width: 100%">
                                     <tbody>
                                         <tr>
@@ -114,8 +95,6 @@
                         </div>
                     </div>
                     <div class="card-footer" style="padding:10px 15px;">
-                        <button type="button" class="btn btn-sm btn-outline-primary" id="check_all">Check All</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all">Uncheck All</button>
                         <x-primary-button id="submitBtn" class="btn-sm  submitBtn" type="submit">Generate</x-primary-button>
                     </div>
                 </div>
@@ -173,14 +152,6 @@
             const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
             const anyChecked = children.is(':checked');
             parent.prop('checked', anyChecked);
-        });
-
-        $('#check_all').on('click', function () {
-            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
-        });
-
-        $('#uncheck_all').on('click', function () {
-            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
         });
     });
 </script>
