@@ -69,6 +69,7 @@ class SummaryReportController extends Controller
                     ->orderBy('designation_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
+                $title = $request->title;
 
                 if($request->view_mode == 1){
                     return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments'));
