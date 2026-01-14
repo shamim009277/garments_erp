@@ -218,8 +218,8 @@
                                 <x-select-search-input name="line" id="line"
                                     label="Line (Apply For)" :options="$lines" :selected="old(
                                         'line',
-                                        $unique_applicant ? $unique_applicant->line : null,
-                                    )" />
+                                        $unique_applicant ? $unique_applicant->line : 0,
+                                    )" required />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">

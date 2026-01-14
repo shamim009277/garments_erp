@@ -34,7 +34,8 @@ class ApplicantController extends Controller
         $departments = Department::active()->pluck('department', 'id');
         $designations = Designation::active()->pluck('designation', 'id');
         $districts = District::active()->pluck('name', 'id');
-        $lines = Line::active()->pluck('line', 'code');
+        $lines = Line::active()->orderBy('code','asc')->pluck('line', 'code');
+
         $organizations = Organization::active()->pluck('short_name', 'id');
         //\DB::enableQueryLog();
         $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation','organization:id,short_name'])
@@ -101,7 +102,7 @@ class ApplicantController extends Controller
         $today = Carbon::now()->format('d-m-Y');
         $maxDate = Carbon::now()->subYears(18)->addDays(1)->format('d-m-Y');
         $lst_30_days = Carbon::now()->subDays(30)->format('Y-m-d');
-        $lines = Line::active()->pluck('line', 'code');
+        $lines = Line::active()->orderBy('code','asc')->pluck('line', 'code');
 
         $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation'])
             ->active()

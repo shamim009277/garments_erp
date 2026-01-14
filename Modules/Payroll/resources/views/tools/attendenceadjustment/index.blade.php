@@ -1,0 +1,277 @@
+@extends('layouts.app')
+@section('title', 'Payroll')
+@section('content')
+@push('styles')
+    <style>
+        input[type="checkbox"] {
+            display: inline-block !important;
+            opacity: 1 !important;
+        }
+
+        .collapse {
+            display: none;
+            margin-left: 35px;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            color: #5156be;
+            margin-left: 5px;
+        }
+        .parent-label {
+            font-weight: bold;
+        }
+
+        .disabled-select {
+            cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
+        }
+        .form-check-input:checked:disabled {
+            background-color: #b7bbf5 !important;
+            border: 1px solid #b7bbf5 !important;
+        }
+    </style>
+@endpush
+    <div class="row">
+        <div class="col-12">
+            @include('components.breadcrumb', [
+                'title' => 'Payroll',
+                'subtitle' => 'Attendence Adjustment',
+                'breadcrumbs' => [
+                    ['label' => 'Payroll', 'url' => route('payroll.index')],
+                    ['label' => 'Tools', 'url' => route('payroll.index')],
+                    ['label' => 'Attendence Adjustment', 'url' => route('payroll.tools.attendence-adjustment.index')],
+                ],
+            ])
+        </div>
+        <div class="col-lg-12 pr-0">
+            <div class="card alert-primary alert-top-border padding-card">
+                <div class="card-header">
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Attendence Adjustment</h6>
+                </div>
+                <form id="employeeListingForm" action="{{ route('payroll.tools.attendence-adjustment.store') }}" method="POST">
+                    @csrf
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Titles -->
+                            <div class="col-lg-4 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-header">
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i>Preview Title's</h6>
+                                    </div>
+                                    <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
+                                        <div class="form-check">
+                                            <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
+                                            <label class="form-check-label" for="title1">Daily Attendence Adjustment</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
+                                            <label class="form-check-label" for="title2">Monthly Attendence Adjustment</label>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-header">
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i> Department</h6>
+                                    </div>
+                                    <div class="card-body" style="max-height:350px;min-height:350px; overflow-y: auto;">
+                                        <!-- Sample departments -->
+                                        <div class="department-list">
+                                            <!-- Parent 1 -->
+                                            @foreach ($parentDepartments as $parentDepartment)
+                                            <div class="parent-wrapper">
+                                                <label class="parent-label">
+                                                    <span class="toggle-btn" data-target="children-{{ $parentDepartment->id }}">[+]</span>
+                                                    <input type="checkbox" class="parent-checkbox departmentID" data-id="{{ $parentDepartment->id }}" name="parent_department_id[]" value="{{ $parentDepartment->id }}"> {{ $parentDepartment->department }}
+                                                </label>
+                                                <div class="collapse" id="children-{{ $parentDepartment->id }}">
+                                                    @foreach ($parentDepartment->departments as $department)
+                                                    <label><input type="checkbox" class="form-check-input child-of-{{ $parentDepartment->id }} departmentID" name="department_id[]" value="{{ $department->id }}"> {{ $department->department }}</label><br>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="check_all">Check All</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all">Uncheck All</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Department & Designation -->
+                            <div class="col-lg-4 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-body" style="max-height:410px;min-height:410px; overflow-y: auto;">
+                                        <table class="table table-sm" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <th width="40%">Organization</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" required/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%"> Employee ID</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox" name="all_line" id="all_line" checked>
+                                                        <label class="m-0" for="all_line">All Line</label>
+                                                    </th>
+                                                    <td id="all_line_section">
+                                                        <x-text-input name="line" id="line" label="" class="form-control-sm" placeholder="Line" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox" name="all_category" id="all_category" checked>
+                                                        <label class="m-0" for="all_category">All Category</label>
+                                                    </th>
+                                                    <td id="all_category_section">
+                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$employeeCategories" placeholder="Category ID" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="date" type="date" id="date" class="form-control-sm date" value="{{ $startDate }}" placeholder="Date" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Month</th>
+                                                    <td width="60%" id="month_section">
+                                                        <x-select-input name="month" id="month" class="select2" :options="['1' => 'January', '2' => 'February', '3' => 'March', '4' => 'April', '5' => 'May', '6' => 'June', '7' => 'July', '8' => 'August', '9' => 'September', '10' => 'October', '11' => 'November', '12' => 'December']" :selected="$month" placeholder="Select Month" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Year</th>
+                                                    <td width="60%" id="year_section">
+                                                        <x-select-input name="year" id="year" class="select2" :options="$yearlist" :selected="date('Y')" placeholder="Select Year" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">Adjust Type</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="adjust_type" id="adjust_type" class="select2" :options="$types" selected="{{ old('adjust_type', 1) }}" placeholder="Adjust Type" required/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <x-primary-button id="submitBtn" class="btn-sm submitBtn float-end" type="submit">Start Process</x-primary-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
+
+        $('.titles').prop('checked', false);
+        $('#title1').prop('checked', true);
+
+        $('.toggle-btn').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const target = $('#' + $(this).data('target'));
+            const isOpen = target.is(':visible');
+            target.toggle();
+            $(this).text(isOpen ? '[+]' : '[-]');
+        });
+
+        $('.parent-checkbox').on('change', function () {
+            const id = $(this).data('id');
+            $(`.child-of-${id}`).prop('checked', this.checked);
+        });
+
+        $('.form-check-input').on('change', function () {
+            const classList = $(this).attr('class').split(/\s+/);
+            const childClass = classList.find(cls => cls.startsWith('child-of-'));
+            const parentId = childClass.split('-').pop();
+
+            const children = $(`.child-of-${parentId}`);
+            const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
+            const anyChecked = children.is(':checked');
+
+            parent.prop('checked', anyChecked);
+        });
+
+        $('#check_all').on('click', function () {
+            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
+        });
+
+        $('#uncheck_all').on('click', function () {
+            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
+        });
+
+
+        // Handle All Category and Line
+        handleToggle('#all_line', '#line', '#all_line_section');
+        handleToggle('#all_category', '#category_id', '#all_category_section');
+
+        $('#all_line').on('change', function () {
+            handleToggle('#all_line', '#line', '#all_line_section');
+        });
+
+        $('#all_category').on('change', function () {
+            handleToggle('#all_category', '#category_id', '#all_category_section');
+        });
+
+        function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
+            const isChecked = $(checkboxSelector).is(':checked');
+
+            $(selectSelector)
+                .prop('disabled', isChecked)
+                .val(null).trigger('change');
+
+            $(selectSelector).toggleClass('disabled-select', isChecked);
+            $(sectionSelector).toggleClass('disabled-select', isChecked);
+        }
+    });
+
+    handleTitleSelection();
+
+    // On title radio change
+    $('input[name="title"]').on('change', function() {
+        handleTitleSelection();
+    });
+
+    function handleTitleSelection() {
+        let selectedValue = $('input[name="title"]:checked').val();
+        if (selectedValue == '1') {
+            $('#month_section').addClass('disabled-select');
+            $('#year_section').addClass('disabled-select');
+            $('#month').prop('required', false);
+            $('#year').prop('required', false);
+            $('.date').prop('disabled', false);
+
+            $('#adjust_type').prop('required', true);
+        } else if (selectedValue == '2') {
+            $('.date').prop('disabled', true);
+
+            $('#month_section').removeClass('disabled-select');
+            $('#year_section').removeClass('disabled-select');
+        }
+    }
+</script>
+@endpush
