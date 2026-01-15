@@ -12,7 +12,10 @@ class ServiceBenefitRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'org_id' => ['required','integer'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date'],
+            'employee_id' => ['nullable'],
         ];
     }
 

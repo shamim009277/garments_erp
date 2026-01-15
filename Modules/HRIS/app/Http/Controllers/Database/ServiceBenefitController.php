@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Database\ServiceBenefit;
+use Modules\HRIS\Http\Requests\Database\ServiceBenefitRequest;
 
 class ServiceBenefitController extends Controller
 {
@@ -42,7 +43,7 @@ class ServiceBenefitController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ServiceBenefitRequest $request)
     {
         $strdate = Carbon::parse($request->start_date)->format('Y-m-d');
         $enddate = Carbon::parse($request->end_date)->format('Y-m-d');

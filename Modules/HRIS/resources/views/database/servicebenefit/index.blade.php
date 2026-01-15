@@ -67,7 +67,7 @@
                                     </td>
                                     <td>{{ $servicebenefit->employee->name }}</td>
                                     <td>{{ $servicebenefit->department->department }}</td>
-                                    <td>{{ $servicebenefit->category }}</td>
+                                    <td class='text-center'>{{ $servicebenefit->category }}</td>
                                     <td>{{ date('d-m-Y', strtotime($servicebenefit->joining_date)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($servicebenefit->leaving_date)) }}</td>
                                     <td>{!! \Carbon\Carbon::parse($servicebenefit->joining_date)->diff(\Carbon\Carbon::parse($servicebenefit->leaving_date))->format('%y|%m|%d'); !!}</td>
@@ -77,7 +77,7 @@
                                     <td>{{ $servicebenefit->amount }}</td>
                                     <td>{{ $servicebenefit->stamp }}</td>
                                     <td>{{ $servicebenefit->net_payable }}</td>
-                                    <td>{{ $servicebenefit->for_pay }}</td>
+                                    <td class='text-center'>{{ $servicebenefit->for_pay }}</td>
                                     <td class="statusCell">
                                         {{ $servicebenefit->status == 'Y' ? 'Paid' : 'Unpaid'}}
                                     </td>
@@ -367,6 +367,11 @@
                     Swal.fire('Error', res.message, 'error');
                 }
             }
+        });
+
+        $('#editModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset(); // all inputs reset
+            $(this).find('button[type="submit"]').prop('disabled', false).html('Save changes'); // spinner reset
         });
     });
 
