@@ -275,7 +275,7 @@
 
             function employeeInfo() {
                 let employeeId = $("#employee_id").val();
-                if (employeeId.length >= 6) {
+                if (employeeId.length >= 8) {
                     $.ajax({
                         url: "{{ route('hris.database.employee-gatepass.employee.info') }}",
                         type: "POST",
@@ -330,7 +330,7 @@
                     $("#photo").attr('src', "{{ asset('backend/assets/images/demo.png') }}");
                     $("#designation_id").val('');
                     $("#department_id").val('');
-                    $("#message").text('Employee ID must be exactly 6 digits');
+                    $("#message").text('Employee ID must be exactly 8 digits');
                 }
             }
 

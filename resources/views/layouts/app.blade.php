@@ -311,8 +311,9 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             flatpickr("input[type='date']", {
-                dateFormat: "d-m-Y",
-                defaultDate: new Date(),
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "d-m-Y",
                 allowInput: true,
             });
         });

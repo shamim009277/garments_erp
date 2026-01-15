@@ -23,8 +23,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="card-body">
                     <table id="userTable" class="table table-striped table-bordered dt-responsive  nowrap w-100">
                         <thead>
@@ -39,14 +37,13 @@
                                 <th width="10%">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New User ...</h6>
@@ -54,7 +51,6 @@
                 <div class="card-body">
                     <form id="userForm" action="{{ route('administration.authorization.user.store') }}" method="POST">
                         @csrf
-
                         <div class="mb-3">
                             <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
@@ -127,7 +123,6 @@
                     <h6 class="modal-title" id="myModalLabel">Edit User</h6>
                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
                 <form id="editUserForm" action="#" method="POST">
                     <div class="modal-body">
                         @csrf
@@ -150,7 +145,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="edit_password" name="password" required value="{{ old('password') }}" placeholder="Enter password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="edit_password" name="password" value="{{ old('password') }}" placeholder="Enter password">
                             <x-input-error :messages="$errors->get('password')" />
                         </div>
                         <div class="mb-3">
@@ -182,7 +177,6 @@
                             </select>
                             <x-input-error :messages="$errors->get('is_active')" />
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
@@ -252,12 +246,10 @@
 
         $(document).on('click', '.edit-user', function() {
             let id = $(this).data('id');
-
             let url = '{{ route('administration.authorization.user.edit', ':id') }}';
             url = url.replace(':id', id);
 
             $.get(url, function(data) {
-                console.log(data);
                 $('#edit_name').val(data.name);
                 $('#edit_employee_id').val(data.employee_id);
                 $('#edit_email').val(data.email);

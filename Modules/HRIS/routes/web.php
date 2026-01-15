@@ -48,6 +48,7 @@ use Modules\HRIS\Http\Controllers\Setup\CompanyWiseShiftController;
 use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
 use Modules\HRIS\Http\Controllers\Tools\EditShiftingListController;
+use Modules\HRIS\Http\Controllers\Database\ServiceBenefitController;
 use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
 use Modules\HRIS\Http\Controllers\Setup\EmpGatepassReasonController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
@@ -274,6 +275,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
             Route::resource('elcalculation', ELCalculationController::class)->names('elcalculation');
             Route::resource('elpayment', ELPaymentController::class)->names('elpayment');
+
+            Route::post('/servicebenefit/delete', [ServiceBenefitController::class, 'destroy'])->name('servicebenefit.delete');
+            Route::post('/servicebenefit/confirm', [ServiceBenefitController::class, 'confirm'])->name('servicebenefit.confirm');
+            Route::post('/servicebenefit/status/update', [ServiceBenefitController::class, 'statusUpdate'])->name('servicebenefit.status.update');
+            Route::resource('servicebenefit', ServiceBenefitController::class)->names('servicebenefit');
         });
 
         //Reports

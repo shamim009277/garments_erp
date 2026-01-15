@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Payroll\Http\Controllers\PayrollController;
 use Modules\Payroll\Http\Controllers\Database\AdvanceController;
 use Modules\Payroll\Http\Controllers\Report\PunchReportController;
+use Modules\Payroll\Http\Controllers\Tools\OTAdjustmentController;
 use Modules\Payroll\Http\Controllers\Tools\ProcessBonusController;
 use Modules\Payroll\Http\Controllers\Database\PunishmentController;
 use Modules\Payroll\Http\Controllers\Report\AbsentReportController;
@@ -14,10 +15,12 @@ use Modules\Payroll\Http\Controllers\Tools\ProcessSalaryController;
 use Modules\Payroll\Http\Controllers\Tools\AdvanceProcessController;
 use Modules\Payroll\Http\Controllers\Tools\EditAttendenceController;
 use Modules\Payroll\Http\Controllers\Report\OvertimeReportController;
+use Modules\Payroll\Http\Controllers\Tools\PunchAdjustmentController;
 use Modules\Payroll\Http\Controllers\Tools\ReadMachineDataController;
 use Modules\Payroll\Http\Controllers\Report\AttendenceReportController;
 use Modules\Payroll\Http\Controllers\Tools\ProcessAttendenceController;
 use Modules\Payroll\Http\Controllers\Tools\ProcessHalfSalaryController;
+use Modules\Payroll\Http\Controllers\Tools\AttendenceAdjustmentController;
 
 Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(function () {
     Route::resource('payroll', PayrollController::class)->names('payroll');
@@ -49,6 +52,8 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(fu
              Route::resource('process-halfsalary', ProcessHalfSalaryController::class)->names('process-halfsalary');
              Route::resource('edit-attendence', EditAttendenceController::class)->names('edit-attendence');
              Route::resource('edit-punchdata', EditPunchDataController::class)->names('edit-punchdata');
+             Route::resource('ot-adjustment', OTAdjustmentController::class)->names('ot-adjustment');
+             Route::resource('attendence-adjustment', AttendenceAdjustmentController::class)->names('attendence-adjustment');
         });
 
         //Report

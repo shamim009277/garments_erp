@@ -21,7 +21,7 @@ class ApplicantRequest extends FormRequest
             'department_id' => ['required', 'integer'],
             'designation_id' => ['required', 'integer'],
             'district_id' => ['required', 'integer'],
-            'line' => ['nullable', 'integer'],
+            'line' => ['required', 'integer','min:0'],
             'identification_type' => ['required', 'integer'],
             'national_id' => ['nullable', 'string', 'max:17','regex:/[0-9]{10,17}/',Rule::unique('hris_database_new_applicant', 'national_id')->ignore($applicantId)],
             'birth_certificate_no' => ['nullable', 'string', 'max:30','regex:/[0-9]{10,30}/',Rule::unique('hris_database_new_applicant', 'birth_certificate_no')->ignore($applicantId)],

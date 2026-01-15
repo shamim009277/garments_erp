@@ -47,7 +47,7 @@ class ProcessAttendenceController extends Controller
     public function store(Request $request)
     {
         if ($request->title == 1) {
-            $startTime = microtime(true); // ⏱ Start time track
+            $startTime = microtime(true);
 
             $pre_date = Carbon::parse($request->date)->format('Y-m-d');
             $month = Carbon::parse($pre_date)->format('m');
@@ -56,7 +56,7 @@ class ProcessAttendenceController extends Controller
             $end_date = Carbon::parse($pre_date)->endOfMonth()->format('Y-m-d');
 
             // ✅ Check if punch data already exists for this month
-            $exists = PunchData::whereBetween('work_date', [$start_date, $end_date])->exists();
+            $exists = PunchData::where('org_id', $request->org_id)->whereBetween('work_date', [$start_date, $end_date])->exists();
             if ($exists) {
                 return redirect()->back()->with('error', 'Pre process attendance already exists for this month.');
             }
@@ -73,7 +73,7 @@ class ProcessAttendenceController extends Controller
                 ->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
                 ->get();
 
-            if ($baseshift->isEmpty() || $companyshift->isEmpty()) {
+            if ($baseshift->isEmpty() && $companyshift->isEmpty()) {
                 return redirect()->back()->with('error', 'Please add shift. Common shift or company wise shift.');
             }
 
@@ -250,12 +250,12 @@ class ProcessAttendenceController extends Controller
             $baseshift = Shift::active()->select('shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
             $companyshift = CompanyWiseShift::active()->where('org_id', $request->org_id)->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
 
-            if ($baseshift->isEmpty() || $companyshift->isEmpty()) {
+            if ($baseshift->isEmpty() && $companyshift->isEmpty()) {
                 return redirect()->back()->with('error', 'Please add shift. Common shift or company wise shift.');
             }
 
             $employees = Employee::active()->where('org_id', $request->org_id)
-                //->where('employee_id',10311)
+                //->where('employee_id',3)
                 ->whereNotNull('refrerence_shift')
                 ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift', 'ot_payable', 'mtreturn_date', 'joining_date', 'punch_category')
                 ->orderBy('department_id')->orderBy('employee_id')
@@ -329,17 +329,17 @@ class ProcessAttendenceController extends Controller
 
                             if ($leavedata) {
                                 $wwh = $leavedata->leave_type_id == "ML" || $leavedata->leave_type_id == "LWOP" ? 0 : 8;
-                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => $leavedata->leave_type_id, 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => $leavedata->leave_type_id, 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
 
                                 continue;
                             } else if ($calendardata && $calendardata->public_holiday == 'Y') {
                                 $wwh = 8;
-                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                                 continue;
                             } else if ($calendardata && $calendardata->holiday == 'Y') {
                                 if ($employee && $employee->ot_payable == 'N') {
                                     $wwh = 8;
-                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                                     continue;
                                 } else if ($employee && $employee->ot_payable == 'Y') {
                                     $wwh = 8;
@@ -349,14 +349,14 @@ class ProcessAttendenceController extends Controller
 
                                     if ($totalhour > 0) {
                                         $othour = calculateActualHours($start_punch, $end_punch, $break_start, $break_end);
-                                        $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => $totalhour, 'ot_hours' => $othour['hours'] ?? 0, 'ot_minutes' => $othour['minutes'] ?? 0, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                        $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => $totalhour, 'ot_hours' => $othour['hours'] ?? 0, 'ot_minutes' => $othour['minutes'] ?? 0, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                                     } else {
-                                        $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => 0, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                        $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => 0, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                                     }
                                 }
                             } else if ($employee->punch_category == 1 && ($punchdata?->start_punch != null || $punchdata?->end_punch != null)) {
                                 $wwh = 8;
-                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $punchdata->start_punch, 'end_punch' => $punchdata->end_punch, 'wwh' => $wwh, 'rwh' => 8, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 8, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $punchdata->start_punch, 'end_punch' => $punchdata->end_punch, 'wwh' => $wwh, 'rwh' => 8, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 8, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                             } else if ($employee->punch_category == 2 && ($punchdata?->start_punch != null || $punchdata?->end_punch != null)) {
                                 $start_punch = $punchdata?->start_punch;
                                 $end_punch   = $punchdata?->end_punch;
@@ -373,13 +373,23 @@ class ProcessAttendenceController extends Controller
                                     $actualHours = 0;
                                 }
 
-                                $lstestart = Carbon::parse($start_punch)->addMinutes($shiftinfo->late_after_minutes)->format('Y-m-d H:i:s');
-                                if ($start_punch > $lstestart) {
+                                $latelimit = Carbon::parse($starthr)->addMinutes($shiftinfo->late_after_minutes)->format('Y-m-d H:i:s');
+                                $earlylimit = Carbon::parse($endhr)->format('Y-m-d H:i:s');
+
+                                if ($start_punch > $latelimit) {
                                     $islate = 'Y';
-                                    $lateMinutes = calculateLate($start_punch, $end_punch);
+                                    $lateMinutes = calculateLate($start_punch, $starthr);
                                 } else {
                                     $islate = 'N';
                                     $lateMinutes = 0;
+                                }
+
+                                if ($end_punch < $earlylimit) {
+                                    $isEarlyLeave = 'Y';
+                                    $earlyMinutes = calculateLate($endhr,$end_punch);
+                                } else {
+                                    $isEarlyLeave = 'N';
+                                    $earlyMinutes = 0;
                                 }
 
                                 $actualOT = $endhr < $end_punch ? ($endhr > $start_punch ? calculateOtHours($endhr, $end_punch) : calculateOtHours($start_punch, $end_punch)) : ['hours' => 0, 'minutes' => 0];
@@ -388,6 +398,7 @@ class ProcessAttendenceController extends Controller
                                 $otminutes = $actualOT['minutes'];
                                 $wwh = 8;
                                 $totalhour = $actualHours['totalHours'];
+                                $shortMinutes = round($lateMinutes+$earlyMinutes);
 
                                 if ($employee->ot_payable == 'N') {
                                     $othour = 0;
@@ -395,16 +406,16 @@ class ProcessAttendenceController extends Controller
                                 }
 
                                 if($totalhour > 0){
-                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => $rwh, 'wwh' => $wwh, 'ot_hours' => $othour, 'ot_minutes' => $otminutes, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => $islate, 'late_minutes' => $lateMinutes, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => $rwh, 'wwh' => $wwh, 'ot_hours' => $othour, 'ot_minutes' => $otminutes, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => $islate, 'is_early_leave' => $isEarlyLeave, 'late_minutes' => $lateMinutes, 'early_minutes' => $earlyMinutes, 'short_minutes' => $shortMinutes, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                                 }else{
-                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => 0, 'wwh' => 0, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'AB', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => 0, 'wwh' => 0, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'AB', 'is_late' => 'N', 'is_early_leave' => 'N', 'late_minutes' => 0, 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                                 }
                             } else if ($employee->punch_category == 3) {
                                 $wwh = 8;
-                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 8, 'wwh' => 8, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 8, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 8, 'wwh' => 8, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 8, 'attn_type' => 'PR', 'is_late' => 'N', 'is_early_leave' => 'N', 'late_minutes' => 0, 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                             } else {
                                 $wwh = 0;
-                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'AB', 'is_late' => 'N', 'late_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
+                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'AB', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                             }
                         } catch (\Throwable $th) {
                             \Log::error('Process Attendence failed', [
