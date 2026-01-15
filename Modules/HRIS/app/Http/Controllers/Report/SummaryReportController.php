@@ -78,7 +78,8 @@ class SummaryReportController extends Controller
                     ini_set('max_execution_time', '300');
                     $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments'))
                     ->setPaper('a4', 'portrait');
-
+                   // return $pdf->stream('employee.pdf');
+                }
             if($request->view_mode == 1){
                 return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments'));
             }elseif($request->view_mode == 2){
