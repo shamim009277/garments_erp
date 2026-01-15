@@ -45,7 +45,7 @@ class AutoGenerationReportController extends Controller
     {
         $request->validate([
         'title' => 'required',
-        'employee_id' => 'nullable|numeric|min:6',
+        'employee_id' => 'nullable|numeric',
         'view_mode' => 'required|string|min:1|max:1',
         'organization_id' => 'required|integer|min:1|max:1',
         ]);
@@ -163,6 +163,7 @@ class AutoGenerationReportController extends Controller
                         'e.employee_id',
                         'e.joining_date',
                         'e.grade',
+                        'e.ot_payable',
                         'b.name_bangla',
                         'b.fname_bangla',
                         'b.mname_bangla',

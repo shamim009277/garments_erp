@@ -21,10 +21,10 @@ use Illuminate\Support\Facades\DB;
 
 class ApplicantReportController extends Controller
 {
-    function __construct()
+   /*  function __construct()
     {
         $this->middleware('permission:hris.applicant-report.view')->only('index','previewData','preview');
-    }
+    } */
     /**
      * Display a listing of the resource.
      */
@@ -194,6 +194,7 @@ class ApplicantReportController extends Controller
                     $q->whereIn('department_id', $request->department_id);
                 })
                 ->where('final_status', 1) 
+                ->where('employee_id', '!=', 0) 
                 ->whereNotNull('employee_id') 
                 ->orderBy('entry_date', 'asc')
                 ->orderBy('entry_date', 'asc')

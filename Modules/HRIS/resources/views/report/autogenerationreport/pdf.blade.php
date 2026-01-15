@@ -131,7 +131,7 @@
 
     <table>
         <tr>
-            <td>তারিখ: {{ date('d/m/Y') }}</td>
+            <td>তারিখ: {{ bnNumber(date('d-m-Y')) }}</td>
         </tr>
     </table>
 
@@ -153,7 +153,8 @@
 
         নিয়োগ পত্রের সকল শর্ত মেনে নিয়ে আজকের তারিখ হতে চাকরিতে যোগদান করিলাম।</p>
 
-        <p class="font-body">তারিখঃ {{ date('d-m-Y', strtotime($employee->joining_date ?? '................................' ))}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; স্বাক্ষরঃ ____________________</p>
+
+        <p class="font-body">তারিখঃ {{ bnNumber( date('d-m-Y', strtotime($employee->joining_date ?? '................................' )))}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; স্বাক্ষরঃ ____________________</p>
     </div>
 
     <div class="footer">
@@ -216,8 +217,8 @@
             <td></td>
         </tr>
         <tr>
-            <td>জন্ম তারিখ : {{ $employee->birth_date ?? '---------'}} </td>
-            <td> কাজে যোগদানের তারিখ : {{ $employee->joining_date ?? '---------'}} </td>
+            <td>জন্ম তারিখ : {{  bnNumber(date('d-m-Y', strtotime($employee->birth_date ?? '---------')) ) }} </td>
+            <td> কাজে যোগদানের তারিখ : {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------'}} </td>
             <td></td>
         </tr>
         <tr>
@@ -226,7 +227,7 @@
             <td></td>
         </tr>
         <tr>
-            <td>আপনার কার্ড নং : {{ $employee->emp_id ?? '---------'}}</td>
+            <td>আপনার কার্ড নং : {{ bnNumber($employee->emp_id ?? '---------') }}</td>
             <td></td>
             <td></td>
         </tr>
@@ -252,7 +253,7 @@
                 <td class="hanging-number">১।</td>
 
                 <td class="hanging-text">
-                {{ date('d/m/Y', strtotime($employee->joining_date)) }} ইং তারিখ হইতে এই নিয়োগ কার্যকর হইবে এবং পরবর্তী ৩ (তিন) মাস প্রবেশনারী পিরিয়ড হিসাবে গন্য হইবে । 
+                {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------' }} ইং তারিখ হইতে এই নিয়োগ কার্যকর হইবে এবং পরবর্তী ৩ (তিন) মাস প্রবেশনারী পিরিয়ড হিসাবে গন্য হইবে । 
             আপনি যদি ০৩ (তিন) মাসে শিক্ষানবিশ কাল সফলভাবে শেষ করিতে না পারেন তবে আপনার শিক্ষানবিশ কাল আরও ০৩ (তিন) মাস পর্যন্ত বর্ধিত করা হতে পারে। বর্ধিত ০৩ (তিন) মাসেও 
             যদি আপনি কাজের দক্ষতা দেখাতে ব্যর্থ হন তবে কোন প্রকার নোটিশ ছাড়াই আপনাকে চাকুরী হতে অবসান করার অধিকার কর্তৃপক্ষ সংরক্ষণ করেন। সন্তোষজনকভাবে শিক্ষানবিশ কাল সমাপ্তির
                 পর আপনি এই প্রতিষ্ঠানে একজন স্থায়ী শ্রমিক হিসাবে গণ্য হবেন তবে এই মর্মে কোন চিঠি প্রদান করা হবেনা ।
@@ -267,27 +268,27 @@
     <table width="80%" class="info-table hanging">
         <tr>
             <td>(ক) মূল বেতন :</td>
-            <td>{{ number_format($employee->basic, 2) }} টাকা</td>
+            <td>{{ bnNumber(number_format($employee->basic, 2)) }} টাকা</td>
         </tr>
         <tr>
             <td>(খ) বাড়িভাড়া (মূল বেতনের ৫০%) :</td>
-            <td>{{ number_format($employee->basic * 0.5, 2) }} টাকা</td>
+            <td>{{ bnNumber(number_format($employee->basic * 0.5, 2)) }} টাকা</td>
         </tr>
         <tr>
             <td>(গ) চিকিৎসা ভাতা :</td>
-            <td>{{ number_format($employee->medical_allowance, 2) }} টাকা</td>
+            <td>{{ bnNumber(number_format($employee->medical_allowance, 2)) }} টাকা</td>
         </tr>
         <tr>
             <td>(ঘ) যাতায়াত ভাতা :</td>
-            <td>{{ number_format($employee->conveyance, 2) }} টাকা</td>
+            <td>{{ bnNumber(number_format($employee->conveyance, 2)) }} টাকা</td>
         </tr>
         <tr>
             <td>(ঙ) খাবার ভাতা :</td>
-            <td>{{ number_format($employee->food_allowance, 2) }} টাকা</td>
+            <td>{{ bnNumber(number_format($employee->food_allowance, 2)) }} টাকা</td>
         </tr>
         <tr>
             <td class="font-body underline">মোট বেতন : </td>
-            <td class="font-body underline">{{ number_format($employee->basic + $employee->home_allowance + $employee->medical_allowance + $employee->food_allowance + $employee->conveyance, 2) }} টাকা</td>
+            <td class="font-body underline">{{ bnNumber(number_format($employee->basic + $employee->home_allowance + $employee->medical_allowance + $employee->food_allowance + $employee->conveyance, 2)) }} টাকা</td>
         </tr>
     </table>
 
@@ -298,17 +299,19 @@
     <div class="section-title hanging">৩। কর্মঘন্টা ও ওভারটাইম :</div>
     <table width="100%" class="info-table hanging">
         <tr>
-            <td>ক) ও.টি.হিসাব :</td>
-            <td>মূল বেতনের দ্বিগুন হারে হিসাব করা হবে। হিসাব এইরূপ : মূল বেতন/২০৮*২= প্রতি ঘন্টার ওভারটাইম হার ।</td>
-        </tr>
-        <tr>
-            <td>খ) দৈনিক কর্মঘন্টা :</td>
+            <td>ক) দৈনিক কর্মঘন্টা :</td>
             <td> ৮ ঘন্টা (০৮:৩০ - ০৫:৩০ টা) । প্রতিদিন ০১ ঘন্টা লাঞ্চ বিরতি (০১:০০টা-০২:০০টা)।</td>
+        </tr>
+        @if($employee->ot_payable == "Y")
+        <tr>
+            <td>খ) ও.টি.হিসাব :</td>
+            <td>মূল বেতনের দ্বিগুন হারে হিসাব করা হবে। হিসাব এইরূপ : মূল বেতন/২০৮*২= প্রতি ঘন্টার ওভারটাইম হার ।</td>
         </tr>
         <tr>
             <td class="left-col">গ) দৈনিক ও.টি. ঘন্টা :</td>
             <td class="right-col"> সর্বোচ্চ ০২ ঘন্টা (বাধ্যতামূলক নহে) । প্রতিদিন ০৮ ঘন্টার অতিরিক্ত (লাঞ্চ বিরতি ব্যতীত) ও সপ্তাহে ৪৮ ঘন্টার অতিরিক্ত সময় কাজকে ওভার টাইম হিসাবে গন্য করা হবে।</td>
         </tr>
+        @endif
     </table>
      <div class="section-title hanging">৪। বেতন/পারিশ্রমিক প্রদানের তারিখ/সময় :</div>
     <table width="100%" class="info-table hanging">
@@ -515,7 +518,7 @@
         $months = $diff->m;
         $days   = $diff->d;
 
-        $ageFull = "{$years} বছর {$months} মাস {$days} দিন";
+        $ageFull = bnNumber("{$days} দিন {$months} মাস {$years} বছর");
 
 
     ?>
@@ -562,8 +565,8 @@
 
             <tr>
                 <td>৫। জন্ম তারিখ</td>
-                <td>: {{ date('yy-m-d', strtotime($employee->birth_date ?? now())) }}</td>
-                <td>বয়স</td>
+                <td>: {{ $employee->birth_date ? bnNumber(date('d-m-y', strtotime($employee->birth_date))) : '---------' }}</td>
+                <td>বয়স</td>
                 <td>: {{ $ageFull }}</td>
             </tr>
             <tr>
@@ -592,7 +595,7 @@
             </tr>
             <tr>
                 <td>৯। চাকুরীতে যোগদানের তারিখ</td>
-                <td>: {{ $employee->joining_date ?? '' }}</td>
+                <td>: {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------' }}</td>
                 <td>১০। পদের নাম</td>
                 <td>: {{ $employee->designation_name }}</td>
             </tr>
@@ -762,8 +765,8 @@
                 <td>১. ক্রমিক নং : {{ $employee->employee_id }}</td>
             </tr>
            <tr>
-                <td>তারিখ : {{ $employee->joining_date ?? '' }}</td>
-                <td>তারিখ : {{ $employee->joining_date ?? '' }}</td>
+                <td>তারিখ : {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------' }}</td>
+                <td>তারিখ : {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------' }}</td>
             </tr>
             <tr>
                 <td>২। নাম : {{  $employee->name_bangla }}</td>
@@ -784,11 +787,11 @@
                 
             </tr>
             <tr>
-                <td>5। লিঙ্গ : @if($employee->sex_code == 'M') পুরুষ @else মহিলা @endif </td>
-                <td>5। লিঙ্গ : @if($employee->sex_code == 'M') পুরুষ @else মহিলা @endif </td>
+                <td>৫। লিঙ্গ : @if($employee->sex_code == 'M') পুরুষ @else মহিলা @endif </td>
+                <td>৫। লিঙ্গ : @if($employee->sex_code == 'M') পুরুষ @else মহিলা @endif </td>
             </tr>
             <tr>
-                <td>৬. স্থায়ী/যোগাযোগের ঠিকানা : <br>
+                <td>৬। স্থায়ী/যোগাযোগের ঠিকানা : <br>
                     গ্রাম : {{ $employee->mvillage_bangla }} <br>
                     পোষ্ট : {{ $employee->mpost_office_bangla }} <br>
                     থানা : {{ $employee->thana_name }} <br>
@@ -797,7 +800,7 @@
                 <td> তিনি প্রতিষ্ঠানে নিযুক্ত হইতে ইচ্ছুক, এবং আমার পরীক্ষা হইতে এইর <br> পাওয়া গিয়েছে যে, তাহার বয় ২৬ বৎসর এবং তিনি প্রতিষ্ঠানে <br> প্রাপ্তবয়স্ক/কিশোর হিসাবে নিযুক্ত হইবার যোগ্য । </td>
             </tr>
              <tr>
-                <td>৭. অস্থায়ী/যোগাযোগের ঠিকানা : <br>
+                <td>৭। অস্থায়ী/যোগাযোগের ঠিকানা : <br>
                     গ্রাম : {{ $employee->pvillage_bangla }} <br>
                     পোষ্ট : {{ $employee->ppost_office_bangla }} <br>
                     থানা : {{ $employee->thana_name_p }} <br>
@@ -805,15 +808,15 @@
                 <td> তাহার সনাক্তকরনের চিহ্ন :{{ $employee->identification ?? '--'}} </td>
             </tr>
             <tr>
-                <td>৮. জন্ম সনদ/শিক্ষা সনদ অনুসারে বয়স/জন্ম তারিখ : {{ $employee->birth_date ?? '' }}</td>
+                <td>৮। জন্ম সনদ/শিক্ষা সনদ অনুসারে বয়স/জন্ম তারিখ : {{ $employee->birth_date ? bnNumber(date('d-m-Y', strtotime($employee->birth_date))) : '---------' }}</td>
                 <td></td>
             </tr>
             <tr>
-                <td>৯. দৈহিক সক্ষমতা : {{ $employee->physical_capacity ?? '' }}</td>
+                <td>৯। দৈহিক সক্ষমতা : {{ $employee->physical_capacity ?? '' }}</td>
                 <td></td>
             </tr>
             <tr>
-                <td>১০. সনাক্তকরনের চিহ্ন : {{ $employee->identification ?? '--'}}</td>
+                <td>১০। সনাক্তকরনের চিহ্ন : {{ $employee->identification ?? '--'}}</td>
                 <td></td>
             </tr>
             {{-- <tr>
@@ -890,7 +893,7 @@
                 <td style="text-align: left">আইডি: {{ $employee->employee_id ?? '' }}</td>
             </tr>
             <tr>
-                <td>তারিখ: {{ $employee->joining_date ?? '' }}</td>
+                <td>তারিখ: {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '' }}</td>
                 <td style="text-align: left">পদবী: {{ $employee->designation_name ?? '' }}</td>
             </tr>
         </table>
@@ -901,7 +904,7 @@
                 </td>
             </tr>
         </table>
-         <table width="100%" style="margin-bottom: 10px;">
+        <table width="100%" style="margin-bottom: 10px;">
             <tr>
                 <td>তথ্য দাতার বিবরন :</td>
                 <td></td>

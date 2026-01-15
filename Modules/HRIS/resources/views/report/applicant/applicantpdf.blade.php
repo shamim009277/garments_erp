@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Leave Report</title>
+    <title>Applicant Report</title>
     <link rel="shortcut icon" href="{{ public_path('backend/assets/images/logo-sm.svg') }}">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />
@@ -12,7 +12,7 @@
         body {
             font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 11px;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #000;
             margin: 0;
             padding: 0;
@@ -31,7 +31,7 @@
 
     body body {
         font-family: 'notosansbengali';
-        font-size: 12px;
+        font-size: 13px;
     }
   /*       @font-face {
         font-family: 'NotoSansBengali';
@@ -86,7 +86,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         thead {
@@ -241,69 +241,72 @@
          
         
            
-        @if(count($employees) > 0)
+@if(count($employees) > 0)
     @php
-        // প্রতি পৃষ্ঠায় ৯টা applicant দেখাবে
-        $chunks = $employees->chunk(9);
+        // প্রতি পৃষ্ঠায় 4টা applicant দেখাবে
+        $chunks = $employees->chunk(4);
     @endphp
 
     @foreach($chunks as $page)
         <table style="width: 100%; margin-top: 20px;">
-            @foreach($page->chunk(3) as $row)
+            @foreach($page->chunk(2) as $row)
                 <tr>
                     @foreach($row as $employee)
-                        <td style="width: 33.33%; padding: 5px;" valign="top">
-                            <table style="width: 100%; border: 1px solid #000; line-height: 1.2em; font-size: 12px;">
-                                <tr>
-                                    <td colspan="2" style="text-align: center; font-weight: bold; background: #726977; color: #fff;">
-                                        সাময়িক গেট পাস
-                                    </td>
-                                </tr>
-                                <tr>
+                        <td style="width: 50%; padding: 5px;" valign="top">
+                            <table style=" width: 100%; border: 1px solid #000; line-height: 1.6em; font-size: 15px; height: 920px; min-height: 920px;">
+                                 <tr>
                                     <td colspan="2" style="text-align: center;">
                                         {{-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" width="40" height="40" alt="Logo">
                                         <br> --}}
-                                        <span style="font-size: 13px;">{{-- {{ $general->full_name }} --}} আয়েশা এন্ড গালিয়া ফ্যাশন্স লিমিটেড
-</span>
+                                        <span style="font-size: 20px;">{{-- {{ $general->full_name }} --}} {{ $general->bn_name?? "আয়েশা এন্ড গালিয়া ফ্যাশন্স লিমিটেড"  }} 
+                                    </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; font-weight: bold; font-size: 18px; background: #faf7fc; color: #000;">
+                                        সাময়িক গেট পাস
                                     </td>
                                 </tr>
                                 <tr>
                                     {{-- <td style="width: 40%;">
                                         <img src="{{ public_path('uploads/photos/default.png') }}" width="90" height="110" alt="Photo">
                                     </td> --}}
-                                    <td style="width: 100%; vertical-align: top;">
+                                    <td style="width: 100%; vertical-align: top; font-size: 16px;">
                                         {{-- <strong>আইডি কার্ড নং :-</strong> {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}<br>
                                         <strong>নাম :-</strong> {{ $employee->name_bangla }}<br>
                                         <strong>সেকশন/লাইন :-</strong> {{ $employee->department_name ?? '-' }}<br>
                                         <strong>পদবী :-</strong> {{ $employee->designation_name ?? '-' }}<br>
                                         <strong>বেতন:-</strong> {{ $employee->basic_salary ?? '-' }}<br>
                                         <strong>যোগদানের তারিখ- :-</strong> {{ date('d-m-Y', strtotime($employee->joining_date)) }} --}}
-                                        <strong>আইডি কার্ড নং :-</strong> {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}<br>
                                         <strong>নাম :-</strong> {{ $employee->name_bangla }}<br>
-                                        <strong>সেকশন/লাইন :-</strong> {{ $employee->department->department_bn ?? '-' }}<br>
-                                        <strong>পদবী :-</strong> {{ $employee->designation->designation_bn ?? '-' }}<br>
-                                        <strong>বেতন:-</strong> {{ $employee->determined_salary ?? '-' }}<br>
-                                        <strong>যোগদানের তারিখ- :-</strong> {{ date('d-m-Y', strtotime($employee->joining_date)) }}
-                                        
+                                        <strong>পদবী :-</strong> {{ $employee->designation->designation_bn ?? '-' }} &nbsp; &nbsp; &nbsp; &nbsp; <strong>সেকশন/লাইন :-</strong> {{ $employee->department->department_bn ?? '-' }}<br>
+                                        <strong>যোগদানের তারিখ- :-</strong> {{ bnNumber(date('d-m-Y', strtotime($employee->joining_date))) }} <br>
+                                        <strong>বেতন:-</strong> {{ bnNumber(rtrim(rtrim(number_format($employee->determined_salary, 2), '0'), '.')) }}/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> {{ bnNumber(str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT)) }}<br>
+                                        <!--<strong>বেতন:-</strong> {{ rtrim(number_format($employee->determined_salary ?? '-', 2), '0.') }}/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}<br>-->
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="text-align: center; font-size: 10px; padding-top: 5px;"><br>
-                                        <p><i>লাইন  চীফ /ইনচার্জ</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>পিএম/কিউএম</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>আই.ই</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>এডমিন</i></p>
+                                    <td colspan="2" style="vertical-align: bottom; height: 130px; font-size: 15px;"><br>
+                                        <p><i>ইনচার্জ/ আই ই</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>পিএম/কিউএম</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>জিএম</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>এডমিন</i></p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="text-align: left; font-size: 10px; padding-top: 5px;">
-                                        <i>বি: দ্র: যোগদানকারী শ্রমিকের অবশ্যই যোগদানের তিন কর্মদিবসের <br>মধ্যে জন্ম নিবন্ধন বা NID ১ কপি, নাগরিকত্ব সনদ ১ কপি, নমিনি <br> (বাবা/মা/ভাই/বোন/স্বামী)-এর NID ১ কপি, নমিনির পাসপোর্ট সাইজ <br> ছবি ১ কপি, শ্রমিকের পাসপোর্ট সাইজ ছবি ৪ কপি, শ্রমিকের ষ্টাম্প সাইজ <br> ছবি ২ কপি জমা দিয়ে এইচ আর বিভাগ থেকে পাঞ্চ কার্ড সংগ্রহ করতে হবে।</i>
+                                    <td colspan="2" style="text-align: middle; font-size: 16px; padding-top: 6px;">
+                                        <i>বিঃ দ্রঃ- যোগদানকারী শ্রমিককে অবশ্যই যোগদানের সময় জন্ম নিবন্ধন/জাতীয় পরিচয় পত্র ২ কপি, নাগরিকত্ব সনদ পত্র ১ কপি, শ্রমিকের পার্সপোট সাইজের ছবি ৫ কপি, নমিনী (মা/বাবা/ভাই/বোন/স্বামী/স্ত্রী) এর জাতীয় পরিচয় পত্র ০২ কপি, পাসপোর্ট সাইজের ছবি ২ কপি। সহ সকল প্রয়োজনীয় কাগজপত্র জমা দিয়ে এইচ আর বিভাগ থেকে আইডি কার্ড সংগ্রহ করতে হবে।</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: middle; font-size: 16px; padding-top: 6px;">
+                                        <i>জরুরী প্রয়োজনে যোগাযোগ করুন। +880 1840-818701</i>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     @endforeach
 
-                    {{-- যদি কোনো রোতে ৩টার কম হয় --}}
-                    @for($i = count($row); $i < 3; $i++)
-                        <td style="width: 33.33%;"></td>
+                    {{-- যদি কোনো রোতে ২টার কম হয় --}}
+                    @for($i = count($row); $i < 2; $i++)
+                        <td style="width: 50%;"></td>
                     @endfor
                 </tr>
             @endforeach
