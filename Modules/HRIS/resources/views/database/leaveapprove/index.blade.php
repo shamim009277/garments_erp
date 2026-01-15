@@ -147,7 +147,7 @@
     </div>
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
 <script>
 $(document).ready(function() {
     function calculateDays(start, end) {
@@ -387,6 +387,222 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 Swal.close();
                 Swal.fire('Error', error, 'error');
+            }
+        });
+    });
+
+});
+</script>
+@endpush --}}
+@push('scripts')
+<script>
+$(document).ready(function () {
+
+    /* ---------------- HELPERS ---------------- */
+    let previousValues = {};
+
+    function calculateDays(start, end) {
+        let startDate = new Date(start);
+        let endDate   = new Date(end);
+
+        if (isNaN(startDate) || isNaN(endDate)) return 0;
+
+        let diffTime = endDate - startDate;
+        let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        return diffDays > 0 ? diffDays : 0;
+    }
+
+    function toggleButtons() {
+        let anyChecked = $('.row_checkbox:checked').length > 0;
+        $('#discardBtn, #submitBtn').prop('disabled', !anyChecked);
+    }
+
+    /* ---------------- CHECK / UNCHECK ALL ---------------- */
+    $('#check_all_forward').on('click', function () {
+        $('.row_checkbox').prop('checked', true).trigger('change');
+    });
+
+    $('#uncheck_all_forward').on('click', function () {
+        $('.row_checkbox').prop('checked', false).trigger('change');
+    });
+
+    /* ---------------- SINGLE CHECKBOX ---------------- */
+    $(document).on('change', '.row_checkbox', function () {
+        let row = $(this).closest('tr');
+        let isChecked = $(this).is(':checked');
+
+        row.find('.start_date, .end_date')
+           .prop('readonly', !isChecked);
+
+        toggleButtons();
+    });
+
+    $('.row_checkbox').trigger('change');
+    toggleButtons();
+
+    /* ---------------- STORE PREVIOUS VALUE ---------------- */
+    $(document).on('focus', '.start_date, .end_date', function () {
+        previousValues[this.id] = this.value;
+    });
+
+    /* ---------------- DATE CHANGE ---------------- */
+    $(document).on('change', '.start_date, .end_date', function () {
+
+        let row        = $(this).closest('tr');
+        let startInput = row.find('.start_date');
+        let endInput   = row.find('.end_date');
+        let daysInput  = row.find('.days');
+
+        let start = startInput.val();
+        let end   = endInput.val();
+
+        if (!start || !end) {
+            daysInput.val(0);
+            return;
+        }
+
+        let startDate = new Date(start);
+        let endDate   = new Date(end);
+
+        if (startDate > endDate) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Start Date cannot be after End Date!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+
+            startInput.val(previousValues[startInput.attr('id')] || '');
+            endInput.val(previousValues[endInput.attr('id')] || '');
+
+            let restoredStart = startInput.val();
+            let restoredEnd   = endInput.val();
+
+            daysInput.val(
+                restoredStart && restoredEnd
+                    ? calculateDays(restoredStart, restoredEnd)
+                    : 0
+            );
+            return;
+        }
+
+        daysInput.val(calculateDays(start, end));
+    });
+
+    /* ---------------- INIT PREVIOUS VALUES ---------------- */
+    $('.start_date, .end_date').each(function () {
+        previousValues[this.id] = this.value;
+    });
+
+    /* ---------------- DISCARD ---------------- */
+    $('#discardBtn').on('click', function () {
+
+        let form_id = [], start_date = [], end_date = [], days = [];
+
+        $('.row_checkbox:checked').each(function () {
+            let row = $(this).closest('tr');
+
+            form_id.push($(this).val());
+            start_date.push(row.find('.start_date').val());
+            end_date.push(row.find('.end_date').val());
+            days.push(row.find('.days').val());
+        });
+
+        if (!form_id.length) {
+            Swal.fire('Warning', 'No row selected!', 'warning');
+            return;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This action cannot be undone!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, discard it!'
+        }).then((result) => {
+
+            if (!result.isConfirmed) return;
+
+            $.ajax({
+                url: '{{ route('hris.database.leave-approve.store') }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    form_id,
+                    form: 1,
+                    start_date,
+                    end_date,
+                    days
+                },
+                beforeSend() {
+                    Swal.fire({
+                        title: 'Please wait...',
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading()
+                    });
+                },
+                success(res) {
+                    Swal.close();
+                    if (res.status === 'success') {
+                        Swal.fire('Success', res.message, 'success');
+                        $('.row_checkbox:checked').closest('tr').fadeOut(300, function () {
+                            $(this).remove();
+                        });
+                    } else {
+                        Swal.fire('Error', res.message, 'error');
+                    }
+                }
+            });
+        });
+    });
+
+    /* ---------------- SUBMIT ---------------- */
+    $('#submitBtn').on('click', function () {
+
+        let form_id = [], start_date = [], end_date = [], days = [];
+
+        $('.row_checkbox:checked').each(function () {
+            let row = $(this).closest('tr');
+
+            form_id.push($(this).val());
+            start_date.push(row.find('.start_date').val());
+            end_date.push(row.find('.end_date').val());
+            days.push(row.find('.days').val());
+        });
+
+        if (!form_id.length) {
+            Swal.fire('Warning', 'No row selected!', 'warning');
+            return;
+        }
+
+        $.ajax({
+            url: '{{ route('hris.database.leave-approve.store') }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                form_id,
+                form: 2,
+                start_date,
+                end_date,
+                days
+            },
+            beforeSend() {
+                Swal.fire({
+                    title: 'Please wait...',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success(res) {
+                Swal.close();
+                if (res.status === 'success') {
+                    Swal.fire('Success', res.message, 'success');
+                    $('.row_checkbox:checked').closest('tr').fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    Swal.fire('Error', res.message, 'error');
+                }
             }
         });
     });

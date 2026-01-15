@@ -19,10 +19,16 @@ class ServiceBenefitController extends Controller
     public function index()
     {
         $organizations = Organization::active()->pluck('short_name', 'id');
-        $startDate = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
-        $endDate = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
 
-        return view('hris::database.servicebenefit.index',compact('organizations','startDate','endDate'));
+        $today = Carbon::now();
+        $basedate = $today->day <= 15 ? $today->copy()->startOfMonth()->subMonth() : $today->copy()->startOfMonth();
+        $startDate = $basedate->copy()->startOfMonth()->format('Y-m-d');
+        $endDate = $basedate->copy()->endOfMonth()->format('Y-m-d');
+        $monthYear = $basedate->format('F Y');
+
+        $servicebenfits = ServiceBenefit::with(['employee:id,employee_id,name','department:id,department','designation:id,designation,category_code'])->where('month',$basedate->format('m'))->where('year',$basedate->format('Y'))->orderBy('org_id','asc')->orderBy('employee_id','asc')->get();
+
+        return view('hris::database.servicebenefit.index',compact('organizations','startDate','endDate','monthYear','servicebenfits'));
     }
 
     /**
@@ -104,7 +110,7 @@ class ServiceBenefitController extends Controller
                         "amount" => $amount,
                         "stamp" => $stamp,
                         "net_payable" => $net,
-                        "for_pay" => "N",
+                        "for_pay" => 'Y',
                         "status" => 'N',
                         "confirm" => 0,
                         "category" => $employee->designation->category_code ?? null,
@@ -149,8 +155,81 @@ class ServiceBenefitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {}
+    public function destroy(Request $request) {
+        try {
+            $service = ServiceBenefit::findOrFail($request->id);
+            if($service->confirm == 1) {
+                return response()->json(['success' => false, 'message' => 'Service benefit cannot be deleted as it is confirmed']);
+            }
+            $service->delete();
+            return response()->json(['success' => true, 'message' => 'Service benefit deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Service benefit deletion failed: ' . $e->getMessage()]);
+        }
+    }
 
+
+    public function confirm(Request $request)
+    {
+        $request->validate([
+            'org_id'     => 'required',
+            'start_date'=> 'required',
+            'end_date'  => 'required',
+        ]);
+
+        try {
+            $orgid = $request->org_id;
+            $month = Carbon::parse($request->start_date)->format('m');
+            $year  = Carbon::parse($request->start_date)->format('Y');
+
+            ServiceBenefit::where('org_id', $orgid)
+                ->where('month', $month)
+                ->where('year', $year)
+                ->update([
+                    'confirm' => 1,
+                ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Service benefit confirmed successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Service benefit confirmation failed: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function statusUpdate(Request $request) {
+        $request->validate([
+            'service_id'   => 'required|array|min:1',
+            'service_id.*' => 'required|integer|exists:hris_database_service_benefits,id',
+            'status'       => 'required|in:Y,N',
+        ]);
+
+        try {
+            $status = $request->status;
+            $servicebenefit_id = $request->service_id;
+
+            ServiceBenefit::whereIn('id', $servicebenefit_id)
+                ->update([
+                    'status' => $status,
+                ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Service benefit status updated successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Service benefit status update failed: ' . $e->getMessage()
+            ]);
+        }
+    }
 
     /**
      * Calculate paydays based on joining/leaving dates & attendance

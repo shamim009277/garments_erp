@@ -261,7 +261,7 @@
             function employeeInfo() {
                 let employeeId = $("#employee_id").val();
 
-                if (employeeId.length >= 6) {
+                if (employeeId.length >= 8) {
                     $.ajax({
                         url: "{{ route('hris.database.leave.info') }}",
                         type: "POST",
@@ -344,7 +344,7 @@
                     $("#SLB").val(0);
                     $("#ELA").val(0);
 
-                    $("#message").text('Employee ID must be exactly 6 digits');
+                    $("#message").text('Employee ID must be exactly 8 digits');
                 }
             }
 

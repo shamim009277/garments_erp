@@ -153,8 +153,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer" style="padding:14px 20px;">
-                        <x-primary-button type="submit" class="float-start btn-sm submitBtn">Assign</x-primary-button>
+                    <div class="card-footer px-3 py-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p id="message" class="mb-0" style="color:#FF6C37;font-weight:semi-bold"></p>
+                            <x-primary-button id="submitBtn" type="submit" class="btn btn-sm btn-primary submitBtn">Assign</x-primary-button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -186,7 +189,7 @@
         function employeeInfo() {
             let employeeId = $("#employee_id").val();
 
-            if (employeeId.length >= 6) {
+            if (employeeId.length >= 8) {
                 $.ajax({
                     url: "{{ route('hris.database.photosign.info') }}",
                     type: "POST",
@@ -194,11 +197,11 @@
                     employee_id: employeeId
                 },
                 success: function (response) {
+                    $("#message").text('');
                     $("#name").val('');
                     $("#designation").val('');
                     $("#department").val('');
                     $("#join_date").val('');
-                    $("#mobile").val('');
                     $("#nid_birth_certificate").val('');
                     $("#designation_id").val('');
                     $("#department_id").val('');
@@ -210,7 +213,6 @@
                         $("#designation").val(response.designation?.designation || '');
                         $("#department").val(response.department?.department || '');
                         $("#join_date").val(response.joining_date || '');
-                        $("#mobile").val(response.employee_personal?.mobile || '');
 
                         if (response.photo) {
                             $('#photoPreview').attr('src', '/storage/' + response.photo);
@@ -243,6 +245,19 @@
                     });
                 }
                 });
+            }else{
+                $("#name").val('');
+                $("#designation").val('');
+                $("#department").val('');
+                $("#join_date").val('');
+                $("#nid_birth_certificate").val('');
+                $("#designation_id").val('');
+                $("#department_id").val('');
+
+                $('#photoPreview').attr('src', "{{ asset('backend/assets/images/demo.png') }}");
+                $('#signaturePreview').attr('src', "{{ asset('backend/assets/images/sig.png') }}");
+
+                $("#message").text('Employee ID must be exactly 8 digits');
             }
         }
 

@@ -16,7 +16,7 @@ return new class extends Migration
 $table->unsignedBigInteger('org_id');
             $table->year('year');
             $table->tinyInteger('month');
-            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('employee_id')->unique();
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('designation_id');
             $table->unsignedBigInteger('line')->default(0);
