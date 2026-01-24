@@ -73,9 +73,21 @@
                                             <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
                                             <label class="form-check-label" for="title3">Department-wise Monthly Time Card</label>
                                         </div>
-                                       <div class="form-check">
-                                            <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
-                                            <label class="form-check-label" for="title4">Time Card</label>
+                                        <br>
+
+
+
+                                        <div class="form-check">
+                                            <input type="radio" id="title4" name="title" value="4"class="form-check-input titles" checked>
+                                            <label class="form-check-label" for="title4">Daily Late Arrival</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="title5" name="title" value="5"class="form-check-input titles" checked>
+                                            <label class="form-check-label" for="title5">Daily Early Departure</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="title6" name="title" value="6"class="form-check-input titles" checked>
+                                            <label class="form-check-label" for="title6">Daily Single Punch</label>
                                         </div>
                                         <br>
                                     </div>
@@ -303,7 +315,7 @@
 
             $('#all_category').prop('disabled', false);
             $('#all_line').prop('disabled', false);
-        } else if (selectedValue == '2' || selectedValue == '4') {
+        } else if (selectedValue == '2') {
             $('.blood_group').prop('disabled', true);
             $('#date').prop('disabled', true);
             $('#month').prop('disabled', false);
@@ -317,6 +329,13 @@
             $('#date').prop('disabled', true);
             $('#month').prop('disabled', false);
             $('#year').prop('disabled', false);
+
+            $('#all_category').prop('disabled', false);
+            $('#all_line').prop('disabled', false);
+        }else if(selectedValue == '5' || selectedValue == '6' || selectedValue == '4'){
+            $('#date').prop('disabled', false);
+            $('#month').prop('disabled', true);
+            $('#year').prop('disabled', true);
 
             $('#all_category').prop('disabled', false);
             $('#all_line').prop('disabled', false);

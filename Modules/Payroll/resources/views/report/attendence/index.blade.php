@@ -347,7 +347,7 @@
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('#employee_id').prop('disabled', true);
-            $('#organization_id').prop('disabled', true);
+            $('#organization_id').prop('disabled', false);
             $('#organization_section').toggleClass('disabled-select', true);
 
             $('#all_category').prop('disabled', true);

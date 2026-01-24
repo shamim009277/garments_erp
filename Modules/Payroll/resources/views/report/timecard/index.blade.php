@@ -36,20 +36,20 @@
         <div class="col-12">
             @include('components.breadcrumb', [
                 'title' => 'Payroll',
-                'subtitle' => 'Absent',
+                'subtitle' => 'Attendence',
                 'breadcrumbs' => [
                     ['label' => 'Payroll', 'url' => route('payroll.index')],
                     ['label' => 'Report', 'url' => route('payroll.index')],
-                    ['label' => 'Absent', 'url' => route('payroll.report.absent-report.index')],
+                    ['label' => 'Time Card', 'url' => route('payroll.report.time-card.index')],
                 ],
             ])
         </div>
         <div class="col-lg-12 pr-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Absent Report</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Time Card </h6>
                 </div>
-                <form id="employeeListingForm" action="{{ route('payroll.report.absent-report.report.preview') }}" method="POST" target="_blank">
+                <form id="employeeListingForm" action="{{ route('payroll.report.time-card.report.preview') }}" method="POST" target="_blank">
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -60,24 +60,11 @@
                                         <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i>Preview Title's</h6>
                                     </div>
                                     <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
-                                        <div class="form-check">
+                                       <div class="form-check">
                                             <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
-                                            <label class="form-check-label" for="title1">Department-wise Daily Absent Report</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
-                                            <label class="form-check-label" for="title2">Department-wise Absent Report (Date Range)</label>
+                                            <label class="form-check-label" for="title1">Time Card</label>
                                         </div>
                                         <br>
-                                        
-                                        <div class="form-check">
-                                            <input type="radio" id="title3" name="title" value="3"class="form-check-input titles" checked>
-                                            <label class="form-check-label" for="title3">Department-wise Daily Absent (Abnormal)</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
-                                            <label class="form-check-label" for="title4">Department-wise Absent (Abnormal) (Date Range)</label>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -141,6 +128,12 @@
                                         <table class="table table-sm" width="100%">
                                             <tbody>
                                                 <tr>
+                                                    <th width="40%">Organization</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <th width="40%"> Employee ID</th>
                                                     <td width="60%">
                                                         <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" />
@@ -161,40 +154,25 @@
                                                         <label class="m-0" for="all_line">All Line</label>
                                                     </th>
                                                     <td id="all_line_section">
-                                                        <x-select-input name="line" id="line" class="select2" :options="$lines" placeholder="Line" disabled />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th width="40%">
-                                                        <input type="checkbox" id="all_reason" checked>
-                                                        <label class="m-0 font-bold" for="all_reason">All Reason</label>
-                                                    </th>
-                                                    <td width="60%" id="all_reason_section">
-                                                        <x-select-input name="reason_id" id="reason_id" class="select2" :options="$employeeCategories" placeholder="Reason ID" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Start Date</th>
-                                                    <td width="60%">
-                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th width="40%">End Date</th>
-                                                    <td width="60%">
-                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th width="40%">Organization</th>
-                                                    <td width="60%">
-                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
+                                                        <x-text-input name="line" id="line" label="" class="form-control-sm" placeholder="Line" disabled />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="date" type="date" id="date" class="form-control-sm" value="{{ $startDate }}" placeholder="Date" disabled />
+                                                        <x-text-input name="date" type="date" id="date" class="form-control-sm" value="{{ $startDate }}" placeholder="Date" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Month</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="month" id="month" class="select2" :options="$months" selected="{{ old('month', date('m')) }}" placeholder="Month" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Year</th>
+                                                    <td width="60%" id="year_section">
+                                                        <x-text-input name="year" type="text" id="year" class="form-control-sm" value="{{ date('Y') }}" placeholder="Year" disabled/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -284,24 +262,6 @@
             handleToggle('#all_line', '#line', '#all_line_section');
         });
 
-        // Handle All District and Blood Group and Reason
-
-        handleToggle('#all_district', '#district_id', '#all_district_section');
-        handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
-        handleToggle('#all_reason', '#reason_id', '#all_reason_section');
-
-        $('#all_district').on('change', function () {
-            handleToggle('#all_district', '#district_id', '#all_district_section');
-        });
-
-        $('#all_blood_group').on('change', function () {
-            handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
-        });
-
-        $('#all_reason').on('change', function () {
-            handleToggle('#all_reason', '#reason_id', '#all_reason_section');
-        });
-
         function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
             const isChecked = $(checkboxSelector).is(':checked');
 
@@ -323,22 +283,14 @@
 
     function handleTitleSelection() {
         let selectedValue = $('input[name="title"]:checked').val();
-        if (selectedValue == '1' || selectedValue == '3') {
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
-            $('#date').prop('disabled', false);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-        } else if (selectedValue == '2' || selectedValue == '4') {
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
+        if (selectedValue == '1') {
             $('#date').prop('disabled', true);
-        } else {
-            $('.designationID').prop('disabled', false);
-            $('.departmentID').prop('disabled', false);
+            $('#month').prop('disabled', false);
+            $('#year').prop('disabled', false);
+
+            $('#all_category').prop('disabled', false);
+            $('#all_line').prop('disabled', false);
         }
     }
 </script>
 @endpush
-

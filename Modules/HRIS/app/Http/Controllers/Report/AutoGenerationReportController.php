@@ -44,20 +44,15 @@ class AutoGenerationReportController extends Controller
     public function preview(Request $request)
     {
         $request->validate([
-        'title' => 'required',
-        'employee_id' => 'nullable|numeric',
-        'view_mode' => 'required|string|min:1|max:1',
-        'organization_id' => 'required|integer|min:1|max:1',
+            'title' => 'required',
+            'employee_id' => 'nullable|numeric',
+            'view_mode' => 'required|string|min:1|max:1',
+            'organization_id' => 'required|integer|min:1',
         ]);
-        $startDate = $request->startDate;
-        $endDate = $request->endDate;
-        $organizations = $request->organizations;
-        $parentDepartments = $request->parentDepartments;
-        $designations = $request->designations;
 
+        $orgid = $request->organization_id;
         $start_date = date('Y-m-d', strtotime($request->start_date));
         $end_date   = date('Y-m-d', strtotime($request->end_date));
-
             if($request->title == 1){
                 $employees = DB::table('hris_database_employee_basic as e')
                 ->leftJoin('hris_database_employee_salary as s', 'e.employee_id', '=', 's.employee_id')
@@ -66,8 +61,8 @@ class AutoGenerationReportController extends Controller
                 ->leftJoin('hris_setup_designations as des', 'e.designation_id', '=', 'des.id')
                 ->leftJoin('hris_setup_thanas as t', 'b.mthana_id_bangla', '=', 't.id')
                 ->leftJoin('hris_setup_districts as dis', 'b.mdistrict_id_bangla', '=', 'dis.id')
-                
                 ->select(
+                    'e.org_id',
                     'e.employee_id as emp_id',
                     'e.employee_id',
                     'b.name_bangla',
@@ -91,9 +86,6 @@ class AutoGenerationReportController extends Controller
 
                     $q->whereIn('e.employee_id', $ids);
                 })
-               /*  ->when($request->filled('designation_id'), function ($q) use ($request) {
-                    $q->whereIn('e.designation_id', $request->designation_id);
-                })  */
                ->orderBy('e.joining_date', 'desc')
                 ->limit(50)
                 ->get(); 
@@ -131,11 +123,8 @@ class AutoGenerationReportController extends Controller
                         'useOTL' => true, // এখানে দিও, property নয়!
                     ]);
                 
-                /* $html = view('hris::report.autogenerationreport.pdf', compact('employees'))->render();
-                $mpdf->WriteHTML($html);
-                return $mpdf->Output('joining_letter.pdf', 'I'); */
                 foreach($employees as $index => $emp){
-                    $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp, 'title' => $request->title])->render();
+                    $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp,'orgid' => $orgid,'title' => $request->title])->render();
                     $mpdf->WriteHTML($html);
 
                     if ($index != count($employees) - 1) {
@@ -239,12 +228,9 @@ class AutoGenerationReportController extends Controller
                         'autoLangToFont' => true,
                         'useOTL' => true, // এখানে দিও, property নয়!
                     ]);
-                
-                /* $html = view('hris::report.autogenerationreport.pdf', compact('employees'))->render();
-                $mpdf->WriteHTML($html);
-                return $mpdf->Output('joining_letter.pdf', 'I'); */
+        
                 foreach($employees as $index => $emp){
-                    $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp, 'title' => $request->title])->render();
+                    $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp,'orgid' => $orgid,'title' => $request->title])->render();
                     $mpdf->WriteHTML($html);
 
                     if ($index != count($employees) - 1) {
@@ -253,12 +239,6 @@ class AutoGenerationReportController extends Controller
                 }
 
                 return $mpdf->Output('autogeneration.pdf', 'I');
-            }else if($request->title == 3){
-                
-            }else if($request->title == 4){
-                //
-            }else if($request->title == 5){
-                //
             }
 
     }

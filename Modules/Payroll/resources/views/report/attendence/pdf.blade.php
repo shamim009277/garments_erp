@@ -1,379 +1,357 @@
-<!DOCTYPE html>
-<html>
+@extends('payroll::components.layouts.pdf')
+@section('title', 'Attendance Report')
+<style>
+    body {
+        font-size: 11px;
+    }
 
-<head>
-    <meta charset="utf-8">
-    <title>Employee Listing Report</title>
-    <link rel="shortcut icon" href="{{ public_path('backend/assets/images/logo-sm.svg') }}">
-    <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
-    <meta name="author" content="ERP Team" />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: auto;
+    }
 
-        body {
-            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 11px;
-            line-height: 1.5;
-            color: #000;
-            margin: 0;
-            padding: 0;
-        }
+    thead {
+        display: table-header-group;
+    }
 
-        @page {
-            margin: 110px 20px 50px 20px;
-        }
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
 
-        .page::after {
-            content: counter(page);
-        }
+    th, td {
+        border: 1px solid #000;
+        padding: 4px;
+        vertical-align: middle;
+    }
 
-        header {
-            position: fixed;
-            top: -100px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            padding-bottom: 10px;
-        }
+    .text-center {
+        text-align: center;
+    }
 
-        footer {
-            position: fixed;
-            bottom: -40px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 10px;
-            color: #555;
-            border-top: 1px solid #ccc;
-            padding-top: 5px;
-        }
+    .page-break {
+        page-break-before: always;
+    }
+</style>
+@php
+    $reportTitle = match ($title) {
+        '1' => 'Department-wise Daily Attendance',
+        '2' => 'Individual Card Wise Monthly Attendance',
+        '3' => 'Section Wise Daily Attendance Summary',
+        '4' => 'Department Wise Daily Attendance Summary',
+        '5' => 'Company Wise Daily Attendance Summary',
+        default => '',
+    };
 
-        footer .printed-by {
-            float: left;
-            text-align: left;
-            width: 50%;
-        }
+    $reportSubTitle = in_array($title, [2])
+    ? 'Month: ' . ($monthName . ' ' . $year ?? '')
+    : (in_array($title, [1, 3, 4, 5])
+        ? 'Date: ' . \Carbon\Carbon::parse($date)->format('d-m-Y')
+        : '');
+@endphp
 
-        footer .page-count {
-            float: right;
-            text-align: right;
-            width: 50%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        thead {
-            display: table-header-group;
-            background-color: #f2f2f2;
-        }
-
-        tfoot {
-            display: table-footer-group;
-        }
-
-        th,
-        td {
-            padding: 6px 8px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .sub-title {
-            font-size: 12px;
-            color: #666;
-        }
-
-        p {
-            margin: 0;
-        }
-
-        .no-border td,
-        .no-border th {
-            border: none !important;
-        }
-
-        .company-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.2;
-        }
-
-        .watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 40px;
-            font-weight: 700;
-            color: rgba(0, 0, 0, 0.08);
-            pointer-events: none;
-            z-index: 0;
-            white-space: nowrap;
-        }
-
-        .watermark-image {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.08;
-            width: 300px;
-            height: auto;
-            pointer-events: none;
-            z-index: 0;
-        }
-    </style>
-
-</head>
-
-<body>
-    <!-- Watermark -->
-    <div class="watermark">
-        {{ $general->full_name }} - {{ now()->format('Y') }}
-    </div>
-    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
-    <!-- Header -->
-    <header>
-        <div style="display: flex; align-items: center;">
-            <!-- Logo -->
-            <div>
-                <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo"
-                    style="width: 40px; height: 40px;">
-            </div>
-
-            <!-- Company Info -->
-            <div class="company-info">
-                <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $general->full_name }}</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Address, City, Country</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: info@company.com | Phone:
-                    +880123456789</div>
-            </div>
-        </div>
-        <hr style="border: 1px solid #ccc;">
-    </header>
-
-    <!-- Footer -->
-    <footer>
-        <div style="display: flex; justify-content: space-between; font-size: 10px;">
-            <div>
-                Printed by {{ auth()->user()->name ?? 'System' }}
-            </div>
-            <div>
-                Page <span class="page"></span> | {{ now()->format('d-m-Y h:i A') }}
-            </div>
-        </div>
-    </footer>
-
-    <!-- PDF Body -->
+{{-- ================= CONTENT ================= --}}
+@section('content')
     @if ($title == 1)
-        <h6 class="my-0 text-primary text-center">Department-wise Daily Attendance</h6>
-        <p class="ms-auto text-center">Date: {{ date('d-m-Y', strtotime($date)) }}</p>
-    @elseif($title == 2)
-        <h6 class="my-0 text-primary text-center">Department-wise Daily Attendance</h6>
-        <p class="ms-auto text-center">Month: {{ $monthName }} <br> Year: {{ $year }}</p>
-    @elseif($title == 3)
-        <h6 class="my-0 text-primary text-center">Section Wise Daily Attendence Summary</h6>
-        <p class="ms-auto text-center">Date: {{ date('d-m-Y', strtotime($date)) }}</p>
-    @elseif($title == 4)
-        <h6 class="my-0 text-primary text-center">Department Wise Daily Attendence Summary</h6>
-        <p class="ms-auto text-center">Date: {{ date('d-m-Y', strtotime($date)) }}</p>
-    @elseif($title == 5)
-        <h6 class="my-0 text-primary text-center">Company Wise Daily Attendence Summary</h6>
-        <p class="ms-auto text-center">Date: {{ date('d-m-Y', strtotime($date)) }}</p>
-    @endif
+        @if($uniqueDepartments->count() > 0)
+            @foreach ($uniqueDepartments as $key => $department)
+                <div class="{{ !$loop->first ? 'page-break' : '' }}">
+                    <div style="font-size:12px; font-weight:bold; margin-bottom:5px;">
+                        Department: {{ $department }}
+                    </div>
 
-
-    @if ($title == 1)
-        <table style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>SL</th>
-                    <th>Employee ID</th>
-                    <th>Name</th>
-                    <th>Department</th>
-                    <th>Designation</th>
-                    <th>Category</th>
-                    <th>Join Date</th>
-                    <th>District</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($employees as $index => $employee)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $employee->employee_id }}</td>
-                        <td>{{ $employee->name }}</td>
-                        <td>{{ $employee->department->department ?? '' }}</td>
-                        <td>{{ $employee->designation->designation ?? '' }}</td>
-                        <td>{{ $employee->designation->category_code ?? '' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($employee->joining_date)->format('d-m-Y') }}</td>
-                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="8" style="text-align: center;">No data available</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    @elseif($title == 2)
-        <div class="card-body">
-            <div style="overflow-x: auto;">
-                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Department</th>
-                            <th>Designation</th>
-                            <th>Category</th>
-                            <th>Joining Date</th>
-                            <th>District</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($uniqueDesignations as $designation)
-                            <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
-                                <td></td>
-                                <td style="text-align: center; color: #5156be;">{!! $designation->designation !!}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-center">SL</th>
+                                <th class="text-center">Org</th>
+                                <th>Employee ID</th>
+                                <th>Employee Name</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Category</th>
+                                <th class="text-center">Date</th>
+                                <th>Start Punch</th>
+                                <th>End Punch</th>
+                                <th class="text-center" width="5px">Attn Type</th>
                             </tr>
-                            <?php $sl1 = 1; ?>
-                            @foreach ($employees as $employee)
-                                @if ($employee->designation_id == $designation->id)
-                                    <tr>
-                                        <td>{{ $sl1 }}</td>
-                                        <td>{{ $employee->employee_id }}</td>
-                                        <td>{{ $employee->name }}</td>
-                                        <td>{{ $employee->department->department ?? '' }}</td>
-                                        <td>{{ $employee->designation->designation ?? '' }}</td>
-                                        <td>
-                                            @if ($employee->designation->category_code == 'O')
-                                                Officer
-                                            @elseif($employee->designation->category_code == 'M')
-                                                Manager
-                                            @elseif($employee->designation->category_code == 'S')
-                                                Staff
-                                            @endif
-                                        </td>
-                                        <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                                    </tr>
-                                    <?php $sl1++; ?>
-                                @endif
+                        </thead>
+
+                        <tbody>
+                            @php
+                                $rows = collect($datas)->where('department_id', $key)->values();
+                            @endphp
+                            @foreach ($rows as $overtime)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $overtime->short_name }}</td>
+                                    <td>{{ str_pad($overtime->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                    <td>{{ $overtime->name }}</td>
+                                    <td>{{ $overtime->department }}</td>
+                                    <td>{{ $overtime->designation }}</td>
+                                    <td>{{ $overtime->category_code }}</td>
+                                    <td class="text-center">
+                                        {{ date('d-m-Y', strtotime($overtime->work_date)) }}
+                                    </td>
+                                    <td>{{ $overtime->start_punch }}</td>
+                                    <td>{{ $overtime->end_punch }}</td>
+                                    <td class="text-center">{{ $overtime->attn_type }}</td>
+                                </tr>
                             @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+            @endforeach
+        @else
+            <div class="text-center mt-5" style="font-size:12px; font-weight:bold; color:red; margin-top:20px;">
+                No data available for this data combination.
             </div>
-        </div>
-    @elseif($title == 3)
-        <div class="card-body">
-            <div style="overflow-x: auto;">
-                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Department</th>
-                            <th>Designation</th>
-                            <th>Category</th>
-                            <th>Joining Date</th>
-                            <th>District</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($employees as $employee)
+        @endif
+    {{-- ===== OTHER TITLES PLACEHOLDER ===== --}}
+    @elseif ($title == 2)
+        @if($datas->count() > 0)
+            <div class="card-body">
+                <div style="overflow-x: auto;">
+                    @php
+                        $sindata = $datas->first();
+                        $department = $sindata->department;
+                    @endphp
+                    <div style="font-size:10px; font-weight:bold; margin-bottom:5px;">
+                            Name: {{ $sindata->name }} <br> 
+                            Employee ID: {{ str_pad($sindata->employee_id, 8, '0', STR_PAD_LEFT) }} <br>
+                            Department: {{ $department }}
+                    </div>
+                    <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employee->employee_id }}</td>
-                                <td>{{ $employee->name }}</td>
-                                <td>{{ $employee->department->department }}</td>
-                                <td>{{ $employee->designation->designation }}</td>
-                                <td>
-                                    @if ($employee->designation->category_code == 'O')
-                                        Officer
-                                    @elseif($employee->designation->category_code == 'M')
-                                        Manager
-                                    @elseif($employee->designation->category_code == 'S')
-                                        Staff
-                                    @endif
-                                </td>
-                                <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                <td>{{ $employee->mdistrict->name }}</td>
+                                <th class="text-center">SL</th>
+                                <th class="text-center">Org</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Category</th>
+                                <th class="text-center">Date</th>
+                                <th>Start Punch</th>
+                                <th>End Punch</th>
+                                <th class="text-center">Attn Type</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($datas as $key => $data)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $data->short_name }}</td>
+                                    <td>{{ $data->department }}</td>
+                                    <td>{{ $data->designation }}</td>
+                                    <td>{{ $data->category_code }}</td>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($data->work_date)) }}</td>
+                                    <td>{{ $data->start_punch }}</td>
+                                    <td>{{ $data->end_punch }}</td>
+                                    <td class="text-center">{{ $data->attn_type }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    @elseif($title == 4)
-        <div class="card-body">
-            <div style="overflow-x: auto;">
-                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Department</th>
-                            <th>Designation</th>
-                            <th>Category</th>
-                            <th>Blood Group</th>
-                            <th>District</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($employees as $employee)
+        @else
+            <div class="text-center mt-5" style="font-size:12px; font-weight:bold; color:red; margin-top:20px;">
+                No data available for this data combination.
+            </div>
+        @endif
+    @elseif ($title == 3)
+        @if($datas->count() > 0)
+            <div class="card-body">
+                <div style="overflow-x: auto;">
+                    <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employee->employee_id }}</td>
-                                <td>{{ $employee->name }}</td>
-                                <td>{{ $employee->department->department }}</td>
-                                <td>{{ $employee->designation->designation }}</td>
-                                <td>
-                                    @if ($employee->designation->category_code == 'O')
-                                        Officer
-                                    @elseif($employee->designation->category_code == 'M')
-                                        Manager
-                                    @elseif($employee->designation->category_code == 'S')
-                                        Staff
-                                    @endif
-                                </td>
-                                <td>{{ $employee->employeePersonal->blood_group }}</td>
-                                <td>{{ $employee->mdistrict->name }}</td>
+                                <th class="text-center" width="4%">SL</th>
+                                <th class="text-center" width="5%">Org</th>
+                                <th width="16%">Section Name</th>
+                                <th width="15%" class="text-center">Total Employee</th>
+                                <th width="10%" class="text-center">Present</th>
+                                <th width="10%" class="text-center">Absent</th>
+                                <th width="10%" class="text-center">Leave</th>
+                                <th class="text-center" width="10%">Present %</th>
+                                <th class="text-center" width="10%">OT Hours</th>
+                                <th class="text-center" width="10%">Remarks</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @endif
-</body>
+                        </thead>
+                        <tbody>
+                            @foreach ($uniqueDepartments as $key => $department)
+                                @php
+                                    $employees = collect($datas)->where('department_id', $key);
+                                    $totalEmployee = $employees->count();
+                                    $present = $employees->where('attn_type', 'PR')->count();
+                                    $absent = $employees->where('attn_type', 'AB')->count();
+                                    $leave = $employees->whereIn('attn_type', ['SL', 'CL', 'EL'])->count();
+                                    $presentPercentage = ($present / max($totalEmployee, 1)) * 100;
+                                    $otHours = $employees->sum('ot_hours');
+                                    $orgName = optional($employees->first())->short_name;
+                                @endphp
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $orgName }}</td>
+                                    <td>{{ $department }}</td>
+                                    <td class="text-center">{{ $totalEmployee }}</td>
+                                    <td class="text-center">{{ $present }}</td>
+                                    <td class="text-center">{{ $absent }}</td>
+                                    <td class="text-center">{{ $leave }}</td>
+                                    <td class="text-center">{{ number_format($presentPercentage, 2) }}</td>
+                                    <td class="text-center">{{ $otHours }}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #04386b; color: #fff;">
+                                <td colspan="3" class="text-center">Summary</td>
+                                <td class="text-center">{{ collect($datas)->count() }}</td>
+                                <td class="text-center">{{ collect($datas)->where('attn_type', 'PR')->count() }}</td>
+                                <td class="text-center">{{ collect($datas)->where('attn_type', 'AB')->count() }}</td>
+                                <td class="text-center">{{ collect($datas)->whereIn('attn_type', ['SL', 'CL', 'EL'])->count() }}</td>
+                                <td class="text-center">{{ number_format((collect($datas)->where('attn_type', 'PR')->count() / max(collect($datas)->count(), 1)) * 100, 2) }}</td>
+                                <td class="text-center">{{ collect($datas)->sum('ot_hours') }}</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-</html>
+                </div>
+            </div>
+        @else
+            <div class="text-center mt-5" style="font-size:12px; font-weight:bold; color:red; margin-top:20px;">
+                No data available for this data combination.
+            </div>
+        @endif
+    @elseif ($title == 4)
+        @if(count($uniqueDepartments) > 0)
+            <div class="card-body">
+                <div style="overflow-x: auto;">
+                    <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="4%">SL</th>
+                                <th class="text-center" width="10%">Org</th>
+                                <th width="10%">Department Name</th>
+                                <th width="10%" class="text-center">Total Employee</th>
+                                <th width="10%" class="text-center">Present</th>
+                                <th width="10%" class="text-center">Absent</th>
+                                <th width="10%" class="text-center">Leave</th>
+                                <th class="text-center" width="10%">Present %</th>
+                                <th class="text-center" width="10%">OT Hours</th>
+                                <th class="text-center" width="10%">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($uniqueDepartments as $key => $department)
+                                @php
+                                    $employees = collect($datas)->where('parent_department_id', $key);
+                                    $totalEmployee = $employees->count();
+                                    $present = $employees->where('attn_type', 'PR')->count();
+                                    $absent = $employees->where('attn_type', 'AB')->count();
+                                    $leave = $employees->whereIn('attn_type', ['SL', 'CL', 'EL'])->count();
+                                    $presentPercentage = ($present / max($totalEmployee, 1)) * 100;
+                                    $otHours = $employees->sum('ot_hours');
+                                    $orgName = optional($employees->first())->short_name;
+                                @endphp
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $orgName }}</td>
+                                    <td>{{ $department }}</td>
+                                    <td class="text-center">{{ $totalEmployee }}</td>
+                                    <td class="text-center text-success fw-bold">{{ $present }}</td>
+                                    <td class="text-center text-danger fw-bold">{{ $absent }}</td>
+                                    <td class="text-center text-warning fw-bold">{{ $leave }}</td>
+                                    <td class="text-center">{{ number_format($presentPercentage, 2) }}</td>
+                                    <td class="text-center">{{ $otHours }}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot >
+                            <tr style="background-color: #04386b; color: #fff;">
+                                <td colspan="3" class="text-center">Summary</td>
+                                <td class="text-center">{{ collect($datas)->count() }}</td>
+                                <td class="text-center">{{ collect($datas)->where('attn_type', 'PR')->count() }}</td>
+                                <td class="text-center">{{ collect($datas)->where('attn_type', 'AB')->count() }}</td>
+                                <td class="text-center">{{ collect($datas)->whereIn('attn_type', ['SL', 'CL', 'EL'])->count() }}</td>
+                                <td class="text-center">{{ number_format((collect($datas)->where('attn_type', 'PR')->count() / max(collect($datas)->count(), 1)) * 100, 2) }}</td>
+                                <td class="text-center">{{ collect($datas)->sum('ot_hours') }}</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        @else
+            <div class="text-center mt-5" style="font-size:12px; font-weight:bold; color:red; margin-top:20px;">
+                No data available for this data combination.
+            </div>
+        @endif
+    @elseif ($title == 5)
+        @if($datas->count() > 0)
+        <div class="card-body">
+            <div style="overflow-x: auto;">
+                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th class="text-center" width="4%">SL</th>
+                            <th class="text-center" width="20%">Organization</th>
+                            <th width="10%" class="text-center">Employee</th>
+                            <th class="text-center">Present</th>
+                            <th class="text-center">Absent</th>
+                            <th class="text-center">Leave</th>
+                            <th class="text-center">Present %</th>
+                            <th class="text-center">OT Hours</th>
+                            <th class="text-center">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($uniqueOrganization as $key => $organization)
+                            @php
+                                $employees = collect($datas)->where('org_id', $key);
+                                $totalEmployee = $employees->count();
+                                $present = $employees->where('attn_type', 'PR')->count();
+                                $absent = $employees->where('attn_type', 'AB')->count();
+                                $leave = $employees->whereIn('attn_type', ['SL', 'CL', 'EL'])->count();
+                                $presentPercentage = ($present / max($totalEmployee, 1)) * 100;
+                                $otHours = $employees->sum('ot_hours');
+                                $orgName = optional($employees->first())->name;
+                            @endphp
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $orgName }}</td>
+                                <td class="text-center">{{ $totalEmployee }}</td>
+                                <td class="text-center text-success fw-bold">{{ $present }}</td>
+                                <td class="text-center text-danger fw-bold">{{ $absent }}</td>
+                                <td class="text-center text-warning fw-bold">{{ $leave }}</td>
+                                <td class="text-center">{{ number_format($presentPercentage, 2) }}</td>
+                                <td class="text-center">{{ $otHours }}</td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr style="background-color: #04386b; color: #fff;">
+                            <td colspan="2" class="text-center">Summary</td>
+                            <td class="text-center">{{ collect($datas)->count() }}</td>
+                            <td class="text-center">{{ collect($datas)->where('attn_type', 'PR')->count() }}</td>
+                            <td class="text-center">{{ collect($datas)->where('attn_type', 'AB')->count() }}</td>
+                            <td class="text-center">{{ collect($datas)->whereIn('attn_type', ['SL', 'CL', 'EL'])->count() }}</td>
+                            <td class="text-center">{{ number_format((collect($datas)->where('attn_type', 'PR')->count() / max(collect($datas)->count(), 1)) * 100, 2) }}</td>
+                            <td class="text-center">{{ collect($datas)->sum('ot_hours') }}</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        @else
+            <div class="text-center mt-5" style="font-size:12px; font-weight:bold; color:red; margin-top:20px;">
+                No data available for this data combination.
+            </div>
+        @endif
+    @endif
+@endsection
