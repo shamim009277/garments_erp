@@ -271,7 +271,7 @@
                                     {{-- <td style="width: 40%;">
                                         <img src="{{ public_path('uploads/photos/default.png') }}" width="90" height="110" alt="Photo">
                                     </td> --}}
-                                    <td style="width: 100%; vertical-align: top; font-size: 16px;">
+                                    <td colspan="2" style="width: 100%; vertical-align: top; font-size: 14px;">
                                         {{-- <strong>আইডি কার্ড নং :-</strong> {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}<br>
                                         <strong>নাম :-</strong> {{ $employee->name_bangla }}<br>
                                         <strong>সেকশন/লাইন :-</strong> {{ $employee->department_name ?? '-' }}<br>
@@ -286,18 +286,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="vertical-align: bottom; height: 130px; font-size: 15px;"><br>
+                                    <td colspan="2" style="vertical-align: bottom; height: 130px; font-size: 14px;"><br>
                                         <p><i>ইনচার্জ/ আই ই</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>পিএম/কিউএম</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>জিএম</i>&nbsp; &nbsp; &nbsp; &nbsp; <i>এডমিন</i></p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="text-align: middle; font-size: 16px; padding-top: 6px;">
+                                    <td colspan="2" style="text-align: middle; font-size: 14px; padding-top: 6px;">
                                         <i>বিঃ দ্রঃ- যোগদানকারী শ্রমিককে অবশ্যই যোগদানের সময় জন্ম নিবন্ধন/জাতীয় পরিচয় পত্র ২ কপি, নাগরিকত্ব সনদ পত্র ১ কপি, শ্রমিকের পার্সপোট সাইজের ছবি ৫ কপি, নমিনী (মা/বাবা/ভাই/বোন/স্বামী/স্ত্রী) এর জাতীয় পরিচয় পত্র ০২ কপি, পাসপোর্ট সাইজের ছবি ২ কপি। সহ সকল প্রয়োজনীয় কাগজপত্র জমা দিয়ে এইচ আর বিভাগ থেকে আইডি কার্ড সংগ্রহ করতে হবে।</i>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="text-align: middle; font-size: 16px; padding-top: 6px;">
-                                        <i>জরুরী প্রয়োজনে যোগাযোগ করুন। +880 1840-818701</i>
+                                    <td colspan="2" style="text-align: middle; font-size: 14px; padding-top: 6px;">
+                                        <i> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;যে কোন সহযোগিতার / পরামর্শ  জন্য যোগাযোগ করুন। <br> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;এডমিন বিভাগ  +880 1840-818701</i>
                                     </td>
                                 </tr>
                             </table>

@@ -52,8 +52,8 @@ class ApplicantReportController extends Controller
             'view_mode' => 'required|string|min:1|max:1',
             'organization_id' => 'required|integer|min:1|max:1',
         ]);
-        $startDate = $request->startDate;
-        $endDate = $request->endDate;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
         $organizations = $request->organizations;
         $parentDepartments = $request->parentDepartments;
         $designations = $request->designations;
@@ -63,7 +63,7 @@ class ApplicantReportController extends Controller
             $request->validate([
                 'department_id' => 'required|array',
             ]);
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,entry_date'])
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'applicant:id,employee_id,entry_date'])
                     ->whereIn('department_id', $request->department_id)
                     ->when($request->filled('employee_id'), fn($q) =>
                          $q->where('employee_id', $request->employee_id))
@@ -78,6 +78,14 @@ class ApplicantReportController extends Controller
                          $q->whereIn('designation_id', $request->designation_id))
                     ->when($request->filled('district_id'), fn($q) =>
                          $q->whereIn('mdistrict.id', $request->district_id))
+                    ->when(
+                        $request->filled('start_date') && $request->filled('end_date'),
+                        function ($q) use ($startDate, $endDate) {
+                            $q->whereHas('applicant', function ($q2) use ($startDate, $endDate) {
+                                $q2->whereBetween('entry_date', [$startDate, $endDate]);
+                            });
+                        }
+                    )
                     ->orderBy('employee_id', 'asc')
                     ->get();
             $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
