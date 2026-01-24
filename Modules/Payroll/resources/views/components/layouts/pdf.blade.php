@@ -185,5 +185,7 @@
     @endif
 
     @yield('content')
+
+    <x-hris::reports.signature :orgname="$orgname" />
 </body>
 </html>

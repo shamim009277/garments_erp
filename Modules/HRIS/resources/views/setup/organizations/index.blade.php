@@ -27,6 +27,7 @@
                                 <th width="20%">Bangla</th>
                                 <th width="10%">Short Name</th>
                                 <th width="10%">Address</th>
+                                <th width="10%">Address (Bangla)</th>
                                 <th width="10%">Email & Phone</th>
                                 <th width="10%" class="text-center">Logo</th>
                                 <th width="5%">Is Active</th>
@@ -41,6 +42,7 @@
                                     <td>{{ $organization->bn_name }}</td>
                                     <td class="text-center">{{ $organization->short_name }}</td>
                                     <td class="text-center">{{ $organization->address }}</td>
+                                    <td class="text-center">{{ $organization->address_bangla }}</td>
                                     <td class="text-center">
                                         {{ $organization->email }}<br>
                                         {{ $organization->phone }}
@@ -74,6 +76,7 @@
                                                         <x-input-group name="bn_name" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="$organization->bn_name" required />
                                                         <x-input-group name="short_name" label="Short Name" type="text" placeholder="Enter short name" :value="$organization->short_name" required />
                                                         <x-input-group name="address" label="Address" type="text" placeholder="Enter address" :value="$organization->address" />
+                                                        <x-input-group name="address_bangla" label="Bangla Address" type="text" placeholder="Enter bangla address" :value="$organization->address_bangla" />
                                                         <x-input-group name="email" label="Email" type="text" placeholder="For multiple write comma separated" :value="$organization->email" />
                                                         <x-input-group name="phone" label="Phone" type="text" placeholder="For multiple write comma separated" :value="$organization->phone" />
                                                         <div class="mb-3">
@@ -111,6 +114,7 @@
                         <x-input-group name="bn_name" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="old('bn_name')" required />
                         <x-input-group name="short_name" label="Short Name" type="text" placeholder="Enter short name" :value="old('short_name')" required />
                         <x-input-group name="address" label="Address" type="text" placeholder="Enter address" :value="old('address')" />
+                        <x-input-group name="address_bangla" label="Bangla Address" type="text" placeholder="Enter bangla address" :value="old('address_bangla')" />
                         <x-input-group name="email" label="Email" type="text" placeholder="For multiple write comma separated" :value="old('email')" />
                         <x-input-group name="phone" label="Phone" type="text" placeholder="For multiple write comma separated" :value="old('phone')" />
                         <div class="mb-3">

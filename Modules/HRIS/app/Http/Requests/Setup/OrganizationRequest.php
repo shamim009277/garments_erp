@@ -18,6 +18,7 @@ class OrganizationRequest extends FormRequest
             'bn_name' => ['nullable', 'string', 'max:200'],
             'short_name' => ['required', 'string', 'max:30', Rule::unique('hris_setup_organizations', 'short_name')->ignore($organizationId)],
             'address' =>['nullable','string','max:255'],
+            'address_bangla' =>['nullable','string','max:255'],
             'email' =>['nullable','string','max:255'],
             'phone'=>['nullable','string','max:255'],
             'logo'=>['nullable','max:255'],
