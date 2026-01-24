@@ -20,6 +20,7 @@ class Organization extends Model
         'bn_name',
         'short_name',
         'address',
+        'address_bangla',
         'email',
         'phone',
         'icon_name',

@@ -18,7 +18,7 @@
                 <div style="text-align:center; padding:50px; font-size:20px; color:red; font-weight:bold;">
                     {{ $message }}
                 </div>
-                @endif
+            @endif
         </div>
     </div>
 @endsection

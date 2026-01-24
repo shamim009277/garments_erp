@@ -205,7 +205,6 @@
         @php
             $employeeRecords = collect($datas)->where('employee_id', $emp);
             $employee = $employeeRecords->first();
-
             // Pre-calculate counts once
             $presentCount = $employeeRecords->where('attn_type', 'PR')->count();
             $absentCount = $employeeRecords->where('attn_type', 'AB')->count();
@@ -223,7 +222,7 @@
             $lateSum = $employeeRecords->sum('late_minutes');
         @endphp
         <!-- PDF Body -->
-        @if ($title == 3)
+        @if ($title == 1)
             <p class="title">Time Card</p>
             <hr>
             <!-- Employee Info -->
@@ -236,10 +235,11 @@
                 <tr>
                     <td><strong>Name:</strong> {{ $employee->name }}</td>
                     <td><strong>Designation:</strong> {{ $employee->designation }}</td>
-                    <td><strong>Joining Date:</strong> {{ $employee->joining_date }}</td>
+                    <td><strong>Joining Date:</strong> {{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
                 </tr>
                 <tr>
                     <td><strong>Department:</strong> {{ $employee->department }}</td>
+                    <td><strong>Section:</strong> {{ $employee->section }}</td>
                     <td><strong>Line:</strong> {{ $employee->line }}</td>
                 </tr>
             </table>
@@ -250,10 +250,9 @@
                 <thead>
                     <tr>
                         <th>Work Date</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th style="text-align:center;">RWH</th>
-                        <th style="text-align:center;">WWH</th>
+                        <th>Week Day</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
                         <th style="text-align:center;">OTH</th>
                         <th style="text-align:center;">Shift</th>
                         <th style="text-align:center;">Is Late</th>
@@ -265,15 +264,20 @@
                     @foreach ($employeeRecords as $record)
                         <tr>
                             <td>{{ date('d-m-Y', strtotime($record->work_date)) }}</td>
-                            <td>{{ $record->start_punch ?? '0000-00-00 00:00:00' }}</td>
-                            <td>{{ $record->end_punch ?? '0000-00-00 00:00:00' }}</td>
-                            <td style="text-align:center;">{{ $record->rwh ?? '-' }}</td>
-                            <td style="text-align:center;">{{ $record->wwh ?? '-' }}</td>
-                            <td style="text-align:center;">{{ $record->ot_hours ?? '-' }}</td>
+                            <td style="text-align:center; {{ $record->attn_type === 'HD' ? 'color:red;font-weight:700;' : '' }}">
+                                {{ \Carbon\Carbon::parse($record->work_date)->format('l') }}
+                            </td>
+                            <td>{{ $record->start_punch ? \Carbon\Carbon::parse($record->start_punch)->format('h:i A') : '-' }}</td>
+                            <td>{{ $record->end_punch ? \Carbon\Carbon::parse($record->end_punch)->format('h:i A') : '-' }}</td>
+                            <td style="text-align:center;">{{ $record->ot_hours ?? '-' }}</td>      
                             <td style="text-align:center;">{{ $record->shift ?? '-' }}</td>
                             <td style="text-align:center;">{{ $record->is_late }}</td>
                             <td style="text-align:center;">{{ $record->late_minutes }}</td>
-                            <td style="text-align:center;">{{ $record->attn_type }}</td>
+
+                            {{-- Attn Type --}}
+                            <td style="text-align:center; {{ $record->attn_type === 'HD' ? 'color:red;font-weight:700;' : '' }}">
+                                {{ $record->attn_type }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -281,13 +285,13 @@
                     <tr>
                         <td colspan="2" class="summary-header">Total</td>
                         <td class="summary-header"></td>
-                        <td class="summary-header">{{ $rwhSum }}</td>
-                        <td class="summary-header">{{ $wwhSum }}</td>
+                        <td class="summary-header"></td>
                         <td class="summary-header">{{ $othSum }}</td>
                         <td class="summary-header"></td>
                         <td class="summary-header"></td>
                         <td class="summary-header">{{ $lateSum }}</td>
                         <td class="summary-header"></td>
+                       
                     </tr>
                 </tfoot>
             </table>
@@ -341,20 +345,17 @@
                     <td>
                             Prepared By <br><br>
                             <strong>{{ auth()->user()->name }}</strong><br><br>
-                            <strong>ID : {{ str_pad(auth()->user()->employee_id, 6, '0', STR_PAD_LEFT) }}</strong>
+                            <strong>ID : {{ str_pad(auth()->user()->employee_id, 8, '0', STR_PAD_LEFT) }}</strong>
                         <br>--------------------
                     </td>
                     <td>Checked By<br>--------------------</td>
                     <td>Approved By<br>--------------------</td>
                 </tr>
             </table>
-
             @if(!$loop->last)
                 <div style="page-break-after: always;"></div>
             @endif
-
         @endif
     @endforeach
 </body>
-
 </html>

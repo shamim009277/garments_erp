@@ -34,7 +34,6 @@ class AttendenceAdjustmentController extends Controller
 
         return view('payroll::tools.attendenceadjustment.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'employeeCategories', 'yearlist', 'month', 'types'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -435,7 +434,6 @@ class AttendenceAdjustmentController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id) {}
-
     /**
      * Remove the specified resource from storage.
      */

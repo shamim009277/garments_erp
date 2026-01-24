@@ -94,12 +94,13 @@ class AttendenceReportController extends Controller
             $uniqueDepartments = $datas->unique('department_id')->pluck('department', 'department_id');
             $title = $request->title;
             $date = $request->date;
+            $orgid = $request->organization_id;
 
             if ($request->view_mode == 1) {
                 return view('payroll::report.attendence.preview', compact('datas', 'title', 'uniqueDepartments', 'date'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'uniqueDepartments', 'date'))
-                    ->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'))
+                    ->setPaper('a4', 'landscape');
 
                 return $pdf->stream('attendence.pdf');
             }
@@ -144,11 +145,12 @@ class AttendenceReportController extends Controller
 
             $title = $request->title;
             $monthName = Carbon::createFromFormat('m', $month)->format('F');
+            $orgid = $request->organization_id;
 
             if ($request->view_mode == 1) {
                 return view('payroll::report.attendence.preview', compact('datas', 'title', 'monthName', 'year'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'monthName', 'year'))
+                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'monthName', 'year', 'orgid'))
                     ->setPaper('a4', 'portrait');
 
                 return $pdf->stream('attendence.pdf');
@@ -169,6 +171,7 @@ class AttendenceReportController extends Controller
                     'attendence.work_date',
                     'attendence.shift',
                     'attendence.attn_type',
+                    'attendence.ot_hours',
                     'department.department',
                     'department.id as department_id',
                     'organization.short_name',
@@ -188,11 +191,12 @@ class AttendenceReportController extends Controller
 
             $title = $request->title;
             $date = $request->date;
+            $orgid = $request->organization_id;
 
             if ($request->view_mode == 1) {
                 return view('payroll::report.attendence.preview', compact('datas', 'title', 'uniqueDepartments', 'date'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'uniqueDepartments', 'date'))
+                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'))
                     ->setPaper('a4', 'portrait');
 
                 return $pdf->stream('attendence.pdf');
@@ -213,7 +217,7 @@ class AttendenceReportController extends Controller
                     'attendence.work_date',
                     'attendence.shift',
                     'attendence.attn_type',
-                    'designation.designation',
+                    'attendence.ot_hours',
                     'department.department',
                     'department.id as department_id',
                     'department.parent_department_id',
@@ -236,16 +240,23 @@ class AttendenceReportController extends Controller
 
             $title = $request->title;
             $date = $request->date;
+            $orgid = $request->organization_id;
 
             if ($request->view_mode == 1) {
                 return view('payroll::report.attendence.preview', compact('datas', 'title', 'uniqueDepartments', 'date'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'uniqueDepartments', 'date'))
+                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'))
                     ->setPaper('a4', 'portrait');
 
                 return $pdf->stream('attendence.pdf');
             }
         }else if($request->title == 5){
+            $request->validate([
+                'date' => 'required|date',
+                'organization_id' => 'required|integer',
+            ]);
+
+            $organization_id = $request->organization_id;
             $date = Carbon::parse($request->date)->format('Y-m-d');
             $datas = DB::table('payroll_tools_process_attendence as attendence')
                 ->select(
@@ -254,11 +265,13 @@ class AttendenceReportController extends Controller
                     'attendence.work_date',
                     'attendence.shift',
                     'attendence.attn_type',
+                    'attendence.ot_hours',
                     'organization.short_name',
                     'organization.name',
                 )
                 ->leftJoin('hris_setup_organizations as organization', 'attendence.org_id', '=', 'organization.id')
                 ->where('attendence.work_date', $date)
+                ->where('attendence.org_id', $request->organization_id)
                 ->orderBy('attendence.employee_id', 'asc')
                 ->get();
 
@@ -266,11 +279,12 @@ class AttendenceReportController extends Controller
 
             $title = $request->title;
             $date = $request->date;
+            $orgid = $request->organization_id;
 
             if ($request->view_mode == 1) {
                 return view('payroll::report.attendence.preview', compact('datas', 'title', 'date', 'uniqueOrganization'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'date', 'uniqueOrganization'))
+                $pdf = Pdf::loadView('payroll::report.attendence.pdf', compact('datas', 'title', 'date', 'uniqueOrganization', 'orgid'))
                     ->setPaper('a4', 'portrait');
 
                 return $pdf->stream('attendence.pdf');
