@@ -246,7 +246,7 @@ class AutoGenerationReportController extends Controller
 
                             $html = view('hris::report.autogenerationreport.pdf', [
                                 'employeeChunk' => $employeeChunk,
-                                'title' => 6
+                                'title' => 6, 'orgid' => $orgid,
                             ])->render();
 
                             $mpdf->WriteHTML($html);
