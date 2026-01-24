@@ -264,7 +264,7 @@
                                         {{-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" width="40" height="40" alt="Logo">
                                         <br> --}}
                                         <span style="font-size: 13px;">{{-- {{ $general->full_name }} --}} আয়েশা এন্ড গালিয়া ফ্যাশন্স লিমিটেড
-</span>
+                                    </span>
                                     </td>
                                 </tr>
                                 <tr>

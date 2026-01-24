@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\HRIS\Models\Database\Applicant;
 // use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
 use Modules\HRIS\Models\Database\EmpGatePass;
+use Modules\HRIS\Models\Database\EmployeeIncrement;
 
 class Employee extends Model
 {
@@ -181,12 +182,15 @@ class Employee extends Model
         return $this->hasOne(EmployeeSalary::class, 'employee_id', 'employee_id');
     }
     public function applicant() {
-        return $this->hasOne(Applicant::class, 'employee_id', 'entry_date');
+        return $this->hasOne(Applicant::class, 'employee_id','employee_id', 'entry_date');
     }
     public function sex() {
         return $this->belongsTo(Sex::class);
     }
     public function gatepasses() {
         return $this->hasMany(EmpGatePass::class, 'employee_id', 'employee_id');
+    }
+    public function employeeIncrement() {
+        return $this->hasMany(EmployeeIncrement::class, 'employee_id', 'employee_id');
     }
 }

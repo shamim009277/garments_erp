@@ -59,7 +59,8 @@ class IncrementReportController extends Controller
             $request->validate([
                 'department_id' => 'required|array',
             ]);
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+            //increment
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name','employeeIncrement:id,employee_id'])
                     ->whereIn('department_id', $request->department_id)
                     ->when($request->filled('employee_id'), fn($q) =>
                          $q->where('employee_id', $request->employee_id))
@@ -74,6 +75,11 @@ class IncrementReportController extends Controller
                          $q->whereIn('designation_id', $request->designation_id))
                     ->when($request->filled('district_id'), fn($q) =>
                          $q->whereIn('mdistrict.id', $request->district_id))
+                    ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($request) {
+                        $q->whereHas('employeeIncrement', function ($q2) use ($request) {
+                            $q2->whereBetween('increment_date', [$request->start_date, $request->end_date]);
+                        });
+                    })
                     ->orderBy('department_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
@@ -95,7 +101,7 @@ class IncrementReportController extends Controller
             $request->validate([
                 'designation_id' => 'required|array',
             ]);
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name','employeeIncrement:id,employee_id'])
                     ->whereIn('designation_id', $request->designation_id)
                     ->when($request->filled('employee_id'), fn($q) =>
                          $q->where('employee_id', $request->employee_id))
@@ -110,6 +116,11 @@ class IncrementReportController extends Controller
                          $q->whereIn('designation_id', $request->designation_id))
                     ->when($request->filled('district_id'), fn($q) =>
                          $q->whereIn('mdistrict.id', $request->district_id))
+                    ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($request) {
+                        $q->whereHas('employeeIncrement', function ($q2) use ($request) {
+                            $q2->whereBetween('increment_date', [$request->start_date, $request->end_date]);
+                        });
+                    })
                     ->orderBy('designation_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();

@@ -153,13 +153,13 @@
                                                 <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="start_date[]" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="end_date[]" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -293,14 +293,14 @@
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
+            $('#start_date').prop('disabled', f);
             $('#end_date').prop('disabled', true);
         } else if (selectedValue == '2') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', false);
             $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
         } else if (selectedValue == '3') {
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);

@@ -144,7 +144,7 @@ class AutoGenerationReportController extends Controller
                 }
 
                 return $mpdf->Output('joining_letter.pdf', 'I');
-            }else if($request->title == 2 || $request->title == 3 || $request->title == 4 || $request->title == 5){
+            }else if($request->title == 2 || $request->title == 3 || $request->title == 4 || $request->title == 5 || $request->title == 6){
                 //Appointment Letter
                 $employees = DB::table('hris_database_employee_basic as e')
                     ->leftJoin('hris_database_employee_salary as s', 'e.employee_id', '=', 's.employee_id')
@@ -163,6 +163,7 @@ class AutoGenerationReportController extends Controller
                         'e.employee_id',
                         'e.joining_date',
                         'e.grade',
+                        'e.line',
                         'e.ot_payable',
                         'b.name_bangla',
                         'b.fname_bangla',
@@ -239,6 +240,33 @@ class AutoGenerationReportController extends Controller
                         'autoLangToFont' => true,
                         'useOTL' => true, // এখানে দিও, property নয়!
                     ]);
+                    // Inside your controller loop:
+                    if($request->title == 6){
+                        $employees = $employees->values();
+                        if ($employees->count() == 0) {
+                            return back()->with('error', 'No data found');
+                        }
+
+                        $chunks = $employees->chunk(2);
+
+                        foreach ($chunks as $index => $employeeChunk) {
+
+                            if ($index > 0) {
+                                $mpdf->AddPage();   // 🔥 এই লাইনটাই missing ছিল
+                            }
+
+                            $html = view('hris::report.autogenerationreport.pdf', [
+                                'employeeChunk' => $employeeChunk,
+                                'title' => 6
+                            ])->render();
+
+                            $mpdf->WriteHTML($html);
+                        }
+
+                        return $mpdf->Output('salary-slip.pdf', 'I');
+
+                    }
+
                 
                 /* $html = view('hris::report.autogenerationreport.pdf', compact('employees'))->render();
                 $mpdf->WriteHTML($html);
@@ -258,7 +286,8 @@ class AutoGenerationReportController extends Controller
             }else if($request->title == 4){
                 //
             }else if($request->title == 5){
-                //
+                //pay slip
+
             }
 
     }

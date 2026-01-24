@@ -83,9 +83,13 @@
                                             <input type="radio" id="title5" name="title" value="5"class="form-check-input titles">
                                             <label class="form-check-label" for="title5">Referance</label>
                                         </div>
-                                        <div class="form-check">
+                                        {{-- <div class="form-check">
                                             <input type="radio" id="title6" name="title" value="6"class="form-check-input titles">
                                             <label class="form-check-label" for="title6">Autogeneration Permanent ID Card</label>
+                                        </div> --}}
+                                        <div class="form-check">
+                                            <input type="radio" id="title6" name="title" value="6"class="form-check-input titles">
+                                            <label class="form-check-label" for="title6">Pay Slip</label>
                                         </div>
                                     </div>
                                 </div>
@@ -289,6 +293,7 @@
         });
 
         // Handle All Category and Line
+        // Handle All Category and Line date lock if unchecked
 
         handleToggle('#start_date_lock', '#start_date', '#start_date_lock_section');
 
@@ -371,6 +376,12 @@
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
+        } else if( selectedValue == '6' ){
+            $('.departmentID').prop('disabled', true);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
         } else {
             $('.designationID').prop('disabled', false);
             $('.departmentID').prop('disabled', false);
