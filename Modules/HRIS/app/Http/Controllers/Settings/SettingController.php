@@ -2,21 +2,42 @@
 
 namespace Modules\HRIS\Http\Controllers\Settings;
 
-use Illuminate\Http\Request;
-use Modules\HRIS\Models\Setting;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Http\Requests\SettingRequest;
+use Modules\HRIS\Models\RamadanSchedule;
+use Modules\HRIS\Models\Setting;
 
 class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $setting = Setting::active()->first();
-        return view('hris::settings.setting.index', compact('setting'));
+        $tab = $request->get('tab', 1);
+
+        if ($tab == 1) {
+            $setting = Setting::active()->first();
+            if ($request->ajax()) {
+                return view('hris::settings.setting.tab1', compact('setting', 'tab'));
+            }
+            return view('hris::settings.setting.index', compact('setting', 'tab'));
+        } elseif ($tab == 2) {
+            $setting = Setting::active()->first();
+            if ($request->ajax()) {
+                return view('hris::settings.setting.tab2', compact('setting', 'tab'));
+            }
+            return view('hris::settings.setting.index', compact('setting', 'tab'));
+        } elseif ($tab == 3) {
+            $schedule = RamadanSchedule::active()->first();
+            $setting = Setting::active()->first();
+            if ($request->ajax()) {
+                return view('hris::settings.setting.tab3', compact('setting', 'schedule', 'tab'));
+            }
+            return view('hris::settings.setting.index', compact('setting', 'schedule', 'tab'));
+        }
     }
 
     /**
@@ -43,9 +64,9 @@ class SettingController extends Controller
                         $setting->updated_by = Auth::id();
                         $setting->save();
 
-                        return redirect()->back()->with('success', 'Setting updated successfully');
+                        return redirect()->route('hris.settings.hr-settings.index', ['tab' => 1])->with('success', 'Setting updated successfully');
                     } else {
-                        return redirect()->back()->with('info', 'No changes detected');
+                        return redirect()->route('hris.settings.hr-settings.index', ['tab' => 1])->with('info', 'No changes detected');
                     }
                 } else {
                     Setting::create(array_merge($validated, [
@@ -53,14 +74,43 @@ class SettingController extends Controller
                         'updated_by' => Auth::id(),
                     ]));
 
-                    return redirect()->back()->with('success', 'Setting created successfully');
+                    return redirect()->route('hris.settings.hr-settings.index', ['tab' => 1])->with('success', 'Setting created successfully');
                 }
             }
-
-            return redirect()->back()->with('success', 'No action performed');
-
+            return redirect()->route('hris.settings.hr-settings.index', ['tab' => 1])->with('success', 'No action performed');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Setting update failed: ' . $th->getMessage());
+            return redirect()->route('hris.settings.hr-settings.index', ['tab' => 1])->with('error', 'Setting update failed: ' . $th->getMessage());
+        }
+    }
+
+    public function schedule(Request $request) {
+        try {
+            $validated = $request->all();
+            $schedule = RamadanSchedule::find($request->id);
+            $validated['start_date'] = date('Y-m-d', strtotime($validated['start_date']));
+            $validated['end_date'] = date('Y-m-d', strtotime($validated['end_date']));
+
+            if ($schedule) {
+                $schedule->fill($validated);
+
+                if ($schedule->isDirty()) {
+                    $schedule->updated_by = Auth::id();
+                    $schedule->save();
+
+                    return redirect()->route('hris.settings.hr-settings.index', ['tab' => 3])->with('success', 'Ramadan schedule updated successfully');
+                } else {
+                    return redirect()->route('hris.settings.hr-settings.index', ['tab' => 3])->with('info', 'No changes detected');
+                }
+            } else {
+                RamadanSchedule::create(array_merge($validated, [
+                    'created_by' => Auth::id(),
+                    'updated_by' => Auth::id(),
+                ]));
+
+                return redirect()->route('hris.settings.hr-settings.index', ['tab' => 3])->with('success', 'Ramadan schedule created successfully');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('hris.settings.hr-settings.index', ['tab' => 3])->with('error', 'Ramadan schedule update failed: ' . $th->getMessage());
         }
     }
 

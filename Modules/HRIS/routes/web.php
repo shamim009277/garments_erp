@@ -336,6 +336,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
         //Settings
         Route::prefix('settings')->name('settings.')->group(function () {
+            Route::post('/setting/schedule', [SettingController::class, 'schedule'])->name('setting.schedule');
             Route::resource('hr-settings', SettingController::class)->names('hr-settings');
             Route::post('/fetch-user', [ForwardApproveController::class, 'fetchUser'])->name('forward-approve.fetch-user');
             Route::post('/fetch-approved-data', [ForwardApproveController::class, 'fetchApprovedData'])->name('forward-approve.fetch-approved-data');

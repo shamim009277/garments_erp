@@ -159,8 +159,9 @@ class EmployeeController extends Controller
      */
     public function show(Request $request, $id)
     {
-        if($request->get('tab') == 1){
-            $tab = $request->get('tab');
+        $tab = $request->get('tab', 1);
+        
+        if($tab == 1){
             $employee = Employee::find($id);
             $designations = Designation::active()->pluck('designation', 'id');
             $departments = Department::active()->pluck('department', 'id');
@@ -171,48 +172,64 @@ class EmployeeController extends Controller
             $lines = Line::active()->pluck('line', 'code');
             $shifts = Shift::active()->pluck('shift', 'shift');
             $organizations = Organization::active()->pluck('short_name', 'id');
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab1', ['employee' => $employee, 'tab' => $tab, 'designations' => $designations, 'departments' => $departments, 'districts' => $districts, 'thanas' => $thanas, 'shifts' => $shifts, 'organizations' => $organizations, 'units' => $units, 'lines' => $lines]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'designations' => $designations, 'departments' => $departments, 'districts' => $districts, 'thanas' => $thanas, 'shifts' => $shifts, 'organizations' => $organizations, 'units' => $units, 'lines' => $lines]);
-        }else if($request->get('tab') == 2){
-            $tab = $request->get('tab');
+        }else if($tab == 2){
             $employee = Employee::select('employee_id','id','org_id')->find($id);
             $setting = Setting::active()->first();
             $employee_salary = EmployeeSalary::where('employee_id', $employee->employee_id)->first();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab2', ['employee' => $employee, 'tab' => $tab, 'employee_salary' => $employee_salary, 'setting' => $setting]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_salary' => $employee_salary, 'setting' => $setting]);
-        }else if($request->get('tab') == 3){
+        }else if($tab == 3){
             $degrees = Degree::active()->pluck('degree', 'id');
             $boards = EducationBoard::active()->pluck('name', 'name');
-            $tab = $request->get('tab');
             $employee = Employee::find($id);
             $employee_education = EmployeeEducation::with('degree')->where('employee_id', $employee->employee_id)->get();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab3', ['employee' => $employee, 'tab' => $tab, 'degrees' => $degrees, 'boards' => $boards, 'employee_education' => $employee_education]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'degrees' => $degrees, 'boards' => $boards, 'employee_education' => $employee_education]);
-        }else if($request->get('tab') == 4){
-            $tab = $request->get('tab');
+        }else if($tab == 4){
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_training = EmployeeTraining::where('employee_id', $employee->employee_id)->get();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab4', ['employee' => $employee, 'tab' => $tab, 'employee_training' => $employee_training]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_training' => $employee_training]);
-        }else if($request->get('tab') == 5){
-            $tab = $request->get('tab');
+        }else if($tab == 5){
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_experience = EmployeeExperience::where('employee_id', $employee->employee_id)->get();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab5', ['employee' => $employee, 'tab' => $tab, 'employee_experience' => $employee_experience]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_experience' => $employee_experience]);
-        }else if($request->get('tab') == 6){
-            $tab = $request->get('tab');
+        }else if($tab == 6){
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_service = EmployeeService::where('employee_id', $employee->employee_id)->get();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab6', ['employee' => $employee, 'tab' => $tab, 'employee_service' => $employee_service]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_service' => $employee_service]);
-        }else if($request->get('tab') == 7){
-            $tab = $request->get('tab');
+        }else if($tab == 7){
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_references = EmployeeReference::where('employee_id', $employee->employee_id)->get();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab7', ['employee' => $employee, 'tab' => $tab, 'employee_references' => $employee_references]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_references' => $employee_references]);
-        }else if($request->get('tab') == 8){
-            $tab = $request->get('tab');
+        }else if($tab == 8){
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_documents = EmployeeDocument::with(['document:id,name'])->where('employee_id', $employee->employee_id)->get();
             $documents = Document::active()->get();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab8', ['employee' => $employee, 'tab' => $tab, 'documents' => $documents, 'employee_documents' => $employee_documents]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'documents' => $documents, 'employee_documents' => $employee_documents]);
-        }else if($request->get('tab') == 9){
-            $tab = $request->get('tab');
+        }else if($tab == 9){
             $degrees = Degree::active()->pluck('degree', 'id');
             $religions = Religion::active()->pluck('religion', 'religion_code');
             $nationalities = Nationalities::active()->pluck('nationality', 'nl_code');
@@ -222,13 +239,18 @@ class EmployeeController extends Controller
             $thanas = Thana::active()->pluck('name', 'id');
             $employee = Employee::select('employee_id','id','org_id','joining_date')->find($id);
             $employee_personal = EmployeePersonal::where('employee_id', $employee->employee_id)->first();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab9', ['employee' => $employee, 'tab' => $tab, 'districts' => $districts, 'thanas' => $thanas, 'sex' => $sex, 'nationalities' => $nationalities, 'marital_status' => $marital_status, 'religions' => $religions, 'degrees' => $degrees, 'employee_personal' => $employee_personal]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'districts' => $districts, 'thanas' => $thanas, 'sex' => $sex, 'nationalities' => $nationalities, 'marital_status' => $marital_status, 'religions' => $religions, 'degrees' => $degrees, 'employee_personal' => $employee_personal]);
-        }else if($request->get('tab') == 10){
-            $tab = $request->get('tab');
+        }else if($tab == 10){
             $districts = District::active()->pluck('bn_name', 'id');
             $thanas = Thana::active()->pluck('bn_name', 'id');
             $employee = Employee::select('employee_id','id','org_id')->find($id);
             $employee_bangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
+            if ($request->ajax()) {
+                return view('hris::database.employee.tab10', ['employee' => $employee, 'tab' => $tab, 'employee_bangla' => $employee_bangla, 'districts' => $districts, 'thanas' => $thanas]);
+            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_bangla' => $employee_bangla, 'districts' => $districts, 'thanas' => $thanas]);
         }
     }
