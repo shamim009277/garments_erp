@@ -329,7 +329,7 @@ class EmployeeController extends Controller
                 'line'    => $th->getLine(),
                 'file'    => $th->getFile(),
             ]);
-            return redirect()->back()->with('error', 'Failed to update employee: ' . $th->getMessage());
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('error', 'Failed to update employee: ' . $th->getMessage());
         }
     }
     /**
@@ -373,19 +373,24 @@ class EmployeeController extends Controller
         try {
             $validated = $request->validated();
             $employee_bangla = EmployeeBangla::where('employee_id', $request->employee_id)->first();
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
             if($employee_bangla){
                 $employee_bangla->fill($validated);
                 if ($employee_bangla->isDirty()) {
                     $employee_bangla->update($validated);
-                    return redirect()->back()->with('success', 'Employee bangla updated successfully');
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('success', 'Employee bangla updated successfully');
                 } else {
-                    return redirect()->back()->with('info', 'No changes detected');
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('info', 'No changes detected');
                 }
             }else{
                 EmployeeBangla::create($validated);
-                return redirect()->back()->with('success', 'Employee bangla saved successfully');
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('success', 'Employee bangla saved successfully');
             }
         } catch (\Exception $e) {
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            if($employee){
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('error', 'Employee bangla creation failed: ' . $e->getMessage());
+            }
             return redirect()->back()->with('error', 'Employee bangla creation failed: ' . $e->getMessage());
         }
     }
@@ -396,6 +401,7 @@ class EmployeeController extends Controller
         try {
             $validated = $request->validated();
             $employee_personal = EmployeePersonal::where('employee_id', $request->employee_id)->first();
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
 
             if ($employee_personal) {
                 $employee_personal->fill($validated);
@@ -412,10 +418,10 @@ class EmployeeController extends Controller
                         'nvillage_bangla'    => $employee_personal->nvillage,
                     ]);
                     DB::commit();
-                    return redirect()->back()->with('success', 'Employee personal data updated successfully');
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('success', 'Employee personal data updated successfully');
                 } else {
                     DB::rollBack();
-                    return redirect()->back()->with('info', 'No changes detected');
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('info', 'No changes detected');
                 }
             } else {
                 $personal = EmployeePersonal::create($validated);
@@ -431,7 +437,7 @@ class EmployeeController extends Controller
                 }
 
                 DB::commit();
-                return redirect()->back()->with('success', 'Employee personal data saved successfully');
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('success', 'Employee personal data saved successfully');
             }
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -443,6 +449,10 @@ class EmployeeController extends Controller
                 'trace'   => $th->getTraceAsString(),
             ]);
 
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            if($employee){
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('error', 'Employee personal data creation failed. Please contact admin.');
+            }
             return redirect()->back()->with('error', 'Employee personal data creation failed. Please contact admin.');
         }
     }
@@ -485,12 +495,18 @@ class EmployeeController extends Controller
                 $changesMade = true;
             }
 
+            $employee = Employee::where('employee_id', $employee_id)->first();
             if ($changesMade) {
-                return redirect()->back()->with('success', 'Employee documents updated successfully.');
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 8])->with('success', 'Employee documents updated successfully.');
             } else {
-                return redirect()->back()->with('info', 'No changes detected.');
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 8])->with('info', 'No changes detected.');
             }
         } catch (\Exception $e) {
+            $employee_id = is_array($validated['employee_id']) ? $validated['employee_id'][0] : $validated['employee_id'];
+            $employee = Employee::where('employee_id', $employee_id)->first();
+            if($employee){
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 8])->with('error', 'Failed to update employee documents: ' . $e->getMessage());
+            }
             return redirect()->back()->with('error', 'Failed to update employee documents: ' . $e->getMessage());
         }
     }
@@ -498,22 +514,27 @@ class EmployeeController extends Controller
     public function storeEmployeeSalary(EmployeeSalaryRequest $request){
         try {
             $validated = $request->validated();
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
             $employee_salary = EmployeeSalary::where('employee_id', $request->employee_id)->first();
             if($employee_salary){
                 $employee_salary->fill($validated);
                 $validated['ot_rate'] = round(($validated['basic']/240)*2);
                 if ($employee_salary->isDirty()) {
                     $employee_salary->update($validated);
-                    return redirect()->back()->with('success', 'Employee salary updated successfully');
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('success', 'Employee salary updated successfully');
                 } else {
-                    return redirect()->back()->with('info', 'No changes detected');
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('info', 'No changes detected');
                 }
             }else{
                 $validated['ot_rate'] = round(($validated['basic']/240)*2);
                 EmployeeSalary::create($validated);
-                return redirect()->back()->with('success', 'Employee salary saved successfully');
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('success', 'Employee salary saved successfully');
             }
         } catch (\Exception $e) {
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            if($employee){
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('error', 'Employee salary creation failed: ' . $e->getMessage());
+            }
             return redirect()->back()->with('error', 'Employee salary creation failed: ' . $e->getMessage());
         }
     }

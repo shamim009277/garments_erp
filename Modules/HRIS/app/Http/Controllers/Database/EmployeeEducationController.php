@@ -42,9 +42,14 @@ class EmployeeEducationController extends Controller
             $education->save();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Employee Education created successfully');
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 3])->with('success', 'Employee Education created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            if($employee){
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 3])->with('error', 'Failed to create Employee Education: ' . $e->getMessage());
+            }
             return redirect()->back()->with('error', 'Failed to create Employee Education: ' . $e->getMessage());
         }
     }
@@ -59,9 +64,17 @@ class EmployeeEducationController extends Controller
             $employeeEducation = EmployeeEducation::findOrFail($id);
             $employeeEducation->update($request->validated());
             DB::commit();
-            return redirect()->back()->with('success', 'Employee Education updated successfully');
+            $employee = Employee::where('employee_id', $employeeEducation->employee_id)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 3])->with('success', 'Employee Education updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
+            $employeeEducation = EmployeeEducation::find($id);
+            if($employeeEducation){
+                $employee = Employee::where('employee_id', $employeeEducation->employee_id)->first();
+                if($employee){
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 3])->with('error', 'Failed to update Employee Education: ' . $e->getMessage());
+                }
+            }
             return redirect()->back()->with('error', 'Failed to update Employee Education: ' . $e->getMessage());
         }
     }
@@ -73,9 +86,11 @@ class EmployeeEducationController extends Controller
         DB::beginTransaction();
         try {
             $employeeEducation = EmployeeEducation::findOrFail($request->id);
+            $employeeId = $employeeEducation->employee_id;
             $employeeEducation->delete();
             DB::commit();
-            return redirect()->back()->with('success', 'Employee Education deleted successfully');
+            $employee = Employee::where('employee_id', $employeeId)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 3])->with('success', 'Employee Education deleted successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to delete Employee Education: ' . $e->getMessage());

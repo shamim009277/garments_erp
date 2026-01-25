@@ -45,8 +45,8 @@
                                             @endphp
                                             <div class="form-check">
                                                 <input type="hidden" name="employee_id[]" value="{{ $employee->employee_id }}">
-                                                <input class="form-check-input" type="checkbox" style="display: inline-block;" name="document_id[]" id="document_id" value="{{ $document->id }}" {{ $checked }}>
-                                                <label class="form-check-label" for="document_id">{{ $document->name }}</label>
+                                                <input class="form-check-input" type="checkbox" style="display: inline-block;" name="document_id[]" id="document_id_{{ $document->id }}" value="{{ $document->id }}" {{ $checked }}>
+                                                <label class="form-check-label" for="document_id_{{ $document->id }}">{{ $document->name }}</label>
                                             </div>
                                         @endforeach
                                     </td>
@@ -58,8 +58,8 @@
                                 <tr>
                                     <th width="40%" style="border: none; text-align: center;"></th>
                                     <td width="60%" style="border: none;">
-                                        <button class="btn btn-sm btn-success" id="checkAll" style="margin-right: 10px;">Check All</button>
-                                        <button class="btn btn-sm btn-danger" id="uncheckAll">Uncheck All</button>
+                                        <button type="button" class="btn btn-sm btn-success" id="checkAll" style="margin-right: 10px;">Check All</button>
+                                        <button type="button" class="btn btn-sm btn-danger" id="uncheckAll">Uncheck All</button>
                                     </td>
                                 </tr>
                             </table>
@@ -73,18 +73,16 @@
         </div>
     </div>
 </div>
-@push('scripts')
-<script>
-    $(document).ready(function () {
-        $('#checkAll').click(function (e) {
-            e.preventDefault();
-            $('input[type="checkbox"][name="document_id[]"]').prop('checked', true);
-        });
 
-        $('#uncheckAll').click(function (e) {
-            e.preventDefault();
-            $('input[type="checkbox"][name="document_id[]"]').prop('checked', false);
-        });
+<script>
+    // Unbind previous events to prevent multiple bindings if reloaded
+    $(document).off('click', '#checkAll').on('click', '#checkAll', function (e) {
+        e.preventDefault();
+        $('input[type="checkbox"][name="document_id[]"]').prop('checked', true);
+    });
+
+    $(document).off('click', '#uncheckAll').on('click', '#uncheckAll', function (e) {
+        e.preventDefault();
+        $('input[type="checkbox"][name="document_id[]"]').prop('checked', false);
     });
 </script>
-@endpush

@@ -21,8 +21,13 @@ class EmployeeExperienceController extends Controller
     public function store(EmployeeExperienceRequest $request) {
         try {
             EmployeeExperience::create($request->validated());
-            return redirect()->back()->with('success', 'Employee Experience created successfully');
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 5])->with('success', 'Employee Experience created successfully');
         } catch (\Exception $e) {
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            if($employee){
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 5])->with('error', 'Employee Experience creation failed: ' . $e->getMessage());
+            }
             return redirect()->back()->with('error', 'Employee Experience creation failed: ' . $e->getMessage());
         }
     }
@@ -34,8 +39,16 @@ class EmployeeExperienceController extends Controller
         try {
             $experience = EmployeeExperience::findOrFail($id);
             $experience->update($request->validated());
-            return redirect()->back()->with('success', 'Employee Experience updated successfully');
+            $employee = Employee::where('employee_id', $experience->employee_id)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 5])->with('success', 'Employee Experience updated successfully');
         } catch (\Exception $e) {
+            $experience = EmployeeExperience::find($id);
+            if($experience){
+                $employee = Employee::where('employee_id', $experience->employee_id)->first();
+                if($employee){
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 5])->with('error', 'Employee Experience update failed: ' . $e->getMessage());
+                }
+            }
             return redirect()->back()->with('error', 'Employee Experience update failed: ' . $e->getMessage());
         }
     }
@@ -46,8 +59,10 @@ class EmployeeExperienceController extends Controller
     public function destroy(Request $request) {
         try {
             $experience = EmployeeExperience::findOrFail($request->id);
+            $employeeId = $experience->employee_id;
             $experience->delete();
-            return redirect()->back()->with('success', 'Employee Experience deleted successfully');
+            $employee = Employee::where('employee_id', $employeeId)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 5])->with('success', 'Employee Experience deleted successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Employee Experience deletion failed: ' . $e->getMessage());
         }
