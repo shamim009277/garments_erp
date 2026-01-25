@@ -5,6 +5,7 @@ namespace Modules\HRIS\Http\Controllers\Database;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\HRIS\Http\Requests\Database\EmployeeReferenceRequest;
+use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Database\EmployeeReference;
 
 class EmployeeReferenceController extends Controller

@@ -2,11 +2,12 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\HRIS\Models\Database\EmployeeService;
 use Modules\HRIS\Http\Requests\Database\EmployeeServiceRequest;
+use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Database\EmployeeService;
 
 class EmployeeServiceController extends Controller
 {

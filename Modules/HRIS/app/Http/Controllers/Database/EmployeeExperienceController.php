@@ -4,8 +4,9 @@ namespace Modules\HRIS\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\HRIS\Models\Database\EmployeeExperience;
 use Modules\HRIS\Http\Requests\Database\EmployeeExperienceRequest;
+use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Database\EmployeeExperience;
 
 class EmployeeExperienceController extends Controller
 {

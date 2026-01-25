@@ -2,11 +2,12 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Modules\HRIS\Models\Database\EmployeeEducation;
 use Modules\HRIS\Http\Requests\Database\EmployeeEducationRequest;
+use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Database\EmployeeEducation;
 
 class EmployeeEducationController extends Controller
 {
