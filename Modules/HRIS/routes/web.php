@@ -354,7 +354,10 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('calender', CalenderController::class)->names('calender');
             Route::resource('shiftinglist', ShiftingListController::class)->names('shiftinglist');
             Route::resource('newshiftinglist', NewEmployeeShiftingListController::class)->names('newshiftinglist');
+
             Route::resource('edit-shiftinglist', EditShiftingListController::class)->names('edit-shiftinglist');
+            Route::post('/edit-shiftinglist/getEmployee', [EditShiftingListController::class, 'getEmployee'])->name('edit-shiftinglist.getEmployee');
+
             Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
             Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');
             Route::resource('editexceptional-holidays', EditExceptionalHolidayController::class)->names('editexceptional-holidays');
