@@ -10,7 +10,7 @@
                         </div>
                         <div class="card-body">
                             <x-input-group type="hidden" name="tab" value="3" />
-                            <x-input-group type="hidden" name="id" value="{{ $setting->id ?? '' }}" />
+                            <x-input-group type="hidden" name="id" value="{{ $schedule->id ?? '' }}" />
                             <x-input-group type="text" name="start_date" class="form-control-sm" id="start_date" label="Start Date" :value="old('start_date', date('d-m-Y', strtotime($schedule->start_date??''))) ?? ''" placeholder="Start Date" required />
                             <x-input-group type="text" name="end_date" class="form-control-sm" id="end_date" label="End Date" :value="old('end_date', date('d-m-Y', strtotime($schedule->end_date??''))) ?? ''" placeholder="End Date" required />
                         </div>

@@ -47,7 +47,7 @@
                             value="{{ date('Y') }}" required readonly />
                     </div>
                     <div class="card-footer" style="padding:15px 16px;">
-                        <button type="submit" name="action" value="generate" class="btn btn-primary btn-sm float-end"id="generateBtn">
+                        <button type="submit" name="action" value="generate" class="btn btn-primary btn-sm float-end">
                             <!-- icon -->
                             <i data-feather="plus" style="width: 16px; height: 16px;" class="me-1"></i>
                             <!-- button text -->
