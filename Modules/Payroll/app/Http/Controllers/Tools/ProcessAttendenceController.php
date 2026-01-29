@@ -2,22 +2,26 @@
 
 namespace Modules\Payroll\Http\Controllers\Tools;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Modules\HRIS\Models\Database\EmpGatePass;
+use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\RamadanSchedule;
+use Modules\HRIS\Models\Setup\CompanyWiseRamadanShift;
+use Modules\HRIS\Models\Setup\CompanyWiseShift;
+use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Setup\Shift;
 use Modules\HRIS\Models\Tools\Calender;
-use Modules\HRIS\Models\Database\Employee;
-use Modules\HRIS\Models\Setup\Organization;
 use Modules\HRIS\Models\Tools\ShiftingList;
-use Modules\Payroll\Models\Tools\PunchData;
-use Modules\HRIS\Models\Database\EmpGatePass;
-use Modules\HRIS\Models\Setup\CompanyWiseShift;
-use Modules\Payroll\Models\Tools\ReadMachineData;
 use Modules\Payroll\Models\Tools\ProcessAttendence;
+use Modules\Payroll\Models\Tools\PunchData;
+use Modules\Payroll\Models\Tools\ReadMachineData;
 
 class ProcessAttendenceController extends Controller
 {
@@ -48,170 +52,136 @@ class ProcessAttendenceController extends Controller
     {
         if ($request->title == 1) {
             $startTime = microtime(true);
+            $preDate = Carbon::parse($request->date);
+            $month = $preDate->month;
+            $year  = $preDate->year;
 
-            $pre_date = Carbon::parse($request->date)->format('Y-m-d');
-            $month = Carbon::parse($pre_date)->format('m');
-            $year  = Carbon::parse($pre_date)->format('Y');
-            $start_date = Carbon::parse($pre_date)->startOfMonth()->format('Y-m-d');
-            $end_date = Carbon::parse($pre_date)->endOfMonth()->format('Y-m-d');
+            $start_date = $preDate->copy()->startOfMonth();
+            $end_date   = $preDate->copy()->endOfMonth();
 
-            // ✅ Check if punch data already exists for this month
-            $exists = PunchData::where('org_id', $request->org_id)->whereBetween('work_date', [$start_date, $end_date])->exists();
-            if ($exists) {
-                return redirect()->back()->with('error', 'Pre process attendance already exists for this month.');
+            if (PunchData::where('org_id', $request->org_id)->whereBetween('work_date', [$start_date, $end_date])->exists()) {
+                return back()->with('error', 'Pre process attendance already exists for this month.');
             }
 
-            $start = $start_date;
-            $end = $start <= $pre_date && $pre_date <= $end_date ? $pre_date : $end_date;
+            $end = $preDate->between($start_date, $end_date) ? $preDate : $end_date;
 
-            $baseshift = Shift::active()
-                ->select('shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
-                ->get();
-
-            $companyshift = CompanyWiseShift::active()
-                ->where('org_id', $request->org_id)
-                ->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
-                ->get();
+            $ramadandate = RamadanSchedule::active()->first();
+            $baseshift = Shift::active()->get()->keyBy('shift');
+            $companyshift = CompanyWiseShift::active()->where('org_id', $request->org_id)->get()->keyBy('shift');
+            $ramadanshift = CompanyWiseRamadanShift::active()->where('org_id', $request->org_id)->get()->keyBy('shift');
 
             if ($baseshift->isEmpty() && $companyshift->isEmpty()) {
-                return redirect()->back()->with('error', 'Please add shift. Common shift or company wise shift.');
+                return back()->with('error', 'Please add shift. Common shift or company wise shift.');
             }
 
-            $employees = Employee::active()
-                ->where('org_id', $request->org_id)
+            Employee::where('org_id', $request->org_id)
                 ->whereNotNull('refrerence_shift')
+                ->where(function ($q) use ($start_date) {
+                    $q->where('reason', 'N')
+                        ->orWhere('leaving_date', '>=', $start_date);
+                })
                 ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift')
                 ->orderBy('department_id')
                 ->orderBy('employee_id')
-                ->get();
+                ->chunkById(500, function ($employees) use (
+                    $start_date,
+                    $end,
+                    $month,
+                    $year,
+                    $baseshift,
+                    $companyshift,
+                    $ramadanshift,
+                    $ramadandate
+                ) {
 
-            $allempid = $employees->pluck('employee_id')->toArray();
-            $gatepassdata = EmpGatePass::whereIn('employee_id', $allempid)
-                ->where('type_id', 2)
-                ->whereMonth('date', $month)
-                ->whereYear('date', $year)
-                ->whereBetween('date', [$start, $end])
-                ->get();
+                    $empIds = $employees->pluck('employee_id')->all();
 
-            $assignshift = ShiftingList::whereIn('employee_id', $allempid)
-                ->whereMonth('date', $month)
-                ->whereYear('date', $year)
-                ->whereBetween('date', [$start, $end])
-                ->get();
+                    $punches = ReadMachineData::whereIn('employee_id', $empIds)
+                        ->whereBetween('attendance_date', [
+                            $start_date,
+                            $end->copy()->addDay()
+                        ])
+                        ->orderBy('attendance_date')
+                        ->get()
+                        ->groupBy('employee_id');
 
-            $punchstart = Carbon::parse($start)->startOfDay()->format('Y-m-d H:i:s');
-            $punchend = Carbon::parse($end)->addDay(1)->endOfDay()->format('Y-m-d H:i:s');
+                    $shifts = ShiftingList::whereIn('employee_id', $empIds)
+                        ->whereBetween('date', [$start_date, $end])
+                        ->get()
+                        ->groupBy('employee_id');
 
-            $allpunchdata = ReadMachineData::whereIn('employee_id', $allempid)
-                ->whereBetween('attendance_date', [$punchstart, $punchend])
-                ->select('employee_id', 'attendance_date')
-                ->get();
+                    $gatepasses = EmpGatePass::whereIn('employee_id', $empIds)
+                        ->whereBetween('date', [$start_date, $end])
+                        ->get()
+                        ->groupBy('employee_id');
 
-            // ✅ Group punch, shift, gatepass by employee
-            $allPunchGrouped = $allpunchdata->groupBy('employee_id');
-            $allShiftGrouped = $assignshift->groupBy('employee_id');
-            $allGatePassGrouped = $gatepassdata->groupBy('employee_id');
+                    $dates = collect(CarbonPeriod::create($start_date, $end))
+                        ->map(fn($d) => $d->toDateString());
 
-            $period = CarbonPeriod::create($start_date, $end_date);
-            $splitemps = $employees->chunk(300);
+                    $insertData = [];
 
-            $totalInserted = 0;
+                    foreach ($employees as $employee) {
 
-            foreach ($splitemps as $splitemp) {
-                $results = [];
+                        $empPunch = $punches[$employee->employee_id] ?? collect();
+                        if ($empPunch->isEmpty()) continue;
 
-                foreach ($splitemp as $employee) {
-                    $empid = $employee['employee_id'];
-                    $empPunches = $allPunchGrouped->get($empid, collect());
-                    $empShifts = $allShiftGrouped->get($empid, collect());
-                    $empGatePasses = $allGatePassGrouped->get($empid, collect());
+                        $empShift = $shifts[$employee->employee_id] ?? collect();
+                        $empGate  = $gatepasses[$employee->employee_id] ?? collect();
 
-                    foreach ($period as $date) {
-                        $startpunch = null;
-                        $endpunch = null;
+                        foreach ($dates as $date) {
 
-                        $shift = $empShifts->firstWhere('date', $date->format('Y-m-d'))?->shift
-                            ?? $employee['refrerence_shift'];
+                            $shift = $empShift->firstWhere('date', $date)?->shift
+                                ?? $employee->refrerence_shift;
 
-                        $gatepass = $empGatePasses->firstWhere('date', $date->format('Y-m-d'));
+                            $shiftTime = $companyshift[$shift]
+                                ?? $baseshift[$shift]
+                                ?? null;
 
-                        $shiftTime = collect($companyshift)->where('shift', $shift)->first()
-                            ?? collect($baseshift)->where('shift', $shift)->first();
+                            if ($ramadandate && $date >= $ramadandate->start_date && $date <= $ramadandate->end_date) {
+                                $shiftTime = $ramadanshift[$shift] ?? $shiftTime;
+                            }
 
-                        if (!$shiftTime) continue;
+                            if (!$shiftTime) continue;
 
-                        $starthr = $date->copy()->setTimeFromTimeString($shiftTime->shift_start);
-                        $endhr = $date->copy()->setTimeFromTimeString($shiftTime->shift_end);
+                            $starthr = Carbon::parse($date . ' ' . $shiftTime->shift_start);
+                            $endhr   = Carbon::parse($date . ' ' . $shiftTime->shift_end);
 
-                        $startlimit = $starthr->copy()->subHour(2);
-                        $endlimit = $endhr->copy()->addHour(12);
+                            $startlimit = $starthr->subHours(2);
+                            $endlimit   = $endhr->addHours(12);
 
-                        $punchesBeforeStart = $empPunches->filter(
-                            fn($p) =>
-                            $p->attendance_date > $startlimit && $p->attendance_date <= $starthr
-                        );
-                        $punchesBetweenShift = $empPunches->filter(
-                            fn($p) =>
-                            $p->attendance_date > $starthr && $p->attendance_date < $endhr
-                        );
-                        $punchesAfterEnd = $empPunches->filter(
-                            fn($p) =>
-                            $p->attendance_date >= $endhr && $p->attendance_date <= $endlimit
-                        );
+                            $rangePunch = $empPunch->whereBetween('attendance_date', [$startlimit, $endlimit]);
 
-                        // ✅ Determine startpunch
-                        if ($punchesBeforeStart->isNotEmpty()) {
-                            $startpunch = Carbon::parse($punchesBeforeStart->max('attendance_date'))->format('Y-m-d H:i:s');
-                        } elseif ($punchesBetweenShift->isNotEmpty()) {
-                            $startpunch = Carbon::parse($punchesBetweenShift->min('attendance_date'))->format('Y-m-d H:i:s');
-                        } elseif ($punchesAfterEnd->isNotEmpty()) {
-                            $startpunch = Carbon::parse($punchesAfterEnd->min('attendance_date'))->format('Y-m-d H:i:s');
+                            if ($rangePunch->isEmpty()) continue;
+
+                            $startpunch = $rangePunch->first()->attendance_date;
+                            $endpunch   = $rangePunch->last()->attendance_date;
+
+                            if ($empGate->firstWhere('date', $date)) {
+                                $endpunch = $endhr;
+                            }
+
+                            $insertData[] = [
+                                'org_id' => $employee->org_id,
+                                'employee_id' => $employee->employee_id,
+                                'shift' => $shift,
+                                'work_date' => $date,
+                                'start_punch' => $startpunch,
+                                'end_punch' => $endpunch,
+                                'created_by' => auth()->id(),
+                                'updated_by' => auth()->id(),
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ];
                         }
-
-                        // ✅ Determine endpunch
-                        if ($punchesAfterEnd->isNotEmpty()) {
-                            $endpunch = Carbon::parse($punchesAfterEnd->max('attendance_date'))->format('Y-m-d H:i:s');
-                        } elseif ($punchesBetweenShift->isNotEmpty()) {
-                            $endpunch = Carbon::parse($punchesBetweenShift->max('attendance_date'))->format('Y-m-d H:i:s');
-                        } elseif ($punchesBeforeStart->isNotEmpty()) {
-                            $endpunch = Carbon::parse($punchesBeforeStart->max('attendance_date'))->format('Y-m-d H:i:s');
-                        }
-
-                        // ✅ Gatepass override
-                        if ($gatepass) {
-                            $endpunch = $endhr->format('Y-m-d H:i:s');
-                        }
-
-                        $results[] = [
-                            'org_id' => (int)$employee['org_id'],
-                            'employee_id' => (int)$empid,
-                            'shift' => $shift,
-                            'work_date' => $date->format('Y-m-d'),
-                            'start_punch' => $startpunch,
-                            'end_punch' => $endpunch,
-                            'created_by' => auth()->id(),
-                            'updated_by' => auth()->id(),
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
                     }
-                }
 
-                foreach (array_chunk($results, 3000) as $chunk) {
-                    PunchData::insert($chunk);
-                    $totalInserted += count($chunk);
-                }
-            }
+                    foreach (array_chunk($insertData, 5000) as $chunk) {
+                        PunchData::insert($chunk);
+                    }
+                });
 
-            // ⏱ Calculate total execution time
-            $executionTime = round(microtime(true) - $startTime, 3);
-
-            return redirect()->back()->with(
-                'success',
-                "✅ Attendance Pre Processed successfully completed.<br>" .
-                    "Total inserted: <b>{$totalInserted}</b><br>" .
-                    "Time taken: <b>{$executionTime} seconds</b>"
-            );
+            $executionTime = round(microtime(true) - $startTime, 2);
+            return back()->with('success', "Attendance processed successfully.<br> Time taken: {$executionTime}s");
         } else if ($request->title == 2) {
             $month = $request->month;
             $year  = $request->year;
@@ -386,7 +356,7 @@ class ProcessAttendenceController extends Controller
 
                                 if ($end_punch < $earlylimit) {
                                     $isEarlyLeave = 'Y';
-                                    $earlyMinutes = calculateLate($endhr,$end_punch);
+                                    $earlyMinutes = calculateLate($endhr, $end_punch);
                                 } else {
                                     $isEarlyLeave = 'N';
                                     $earlyMinutes = 0;
@@ -398,16 +368,16 @@ class ProcessAttendenceController extends Controller
                                 $otminutes = $actualOT['minutes'];
                                 $wwh = 8;
                                 $totalhour = $actualHours['totalHours'];
-                                $shortMinutes = round($lateMinutes+$earlyMinutes);
+                                $shortMinutes = round($lateMinutes + $earlyMinutes);
 
                                 if ($employee->ot_payable == 'N') {
                                     $othour = 0;
                                     $otminutes = 0;
                                 }
 
-                                if($totalhour > 0){
+                                if ($totalhour > 0) {
                                     $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => $rwh, 'wwh' => $wwh, 'ot_hours' => $othour, 'ot_minutes' => $otminutes, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => $islate, 'is_early_leave' => $isEarlyLeave, 'late_minutes' => $lateMinutes, 'early_minutes' => $earlyMinutes, 'short_minutes' => $shortMinutes, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
-                                }else{
+                                } else {
                                     $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => 0, 'wwh' => 0, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'AB', 'is_late' => 'N', 'is_early_leave' => 'N', 'late_minutes' => 0, 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => Auth::user()->id, 'updated_by' => Auth::user()->id];
                                 }
                             } else if ($employee->punch_category == 3) {
@@ -464,7 +434,7 @@ class ProcessAttendenceController extends Controller
 
                 $executionTime = round(microtime(true) - $startTime, 3);
 
-                return redirect()->back()->with('success',"✅ Attendance Process deleted successfully." . "Total deleted rows: {$deletedCount}" . "Time taken: {$executionTime} seconds" );
+                return redirect()->back()->with('success', "✅ Attendance Process deleted successfully." . "Total deleted rows: {$deletedCount}" . "Time taken: {$executionTime} seconds");
             } else {
                 return redirect()->back()->with('error', 'No attendance data found for this month/year.');
             }
