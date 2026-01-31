@@ -352,6 +352,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/departure/info', [DepartureController::class, 'employeeInfo'])->name('departure.info');
             Route::resource('departure', DepartureController::class)->names('departure');
             Route::resource('calender', CalenderController::class)->names('calender');
+            Route::get('/shiftinglist/status/{id}', [ShiftingListController::class, 'checkStatus'])->name('shiftinglist.status');
             Route::resource('shiftinglist', ShiftingListController::class)->names('shiftinglist');
             Route::resource('newshiftinglist', NewEmployeeShiftingListController::class)->names('newshiftinglist');
 

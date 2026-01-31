@@ -113,6 +113,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-body p-2" id="progress-container" style="display:none;">
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%;" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                        </div>
+                        <div class="text-center mt-1"><small id="progress-text">Initializing...</small></div>
+                    </div>
                     <div class="card-footer" style="padding:10px 15px;">
                         <button type="button" class="btn btn-sm btn-outline-primary" id="check_all">Check All</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all">Uncheck All</button>
@@ -182,6 +188,80 @@
         $('#uncheck_all').on('click', function () {
             $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
         });
+
+        $('#applicantForm').on('submit', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            let formData = new FormData(this);
+            let submitBtn = $('#submitBtn');
+            
+            submitBtn.prop('disabled', true);
+            $('#progress-container').show();
+            $('#progress-bar').css('width', '0%').attr('aria-valuenow', 0).text('0%');
+            $('#progress-text').text('Starting...');
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        pollJobStatus(response.job_status_id);
+                    } else {
+                        toastr.error(response.message);
+                        submitBtn.prop('disabled', false);
+                        $('#progress-container').hide();
+                    }
+                },
+                error: function (xhr) {
+                    let errorMessage = 'An error occurred';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    toastr.error(errorMessage);
+                    submitBtn.prop('disabled', false);
+                    $('#progress-container').hide();
+                }
+            });
+        });
+
+        function pollJobStatus(jobId) {
+            let interval = setInterval(function () {
+                $.ajax({
+                    url: "{{ url('hris/tools/shiftinglist/status') }}/" + jobId,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.success) {
+                            let percentage = response.progress;
+                            $('#progress-bar').css('width', percentage + '%').attr('aria-valuenow', percentage).text(percentage + '%');
+                            $('#progress-text').text(response.message);
+
+                            if (response.status === 'completed') {
+                                clearInterval(interval);
+                                toastr.success('Shifting list generated successfully!');
+                                $('#submitBtn').prop('disabled', false);
+                                setTimeout(function() {
+                                    $('#progress-container').hide();
+                                    $('#progress-bar').css('width', '0%').text('0%');
+                                }, 3000);
+                            } else if (response.status === 'failed') {
+                                clearInterval(interval);
+                                toastr.error('Job failed: ' + response.message);
+                                $('#submitBtn').prop('disabled', false);
+                            }
+                        }
+                    },
+                    error: function () {
+                        clearInterval(interval);
+                        toastr.error('Error checking job status');
+                        $('#submitBtn').prop('disabled', false);
+                    }
+                });
+            }, 2000); // Poll every 2 seconds
+        }
     });
 </script>
 @endpush
