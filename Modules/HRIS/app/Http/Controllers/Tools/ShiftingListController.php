@@ -16,6 +16,8 @@ use Modules\HRIS\Models\Tools\ShiftingList;
 use Modules\HRIS\Models\JobStatus;
 use Modules\HRIS\Jobs\GenerateShiftingListJob;
 
+use Illuminate\Support\Facades\Bus;
+
 class ShiftingListController extends Controller
 {
     function __construct()

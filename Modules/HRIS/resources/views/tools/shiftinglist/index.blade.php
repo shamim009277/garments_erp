@@ -59,18 +59,18 @@
                 </h4>
             </div>
         </div>
-        <div class="col-lg-6 col-md-8 ps-lg-1 ps-md-1" style="margin:0px auto;">
+        <div class="col-lg-6 col-md-8" style="margin:0px auto;">
             <form action="{{ route('hris.tools.shiftinglist.store') }}" id="applicantForm" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card alert-primary alert-top-border">
-                    <div class="card-header d-flex align-items-center justify-content-between p-2">
+                    <div class="card-header d-flex align-items-center justify-content-between px-4 py-3">
                         <h6 class="my-0 text-primary d-flex align-items-center"><i data-feather="list" width="16" height="16" class="me-2"></i> Department</h6>
 
                     </div>
                     <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
                         <!-- Sample departments -->
                         <div class="row">
-                            <div class="col-md-6 ps-lg-0">
+                            <div class="col-md-6">
                                 <div class="department-list">
                                     <!-- Parent 1 -->
                                     @foreach ($parentDepartments as $parentDepartment)
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body p-2" id="progress-container" style="display:none;">
+                    <div class="card-body" id="progress-container" style="display:none;">
                         <div class="progress" style="height: 20px;">
                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%;" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                         </div>
