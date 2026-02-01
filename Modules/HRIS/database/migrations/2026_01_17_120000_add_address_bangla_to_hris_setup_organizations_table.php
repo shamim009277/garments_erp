@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('hris_setup_organizations', function (Blueprint $table) {
-            $table->string('address_bangla')->nullable()->after('address');
+            //$table->string('address_bangla')->nullable()->after('address');
         });
     }
 
