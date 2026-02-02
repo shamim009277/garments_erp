@@ -53,7 +53,7 @@ class ProcessAttendanceJob implements ShouldQueue
     {
         try {
             $startTime = now();
-            $this->updateStatus('processing', 0, 'Initializing attendance process...');
+            $this->updateStatus('processing', 0, 'Initializing Process Attendence...');
 
             $month = $this->month;
             $year = $this->year;
@@ -306,33 +306,32 @@ class ProcessAttendanceJob implements ShouldQueue
         // Check Punches
         $dailyPunches = $punches->where('work_date', $date);
         if ($dailyPunches->isNotEmpty()) {
-            $start_punch = $dailyPunches->min('time');
-            $end_punch = $dailyPunches->max('time');
+            $record = $dailyPunches->first();
+            $start_punch = $record->start_punch;
+            $end_punch = $record->end_punch;
             
-            // If only one punch, handle as error or partial? Assuming logic handles it.
             if ($start_punch && $end_punch && $start_punch != $end_punch) {
                 $attn_type = 'PR';
                 
-                // Late Calculation
-                if ($start_punch > Carbon::parse($starthr)->addMinutes($shiftinfo['late_after_minutes'])->format('H:i:s')) {
+                $starthrDt = Carbon::parse($date . ' ' . $starthr);
+                $endhrDt = Carbon::parse($date . ' ' . $endhr);
+                $startDt = Carbon::parse($start_punch);
+                $endDt = Carbon::parse($end_punch);
+
+                if ($startDt->gt($starthrDt->copy()->addMinutes($shiftinfo['late_after_minutes']))) {
                     $isLate = 'Y';
-                    $lateMin = Carbon::parse($starthr)->diffInMinutes(Carbon::parse($start_punch));
+                    $lateMin = $starthrDt->diffInMinutes($startDt);
                 }
 
-                // Early Leave Calculation
-                if ($end_punch < $endhr) {
+                if ($endDt->lt($endhrDt)) {
                     $isEarly = 'Y';
-                    $earlyMin = Carbon::parse($endhr)->diffInMinutes(Carbon::parse($end_punch));
+                    $earlyMin = $endhrDt->diffInMinutes($endDt);
                 }
 
-                // Working Hours
-                $hoursData = $this->calculateWorkingHours($start_punch, $end_punch, $starthr, $endhr, $break_start, $break_end);
+                $hoursData = $this->calculateWorkingHours($startDt, $endDt, $starthrDt, $endhrDt, Carbon::parse($date . ' ' . $break_start), Carbon::parse($date . ' ' . $break_end));
                 $wwh = $hoursData['hours'];
+                $rwh = 8;
                 
-                // Regular Working Hours (fixed or actual?)
-                $rwh = 8; // Defaulting to 8, logic might vary
-                
-                // OT Calculation (Simplified)
                 if ($employee->ot_payable == 'Y' && $wwh > $rwh) {
                     $total_ot_minutes = ($wwh - $rwh) * 60;
                     $oth = floor($total_ot_minutes / 60);

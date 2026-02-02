@@ -187,7 +187,7 @@ class ProcessAttendenceController extends Controller
                 'user_id' => Auth::id(),
                 'status' => 'pending',
                 'progress' => 0,
-                'message' => 'Attendance process queued...'
+                'message' => 'Process Attendence queued...'
             ]);
 
             // Dispatch Job
@@ -197,12 +197,12 @@ class ProcessAttendenceController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Attendance processing started in background. Please wait for completion.',
+                    'message' => 'Process Attendence started in background. Please wait for completion.',
                     'job_status_id' => $jobStatus->id
                 ]);
             }
 
-            return back()->with('success', "Attendance processing started. Please wait for completion. (Job ID: {$jobStatus->id})");
+            return back()->with('success', "Process Attendence started. Please wait for completion. (Job ID: {$jobStatus->id})");
         } catch (\Throwable $th) {
             return back()->with('error', 'Failed to start process: ' . $th->getMessage());
         }
