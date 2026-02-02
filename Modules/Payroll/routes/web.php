@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(fu
         Route::prefix('tools')->name('tools.')->group(function () {
              Route::resource('advance-process', AdvanceProcessController::class)->names('advance-process');
              Route::resource('read-machinedata', ReadMachineDataController::class)->names('read-machinedata');
+             Route::get('/process-attendence/status/{id}', [ProcessAttendenceController::class, 'checkStatus']);
              Route::resource('process-attendence', ProcessAttendenceController::class)->names('process-attendence');
              Route::resource('process-salary', ProcessSalaryController::class)->names('process-salary');
              Route::resource('process-bonus', ProcessBonusController::class)->names('process-bonus');
