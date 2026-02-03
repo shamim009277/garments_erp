@@ -257,11 +257,34 @@ class ProcessAttendanceJob implements ShouldQueue
         }
 
         $shift = $shiftinfo['shift'];
-        $starthr = $shiftinfo['start'];
-        $endhr = $shiftinfo['end'];
-        $break_start = $shiftinfo['break_start'];
-        $break_end = $shiftinfo['break_end'];
         
+        // --- Fix: Construct Full Datetime objects for Shift Times ---
+        $starthr = Carbon::parse($date . ' ' . $shiftinfo['start']);
+        $endhr = Carbon::parse($date . ' ' . $shiftinfo['end']);
+        
+        // Handle Night Shift crossing midnight
+        if ($endhr->lt($starthr)) {
+            $endhr->addDay();
+        }
+
+        // Break Times
+        $break_start = Carbon::parse($date . ' ' . $shiftinfo['break_start']);
+        $break_end = Carbon::parse($date . ' ' . $shiftinfo['break_end']);
+        
+        // Adjust break times if they fall on next day relative to shift start
+        if ($break_start->lt($starthr)) $break_start->addDay();
+        if ($break_end->lt($starthr)) $break_end->addDay();
+
+        // Convert to strings for consistent usage if needed, but Objects are better for comparison
+        // However, existing logic uses string variables $starthr later? 
+        // Let's keep them as Carbon objects for logic, and stringify when passing to helpers if helpers expect strings.
+        // Helpers use Carbon::parse(), so passing Y-m-d H:i:s string is best.
+        
+        $starthrStr = $starthr->format('Y-m-d H:i:s');
+        $endhrStr = $endhr->format('Y-m-d H:i:s');
+        $breakStartStr = $break_start->format('Y-m-d H:i:s');
+        $breakEndStr = $break_end->format('Y-m-d H:i:s');
+
         $calendardata = $caldatas[$date] ?? null;
         if (!$calendardata) {
             Log::warning("Calendar Data Missing", ['employee' => $employee->employee_id, 'date' => $date]);
@@ -283,63 +306,234 @@ class ProcessAttendanceJob implements ShouldQueue
         $shortMin = 0;
         $attn_type = 'AB'; // Default Absent
 
-        // Check Leaves
-        $isOnLeave = $leaves->filter(function($leave) use ($date) {
-            return $date >= $leave->start_date && $date <= $leave->end_date;
-        })->first();
+        $isMNShift = in_array($shift, ['N', 'M']);
+        $wwhvalue = $isMNShift ? 11 : 8;
 
-        if ($isOnLeave) {
-            // Determine leave type code
-            $attn_type = $leaveClasses[$isOnLeave->leave_type_id] ?? 'LWOP'; 
-        }
+        // // check Shift 
+        // $isMNShift = in_array($shift, ['N', 'M']);
 
-        // Check Holiday
-        if ($calendardata->holiday == 1 || $calendardata->public_holiday == 1) {
-            $attn_type = 'HD';
-        }
-        
-        // Check Exceptional Holiday
-        if ($exceptionalHolidays->where('holiday_date', $date)->isNotEmpty()) {
-             $attn_type = 'HD';
-        }
+        // // Check Leaves
+        // $isOnLeave = $leaves->filter(function($leave) use ($date) {
+        //     return $date >= $leave->start_date && $date <= $leave->end_date;
+        // })->first();
+        // if ($isOnLeave) {
+        //     $attn_type = $leaveClasses[$isOnLeave->leave_type_id] ?? 'LWOP';
+        //     $wwh = $isMNShift ? 11 : 8;
+        // }
 
-        // Check Punches
+        // // Check Punch Category
+        // if($employee->punch_category == 3){
+        //     $attn_type = 'PR';
+        //     $wwh = $isMNShift ? 11 : 8;
+        //     $rwh = $isMNShift ? 11 : 8;
+        // }
+
+        // // Check Holiday
+        // if ($calendardata->holiday == 1 || $calendardata->public_holiday == 1) {
+        //     $attn_type = 'HD';
+        // }
+
+        // // Check Exceptional Holiday
+        // if ($exceptionalHolidays->where('holiday_date', $date)->isNotEmpty()) {
+        //     $attn_type = 'HD';
+        //     $wwh = $isMNShift ? 11 : 8;
+        // }
+
+        // // Check Punches
+        // $dailyPunches = $punches->where('work_date', $date);
+        // if ($dailyPunches->isNotEmpty()) {
+        //     $record = $dailyPunches->first();
+        //     $start_punch = $record->start_punch;
+        //     $end_punch = $record->end_punch;
+            
+        //     if ($start_punch && $end_punch && $start_punch != $end_punch) {
+        //         $attn_type = 'PR';
+                
+        //         $starthrDt = Carbon::parse($date . ' ' . $starthr);
+        //         $endhrDt = Carbon::parse($date . ' ' . $endhr);
+        //         $startDt = Carbon::parse($start_punch);
+        //         $endDt = Carbon::parse($end_punch);
+
+        //         if ($startDt->gt($starthrDt->copy()->addMinutes($shiftinfo['late_after_minutes']))) {
+        //             $isLate = 'Y';
+        //             $lateMin = $starthrDt->diffInMinutes($startDt);
+        //         }
+
+        //         if ($endDt->lt($endhrDt)) {
+        //             $isEarly = 'Y';
+        //             $earlyMin = $endhrDt->diffInMinutes($endDt);
+        //         }
+
+        //         $hoursData = $this->calculateWorkingHours($startDt, $endDt, $starthrDt, $endhrDt, Carbon::parse($date . ' ' . $break_start), Carbon::parse($date . ' ' . $break_end));
+        //         $wwh = $hoursData['hours'];
+        //         $rwh = 8;
+                
+        //         if ($employee->ot_payable == 'Y' && $wwh > $rwh) {
+        //             $total_ot_minutes = ($wwh - $rwh) * 60;
+        //             $oth = floor($total_ot_minutes / 60);
+        //             $otm = $total_ot_minutes % 60;
+        //         }
+                
+        //         $total = $wwh;
+        //     }
+        // }
+
+        //My Custom Code
         $dailyPunches = $punches->where('work_date', $date);
         if ($dailyPunches->isNotEmpty()) {
             $record = $dailyPunches->first();
             $start_punch = $record->start_punch;
             $end_punch = $record->end_punch;
-            
-            if ($start_punch && $end_punch && $start_punch != $end_punch) {
-                $attn_type = 'PR';
-                
-                $starthrDt = Carbon::parse($date . ' ' . $starthr);
-                $endhrDt = Carbon::parse($date . ' ' . $endhr);
-                $startDt = Carbon::parse($start_punch);
-                $endDt = Carbon::parse($end_punch);
+        }
 
-                if ($startDt->gt($starthrDt->copy()->addMinutes($shiftinfo['late_after_minutes']))) {
-                    $isLate = 'Y';
-                    $lateMin = $starthrDt->diffInMinutes($startDt);
-                }
+        $isOnLeave = $leaves->filter(function($leave) use ($date) {
+            return $date >= $leave->start_date && $date <= $leave->end_date;
+        })->first();
 
-                if ($endDt->lt($endhrDt)) {
-                    $isEarly = 'Y';
-                    $earlyMin = $endhrDt->diffInMinutes($endDt);
-                }
 
-                $hoursData = $this->calculateWorkingHours($startDt, $endDt, $starthrDt, $endhrDt, Carbon::parse($date . ' ' . $break_start), Carbon::parse($date . ' ' . $break_end));
-                $wwh = $hoursData['hours'];
-                $rwh = 8;
-                
-                if ($employee->ot_payable == 'Y' && $wwh > $rwh) {
-                    $total_ot_minutes = ($wwh - $rwh) * 60;
-                    $oth = floor($total_ot_minutes / 60);
-                    $otm = $total_ot_minutes % 60;
+        if ($isOnLeave) {
+            $wwh = $isOnLeave->leave_type_id == "ML" || $isOnLeave->leave_type_id == "LWOP" ? 0 : $wwhvalue;
+            $attn_type = $isOnLeave->leave_type_id;
+        } else if ($calendardata && $calendardata->public_holiday == 'Y') {
+            $wwh = $wwhvalue;
+            $attn_type = 'HD';
+        } else if ($calendardata && $calendardata->holiday == 'Y') {
+            // For shifting employee process
+            if($employee && $employee->shifting_duty == 'Y' && $isMNShift){
+                $exceptionalHoliday = $exceptionalHolidays->where('holiday_date', $date)->first();
+                if ($exceptionalHoliday && $exceptionalHoliday->holiday_date == $date) {
+                    if ($employee && $employee->ot_payable == 'N') {
+                        $wwh = 11;
+                        $attn_type = 'HD';
+                    }else{
+                        $wwh = 11;
+                        $dailyPunches = $punches->where('work_date', $date);
+                        if ($dailyPunches->isNotEmpty()) {
+                            $record = $dailyPunches->first();
+                            $start_punch = $record->start_punch;
+                            $end_punch = $record->end_punch;
+                            
+                            if ($start_punch && $end_punch && $start_punch != $end_punch) {
+                                $attn_type = 'PR';
+                                $totalhour = calculateTotalHours($start_punch,$end_punch);
+
+                                if ($totalhour > 0) {
+                                    $wwh = 11;
+                                    $rwh = $totalhour;
+                                    $total = $wwh;
+                                    $attn_type = 'PR';
+                                    $start_punch = $record->start_punch;
+                                    $end_punch = $record->end_punch;
+                                }
+                            }
+                        }  
+                    }
                 }
-                
-                $total = $wwh;
+            }else{
+                if ($employee && $employee->ot_payable == 'N') {
+                    $wwh = 8;
+                    $attn_type = 'HD';
+                } else if ($employee && $employee->ot_payable == 'Y') {
+                    $wwh = 8;
+                    $dailyPunches = $punches->where('work_date', $date);
+                    if ($dailyPunches->isNotEmpty()) {
+                        $record = $dailyPunches->first();
+                        $start_punch = $record->start_punch;
+                        $end_punch = $record->end_punch;
+                        
+                        if ($start_punch && $end_punch && $start_punch != $end_punch) {
+                            $totalhour = calculateTotalHours($start_punch,$end_punch);
+                            if ($totalhour > 0) {
+                                $wwh = 8;
+                                $rwh = $totalhour > 8 ? 8:$totalhour;
+                                $total = $totalhour;
+                                $attn_type = 'HD';
+                                $start_punch = $record->start_punch;
+                                $end_punch = $record->end_punch;
+                            }
+                        }
+                    }  
+                }
             }
+        } else if ($employee->punch_category == 1 && ($start_punch != null || $start_punch != null)) {
+            $wwh = $wwhvalue;
+            $attn_type = 'PR';
+            $start_punch = $record->start_punch;
+            $end_punch = $record->end_punch;
+            $rwh = $wwhvalue;
+            $total = $wwhvalue;
+        } else if ($employee->punch_category == 2 && ($start_punch != null || $end_punch != null)) {
+            // Use formatted strings for helper functions and comparisons to ensure consistency
+            if ($start_punch <= $starthrStr && $endhrStr <= $end_punch) {
+                $actualHours = calculateActualHours($starthrStr, $endhrStr, $breakStartStr, $breakEndStr);
+            } elseif ($start_punch > $starthrStr && $endhrStr <= $end_punch) {
+                $actualHours = calculateActualHours($start_punch, $endhrStr, $breakStartStr, $breakEndStr);
+            } elseif ($start_punch <= $starthrStr && $endhrStr > $end_punch) {
+                $actualHours = calculateActualHours($starthrStr, $end_punch, $breakStartStr, $breakEndStr);
+            } elseif ($start_punch > $starthrStr && $endhrStr > $end_punch) {
+                $actualHours = calculateActualHours($start_punch, $end_punch, $breakStartStr, $breakEndStr);
+            } else {
+                $actualHours = ['hours' => 0, 'minutes' => 0, 'totalHours' => 0];
+            }
+            
+            // Fix: calculateActualHours returns array, accessing it properly
+            if (!is_array($actualHours)) {
+                 $actualHours = ['hours' => 0, 'minutes' => 0, 'totalHours' => 0];
+            }
+
+            // Late Calculation
+            $latelimit = $starthr->copy()->addMinutes($shiftinfo['late_after_minutes'])->format('Y-m-d H:i:s');
+            $earlylimit = $endhr->format('Y-m-d H:i:s');
+
+            if ($start_punch > $latelimit) {
+                $islate = 'Y';
+                $lateMinutes = round(calculateLate($start_punch, $starthrStr));
+            } else {
+                $islate = 'N';
+                $lateMinutes = 0;
+            }
+
+            if ($end_punch < $earlylimit) {
+                $isEarlyLeave = 'Y';
+                $earlyMinutes = round(calculateLate($endhrStr, $end_punch));
+            } else {
+                $isEarlyLeave = 'N';
+                $earlyMinutes = 0;
+            }
+
+            $actualOT = $endhrStr < $end_punch ? ($endhrStr > $start_punch ? calculateOtHours($endhrStr, $end_punch) : calculateOtHours($start_punch, $end_punch)) : ['hours' => 0, 'minutes' => 0];
+
+            $rwh = $actualHours['hours'] > $wwhvalue ? $wwhvalue : $actualHours['hours'];
+            $othour = $actualOT['hours'];
+            $otminutes = round($actualOT['minutes']);
+            $wwh = $wwhvalue;
+            $totalhour = $actualHours['totalHours'];
+            $shortMinutes = round($lateMinutes + $earlyMinutes);
+
+            if ($employee->ot_payable == 'N') {
+                $othour = 0;
+                $otminutes = 0;
+            }
+            
+            // Always set data if punches exist
+            $start_punch = $record->start_punch;
+            $end_punch = $record->end_punch;
+            // rwh and wwh are already set
+            $oth = $othour;
+            $otm = $otminutes;
+            $total = $totalhour;
+            $isLate = $islate;
+            $lateMin = $lateMinutes;
+            $isEarly = $isEarlyLeave;
+            $earlyMin = $earlyMinutes;
+            $shortMin = $shortMinutes;
+            $attn_type = 'PR';
+
+        } else if ($employee->punch_category == 3) {
+            $wwh = $wwhvalue;
+            $attn_type = 'PR';
+            $rwh = $wwhvalue;
+            $total = $wwhvalue;
         }
 
         return $this->formatResult(
@@ -352,7 +546,6 @@ class ProcessAttendanceJob implements ShouldQueue
     private function getShiftInfo($employee, $date, $shifts, $baseshift, $companyshift, $ramadanshift, $ramadandate)
     {
         $shift = $employee->refrerence_shift;
-        
         // Check Shifting List
         $dayShift = $shifts->where('date', $date)->first();
         if ($dayShift) {
@@ -421,7 +614,6 @@ class ProcessAttendanceJob implements ShouldQueue
                 return calculateActualHours($start_punch, $end_punch, $break_start, $break_end);
             }
         }
-        
         // Fallback simple calculation if function missing
         $t1 = Carbon::parse($start_punch);
         $t2 = Carbon::parse($end_punch);
