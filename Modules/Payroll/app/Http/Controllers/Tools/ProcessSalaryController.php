@@ -43,6 +43,8 @@ class ProcessSalaryController extends Controller
     public function store(Request $request)
     {
         if ($request->title == 1) {
+            set_time_limit(0);
+            ini_set('memory_limit', '2048M');
 
             $exist = ProcessSalary::where('org_id', $request->org_id)->where('month', $request->month)->where('year', $request->year)->exists();
             if ($exist) {
@@ -50,7 +52,6 @@ class ProcessSalaryController extends Controller
             }
             $month = $request->month;
             $year = $request->year;
-
             $start_date = Carbon::parse("$year-$month-01")->startOfMonth()->format('Y-m-d');
             $end_date = Carbon::parse("$year-$month-01")->endOfMonth()->format('Y-m-d');
 
@@ -62,6 +63,7 @@ class ProcessSalaryController extends Controller
                 ->where('basic.org_id', $request->org_id)
                 ->where('basic.reason', 'N')
                 ->where('basic.salaried', 'Y')
+                //->where('basic.employee_id', 4079)
                 ->where(function ($q) use ($end_date, $start_date) {
                     $q->where('basic.joining_date', '<=', $end_date)
                         ->orWhere(function ($q2) use ($start_date) {
@@ -69,9 +71,8 @@ class ProcessSalaryController extends Controller
                                 ->where('basic.salaried', 'Y');
                         });
                 })
-                ->select('basic.employee_id', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
+                ->select('basic.employee_id','basic.shifting_duty','basic.refrerence_shift', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
                 ->get();
-
 
             // Advances, punishments, maternity, HR options
             $advances = DB::table('payroll_tools_process_advance as advance')
@@ -98,7 +99,6 @@ class ProcessSalaryController extends Controller
 
             // Process in chunks
             foreach ($employees->chunk(250) as $splitemp) {
-
                 $empids = $splitemp->pluck('employee_id')->toArray();
                 $attndatas = ProcessAttendence::where('org_id', $request->org_id)
                     ->whereBetween('work_date', [$start_date, $end_date])
@@ -161,6 +161,10 @@ class ProcessSalaryController extends Controller
                         }
                     }
 
+                    // Shifting duty
+                    $duration = ($employee->shifting_duty == 'Y' && ($employee->refrerence_shift == 'N' || $employee->shifting_duty == 'M')) ? 11 : 8;
+                    $hour = ($employee->shifting_duty == 'Y' && ($employee->refrerence_shift == 'N' || $employee->shifting_duty == 'M')) ? 286 : 208;
+
                     // OT calculation
                     $totalothour = $attn->sum('ot_hours');
                     $othr = $attn->sum(function ($a) {
@@ -169,7 +173,7 @@ class ProcessSalaryController extends Controller
                     });
 
                     $othour = ($employee->ot_payable == 'Y') ? $othr : 0;
-                    $otrate = round(($employee->basic / 208) * 2, 2);
+                    $otrate = round(($employee->basic / $hour) * 2, 2);
                     $otamount = round($otrate * $othour);
                     $totalotamount = round($otrate * $totalothour);
 
@@ -182,8 +186,8 @@ class ProcessSalaryController extends Controller
                     $wpabdeduct = ($employee->gross_salary / $monthdays) * $wpabsent_days;
                     $abdeduct = ($employee->basic / $daysinmonth) * $absent_days;
                     $punishdeduct = ($employee->basic / $daysinmonth) * $punish;
-                    $shortagehr = ($present_days * 8) - $gwh;
-                    $hrdeduct = $shortagehr * ($employee->basic / ($daysinmonth * 8));
+                    $shortagehr = ($present_days * $duration) - $gwh;
+                    $hrdeduct = $shortagehr * ($employee->basic / ($daysinmonth * $duration));
                     $basicabdeduct = $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct;
 
                     $oapay = round(($employee->other_allowance / $monthdays) * $present_days);
@@ -211,7 +215,8 @@ class ProcessSalaryController extends Controller
                         $grpay = round(($employee->gross_salary + $oapay + $attn_bonus) - $basicabdeduct);
                     }
 
-                    $deduction = $advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct;
+                    $deduction = $advrefund + $employee->tax + $bpayforlong;
+                    $totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct);  
                     $netpayable = ($grpay + $otamount) - $deduction;
                     $totalnetpayable = ($grpay + $totalotamount) - $deduction;
 
@@ -259,7 +264,7 @@ class ProcessSalaryController extends Controller
                     $salarydata->basic_payable = $bpay;
                     $salarydata->oa_payable = $oapay;
                     $salarydata->gross_payable = $grpay;
-                    $salarydata->total_deduction = $deduction;
+                    $salarydata->total_deduction = $totaldeduction;
                     $salarydata->net_payable = $netpayable;
                     $salarydata->total_net_payable = $totalnetpayable;
                     $salarydata->confirm = 'N';
