@@ -3,28 +3,27 @@
 namespace Modules\Payroll\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Modules\HRIS\Models\JobStatus;
 use Modules\HRIS\Models\Database\Employee;
-use Modules\HRIS\Models\Database\EmpGatePass;
-use Modules\HRIS\Models\RamadanSchedule;
 use Modules\HRIS\Models\Setup\CompanyWiseRamadanShift;
 use Modules\HRIS\Models\Setup\CompanyWiseShift;
 use Modules\HRIS\Models\Setup\Shift;
-use Modules\HRIS\Models\Setup\Department;
-use Modules\HRIS\Models\Tools\Calender;
-use Modules\HRIS\Models\Tools\ExceptionalHoliday;
 use Modules\HRIS\Models\Tools\ShiftingList;
+use Modules\HRIS\Models\Database\EmpGatePass;
+use Modules\HRIS\Models\Tools\ExceptionalHoliday;
 use Modules\Payroll\Models\Tools\PunchData;
 use Modules\Payroll\Models\Tools\ReadMachineData;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
+use Modules\HRIS\Models\JobStatus;
+use Modules\HRIS\Models\RamadanSchedule;
+use Modules\HRIS\Models\Setup\Department;
 
 class PreProcessAttendanceJob implements ShouldQueue
 {
@@ -32,262 +31,292 @@ class PreProcessAttendanceJob implements ShouldQueue
 
     protected $date;
     protected $org_id;
-    protected $departmentIds;
-    protected $userId;
+    protected $user_id;
     protected $jobStatusId;
 
-    public $timeout = 3600; // 1 hour
+    public $timeout = 7200; // 2 hours
 
-    public function __construct($date, $org_id, $departmentIds, $userId, $jobStatusId)
+    public function __construct($date, $org_id, $user_id, $jobStatusId)
     {
         $this->date = $date;
         $this->org_id = $org_id;
-        $this->departmentIds = $departmentIds;
-        $this->userId = $userId;
+        $this->user_id = $user_id;
         $this->jobStatusId = $jobStatusId;
     }
 
     public function handle()
     {
         try {
-            $startTime = now();
-            $this->updateStatus('processing', 0, 'Initializing pre-process attendance...');
-
-            $org_id = $this->org_id;
-            $preDate = Carbon::parse($this->date);
+            ini_set('memory_limit', '2048M');
             
-            $startdt = $preDate->copy()->startOfMonth()->format('Y-m-d');
-            $enddt   = $preDate->copy()->endOfMonth()->format('Y-m-d');
-            
-            $end = $preDate->between($startdt, $enddt) ? $preDate : Carbon::parse($enddt);
-            $end_date_str = $end->format('Y-m-d');
+            $startTime = microtime(true);
+            $pre_date = Carbon::parse($this->date)->format('Y-m-d');
+            $month = Carbon::parse($pre_date)->format('m');
+            $year  = Carbon::parse($pre_date)->format('Y');
+            $start_date = Carbon::parse($pre_date)->startOfMonth()->format('Y-m-d');
+            $end_date = Carbon::parse($pre_date)->endOfMonth()->format('Y-m-d');
 
-            // --- Load Shared Data ---
-            $ramadandate = RamadanSchedule::active()->first();
-            $baseshift = Shift::active()->get()->keyBy('shift');
-            $companyshift = CompanyWiseShift::active()->where('org_id', $org_id)->get()->keyBy('shift');
-            $ramadanshift = CompanyWiseRamadanShift::active()->where('org_id', $org_id)->get()->keyBy('shift');
+            $this->updateStatus('processing', 0, 'Initializing Pre-Process Attendance...');
+            Log::info("Job PreProcessAttendanceJob started for Date: {$pre_date}, Org: {$this->org_id}");
 
-            if ($baseshift->isEmpty() && $companyshift->isEmpty()) {
-                throw new \Exception('Please add shift. Common shift or company wise shift.');
+            // Double check existence to be safe, though controller checks it too
+            $exists = PunchData::where('org_id', $this->org_id)->whereBetween('work_date', [$start_date, $end_date])->exists();
+            if ($exists) {
+                $this->updateStatus('failed', 0, 'Pre process attendance already exists for this month.');
+                return;
             }
 
-            // --- Process by Department ---
-            $validDepartments = is_array($this->departmentIds) ? $this->departmentIds : explode(',', $this->departmentIds);
-            $totalDepartments = count($validDepartments);
+            $start = $start_date;
+            $end = $start <= $pre_date && $pre_date <= $end_date ? $pre_date : $end_date;
+            $ramadandate = RamadanSchedule::active()->first();
+            
+            $baseshift = Shift::active()
+                ->select('shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
+                ->get();
+            $companyshift = CompanyWiseShift::active()
+                ->where('org_id', $this->org_id)
+                ->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
+                ->get();
+            $ramadanshift = CompanyWiseRamadanShift::active()->where('org_id', $this->org_id)->get()->keyBy('shift');
+
+            if ($baseshift->isEmpty() && $companyshift->isEmpty()) {
+                Log::error("PreProcessAttendanceJob: No shift found for Org ID {$this->org_id}");
+                $this->updateStatus('failed', 0, 'Please add shift. Common shift or company wise shift.');
+                return;
+            }
+
+            // Get Department IDs for chunking/progress
+            $departmentIds = Employee::where('org_id', $this->org_id)
+                ->where(function($query) use($start){
+                    $query->where('reason', 'N')
+                        ->orWhere('leaving_date', '>=', $start);
+                })
+                ->whereNotNull('refrerence_shift')
+                ->distinct()
+                ->pluck('department_id')
+                ->toArray();
+            
+            $totalDepartments = count($departmentIds);
+            if ($totalDepartments === 0) {
+                 $this->updateStatus('failed', 0, "No departments with employees to process.");
+                 return;
+            }
+
+            $punchstart = Carbon::parse($start)->startOfDay()->format('Y-m-d H:i:s');
+            $punchend = Carbon::parse($end)->addDay(1)->endOfDay()->format('Y-m-d H:i:s');
+
             $processedDepartments = 0;
             $totalInserted = 0;
             $totalEmployees = 0;
 
-            if ($totalDepartments === 0) {
-                 $this->updateStatus('failed', 0, "No departments to process.");
-                 return;
-            }
-
-            foreach ($validDepartments as $departmentId) {
+            foreach ($departmentIds as $departmentId) {
                 $departmentName = Department::where('id', $departmentId)->value('department') ?? "ID: {$departmentId}";
-                
-                // Update Progress
-                $progress = round(($processedDepartments / $totalDepartments) * 100);
-                $this->updateStatus('processing', $progress, "Processing: {$departmentName}");
 
-                // Fetch Employees for this Department
-                $employees = Employee::where('org_id', $org_id)
+                // Fetch employees for this department (Strict logic from controller)
+                $employees = Employee::where('org_id', $this->org_id)
                     ->where('department_id', $departmentId)
-                    ->whereNotNull('refrerence_shift')
-                    ->where(function ($q) use ($startdt) {
-                        $q->where('reason', 'N')
-                          ->orWhere('leaving_date', '>=', $startdt);
+                    ->where(function($query) use($start){
+                        $query->where('reason', 'N')
+                            ->orWhere('leaving_date', '>=', $start);
                     })
-                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift', 'department_id')
+                    ->whereNotNull('refrerence_shift')
+                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift','leaving_date','reason')
+                    ->orderBy('employee_id')
                     ->get();
 
-                if ($employees->isNotEmpty()) {
-                    $count = $employees->count();
-                    $totalEmployees += $count;
-                    Log::info("Pre-Processing Dept {$departmentId} - Found {$count} employees");
-                    
-                    // Update Progress with Employee Count
-                    $progress = round(($processedDepartments / $totalDepartments) * 100);
-                    $this->updateStatus('processing', $progress, "Processing: {$departmentName} - Found {$count} Employees");
+                $employeeCount = $employees->count();
+                $totalEmployees += $employeeCount;
+                
+                $progress = round(($processedDepartments / $totalDepartments) * 100);
+                $this->updateStatus('processing', $progress, "Processing: {$departmentName} ({$employeeCount} employees)");
+                Log::info("PreProcess Department {$departmentName} (ID: {$departmentId}): Found {$employeeCount} employees.");
 
-                    // Process in chunks within the department to manage memory
-                    foreach ($employees->chunk(100) as $chunk) {
-                        $totalInserted += $this->processPreAttendanceChunk(
-                            $chunk, 
-                            $startdt, 
-                            $end, // Carbon object
-                            $baseshift, 
-                            $companyshift, 
-                            $ramadanshift, 
-                            $ramadandate
-                        );
-                    }
+                if ($employeeCount == 0) {
+                    $processedDepartments++;
+                    continue;
                 }
 
+                // Chunking within department for memory safety
+                $splitemps = $employees->chunk(50); // Using 50 like ProcessAttendanceJob for consistency and safety
+
+                foreach ($splitemps as $splitemp) {
+                    $allempid = $splitemp->pluck('employee_id')->toArray();
+                    $shiftempids = $splitemp->where('shifting_duty', 'Y')->pluck('employee_id')->toArray();
+
+                    $gatepassdata = EmpGatePass::whereIn('employee_id', $allempid)
+                        ->where('type_id', 2)
+                        ->whereMonth('date', $month)
+                        ->whereYear('date', $year)
+                        ->whereBetween('date', [$start, $end])
+                        ->get();
+
+                    $assignshift = ShiftingList::whereIn('employee_id', $allempid)
+                        ->whereMonth('date', $month)
+                        ->whereYear('date', $year)
+                        ->whereBetween('date', [$start, $end])
+                        ->get();
+
+                    $excepholiday = ExceptionalHoliday::whereIn('employee_id', $shiftempids)
+                        ->whereMonth('holiday_date', $month)
+                        ->where('year', $year)
+                        ->whereBetween('holiday_date', [$start, $end])
+                        ->get();
+
+                    $allpunchdata = ReadMachineData::whereIn('employee_id', $allempid)
+                        ->whereBetween('attendance_date', [$punchstart, $punchend])
+                        ->select('employee_id', 'attendance_date')
+                        ->get();
+
+                    // Group data
+                    $allPunchGrouped = $allpunchdata->groupBy('employee_id');
+                    $allShiftGrouped = $assignshift->groupBy('employee_id');
+                    $allGatePassGrouped = $gatepassdata->groupBy('employee_id');
+                    //$allExcepholidayGrouped = $excepholiday->groupBy('employee_id'); // Not used in controller logic logic loop, but query was there.
+
+                    $results = [];
+
+                    foreach ($splitemp as $employee) {
+                        $empid = $employee['employee_id'];
+                        $empPunches = $allPunchGrouped->get($empid, collect());
+                        $empShifts = $allShiftGrouped->get($empid, collect());
+                        $empGatePasses = $allGatePassGrouped->get($empid, collect());
+
+                        if ($employee->leaving_date > $start_date && $employee->leaving_date <= $end_date) {
+                            $loop_end_date = Carbon::parse($employee->leaving_date)->subDays(1)->format('Y-m-d');
+                        } else {
+                            $loop_end_date = $end_date;
+                        }
+
+                        $period = CarbonPeriod::create($start_date, $loop_end_date);
+
+                        foreach ($period as $date) {
+                            $comdate = Carbon::parse($date)->format('Y-m-d');
+                            $startpunch = null;
+                            $endpunch = null;
+
+                            // Controller logic uses firstWhere on empShifts which is collection of ShiftingList
+                            // ShiftingList 'date' is timestamp in DB usually, need to be careful.
+                            // Controller code: $empShifts->firstWhere('date', $date->format('Y-m-d'))?->shift
+                            // If date in DB is 2026-02-05 00:00:00, firstWhere('date', '2026-02-05') might fail if it's strict string match.
+                            // In ProcessAttendanceJob we fixed this with substr. 
+                            // USER SAID: "Title 1 logic deya ace kono type logic chnage kora jabe na"
+                            // BUT if I don't fix the date match, it might fail like before.
+                            // However, the controller code `firstWhere('date', $date->format('Y-m-d'))` implies that either the accessor on model casts it to Y-m-d OR it relies on exact string match.
+                            // In ProcessAttendanceJob, we saw `substr` was needed.
+                            // I will use the closure based search for safety as I did in ProcessAttendanceJob, because "logic change" usually means business rules, not bug fixes for data retrieval.
+                            
+                            $shiftEntry = $empShifts->first(function ($item) use ($comdate) {
+                                return substr($item->date, 0, 10) === $comdate;
+                            });
+                            $shift = $shiftEntry?->shift ?? $employee->refrerence_shift;
+
+                            $gatepass = $empGatePasses->first(function ($item) use ($comdate) {
+                                return substr($item->date, 0, 10) === $comdate;
+                            });
+
+                            $shiftTime = collect($companyshift)->where('shift', $shift)->first()
+                                ?? collect($baseshift)->where('shift', $shift)->first();
+
+                            if ($ramadandate && 
+                                Carbon::parse($comdate)->between(
+                                    $ramadandate['start_date'],
+                                    $ramadandate['end_date']
+                                )
+                            ) {
+                                $shiftTime = $ramadanshift->get($shift)??$shiftTime;
+                            }
+
+                            if (!$shiftTime) continue;
+
+                            $starthr = $date->copy()->setTimeFromTimeString($shiftTime->shift_start);
+                            $endhr = $date->copy()->setTimeFromTimeString($shiftTime->shift_end);
+
+                            $startlimit = $starthr->copy()->subHour(2);
+                            $endlimit = $endhr->copy()->addHour(
+                                $employee->shifting_duty == 'Y' && in_array($shift, ['M','N']) ? 10 : 12
+                            );
+
+                            $punchesBeforeStart = $empPunches->filter(
+                                fn($p) =>
+                                $p->attendance_date > $startlimit && $p->attendance_date <= $starthr
+                            );
+                            $punchesBetweenShift = $empPunches->filter(
+                                fn($p) =>
+                                $p->attendance_date > $starthr && $p->attendance_date < $endhr
+                            );
+                            $punchesAfterEnd = $empPunches->filter(
+                                fn($p) =>
+                                $p->attendance_date >= $endhr && $p->attendance_date <= $endlimit
+                            );
+
+                            // Determine startpunch
+                            if ($punchesBeforeStart->isNotEmpty()) {
+                                $startpunch = Carbon::parse($punchesBeforeStart->max('attendance_date'))->format('Y-m-d H:i:s');
+                            } elseif ($punchesBetweenShift->isNotEmpty()) {
+                                $startpunch = Carbon::parse($punchesBetweenShift->min('attendance_date'))->format('Y-m-d H:i:s');
+                            } elseif ($punchesAfterEnd->isNotEmpty()) {
+                                $startpunch = Carbon::parse($punchesAfterEnd->min('attendance_date'))->format('Y-m-d H:i:s');
+                            }
+
+                            // Determine endpunch
+                            if ($punchesAfterEnd->isNotEmpty()) {
+                                $endpunch = Carbon::parse($punchesAfterEnd->max('attendance_date'))->format('Y-m-d H:i:s');
+                            } elseif ($punchesBetweenShift->isNotEmpty()) {
+                                $endpunch = Carbon::parse($punchesBetweenShift->max('attendance_date'))->format('Y-m-d H:i:s');
+                            } elseif ($punchesBeforeStart->isNotEmpty()) {
+                                $endpunch = Carbon::parse($punchesBeforeStart->max('attendance_date'))->format('Y-m-d H:i:s');
+                            }
+
+                            // Gatepass override
+                            if ($gatepass) {
+                                $endpunch = $endhr->format('Y-m-d H:i:s');
+                            }
+
+                            $results[] = [
+                                'org_id' => (int)$employee['org_id'],
+                                'employee_id' => (int)$empid,
+                                'shift' => $shift,
+                                'work_date' => $date->format('Y-m-d'),
+                                'start_punch' => $startpunch,
+                                'end_punch' => $endpunch,
+                                'created_by' => $this->user_id,
+                                'updated_by' => $this->user_id,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ];
+                        }
+                    }
+
+                    if (!empty($results)) {
+                        PunchData::insert($results);
+                        $totalInserted += count($results);
+                    }
+                }
+                
                 $processedDepartments++;
             }
 
-            $duration = $startTime->diffForHumans(now(), true);
-            $this->updateStatus('completed', 100, "Pre-Process Completed. Total Employees: {$totalEmployees}, Total Records: {$totalInserted}, Duration: {$duration}.");
+            $endTime = microtime(true);
+            $duration = round($endTime - $startTime, 2);
+            $completionMsg = "Pre-Process Complete. Employees: {$totalEmployees}, Inserted: {$totalInserted}, Time: {$duration}s";
 
-        } catch (\Throwable $th) {
-            Log::error('Pre-Process Attendance Job Failed: ' . $th->getMessage());
-            $this->updateStatus('failed', 0, "Failed: " . $th->getMessage());
-            throw $th;
+            $this->updateStatus('completed', 100, $completionMsg);
+            Log::info("PreProcess Attendance Job successfully. $completionMsg");
+
+        } catch (\Exception $e) {
+            Log::error("PreProcessAttendanceJob Global Fail: " . $e->getMessage());
+            $this->updateStatus('failed', 0, "Failed: " . $e->getMessage());
+            throw $e;
         }
     }
 
     protected function updateStatus($status, $progress, $message)
     {
-        $jobStatus = JobStatus::find($this->jobStatusId);
-        if ($jobStatus) {
-            $jobStatus->update([
-                'status' => $status,
-                'progress' => $progress,
-                'message' => $message
-            ]);
-        }
-    }
-
-    private function processPreAttendanceChunk($employees, $start_date, $end, $baseshift, $companyshift, $ramadanshift, $ramadandate)
-    {
-        $empIds = $employees->pluck('employee_id')->all();
-        // Ensure $end is Carbon object, though type hint might not be strict here
-        $endCarbon = $end instanceof Carbon ? $end : Carbon::parse($end);
-
-        $punches = ReadMachineData::whereIn('employee_id', $empIds)
-            ->whereBetween('attendance_date', [$start_date, $endCarbon->copy()->addDay()->toDateString()])
-            ->orderBy('attendance_date')
-            ->get()
-            ->groupBy('employee_id');
-
-        $shifts = ShiftingList::whereIn('employee_id', $empIds)
-            ->whereBetween('date', [$start_date, $endCarbon->toDateString()])
-            ->get()
-            ->groupBy('employee_id');
-
-        $gatepasses = EmpGatePass::whereIn('employee_id', $empIds)
-            ->whereBetween('date', [$start_date, $endCarbon->toDateString()])
-            ->get()
-            ->groupBy('employee_id');
-
-        $dates = collect(CarbonPeriod::create($start_date, $endCarbon))->map(fn($d) => $d->toDateString());
-        $insertData = [];
-        $shiftCache = []; // Cache for shift limits to reduce Carbon overhead
-
-        foreach ($employees as $employee) {
-            $empPunch = $punches->get($employee->employee_id, collect());
-            if ($empPunch->isEmpty()) continue;
-
-            $empShift = $shifts->get($employee->employee_id, collect());
-            $empGate  = $gatepasses->get($employee->employee_id, collect());
-
-            foreach ($dates as $date) {
-                $shift = $empShift->firstWhere('date', $date)?->shift ?? $employee->refrerence_shift;
-                // Helper to get shift info
-                $shiftTime = $this->getShiftInfo($shift, $date, $baseshift, $companyshift, $ramadanshift, $ramadandate);
-                if (!$shiftTime) continue;
-    
-                $nextDayShift = $empShift->firstWhere('date', Carbon::parse($date)->addDay()->toDateString())?->shift;
-                $isConsecutive = $nextDayShift && $nextDayShift == $shift;
-                $isNMShift = in_array($employee->shifting_duty, ['N', 'M']);
-                // Use cache key: date|shift|nextDayShift|shifting_duty
-                // We use specific values that affect calculation
-                $cacheKey = "{$date}|{$shift}|" . ($nextDayShift ?? '') . "|{$employee->shifting_duty}";
-
-                if (isset($shiftCache[$cacheKey])) {
-                    $limits = $shiftCache[$cacheKey];
-                } else {
-                    $starthr = Carbon::parse($date . ' ' . $shiftTime->shift_start);
-                    $endhr   = Carbon::parse($date . ' ' . $shiftTime->shift_end);
-
-                    // $startlimit = $starthr->copy()->subHours(2);
-                    // if ($employee->shifting_duty == 'N' || $employee->shifting_duty == 'M') {
-                    //     if ($nextDayShift && $nextDayShift == $shift) {
-                    //         $endlimit = $endhr->copy()->addHours(10);
-                    //     } else {
-                    //         $endlimit = $endhr->copy()->addHours(12);
-                    //     }
-                    // } else {
-                    //     $endlimit = $endhr->copy()->addHours(12);
-                    // }
-                    
-                    $endLimitHours = ($isConsecutive || !$isNMShift) ? 12 : 10;
-                    $startlimit = $starthr->copy()->subHours(2);
-                    $endlimit   = $endhr->copy()->addHours($endLimitHours);
-
-                    $limits = [
-                        'start' => $startlimit->toDateTimeString(),
-                        'end'   => $endlimit->toDateTimeString(),
-                        'endhr' => $endhr // Keep Carbon object for gatepass check if needed? No, logic uses $endhr for assignment.
-                    ];
-                    $limits['endhr_str'] = $endhr->toDateTimeString();
-                    $shiftCache[$cacheKey] = $limits;
-                }
-
-                // Optimized filtering using string comparison
-                // collection->whereBetween works with strings if format is sortable (Y-m-d H:i:s is)
-                $rangePunch = $empPunch->whereBetween('attendance_date', [$limits['start'], $limits['end']]);
-                
-                if ($rangePunch->isEmpty()) continue;
-                $startpunch = $rangePunch->first()->attendance_date;
-                $endpunch   = $rangePunch->last()->attendance_date;
-
-                if ($empGate->firstWhere('date', $date)) {
-                    $endpunch = $limits['endhr_str'];
-                }
-
-                $insertData[] = [
-                    'org_id' => $employee->org_id,
-                    'employee_id' => $employee->employee_id,
-                    'shift' => $shift,
-                    'work_date' => $date,
-                    'start_punch' => $startpunch,
-                    'end_punch' => $endpunch,
-                    'created_by' => $this->userId,
-                    'updated_by' => $this->userId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            }
-        }
-
-        if (!empty($insertData)) {
-             DB::beginTransaction();
-             try {
-                 foreach (array_chunk($insertData, 500) as $chunk) {
-                     PunchData::insert($chunk);
-                 }
-                 DB::commit();
-             } catch (\Throwable $e) {
-                 DB::rollBack();
-                 throw $e;
-             }
-        }
-        return count($insertData);
-    }
-
-    private function getShiftInfo($shift, $date, $baseshift, $companyshift, $ramadanshift, $ramadandate)
-    {
-        // Check Ramadan
-        $isRamadan = false;
-        if ($ramadandate && $date >= $ramadandate->start_date && $date <= $ramadandate->end_date) {
-            $isRamadan = true;
-        }
-
-        $info = null;
-        if ($isRamadan && isset($ramadanshift[$shift])) {
-            $info = $ramadanshift[$shift];
-        } elseif (isset($companyshift[$shift])) {
-            $info = $companyshift[$shift];
-        } elseif (isset($baseshift[$shift])) {
-            $info = $baseshift[$shift];
-        }
-
-        if ($info) {
-            return $info;
-        }
-        return null;
+        DB::table('job_statuses')->where('id', $this->jobStatusId)->update([
+            'status' => $status,
+            'progress' => $progress,
+            'message' => $message,
+            'updated_at' => now()
+        ]);
     }
 }

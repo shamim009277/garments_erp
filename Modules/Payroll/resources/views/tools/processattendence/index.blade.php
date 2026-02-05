@@ -53,7 +53,7 @@
 
                             <div class="col-md-4 mb-3">
                                 <x-select-input name="org_id" id="org_id" class="select2" :options="$organizations" :selected="old('org_id', '1')" placeholder="Select Organization" required />
-                                <x-input-group type="date" name="date" value="{{ $date }}" class="form-control-sm"/>
+                                <x-input-group type="date" id="date" name="date" value="{{ $date }}" class="form-control-sm"/>
                                 <x-select-input name="month" id="month" class="select2" :options="['1' => 'January', '2' => 'February', '3' => 'March', '4' => 'April', '5' => 'May', '6' => 'June', '7' => 'July', '8' => 'August', '9' => 'September', '10' => 'October', '11' => 'November', '12' => 'December']" :selected="$month" placeholder="Select Month" required />
                                 <x-select-input name="year" id="year" class="select2" :options="$yearlist" :selected="date('Y')" placeholder="Select Year" required />
                             </div>
@@ -79,6 +79,25 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+        handleTitleSelection();
+
+        // On title radio change
+        $('input[name="title"]').on('change', function() {
+            handleTitleSelection();
+        });
+
+        function handleTitleSelection() {
+            let selectedValue = $('input[name="title"]:checked').val();
+            if (selectedValue == '1') {
+                $('#date').prop('disabled', false);
+                $('#month').prop('disabled', true);
+            } else if (selectedValue == '2' || selectedValue == '3' || selectedValue == '4') {
+                $('#date').prop('disabled', true);
+                $('#month').prop('disabled', false);
+            } 
+        }
+
+
         // Form Submit Logic
         $('#applicantForm').on('submit', function (e) {
             let selectedTitle = $('input[name="title"]:checked').val();

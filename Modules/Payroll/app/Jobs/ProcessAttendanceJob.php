@@ -2,27 +2,28 @@
 
 namespace Modules\Payroll\Jobs;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\JobStatus;
+use Modules\HRIS\Models\RamadanSchedule;
 use Modules\HRIS\Models\Setup\CompanyWiseRamadanShift;
 use Modules\HRIS\Models\Setup\CompanyWiseShift;
+use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Shift;
 use Modules\HRIS\Models\Tools\Calender;
 use Modules\HRIS\Models\Tools\ExceptionalHoliday;
 use Modules\HRIS\Models\Tools\ShiftingList;
 use Modules\Payroll\Models\Tools\ProcessAttendence;
 use Modules\Payroll\Models\Tools\PunchData;
-use Modules\HRIS\Models\JobStatus;
-use Modules\HRIS\Models\Setup\Department;
 
 class ProcessAttendanceJob implements ShouldQueue
 {
@@ -64,7 +65,8 @@ class ProcessAttendanceJob implements ShouldQueue
             $this->updateStatus('processing', 0, 'Initializing Attendance Process (v1.2)...');
             Log::info("Job ProcessAttendanceJob v1.2 started.");
 
-            $ramadandate = ['rm_seart_date' => '2026-01-01','rm_end_date' => '2026-01-15'];
+            //$ramadandate = ['rm_seart_date' => '2026-01-01','rm_end_date' => '2026-01-15'];
+            $ramadandate = RamadanSchedule::active()->first();
             $baseshift = Shift::active()->select('shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
             $companyshift = CompanyWiseShift::active()->where('org_id', $org_id)->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
             $ramadanshift = CompanyWiseRamadanShift::active()->where('org_id', $org_id)->get()->keyBy('shift');
@@ -228,7 +230,7 @@ class ProcessAttendanceJob implements ShouldQueue
                                     return substr($item->work_date, 0, 10) === $comdate;
                                 });
 
-                                if ($ramadandate && Carbon::parse($comdate)->between($ramadandate['rm_seart_date'],$ramadandate['rm_end_date'])){
+                                if ($ramadandate && Carbon::parse($comdate)->between($ramadandate['start_date'],$ramadandate['end_date'])){
                                     $shiftinfo = $ramadanshift->get($shift)??$shiftinfo;
                                 }
 
