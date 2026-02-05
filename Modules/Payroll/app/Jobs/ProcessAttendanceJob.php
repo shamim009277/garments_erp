@@ -3,28 +3,26 @@
 namespace Modules\Payroll\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Modules\HRIS\Models\JobStatus;
 use Modules\HRIS\Models\Database\Employee;
-use Modules\HRIS\Models\Database\EmpGatePass;
-use Modules\HRIS\Models\RamadanSchedule;
 use Modules\HRIS\Models\Setup\CompanyWiseRamadanShift;
 use Modules\HRIS\Models\Setup\CompanyWiseShift;
 use Modules\HRIS\Models\Setup\Shift;
-use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Tools\Calender;
 use Modules\HRIS\Models\Tools\ExceptionalHoliday;
 use Modules\HRIS\Models\Tools\ShiftingList;
 use Modules\Payroll\Models\Tools\ProcessAttendence;
 use Modules\Payroll\Models\Tools\PunchData;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
+use Modules\HRIS\Models\JobStatus;
+use Modules\HRIS\Models\Setup\Department;
 
 class ProcessAttendanceJob implements ShouldQueue
 {
@@ -33,618 +31,407 @@ class ProcessAttendanceJob implements ShouldQueue
     protected $month;
     protected $year;
     protected $org_id;
-    protected $departmentIds;
-    protected $userId;
+    protected $user_id;
     protected $jobStatusId;
 
-    public $timeout = 3600; // 1 hour
+    public $timeout = 7200; // 2 hours
 
-    public function __construct($month, $year, $org_id, $departmentIds, $userId, $jobStatusId)
+    public function __construct($month, $year, $org_id, $user_id, $jobStatusId)
     {
         $this->month = $month;
         $this->year = $year;
         $this->org_id = $org_id;
-        $this->departmentIds = $departmentIds;
-        $this->userId = $userId;
+        $this->user_id = $user_id;
         $this->jobStatusId = $jobStatusId;
     }
 
     public function handle()
     {
         try {
-            $startTime = now();
-            $this->updateStatus('processing', 0, 'Initializing Process Attendence...');
-
+            ini_set('memory_limit', '2048M');
+            
             $month = $this->month;
             $year = $this->year;
+            $today = Carbon::now()->format('Y-m-d');
             $org_id = $this->org_id;
-
-            $startdt = Carbon::parse("$year-$month")->startOfMonth()->format('Y-m-d');
+            
+            $startdt = Carbon::parse($year . '-' . $month)->startOfMonth()->format('Y-m-d');
             $enddt   = Carbon::parse($startdt)->endOfMonth()->format('Y-m-d');
+            
+            $startTime = microtime(true);
+            $totalEmployees = 0;
 
-            // --- Load Shared Data ---
-            $ramadandate = RamadanSchedule::active()->first();
-            $baseshift = Shift::active()->select('shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get()->keyBy('shift');
-            $companyshift = CompanyWiseShift::active()->where('org_id', $org_id)->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get()->keyBy('shift');
+            $this->updateStatus('processing', 0, 'Initializing Attendance Process (v1.2)...');
+            Log::info("Job ProcessAttendanceJob v1.2 started.");
+
+            $ramadandate = ['rm_seart_date' => '2026-01-01','rm_end_date' => '2026-01-15'];
+            $baseshift = Shift::active()->select('shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
+            $companyshift = CompanyWiseShift::active()->where('org_id', $org_id)->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
             $ramadanshift = CompanyWiseRamadanShift::active()->where('org_id', $org_id)->get()->keyBy('shift');
 
             if ($baseshift->isEmpty() && $companyshift->isEmpty()) {
-                throw new \Exception('No shifts found. Please add common or company-wise shifts.');
+                Log::error("ProcessAttendanceJob: No shift found for Org ID {$org_id}");
+                $this->updateStatus('failed', 0, "No shift found for Org ID {$org_id}");
+                return;
             }
 
-            $exceptionalHolidays = ExceptionalHoliday::active()
-                ->where('org_id', $org_id)
-                ->whereBetween('holiday_date', [$startdt, $enddt])
-                ->pluck('holiday_date')
+            // Check for Calendar Data
+            $calendarCount = Calender::whereMonth('date', $month)->where('is_active', 1)->whereYear('date', $year)->count();
+            if ($calendarCount == 0) {
+                Log::error("ProcessAttendanceJob: No active calendar data found for Month: {$month}, Year: {$year}");
+                $this->updateStatus('failed', 0, "No active calendar data found for Month: {$month}, Year: {$year}. Please generate calendar first.");
+                return;
+            }
+
+            // Get unique Department IDs that have relevant employees
+            $departmentIds = Employee::where('org_id', $org_id)
+                ->where(function($query) use($startdt){
+                    $query->where('reason', 'N')
+                        ->orWhere('leaving_date', '>=', $startdt);
+                })
+                ->whereNotNull('refrerence_shift')
+                ->distinct()
+                ->pluck('department_id')
                 ->toArray();
 
-            $leaveClasses = DB::table('hris_setup_leaveclassifications')->pluck('code', 'id')->toArray();
-
-            // --- Process by Department ---
-            $validDepartments = is_array($this->departmentIds) ? $this->departmentIds : explode(',', $this->departmentIds);
-            $totalDepartments = count($validDepartments);
-            $processedDepartments = 0;
-            $totalInserted = 0;
-            $totalEmployees = 0;
-
+            $totalDepartments = count($departmentIds);
+            
             if ($totalDepartments === 0) {
-                 $this->updateStatus('failed', 0, "No departments to process.");
+                 $this->updateStatus('failed', 0, "No departments with employees to process.");
                  return;
             }
 
-            foreach ($validDepartments as $departmentId) {
+            $processedDepartments = 0;
+            $totalInserted = 0;
+
+            Log::info("Processing {$totalDepartments} departments for Attendance.");
+
+            foreach ($departmentIds as $departmentId) {
                 $departmentName = Department::where('id', $departmentId)->value('department') ?? "ID: {$departmentId}";
                 
-                // Update Progress
-                $progress = round(($processedDepartments / $totalDepartments) * 100);
-                $this->updateStatus('processing', $progress, "Processing: {$departmentName}");
-
-                // Fetch Employees for this Department
+                // Fetch employees for this department
                 $employees = Employee::where('org_id', $org_id)
                     ->where('department_id', $departmentId)
-                    ->whereNotNull('refrerence_shift')
-                    ->where(function ($q) use ($startdt) {
-                        $q->where('reason', 'N')
-                          ->orWhere('leaving_date', '>=', $startdt);
+                    ->where(function($query) use($startdt){
+                        $query->where('reason', 'N')
+                            ->orWhere('leaving_date', '>=', $startdt);
                     })
-                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift', 'ot_payable', 'mtreturn_date', 'joining_date', 'punch_category', 'leaving_date')
+                    ->whereNotNull('refrerence_shift')
+                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift', 'ot_payable', 'mtreturn_date', 'joining_date', 'punch_category')
+                    ->orderBy('employee_id')
                     ->get();
+                
+                $employeeCount = $employees->count();
+                $totalEmployees += $employeeCount;
+                Log::info("Department {$departmentName} (ID: {$departmentId}): Found {$employeeCount} employees.");
 
-                if ($employees->isNotEmpty()) {
-                    $count = $employees->count();
-                    $totalEmployees += $count;
-                    Log::info("Processing Dept {$departmentId} - Found {$count} employees");
+                $progress = round(($processedDepartments / $totalDepartments) * 100);
+                $this->updateStatus('processing', $progress, "Processing: {$departmentName} ({$employeeCount} employees)");
+
+                if ($employeeCount == 0) {
+                    $processedDepartments++;
+                    continue;
+                }
+
+                // *** Department-wise Clean Up ***
+                // Delete existing records for this department's employees for this month
+                ProcessAttendence::where('org_id', $org_id)
+                    ->whereIn('employee_id', $employees->pluck('employee_id'))
+                    ->whereMonth('work_date', $month)
+                    ->whereYear('work_date', $year)
+                    ->delete();
+
+                // Chunk employees within the department for memory safety
+                $splitemps = $employees->chunk(50);
+
+                foreach ($splitemps as $splitemp) {
+                    $allempid = $splitemp->pluck('employee_id')->toArray();
+                    $shiftempids = $splitemp->where('shifting_duty', 'Y')->pluck('employee_id')->toArray();
+
+                    $assignshift = ShiftingList::whereIn('employee_id', $allempid)->whereMonth('date', $month)->whereYear('date', $year)->whereBetween('date', [$startdt, $enddt])->get();
                     
-                    // Update Progress with Employee Count
-                    $progress = round(($processedDepartments / $totalDepartments) * 100);
-                    $this->updateStatus('processing', $progress, "Processing: {$departmentName} - Found {$count} Employees");
+                    if ($assignshift->isEmpty()) {
+                        Log::warning("No Shifting List found for chunk of " . count($allempid) . " employees. Month: $month, Year: $year");
+                    } else {
+                        Log::info("Found " . $assignshift->count() . " shifting records for chunk.");
+                    }
 
-                    // Process in chunks within the department to manage memory
-                    foreach ($employees->chunk(200) as $chunk) {
-                        $totalInserted += $this->processAttendanceBatch(
-                            $chunk, 
-                            $startdt, 
-                            $enddt, 
-                            $month, 
-                            $year, 
-                            $baseshift, 
-                            $companyshift, 
-                            $ramadanshift, 
-                            $ramadandate,
-                            $exceptionalHolidays,
-                            $leaveClasses
-                        );
+                    $caldatas = Calender::whereMonth('date', $month)->where('is_active', 1)->whereYear('date', $year)->whereBetween('date', [$startdt, $enddt])->select('date', 'year', 'month', 'holiday', 'public_holiday')->get();
+                    $leavedatas = DB::table('hris_database_leave_confirmation')->orderBy('employee_id', 'ASC')->orderBy('start_date', 'ASC')->whereIn('employee_id', $allempid)->where(function($q) use($startdt, $enddt){
+                        $q->whereBetween('start_date', [$startdt, $enddt])->orWhereBetween('end_date', [$startdt, $enddt]);
+                    })->select('employee_id', 'start_date', 'end_date', 'leave_type_id')->get();
+                    
+                    $allpunchrecords = PunchData::whereIn('employee_id', $allempid)->whereMonth('work_date', $month)->whereYear('work_date', $year)->whereBetween('work_date', [$startdt, $enddt])->get();
+
+                    $excepholiday = ExceptionalHoliday::whereIn('employee_id', $shiftempids)
+                            ->whereMonth('holiday_date', $month)
+                            ->where('year', $year)
+                            ->whereBetween('holiday_date', [$startdt, $enddt])
+                            ->get();
+
+                    // Group data
+                    $allPunchGrouped = $allpunchrecords->groupBy('employee_id');
+                    $allShiftGrouped = $assignshift->groupBy('employee_id');
+                    $allExcepholidayGrouped = $excepholiday->groupBy('employee_id');
+
+                    $results = [];
+
+                    foreach ($splitemp as $employee) {
+                        $empid = $employee['employee_id'];
+                        $empPunches = $allPunchGrouped->get($empid, collect());
+                        $empShifts = $allShiftGrouped->get($empid, collect());
+                        $empExcepholiday = $allExcepholidayGrouped->get($empid, collect());
+                        
+                        // start date
+                        if ($employee->joining_date >= $startdt) {
+                            $start_date = $employee->joining_date;
+                        } else {
+                            $mtreturndate = ($employee->mtreturn_date && $employee->mtreturn_date != '0000-00-00')
+                                ? Carbon::parse($employee->mtreturn_date)->startOfMonth()->format('Y-m-d')
+                                : null;
+
+                            if ($startdt == $mtreturndate) {
+                                $start_date = Carbon::parse($mtreturndate)->addDays(1)->format('Y-m-d');
+                            } else {
+                                $start_date = $startdt;
+                            }
+                        }
+
+                        // end date
+                        if ($employee->leaving_date > $startdt && $employee->leaving_date <= $enddt) {
+                            $end_date = Carbon::parse($employee->leaving_date)->subDays(1)->format('Y-m-d');
+                        } else {
+                            $end_date = $enddt;
+                        }
+
+                        // Start date and end date validation
+                        if ($start_date > $end_date) {
+                            continue;
+                        }
+                        $end_date = $end_date >= $today ? $today : $end_date;
+                        $period = CarbonPeriod::create($start_date, $end_date);
+                        
+                        foreach ($period as $date) {
+                            $comdate = $date->format('Y-m-d');
+                            try {
+                                $shiftEntry = $empShifts->first(function ($item) use ($comdate) {
+                                    return substr($item->date, 0, 10) === $comdate;
+                                });
+                                $shift = $shiftEntry?->shift ?? $employee->refrerence_shift;
+                                
+                                $shiftinfo = collect($companyshift)->where('shift', $shift)->first() ?? collect($baseshift)->where('shift', $shift)->first();
+                                $calendardata = $caldatas->first(function ($item) use ($comdate) {
+                                    return substr($item->date, 0, 10) === $comdate;
+                                });
+                                $leavedata = $leavedatas->where('employee_id', $empid)->where('start_date', '<=', $comdate)->where('end_date', '>=', $comdate)->first();
+                                $punchdata = $empPunches->first(function ($item) use ($comdate) {
+                                    return substr($item->work_date, 0, 10) === $comdate;
+                                });
+
+                                if ($ramadandate && Carbon::parse($comdate)->between($ramadandate['rm_seart_date'],$ramadandate['rm_end_date'])){
+                                    $shiftinfo = $ramadanshift->get($shift)??$shiftinfo;
+                                }
+
+                                if (!$shiftinfo) {
+                                    Log::warning("No shift info found for employee {$empid} on {$comdate} (Shift: {$shift})");
+                                    continue;
+                                }
+                                if (!$calendardata) {
+                                    Log::warning("No calendar data found for {$comdate}");
+                                    continue; 
+                                };
+
+                                $startDtObj = $date->copy()->setTimeFromTimeString($shiftinfo->shift_start);
+                                $endDtObj = $date->copy()->setTimeFromTimeString($shiftinfo->shift_end);
+
+                                if ($endDtObj->lt($startDtObj)) {
+                                    $endDtObj->addDay();
+                                }
+
+                                $starthr = $startDtObj->format('Y-m-d H:i:s');
+                                $endhr = $endDtObj->format('Y-m-d H:i:s');
+                                $formattedDate = $date->format('Y-m-d');
+
+                                $breakStartObj = $date->copy()->setTimeFromTimeString($shiftinfo->break_start);
+                                $breakEndObj = $date->copy()->setTimeFromTimeString($shiftinfo->break_end);
+
+                                if ($breakStartObj->lt($startDtObj)) {
+                                    $breakStartObj->addDay();
+                                }
+                                if ($breakEndObj->lt($startDtObj)) {
+                                    $breakEndObj->addDay();
+                                }
+                                if ($breakEndObj->lt($breakStartObj)) {
+                                    $breakEndObj->addDay();
+                                }
+
+                                $break_start = $breakStartObj->format('Y-m-d H:i:s');
+                                $break_end = $breakEndObj->format('Y-m-d H:i:s');
+                                $date = $formattedDate;
+
+                                $wwhvalue = in_array($employee->shift, ['M', 'N']) ? 11 : 8;
+
+                                if ($leavedata) {
+                                    $wwh = $leavedata->leave_type_id == "ML" || $leavedata->leave_type_id == "LWOP" ? 0 : $wwhvalue;
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => $leavedata->leave_type_id, 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                    continue;
+                                }else if($employee->punch_category == 1 && ($punchdata?->start_punch != null || $punchdata?->end_punch != null)){
+                                    $wwh = $wwhvalue;
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $punchdata->start_punch, 'end_punch' => $punchdata->end_punch, 'wwh' => $wwh, 'rwh' => $wwhvalue, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => $wwhvalue, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                }
+                                else if ($employee->punch_category == 3) {
+                                    $wwh = $wwhvalue;
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => $wwhvalue, 'wwh' => 8, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => $wwhvalue, 'attn_type' => 'PR', 'is_late' => 'N', 'is_early_leave' => 'N', 'late_minutes' => 0, 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                }
+                                else if ($calendardata && $calendardata->public_holiday == 'Y') {
+                                    $wwh = $wwhvalue;
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                    continue;
+                                } else if ($calendardata && $calendardata->holiday == 'Y') {
+                                    if($employee && $employee->shifting_duty == 'Y'){
+                                        $excepholiday = $empExcepholiday->where('holiday_date',$date)->first();
+                                        if($excepholiday && Carbon::parse($excepholiday->holiday_date)->format('Y-m-d') == $date){
+                                            if ($employee && $employee->ot_payable == 'N') {
+                                                $wwh = 11;
+                                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                            } else if ($employee && $employee->ot_payable == 'Y') {
+                                                $wwh = 11;
+                                                $start_punch = $punchdata?->start_punch;
+                                                $end_punch   = $punchdata?->end_punch;
+                                                $totalhour = calculateTotalHours($start_punch, $end_punch);
+
+                                                if ($totalhour > 0) {
+                                                    $othour = calculateActualHours($start_punch, $end_punch, $break_start, $break_end);
+                                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => $totalhour, 'ot_hours' => $othour['hours'] ?? 0, 'ot_minutes' => $othour['minutes'] ?? 0, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                                } else {
+                                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => 0, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                                }
+                                            }
+                                        }
+                                    }else{
+                                        if ($employee && $employee->ot_payable == 'N') {
+                                            $wwh = 8;
+                                            $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                        } else if ($employee && $employee->ot_payable == 'Y') {
+                                            $wwh = 8;
+                                            $start_punch = $punchdata?->start_punch;
+                                            $end_punch   = $punchdata?->end_punch;
+                                            $totalhour = calculateTotalHours($start_punch, $end_punch);
+
+                                            if ($totalhour > 0) {
+                                                $othour = calculateActualHours($start_punch, $end_punch, $break_start, $break_end);
+                                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => $totalhour, 'ot_hours' => $othour['hours'] ?? 0, 'ot_minutes' => $othour['minutes'] ?? 0, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                            } else {
+                                                $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'shift' => $shift, 'wwh' => $wwh, 'rwh' => 0, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                            }
+                                        }
+                                    }
+                                } else if ($employee->punch_category == 2 && ($punchdata?->start_punch != null || $punchdata?->end_punch != null)) {
+                                    // check shifting duty 
+                                    $excepholiday = $empExcepholiday->where('holiday_date',$date)->first();
+                                    if ($employee && $employee->shifting_duty == 'Y' && ($excepholiday && Carbon::parse($excepholiday->holiday_date)->format('Y-m-d') == $date)) {
+                                        $wwh = $wwhvalue;
+                                        $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'HD', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                    }else {
+                                        $start_punch = $punchdata?->start_punch;
+                                        $end_punch   = $punchdata?->end_punch;
+
+                                        if ($start_punch <= $starthr && $endhr <= $end_punch) {
+                                            $actualHours = calculateActualHours($starthr, $endhr, $break_start, $break_end);
+                                        } elseif ($start_punch > $starthr && $endhr <= $end_punch) {
+                                            $actualHours = calculateActualHours($start_punch, $endhr, $break_start, $break_end);
+                                        } elseif ($start_punch <= $starthr && $endhr > $end_punch) {
+                                            $actualHours = calculateActualHours($starthr, $end_punch, $break_start, $break_end);
+                                        } elseif ($start_punch > $starthr && $endhr > $end_punch) {
+                                            $actualHours = calculateActualHours($start_punch, $end_punch, $break_start, $break_end);
+                                        } else {
+                                            $actualHours = ['hours' => 0, 'minutes' => 0, 'totalHours' => 0];
+                                        }
+
+                                        if (!is_array($actualHours)) {
+                                            $actualHours = ['hours' => 0, 'minutes' => 0, 'totalHours' => 0];
+                                        }
+
+                                        $latelimit = Carbon::parse($starthr)->addMinutes($shiftinfo->late_after_minutes)->format('Y-m-d H:i:s');
+                                        $earlylimit = Carbon::parse($endhr)->format('Y-m-d H:i:s');
+
+                                        if ($start_punch > $latelimit) {
+                                            $islate = 'Y';
+                                            $lateMinutes = round(calculateLate($start_punch, $starthr));
+                                        } else {
+                                            $islate = 'N';
+                                            $lateMinutes = 0;
+                                        }
+
+                                        if ($end_punch < $earlylimit) {
+                                            $isEarlyLeave = 'Y';
+                                            $earlyMinutes = round(calculateLate($endhr, $end_punch));
+                                        } else {
+                                            $isEarlyLeave = 'N';
+                                            $earlyMinutes = 0;
+                                        }
+
+                                        $actualOT = $endhr < $end_punch ? ($endhr > $start_punch ? calculateOtHours($endhr, $end_punch) : calculateOtHours($start_punch, $end_punch)) : ['hours' => 0, 'minutes' => 0];
+                                        $rwh = $actualHours['hours'] > $wwhvalue ? $wwhvalue : $actualHours['hours'];
+                                        $othour = $actualOT['hours'];
+                                        $otminutes = round($actualOT['minutes']);
+                                        $wwh = $wwhvalue;
+                                        $totalhour = $actualHours['totalHours'];
+                                        $shortMinutes = round($lateMinutes + $earlyMinutes);
+
+                                        if ($employee->ot_payable == 'N') {
+                                            $othour = 0;
+                                            $otminutes = 0;
+                                        }
+                                        
+                                        $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => $rwh, 'wwh' => $wwh, 'ot_hours' => $othour, 'ot_minutes' => $otminutes, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => $islate, 'is_early_leave' => $isEarlyLeave, 'late_minutes' => $lateMinutes, 'early_minutes' => $earlyMinutes, 'short_minutes' => $shortMinutes, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                    }
+                                }  else {
+                                    $wwh = 0;
+                                    $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => null, 'end_punch' => null, 'rwh' => 0, 'wwh' => $wwh, 'ot_hours' => 0, 'ot_minutes' => 0, 'total_hours' => 0, 'attn_type' => 'AB', 'is_late' => 'N', 'late_minutes' => 0, 'is_early_leave' => 'N', 'early_minutes' => 0, 'short_minutes' => 0, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
+                                }
+                            } catch (\Throwable $th) {
+                                Log::error('Process Attendence failed', [
+                                    'employee' => $employee->employee_id,
+                                    'date' => $date,
+                                    'error' => $th->getMessage(),
+                                ]);
+                                continue;
+                            }
+                        }
+                    }
+
+                    // insert data
+                    if (!empty($results)) {
+                        ProcessAttendence::insert($results);
+                        $totalInserted += count($results);
                     }
                 }
 
                 $processedDepartments++;
             }
 
-            $duration = $startTime->diffForHumans(now(), true);
-            $this->updateStatus('completed', 100, "Process Completed. Total Employees: {$totalEmployees}, Total Records: {$totalInserted}, Duration: {$duration}.");
+            $endTime = microtime(true);
+            $duration = round($endTime - $startTime, 2);
+            $completionMsg = "Process Complete. Employees: {$totalEmployees}, Inserted: {$totalInserted}, Time: {$duration}s";
 
-        } catch (\Throwable $th) {
-            Log::error('Attendance Process Job Failed: ' . $th->getMessage());
-            $this->updateStatus('failed', 0, "Failed: " . $th->getMessage());
-            throw $th;
+            $this->updateStatus('completed', 100, $completionMsg);
+            Log::info("Attendance Processed successfully. $completionMsg");
+
+        } catch (\Exception $e) {
+            Log::error("ProcessAttendanceJob Global Fail: " . $e->getMessage());
+            $this->updateStatus('failed', 0, "Failed: " . $e->getMessage());
+            throw $e;
         }
     }
 
     protected function updateStatus($status, $progress, $message)
     {
-        $jobStatus = JobStatus::find($this->jobStatusId);
-        if ($jobStatus) {
-            $jobStatus->update([
-                'status' => $status,
-                'progress' => $progress,
-                'message' => $message
-            ]);
-        }
-    }
-
-    protected function processAttendanceBatch($employees, $startdt, $enddt, $month, $year, $baseshift, $companyshift, $ramadanshift, $ramadandate, $exceptionalHolidays, $leaveClasses)
-    {
-        $empIds = $employees->pluck('employee_id')->toArray();
-        
-        $shifts = ShiftingList::whereIn('employee_id', $empIds)
-            ->whereMonth('date', $month)
-            ->whereYear('date', $year)
-            ->whereBetween('date', [$startdt, $enddt])
-            ->get()
-            ->groupBy('employee_id');
-
-        $caldatas = Calender::whereMonth('date', $month)
-            ->where('is_active', 1)
-            ->whereYear('date', $year)
-            ->whereBetween('date', [$startdt, $enddt])
-            ->select('date', 'year', 'month', 'holiday', 'public_holiday')
-            ->get()
-            ->keyBy(function($item) {
-                return Carbon::parse($item->date)->format('Y-m-d');
-            }); 
-
-        $leavedatas = DB::table('hris_database_leave_confirmation')
-            ->whereBetween('start_date', [$startdt, $enddt])
-            ->orWhereBetween('end_date', [$startdt, $enddt])
-            ->select('employee_id', 'start_date', 'end_date', 'leave_type_id')
-            ->get();
-
-        $punches = PunchData::whereIn('employee_id', $empIds)
-            ->whereMonth('work_date', $month)
-            ->whereYear('work_date', $year)
-            ->whereBetween('work_date', [$startdt, $enddt])
-            ->get()
-            ->groupBy('employee_id');
-        
-        $batchExceptionalHolidays = ExceptionalHoliday::whereIn('holiday_date', $exceptionalHolidays)
-             ->whereIn('employee_id', $empIds)
-             ->get()
-             ->groupBy('employee_id');
-
-        $insertData = [];
-        foreach ($employees as $employee) {
-            $empid = $employee->employee_id;
-            $empPunches = $punches->get($empid, collect());
-            $empShifts = $shifts->get($empid, collect());
-            $empExceptionalHoliday = $batchExceptionalHolidays->get($empid, collect());
-            $empLeaves = $leavedatas->where('employee_id', $empid);
-
-            list($start_date, $end_date) = $this->getEmployeeDateRange($employee, $startdt, $enddt);
-
-            $period = CarbonPeriod::create($start_date, $end_date);
-
-            foreach ($period as $dt) {
-                $date = $dt->format('Y-m-d');
-                $result = $this->calculateDailyAttendance(
-                    $employee, $date, $empPunches, $empShifts, $caldatas, 
-                    $empExceptionalHoliday, $empLeaves, $baseshift, 
-                    $companyshift, $ramadanshift, $ramadandate, $leaveClasses
-                );
-
-                if ($result) {
-                    $insertData[] = $result;
-                }
-            }
-        }
-
-        if (!empty($insertData)) {
-            try {
-                // Delete existing records to avoid duplicates
-                ProcessAttendence::whereIn('employee_id', $empIds)
-                    ->whereBetween('work_date', [$startdt, $enddt])
-                    ->delete();
-
-                // Chunk inserts to avoid query size limits
-                foreach (array_chunk($insertData, 100) as $chunk) {
-                    ProcessAttendence::insert($chunk);
-                }
-            } catch (\Exception $e) {
-                Log::error("Attendance Insert Failed in Job", ['error' => $e->getMessage()]);
-            }
-        }
-        
-        return count($insertData);
-    }
-
-    private function calculateDailyAttendance($employee, $date, $punches, $shifts, $caldatas, $exceptionalHolidays, $leaves, $baseshift, $companyshift, $ramadanshift, $ramadandate, $leaveClasses)
-    {
-        // --- LOGIC REPLICATION START ---
-        $shiftinfo = $this->getShiftInfo($employee, $date, $shifts, $baseshift, $companyshift, $ramadanshift, $ramadandate);
-        
-        if (!$shiftinfo) {
-             Log::warning("Shift Info Missing", ['employee' => $employee->employee_id, 'date' => $date]);
-             return null;
-        }
-
-        $shift = $shiftinfo['shift'];
-        
-        // --- Fix: Construct Full Datetime objects for Shift Times ---
-        $starthr = Carbon::parse($date . ' ' . $shiftinfo['start']);
-        $endhr = Carbon::parse($date . ' ' . $shiftinfo['end']);
-        
-        // Handle Night Shift crossing midnight
-        if ($endhr->lt($starthr)) {
-            $endhr->addDay();
-        }
-
-        // Break Times
-        $break_start = Carbon::parse($date . ' ' . $shiftinfo['break_start']);
-        $break_end = Carbon::parse($date . ' ' . $shiftinfo['break_end']);
-        
-        // Adjust break times if they fall on next day relative to shift start
-        if ($break_start->lt($starthr)) $break_start->addDay();
-        if ($break_end->lt($starthr)) $break_end->addDay();
-
-        // Convert to strings for consistent usage if needed, but Objects are better for comparison
-        // However, existing logic uses string variables $starthr later? 
-        // Let's keep them as Carbon objects for logic, and stringify when passing to helpers if helpers expect strings.
-        // Helpers use Carbon::parse(), so passing Y-m-d H:i:s string is best.
-        
-        $starthrStr = $starthr->format('Y-m-d H:i:s');
-        $endhrStr = $endhr->format('Y-m-d H:i:s');
-        $breakStartStr = $break_start->format('Y-m-d H:i:s');
-        $breakEndStr = $break_end->format('Y-m-d H:i:s');
-
-        $calendardata = $caldatas[$date] ?? null;
-        if (!$calendardata) {
-            Log::warning("Calendar Data Missing", ['employee' => $employee->employee_id, 'date' => $date]);
-            return null;
-        }
-
-        // Initialize variables
-        $start_punch = null;
-        $end_punch = null;
-        $rwh = 0;
-        $wwh = 0;
-        $oth = 0;
-        $otm = 0;
-        $total = 0;
-        $isLate = 'N';
-        $lateMin = 0;
-        $isEarly = 'N';
-        $earlyMin = 0;
-        $shortMin = 0;
-        $attn_type = 'AB'; // Default Absent
-
-        $isMNShift = in_array($shift, ['N', 'M']);
-        $wwhvalue = $isMNShift ? 11 : 8;
-
-        // // check Shift 
-        // $isMNShift = in_array($shift, ['N', 'M']);
-
-        // // Check Leaves
-        // $isOnLeave = $leaves->filter(function($leave) use ($date) {
-        //     return $date >= $leave->start_date && $date <= $leave->end_date;
-        // })->first();
-        // if ($isOnLeave) {
-        //     $attn_type = $leaveClasses[$isOnLeave->leave_type_id] ?? 'LWOP';
-        //     $wwh = $isMNShift ? 11 : 8;
-        // }
-
-        // // Check Punch Category
-        // if($employee->punch_category == 3){
-        //     $attn_type = 'PR';
-        //     $wwh = $isMNShift ? 11 : 8;
-        //     $rwh = $isMNShift ? 11 : 8;
-        // }
-
-        // // Check Holiday
-        // if ($calendardata->holiday == 1 || $calendardata->public_holiday == 1) {
-        //     $attn_type = 'HD';
-        // }
-
-        // // Check Exceptional Holiday
-        // if ($exceptionalHolidays->where('holiday_date', $date)->isNotEmpty()) {
-        //     $attn_type = 'HD';
-        //     $wwh = $isMNShift ? 11 : 8;
-        // }
-
-        // // Check Punches
-        // $dailyPunches = $punches->where('work_date', $date);
-        // if ($dailyPunches->isNotEmpty()) {
-        //     $record = $dailyPunches->first();
-        //     $start_punch = $record->start_punch;
-        //     $end_punch = $record->end_punch;
-            
-        //     if ($start_punch && $end_punch && $start_punch != $end_punch) {
-        //         $attn_type = 'PR';
-                
-        //         $starthrDt = Carbon::parse($date . ' ' . $starthr);
-        //         $endhrDt = Carbon::parse($date . ' ' . $endhr);
-        //         $startDt = Carbon::parse($start_punch);
-        //         $endDt = Carbon::parse($end_punch);
-
-        //         if ($startDt->gt($starthrDt->copy()->addMinutes($shiftinfo['late_after_minutes']))) {
-        //             $isLate = 'Y';
-        //             $lateMin = $starthrDt->diffInMinutes($startDt);
-        //         }
-
-        //         if ($endDt->lt($endhrDt)) {
-        //             $isEarly = 'Y';
-        //             $earlyMin = $endhrDt->diffInMinutes($endDt);
-        //         }
-
-        //         $hoursData = $this->calculateWorkingHours($startDt, $endDt, $starthrDt, $endhrDt, Carbon::parse($date . ' ' . $break_start), Carbon::parse($date . ' ' . $break_end));
-        //         $wwh = $hoursData['hours'];
-        //         $rwh = 8;
-                
-        //         if ($employee->ot_payable == 'Y' && $wwh > $rwh) {
-        //             $total_ot_minutes = ($wwh - $rwh) * 60;
-        //             $oth = floor($total_ot_minutes / 60);
-        //             $otm = $total_ot_minutes % 60;
-        //         }
-                
-        //         $total = $wwh;
-        //     }
-        // }
-
-        //My Custom Code
-        $dailyPunches = $punches->where('work_date', $date);
-        if ($dailyPunches->isNotEmpty()) {
-            $record = $dailyPunches->first();
-            $start_punch = $record->start_punch;
-            $end_punch = $record->end_punch;
-        }
-
-        $isOnLeave = $leaves->filter(function($leave) use ($date) {
-            return $date >= $leave->start_date && $date <= $leave->end_date;
-        })->first();
-
-
-        if ($isOnLeave) {
-            $wwh = $isOnLeave->leave_type_id == "ML" || $isOnLeave->leave_type_id == "LWOP" ? 0 : $wwhvalue;
-            $attn_type = $isOnLeave->leave_type_id;
-        } else if ($calendardata && $calendardata->public_holiday == 'Y') {
-            $wwh = $wwhvalue;
-            $attn_type = 'HD';
-        } else if ($calendardata && $calendardata->holiday == 'Y') {
-            // For shifting employee process
-            if($employee && $employee->shifting_duty == 'Y' && $isMNShift){
-                $exceptionalHoliday = $exceptionalHolidays->where('holiday_date', $date)->first();
-                if ($exceptionalHoliday && $exceptionalHoliday->holiday_date == $date) {
-                    if ($employee && $employee->ot_payable == 'N') {
-                        $wwh = 11;
-                        $attn_type = 'HD';
-                    }else{
-                        $wwh = 11;
-                        $dailyPunches = $punches->where('work_date', $date);
-                        if ($dailyPunches->isNotEmpty()) {
-                            $record = $dailyPunches->first();
-                            $start_punch = $record->start_punch;
-                            $end_punch = $record->end_punch;
-                            
-                            if ($start_punch && $end_punch && $start_punch != $end_punch) {
-                                $attn_type = 'PR';
-                                $totalhour = calculateTotalHours($start_punch,$end_punch);
-
-                                if ($totalhour > 0) {
-                                    $wwh = 11;
-                                    $rwh = $totalhour;
-                                    $total = $wwh;
-                                    $attn_type = 'PR';
-                                    $start_punch = $record->start_punch;
-                                    $end_punch = $record->end_punch;
-                                }
-                            }
-                        }  
-                    }
-                }
-            }else{
-                if ($employee && $employee->ot_payable == 'N') {
-                    $wwh = 8;
-                    $attn_type = 'HD';
-                } else if ($employee && $employee->ot_payable == 'Y') {
-                    $wwh = 8;
-                    $dailyPunches = $punches->where('work_date', $date);
-                    if ($dailyPunches->isNotEmpty()) {
-                        $record = $dailyPunches->first();
-                        $start_punch = $record->start_punch;
-                        $end_punch = $record->end_punch;
-                        
-                        if ($start_punch && $end_punch && $start_punch != $end_punch) {
-                            $totalhour = calculateTotalHours($start_punch,$end_punch);
-                            if ($totalhour > 0) {
-                                $wwh = 8;
-                                $rwh = $totalhour > 8 ? 8:$totalhour;
-                                $total = $totalhour;
-                                $attn_type = 'HD';
-                                $start_punch = $record->start_punch;
-                                $end_punch = $record->end_punch;
-                            }
-                        }
-                    }  
-                }
-            }
-        } else if ($employee->punch_category == 1 && ($start_punch != null || $start_punch != null)) {
-            $wwh = $wwhvalue;
-            $attn_type = 'PR';
-            $start_punch = $record->start_punch;
-            $end_punch = $record->end_punch;
-            $rwh = $wwhvalue;
-            $total = $wwhvalue;
-        } else if ($employee->punch_category == 2 && ($start_punch != null || $end_punch != null)) {
-            // Use formatted strings for helper functions and comparisons to ensure consistency
-            if ($start_punch <= $starthrStr && $endhrStr <= $end_punch) {
-                $actualHours = calculateActualHours($starthrStr, $endhrStr, $breakStartStr, $breakEndStr);
-            } elseif ($start_punch > $starthrStr && $endhrStr <= $end_punch) {
-                $actualHours = calculateActualHours($start_punch, $endhrStr, $breakStartStr, $breakEndStr);
-            } elseif ($start_punch <= $starthrStr && $endhrStr > $end_punch) {
-                $actualHours = calculateActualHours($starthrStr, $end_punch, $breakStartStr, $breakEndStr);
-            } elseif ($start_punch > $starthrStr && $endhrStr > $end_punch) {
-                $actualHours = calculateActualHours($start_punch, $end_punch, $breakStartStr, $breakEndStr);
-            } else {
-                $actualHours = ['hours' => 0, 'minutes' => 0, 'totalHours' => 0];
-            }
-            
-            // Fix: calculateActualHours returns array, accessing it properly
-            if (!is_array($actualHours)) {
-                 $actualHours = ['hours' => 0, 'minutes' => 0, 'totalHours' => 0];
-            }
-
-            // Late Calculation
-            $latelimit = $starthr->copy()->addMinutes($shiftinfo['late_after_minutes'])->format('Y-m-d H:i:s');
-            $earlylimit = $endhr->format('Y-m-d H:i:s');
-
-            if ($start_punch > $latelimit) {
-                $islate = 'Y';
-                $lateMinutes = round(calculateLate($start_punch, $starthrStr));
-            } else {
-                $islate = 'N';
-                $lateMinutes = 0;
-            }
-
-            if ($end_punch < $earlylimit) {
-                $isEarlyLeave = 'Y';
-                $earlyMinutes = round(calculateLate($endhrStr, $end_punch));
-            } else {
-                $isEarlyLeave = 'N';
-                $earlyMinutes = 0;
-            }
-
-            $actualOT = $endhrStr < $end_punch ? ($endhrStr > $start_punch ? calculateOtHours($endhrStr, $end_punch) : calculateOtHours($start_punch, $end_punch)) : ['hours' => 0, 'minutes' => 0];
-
-            $rwh = $actualHours['hours'] > $wwhvalue ? $wwhvalue : $actualHours['hours'];
-            $othour = $actualOT['hours'];
-            $otminutes = round($actualOT['minutes']);
-            $wwh = $wwhvalue;
-            $totalhour = $actualHours['totalHours'];
-            $shortMinutes = round($lateMinutes + $earlyMinutes);
-
-            if ($employee->ot_payable == 'N') {
-                $othour = 0;
-                $otminutes = 0;
-            }
-            
-            // Always set data if punches exist
-            $start_punch = $record->start_punch;
-            $end_punch = $record->end_punch;
-            // rwh and wwh are already set
-            $oth = $othour;
-            $otm = $otminutes;
-            $total = $totalhour;
-            $isLate = $islate;
-            $lateMin = $lateMinutes;
-            $isEarly = $isEarlyLeave;
-            $earlyMin = $earlyMinutes;
-            $shortMin = $shortMinutes;
-            $attn_type = 'PR';
-
-        } else if ($employee->punch_category == 3) {
-            $wwh = $wwhvalue;
-            $attn_type = 'PR';
-            $rwh = $wwhvalue;
-            $total = $wwhvalue;
-        }
-
-        return $this->formatResult(
-            $employee, $shift, $date, $start_punch, $end_punch, 
-            $rwh, $wwh, $oth, $otm, $total, $attn_type, 
-            $isLate, $lateMin, $isEarly, $earlyMin, $shortMin
-        );
-    }
-
-    private function getShiftInfo($employee, $date, $shifts, $baseshift, $companyshift, $ramadanshift, $ramadandate)
-    {
-        $shift = $employee->refrerence_shift;
-        // Check Shifting List
-        $dayShift = $shifts->where('date', $date)->first();
-        if ($dayShift) {
-            $shift = $dayShift->shift;
-        }
-
-        // Check Ramadan
-        $isRamadan = false;
-        if ($ramadandate && $date >= $ramadandate->start_date && $date <= $ramadandate->end_date) {
-            $isRamadan = true;
-        }
-
-        $info = null;
-        if ($isRamadan && isset($ramadanshift[$shift])) {
-            $info = $ramadanshift[$shift];
-        } elseif (isset($companyshift[$shift])) {
-            $info = $companyshift[$shift];
-        } elseif (isset($baseshift[$shift])) {
-            $info = $baseshift[$shift];
-        }
-
-        if ($info) {
-            return [
-                'shift' => $shift,
-                'start' => $info->shift_start,
-                'end' => $info->shift_end,
-                'break_start' => $info->break_start,
-                'break_end' => $info->break_end,
-                'late_after_minutes' => $info->late_after_minutes ?? 0,
-            ];
-        }
-        return null;
-    }
-
-    private function getEmployeeDateRange($employee, $startdt, $enddt)
-    {
-        $start_date = $startdt;
-        $today = Carbon::today()->format('Y-m-d');
-        if ($employee->joining_date > $startdt) {
-            $start_date = $employee->joining_date;
-        } else {
-            $mtreturndate = ($employee->mtreturn_date && $employee->mtreturn_date != '0000-00-00')
-                ? Carbon::parse($employee->mtreturn_date)->startOfMonth()->format('Y-m-d')
-                : null;
-            $start_date = ($startdt == $mtreturndate) ? Carbon::parse($mtreturndate)->addDays(1)->format('Y-m-d') : $startdt;
-        }
-
-        $end_date = ($employee->leaving_date > $startdt && $employee->leaving_date <= $enddt)
-            ? Carbon::parse($employee->leaving_date)->subDays(1)->format('Y-m-d')
-            : $enddt;
-
-        $end_date = $today <= $end_date ? $today : $end_date;
-        return [$start_date, $end_date];
-    }
-
-    private function calculateWorkingHours($start_punch, $end_punch, $starthr, $endhr, $break_start, $break_end)
-    {
-        if (function_exists('calculateActualHours')) {
-            if ($start_punch <= $starthr && $endhr <= $end_punch) {
-                return calculateActualHours($starthr, $endhr, $break_start, $break_end);
-            } elseif ($start_punch > $starthr && $endhr <= $end_punch) {
-                return calculateActualHours($start_punch, $endhr, $break_start, $break_end);
-            } elseif ($start_punch <= $starthr && $endhr > $end_punch) {
-                return calculateActualHours($starthr, $end_punch, $break_start, $break_end);
-            } elseif ($start_punch > $starthr && $endhr > $end_punch) {
-                return calculateActualHours($start_punch, $end_punch, $break_start, $break_end);
-            }
-        }
-        // Fallback simple calculation if function missing
-        $t1 = Carbon::parse($start_punch);
-        $t2 = Carbon::parse($end_punch);
-        $diff = $t1->diffInHours($t2);
-        return ['hours' => $diff, 'totalHours' => $diff];
-    }
-
-    private function formatResult($employee, $shift, $date, $start, $end, $rwh, $wwh, $oth, $otm, $total, $type, $isLate='N', $lateMin=0, $isEarly='N', $earlyMin=0, $shortMin=0)
-    {
-        return [
-            'org_id' => $employee->org_id,
-            'employee_id' => $employee->employee_id,
-            'shift' => $shift,
-            'work_date' => $date,
-            'start_punch' => $start,
-            'end_punch' => $end,
-            'rwh' => $rwh,
-            'wwh' => $wwh,
-            'ot_hours' => $oth,
-            'ot_minutes' => $otm,
-            'total_hours' => $total,
-            'attn_type' => $type,
-            'is_late' => $isLate,
-            'late_minutes' => $lateMin,
-            'is_early_leave' => $isEarly,
-            'early_minutes' => $earlyMin,
-            'short_minutes' => $shortMin,
-            'created_by' => $this->userId,
-            'updated_by' => $this->userId,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ];
+        DB::table('job_statuses')->where('id', $this->jobStatusId)->update([
+            'status' => $status,
+            'progress' => $progress,
+            'message' => $message,
+            'updated_at' => now()
+        ]);
     }
 }
