@@ -61,21 +61,21 @@
                                     </div>
                                     <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
                                         <div class="form-check">
-                                            <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
+                                            <input type="radio" id="title1" name="title" value="1" class="form-check-input titles" checked>
                                             <label class="form-check-label" for="title1">Department-wise Daily Absent Report</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
+                                            <input type="radio" id="title2" name="title" value="2" class="form-check-input titles">
                                             <label class="form-check-label" for="title2">Department-wise Absent Report (Date Range)</label>
                                         </div>
                                         <br>
                                         
                                         <div class="form-check">
-                                            <input type="radio" id="title3" name="title" value="3"class="form-check-input titles" checked>
+                                            <input type="radio" id="title3" name="title" value="3" class="form-check-input titles">
                                             <label class="form-check-label" for="title3">Department-wise Daily Absent (Abnormal)</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
+                                            <input type="radio" id="title4" name="title" value="4" class="form-check-input titles">
                                             <label class="form-check-label" for="title4">Department-wise Absent (Abnormal) (Date Range)</label>
                                         </div>
                                     </div>
@@ -176,13 +176,13 @@
                                                 <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', \Carbon\Carbon::parse($startDate)->format('Y-m-d')) }}" placeholder="Start Date" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', \Carbon\Carbon::parse($endDate)->format('Y-m-d')) }}" placeholder="End Date" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -194,7 +194,7 @@
                                                 <tr>
                                                     <th>Date</th>
                                                     <td width="60%">
-                                                        <x-text-input name="date" type="date" id="date" class="form-control-sm" value="{{ $startDate }}" placeholder="Date" disabled />
+                                                        <x-text-input name="date" type="date" id="date" class="form-control-sm" value="{{ \Carbon\Carbon::parse($startDate)->format('Y-m-d') }}" placeholder="Date" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -231,7 +231,6 @@
         $('.toggle-btn').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-
             const target = $('#' + $(this).data('target'));
             const isOpen = target.is(':visible');
             target.toggle();
@@ -244,15 +243,21 @@
         });
 
         $('.form-check-input').on('change', function () {
-            const classList = $(this).attr('class').split(/\s+/);
+            const classAttr = $(this).attr('class');
+            if (!classAttr) return;
+
+            const classList = classAttr.split(/\s+/);
             const childClass = classList.find(cls => cls.startsWith('child-of-'));
-            const parentId = childClass.split('-').pop();
+            
+            if (childClass) {
+                const parentId = childClass.split('-').pop();
 
-            const children = $(`.child-of-${parentId}`);
-            const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
-            const anyChecked = children.is(':checked');
+                const children = $(`.child-of-${parentId}`);
+                const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
+                const anyChecked = children.is(':checked');
 
-            parent.prop('checked', anyChecked);
+                parent.prop('checked', anyChecked);
+            }
         });
 
         $('#check_all').on('click', function () {
@@ -272,7 +277,6 @@
         });
 
         // Handle All Category and Line
-
         handleToggle('#all_category', '#category_id', '#all_category_section');
         handleToggle('#all_line', '#line', '#all_line_section');
 
@@ -285,7 +289,6 @@
         });
 
         // Handle All District and Blood Group and Reason
-
         handleToggle('#all_district', '#district_id', '#all_district_section');
         handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
         handleToggle('#all_reason', '#reason_id', '#all_reason_section');
@@ -312,33 +315,36 @@
             $(selectSelector).toggleClass('disabled-select', isChecked);
             $(sectionSelector).toggleClass('disabled-select', isChecked);
         }
-    });
 
-    handleTitleSelection();
-
-    // On title radio change
-    $('input[name="title"]').on('change', function() {
         handleTitleSelection();
-    });
 
-    function handleTitleSelection() {
-        let selectedValue = $('input[name="title"]:checked').val();
-        if (selectedValue == '1' || selectedValue == '3') {
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
-            $('#date').prop('disabled', false);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-        } else if (selectedValue == '2' || selectedValue == '4') {
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
-            $('#date').prop('disabled', true);
-        } else {
-            $('.designationID').prop('disabled', false);
-            $('.departmentID').prop('disabled', false);
+        // On title radio change
+        $('input[name="title"]').on('change', function() {
+            handleTitleSelection();
+        });
+
+        function handleTitleSelection() {
+            let selectedValue = $('input[name="title"]:checked').val();
+            
+            // Default to 1 if undefined
+            if (!selectedValue) selectedValue = '1';
+
+            // Reset pointer events for dates
+            $('#date, #start_date, #end_date').css('pointer-events', 'auto');
+
+            if (selectedValue == '1' || selectedValue == '3') {
+                $('#date').prop('disabled', false).removeClass('disabled-select');
+                
+                $('#start_date').prop('disabled', true).addClass('disabled-select').css('pointer-events', 'none');
+                $('#end_date').prop('disabled', true).addClass('disabled-select').css('pointer-events', 'none');
+            } else if (selectedValue == '2' || selectedValue == '4') {
+                $('#start_date').prop('disabled', false).removeClass('disabled-select');
+                $('#end_date').prop('disabled', false).removeClass('disabled-select');
+                
+                $('#date').prop('disabled', true).addClass('disabled-select').css('pointer-events', 'none');
+            }
         }
-    }
+    });
 </script>
 @endpush
 

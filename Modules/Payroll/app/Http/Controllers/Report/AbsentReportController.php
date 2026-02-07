@@ -48,6 +48,8 @@ class AbsentReportController extends Controller
             'designation_id' => 'required|array',
         ]);
 
+        $orgid = $request->organization_id;
+
         if ($request->title == 1) {
             $date = Carbon::parse($request->date)->format('Y-m-d');
 
@@ -100,17 +102,16 @@ class AbsentReportController extends Controller
             $date = $request->date;
 
             if ($request->view_mode == 1) {
-                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'date'));
+                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'date'))
-                    ->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'))
+                    ->setPaper('a4', 'landscape');
 
                 return $pdf->stream('absent.pdf');
             }
         } else if ($request->title == 2) {
             $start_date = Carbon::parse($request->start_date)->format('Y-m-d');
             $end_date = Carbon::parse($request->end_date)->format('Y-m-d');
-
             $datas = DB::table('payroll_tools_process_attendence as attendence')
                 ->select(
                     'attendence.employee_id',
@@ -155,16 +156,15 @@ class AbsentReportController extends Controller
                 ->get();
 
             $uniqueDepartments = $datas->unique('department_id')->pluck('department', 'department_id');
-
             $title = $request->title;
             $start_date = $request->start_date;
             $end_date = $request->end_date;
 
             if ($request->view_mode == 1) {
-                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date'));
+                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date', 'orgid'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date'))
-                    ->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date', 'orgid'))
+                    ->setPaper('a4', 'landscape');
 
                 return $pdf->stream('absent.pdf');
             }
@@ -221,10 +221,10 @@ class AbsentReportController extends Controller
             $date = $request->date;
 
             if ($request->view_mode == 1) {
-                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'date'));
+                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'date'))
-                    ->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'))
+                    ->setPaper('a4', 'landscape');
 
                 return $pdf->stream('absent.pdf');
             }
@@ -277,16 +277,15 @@ class AbsentReportController extends Controller
                 ->get();
 
             $uniqueDepartments = $datas->unique('department_id')->pluck('department', 'department_id');
-
             $title = $request->title;
             $start_date = $request->start_date;
             $end_date = $request->end_date;
 
             if ($request->view_mode == 1) {
-                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date'));
+                return view('payroll::report.absent.preview', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date', 'orgid'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date'))
-                    ->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('payroll::report.absent.pdf', compact('datas', 'title', 'uniqueDepartments', 'start_date', 'end_date', 'orgid'))
+                    ->setPaper('a4', 'landscape');
 
                 return $pdf->stream('absent.pdf');
             }

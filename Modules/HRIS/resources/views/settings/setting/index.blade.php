@@ -181,18 +181,18 @@
                     return;
                 }
 
-                let diffDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-                if (diffDays !== 29 && diffDays !== 30) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Invalid Date!',
-                        text: 'Ramadan Schedule must be 29 or 30 days only',
-                    });
+                // let diffDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                // if (diffDays !== 29 && diffDays !== 30) {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Invalid Date!',
+                //         text: 'Ramadan Schedule must be 29 or 30 days only',
+                //     });
 
-                    $("#end_date").val("");
-                    $("#days").val("");
-                    return;
-                }
+                //     $("#end_date").val("");
+                //     $("#days").val("");
+                //     return;
+                // }
             }
         });
     </script>

@@ -11,8 +11,8 @@
                         <div class="card-body">
                             <x-input-group type="hidden" name="tab" value="3" />
                             <x-input-group type="hidden" name="id" value="{{ $schedule->id ?? '' }}" />
-                            <x-input-group type="text" name="start_date" class="form-control-sm" id="start_date" label="Start Date" :value="old('start_date', date('d-m-Y', strtotime($schedule->start_date??''))) ?? ''" placeholder="Start Date" required />
-                            <x-input-group type="text" name="end_date" class="form-control-sm" id="end_date" label="End Date" :value="old('end_date', date('d-m-Y', strtotime($schedule->end_date??''))) ?? ''" placeholder="End Date" required />
+                            <x-input-group type="text" name="start_date" class="form-control-sm" id="start_date" label="Start Date" :value="old('start_date', (!empty($schedule->start_date) ? date('d-m-Y', strtotime($schedule->start_date)) : ''))" placeholder="Start Date" />
+                            <x-input-group type="text" name="end_date" class="form-control-sm" id="end_date" label="End Date" :value="old('end_date', (!empty($schedule->end_date) ? date('d-m-Y', strtotime($schedule->end_date)) : ''))" placeholder="End Date" />
                         </div>
                         <div class="card-footer" style="padding:10px 10px;">
                             <x-primary-button class="float-start btn-sm submitBtn">Update</x-primary-button>

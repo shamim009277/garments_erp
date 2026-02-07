@@ -31,7 +31,7 @@
                     @endif
 
                 </div>
-                @if ($title == 1)
+                @if ($title == 1 || $title == 2)
                     <div class="card-body">
                         <div style="overflow-x: auto;">
                             <table class="table table-bordered table-hover table-striped" style="width: 100%;">
@@ -42,12 +42,13 @@
                                         <th>Name</th>
                                         <th>Department</th>
                                         <th>Designation</th>
-                                        <th>Category</th>
-                                        <th>Line</th>
+                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Line</th>
+                                        <th class="text-center">Date</th>
                                         <th>Start Punch</th>
                                         <th>End Punch</th>
                                         <th>Shift</th>
-                                        <th>Attendance Type</th>
+                                        <th class="text-center">Attn Type</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,6 +59,7 @@
                                             <td></td>
                                             <td></td>
                                             <td style="color: #5156be;">{{ $department }}</td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -75,12 +77,13 @@
                                                 <td>{{ $absent->name }}</td>
                                                 <td>{{ $absent->department }}</td>
                                                 <td>{{ $absent->designation }}</td>
-                                                <td>{{ $absent->category_code }}</td>
-                                                <td>{{ $absent->line }}</td>
+                                                <td class="text-center">{{ $absent->category_code }}</td>
+                                                <td class="text-center">{{ $absent->line }}</td>
+                                                <td class="text-center">{{ date('d-m-Y', strtotime($absent->work_date)) }}</td>
                                                 <td>{{ $absent->start_punch ? date('d-m-Y H:i', strtotime($absent->start_punch)) : '0000-00-00 00:00' }}</td>
                                                 <td>{{ $absent->end_punch ? date('d-m-Y H:i', strtotime($absent->end_punch)) : '0000-00-00 00:00' }}</td>
                                                 <td>{{ $absent->shift }}</td>
-                                                <td>{{ $absent->attn_type }}</td>
+                                                <td class="text-center">{{ $absent->attn_type }}</td>
                                             </tr>
                                         @endforeach
                                     @endforeach
