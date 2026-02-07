@@ -142,6 +142,8 @@ class ProcessSalaryController extends Controller
                     $wpabsent_days = $attn->whereIn('attn_type', ['LWOP'])->count();
                     $leave_days = $attn->whereIn('attn_type', ['SL', 'CL', 'EL', 'ML', 'SPL', 'LWOP'])->count();
                     $realabsent_days = $attn->whereIn('attn_type', ['AB'])->count();
+                    $late_days = $attn->where('is_late', 'Y')->where('attn_type', '!=', 'HD')->count();
+                    $holiday_days = $attn->where('attn_type', 'HD')->count();
 
                     $monthdays = Carbon::parse("$year-$month-01")->daysInMonth;
                     $daysinmonth = 30;
@@ -189,7 +191,6 @@ class ProcessSalaryController extends Controller
                     $shortagehr = ($present_days * $duration) - $gwh;
                     $hrdeduct = $shortagehr * ($employee->basic / ($daysinmonth * $duration));
                     $basicabdeduct = $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct;
-
                     $oapay = round(($employee->other_allowance / $monthdays) * $present_days);
 
                     if ($monthdays == $absent_days) {
@@ -241,6 +242,9 @@ class ProcessSalaryController extends Controller
                     $salarydata->days = $total_days;
                     $salarydata->absent_days = $absent_days;
                     $salarydata->leave_days = $leave_days;
+                    $salarydata->late_days = $late_days;
+                    $salarydata->weekend_days = $holiday_days;
+                    $salarydata->general_holiday_days = 0;
                     $salarydata->rwh = $rwh;
                     $salarydata->wrh = $gwh;
                     $salarydata->basic = $employee->basic;
@@ -272,7 +276,6 @@ class ProcessSalaryController extends Controller
                     $salarydata->save();
                 }
             }
-
             return redirect()->back()->with('success', 'Salary processed successfully.');
         } else if ($request->title == 2) {
             $month = $request->month;
