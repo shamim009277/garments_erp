@@ -2,17 +2,18 @@
 
 namespace Modules\Payroll\Http\Controllers\Tools;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Modules\HRIS\Models\Setting;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Modules\HRIS\Models\Database\EmployeeIncrement;
+use Modules\HRIS\Models\Setting;
 use Modules\HRIS\Models\Setup\Organization;
-use Modules\Payroll\Models\Tools\PunchData;
 use Modules\HRIS\Models\Tools\MaternityEntry;
-use Modules\Payroll\Models\Tools\ProcessSalary;
 use Modules\Payroll\Models\Tools\ProcessAttendence;
+use Modules\Payroll\Models\Tools\ProcessSalary;
+use Modules\Payroll\Models\Tools\PunchData;
 
 
 class ProcessSalaryController extends Controller
@@ -55,6 +56,8 @@ class ProcessSalaryController extends Controller
             $start_date = Carbon::parse("$year-$month-01")->startOfMonth()->format('Y-m-d');
             $end_date = Carbon::parse("$year-$month-01")->endOfMonth()->format('Y-m-d');
 
+            //dd($start_date, $end_date);
+
             // Employees data
             $employees = DB::table('hris_database_employee_basic as basic')
                 ->leftJoin('hris_setup_designations as designation', 'designation.id', '=', 'basic.designation_id')
@@ -63,7 +66,6 @@ class ProcessSalaryController extends Controller
                 ->where('basic.org_id', $request->org_id)
                 ->where('basic.reason', 'N')
                 ->where('basic.salaried', 'Y')
-                //->where('basic.employee_id', 4079)
                 ->where(function ($q) use ($end_date, $start_date) {
                     $q->where('basic.joining_date', '<=', $end_date)
                         ->orWhere(function ($q2) use ($start_date) {
@@ -72,6 +74,15 @@ class ProcessSalaryController extends Controller
                         });
                 })
                 ->select('basic.employee_id','basic.shifting_duty','basic.refrerence_shift', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
+                ->get();
+
+            $incrementdata = EmployeeIncrement::query()
+                ->where('org_id', $request->org_id)
+                ->whereBetween('increment_date', [$start_date, $end_date])
+                ->whereDate('effective_date', '<', $start_date)
+                ->active()
+                ->enforce()
+                ->notDiscard()
                 ->get();
 
             // Advances, punishments, maternity, HR options
@@ -86,7 +97,6 @@ class ProcessSalaryController extends Controller
                 ->get();
 
             $departmentid = $employees->unique('department_id')->pluck('department_id')->toArray();
-
             $punishments = DB::table('payroll_database_punishment as punishment')
                 ->whereBetween('punishment.punishment_date', [$start_date, $end_date])
                 ->where('punishment.is_active', 1)
@@ -105,6 +115,8 @@ class ProcessSalaryController extends Controller
                     ->whereIn('employee_id', $empids)
                     ->get();
 
+                $areardata = $incrementdata->whereIn('employee_id', $empids)->toArray();
+
                 foreach ($splitemp as $employee) {
                     $empid = $employee->employee_id;
                     $leavingDate = $employee->leaving_date ? Carbon::parse($employee->leaving_date)->subDay()->format('Y-m-d') : null;
@@ -115,6 +127,16 @@ class ProcessSalaryController extends Controller
                     $endDate = $end_date;
                     $attnBns = 'Y';
                     $attn = [];
+                    $arear = 0;
+
+                    // Area increment
+                    $areaIncrement = collect($areardata)->where('employee_id', $empid)->first();
+                    if ($areaIncrement) {
+                        $effDate   = Carbon::parse($areaIncrement['effective_date']);
+                        $arrerDate = Carbon::parse($areaIncrement['arrear_upto_date']);
+                        $arrmonths = round($effDate->diffInMonths($arrerDate));
+                        $arear = $arrmonths * $areaIncrement['amount'];
+                    }
 
                     // Adjust start/end date based on joining/leaving
                     if ($joiningDate > $start_date && $joiningDate <= $end_date && $leavingDate && $leavingDate <= $end_date) {
@@ -218,8 +240,8 @@ class ProcessSalaryController extends Controller
 
                     $deduction = $advrefund + $employee->tax + $bpayforlong;
                     $totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct);  
-                    $netpayable = ($grpay + $otamount) - $deduction;
-                    $totalnetpayable = ($grpay + $totalotamount) - $deduction;
+                    $netpayable = ($grpay + $otamount + $arear) - $deduction;
+                    $totalnetpayable = ($grpay + $totalotamount + $arear) - $deduction;
 
                     // Save ProcessSalary
                     $salarydata = new ProcessSalary();
@@ -267,6 +289,7 @@ class ProcessSalaryController extends Controller
                     $salarydata->short_deduction = 0;
                     $salarydata->basic_payable = $bpay;
                     $salarydata->oa_payable = $oapay;
+                    $salarydata->arear_amount = $arear;
                     $salarydata->gross_payable = $grpay;
                     $salarydata->total_deduction = $totaldeduction;
                     $salarydata->net_payable = $netpayable;
