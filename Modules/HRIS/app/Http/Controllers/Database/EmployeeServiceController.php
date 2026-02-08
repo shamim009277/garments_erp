@@ -2,11 +2,12 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\HRIS\Models\Database\EmployeeService;
 use Modules\HRIS\Http\Requests\Database\EmployeeServiceRequest;
+use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Database\EmployeeService;
 
 class EmployeeServiceController extends Controller
 {
@@ -14,8 +15,13 @@ class EmployeeServiceController extends Controller
     {
         try {
             $employeeService = EmployeeService::create($request->validated());
-            return redirect()->back()->with('success', 'Employee Service created successfully');
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 6])->with('success', 'Employee Service created successfully');
         } catch (\Exception $e) {
+            $employee = Employee::where('employee_id', $request->employee_id)->first();
+            if($employee){
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 6])->with('error', 'Failed to create Employee Service: ' . $e->getMessage());
+            }
             return redirect()->back()->with('error', 'Failed to create Employee Service: ' . $e->getMessage());
         }
     }
@@ -33,11 +39,20 @@ class EmployeeServiceController extends Controller
             if ($employeeService->isDirty()) {
                 $employeeService->updated_by = Auth::id();
                 $employeeService->save();
-                return redirect()->back()->with('success', 'Employee Service updated successfully');
+                $employee = Employee::where('employee_id', $employeeService->employee_id)->first();
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 6])->with('success', 'Employee Service updated successfully');
             } else {
-                return redirect()->back()->with('info', 'No changes detected to update.');
+                $employee = Employee::where('employee_id', $employeeService->employee_id)->first();
+                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 6])->with('info', 'No changes detected to update.');
             }
         } catch (\Throwable $th) {
+            $employeeService = EmployeeService::find($id);
+            if($employeeService){
+                $employee = Employee::where('employee_id', $employeeService->employee_id)->first();
+                if($employee){
+                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 6])->with('error', 'Failed to update Employee Service: ' . $th->getMessage());
+                }
+            }
             return redirect()->back()->with('error', 'Failed to update Employee Service: ' . $th->getMessage());
         }
     }
@@ -49,8 +64,10 @@ class EmployeeServiceController extends Controller
     {
         try {
             $employeeService = EmployeeService::findOrFail($request->id);
+            $employeeId = $employeeService->employee_id;
             $employeeService->delete();
-            return redirect()->back()->with('success', 'Employee Service deleted successfully');
+            $employee = Employee::where('employee_id', $employeeId)->first();
+            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 6])->with('success', 'Employee Service deleted successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Failed to delete Employee Service: ' . $th->getMessage());
         }

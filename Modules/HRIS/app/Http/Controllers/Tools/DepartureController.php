@@ -4,8 +4,10 @@ namespace Modules\HRIS\Http\Controllers\Tools;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\HRIS\Models\Setup\DepartureReason;
+use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Setup\DepartureReason;
+
 class DepartureController extends Controller
 {
     /**
@@ -31,6 +33,10 @@ class DepartureController extends Controller
         ]);
         try {
             $employee = Employee::where('employee_id', $request->employee_id)->first();
+            if(Auth::user()->access_id != $employee->org_id || Auth::user()->access_id != 0){
+                return redirect()->back()->with('error', 'You are not authorized to depart this employee');
+            }
+
             if($request->reason == 'N') {
                 return redirect()->back()->with('error', 'Departure reason is not valid');
             }else if($request->reason == 'M') {

@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th width="5%">SL</th>
-                                <th width="20%">Shift</th>
+                                <th width="10%">Shift</th>
                                 <th width="20%">Shift Start</th>
                                 <th width="20%">Shift End</th>
                                 <th width="20%">Break Start</th>

@@ -149,6 +149,48 @@
             width: '100%'
         });
 
+         $(document).on('blur', '#emp_id', function(e) {
+            let empId = $(this).val();
+            if (empId.length >= 8) {
+                employeeInfo(empId);
+            }else{
+                $('#holiday').val('').trigger('change');
+            }
+        });
+
+        function employeeInfo(empId) {
+            if (empId.length >= 8) {
+                $.ajax({
+                    url: "{{ route('hris.tools.edit-shiftinglist.getEmployee') }}",
+                    type: "POST",
+                    data: {
+                        employee_id: empId,
+                        _token: '{{ csrf_token() }}'
+                        },
+                    success: function (response) {
+                        if (response.success && response.data) {
+                            $('#holiday').val(response.data.refrerence_holiday).trigger('change');
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Employee not found.',
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to load employee info.',
+                        });
+                    }
+                });
+            }else{
+                $('#holiday').val('');
+            }
+        }
+
         $(document).on('click', '.display', function(e) {
             e.preventDefault();
             let displayDate = $('#display_date').val();

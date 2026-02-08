@@ -2,74 +2,76 @@
 
 use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
+use Modules\HRIS\Http\Controllers\Database\ApplicantController;
+use Modules\HRIS\Http\Controllers\Database\BulkIncrementController;
+use Modules\HRIS\Http\Controllers\Database\ELCalculationController;
+use Modules\HRIS\Http\Controllers\Database\ELPaymentController;
+use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeIncrementController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
+use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
+use Modules\HRIS\Http\Controllers\Database\IncrementEnforceController;
+use Modules\HRIS\Http\Controllers\Database\LeaveAllController;
+use Modules\HRIS\Http\Controllers\Database\LeaveApplicationController;
+use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
+use Modules\HRIS\Http\Controllers\Database\LeaveForwardController;
+use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
+use Modules\HRIS\Http\Controllers\Database\ServiceBenefitController;
 use Modules\HRIS\Http\Controllers\HRISController;
-use Modules\HRIS\Http\Controllers\Setup\SexController;
-use Modules\HRIS\Http\Controllers\Setup\LineController;
-use Modules\HRIS\Http\Controllers\Setup\UnitController;
-use Modules\HRIS\Http\Controllers\Setup\GradeController;
-use Modules\HRIS\Http\Controllers\Setup\ShiftController;
-use Modules\HRIS\Http\Controllers\Setup\ThanaController;
-use Modules\HRIS\Http\Controllers\Setup\UnionController;
+use Modules\HRIS\Http\Controllers\Report\ApplicantReportController;
+use Modules\HRIS\Http\Controllers\Report\AutoGenerationReportController;
+use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
+use Modules\HRIS\Http\Controllers\Report\IncrementReportController;
+use Modules\HRIS\Http\Controllers\Report\LeaveReportController;
+use Modules\HRIS\Http\Controllers\Report\MovementPassReportController;
+use Modules\HRIS\Http\Controllers\Report\ShiftingReportController;
+use Modules\HRIS\Http\Controllers\Report\SummaryReportController;
+use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
+use Modules\HRIS\Http\Controllers\Settings\SettingController;
+use Modules\HRIS\Http\Controllers\Setup\CompanyWiseRamadanShiftController;
+use Modules\HRIS\Http\Controllers\Setup\CompanyWiseShiftController;
 use Modules\HRIS\Http\Controllers\Setup\DegreeController;
+use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
+use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
+use Modules\HRIS\Http\Controllers\Setup\DesignationController;
 use Modules\HRIS\Http\Controllers\Setup\DistrictController;
 use Modules\HRIS\Http\Controllers\Setup\DivisionController;
 use Modules\HRIS\Http\Controllers\Setup\DocumentController;
-use Modules\HRIS\Http\Controllers\Setup\ReligionController;
-use Modules\HRIS\Http\Controllers\Tools\CalenderController;
-use Modules\HRIS\Http\Controllers\Tools\DepartureController;
-use Modules\HRIS\Http\Controllers\Settings\SettingController;
-use Modules\HRIS\Http\Controllers\Setup\DepartmentController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeController;
-use Modules\HRIS\Http\Controllers\Database\LeaveAllController;
-use Modules\HRIS\Http\Controllers\Setup\DesignationController;
+use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
+use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
+use Modules\HRIS\Http\Controllers\Setup\EmpGatepassReasonController;
+use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
+use Modules\HRIS\Http\Controllers\Setup\GradeController;
+use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
 use Modules\HRIS\Http\Controllers\Setup\LeaveReasonController;
-use Modules\HRIS\Http\Controllers\Database\ApplicantController;
-use Modules\HRIS\Http\Controllers\Database\ELPaymentController;
-use Modules\HRIS\Http\Controllers\Database\PhotoSignController;
-use Modules\HRIS\Http\Controllers\Report\LeaveReportController;
-use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
-use Modules\HRIS\Http\Controllers\Tools\ShiftingListController;
+use Modules\HRIS\Http\Controllers\Setup\LineController;
 use Modules\HRIS\Http\Controllers\Setup\MaritalStatusController;
 use Modules\HRIS\Http\Controllers\Setup\NationalitiesController;
-use Modules\HRIS\Http\Controllers\Database\EmpGatePassController;
-use Modules\HRIS\Http\Controllers\Report\SummaryReportController;
-use Modules\HRIS\Http\Controllers\Setup\EducationBoardController;
-use Modules\HRIS\Http\Controllers\Tools\MaternityEntryController;
-use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
-use Modules\HRIS\Http\Controllers\Database\LeaveForwardController;
-use Modules\HRIS\Http\Controllers\Report\ShiftingReportController;
-use Modules\HRIS\Http\Controllers\Setup\DepartureReasonController;
-use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
-use Modules\HRIS\Http\Controllers\Database\BulkIncrementController;
-use Modules\HRIS\Http\Controllers\Database\ELCalculationController;
-use Modules\HRIS\Http\Controllers\Report\ApplicantReportController;
-use Modules\HRIS\Http\Controllers\Report\IncrementReportController;
-use Modules\HRIS\Http\Controllers\Setup\CompanyWiseShiftController;
-use Modules\HRIS\Http\Controllers\Setup\EmployeeCategoryController;
+use Modules\HRIS\Http\Controllers\Setup\OrganizationController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDepartmentController;
-use Modules\HRIS\Http\Controllers\Tools\EditShiftingListController;
-use Modules\HRIS\Http\Controllers\Database\ServiceBenefitController;
-use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
-use Modules\HRIS\Http\Controllers\Setup\EmpGatepassReasonController;
 use Modules\HRIS\Http\Controllers\Setup\ParentDesignationController;
+use Modules\HRIS\Http\Controllers\Setup\ReligionController;
+use Modules\HRIS\Http\Controllers\Setup\SexController;
+use Modules\HRIS\Http\Controllers\Setup\ShiftController;
+use Modules\HRIS\Http\Controllers\Setup\SourceReferenceController;
+use Modules\HRIS\Http\Controllers\Setup\ThanaController;
+use Modules\HRIS\Http\Controllers\Setup\UnionController;
+use Modules\HRIS\Http\Controllers\Setup\UnitController;
+use Modules\HRIS\Http\Controllers\Tools\CalenderController;
+use Modules\HRIS\Http\Controllers\Tools\DepartureController;
 use Modules\HRIS\Http\Controllers\Tools\DesignationChangeController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
-use Modules\HRIS\Http\Controllers\Setup\EmpGatepassPurposeController;
-use Modules\HRIS\Http\Controllers\Tools\ExceptionalHolidayController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeIDAssignController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
-use Modules\HRIS\Http\Controllers\Database\IncrementEnforceController;
-use Modules\HRIS\Http\Controllers\Database\LeaveApplicationController;
-use Modules\HRIS\Http\Controllers\Report\MovementPassReportController;
-use Modules\HRIS\Http\Controllers\Setup\LeaveClassificationController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeEducationController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeIncrementController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
-use Modules\HRIS\Http\Controllers\Database\EmployeeExperienceController;
-use Modules\HRIS\Http\Controllers\Report\AutoGenerationReportController;
-use Modules\HRIS\Http\Controllers\Report\EmployeeListingReportController;
 use Modules\HRIS\Http\Controllers\Tools\EditExceptionalHolidayController;
+use Modules\HRIS\Http\Controllers\Tools\EditShiftingListController;
+use Modules\HRIS\Http\Controllers\Tools\ExceptionalHolidayController;
+use Modules\HRIS\Http\Controllers\Tools\MaternityEntryController;
 use Modules\HRIS\Http\Controllers\Tools\NewEmployeeShiftingListController;
+use Modules\HRIS\Http\Controllers\Tools\ShiftingListController;
+
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
     Route::resource('hris', HRISController::class)->names('hris');
@@ -153,6 +155,12 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/companywise-shifts/shift-details', [CompanyWiseShiftController::class, 'shiftDetails'])->name('companywise-shifts.shift-details');
             Route::post('/companywise-shifts/delete', [CompanyWiseShiftController::class, 'destroy'])->name('companywise-shifts.delete');
             Route::resource('companywise-shifts', CompanyWiseShiftController::class)->names('companywise-shifts');
+
+            //Company Wise Ramadan Shift
+            Route::post('/companywise-ramadan-shifts/toggle', [CompanyWiseRamadanShiftController::class, 'toggleStatus'])->name('companywise-ramadan-shifts.toggle');
+            Route::post('/companywise-ramadan-shifts/shift-details', [CompanyWiseRamadanShiftController::class, 'shiftDetails'])->name('companywise-ramadan-shifts.shift-details');
+            Route::post('/companywise-ramadan-shifts/delete', [CompanyWiseRamadanShiftController::class, 'destroy'])->name('companywise-ramadan-shifts.delete');
+            Route::resource('companywise-ramadan-shifts', CompanyWiseRamadanShiftController::class)->names('companywise-ramadan-shifts');
 
             //Leave Classification
             Route::post('/leaveclassifications/toggle', [LeaveClassificationController::class, 'toggleStatus'])->name('leaveclassifications.toggle');
@@ -328,6 +336,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
         //Settings
         Route::prefix('settings')->name('settings.')->group(function () {
+            Route::post('/setting/schedule', [SettingController::class, 'schedule'])->name('setting.schedule');
             Route::resource('hr-settings', SettingController::class)->names('hr-settings');
             Route::post('/fetch-user', [ForwardApproveController::class, 'fetchUser'])->name('forward-approve.fetch-user');
             Route::post('/fetch-approved-data', [ForwardApproveController::class, 'fetchApprovedData'])->name('forward-approve.fetch-approved-data');
@@ -343,9 +352,13 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/departure/info', [DepartureController::class, 'employeeInfo'])->name('departure.info');
             Route::resource('departure', DepartureController::class)->names('departure');
             Route::resource('calender', CalenderController::class)->names('calender');
+            Route::get('/shiftinglist/status/{id}', [ShiftingListController::class, 'checkStatus'])->name('shiftinglist.status');
             Route::resource('shiftinglist', ShiftingListController::class)->names('shiftinglist');
             Route::resource('newshiftinglist', NewEmployeeShiftingListController::class)->names('newshiftinglist');
+
             Route::resource('edit-shiftinglist', EditShiftingListController::class)->names('edit-shiftinglist');
+            Route::post('/edit-shiftinglist/getEmployee', [EditShiftingListController::class, 'getEmployee'])->name('edit-shiftinglist.getEmployee');
+
             Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
             Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');
             Route::resource('editexceptional-holidays', EditExceptionalHolidayController::class)->names('editexceptional-holidays');

@@ -24,7 +24,7 @@ function calculateTotalHours($start_punch, $end_punch)
         return 0;
     }
 
-    $workMinutes = $end->diffInMinutes($start);
+    $workMinutes = $start->diffInMinutes($end);
     $hours = intdiv($workMinutes, 60);
     $minutes = $workMinutes % 60;
     if ($minutes >= 45) {

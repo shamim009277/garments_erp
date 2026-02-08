@@ -78,8 +78,8 @@
 
         th,
         td {
-            padding: 2px 3px;
-            border: 0.5px solid #ccc;
+            padding: 2px 1px;
+            border: 0.2px solid #ccc;
             font-size: 10px;
             text-align: center;
         }
@@ -205,11 +205,11 @@
                 <tr>
                     <th>SL</th>
                     <th>Card</th>
-                    <th>Name,Category <br>A/C No</th>
+                    <th>Name</th>
 
                     <th>
                         <table>
-                            <tr>
+                            <tr style="border-bottom: 0.5px solid #ccc;">
                                 <th>Grade</th>
                             </tr>
                             <tr>
@@ -220,7 +220,7 @@
 
                     <th>
                         <table>
-                            <tr>
+                            <tr style="border-bottom: 0.5px solid #ccc;">
                                 <th>Join Date</th>
                             </tr>
                             <tr>
@@ -230,7 +230,7 @@
                     </th>
                     <th>
                         <table>
-                            <tr>
+                            <tr style="border-bottom: 0.5px solid #ccc;">
                                 <th>WK</th>
                             </tr>
                             <tr>
@@ -257,7 +257,7 @@
 
                     <th>
                         <table>
-                            <tr>
+                            <tr style="border-bottom: 0.5px solid #ccc;">
                                 <th>Medical</th>
                             </tr>
                             <tr>
@@ -268,7 +268,7 @@
 
                     <th>
                         <table>
-                            <tr>
+                            <tr style="border-bottom: 0.5px solid #ccc;">
                                 <th>Conv.</th>
                             </tr>
                             <tr>
@@ -283,7 +283,7 @@
                     <th>Gross <br> Payable</th>
                     <th>
                         <table>
-                            <tr>
+                            <tr style="border-bottom: 0.5px solid #ccc;">
                                 <th>L.Day</th>
                             </tr>
                             <tr>
@@ -304,12 +304,10 @@
                             </tr>
                         </table>
                     </th>
-
                     <th>Arr. Amt</th>
-
                     <th>
                         <table>
-                            <tr>
+                            <tr style="border-bottom: 0.5px solid #ccc;">
                                 <th>NT</th>
                                 <th>IF</th>
                                 <th>WK</th>
@@ -336,7 +334,7 @@
                     </th>
                     <th>Total <br> Deduction</th>
                     <th>Net <br> Payable</th>
-                    <th>Signature</th>
+                    <th>Signature <br>A/C No</th>
                 </tr>
             </thead>
 
@@ -347,29 +345,27 @@
                         $salaries = collect($datas)->where('department', $department);
                     @endphp
                     <tr>
-                        <td colspan="23" style="font-weight: bold; text-align: left;">Department: {{ $department }}
-                        </td>
+                        <td colspan="23" style="font-weight: bold; text-align: left;">Department: {{ $department }}</td>
                     </tr>
                     @foreach ($salaries as $salary)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ str_pad($salary->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                            <td>{{ $salary->name }}, <br>{{ $salary->category }} <br>A/C No:
-                                {{ $salary->account_no }}</td>
+                            <td>{{ $salary->name }}</td>
                             <td>
                                 <table>
-                                    <tr>
+                                    <tr style="border-bottom: 0.5px solid #ccc;">
                                         <td>{{ $salary->grade }}</td>
                                     </tr>
                                     <tr>
-                                        <td>{{ $salary->designation }}</td>
+                                        <td width="40px !important;">{{ $salary->designation }}</td>
                                     </tr>
                                 </table>
                             </td>
                             <td>
                                 <table>
                                     <tr>
-                                        <td>{{ date('d-m-Y', strtotime($salary->joining_date)) }}</td>
+                                        <td style="width: 60px !important;">{{ date('d-m-Y', strtotime($salary->joining_date)) }}</td>
                                     </tr>
                                     <tr>
                                         <td>-</td>
@@ -377,12 +373,16 @@
                                 </table>
                             </td>
                             <td>
-                                <table>
-                                    <tr>
-                                        <td>40</td>
+                                <table style="border-collapse: collapse; width: 100%;">
+                                    <tr style="border-bottom: 0.5px solid #ccc;">
+                                        <td style="text-align: center; vertical-align: middle !important;">
+                                            {{ $salary->weekend_days }}
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>160</td>
+                                        <td style="text-align: center; vertical-align: middle !important;">
+                                            {{ $salary->general_holiday_days }}
+                                        </td>
                                     </tr>
                                 </table>
                             </td>
@@ -400,7 +400,7 @@
                             <td>{{ $salary->home_allowance }}</td>
                             <td>
                                 <table>
-                                    <tr>
+                                    <tr style="border-bottom: 0.5px solid #ccc;">
                                         <td>{{ $salary->medical_allowance }}</td>
                                     </tr>
                                     <tr>
@@ -410,7 +410,7 @@
                             </td>
                             <td>
                                 <table>
-                                    <tr>
+                                    <tr style="border-bottom: 0.5px solid #ccc;">
                                         <td>{{ $salary->conveyance }}</td>
                                     </tr>
                                     <tr>
@@ -424,8 +424,8 @@
                             <td>{{ number_format($salary->gross_salary + $salary->attendance_bonus, 2) }}</td>
                             <td>
                                 <table>
-                                    <tr>
-                                        <td>0</td>
+                                    <tr style="border-bottom: 0.5px solid #ccc;">
+                                        <td>{{ $salary->late_days }}</td>
                                     </tr>
                                     <tr>
                                         <td>0</td>
@@ -444,7 +444,7 @@
                             <td>0</td>
                             <td>
                                 <table>
-                                    <tr>
+                                    <tr style="border-bottom: 0.5px solid #ccc;">
                                         <td>0</td>
                                         <td>0</td>
                                         <td>0</td>
@@ -468,11 +468,11 @@
                             </td>
                             <td>{{ $salary->total_deduction }}</td>
                             <td>{{ number_format($salary->total_net_payable, 2) }}</td>
-                            <td></td>
+                            <td>{{ $salary->account_no }}</td>
                         </tr>
                     @endforeach
                     <!-- Subtotal Row -->
-                    <tr style="font-weight:bold; background: #f39b03;">
+                    <tr style="font-weight:bold; background: #f7bc5d;">
                         <td colspan="7">Subtotal</td>
                         <td>{{ number_format($salaries->sum('basic'), 2) }}</td>
                         <td>{{ number_format($salaries->sum('home_allowance'), 2) }}</td>
@@ -495,7 +495,6 @@
             </tbody>
         </table>
     @endif
-
 </body>
 
 </html>

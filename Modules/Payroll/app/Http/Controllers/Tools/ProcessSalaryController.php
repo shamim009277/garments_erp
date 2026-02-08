@@ -2,17 +2,18 @@
 
 namespace Modules\Payroll\Http\Controllers\Tools;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Modules\HRIS\Models\Setting;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Modules\HRIS\Models\Database\EmployeeIncrement;
+use Modules\HRIS\Models\Setting;
 use Modules\HRIS\Models\Setup\Organization;
-use Modules\Payroll\Models\Tools\PunchData;
 use Modules\HRIS\Models\Tools\MaternityEntry;
-use Modules\Payroll\Models\Tools\ProcessSalary;
 use Modules\Payroll\Models\Tools\ProcessAttendence;
+use Modules\Payroll\Models\Tools\ProcessSalary;
+use Modules\Payroll\Models\Tools\PunchData;
 
 
 class ProcessSalaryController extends Controller
@@ -43,6 +44,8 @@ class ProcessSalaryController extends Controller
     public function store(Request $request)
     {
         if ($request->title == 1) {
+            set_time_limit(0);
+            ini_set('memory_limit', '2048M');
 
             $exist = ProcessSalary::where('org_id', $request->org_id)->where('month', $request->month)->where('year', $request->year)->exists();
             if ($exist) {
@@ -50,9 +53,10 @@ class ProcessSalaryController extends Controller
             }
             $month = $request->month;
             $year = $request->year;
-
             $start_date = Carbon::parse("$year-$month-01")->startOfMonth()->format('Y-m-d');
             $end_date = Carbon::parse("$year-$month-01")->endOfMonth()->format('Y-m-d');
+
+            //dd($start_date, $end_date);
 
             // Employees data
             $employees = DB::table('hris_database_employee_basic as basic')
@@ -69,9 +73,17 @@ class ProcessSalaryController extends Controller
                                 ->where('basic.salaried', 'Y');
                         });
                 })
-                ->select('basic.employee_id', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
+                ->select('basic.employee_id','basic.shifting_duty','basic.refrerence_shift', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
                 ->get();
 
+            $incrementdata = EmployeeIncrement::query()
+                ->where('org_id', $request->org_id)
+                ->whereBetween('increment_date', [$start_date, $end_date])
+                ->whereDate('effective_date', '<', $start_date)
+                ->active()
+                ->enforce()
+                ->notDiscard()
+                ->get();
 
             // Advances, punishments, maternity, HR options
             $advances = DB::table('payroll_tools_process_advance as advance')
@@ -85,7 +97,6 @@ class ProcessSalaryController extends Controller
                 ->get();
 
             $departmentid = $employees->unique('department_id')->pluck('department_id')->toArray();
-
             $punishments = DB::table('payroll_database_punishment as punishment')
                 ->whereBetween('punishment.punishment_date', [$start_date, $end_date])
                 ->where('punishment.is_active', 1)
@@ -98,12 +109,13 @@ class ProcessSalaryController extends Controller
 
             // Process in chunks
             foreach ($employees->chunk(250) as $splitemp) {
-
                 $empids = $splitemp->pluck('employee_id')->toArray();
                 $attndatas = ProcessAttendence::where('org_id', $request->org_id)
                     ->whereBetween('work_date', [$start_date, $end_date])
                     ->whereIn('employee_id', $empids)
                     ->get();
+
+                $areardata = $incrementdata->whereIn('employee_id', $empids)->toArray();
 
                 foreach ($splitemp as $employee) {
                     $empid = $employee->employee_id;
@@ -115,6 +127,16 @@ class ProcessSalaryController extends Controller
                     $endDate = $end_date;
                     $attnBns = 'Y';
                     $attn = [];
+                    $arear = 0;
+
+                    // Area increment
+                    $areaIncrement = collect($areardata)->where('employee_id', $empid)->first();
+                    if ($areaIncrement) {
+                        $effDate   = Carbon::parse($areaIncrement['effective_date']);
+                        $arrerDate = Carbon::parse($areaIncrement['arrear_upto_date']);
+                        $arrmonths = round($effDate->diffInMonths($arrerDate));
+                        $arear = $arrmonths * $areaIncrement['amount'];
+                    }
 
                     // Adjust start/end date based on joining/leaving
                     if ($joiningDate > $start_date && $joiningDate <= $end_date && $leavingDate && $leavingDate <= $end_date) {
@@ -142,6 +164,8 @@ class ProcessSalaryController extends Controller
                     $wpabsent_days = $attn->whereIn('attn_type', ['LWOP'])->count();
                     $leave_days = $attn->whereIn('attn_type', ['SL', 'CL', 'EL', 'ML', 'SPL', 'LWOP'])->count();
                     $realabsent_days = $attn->whereIn('attn_type', ['AB'])->count();
+                    $late_days = $attn->where('is_late', 'Y')->where('attn_type', '!=', 'HD')->count();
+                    $holiday_days = $attn->where('attn_type', 'HD')->count();
 
                     $monthdays = Carbon::parse("$year-$month-01")->daysInMonth;
                     $daysinmonth = 30;
@@ -161,6 +185,10 @@ class ProcessSalaryController extends Controller
                         }
                     }
 
+                    // Shifting duty
+                    $duration = ($employee->shifting_duty == 'Y' && ($employee->refrerence_shift == 'N' || $employee->shifting_duty == 'M')) ? 11 : 8;
+                    $hour = ($employee->shifting_duty == 'Y' && ($employee->refrerence_shift == 'N' || $employee->shifting_duty == 'M')) ? 286 : 208;
+
                     // OT calculation
                     $totalothour = $attn->sum('ot_hours');
                     $othr = $attn->sum(function ($a) {
@@ -169,7 +197,7 @@ class ProcessSalaryController extends Controller
                     });
 
                     $othour = ($employee->ot_payable == 'Y') ? $othr : 0;
-                    $otrate = round(($employee->basic / 208) * 2, 2);
+                    $otrate = round(($employee->basic / $hour) * 2, 2);
                     $otamount = round($otrate * $othour);
                     $totalotamount = round($otrate * $totalothour);
 
@@ -182,10 +210,9 @@ class ProcessSalaryController extends Controller
                     $wpabdeduct = ($employee->gross_salary / $monthdays) * $wpabsent_days;
                     $abdeduct = ($employee->basic / $daysinmonth) * $absent_days;
                     $punishdeduct = ($employee->basic / $daysinmonth) * $punish;
-                    $shortagehr = ($present_days * 8) - $gwh;
-                    $hrdeduct = $shortagehr * ($employee->basic / ($daysinmonth * 8));
+                    $shortagehr = ($present_days * $duration) - $gwh;
+                    $hrdeduct = $shortagehr * ($employee->basic / ($daysinmonth * $duration));
                     $basicabdeduct = $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct;
-
                     $oapay = round(($employee->other_allowance / $monthdays) * $present_days);
 
                     if ($monthdays == $absent_days) {
@@ -211,9 +238,10 @@ class ProcessSalaryController extends Controller
                         $grpay = round(($employee->gross_salary + $oapay + $attn_bonus) - $basicabdeduct);
                     }
 
-                    $deduction = $advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct;
-                    $netpayable = ($grpay + $otamount) - $deduction;
-                    $totalnetpayable = ($grpay + $totalotamount) - $deduction;
+                    $deduction = $advrefund + $employee->tax + $bpayforlong;
+                    $totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct);  
+                    $netpayable = ($grpay + $otamount + $arear) - $deduction;
+                    $totalnetpayable = ($grpay + $totalotamount + $arear) - $deduction;
 
                     // Save ProcessSalary
                     $salarydata = new ProcessSalary();
@@ -236,6 +264,9 @@ class ProcessSalaryController extends Controller
                     $salarydata->days = $total_days;
                     $salarydata->absent_days = $absent_days;
                     $salarydata->leave_days = $leave_days;
+                    $salarydata->late_days = $late_days;
+                    $salarydata->weekend_days = $holiday_days;
+                    $salarydata->general_holiday_days = 0;
                     $salarydata->rwh = $rwh;
                     $salarydata->wrh = $gwh;
                     $salarydata->basic = $employee->basic;
@@ -258,8 +289,9 @@ class ProcessSalaryController extends Controller
                     $salarydata->short_deduction = 0;
                     $salarydata->basic_payable = $bpay;
                     $salarydata->oa_payable = $oapay;
+                    $salarydata->arear_amount = $arear;
                     $salarydata->gross_payable = $grpay;
-                    $salarydata->total_deduction = $deduction;
+                    $salarydata->total_deduction = $totaldeduction;
                     $salarydata->net_payable = $netpayable;
                     $salarydata->total_net_payable = $totalnetpayable;
                     $salarydata->confirm = 'N';
@@ -267,7 +299,6 @@ class ProcessSalaryController extends Controller
                     $salarydata->save();
                 }
             }
-
             return redirect()->back()->with('success', 'Salary processed successfully.');
         } else if ($request->title == 2) {
             $month = $request->month;

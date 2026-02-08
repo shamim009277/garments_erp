@@ -37,6 +37,12 @@ class CompanyWiseShiftController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(CompanyShiftRequest $request) {
+        $exists = CompanyWiseShift::where('org_id', $request->org_id)
+            ->where('shift', $request->shift)
+            ->first();
+        if ($exists) {
+            return redirect()->back()->with('error', 'Shift already exists for this organization');
+        }
         try {
             CompanyWiseShift::create($request->validated());
             return redirect()->route('hris.setup.companywise-shifts.index')->with('success', 'Shift created successfully');
@@ -49,6 +55,13 @@ class CompanyWiseShiftController extends Controller
      * Update the specified resource in storage.
      */
     public function update(CompanyShiftRequest $request, $id) {
+        $exists = CompanyWiseShift::where('org_id', $request->org_id)
+            ->where('shift', $request->shift)
+            ->where('id', '<>', $id)
+            ->first();
+        if ($exists) {
+            return redirect()->back()->with('error', 'Shift already exists for this organization');
+        }
         try {
             $shift = CompanyWiseShift::find($id);
             $shift->update($request->validated());

@@ -55,14 +55,26 @@ class ProcessBonusController extends Controller
 
                 $start_date = Carbon::parse($request->base_date)->startOfMonth()->format('Y-m-d');
                 $end_date = Carbon::parse($request->base_date)->format('Y-m-d');
-                $limit = Carbon::parse($end_date)->subYear(1)->addDays(1)->format('Y-m-d');
+                
+                // Get slab settings (default to 12, 6, 3 months if not provided)
+                $slab1_m = $request->input('slab1_months', 12);
+                $slab1_p = $request->input('slab1_percent', 100);
+                $slab2_m = $request->input('slab2_months', 6);
+                $slab2_p = $request->input('slab2_percent', 50);
+                $slab3_m = $request->input('slab3_months', 3);
+                $slab3_p = $request->input('slab3_percent', 25);
+
+                // Calculate cut-off dates
+                $limit1 = Carbon::parse($end_date)->subMonths($slab1_m)->addDays(1)->format('Y-m-d');
+                $limit2 = Carbon::parse($end_date)->subMonths($slab2_m)->addDays(1)->format('Y-m-d');
+                $limit3 = Carbon::parse($end_date)->subMonths($slab3_m)->addDays(1)->format('Y-m-d');
 
                 $datas = DB::table('hris_database_employee_basic as basic')
                     ->leftJoin('hris_database_employee_salary as salary', 'basic.employee_id', '=', 'salary.employee_id')
                     ->leftJoin('hris_setup_departments as department', 'basic.department_id', '=', 'department.id')
                     ->leftJoin('hris_setup_designations as designation', 'basic.designation_id', '=', 'designation.id')
                     ->where('basic.org_id', $request->org_id)
-                    ->whereDate('basic.joining_date', '<=', $limit)
+                    ->whereDate('basic.joining_date', '<=', $limit3)
                     ->where('basic.salaried', 'Y')
                     ->where(function ($q) use ($end_date) {
                         $q->where('basic.reason', 'N')
@@ -92,26 +104,41 @@ class ProcessBonusController extends Controller
                 foreach ($splites as $key => $value) {
                     foreach ($value as $key2 => $data) {
                         $records++;
-                        $rows[] = [
-                            'employee_id'    => $data->employee_id,
-                            'org_id'         => $data->org_id,
-                            'department_id'  => $data->department_id,
-                            'designation_id' => $data->designation_id,
-                            'joining_date'   => ($data->joining_date && strtotime($data->joining_date)) ? Carbon::parse($data->joining_date)->format('Y-m-d') : null,
-                            'leaving_date'   => ($data->leaving_date && strtotime($data->leaving_date)) ? Carbon::parse($data->leaving_date)->format('Y-m-d') : null,
-                            'basic'          => $data->basic,
-                            'category'       => $data->category_code,
-                            'line'           => $data->line,
-                            'unit'           => $data->unit,
-                            'bonus_type'     => $request->bonus_type,
-                            'base_date'      => $base_date,
-                            'year'           => $request->year,
-                            'gross_salary'   => $data->gross_salary,
-                            'amount'         => $data->basic,
-                            'confirm'        => 'N',
-                            'created_by'     => Auth::id(),
-                            'updated_by'     => Auth::id(),
-                        ];
+                        $percent = 0;
+                        $jDate = $data->joining_date;
+
+                        if ($jDate <= $limit1) {
+                            $percent = $slab1_p;
+                        } elseif ($jDate <= $limit2) {
+                            $percent = $slab2_p;
+                        } elseif ($jDate <= $limit3) {
+                            $percent = $slab3_p;
+                        }
+
+                        if ($percent > 0) {
+                            $bonus_amount = ($data->basic * $percent) / 100;
+
+                            $rows[] = [
+                                'employee_id'    => $data->employee_id,
+                                'org_id'         => $data->org_id,
+                                'department_id'  => $data->department_id,
+                                'designation_id' => $data->designation_id,
+                                'joining_date'   => ($data->joining_date && strtotime($data->joining_date)) ? Carbon::parse($data->joining_date)->format('Y-m-d') : null,
+                                'leaving_date'   => ($data->leaving_date && strtotime($data->leaving_date)) ? Carbon::parse($data->leaving_date)->format('Y-m-d') : null,
+                                'basic'          => $data->basic,
+                                'category'       => $data->category_code,
+                                'line'           => $data->line,
+                                'unit'           => $data->unit,
+                                'bonus_type'     => $request->bonus_type,
+                                'base_date'      => $base_date,
+                                'year'           => $request->year,
+                                'gross_salary'   => $data->gross_salary,
+                                'amount'         => $bonus_amount,
+                                'confirm'        => 'N',
+                                'created_by'     => Auth::id(),
+                                'updated_by'     => Auth::id(),
+                            ];
+                        }
                     }
                 }
 

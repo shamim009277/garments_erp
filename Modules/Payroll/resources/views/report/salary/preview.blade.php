@@ -105,7 +105,7 @@
                                         <th>SL</th>
                                         <th>Org</th>
                                         <th>Card</th>
-                                        <th>Name,Category <br>A/C No</th>
+                                        <th>Name</th>
 
                                         <th>
                                             <table>
@@ -236,7 +236,7 @@
                                         </th>
                                         <th>Total <br> Deduction</th>
                                         <th>Net <br> Payable</th>
-                                        <th>Signature</th>
+                                        <th>Signature /<br> Account No</th>
                                     </tr>
                                 </thead>
 
@@ -254,7 +254,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $orgName }}</td>
                                                 <td>{{ str_pad($salary->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                                                <td>{{ $salary->name }}, <br>{{ $salary->category }} <br>A/C No: {{ $salary->account_no }}</td>
+                                                <td>{{ $salary->name }}</td>
                                                 <td>
                                                     <table>
                                                         <tr>
@@ -278,10 +278,10 @@
                                                 <td>
                                                     <table>
                                                         <tr>
-                                                            <td>40</td>
+                                                            <td>{{ $salary->weekend_days }}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>160</td>
+                                                            <td>{{ $salary->general_holiday_days }}</td>
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -324,7 +324,7 @@
                                                 <td>
                                                     <table>
                                                         <tr>
-                                                            <td>0</td>
+                                                            <td>{{ $salary->late_days }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>0</td>
@@ -367,7 +367,7 @@
                                                 </td>
                                                 <td>{{ $salary->total_deduction }}</td>
                                                 <td>{{ number_format($salary->total_net_payable, 2) }}</td>
-                                                <td></td>
+                                                <td>{{ $salary->account_no }}</td>
                                             </tr>
                                         @endforeach
                                         <!-- Subtotal Row -->

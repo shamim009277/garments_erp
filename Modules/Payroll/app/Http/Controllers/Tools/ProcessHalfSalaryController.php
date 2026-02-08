@@ -40,7 +40,6 @@ class ProcessHalfSalaryController extends Controller
      */
     public function store(Request $request) {
         if ($request->title == 1) {
-
             $exist = ProcessSalary::where('org_id', $request->org_id)->where('month', $request->month)->where('year', $request->year)->exists();
             if ($exist) {
                 return redirect()->back()->with('error', 'Salary already processed for this month and year.');
@@ -59,6 +58,7 @@ class ProcessHalfSalaryController extends Controller
                 ->where('basic.org_id', $request->org_id)
                 ->where('basic.reason', 'N')
                 ->where('basic.salaried', 'Y')
+                //->where('basic.employee_id', 114)
                 ->where(function ($q) use ($end_date, $start_date) {
                     $q->where('basic.joining_date', '<=', $end_date)
                         ->orWhere(function ($q2) use ($start_date) {
@@ -66,14 +66,13 @@ class ProcessHalfSalaryController extends Controller
                                 ->where('basic.salaried', 'Y');
                         });
                 })
-                ->select('basic.employee_id', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
+                ->select('basic.employee_id', 'basic.designation_id','basic.shifting_duty','basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
                 ->get();
 
             $maternitydata = MaternityEntry::where('org_id', $request->org_id)
                 ->where('is_active', 1)
                 ->get();
             $hroption = Setting::active()->first();
-
             $insertedCount = 0; // Counter for inserted records
             $startTime = microtime(true); // Start timer
 
@@ -119,12 +118,15 @@ class ProcessHalfSalaryController extends Controller
                     $leave_days = $attn->whereIn('attn_type', ['SL', 'CL', 'EL', 'ML', 'SPL', 'LWOP'])->count();
                     $realabsent_days = $attn->whereIn('attn_type', ['AB'])->count();
                     $late_days = $attn->whereIn('is_late', ['Y'])->count();
+                    $late_days = $attn->where('is_late', 'Y')->where('attn_type', '!=', 'HD')->count();
+                    $holiday_days = $attn->where('attn_type', 'HD')->count();
 
                     $start = Carbon::parse($start_date);
                     $end = Carbon::parse($end_date);
 
                     // Find difference in days
                     $days = $start->diffInDays($end)+1;
+                    $hour = ($employee->shifting_duty == 'Y' && ($employee->refrerence_shift == 'N' || $employee->shifting_duty == 'M')) ? 286 : 208;
 
                     $monthdays = $days;
                     $daysinmonth = 30;
@@ -134,19 +136,19 @@ class ProcessHalfSalaryController extends Controller
                     $rwh = $attn->whereIn('attn_type', ['PR', 'HD', 'SL', 'CL', 'EL', 'SPL'])->sum('rwh');
 
                     // All data convert to half
-                    $gross_salary = ($employee->gross_salary * $monthdays)/$daysinmonth;
-                    $basic = ($employee->basic * $monthdays)/$daysinmonth;
-                    $other_allowance = ($employee->other_allowance * $monthdays)/$daysinmonth;
-                    $medical_allowance = ($employee->medical_allowance * $monthdays)/$daysinmonth;
-                    $food_allowance = ($employee->food_allowance * $monthdays)/$daysinmonth;
-                    $conveyance = ($employee->conveyance * $monthdays)/$daysinmonth;
-                    $home_allowance = ($employee->home_allowance * $monthdays)/$daysinmonth;
+                    $gross_salary = $employee->gross_salary;
+                    $basic = $employee->basic;
+                    $other_allowance = $employee->other_allowance;
+                    $medical_allowance = $employee->medical_allowance;
+                    $food_allowance = $employee->food_allowance ;
+                    $conveyance = $employee->conveyance;
+                    $home_allowance = $employee->home_allowance;
 
                     // Deductions
                     $wpabdeduct = ($gross_salary / $monthdays) * $wpabsent_days;
                     $abdeduct = ($basic / $daysinmonth) * $absent_days;
-                    $shortagehr = ($present_days * 8) - $gwh;
-                    $hrdeduct = $shortagehr * ($basic / ($daysinmonth * 8));
+                    $shortagehr = ($present_days * $hour) - $gwh;
+                    $hrdeduct = $shortagehr * ($basic / ($daysinmonth * $hour));
                     $basicabdeduct = $wpabdeduct + $abdeduct + $hrdeduct;
 
                     $oapay = round(($other_allowance / $monthdays) * $present_days);
@@ -174,7 +176,12 @@ class ProcessHalfSalaryController extends Controller
                         $grpay = round(($gross_salary + $oapay) - $basicabdeduct);
                     }
 
-                    $deduction = $bpayforlong+$wpabdeduct+$abdeduct+$hrdeduct;
+                    // $deduction = $bpayforlong+$wpabdeduct+$abdeduct+$hrdeduct;
+                    // $netpayable = ($grpay) - $deduction;
+                    // $totalnetpayable = ($grpay) - $deduction;
+
+                    $deduction = $bpayforlong;
+                    $totaldeduction = round($employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct);  
                     $netpayable = ($grpay) - $deduction;
                     $totalnetpayable = ($grpay) - $deduction;
 
@@ -197,9 +204,11 @@ class ProcessHalfSalaryController extends Controller
                     $salarydata->account_no = $employee->account_no;
                     $salarydata->mobile_banking = $employee->mobile_banking;
                     $salarydata->days = $total_days;
-                    $salarydata->late_days = $late_days;
                     $salarydata->absent_days = $absent_days;
                     $salarydata->leave_days = $leave_days;
+                    $salarydata->late_days = $late_days;
+                    $salarydata->weekend_days = $holiday_days;
+                    $salarydata->general_holiday_days = 0;
                     $salarydata->rwh = $rwh;
                     $salarydata->wrh = $gwh;
                     $salarydata->basic = $basic;
@@ -212,7 +221,7 @@ class ProcessHalfSalaryController extends Controller
                     $salarydata->basic_payable = round($bpay);
                     $salarydata->oa_payable = round($oapay);
                     $salarydata->gross_payable = round($grpay);
-                    $salarydata->total_deduction = round($deduction);
+                    $salarydata->total_deduction = round($totaldeduction);
                     $salarydata->net_payable = round($netpayable);
                     $salarydata->total_net_payable = round($totalnetpayable);
                     $salarydata->confirm = 'N';
@@ -222,7 +231,6 @@ class ProcessHalfSalaryController extends Controller
                     $insertedCount++;
                 }
             }
-
             $endTime = microtime(true);
             $timeTaken = round($endTime - $startTime, 2);
             return redirect()->back()->with('success', 'Salary processed successfully. Inserted ' . $insertedCount . ' records. Time taken: ' . $timeTaken . ' seconds.');
@@ -263,7 +271,6 @@ class ProcessHalfSalaryController extends Controller
                 DB::statement("ALTER TABLE payroll_tools_process_halfsalary AUTO_INCREMENT = {$newAutoIncrement}");
 
                 $executionTime = round(microtime(true) - $startTime, 3);
-
                 return redirect()->back()->with('success', "✅ Half Salary Process deleted successfully." . "Total deleted rows: {$deletedCount}" . "Time taken: {$executionTime} seconds");
             } else {
                 return redirect()->back()->with('error', 'No salary data found for this month/year.');

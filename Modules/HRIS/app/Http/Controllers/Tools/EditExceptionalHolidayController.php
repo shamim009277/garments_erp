@@ -2,10 +2,11 @@
 
 namespace Modules\HRIS\Http\Controllers\Tools;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Tools\ExceptionalHoliday;
 
 class EditExceptionalHolidayController extends Controller
@@ -35,12 +36,13 @@ class EditExceptionalHolidayController extends Controller
                 'data' => $holidays
             ]);
         }else if($request->form == 3){
-            $exists = ExceptionalHoliday::where('employee_id', $request->emp_id)
+            $exists = ExceptionalHoliday::where('employee_id', (int)$request->emp_id)
                 ->whereBetween('holiday_date', [$request->start_date, $request->end_date])
                 ->exists();
 
+            $employee = Employee::where('employee_id', (int)$request->emp_id)->select('employee_id','org_id')->first();
             if ($exists) {
-                ExceptionalHoliday::where('employee_id', $request->emp_id)
+                ExceptionalHoliday::where('employee_id', (int)$request->emp_id)
                     ->whereBetween('holiday_date', [$request->start_date, $request->end_date])
                     ->delete();
             }
@@ -55,6 +57,7 @@ class EditExceptionalHolidayController extends Controller
                     $rows[] = [
                         'year'           => (int) $year,
                         'employee_id'    => $request->emp_id,
+                        'org_id'         => $employee->org_id,
                         'holiday_date'   => $date->format('Y-m-d'),
                         'created_by'     => Auth::id(),
                         'updated_by'     => Auth::id(),

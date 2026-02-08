@@ -17,6 +17,12 @@ class ProcessBonusRequest extends FormRequest
             'bonus_type' => 'required|in:1,2',
             'base_date' => 'required|date',
             'title' => 'required|integer',
+            'slab1_months' => 'nullable|integer|min:0|max:12',
+            'slab1_percent' => 'nullable|numeric|min:0|max:100',
+            'slab2_months' => 'nullable|integer|min:0',
+            'slab2_percent' => 'nullable|numeric|min:0|max:100',
+            'slab3_months' => 'nullable|integer|min:0',
+            'slab3_percent' => 'nullable|numeric|min:0|max:100',
         ];
     }
 
