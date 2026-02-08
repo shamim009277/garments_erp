@@ -61,6 +61,10 @@ class AutoGenerationReportController extends Controller
                 ->leftJoin('hris_setup_designations as des', 'e.designation_id', '=', 'des.id')
                 ->leftJoin('hris_setup_thanas as t', 'b.mthana_id_bangla', '=', 't.id')
                 ->leftJoin('hris_setup_districts as dis', 'b.mdistrict_id_bangla', '=', 'dis.id')
+                ->leftJoin('hris_setup_organizations as org', 'e.org_id', '=', 'org.id')
+                ->when($request->filled('organization_id'), function ($q) use ($orgid) {
+                    $q->where('e.org_id', $orgid);
+                })
                 ->select(
                     'e.org_id',
                     'e.employee_id as emp_id',
@@ -75,6 +79,7 @@ class AutoGenerationReportController extends Controller
                     'des.designation_bn as designation_name',
                     's.gross_salary as basic_salary',
                     'e.joining_date',
+                    'org.bn_name as org_name',
                     )
                 ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                     $q->whereBetween('e.joining_date', [$start_date, $end_date]);
@@ -147,6 +152,10 @@ class AutoGenerationReportController extends Controller
                     ->leftJoin('hris_setup_districts as dis', 'b.mdistrict_id_bangla', '=', 'dis.id')
                     ->leftJoin('hris_setup_districts as dis_p', 'b.pdistrict_id_bangla', '=', 'dis_p.id')
                     ->leftJoin('hris_setup_districts as dis_n', 'b.ndistrict_id_bangla', '=', 'dis_n.id')
+                    ->leftJoin('hris_setup_organizations as org', 'e.org_id', '=', 'org.id')
+                    ->when($request->filled('organization_id'), function ($q) use ($orgid) {
+                        $q->where('e.org_id', $orgid);
+                    })
                     ->select(
                         'e.employee_id as emp_id',
                         'e.employee_id',
@@ -201,6 +210,11 @@ class AutoGenerationReportController extends Controller
                     ->orderBy('e.joining_date', 'desc')
                     ->limit(50)
                     ->get(); 
+                    if ($employees->isEmpty()) {
+                        return view('hris::report.autogenerationreport.notfound', [
+                            'message' => 'No employee found! may be date range , employee id or organization some information is incorrect.'
+                        ]);
+                    }
                     $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
                     $fontDirs = $defaultConfig['fontDir'];
                     $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();

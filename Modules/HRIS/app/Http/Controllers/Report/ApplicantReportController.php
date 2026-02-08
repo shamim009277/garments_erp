@@ -58,7 +58,7 @@ class ApplicantReportController extends Controller
         $parentDepartments = $request->parentDepartments;
         $designations = $request->designations;
         $gatepass_purposes = $request->gatepass_purposes;
-
+        $orgid = $request->organization_id;
         if($request->title == 1){
             $request->validate([
                 'department_id' => 'required|array',
@@ -193,8 +193,86 @@ class ApplicantReportController extends Controller
         }elseif($request->title == 5){
             $start_date = date('Y-m-d', strtotime($request->start_date));
             $end_date   = date('Y-m-d', strtotime($request->end_date));
+            $employees = Applicant::query()
+                ->leftJoin(
+                    'hris_database_employee_basic as eb',
+                    'eb.employee_id',
+                    '=',
+                    'hris_database_new_applicant.employee_id'
+                )
 
-            $employees = Applicant::with(['department', 'designation', 'district'])
+                ->leftJoin(
+                    'hris_setup_lines as sl',
+                    DB::raw('COALESCE(eb.line, hris_database_new_applicant.line)'),
+                    '=',
+                    'sl.id'
+                )
+
+                ->leftJoin(
+                    'hris_setup_organizations as org',
+                    'org.id',
+                    '=',
+                    'hris_database_new_applicant.org_id'
+                )
+
+                ->select(
+                    'hris_database_new_applicant.*',
+                    DB::raw('COALESCE(eb.line, hris_database_new_applicant.line) as final_line'),
+                    'sl.line as line_name',
+                    'sl.code as line_code',
+                    'org.bn_name as org_bn_name',
+                    'org.name as org_name',
+                    'org.short_name as org_short_name'
+                )
+
+                ->with([
+                    'department:id,department_bn',
+                    'designation:id,designation_bn',
+                    'district',
+                ])
+
+                ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
+                    $q->whereBetween('entry_date', [$start_date, $end_date]);
+                })
+
+                ->when($request->filled('department_id'), function ($q) use ($request) {
+                    $q->whereIn('department_id', $request->department_id);
+                })
+
+                ->where('final_status', 1)
+                ->where('hris_database_new_applicant.employee_id', '!=', 0)
+                ->whereNotNull('hris_database_new_applicant.employee_id')
+                ->orderBy('entry_date', 'asc')
+                ->get();
+
+
+            /* $employees = Applicant::query()
+                ->leftJoin('hris_database_employee_basic as eb', 'eb.employee_id', '=', 'hris_database_new_applicant.employee_id')
+                ->leftJoin('hris_setup_lines as line', 'line.id', '=', 'eb.line')
+                ->select(
+                    'hris_database_new_applicant.*',
+                    DB::raw('COALESCE(eb.line, hris_database_new_applicant.line) as final_line')
+                )
+                ->with([
+                    'department',
+                    'designation',
+                    'district',
+                    'employee:id,employee_id,line as ln'
+                ])
+                ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
+                    $q->whereBetween('entry_date', [$start_date, $end_date]);
+                })
+                ->when($request->filled('department_id'), function ($q) use ($request) {
+                    $q->whereIn('department_id', $request->department_id);
+                })
+                ->where('final_status', 1)
+                ->where('hris_database_new_applicant.employee_id', '!=', 0)
+                ->whereNotNull('hris_database_new_applicant.employee_id')
+                ->orderBy('entry_date', 'asc')
+                ->get(); */
+
+
+            /* $employees = Applicant::with(['department', 'designation', 'district', 'employee:id,employee_id,line as ln'])
                 ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                     $q->whereBetween('entry_date', [$start_date, $end_date]);
                 })
@@ -206,7 +284,7 @@ class ApplicantReportController extends Controller
                 ->whereNotNull('employee_id') 
                 ->orderBy('entry_date', 'asc')
                 ->orderBy('entry_date', 'asc')
-                ->get();
+                ->get(); */
 
            /*  $start_date = date('Y-m-d', strtotime($request->start_date));
             $end_date   = date('Y-m-d', strtotime($request->end_date));
