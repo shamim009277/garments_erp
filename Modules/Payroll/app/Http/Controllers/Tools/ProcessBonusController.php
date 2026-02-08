@@ -100,6 +100,7 @@ class ProcessBonusController extends Controller
                 $splites = collect($datas)->chunk(500);
                 $rows = [];
                 $base_date = !empty($request->base_date) && strtotime($request->base_date) ? Carbon::parse($request->base_date)->format('Y-m-d') : null;
+                $month = (int)Carbon::parse($base_date)->format('m');
 
                 foreach ($splites as $key => $value) {
                     foreach ($value as $key2 => $data) {
@@ -132,8 +133,10 @@ class ProcessBonusController extends Controller
                                 'bonus_type'     => $request->bonus_type,
                                 'base_date'      => $base_date,
                                 'year'           => $request->year,
+                                'month'          => $month,
+                                'percentage'     => $percent,
                                 'gross_salary'   => $data->gross_salary,
-                                'amount'         => $bonus_amount,
+                                'amount'         => round($bonus_amount),
                                 'confirm'        => 'N',
                                 'created_by'     => Auth::id(),
                                 'updated_by'     => Auth::id(),
