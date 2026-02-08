@@ -112,6 +112,14 @@
                                 <table class="table table-sm table-striped table-hover" style="width: 100%">
                                     <tr>
                                         <td width="40%">
+                                            <label class="m-0" for="increment_type_id">Increment Type</label>
+                                        </td>
+                                        <td width="60%" id="category_section">
+                                            <x-select-input name="increment_type_id" id="increment_type_id" class="select2" :options="$incrementTypes" :selected="old('increment_type_id', '1')" placeholder="Select" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">
                                             <label class="m-0" for="increment_date">Increment Date</label>
                                         </td>
                                         <td width="60%" id="category_section">

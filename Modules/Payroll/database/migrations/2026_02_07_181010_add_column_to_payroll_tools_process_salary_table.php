@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('hris_setup_organizations', function (Blueprint $table) {
-            //$table->string('address_bangla')->nullable()->after('address');
+        Schema::table('payroll_tools_process_salary', function (Blueprint $table) {
+            $table->decimal('arear_amount', 10, 2)->default(0.00)->after('ot_amount');
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('hris_setup_organizations', function (Blueprint $table) {
-            $table->dropColumn('address_bangla');
+        Schema::table('payroll_tools_process_salary', function (Blueprint $table) {
+            $table->dropColumn('arear_amount');
         });
     }
 };
-

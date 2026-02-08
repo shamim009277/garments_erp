@@ -189,4 +189,21 @@ class EditShiftingListController extends Controller
     {
         // implement if needed
     }
+
+    public function getEmployee(Request $request)
+    {
+        $employee = Employee::where('employee_id', (int) $request->employee_id)->select('employee_id', 'org_id', 'shifting_duty','refrerence_holiday')->first();
+        if (!$employee) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Employee not found',
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Employee found',
+            'data'    => $employee,
+        ]);
+    }
 }

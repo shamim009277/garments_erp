@@ -13,6 +13,7 @@ class ExceptionalHolidayRequest extends FormRequest
     {
         return [
             'year' => 'required|numeric|digits:4',
+            'organization_id' => 'required|integer',
         ];
     }
 

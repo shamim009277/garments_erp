@@ -59,18 +59,18 @@
                 </h4>
             </div>
         </div>
-        <div class="col-lg-6 col-md-8 ps-lg-1 ps-md-1" style="margin:0px auto;">
+        <div class="col-lg-6 col-md-8" style="margin:0px auto;">
             <form action="{{ route('hris.tools.shiftinglist.store') }}" id="applicantForm" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card alert-primary alert-top-border">
-                    <div class="card-header d-flex align-items-center justify-content-between p-2">
+                    <div class="card-header d-flex align-items-center justify-content-between px-4 py-3">
                         <h6 class="my-0 text-primary d-flex align-items-center"><i data-feather="list" width="16" height="16" class="me-2"></i> Department</h6>
 
                     </div>
                     <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
                         <!-- Sample departments -->
                         <div class="row">
-                            <div class="col-md-6 ps-lg-0">
+                            <div class="col-md-6">
                                 <div class="department-list">
                                     <!-- Parent 1 -->
                                     @foreach ($parentDepartments as $parentDepartment)
@@ -112,6 +112,12 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <div class="card-body" id="progress-container" style="display:none;">
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%;" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                        </div>
+                        <div class="text-center mt-1"><small id="progress-text">Initializing...</small></div>
                     </div>
                     <div class="card-footer" style="padding:10px 15px;">
                         <button type="button" class="btn btn-sm btn-outline-primary" id="check_all">Check All</button>
@@ -182,6 +188,80 @@
         $('#uncheck_all').on('click', function () {
             $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
         });
+
+        $('#applicantForm').on('submit', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            let formData = new FormData(this);
+            let submitBtn = $('#submitBtn');
+            
+            submitBtn.prop('disabled', true);
+            $('#progress-container').show();
+            $('#progress-bar').css('width', '0%').attr('aria-valuenow', 0).text('0%');
+            $('#progress-text').text('Starting...');
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        pollJobStatus(response.job_status_id);
+                    } else {
+                        toastr.error(response.message);
+                        submitBtn.prop('disabled', false);
+                        $('#progress-container').hide();
+                    }
+                },
+                error: function (xhr) {
+                    let errorMessage = 'An error occurred';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    toastr.error(errorMessage);
+                    submitBtn.prop('disabled', false);
+                    $('#progress-container').hide();
+                }
+            });
+        });
+
+        function pollJobStatus(jobId) {
+            let interval = setInterval(function () {
+                $.ajax({
+                    url: "{{ url('hris/tools/shiftinglist/status') }}/" + jobId,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.success) {
+                            let percentage = response.progress;
+                            $('#progress-bar').css('width', percentage + '%').attr('aria-valuenow', percentage).text(percentage + '%');
+                            $('#progress-text').text(response.message);
+
+                            if (response.status === 'completed') {
+                                clearInterval(interval);
+                                toastr.success('Shifting list generated successfully!');
+                                $('#submitBtn').prop('disabled', false);
+                                setTimeout(function() {
+                                    $('#progress-container').hide();
+                                    $('#progress-bar').css('width', '0%').text('0%');
+                                }, 3000);
+                            } else if (response.status === 'failed') {
+                                clearInterval(interval);
+                                toastr.error('Job failed: ' + response.message);
+                                $('#submitBtn').prop('disabled', false);
+                            }
+                        }
+                    },
+                    error: function () {
+                        clearInterval(interval);
+                        toastr.error('Error checking job status');
+                        $('#submitBtn').prop('disabled', false);
+                    }
+                });
+            }, 2000); // Poll every 2 seconds
+        }
     });
 </script>
 @endpush

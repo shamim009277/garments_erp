@@ -2,18 +2,19 @@
 
 namespace Modules\HRIS\Http\Controllers\Database;
 
-use Carbon\Carbon;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Modules\HRIS\Models\Setting;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\HRIS\Models\Setup\Department;
-use Modules\HRIS\Models\Database\Employee;
-use Modules\HRIS\Models\Setup\Organization;
-use Modules\HRIS\Models\Setup\EmployeeCategory;
-use Modules\HRIS\Models\Database\EmployeeIncrement;
+use Illuminate\Support\Facades\DB;
 use Modules\HRIS\Http\Requests\Database\BulkIncrementRequest;
+use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Database\EmployeeIncrement;
+use Modules\HRIS\Models\Setting;
+use Modules\HRIS\Models\Setup\Department;
+use Modules\HRIS\Models\Setup\EmployeeCategory;
+use Modules\HRIS\Models\Setup\Organization;
 
 class BulkIncrementController extends Controller
 {
@@ -35,8 +36,13 @@ class BulkIncrementController extends Controller
         $lastMonthStart = Carbon::now()->subMonth()->startOfMonth()->format('Y-m-d');
         $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d');
         $hroption = Setting::active()->first();
+        $incrementTypes = DB::table('hris_setup_increment_types')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->id => $item->id . ' || ' . $item->increment_type];
+            });
 
-        return view('hris::database.bulkincrement.index', compact('departments', 'organizations', 'employeeCategories', 'lastMonthStart', 'lastMonthEnd', 'hroption'));
+        return view('hris::database.bulkincrement.index', compact('departments', 'organizations', 'employeeCategories', 'lastMonthStart', 'lastMonthEnd', 'hroption', 'incrementTypes'));
     }
 
     /**
@@ -80,9 +86,9 @@ class BulkIncrementController extends Controller
 
                 $commonData = [
                     'increment_date'     => $request->increment_date,
+                    'increment_type_id'  => $request->increment_type_id,
                     'effective_date'     => $request->effective_date,
                     'arrear_upto_date'   => $request->arrear_upto_date,
-                    'increment_type_id'  => null,
                     'increment_source'   => $incrementSource,
                     'increment_value_type' => $incrementType,
                     'increment_value' => $amount,

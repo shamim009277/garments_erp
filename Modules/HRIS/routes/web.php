@@ -336,6 +336,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
 
         //Settings
         Route::prefix('settings')->name('settings.')->group(function () {
+            Route::post('/setting/schedule', [SettingController::class, 'schedule'])->name('setting.schedule');
             Route::resource('hr-settings', SettingController::class)->names('hr-settings');
             Route::post('/fetch-user', [ForwardApproveController::class, 'fetchUser'])->name('forward-approve.fetch-user');
             Route::post('/fetch-approved-data', [ForwardApproveController::class, 'fetchApprovedData'])->name('forward-approve.fetch-approved-data');
@@ -351,9 +352,13 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/departure/info', [DepartureController::class, 'employeeInfo'])->name('departure.info');
             Route::resource('departure', DepartureController::class)->names('departure');
             Route::resource('calender', CalenderController::class)->names('calender');
+            Route::get('/shiftinglist/status/{id}', [ShiftingListController::class, 'checkStatus'])->name('shiftinglist.status');
             Route::resource('shiftinglist', ShiftingListController::class)->names('shiftinglist');
             Route::resource('newshiftinglist', NewEmployeeShiftingListController::class)->names('newshiftinglist');
+
             Route::resource('edit-shiftinglist', EditShiftingListController::class)->names('edit-shiftinglist');
+            Route::post('/edit-shiftinglist/getEmployee', [EditShiftingListController::class, 'getEmployee'])->name('edit-shiftinglist.getEmployee');
+
             Route::resource('exceptional-holidays', ExceptionalHolidayController::class)->names('exceptional-holidays');
             Route::post('/editexceptional-holidays/delete', [EditExceptionalHolidayController::class, 'destroy'])->name('editexceptional-holidays.delete');
             Route::resource('editexceptional-holidays', EditExceptionalHolidayController::class)->names('editexceptional-holidays');

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('hris_setup_organizations', function (Blueprint $table) {
-            //$table->string('address_bangla')->nullable()->after('address');
+        Schema::table('job_statuses', function (Blueprint $table) {
+            $table->string('batch_id')->nullable()->after('job_id');
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('hris_setup_organizations', function (Blueprint $table) {
-            $table->dropColumn('address_bangla');
+        Schema::table('job_statuses', function (Blueprint $table) {
+            $table->dropColumn('batch_id');
         });
     }
 };
-
