@@ -10,6 +10,7 @@ use Modules\Payroll\Http\Controllers\Report\AttendenceReportController;
 use Modules\Payroll\Http\Controllers\Report\OvertimeReportController;
 use Modules\Payroll\Http\Controllers\Report\PunchReportController;
 use Modules\Payroll\Http\Controllers\Report\SalaryReportController;
+use Modules\Payroll\Http\Controllers\Report\BonusReportController;
 use Modules\Payroll\Http\Controllers\Report\TimeCardController;
 use Modules\Payroll\Http\Controllers\Tools\AdvanceProcessController;
 use Modules\Payroll\Http\Controllers\Tools\AttendenceAdjustmentController;
@@ -81,6 +82,10 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(fu
             Route::get('/salary-report/preview', [SalaryReportController::class, 'previewData'])->name('salary-report.form.preview');
             Route::post('/salary-report/preview', [SalaryReportController::class, 'preview'])->name('salary-report.report.preview');
             Route::resource('salary-report', SalaryReportController::class)->names('salary-report');
+
+            Route::get('/bonus-report/preview', [BonusReportController::class, 'previewData'])->name('bonus-report.form.preview');
+            Route::post('/bonus-report/preview', [BonusReportController::class, 'preview'])->name('bonus-report.report.preview');
+            Route::resource('bonus-report', BonusReportController::class)->names('bonus-report');
 
             Route::get('/time-card/preview', [TimeCardController::class, 'previewData'])->name('time-card.form.preview');
             Route::post('/time-card/preview', [TimeCardController::class, 'preview'])->name('time-card.report.preview');
