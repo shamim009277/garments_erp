@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Applicant Report</title>
-    <link rel="shortcut icon" href="{{ public_path('backend/assets/images/logo-sm.svg') }}">
+    <link rel="shortcut icon" href="<?php echo e(public_path('backend/assets/images/logo-sm.svg')); ?>">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />
     <style>
@@ -24,7 +24,7 @@
         }
       @font-face {
         font-family: 'NotoSansBengali';
-        src: url('{{ public_path('fonts/NotoSansBengali.ttf') }}') format('truetype');
+        src: url('<?php echo e(public_path('fonts/NotoSansBengali.ttf')); ?>') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
@@ -35,7 +35,7 @@
     }
   /*       @font-face {
         font-family: 'NotoSansBengali';
-        src: url('{{ public_path('fonts/NotoSansBengali.ttf') }}') format('truetype');
+        src: url('<?php echo e(public_path('fonts/NotoSansBengali.ttf')); ?>') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
@@ -164,76 +164,25 @@
 }
 
     </style>
-    {{-- <style>
-        @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
-        html,
-        body {
-            min-height: 100%;
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            font-weight: 400;
-            overflow-x: hidden;
-            overflow-y: hidden;            
-        }
-        @page {
-            margin-top: 30px;
-            margin-bottom: 30px;
-            margin-right: 35px;
-            margin-left: 35px;
-        }        
-        .footer {
-            width: 100%;
-            text-align: center;
-            position: fixed;
-            height: 40px;
-            bottom: 0px; 
-            left: 0px; 
-            right: 0px;
-        }            
-        table{ border-collapse: collapse;} 
-        tr.border_top td { border: thin solid black; }
-        tr.border_top2 td { border: thin dashed black; }
-        tr.border_top_only td { border-top: thin solid black; }
-        tr.border_top th { border: thin solid black; }
-        .page-break { page-break-after: always; }
-        /*.table{
-            border: thin solid;
-        }*/
-    </style> --}}
+    
 </head>
 <body>   
      <!-- Watermark -->
-    {{-- <div class="watermark">
-        {{ $general->full_name }} - {{ now()->format('Y') }}
-    </div> --}}
-   {{--  <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark"> --}}
+    
+   
     <!-- Header -->
-   {{--  <header>
-        <div style="display: flex; align-items: center;">
-            <!-- Logo -->
-            <div>
-                <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;">
-            </div>
-
-            <!-- Company Info -->
-            <div class="company-info">
-                <div style="font-weight: bold; font-size: 14px; font-family: italic; font-family: solaimanlipi;" >{{ $general->full_name }}</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic; font-family: solaimanlipi;">01, Hariken Road, Dawlotpur, National University, Gazipur</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic; font-family: solaimanlipi;">Email: info@company.com | Ph: +880123456789</div>
-            </div>
-        </div>
-        <hr style="border: 1px solid #ccc;">
-    </header> --}}
+   
 
     <!-- Footer -->
     <footer>
         <div style="display: flex; justify-content: space-between; font-size: 10px;">
             <div>
-                Printed by {{ auth()->user()->name ?? 'System' }}
+                Printed by <?php echo e(auth()->user()->name ?? 'System'); ?>
+
             </div>
             <div>
-                Page <span class="page"></span> | {{ now()->format('d-m-Y h:i A') }}
+                Page <span class="page"></span> | <?php echo e(now()->format('d-m-Y h:i A')); ?>
+
             </div>
         </div>
     </footer> 
@@ -241,24 +190,23 @@
          
         
            
-@if(count($employees) > 0)
-    @php
+<?php if(count($employees) > 0): ?>
+    <?php
         // প্রতি পৃষ্ঠায় 4টা applicant দেখাবে
         $chunks = $employees->chunk(4);
-    @endphp
+    ?>
 
-    @foreach($chunks as $page)
+    <?php $__currentLoopData = $chunks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <table style="width: 100%; margin-top: 20px;">
-            @foreach($page->chunk(2) as $row)
+            <?php $__currentLoopData = $page->chunk(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    @foreach($row as $employee)
+                    <?php $__currentLoopData = $row; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <td style="width: 50%; padding: 5px;" valign="top">
                             <table style=" width: 100%; border: 1px solid #000; line-height: 1.6em; font-size: 15px; height: 920px; min-height: 920px;">
                                  <tr>
                                     <td colspan="2" style="text-align: center;">
-                                        {{-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" width="40" height="40" alt="Logo">
-                                        <br> --}}
-                                        <span style="font-size: 20px;">{{-- {{ $general->full_name }} --}} {{ $employee->org_bn_name ?? "আয়েশা এন্ড গালিয়া ফ্যাশন্স লিমিটেড"  }} 
+                                        
+                                        <span style="font-size: 20px;"> <?php echo e($employee->org_bn_name ?? "আয়েশা এন্ড গালিয়া ফ্যাশন্স লিমিটেড"); ?> 
                                     </span>
                                     </td>
                                 </tr>
@@ -268,21 +216,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    {{-- <td style="width: 40%;">
-                                        <img src="{{ public_path('uploads/photos/default.png') }}" width="90" height="110" alt="Photo">
-                                    </td> --}}
+                                    
                                     <td colspan="2" style="width: 100%; vertical-align: top; font-size: 14px;">
-                                        {{-- <strong>আইডি কার্ড নং :-</strong> {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}<br>
-                                        <strong>নাম :-</strong> {{ $employee->name_bangla }}<br>
-                                        <strong>সেকশন/লাইন :-</strong> {{ $employee->department_name ?? '-' }}<br>
-                                        <strong>পদবী :-</strong> {{ $employee->designation_name ?? '-' }}<br>
-                                        <strong>বেতন:-</strong> {{ $employee->basic_salary ?? '-' }}<br>
-                                        <strong>যোগদানের তারিখ- :-</strong> {{ date('d-m-Y', strtotime($employee->joining_date)) }} --}}
-                                        <strong>নাম :-</strong> {{ $employee->name_bangla }}<br>
-                                        <strong>পদবী :-</strong> {{ $employee->designation->designation_bn ?? '-' }} &nbsp; &nbsp; &nbsp; &nbsp; <strong>সেকশন/লাইন :-</strong> {{ $employee->department->department_bn ?? '-' }} / {{ bnNumber($employee->line_name ?? '-') }}<br>
-                                        <strong>যোগদানের তারিখ- :-</strong> {{ bnNumber(date('d-m-Y', strtotime($employee->joining_date))) }} <br>
-                                        <strong>বেতন:-</strong> {{ bnNumber(rtrim(rtrim(number_format($employee->determined_salary, 2), '0'), '.')) }}/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> {{ bnNumber(str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT)) }}<br>
-                                        <!--<strong>বেতন:-</strong> {{ rtrim(number_format($employee->determined_salary ?? '-', 2), '0.') }}/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}<br>-->
+                                        
+                                        <strong>নাম :-</strong> <?php echo e($employee->name_bangla); ?><br>
+                                        <strong>পদবী :-</strong> <?php echo e($employee->designation->designation_bn ?? '-'); ?> &nbsp; &nbsp; &nbsp; &nbsp; <strong>সেকশন/লাইন :-</strong> <?php echo e($employee->department->department_bn ?? '-'); ?> / <?php echo e(bnNumber($employee->line_name ?? '-')); ?><br>
+                                        <strong>যোগদানের তারিখ- :-</strong> <?php echo e(bnNumber(date('d-m-Y', strtotime($employee->joining_date)))); ?> <br>
+                                        <strong>বেতন:-</strong> <?php echo e(bnNumber(rtrim(rtrim(number_format($employee->determined_salary, 2), '0'), '.'))); ?>/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> <?php echo e(bnNumber(str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT))); ?><br>
+                                        <!--<strong>বেতন:-</strong> <?php echo e(rtrim(number_format($employee->determined_salary ?? '-', 2), '0.')); ?>/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> <?php echo e(str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT)); ?><br>-->
                                     </td>
                                 </tr>
                                 <tr>
@@ -302,25 +243,25 @@
                                 </tr>
                             </table>
                         </td>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                    {{-- যদি কোনো রোতে ২টার কম হয় --}}
-                    @for($i = count($row); $i < 2; $i++)
+                    
+                    <?php for($i = count($row); $i < 2; $i++): ?>
                         <td style="width: 50%;"></td>
-                    @endfor
+                    <?php endfor; ?>
                 </tr>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </table>
 
-        {{-- প্রতিটা পেজ শেষে নতুন পৃষ্ঠা --}}
+        
         <div class="page-break"></div>
-    @endforeach
-@else
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php else: ?>
     <div style="text-align:center; font-size:14px; padding:30px;">
         No Applicants Found
     </div>
-@endif
+<?php endif; ?>
     
     </div>    
 </body>
-</html>
+</html><?php /**PATH E:\server2\htdocs\garments_erp\garments_erp\Modules/HRIS\resources/views/report/applicant/applicantpdf.blade.php ENDPATH**/ ?>
