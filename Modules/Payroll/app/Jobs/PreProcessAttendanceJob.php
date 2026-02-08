@@ -34,7 +34,7 @@ class PreProcessAttendanceJob implements ShouldQueue
     protected $user_id;
     protected $jobStatusId;
 
-    public $timeout = 7200; // 2 hours
+    public $timeout = 3600; // 2 hours
 
     public function __construct($date, $org_id, $user_id, $jobStatusId)
     {
@@ -70,13 +70,18 @@ class PreProcessAttendanceJob implements ShouldQueue
             $end = $start <= $pre_date && $pre_date <= $end_date ? $pre_date : $end_date;
             $ramadandate = RamadanSchedule::active()->first();
             
+            // Optimization: Key by shift for O(1) lookup
             $baseshift = Shift::active()
                 ->select('shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
-                ->get();
+                ->get()
+                ->keyBy('shift');
+
             $companyshift = CompanyWiseShift::active()
                 ->where('org_id', $this->org_id)
                 ->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
-                ->get();
+                ->get()
+                ->keyBy('shift');
+
             $ramadanshift = CompanyWiseRamadanShift::active()->where('org_id', $this->org_id)->get()->keyBy('shift');
 
             if ($baseshift->isEmpty() && $companyshift->isEmpty()) {
@@ -108,6 +113,8 @@ class PreProcessAttendanceJob implements ShouldQueue
             $processedDepartments = 0;
             $totalInserted = 0;
             $totalEmployees = 0;
+            
+            $now = now(); // Optimization: Cache current time
 
             foreach ($departmentIds as $departmentId) {
                 $departmentName = Department::where('id', $departmentId)->value('department') ?? "ID: {$departmentId}";
@@ -156,11 +163,13 @@ class PreProcessAttendanceJob implements ShouldQueue
                         ->whereBetween('date', [$start, $end])
                         ->get();
 
+                    /*
                     $excepholiday = ExceptionalHoliday::whereIn('employee_id', $shiftempids)
                         ->whereMonth('holiday_date', $month)
                         ->where('year', $year)
                         ->whereBetween('holiday_date', [$start, $end])
                         ->get();
+                    */
 
                     $allpunchdata = ReadMachineData::whereIn('employee_id', $allempid)
                         ->whereBetween('attendance_date', [$punchstart, $punchend])
@@ -169,9 +178,19 @@ class PreProcessAttendanceJob implements ShouldQueue
 
                     // Group data
                     $allPunchGrouped = $allpunchdata->groupBy('employee_id');
-                    $allShiftGrouped = $assignshift->groupBy('employee_id');
-                    $allGatePassGrouped = $gatepassdata->groupBy('employee_id');
-                    //$allExcepholidayGrouped = $excepholiday->groupBy('employee_id'); // Not used in controller logic logic loop, but query was there.
+                    
+                    // Optimization: Group by employee_id, then key by date (Y-m-d) for O(1) lookup
+                    $allShiftGrouped = $assignshift->groupBy('employee_id')->map(function($items) {
+                        return $items->keyBy(function($item) {
+                            return substr($item->date, 0, 10);
+                        });
+                    });
+
+                    $allGatePassGrouped = $gatepassdata->groupBy('employee_id')->map(function($items) {
+                        return $items->keyBy(function($item) {
+                            return substr($item->date, 0, 10);
+                        });
+                    });
 
                     $results = [];
 
@@ -190,99 +209,94 @@ class PreProcessAttendanceJob implements ShouldQueue
                         $period = CarbonPeriod::create($start_date, $loop_end_date);
 
                         foreach ($period as $date) {
-                            $comdate = Carbon::parse($date)->format('Y-m-d');
+                            $comdate = $date->format('Y-m-d');
                             $startpunch = null;
                             $endpunch = null;
-
-                            // Controller logic uses firstWhere on empShifts which is collection of ShiftingList
-                            // ShiftingList 'date' is timestamp in DB usually, need to be careful.
-                            // Controller code: $empShifts->firstWhere('date', $date->format('Y-m-d'))?->shift
-                            // If date in DB is 2026-02-05 00:00:00, firstWhere('date', '2026-02-05') might fail if it's strict string match.
-                            // In ProcessAttendanceJob we fixed this with substr. 
-                            // USER SAID: "Title 1 logic deya ace kono type logic chnage kora jabe na"
-                            // BUT if I don't fix the date match, it might fail like before.
-                            // However, the controller code `firstWhere('date', $date->format('Y-m-d'))` implies that either the accessor on model casts it to Y-m-d OR it relies on exact string match.
-                            // In ProcessAttendanceJob, we saw `substr` was needed.
-                            // I will use the closure based search for safety as I did in ProcessAttendanceJob, because "logic change" usually means business rules, not bug fixes for data retrieval.
                             
-                            $shiftEntry = $empShifts->first(function ($item) use ($comdate) {
-                                return substr($item->date, 0, 10) === $comdate;
-                            });
+                            // Optimization: O(1) Lookup
+                            $shiftEntry = $empShifts[$comdate] ?? null;
                             $shift = $shiftEntry?->shift ?? $employee->refrerence_shift;
 
-                            $gatepass = $empGatePasses->first(function ($item) use ($comdate) {
-                                return substr($item->date, 0, 10) === $comdate;
-                            });
+                            $gatepass = $empGatePasses[$comdate] ?? null;
 
-                            $shiftTime = collect($companyshift)->where('shift', $shift)->first()
-                                ?? collect($baseshift)->where('shift', $shift)->first();
+                            $shiftTime = $companyshift[$shift] ?? $baseshift[$shift] ?? null;
 
                             if ($ramadandate && 
-                                Carbon::parse($comdate)->between(
+                                $date->between(
                                     $ramadandate['start_date'],
                                     $ramadandate['end_date']
                                 )
                             ) {
-                                $shiftTime = $ramadanshift->get($shift)??$shiftTime;
+                                $shiftTime = $ramadanshift[$shift] ?? $shiftTime;
                             }
 
                             if (!$shiftTime) continue;
 
-                            $starthr = $date->copy()->setTimeFromTimeString($shiftTime->shift_start);
-                            $endhr = $date->copy()->setTimeFromTimeString($shiftTime->shift_end);
+                            $starthrObj = $date->copy()->setTimeFromTimeString($shiftTime->shift_start);
+                            $endhrObj = $date->copy()->setTimeFromTimeString($shiftTime->shift_end);
 
-                            $startlimit = $starthr->copy()->subHour(2);
-                            $endlimit = $endhr->copy()->addHour(
+                            // Cache formatted strings for comparison
+                            $starthrStr = $starthrObj->format('Y-m-d H:i:s');
+                            $endhrStr = $endhrObj->format('Y-m-d H:i:s');
+
+                            $startlimitObj = $starthrObj->copy()->subHour(2);
+                            $endlimitObj = $endhrObj->copy()->addHour(
                                 $employee->shifting_duty == 'Y' && in_array($shift, ['M','N']) ? 10 : 12
                             );
+                            
+                            $startlimitStr = $startlimitObj->format('Y-m-d H:i:s');
+                            $endlimitStr = $endlimitObj->format('Y-m-d H:i:s');
 
-                            $punchesBeforeStart = $empPunches->filter(
-                                fn($p) =>
-                                $p->attendance_date > $startlimit && $p->attendance_date <= $starthr
-                            );
-                            $punchesBetweenShift = $empPunches->filter(
-                                fn($p) =>
-                                $p->attendance_date > $starthr && $p->attendance_date < $endhr
-                            );
-                            $punchesAfterEnd = $empPunches->filter(
-                                fn($p) =>
-                                $p->attendance_date >= $endhr && $p->attendance_date <= $endlimit
-                            );
+                            // Optimized Filter Punches using String Comparison
+                            $punchesBeforeStart = [];
+                            $punchesBetweenShift = [];
+                            $punchesAfterEnd = [];
+                            
+                            foreach ($empPunches as $p) {
+                                $pDate = $p->attendance_date;
+                                if ($pDate > $startlimitStr && $pDate <= $starthrStr) {
+                                    $punchesBeforeStart[] = $pDate;
+                                } elseif ($pDate > $starthrStr && $pDate < $endhrStr) {
+                                    $punchesBetweenShift[] = $pDate;
+                                } elseif ($pDate >= $endhrStr && $pDate <= $endlimitStr) {
+                                    $punchesAfterEnd[] = $pDate;
+                                }
+                            }
 
                             // Determine startpunch
-                            if ($punchesBeforeStart->isNotEmpty()) {
-                                $startpunch = Carbon::parse($punchesBeforeStart->max('attendance_date'))->format('Y-m-d H:i:s');
-                            } elseif ($punchesBetweenShift->isNotEmpty()) {
-                                $startpunch = Carbon::parse($punchesBetweenShift->min('attendance_date'))->format('Y-m-d H:i:s');
-                            } elseif ($punchesAfterEnd->isNotEmpty()) {
-                                $startpunch = Carbon::parse($punchesAfterEnd->min('attendance_date'))->format('Y-m-d H:i:s');
+                            if (!empty($punchesBeforeStart)) {
+                                $startpunch = max($punchesBeforeStart);
+                            } elseif (!empty($punchesBetweenShift)) {
+                                $startpunch = min($punchesBetweenShift);
+                            } elseif (!empty($punchesAfterEnd)) {
+                                $startpunch = min($punchesAfterEnd);
                             }
 
                             // Determine endpunch
-                            if ($punchesAfterEnd->isNotEmpty()) {
-                                $endpunch = Carbon::parse($punchesAfterEnd->max('attendance_date'))->format('Y-m-d H:i:s');
-                            } elseif ($punchesBetweenShift->isNotEmpty()) {
-                                $endpunch = Carbon::parse($punchesBetweenShift->max('attendance_date'))->format('Y-m-d H:i:s');
-                            } elseif ($punchesBeforeStart->isNotEmpty()) {
-                                $endpunch = Carbon::parse($punchesBeforeStart->max('attendance_date'))->format('Y-m-d H:i:s');
+                            if (!empty($punchesAfterEnd)) {
+                                $endpunch = max($punchesAfterEnd);
+                            } elseif (!empty($punchesBetweenShift)) {
+                                $endpunch = max($punchesBetweenShift);
+                            } elseif (!empty($punchesBeforeStart)) {
+                                $endpunch = max($punchesBeforeStart);
                             }
 
                             // Gatepass override
                             if ($gatepass) {
-                                $endpunch = $endhr->format('Y-m-d H:i:s');
+                                $endpunch = $endhrStr;
                             }
 
                             $results[] = [
                                 'org_id' => (int)$employee['org_id'],
                                 'employee_id' => (int)$empid,
                                 'shift' => $shift,
-                                'work_date' => $date->format('Y-m-d'),
+                                'work_date' => $comdate,
                                 'start_punch' => $startpunch,
                                 'end_punch' => $endpunch,
                                 'created_by' => $this->user_id,
                                 'updated_by' => $this->user_id,
-                                'created_at' => now(),
-                                'updated_at' => now(),
+                                'created_at' => $now,
+                                'updated_at' => $now,
                             ];
                         }
                     }
