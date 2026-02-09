@@ -6,13 +6,13 @@
                 <div class="card-body p-4 p-sm-5">
                     <div class="text-center mb-4">
                         <a href="index.html" class="d-block auth-logo">
-                            <img src="{{ $general->logo_path ? Storage::url($general->logo_path) : asset('backend/assets/images/logo-sm.svg') }}" alt="Logo" height="40">
-                            <span class="logo-txt">{{ $general->short_name }}</span>
+                            <img src="{{ isset($general) && $general->logo_path ? Storage::url($general->logo_path) : asset('backend/assets/images/logo-sm.svg') }}" alt="Logo" height="40">
+                            <span class="logo-txt">{{ isset($general) ? $general->short_name : 'ERP' }}</span>
                         </a>
                     </div>
                     <div class="text-center">
                         <h5 class="mb-0">Welcome Back!</h5>
-                        <p class="text-muted mt-2">Sign in to continue to {{ $general->short_name }}.</p>
+                        <p class="text-muted mt-2">Sign in to continue to {{ isset($general) ? $general->short_name : 'ERP' }}.</p>
                     </div>
 
                     <form id="actionForm" class="mt-4 pt-2" method="POST" action="{{ route('login') }}">

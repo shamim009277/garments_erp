@@ -24,22 +24,42 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share('general', cache()->remember('general_settings', 3600, function () {
-            return GeneralSetting::first();
-        }));
+        // General Settings
+        $general = null;
+        try {
+            $general = cache()->remember('general_settings', 3600, function () {
+                return GeneralSetting::first();
+            });
+        } catch (\Throwable $e) {
+            // Log::error('GeneralSetting fetch failed: ' . $e->getMessage());
+        }
+        View::share('general', $general);
 
-        View::share('ornizations_data', cache()->remember('ornizations_data', 3600, function () {
-            return Organization::active()->select('id','name','bn_name','short_name','address_bangla','email','phone','icon_name','path')->get();
-        }));
+        // Organizations
+        $organizations = [];
+        try {
+            $organizations = cache()->remember('ornizations_data', 3600, function () {
+                return Organization::active()->select('id','name','bn_name','short_name','address_bangla','email','phone','icon_name','path')->get();
+            });
+        } catch (\Throwable $e) {
+            // Log::error('Organization fetch failed: ' . $e->getMessage());
+        }
+        View::share('ornizations_data', $organizations);
 
         // Holidays
-        View::share('holidays', cache()->remember('holidays', 3600, function () {
-            return Calender::where('holiday', 'Y')->where('year', Carbon::now()->year)->pluck('date')
-                    ->map(function($date) {
-                        return $date->format('Y-m-d');
-                    })
-                    ->toArray();
-            }));
+        $holidays = [];
+        try {
+            $holidays = cache()->remember('holidays', 3600, function () {
+                return Calender::where('holiday', 'Y')->where('year', Carbon::now()->year)->pluck('date')
+                        ->map(function($date) {
+                            return $date->format('Y-m-d');
+                        })
+                        ->toArray();
+            });
+        } catch (\Throwable $e) {
+            // Log::error('Holidays fetch failed: ' . $e->getMessage());
+        }
+        View::share('holidays', $holidays);
     }
 }
 
