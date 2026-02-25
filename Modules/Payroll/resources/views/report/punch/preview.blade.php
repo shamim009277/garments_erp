@@ -84,6 +84,7 @@
                     </div>
                 @elseif($title == 2)
                     <div class="card-body">
+                        @if($datas->count() > 0)
                         <div style="overflow-x: auto;">
                             <table style="width: 100%; text-align: center; font-weight: bold;">
                                 <tr>
@@ -129,6 +130,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        @else
+                            <p class="text-center">No data available</p>
+                        @endif
                     </div>
                 @elseif ($title == 4)
                     <div class="card-body">

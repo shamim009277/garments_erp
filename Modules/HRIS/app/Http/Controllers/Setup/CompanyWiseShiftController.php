@@ -19,10 +19,10 @@ class CompanyWiseShiftController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.company-shift.view')->only('index');
-        $this->middleware('permission:hris.company-shift.add')->only('store');
-        $this->middleware('permission:hris.company-shift.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.company-shift.delete')->only('destroy');
+        $this->middleware('permission:hris.company-wise-shifts.view')->only('index');
+        $this->middleware('permission:hris.company-wise-shifts.add')->only('store');
+        $this->middleware('permission:hris.company-wise-shifts.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.company-wise-shifts.delete')->only('destroy');
     }
 
     public function index()

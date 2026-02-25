@@ -17,6 +17,12 @@ use Modules\HRIS\Models\Setup\LeaveClassification;
 
 class IndividualIncrementController extends Controller
 {
+    
+    function __construct()
+    {
+        $this->middleware('permission:hris.individual-increment.view')->only('index');
+        $this->middleware('permission:hris.individual-increment.add')->only('store');
+    }
     /**
      * Display a listing of the resource.
      */
