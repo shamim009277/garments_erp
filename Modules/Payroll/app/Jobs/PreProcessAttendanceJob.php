@@ -34,7 +34,7 @@ class PreProcessAttendanceJob implements ShouldQueue
     protected $user_id;
     protected $jobStatusId;
 
-    public $timeout = 3600; // 2 hours
+    public $timeout = 7200; // 2 hours
 
     public function __construct($date, $org_id, $user_id, $jobStatusId)
     {
@@ -48,6 +48,7 @@ class PreProcessAttendanceJob implements ShouldQueue
     {
         try {
             ini_set('memory_limit', '2048M');
+            ini_set('max_execution_time', 7200);
             
             $startTime = microtime(true);
             $pre_date = Carbon::parse($this->date)->format('Y-m-d');
@@ -59,7 +60,7 @@ class PreProcessAttendanceJob implements ShouldQueue
             $this->updateStatus('processing', 0, 'Initializing Pre-Process Attendance...');
             Log::info("Job PreProcessAttendanceJob started for Date: {$pre_date}, Org: {$this->org_id}");
 
-            // Double check existence to be safe, though controller checks it too
+            //Double check existence to be safe, though controller checks it too
             $exists = PunchData::where('org_id', $this->org_id)->whereBetween('work_date', [$start_date, $end_date])->exists();
             if ($exists) {
                 $this->updateStatus('failed', 0, 'Pre process attendance already exists for this month.');
