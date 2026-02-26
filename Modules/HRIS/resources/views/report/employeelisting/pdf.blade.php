@@ -27,6 +27,9 @@
                     <th>Department</th>
                     <th>Designation</th>
                     <th>Category</th>
+                    @if($title == 4)
+                    <th>Blood Group</th>
+                    @endif
                     <th>Joining Date</th>
                     <th>District</th>
                 </tr>
@@ -41,6 +44,9 @@
                             <td>{{ $employee->department->department }}</td>
                             <td>{{ $employee->designation->designation }}</td>
                             <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
+                            @if($title == 4)
+                            <td>{{ $employee->employeePersonal->blood_group ?? 'N/A' }}</td>
+                            @endif
                             <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
                             <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
                         </tr>

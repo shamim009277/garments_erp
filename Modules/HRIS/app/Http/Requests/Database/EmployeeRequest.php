@@ -55,13 +55,15 @@ class EmployeeRequest extends FormRequest
 
         // Extra rule for POST (store)
         if ($this->isMethod('post')) {
-            $rules['employee_id'] = 'required|integer|regex:/^[0-9]{6,8}$/|unique:hris_database_employee_basic,employee_id';
+            $rules['employee_id'] = 'required|integer|unique:hris_database_employee_basic,employee_id';
+            // $rules['employee_id'] = 'required|integer|regex:/^[0-9]{6,8}$/|unique:hris_database_employee_basic,employee_id';
         }
 
         // Extra rule for PUT/PATCH (update)
         if ($this->isMethod('put') || $this->isMethod('patch')) {
             $id = $this->route('employee');
-            $rules['employee_id'] = 'required|integer|regex:/^[0-9]{6,8}$/|unique:hris_database_employee_basic,employee_id,' . $id;
+            $rules['employee_id'] = 'required|integer|unique:hris_database_employee_basic,employee_id,' . $id;
+            // $rules['employee_id'] = 'required|integer|regex:/^[0-9]{6,8}$/|unique:hris_database_employee_basic,employee_id,' . $id;
         }
 
         return $rules;

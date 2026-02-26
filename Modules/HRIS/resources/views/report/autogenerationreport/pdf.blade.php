@@ -307,7 +307,8 @@
                 <td></td>
             </tr>
             <tr>
-                <td>জন্ম তারিখ : {{ bnNumber(date('d-m-Y', strtotime($employee->birth_date ?? '---------'))) }}
+                <td>জন্ম তারিখ : 
+                    {{ $employee->birth_date ? bnNumber(date('d-m-Y', strtotime($employee->birth_date))) : '---------' }}
                 </td>
                 <td> কাজে যোগদানের তারিখ :
                     {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------' }}
@@ -650,7 +651,7 @@
                         $months = $diff->m;
                         $days = $diff->d;
                         
-                        $ageFull = bnNumber("{$days} দিন {$months} মাস {$years} বছর");
+                        $ageFull = bnNumber("{$years} বছর {$months} মাস {$days} দিন");
                         
                         ?>
                         <div class="font-bold" style="text-align: center">
@@ -787,11 +788,11 @@
                                     এন আইডি : {{ $employee->national_id }} <br>
                                     মোবাইল : {{ $employee->nmobile_number }}
                                 </td>
-                                <td align="center">Brother</td>
+                                <td align="center">{{ $employee->nominee_relation ?? 'N/A' }}</td>
                                 <td align="center">২০ বছর</td>
                                 <td>
                                     জমাপ্রাপ্ত <br>
-                                    বকেয়া মজুরী <br>
+                                    বকেয়া মজুরী <br>
                                     প্রভিডেন্ট ফান্ড <br>
                                     বীমা <br>
                                     দূর্ঘটনার ক্ষতিপূরন <br>
