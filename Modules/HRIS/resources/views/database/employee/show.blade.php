@@ -231,6 +231,42 @@
                 if(typeof feather !== 'undefined') {
                     feather.replace();
                 }
+
+                // Salary tab logic (tab2) – jQuery handlers
+                let salaryWrapper = $('#salaryTabWrapper');
+                if (salaryWrapper.length) {
+                    let setting = salaryWrapper.data('setting') || {};
+
+                    $('#gross_salary')
+                        .off('input.salary')
+                        .on('input.salary', function () {
+                            let gross = parseFloat($(this).val()) || 0;
+
+                            let medical = parseFloat(setting.medical_allowance || 0);
+                            let food = parseFloat(setting.food_allowance || 0);
+                            let conveyance = parseFloat(setting.conveyance || 0);
+                            let hr_percent = parseFloat(setting.house_rant_percent_basic || 0);
+
+                            let total_allowance = medical + food + conveyance;
+                            let basic = Math.round((gross - total_allowance) / ((hr_percent + 100) / 100));
+                            let house_rent = Math.round((basic / 100) * hr_percent);
+
+                            $('#basicSalary').val(isNaN(basic) ? 0 : basic);
+                            $('#home_allowance').val(isNaN(house_rent) ? 0 : house_rent);
+                        });
+
+                    $(document)
+                        .off('change.salary', '#salary_from_bank')
+                        .on('change.salary', '#salary_from_bank', function(e) {
+                            e.preventDefault();
+                            let salary_from_bank = $(this).val();
+                            if (salary_from_bank === 'Y') {
+                                $('#account_no').prop('required', true);
+                            } else {
+                                $('#account_no').prop('required', false);
+                            }
+                        });
+                }
             }
         });
     </script>

@@ -16,6 +16,7 @@ use Modules\HRIS\Http\Controllers\Database\EmployeeReferenceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeServiceController;
 use Modules\HRIS\Http\Controllers\Database\EmployeeTrainingController;
 use Modules\HRIS\Http\Controllers\Database\IncrementEnforceController;
+use Modules\HRIS\Http\Controllers\Database\IndividualIncrementController;
 use Modules\HRIS\Http\Controllers\Database\LeaveAllController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApplicationController;
 use Modules\HRIS\Http\Controllers\Database\LeaveApproveController;
@@ -71,6 +72,7 @@ use Modules\HRIS\Http\Controllers\Tools\ExceptionalHolidayController;
 use Modules\HRIS\Http\Controllers\Tools\MaternityEntryController;
 use Modules\HRIS\Http\Controllers\Tools\NewEmployeeShiftingListController;
 use Modules\HRIS\Http\Controllers\Tools\ShiftingListController;
+
 
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
@@ -288,6 +290,9 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/servicebenefit/confirm', [ServiceBenefitController::class, 'confirm'])->name('servicebenefit.confirm');
             Route::post('/servicebenefit/status/update', [ServiceBenefitController::class, 'statusUpdate'])->name('servicebenefit.status.update');
             Route::resource('servicebenefit', ServiceBenefitController::class)->names('servicebenefit');
+
+            Route::post('/individual-increment/info', [IndividualIncrementController::class, 'getLeaveInfo'])->name('individual-increment.info');
+            Route::resource('individual-increment', IndividualIncrementController::class)->names('individual-increment');
         });
 
         //Reports

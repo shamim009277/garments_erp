@@ -306,12 +306,15 @@
         handleTitleSelection();
     });
 
+
     function handleTitleSelection() {
         let selectedValue = $('input[name="title"]:checked').val();
         if (selectedValue == '1') {
             $('#date').prop('disabled', false);
             $('#month').prop('disabled', true);
             $('#year').prop('disabled', true);
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', false);
 
             $('#all_category').prop('disabled', false);
             $('#all_line').prop('disabled', false);
@@ -329,6 +332,8 @@
             $('#date').prop('disabled', true);
             $('#month').prop('disabled', false);
             $('#year').prop('disabled', false);
+            $('.departmentID').prop('disabled', true);
+            $('.designationID').prop('disabled', true);
 
             $('#all_category').prop('disabled', false);
             $('#all_line').prop('disabled', false);
@@ -336,6 +341,8 @@
             $('#date').prop('disabled', false);
             $('#month').prop('disabled', true);
             $('#year').prop('disabled', true);
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', false);
 
             $('#all_category').prop('disabled', false);
             $('#all_line').prop('disabled', false);

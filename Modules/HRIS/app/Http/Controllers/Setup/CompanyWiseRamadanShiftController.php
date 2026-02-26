@@ -19,13 +19,13 @@ class CompanyWiseRamadanShiftController extends Controller
      * Display a listing of the resource.
      */
 
-    // function __construct()
-    // {
-    //     $this->middleware('permission:hris.companywise-ramadan-shift.view')->only('index');
-    //     $this->middleware('permission:hris.companywise-ramadan-shift.add')->only('store');
-    //     $this->middleware('permission:hris.companywise-ramadan-shift.edit')->only(['edit', 'update','toggleStatus']);
-    //     $this->middleware('permission:hris.companywise-ramadan-shift.delete')->only('destroy');
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:hris.ramadan-shift.view')->only('index');
+        $this->middleware('permission:hris.ramadan-shift.add')->only('store');
+        $this->middleware('permission:hris.ramadan-shift.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.ramadan-shift.delete')->only('destroy');
+    }
 
     public function index()
     {

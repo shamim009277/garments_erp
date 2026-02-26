@@ -169,44 +169,59 @@ class ForwardApproveController extends Controller
 
     public function fetchUser(Request $request)
     {
-        if ($request->type == 2) {
-            $employeeIds = DB::table('hris_settings_employee_gatepass_approve')
+        // if ($request->type == 2) {
+        //     $employeeIds = DB::table('hris_settings_employee_gatepass_approve')
+        //         ->where('org_id', $request->org_id)
+        //         ->where('user_id', $request->user_id)
+        //         ->pluck('employee_id')
+        //         ->toArray();
+        // } else if ($request->type == 1) {
+        //     $employeeIds = DB::table('hris_settings_employee_leave_forwardapprove')
+        //         ->where('org_id', $request->org_id)
+        //         ->where('category_id', $request->category_id)
+        //         ->where('user_id', $request->user_id)
+        //         ->pluck('employee_id')
+        //         ->toArray();
+        // }
+
+        $user = User::find($request->user_id);
+        
+        if($user->access_id != 0 && $user->access_id != $request->org_id){
+            return response()->json([
+                'status' => false,
+                'message' => 'You are not permitted to approve or forward this organization'
+            ], 403);
+        }else{
+            $employees = Employee::with([
+                    'department' => function ($q) use ($request) {
+                        $q->select('id', 'department')
+                          ->when($request->department_id, fn($q) => $q->where('id', $request->department_id));
+                    },
+                    'designation' => function ($q) use ($request) {
+                        $q->select('id', 'designation', 'category_code')
+                          ->when($request->employee_category_id, fn($q) => $q->where('category_code', $request->employee_category_id));
+                    },
+                    'organization' => function ($q) {
+                        $q->select('id', 'short_name');
+                    },
+                ])
+                ->select('id', 'employee_id', 'name', 'org_id', 'department_id', 'designation_id')
+                ->where('reason', 'N')
                 ->where('org_id', $request->org_id)
-                ->where('user_id', $request->user_id)
-                ->pluck('employee_id')
-                ->toArray();
-        } else if ($request->type == 1) {
-            $employeeIds = DB::table('hris_settings_employee_leave_forwardapprove')
-                ->where('org_id', $request->org_id)
-                ->where('category_id', $request->category_id)
-                ->where('user_id', $request->user_id)
-                ->pluck('employee_id')
-                ->toArray();
+                ->where('employee_id', '!=', Auth::user()->employee_id)
+                ->when($request->department_id,
+                    fn($q) => $q->where('department_id', $request->department_id)
+                )
+                // category filter FIX
+                ->when($request->employee_category_id, function ($q) use ($request) {
+                    $q->whereHas('designation', function ($q2) use ($request) {
+                        $q2->where('category_code', $request->employee_category_id);
+                    });
+                })
+                ->get();
+                
+                return response()->json($employees);
         }
-
-        $employees = Employee::with([
-            'department' => function ($q) use ($request) {
-                $q->select('id', 'department')
-                    ->when($request->department_id, fn($q) => $q->where('id', $request->department_id));
-            },
-            'designation' => function ($q) use ($request) {
-                $q->select('id', 'designation', 'category_code')
-                    ->when($request->employee_category_id, fn($q) => $q->where('category_code', $request->employee_category_id));
-            },
-            'organization' => function ($q) {
-                $q->select('id', 'short_name');
-            },
-        ])
-            ->select('id', 'employee_id', 'name', 'org_id', 'department_id', 'designation_id')
-            ->whereNotIn('employee_id', $employeeIds)
-            ->where('org_id', $request->org_id)
-            ->where('reason', 'N')
-            ->where('employee_id', '!=', Auth::user()->employee_id)
-            ->when($request->department_id, fn($q) => $q->where('department_id', $request->department_id))
-            ->when($request->employee_category_id, fn($q) => $q->where('category_code', $request->employee_category_id))
-            ->get();
-
-        return response()->json($employees);
     }
 
     public function fetchApprovedData(Request $request)
