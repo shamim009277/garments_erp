@@ -258,7 +258,7 @@
                                     <td colspan="2" style="text-align: center;">
                                         {{-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" width="40" height="40" alt="Logo">
                                         <br> --}}
-                                        <span style="font-size: 20px;">{{-- {{ $general->full_name }} --}} {{ $general->bn_name?? "আয়েশা এন্ড গালিয়া ফ্যাশন্স লিমিটেড"  }} 
+                                        <span style="font-size: 20px;">{{-- {{ $general->full_name }} --}} {{ $employee->org_bn_name ?? "আয়েশা এন্ড গালিয়া ফ্যাশন্স লিমিটেড"  }} 
                                     </span>
                                     </td>
                                 </tr>
@@ -279,7 +279,7 @@
                                         <strong>বেতন:-</strong> {{ $employee->basic_salary ?? '-' }}<br>
                                         <strong>যোগদানের তারিখ- :-</strong> {{ date('d-m-Y', strtotime($employee->joining_date)) }} --}}
                                         <strong>নাম :-</strong> {{ $employee->name_bangla }}<br>
-                                        <strong>পদবী :-</strong> {{ $employee->designation->designation_bn ?? '-' }} &nbsp; &nbsp; &nbsp; &nbsp; <strong>সেকশন/লাইন :-</strong> {{ $employee->department->department_bn ?? '-' }}<br>
+                                        <strong>পদবী :-</strong> {{ $employee->designation->designation_bn ?? '-' }} &nbsp; &nbsp; &nbsp; &nbsp; <strong>সেকশন/লাইন :-</strong> {{ $employee->department->department_bn ?? '-' }} / {{ bnNumber($employee->line_name ?? '-') }}<br>
                                         <strong>যোগদানের তারিখ- :-</strong> {{ bnNumber(date('d-m-Y', strtotime($employee->joining_date))) }} <br>
                                         <strong>বেতন:-</strong> {{ bnNumber(rtrim(rtrim(number_format($employee->determined_salary, 2), '0'), '.')) }}/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> {{ bnNumber(str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT)) }}<br>
                                         <!--<strong>বেতন:-</strong> {{ rtrim(number_format($employee->determined_salary ?? '-', 2), '0.') }}/- &nbsp; &nbsp; &nbsp; &nbsp; <strong> কার্ড নং :-</strong> {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}<br>-->

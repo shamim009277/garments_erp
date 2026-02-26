@@ -11,6 +11,7 @@ use Modules\HRIS\Models\Setup\Organization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Setup\Line;
 // use Modules\HRIS\Database\Factories\Database\ApplicantFactory;
 
 class Applicant extends Model
@@ -132,5 +133,19 @@ class Applicant extends Model
     public function district() : BelongsTo
     {
         return $this->belongsTo(District::class,'district_id','id');
+    }
+    public function employee() : BelongsTo
+    {
+        return $this->belongsTo(Employee::class,'employee_id','employee_id');
+    }
+    public function setupLine()
+    {
+        return $this->belongsTo(Line::class, 'line', 'id');
+    }
+
+    public function employeeBasicLine()
+    {
+        return $this->hasOne(Line::class, 'id', 'line')
+            ->whereHas('employeeBasic');
     }
 }

@@ -48,7 +48,7 @@ class EmployeeListingReportController extends Controller
             'title' => 'required',
             'employee_id' => 'nullable|numeric|min:6',
             'view_mode' => 'required|string|min:1|max:1',
-            'organization_id' => 'required|integer|min:1|max:1',
+            'organization_id' => 'required|integer|min:1|max:9',
         ]);
         $orgid = $request->organization_id;
         if($request->title == 1){
@@ -62,6 +62,7 @@ class EmployeeListingReportController extends Controller
                 $line=$request->line;
             }
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+                    ->whereHas('designation')
                     ->whereIn('department_id', $request->department_id)
                     ->when($line==true, fn($q) =>
                          $q->where('line', $line))
@@ -144,6 +145,7 @@ class EmployeeListingReportController extends Controller
                 'end_date' => 'required|date',
             ]);
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+                    ->whereHas('designation')
                     ->whereIn('department_id', $request->department_id)
                     ->whereBetween('joining_date', [$request->start_date, $request->end_date])
                     ->when($request->filled('employee_id'), fn($q) =>
@@ -183,6 +185,7 @@ class EmployeeListingReportController extends Controller
             ]);
             if($request->all_blood_group == true || $request->blood_group == null){
                 $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'employeePersonal:employee_id,blood_group'])
+                           ->whereHas('designation')
                             ->whereIn('department_id', $request->department_id)
 
                             ->when($request->filled('employee_id'), fn($q) =>
@@ -202,6 +205,7 @@ class EmployeeListingReportController extends Controller
                             ->get();
             }elseif($request->all_blood_group == true || $request->blood_group != null){
                 $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'employeePersonal:employee_id,blood_group'])
+                           ->whereHas('designation')
                             ->whereIn('department_id', $request->department_id)
                             ->whereHas('employeePersonal', function ($q) use ($request) {
                                 $q->whereIn('blood_group', $request->blood_group);

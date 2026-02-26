@@ -162,7 +162,7 @@
                                     <div class="card-body" style="min-height: 400px;max-height: 400px; overflow-y: auto;">
                                         <input type="hidden" id="applicant_id" name="applicant_id">
                                         <x-input-group label="Applicant Name" id="applicant_name" name="applicant_name" type="text" placeholder="Applicant Name" readonly/>
-                                        <x-input-group label="Employee ID" id="employee_id" name="employee_id" type="text" placeholder="Employee ID" pattern="^[0-9]{6}$" title="Employee ID must be exactly 6 digits" required/>
+                                        <x-input-group label="Employee ID" id="employee_id" name="employee_id" type="text" placeholder="Employee ID" pattern="^[0-9]{6,8}$" title="Employee ID must be exactly 6 to 8 digits" required/>
 
                                         <x-select-input-group name="org_id" id="org_id" label="Organization" class="select2" :options="$organizations" :selected="selected_org($organizations)" required readonly />
                                         <x-select-input-group name="final_designation_id" id="final_designation_id" label="Final Designation" class="select2" :options="$designations" :selected="old('final_designation_id')" required />
