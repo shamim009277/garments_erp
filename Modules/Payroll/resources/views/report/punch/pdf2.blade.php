@@ -63,51 +63,55 @@
         @endforeach
     @elseif($title == 2)
         <div class="card-body">
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; text-align: center; font-weight: bold;">
-                    <tr>
-                        <td colspan="10" style="font-size: 11px; text-align: center;">
-                            Employee Name: {{ $employee->name }} <br>
-                            Employee ID: {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }} <br>
-                            Designation: {{ $employee->designation }} <br>
-                            Department: {{ $employee->short_name }} <br>
-                            Line: {{ $employee->line }} <br>
-                        </td>
-                    </tr>
-                </table>
-                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                    <thead>
+            @if($datas->count() > 0)
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; text-align: center; font-weight: bold;">
                         <tr>
-                            <th class="text-center" width="4%">SL</th>
-                            <th class="text-center" width="6%">Org</th>
-                            <th width="10%">Employee ID</th>
-                            <th width="15%">Employee Name</th>
-                            <th width="12%">Department</th>
-                            <th width="12%">Designation</th>
-                            <th class="text-center" width="6%">Category</th>
-                            <th class="text-center" width="10%">Date</th>
-                            <th width="10%">Start Punch</th>
-                            <th width="10%">End Punch</th>
+                            <td colspan="10" style="font-size: 11px; text-align: center;">
+                                Employee Name: {{ $employee->name }} <br>
+                                Employee ID: {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }} <br>
+                                Designation: {{ $employee->designation }} <br>
+                                Department: {{ $employee->short_name }} <br>
+                                Line: {{ $employee->line }} <br>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($datas as $key => $data)
+                    </table>
+                    <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                        <thead>
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ $data->short_name }}</td>
-                                <td>{{ str_pad($data->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                                <td>{{ $data->name }}</td>
-                                <td>{{ $data->department }}</td>
-                                <td>{{ $data->designation }}</td>
-                                <td>{{ $data->category_code }}</td>
-                                <td class="text-center">{{ date('d-m-Y', strtotime($data->work_date)) }}</td>
-                                <td>{{ \Carbon\Carbon::parse($data->start_punch)->format('h:i A') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($data->end_punch)->format('h:i A') }}</td>
+                                <th class="text-center" width="4%">SL</th>
+                                <th class="text-center" width="6%">Org</th>
+                                <th width="10%">Employee ID</th>
+                                <th width="15%">Employee Name</th>
+                                <th width="12%">Department</th>
+                                <th width="12%">Designation</th>
+                                <th class="text-center" width="6%">Category</th>
+                                <th class="text-center" width="10%">Date</th>
+                                <th width="10%">Start Punch</th>
+                                <th width="10%">End Punch</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach ($datas as $key => $data)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $data->short_name }}</td>
+                                    <td>{{ str_pad($data->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->department }}</td>
+                                    <td>{{ $data->designation }}</td>
+                                    <td>{{ $data->category_code }}</td>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($data->work_date)) }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($data->start_punch)->format('h:i A') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($data->end_punch)->format('h:i A') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <p class="text-center" style="font-size: 12px; color: #e70909; text-align: center; margin-top: 40px; font-style: italic;">No Data Found For This Input Date Range</p>
+            @endif
         </div>
     @elseif($title == 4)
        @foreach($uniqueDepartments as $department)

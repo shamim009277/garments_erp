@@ -153,6 +153,7 @@
         $logo = public_path('backend/assets/images/logo-sm.svg');
     }
 @endphp
+
 <body>
     <!-- Watermark -->
     <div class="watermark">
@@ -173,7 +174,7 @@
 
     <!-- PDF Body -->
     @if(!empty($reportTitle))
-        <h3 style="text-align:center; font-size:12px; margin-top:-20px; padding:0px; margin-bottom:0px;">
+        <h3 style="text-align:center; font-size:12px; margin-top:-15px; padding:0px; margin-bottom:0px;">
             {{ $reportTitle }}
         </h3>
     @endif
