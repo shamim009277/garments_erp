@@ -167,7 +167,7 @@
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>
                                         <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                        <td>{{ $employee->employeePersonal->blood_group }}</td>
+                                        <td>{{ $employee->employeePersonal->blood_group ?? 'N/A' }}</td>
                                         <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
                                     </tr>
                                 @endforeach

@@ -176,6 +176,7 @@ class AutoGenerationReportController extends Controller
                         'b.nmobile_number',
                         'b.nvillage_bangla',
                         'b.npost_office_bangla',
+                        'b.nominee_relation',
                         'p.mobile',
                         'p.national_id',
                         'p.birth_certificate',
