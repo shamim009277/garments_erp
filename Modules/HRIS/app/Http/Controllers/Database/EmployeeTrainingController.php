@@ -5,11 +5,18 @@ namespace Modules\HRIS\Http\Controllers\Database;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Database\EmployeeTraining;
 use Modules\HRIS\Http\Requests\Database\EmployeeTrainingRequest;
 
 class EmployeeTrainingController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:hris.employee.trainingadd')->only('store');
+        $this->middleware('permission:hris.employee.trainingedit')->only(['update']);
+        $this->middleware('permission:hris.employee.trainingdelete')->only(['destroy']);
+    }
     /**
      * Store a newly created resource in storage.
      */

@@ -18,7 +18,7 @@ class StoreTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $storeTypeId = $this->route('storetypes');
+        $storeTypeId = $this->route('storetype');
 
         return [
             'name' => ['required', 'string', 'max:30', Rule::unique('inventory_setup_storetype', 'name')->ignore($storeTypeId)],

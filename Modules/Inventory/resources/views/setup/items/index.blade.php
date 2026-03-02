@@ -63,100 +63,104 @@
 
                             <tr>
                                 <th width="5%">#</th>
-                                <th width="50%">Item Name</th>
-                                <th width="15%">Item Code</th>
-                                <th width="10%">Item Description</th>
-                                <th width="10%">Item Barcode</th>
-                                <th width="10%">Item Image</th>
+                                <th width="25%">Item Name</th>
+                                <th width="7%">Item Image</th>
+                                <th width="7%">Category</th>
+                                <th width="7%">Subcategory</th>
+                                <th width="7%">Unit</th>
                                 {{-- //varient --}}
-                                <th width="10%">Model</th>
-                                <th width="10%">Type</th>
-                                <th width="10%">Remarks</th>
+                                <th width="7%">Model</th>
+                                <th width="7%">Type</th>
+                                <th width="7%">Remarks</th>
                                 {{-- //present stock --}}
-                                <th width="10%">Present Stock</th>
-                                <th width="10%">Minimum Stock</th>
-                                <th width="10%">Maximum Stock</th>
-                                <th width="10%">Reorder Level</th>
-                                <th width="10%">Reorder Quantity</th>
-                                {{-- //foreign key --}}
-                                <th width="10%">Goods Category</th>
-                                <th width="10%">Goods Subcategory</th>
-                                <th width="10%">Unit</th>
+                                <th width="5%">Stock</th>
                                 {{-- //item status --}}
-                                <th width="10%">Item Status</th>
-                                <th width="10%">Action</th>
+                                <th width="7%">Status</th>
+                                <th width="7%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($items as $key => $item)
                                 <tr>
-                                    <td width="5%">{{ $key + 1 }}</td>
-                                    <td width="50%">{{ $item->item_name }}</td>
-                                    <td width="15%">
-                                        @if ($item->item_code)
-                                            {{ $item->item_code }}
-                                        @endif
-                                    </td>
-                                    <td width="10%">{{ $item->item_description }}</td>
-                                    <td width="10%">{{ $item->item_barcode }}</td>
-                                    <td width="10%">{{ $item->item_image }}</td>
-                                    {{-- //varient --}}
-                                    <td width="10%">{{ $item->model }}</td>
-                                    <td width="10%">{{ $item->type }}</td>
-                                    <td width="10%">{{ $item->remarks }}</td>
-                                    {{-- //present stock --}}
-                                    <td width="10%">{{ $item->present_stock }}</td>
-                                    <td width="10%">{{ $item->minimum_stock }}</td>
-                                    <td width="10%">{{ $item->maximum_stock }}</td>
-                                    <td width="10%">{{ $item->reorder_level }}</td>
-                                    <td width="10%">{{ $item->reorder_quantity }}</td>
-                                    <td width="10%">{{ $item->goods_category->category_name }}</td>
-                                    <td width="10%">{{ $item->goods_subcategory->subcategory_name }}</td>
-                                    <td width="10%">{{ $item->unit->unit_name }}</td>
-                                    {{-- //item status --}}
-                                    <td class="text-center">
-                                        <p class="text-{{ $item->is_active ? 'success' : 'danger' }}">
-                                            {{ $item->is_active ? 'Active' : 'Inactive' }}</p>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->item_name }}</td>
+                                    <td>{{ $item->item_image }}</td>
+                                    <td>{{ $item->goodsCategory->name }}</td>
+                                    <td>{{ $item->goodsSubcategory->name }}</td>
+                                    <td>{{ $item->unit->name }}</td>
+                                    <td>{{ $item->model }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->remarks }}</td>
+                                    <td>{{ $item->present_stock }}</td>
+                                    <td>
+                                        <div class="square-switch">
+                                            <input type="checkbox" id="square-switch3{{ $item->id }}"
+                                                class="item-toggle" data-id="{{ $item->id }}" switch="bool"
+                                                {{ $item->is_active ? 'checked' : '' }} />
+                                            <label for="square-switch3{{ $item->id }}" data-on-label="Yes"
+                                                data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
+                                        </div>
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-soft-success waves-effect waves-light"
                                             style="padding: 4px 6px;" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $item->id }}"><i class="fas fa-edit"></i></a>
-                                        <form action="{{ route('inventory.setup.items.destroy', $item->id) }}"
-                                            method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- add confirm dialog --}}
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this store line?')">Delete</button>
-                                        </form>
+                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-item"
+                                            data-id="{{ $item->id }}" style="padding: 4px 6px;"><i
+                                                class="fas fa-trash"></i></a>
                                     </td>
-                                </tr>
-                                {{-- load edit modal --}}
-                                <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
-                                    aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Item
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="moduleForm"
+                                    {{-- load edit modal --}}
+                                    <div id="editModal{{ $item->id }}" class="modal fade" tabindex="-1"
+                                        aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title" id="myModalLabel">Edit Item</h6>
+                                                    <button type="button" class="btn-close btn btn-sm"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+
+                                                <form id="editForm{{ $item->id }}"
                                                     action="{{ route('inventory.setup.items.update', $item->id) }}"
                                                     method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    
-                                                    <x-primary-button
-                                                        class="float-start btn-sm submitBtn">Save</x-primary-button>
+                                                    <div class="modal-body">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                                        <x-input-group name="item_name" label="Item Name" type="text"
+                                                            placeholder="Enter item name" :value="$item->item_name" required />
+                                                        <x-select-input-group name="goods_category_id" id="goods_category_id"
+                                                            label="Goods Category" :options="$goodsCategories->pluck('name', 'id')" :selected="$item->goods_category_id"
+                                                            required />
+
+                                                        <x-select-input-group name="goods_subcategory_id" id="goods_subcategory_id"
+                                                            label="Goods Subcategory" :options="[]" :selected="$item->goods_subcategory_id"
+                                                            required />
+
+
+                                                        <x-select-input-group name="unit_id" label="Unit"
+                                                            :options="$units->pluck('name', 'id')" :selected="$item->unit_id" required />
+                                                        <x-input-group name="model" label="Model" type="text"
+                                                            placeholder="Enter model" :value="$item->model" required />
+                                                        <x-input-group name="type" label="Type" type="text"
+                                                            placeholder="Enter type" :value="$item->type" required />
+                                                        <x-input-group name="remarks" label="Remarks" type="text"
+                                                            placeholder="Enter remarks" :value="$item->remarks" required />
+                                                        <x-select-input-group name="is_active" label="Is Active"
+                                                            :options="['1' => 'Active', '0' => 'Inactive']" :selected="$item->is_active" required />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary waves-effect btn-sm"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <x-primary-button id="submitBtn"
+                                                            class="float-start btn-sm submitBtn">Save
+                                                            changes</x-primary-button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -173,14 +177,18 @@
                 <div class="card-body">
                     <form id="moduleForm" action="{{ route('inventory.setup.items.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="item_name" label="Item Name" placeholder="Enter item name" :value="old('item_name')"
+                        <x-input-group name="item_name" label="Item Name" placeholder="Enter item name"
+                            :value="old('item_name')" required />
+                        <x-select-input-group name="goods_category_id" id="goods_category_id" label="Goods Category"
+                            :options="$goodsCategories->pluck('name', 'id')" :selected="old('goods_category_id')" required />
+                        <!-- load subcategory based on category On change event Load Subcategory -->
+                        <x-select-input-group name="goods_subcategory_id" id="goods_subcategory_id"
+                            label="Goods Subcategory" :options="[]" :selected="old('goods_subcategory_id')" required />
+                        <x-select-input-group name="unit_id" label="Unit" :options="$units->pluck('name', 'id')" :selected="old('unit_id')"
                             required />
-                        <x-select-input-group name="goods_category_id" label="Goods Category" :options="$goodsCategories->pluck('name', 'id')" :selected="old('goods_category_id')"
-                            required />
-                        <x-select-input-group name="goods_subcategory_id" label="Goods Subcategory" :options="$goodsSubcategories->pluck('name', 'id')" :selected="old('goods_subcategory_id')"
-                            required />
-                        <x-select-input-group name="unit_id" label="Unit" :options="$units->pluck('unit_name', 'id')" :selected="old('unit_id')"
-                            required />
+                        <x-input-group name="model" label="Model" placeholder="Enter model" :value="old('model')" />
+                        <x-input-group name="type" label="Type" placeholder="Enter type" :value="old('type')" />
+                        <x-input-group name="remarks" label="Remarks" placeholder="Enter remarks" :value="old('remarks')" />
                         <x-select-input-group name="is_active" label="Is Active?" :options="['1' => 'Active', '0' => 'Inactive']" :selected="old('is_active', '1')"
                             required />
                         <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
@@ -194,11 +202,11 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.division-toggle').on('change', function() {
+            $('.item-toggle').on('change', function() {
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('hris.setup.divisions.toggle') }}',
+                    url: '{{ route('inventory.setup.items.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -218,11 +226,11 @@
                 });
             });
 
-            $('.district-toggle').on('change', function() {
+            $('.item-toggle').on('change', function() {
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('hris.setup.districts.toggle') }}',
+                    url: '{{ route('inventory.setup.items.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -243,9 +251,9 @@
             });
         });
 
-        $(document).on('click', '.delete-district', function(e) {
+        $(document).on('click', '.delete-item', function(e) {
             e.preventDefault();
-            let districtId = $(this).data('id');
+            let itemId = $(this).data('id');
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -257,19 +265,19 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('hris.setup.districts.delete') }}',
+                        url: '{{ route('inventory.setup.items.delete') }}',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            id: districtId
+                            id: itemId
                         },
                         success: function(response) {
                             Swal.fire(
                                 'Deleted!',
-                                'District has been deleted.',
+                                'Item has been deleted.',
                                 'success'
                             );
-                            $('#row-' + districtId).remove();
+                            $('#row-' + itemId).remove();
                         },
                         error: function() {
                             Swal.fire(
@@ -282,10 +290,31 @@
                 } else {
                     Swal.fire(
                         'Cancelled!',
-                        'District has not been deleted.',
+                        'Item has not been deleted.',
                         'error'
                     );
                 }
+            });
+        });
+
+        $(document).ready(function() {
+            $('#goods_category_id').on('change', function() {
+                let categoryId = $(this).val();
+                console.log(categoryId);
+                $.ajax({
+                    url: '{{ route('inventory.setup.items.getSubcategories') }}',
+                    type: 'GET',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        category_id: categoryId
+                    },
+                    success: function(data) {
+                        $('#goods_subcategory_id').html(data);
+                    },
+                    error: function() {
+                        toastr.error('Something went wrong!');
+                    }
+                });
             });
         });
     </script>

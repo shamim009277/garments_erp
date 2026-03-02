@@ -23,28 +23,27 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="card-body">
                     <table id="userTable" class="table table-striped table-bordered dt-responsive  nowrap w-100">
                         <thead>
                             <tr>
                                 <th width="5%">SL</th>
                                 <th width="20%">Name</th>
-                                <th width="20%">Email</th>
-                                <th width="30%">Role</th>
+                                <th width="15%">Employee ID</th>
+                                <th width="25%">Email</th>
+                                <th width="25%">Access Label</th>
+                                <th width="25%">Role</th>
                                 <th width="15%">Is Active</th>
                                 <th width="10%">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New User ...</h6>
@@ -52,12 +51,17 @@
                 <div class="card-body">
                     <form id="userForm" action="{{ route('administration.authorization.user.store') }}" method="POST">
                         @csrf
-
                         <div class="mb-3">
                             <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" required value="{{ old('name') }}" placeholder="Enter name">
                             <x-input-error :messages="$errors->get('name')" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee_id" class="form-label">Employee ID</label>
+                            <input type="text" class="form-control @error('employee_id') is-invalid @enderror" id="employee_id"
+                                name="employee_id" value="{{ old('employee_id') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter employee id">
+                            <x-input-error :messages="$errors->get('employee_id')" />
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
@@ -83,6 +87,19 @@
                             <x-input-error :messages="$errors->get('role_id')" />
                         </div>
                         <div class="mb-3">
+                            <label for="access_id" class="form-label">Access Label <span class="text-danger">*</span></label>
+                            <select class="form-control @error('access_id') is-invalid @enderror" data-trigger name="access_id" id="access_id" placeholder="Select Organization" required>
+                                <option value="">Select Organization</option>
+                                <option value="0" selected>All Organization</option>
+                                @foreach ($organizations as $organization)
+                                    <option value="{{ $organization->id }}">
+                                        {{ $organization->short_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('access_id')" />
+                        </div>
+                        <div class="mb-3">
                             <label for="is_active" class="form-label">Is Active? <span class="text-danger">*</span></label>
                             <select name="is_active" class="form-select @error('is_active') is-invalid @enderror" required
                                 value="{{ old('is_active') }}" id="is_active" placeholder="Select Is Active" required>
@@ -106,7 +123,6 @@
                     <h6 class="modal-title" id="myModalLabel">Edit User</h6>
                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
                 <form id="editUserForm" action="#" method="POST">
                     <div class="modal-body">
                         @csrf
@@ -117,13 +133,19 @@
                             <x-input-error :messages="$errors->get('name')" />
                         </div>
                         <div class="mb-3">
+                            <label for="employee_id" class="form-label">Employee ID</label>
+                            <input type="text" class="form-control @error('employee_id') is-invalid @enderror" id="edit_employee_id"
+                                name="employee_id" value="{{ old('employee_id') }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter employee id">
+                            <x-input-error :messages="$errors->get('employee_id')" />
+                        </div>
+                        <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                             <input type="email"class="form-control @error('email') is-invalid @enderror" id="edit_email" name="email" required>
                             <x-input-error :messages="$errors->get('email')" />
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="edit_password" name="password" required value="{{ old('password') }}" placeholder="Enter password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="edit_password" name="password" value="{{ old('password') }}" placeholder="Enter password">
                             <x-input-error :messages="$errors->get('password')" />
                         </div>
                         <div class="mb-3">
@@ -137,6 +159,17 @@
                             <x-input-error :messages="$errors->get('role_id')" />
                         </div>
                         <div class="mb-3">
+                            <label for="access_id" class="form-label">Access Label <span class="text-danger">*</span></label>
+                            <select class="form-control @error('access_id') is-invalid @enderror" name="access_id" id="edit_access_id" placeholder="Select Organization" required>
+                                <option value="">Select Organization</option>
+                                <option value="0">All Organization</option>
+                                @foreach ($organizations as $organization)
+                                    <option value="{{ $organization->id }}">{{ $organization->short_name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('access_id')" />
+                        </div>
+                        <div class="mb-3">
                             <label for="is_active" class="form-label">Is Active? <span class="text-danger">*</span></label>
                             <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" required value="{{ old('is_active') }}" id="edit_is_active">
                                 <option value="1">Active</option>
@@ -144,7 +177,6 @@
                             </select>
                             <x-input-error :messages="$errors->get('is_active')" />
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
@@ -181,8 +213,16 @@
                         name: 'name'
                     },
                     {
+                        data: 'employee_id',
+                        name: 'employee_id'
+                    },
+                    {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'access_label',
+                        name: 'access_label'
                     },
                     {
                         data: 'role',
@@ -206,15 +246,15 @@
 
         $(document).on('click', '.edit-user', function() {
             let id = $(this).data('id');
-
             let url = '{{ route('administration.authorization.user.edit', ':id') }}';
             url = url.replace(':id', id);
 
             $.get(url, function(data) {
-                console.log(data);
                 $('#edit_name').val(data.name);
+                $('#edit_employee_id').val(data.employee_id);
                 $('#edit_email').val(data.email);
                 $('#edit_role_id').val(data.role_id);
+                $('#edit_access_id').val(data.access_id);
                 $('#edit_is_active').val(data.is_active).change();
                 $('#editModal').modal('show');
                 $('#editUserForm').attr('action', "{{ route('administration.authorization.user.update', ':id') }}".replace(':id', id));

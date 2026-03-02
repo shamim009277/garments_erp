@@ -1,4 +1,4 @@
-<div class="card padding-card" style="margin-bottom: 0px !important;">
+<div id="salaryTabWrapper" class="card padding-card" style="margin-bottom: 0px !important;" data-setting='@json($setting ?? [])'>
     <form action="{{ route('hris.database.employee.salary') }}" method="POST">
         @csrf
         <div class="card-body" style="min-height: 400px;">
@@ -15,7 +15,7 @@
                                 </tr>
                                 <tr>
                                     <th width="40%" style="border: none;">Basic </th>
-                                    <td width="60%" style="border: none;"><x-text-input name="basic" id="basic" class="form-control-sm" value="{{ $employee_salary->basic }}" placeholder="Basic" required readonly /></td>
+                                    <td width="60%" style="border: none;"><x-text-input name="basic" id="basicSalary" class="form-control-sm" value="{{ $employee_salary->basic }}" placeholder="Basic" required readonly /></td>
                                 </tr>
                                 <tr>
                                     <th width="40%" style="border: none;">House Rent </th>
@@ -102,24 +102,3 @@
         </div>
     </form>
 </div>
-@push('scripts')
-<script>
-    let setting = @json($setting ?? []);
-
-    $('#gross_salary').on('input', function () {
-        let gross = parseFloat($(this).val()) || 0;
-
-        let medical = parseFloat(setting.medical_allowance ?? 0);
-        let food = parseFloat(setting.food_allowance ?? 0);
-        let conveyance = parseFloat(setting.conveyance ?? 0);
-        let hr_percent = parseFloat(setting.house_rant_percent_basic ?? 0);
-
-        let total_allowance = medical + food + conveyance;
-        let basic = Math.round((gross - total_allowance) / ((hr_percent + 100) / 100));
-        let house_rent = Math.round((basic / 100) * hr_percent);
-        console.log(basic, house_rent);
-        $('#basic').val(isNaN(basic) ? 0 : basic);
-        $('#home_allowance').val(isNaN(house_rent) ? 0 : house_rent);
-    });
-</script>
-@endpush

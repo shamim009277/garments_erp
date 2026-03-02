@@ -46,9 +46,36 @@ class ItemController extends Controller
     {
         DB::beginTransaction();
         try {
-            $item = Item::create($request->validated());
+            $prefix = 'IT';
+            $length = 3;
+            $lastSerial = DB::table('inventory_setup_items')
+                ->where('item_code', 'like', $prefix . '%')
+                ->orderBy('item_code', 'desc')
+                ->value('item_code');
+            $lastNumber = (int) substr($lastSerial, strlen($prefix));
+            $newNumber = str_pad($lastNumber + 1, $length, '0', STR_PAD_LEFT);
+            $newItemCode = $prefix . $newNumber;
+            $item = Item::create([
+                'item_code' => $newItemCode,
+                'item_name' => $request->item_name,
+                'item_description' => $request->item_description,
+                'item_barcode' => $request->item_barcode,
+                'item_image' => $request->item_image,
+                'goods_category_id' => $request->goods_category_id,
+                'goods_subcategory_id' => $request->goods_subcategory_id,
+                'unit_id' => $request->unit_id,
+                'model' => $request->model,
+                'type' => $request->type,
+                'remarks' => $request->remarks,
+                'present_stock' => 0,
+                'minimum_stock' => 0,
+                'maximum_stock' => 0,
+                'reorder_level' => 0,
+                'reorder_quantity' => 0,
+                'is_active' => true
+            ]);
             DB::commit();
-            return redirect()->route('inventory.items.index')->with('success', 'Item created successfully');
+            return redirect()->route('inventory.setup.items.index')->with('success', 'Item created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to create item: ' . $e->getMessage());
@@ -85,17 +112,47 @@ class ItemController extends Controller
     public function update(ItemRequest $request, $id)
     {
         $item = Item::findOrFail($id);
-        $item->update($request->validated());
-        return redirect()->route('inventory.items.index')->with('success', 'Item updated successfully');
+        $item->update([
+            'item_name' => $request->item_name,
+            'goods_category_id' => $request->goods_category_id,
+            'goods_subcategory_id' => $request->goods_subcategory_id,
+            'unit_id' => $request->unit_id,
+            'model' => $request->model,
+            'type' => $request->type,
+            'remarks' => $request->remarks,
+            'is_active' => $request->is_active,
+        ]);
+        return redirect()->route('inventory.setup.items.index')->with('success', 'Item updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {
-        $item = Item::findOrFail($id);
-        $item->delete();
-        return redirect()->route('inventory.items.index')->with('success', 'Item deleted successfully');
+    public function destroy(Request $request) {
+        try {
+            Item::findOrFail($request->id)->delete();
+            return response()->json(['success' => true, 'message' => 'Item deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Item deletion failed: ' . $e->getMessage()]);
+        }
     }
+
+    public function toggleStatus(Request $request) {
+        return $this->ToggleStatusTrait($request, Item::class);
+    }
+    //getSubcategories
+    public function getSubcategories(Request $request)
+    {
+        $category_id = $request->category_id;
+        if(!$category_id){
+            return response()->json('<option value="">Select a subcategory</option>');
+        }
+        $subcategories = GoodsSubcategory::where('goods_category_id', $category_id)->pluck('name', 'id');
+        $html = '<option value="">Select a subcategory</option>';
+        foreach($subcategories as $id => $name){
+            $html .= "<option value='{$id}'>{$name}</option>";
+        }
+        return response()->json($html);
+    }
+    
 }

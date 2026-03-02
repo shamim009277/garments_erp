@@ -9,6 +9,13 @@ use App\Models\Master\GeneralSetting;
 
 class GeneralSettingController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:master.general-settings.view')->only('generalSettings');
+        $this->middleware('permission:master.general-settings.add')->only('generalSettingsStore');
+        $this->middleware('permission:master.general-settings.edit')->only(['edit', 'update','toggleStatus']);
+    }
+
     public function generalSettings()
     {
         $generalSettings = GeneralSetting::first();
@@ -52,7 +59,15 @@ class GeneralSettingController extends Controller
                 $generalSettings->favicon_path = $faviconPath['path'];
             }
 
-            $generalSettings->save();
+            if ($generalSettings->isDirty()) {
+                $generalSettings->save();
+
+                //Clear cache
+                cache()->forget('general_settings');
+                return back()->with('success', 'Settings updated successfully!');
+            } else {
+                return back()->with('info', 'No changes detected, nothing to update.');
+            }
         } catch (\Throwable $th) {
             return redirect()->route('master.system-settings.general-settings')->with('error', 'General Settings Updated Failed: ' . $th->getMessage());
         }

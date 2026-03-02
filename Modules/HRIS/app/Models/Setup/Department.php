@@ -44,7 +44,7 @@ class Department extends Model
 
     public function parentDepartment(): BelongsTo
     {
-        return $this->belongsTo(ParentDepartment::class);
+        return $this->belongsTo(ParentDepartment::class, 'parent_department_id', 'id');
     }
 
     public function scopeActive($query)

@@ -11,6 +11,14 @@ use App\Traits\ToggleStatus;
 class ShiftController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:hris.shifts.view')->only('index');
+        $this->middleware('permission:hris.shifts.add')->only('store');
+        $this->middleware('permission:hris.shifts.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.shifts.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

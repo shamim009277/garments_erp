@@ -23,11 +23,15 @@
                         <thead>
                             <tr>
                                 <th width="5%">SL</th>
-                                <th width="50%">Name</th>
-                                <th width="50%">Bangla</th>
-                                <th width="50%">Short Name</th>
-                                <th width="30%">Is Active</th>
-                                <th width="15%">Actions</th>
+                                <th width="20%">Name</th>
+                                <th width="20%">Bangla</th>
+                                <th width="10%">Short Name</th>
+                                <th width="10%">Address</th>
+                                <th width="10%">Address (Bangla)</th>
+                                <th width="10%">Email & Phone</th>
+                                <th width="10%" class="text-center">Logo</th>
+                                <th width="5%">Is Active</th>
+                                <th width="10%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,7 +40,16 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $organization->name }}</td>
                                     <td>{{ $organization->bn_name }}</td>
-                                    <td>{{ $organization->short_name }}</td>
+                                    <td class="text-center">{{ $organization->short_name }}</td>
+                                    <td class="text-center">{{ $organization->address }}</td>
+                                    <td class="text-center">{{ $organization->address_bangla }}</td>
+                                    <td class="text-center">
+                                        {{ $organization->email }}<br>
+                                        {{ $organization->phone }}
+                                    </td>
+                                    <td class="text-center">
+                                        <img src="{{ Storage::url($organization->path) }}" alt="" width="60px">
+                                    </td>
                                     <td>
                                         <div class="square-switch">
                                             <input type="checkbox" id="square-switch3{{ $organization->id }}" class="organization-toggle" data-id="{{ $organization->id }}" switch="bool" {{ $organization->is_active ? 'checked' : '' }} />
@@ -55,13 +68,22 @@
                                                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <form id="editForm{{ $organization->id }}" action="{{ route('hris.setup.organizations.update', $organization->id) }}" method="POST">
+                                                <form id="editForm{{ $organization->id }}" action="{{ route('hris.setup.organizations.update', $organization->id) }}" method="POST" enctype="multipart/form-data">
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
                                                         <x-input-group name="name" label="Name" type="text" placeholder="Enter name" :value="$organization->name" required />
                                                         <x-input-group name="bn_name" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="$organization->bn_name" required />
                                                         <x-input-group name="short_name" label="Short Name" type="text" placeholder="Enter short name" :value="$organization->short_name" required />
+                                                        <x-input-group name="address" label="Address" type="text" placeholder="Enter address" :value="$organization->address" />
+                                                        <x-input-group name="address_bangla" label="Bangla Address" type="text" placeholder="Enter bangla address" :value="$organization->address_bangla" />
+                                                        <x-input-group name="email" label="Email" type="text" placeholder="For multiple write comma separated" :value="$organization->email" />
+                                                        <x-input-group name="phone" label="Phone" type="text" placeholder="For multiple write comma separated" :value="$organization->phone" />
+                                                        <div class="mb-3">
+                                                            <x-input-label for="logo" text="Logo" />
+                                                            <x-image-input name="logo" label="Logo" :value="$organization->path" preview />
+                                                            <x-input-error :messages="$errors->get('logo')" />
+                                                        </div>
                                                         <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$organization->is_active" required />
                                                     </div>
                                                     <div class="modal-footer">
@@ -86,11 +108,20 @@
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Organization ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('hris.setup.organizations.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('hris.setup.organizations.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <x-input-group name="name" label="Name" type="text" placeholder="Enter name" :value="old('name')" required />
                         <x-input-group name="bn_name" label="Bangla Name" type="text" placeholder="Enter bangla name" :value="old('bn_name')" required />
                         <x-input-group name="short_name" label="Short Name" type="text" placeholder="Enter short name" :value="old('short_name')" required />
+                        <x-input-group name="address" label="Address" type="text" placeholder="Enter address" :value="old('address')" />
+                        <x-input-group name="address_bangla" label="Bangla Address" type="text" placeholder="Enter bangla address" :value="old('address_bangla')" />
+                        <x-input-group name="email" label="Email" type="text" placeholder="For multiple write comma separated" :value="old('email')" />
+                        <x-input-group name="phone" label="Phone" type="text" placeholder="For multiple write comma separated" :value="old('phone')" />
+                        <div class="mb-3">
+                            <x-input-label for="logo" text="Logo" />
+                            <x-image-input name="logo" label="Logo" preview />
+                            <x-input-error :messages="$errors->get('logo')" />
+                        </div>
                         <x-select-input-group
                             name="is_active"
                             label="Is Active?"
@@ -98,7 +129,6 @@
                             :selected="old('is_active', '1')"
                             required
                         />
-
                         <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
                     </form>
                 </div>
@@ -109,6 +139,20 @@
 
 @push('scripts')
     <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('preview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
         $(document).ready(function() {
             $('.organization-toggle').on('change', function() {
                 let id = $(this).data('id');

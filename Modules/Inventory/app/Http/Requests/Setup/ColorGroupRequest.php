@@ -12,7 +12,7 @@ class ColorGroupRequest extends FormRequest
      */
     public function rules(): array
     {
-        $colorGroupId = $this->route('colorgroups');
+        $colorGroupId = $this->route('colorgroup');
         return [
             
             'group_name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_color_groups', 'group_name')->ignore($colorGroupId)],

@@ -12,7 +12,7 @@
                 ],
             ])
         </div>
-        <div class="col-lg-8 pe-lg-0">
+        <div class="col-lg-9 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
                     <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Shift List</h6>
@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th width="5%">SL</th>
-                                <th width="20%">Shift</th>
+                                <th width="10%">Shift</th>
                                 <th width="20%">Shift Start</th>
                                 <th width="20%">Shift End</th>
                                 <th width="20%">Break Start</th>
@@ -44,7 +44,13 @@
                                     <td>{{ $shift->break_start }}</td>
                                     <td>{{ $shift->break_end }}</td>
                                     <td>{{ $shift->break_duration }}</td>
-                                    <td>{{ $shift->break_duration_type }}</td>
+                                    <td>
+                                        @if ($shift->break_duration_type == 1)
+                                            Hour
+                                        @else
+                                            Minute
+                                        @endif
+                                    </td>
                                     <td>{{ $shift->late_after_minutes }}</td>
                                     <td>
                                         <div class="square-switch">
@@ -94,7 +100,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="card alert-info alert-top-border">
                 <div class="card-header">
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Shift ...</h6>

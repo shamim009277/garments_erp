@@ -113,7 +113,6 @@ class HRISServiceProvider extends ServiceProvider
     {
         $existing = config($key, []);
         $module_config = require $path;
-
         config([$key => array_replace_recursive($existing, $module_config)]);
     }
 
@@ -126,9 +125,7 @@ class HRISServiceProvider extends ServiceProvider
         $sourcePath = module_path($this->name, 'resources/views');
 
         $this->publishes([$sourcePath => $viewPath], ['views', $this->nameLower.'-module-views']);
-
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
-
         Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameLower);
     }
 

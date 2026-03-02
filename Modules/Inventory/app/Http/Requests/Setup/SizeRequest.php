@@ -12,7 +12,7 @@ class SizeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $sizeId = $this->route('sizes');    
+        $sizeId = $this->route('size');    
         return [
             'size_name' => ['required', 'string', 'max:100', Rule::unique('inventory_setup_size', 'size_name')->ignore($sizeId)],
             'size_rank' => 'required|integer',

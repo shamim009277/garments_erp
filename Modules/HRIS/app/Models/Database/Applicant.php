@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\HRIS\Models\Setup\District;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
+use Modules\HRIS\Models\Setup\Organization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Setup\Line;
 // use Modules\HRIS\Database\Factories\Database\ApplicantFactory;
 
 class Applicant extends Model
@@ -16,23 +19,25 @@ class Applicant extends Model
     use HasFactory;
 
     protected $table = 'hris_database_new_applicant';
-
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
         'name',
+        'org_id',
         'name_bangla',
         'mobile',
         'department_id',
         'designation_id',
         'district_id',
+        'line',
         'identification_type',
         'national_id',
         'birth_certificate_no',
         'interviewer_employee_id',
         'interview_status',
         'joining_date',
+        'birth_date',
         'entry_date',
         'proposed_salary',
         'determined_salary',
@@ -59,11 +64,17 @@ class Applicant extends Model
     protected $dates = [
         'joining_date',
         'entry_date',
+        'birth_date',
     ];
 
     protected $appends = [
         'interview_status_label',
     ];
+
+    public function organization() : BelongsTo
+    {
+        return $this->belongsTo(Organization::class,'org_id','id');
+    }
 
     public function getInterviewStatusLabelAttribute()
     {
@@ -75,10 +86,22 @@ class Applicant extends Model
         static::creating(function ($applicant) {
             $applicant->created_by = Auth::id();
             $applicant->updated_by = Auth::id();
+            $applicant->line = $applicant->line ?? 0;
         });
 
         static::updating(function ($applicant) {
             $applicant->updated_by = Auth::id();
+            $applicant->line = $applicant->line ?? 0;
+        });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
         });
     }
 
@@ -111,9 +134,18 @@ class Applicant extends Model
     {
         return $this->belongsTo(District::class,'district_id','id');
     }
+    public function employee() : BelongsTo
+    {
+        return $this->belongsTo(Employee::class,'employee_id','employee_id');
+    }
+    public function setupLine()
+    {
+        return $this->belongsTo(Line::class, 'line', 'id');
+    }
 
-    // protected static function newFactory(): Database\ApplicantFactory
-    // {
-    //     // return Database\ApplicantFactory::new();
-    // }
+    public function employeeBasicLine()
+    {
+        return $this->hasOne(Line::class, 'id', 'line')
+            ->whereHas('employeeBasic');
+    }
 }

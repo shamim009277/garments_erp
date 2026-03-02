@@ -3,13 +3,28 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Minia | @yield('title', config('app.name'))</title>
+    <title>{{ $general->short_name }} | @yield('title', config('app.name'))</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
+    @if(isset($general) && $general->favicon_path)
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ Storage::url($general->favicon_path) }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ Storage::url($general->favicon_path) }}">
+        <link rel="apple-touch-icon" href="{{ Storage::url($general->favicon_path) }}">
+    @else
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('backend/assets/images/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('backend/assets/images/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/assets/images/favicon-16x16.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('backend/assets/images/android-chrome-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('backend/assets/images/android-chrome-512x512.png') }}">
+        <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
+    @endif
+
+    <link rel="manifest" href="{{ asset('backend/assets/images/site.webmanifest') }}">
+    <meta name="theme-color" content="#ffffff">
+
     {{-- Select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Choices.js -->
@@ -22,7 +37,7 @@
     <!-- Responsive Table css -->
     <link href="{{ asset('backend/assets/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- preloader css -->
-    <link rel="stylesheet" href="{{ asset('backend/assets/css/preloader.min.css') }}" type="text/css" />
+    {{-- <link rel="stylesheet" href="{{ asset('backend/assets/css/preloader.min.css') }}" type="text/css" /> --}}
     <!-- Bootstrap Css -->
     <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -31,33 +46,30 @@
     <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <style>
         table tr th {
             padding: 6px !important;
             vertical-align: middle !important;
             font-weight: bold !important;
         }
-
         table tr td {
             padding: 4px !important;
             vertical-align: middle !important;
         }
-
         .padding-card {
             padding: 0px !important;
         }
-
         .page-content {
             padding: calc(70px + 1.5rem) 0 60px 0 !important;
             background-color: #F6F9FC !important;
             min-height: 100vh !important;
             width: 100%;
         }
-
         .pr-0 {
             padding-right: 0px !important;
         }
-
         .navbar-header {
             padding: 0 1.0rem 0 0 !important;
         }
@@ -65,14 +77,12 @@
         .border-none{
             border-radius: 0px !important;
         }
-
         /* Custom Navigation */
         .nav-custom {
             list-style: none;
             padding-left: 0;
             font-size: 14px;
         }
-
         .nav-custom-item {
             margin-left: 0px;
             width: 100%;
@@ -80,7 +90,6 @@
             list-style: none;
             padding: 2px 0px;
         }
-
         .nav-custom-link {
             cursor: pointer;
             display: block;
@@ -88,7 +97,6 @@
             padding: 8px 6px;
             color: #4549A2;
         }
-
         .nav-custom-content {
             display: none;
             margin-left: 5px;
@@ -96,41 +104,34 @@
             transform: translateY(-10px);
             transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
         }
-
         input[type="checkbox"] {
             display: none;
         }
-
         .nav-custom-link:hover {
             color: #4549A2;
             background-color: #ebf0f6;
         }
-
         input:checked+label+.nav-custom-content {
             display: block;
             max-height: 1000px;
             opacity: 1;
             transform: translateY(0);
         }
-
         .nav-custom-caret::before {
             content: "➡";
             margin-right: 5px;
             transition: transform 0.2s;
             display: inline-block;
         }
-
         input:checked+label .nav-custom-caret::before {
             transform: rotate(90deg);
         }
-
         .employee-link {
             display: block;
             margin-left: 30px;
             color: #313533;
             padding: 6px 6px;
         }
-
         .employee-link:hover {
             text-decoration: underline;
             background-color: #ebf0f6;
@@ -140,9 +141,32 @@
             background-color: #dad9d9;
             cursor: not-allowed;
         }
+
+        input[disabled] {
+            background-color: #dad9d9 !important;
+            cursor: not-allowed;
+        }
         .select2-container--default .select2-selection--single{
             background-color: #F8F9FA !important;
             border: 1px solid #E9E9EF !important;
+        }
+        .choices{
+            background-color: #F8F9FA !important;
+            border-radius: 0.25rem !important;
+        }
+        .choices__inner{
+            background-color: #F8F9FA !important;
+            border-radius: 0.25rem !important;
+        }
+
+        .select2-container--default .select2-selection--multiple{
+            background-color: #F8F9FA !important;
+            border: 1px solid #E9E9EF !important;
+        }
+
+        .disabled-select {
+            cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
         }
     </style>
     @stack('styles')
@@ -153,7 +177,7 @@
     <div id="layout-wrapper">
         @include('includes.header')
         <!-- ========== Left Sidebar Start ========== -->
-        @if (request()->segment(1) != 'dashboard')
+        @if (request()->segment(1) != 'dashboard' && request()->segment(1) != 'user')
             @include('includes.sidebar')
         @endif
         <!-- Left Sidebar End -->
@@ -282,6 +306,15 @@
         $(document).on('shown.bs.modal', '.modal', function () {
             $(this).find('.select2').select2({
                 dropdownParent: $(this)
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("input[type='date']", {
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "d-m-Y",
+                allowInput: true,
             });
         });
     </script>

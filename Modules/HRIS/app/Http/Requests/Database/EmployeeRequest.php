@@ -36,7 +36,8 @@ class EmployeeRequest extends FormRequest
             'joining_date' => 'required|date',
             'confirmation_date' => 'required|date|after_or_equal:joining_date',
             'punch_category' => 'required|in:1,2,3',
-            'refrerence_shift' => 'required|in:G',
+            'refrerence_shift' => 'required|in:A,B,C,D,E,F,G,M,N',
+            'refrerence_holiday' => 'required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
             'refrerence_date' => 'nullable|date',
             'mtreturn_date' => 'nullable|date',
 
@@ -54,13 +55,15 @@ class EmployeeRequest extends FormRequest
 
         // Extra rule for POST (store)
         if ($this->isMethod('post')) {
-            $rules['employee_id'] = 'required|string|unique:hris_database_employee_basic,employee_id';
+            $rules['employee_id'] = 'required|integer|unique:hris_database_employee_basic,employee_id';
+            // $rules['employee_id'] = 'required|integer|regex:/^[0-9]{6,8}$/|unique:hris_database_employee_basic,employee_id';
         }
 
         // Extra rule for PUT/PATCH (update)
         if ($this->isMethod('put') || $this->isMethod('patch')) {
-            $id = $this->route('employee'); // route model binding or 'employee' param
-            $rules['employee_id'] = 'required|string|unique:hris_database_employee_basic,employee_id,' . $id;
+            $id = $this->route('employee');
+            $rules['employee_id'] = 'required|integer|unique:hris_database_employee_basic,employee_id,' . $id;
+            // $rules['employee_id'] = 'required|integer|regex:/^[0-9]{6,8}$/|unique:hris_database_employee_basic,employee_id,' . $id;
         }
 
         return $rules;

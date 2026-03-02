@@ -6,9 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\Master\Setup\Unit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Master\Setup\UnitRequest;
+use App\Traits\ToggleStatus;
 
 class UnitsController extends Controller
 {
+    use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:master.units.view')->only('index');
+        $this->middleware('permission:master.units.add')->only('store');
+        $this->middleware('permission:master.units.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:master.units.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

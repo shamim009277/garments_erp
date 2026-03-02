@@ -36,12 +36,21 @@
                     <div class="col-lg-6 col-md-6 pe-lg-0">
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                             <tr>
+                                <th width="30%" style="border: none;">Unit </th>
+                                <td width="70%" style="border: none;"><x-select-input name="unit" id="unit" class="select2" :options="$units" selected="{{ $employee->unit }}" value="{{ old('unit',$employee->unit) }}" /></td>
+                            </tr>
+                            <tr>
                                 <th width="30%" style="border: none;">Line </th>
-                                <td width="70%" style="border: none;"><x-text-input name="line" id="line" type="text" class="form-control-sm" value="{{ old('line',$employee->line) }}" placeholder="Line" /></td>
+                                <td width="70%" style="border: none;">
+                                    <x-select-input name="line" id="line" class="select2" :options="[]" selected="{{ $employee->line }}" value="{{ old('line',$employee->line) }}" />
+                                    <input type="hidden" name="line_id" id="line_id" value="{{ old('line_id',$employee->line) }}" />
+                                </td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Grade </th>
-                                <td width="70%" style="border: none;"><x-text-input name="grade" id="grade" type="text" class="form-control-sm" value="{{ old('grade',$employee->grade) }}" placeholder="Grade" required /></td>
+                                <td width="70%" style="border: none;">
+                                    <x-text-input name="grade" id="grade" type="text" class="form-control-sm" value="{{ old('grade',$employee->grade) }}" placeholder="Grade" required />
+                                </td>
                             </tr>
                             <tr>
                                 <th width="30%" style="border: none;">Salaried </th>
@@ -51,10 +60,6 @@
                                 <th width="30%" style="border: none;">Confirm Date </th>
                                 <td width="70%" style="border: none;"><x-text-input name="confirmation_date" id="confirmation_date" type="date" class="form-control-sm" placeholder="Confirm Date" value="{{ old('confirmation_date',$employee->confirmation_date) }}" required readonly /></td>
                             </tr>
-                            <tr>
-                                <th style="border: none;">&nbsp; &nbsp;</th>
-                                <td style="border: none;">&nbsp; &nbsp;</td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -62,7 +67,9 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 pe-lg-0">
                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
-                            <h6 class="text-primary font-weight-bold">Present Address </h6>
+                            <tr>
+                                <th colspan="2" style="border: none;"><span class="text-primary">Present Address</span> </th>
+                            </tr>
                             <tr>
                                 <th width="30%" style="border: none;">District </th>
                                 <td width="70%" style="border: none;"><x-select-input name="pdistrict_id" id="pdistrict_id" class="select2" :options="$districts" selected="{{ $employee->pdistrict_id }}" value="{{ old('pdistrict_id',$employee->pdistrict_id) }}" required /></td>
@@ -89,7 +96,9 @@
                     </div>
                     <div class="col-lg-6 col-md-6 pe-lg-0">
                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
-                            <h6 class="text-primary font-weight-bold">Mailing Address</h6>
+                            <tr>
+                                <th colspan="2" style="border: none;"><span class="text-primary">Mailing Address</span> </th>
+                            </tr>
                             <tr>
                                 <th width="30%" style="border: none;">District </th>
                                 <td width="70%" style="border: none;"><x-select-input name="mdistrict_id" id="mdistrict_id" class="select2" :options="$districts" selected="{{ $employee->mdistrict_id }}" value="{{ old('mdistrict_id',$employee->mdistrict_id) }}" required /></td>
@@ -128,14 +137,18 @@
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Shifting Duty? </th>
-                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="{{ $employee->shifting_duty }}" value="{{ old('shifting_duty',$employee->shifting_duty) }}" required /></td>
+                        <td width="70%" style="border: none;"><x-select-input name="shifting_duty" id="shifting_duty" class="select2" :options="['Y' => 'Yes', 'N' => 'No']" selected="{{ $employee->shifting_duty??'N' }}" value="{{ old('shifting_duty',$employee->shifting_duty) }}" required /></td>
                     </tr>
                     <tr>
-                        <th width="30%" style="border: none;">Reference Shift? </th>
-                        <td width="70%" style="border: none;"><x-select-input name="refrerence_shift" id="refrerence_shift" class="select2" :options="$shifts" selected="{{ $employee->refrerence_shift }}" value="{{ old('refrerence_shift',$employee->refrerence_shift) }}" required /></td>
+                        <th width="30%" style="border: none;">Ref. Shift? </th>
+                        <td width="70%" style="border: none;"><x-select-input name="refrerence_shift" id="refrerence_shift" class="select2" :options="$shifts" selected="{{ $employee->refrerence_shift??'G' }}" value="{{ old('refrerence_shift',$employee->refrerence_shift) }}" required /></td>
                     </tr>
                     <tr>
-                        <th width="30%" style="border: none;">Reference Date </th>
+                        <th width="30%" style="border: none;">Ref. Holiday? </th>
+                        <td width="70%" style="border: none;"><x-select-input name="refrerence_holiday" id="refrerence_holiday" class="select2" :options="['Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thursday'=>'Thursday','Friday'=>'Friday','Saturday'=>'Saturday']" selected="{{ $employee->refrerence_holiday??'Friday' }}" value="{{ old('refrerence_holiday',$employee->refrerence_holiday) }}" required /></td>
+                    </tr>
+                    <tr>
+                        <th width="30%" style="border: none;">Ref. Date </th>
                         <td width="70%" style="border: none;"><x-text-input name="refrerence_date" type="date" id="refrerence_date" class="form-control-sm" value="{{ old('refrerence_date',$employee->refrerence_date) }}" placeholder="Reference Date" required /></td>
                     </tr>
                     <tr>
@@ -163,3 +176,40 @@
     </div>
     </form>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            let line = $('#line_id').val();
+            let unit = $('#unit').val();
+
+            $('#unit').on('change', function () {
+                let unitcode = $(this).val();
+
+                if (unitcode) {
+                    $.ajax({
+                        url: '/hris/database/unit/' + unitcode,
+                        type: 'GET',
+                        success: function (data) {
+                            $('#line').html('<option value="">Select Line</option>');
+                            $.each(data, function (key, value) {
+                                $('#line').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                            if (line) {
+                                $('#line').val(line).trigger('change');
+                            }
+                        }
+                    });
+                } else {
+                    $('#line').html('<option value="">Select Line</option>');
+                }
+            });
+            if (unit) {
+                $('#unit').val(unit).trigger('change');
+            } else {
+                $('#unit').trigger('change');
+            }
+        });
+
+    </script>
+@endpush

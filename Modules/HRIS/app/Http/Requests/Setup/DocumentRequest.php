@@ -3,6 +3,7 @@
 namespace Modules\HRIS\Http\Requests\Setup;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class DocumentRequest extends FormRequest
 {

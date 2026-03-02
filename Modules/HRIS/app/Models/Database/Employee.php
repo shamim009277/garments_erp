@@ -2,6 +2,7 @@
 
 namespace Modules\HRIS\Models\Database;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Setup\Thana;
 use Illuminate\Database\Eloquent\Model;
@@ -9,8 +10,13 @@ use Modules\HRIS\Models\Setup\District;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Organization;
+use Modules\HRIS\Models\Database\EmployeePersonal;
+use Modules\HRIS\Models\Setup\Sex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HRIS\Models\Database\Applicant;
 // use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
+use Modules\HRIS\Models\Database\EmpGatePass;
+use Modules\HRIS\Models\Database\EmployeeIncrement;
 
 class Employee extends Model
 {
@@ -36,6 +42,7 @@ class Employee extends Model
         'mpost_office',
         'mvillage',
         'pdistrict_id',
+        'shifting_duty',
         'pthana_id',
         'ppost_office',
         'pvillage',
@@ -44,6 +51,7 @@ class Employee extends Model
         'punch_category',
         'refrerence_shift',
         'refrerence_date',
+        'refrerence_holiday',
         'mtreturn_date',
         'father_name',
         'mother_name',
@@ -57,7 +65,6 @@ class Employee extends Model
     ];
 
     protected $casts = [
-        'ot_payable' => 'boolean',
         'is_active' => 'boolean',
     ];
 
@@ -83,10 +90,25 @@ class Employee extends Model
             $employee->line = $employee->line ?? 0;
             $employee->grade = $employee->grade ?? 0;
         });
+
+        static::addGlobalScope('accessFilter', function ($query) {
+            if (Auth::check()) {
+                $accessId = Auth::user()->access_id;
+
+                if ($accessId != 0) {
+                    $query->where('org_id', $accessId);
+                }
+            }
+        });
     }
 
-    public function scopeActive($query) {
-        return $query->where('is_active', true);
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true)
+            ->where(function($q) {
+                $q->where('reason', 'N')
+                ->orWhere('leaving_date', '>=', Carbon::today());
+            });
     }
 
     public function scopeInactive($query) {
@@ -121,16 +143,20 @@ class Employee extends Model
         return $query->where('reason', 'L');
     }
 
+    public function scopeShiftingDuty($query) {
+        return $query->where('shifting_duty', 'Y');
+    }
+
     public function department() {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class,'department_id','id');
     }
 
     public function designation() {
-        return $this->belongsTo(Designation::class);
+        return $this->belongsTo(Designation::class,'designation_id','id');
     }
 
-    public function org() {
-        return $this->belongsTo(Organization::class);
+    public function organization() {
+        return $this->belongsTo(Organization::class,'org_id','id');
     }
 
     public function mdistrict() {
@@ -148,9 +174,23 @@ class Employee extends Model
     public function pthana() {
         return $this->belongsTo(Thana::class);
     }
+    public function employeePersonal() {
+        return $this->hasOne(EmployeePersonal::class, 'employee_id', 'employee_id');
+    }
 
-    // protected static function newFactory(): Database\EmployeeFactory
-    // {
-    //     // return Database\EmployeeFactory::new();
-    // }
+    public function employeeSalary() {
+        return $this->hasOne(EmployeeSalary::class, 'employee_id', 'employee_id');
+    }
+    public function applicant() {
+        return $this->hasOne(Applicant::class, 'employee_id','employee_id', 'entry_date');
+    }
+    public function sex() {
+        return $this->belongsTo(Sex::class);
+    }
+    public function gatepasses() {
+        return $this->hasMany(EmpGatePass::class, 'employee_id', 'employee_id');
+    }
+    public function employeeIncrement() {
+        return $this->hasMany(EmployeeIncrement::class, 'employee_id', 'employee_id');
+    }
 }
