@@ -47,6 +47,31 @@
         ],
         ])
     </div>
+     <div class="col-12 mb-3">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <!-- Centered Title -->
+            <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
+                Sample Order Programme
+            </h4>
+
+            <!-- Search Input + Button in One Line -->
+            <form action="#" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2"
+                style="max-width: 400px;" role="search">
+                @csrf
+                <input class="form-control form-control-sm me-2" type="search" name="search"
+                    placeholder="Basic Order No ..." aria-label="Search">
+                <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
+                        width="14" height="14" class="me-1"></i> Search</button>
+            </form>
+            @if (1)
+            <!-- Back Button -->
+            <a href="{{ route('ordermanagement.database.sampleorderprogramme.index') }}"
+                class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
+                <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
+            </a>
+            @endif
+        </div>
+    </div>
     <!-- Sidebar -->
     <div class="col-md-3">
         <div class="card alert-primary alert-top-border padding-card">
@@ -55,43 +80,51 @@
                     <i data-feather="list" width="16" height="16"></i>
                     <h6 class="my-0 text-primary ms-2">Initial Orders List</h6>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control form-control-sm" placeholder="Search here...">
-                        </div>
-                    </div>
-                </div>
             </div>
             @php
             $org = collect($orders)->pluck('organization');
             $orgList = collect($org)->unique();
             @endphp
-            <div class="card-body" style="max-height: 800px;min-height: 800px; overflow-y: auto;">
-                @foreach ($orgList as $key => $org)
+            <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
                 <ul class="nav-custom">
+                    @foreach ($orgList as $key => $org)
                     <li class="nav-custom-item">
-                        <input type="checkbox" id="dept{{ $org->id }}">
-                        <label class="nav-custom-link" for="dept{{ $org->id }}">
-                            <span class="nav-custom-caret"> </span>
+                        <input type="checkbox" id="company{{ $org->id }}">
+                        <label class="nav-custom-link" for="company{{ $org->id }}">
+                            <span class="nav-custom-caret"></span>
                             {{ $org->name }}
                         </label>
                         @php
                         $ordList = collect($orders)->where('organization_id', $org->id);
+                        $buyerList = collect($ordList)->pluck('buyer')->unique();
                         @endphp
                         <ul class="nav-custom-content">
-                            @foreach ($ordList as $key => $x)
-                            <li class="nav-custom-item"><a href="{{ route('ordermanagement.database.sampleorderprogramme.show', $x->id) }}" class="nav-custom-link {{ $order->id == $x->id ? 'active' : '' }}">{{ $x->order_code }}</a></li>
+                            @foreach ($buyerList as $key => $buyer)
+                            <li class="nav-custom-item">
+                                <input type="checkbox" id="buyer{{ $buyer->id }}{{ $org->id }}">
+                                <label class="nav-custom-link" for="buyer{{ $buyer->id }}{{ $org->id }}">
+                                    <span class="nav-custom-caret"></span>
+                                    {{ $buyer->buyer_name }}
+                                </label>
+                                @php
+                                $ordList = collect($orders)->where('organization_id', $org->id)->where('buyer_id', $buyer->id);
+                                @endphp
+                                <div class="nav-custom-content">
+                                    @foreach ($ordList as $key => $ojrder)
+                                    <a href="{{ route('ordermanagement.database.sampleorderprogramme.show', $ojrder->id) }}" class="employee-link">
+                                        {{ $ojrder->order_code }}
+                                    </a>
+                                    @endforeach
+                                </div>
+                            </li>
                             @endforeach
                         </ul>
                     </li>
+                    @endforeach
                 </ul>
-                @endforeach
             </div>
         </div>
     </div>
-
     <!-- Content -->
     <div class="col-md-9">
         <div class="card alert-success alert-top-border mb-3">
@@ -255,26 +288,14 @@
                         <div class="col-md-3 mb-2">
                             <label class="form-label">Color</label>
                             <x-select-multiple-input name="colors_id[]" multiple 
-                                                :options="$colors->pluck('color_name', 'id')" 
-                                                :selected="old('colors_id')" />
-                            <!-- <select name="color_id" class="form-control form-control-sm select2">
-                                <option value="">Select Color</option>
-                                @foreach($colors as $color)
-                                    <option value="{{ $color->id }}">{{ $color->color_name }}</option>
-                                @endforeach
-                            </select> -->
+                                :options="$colors->pluck('color_name', 'id')" 
+                                :selected="old('colors_id')" />
                         </div>
                         <div class="col-md-3 mb-2">
                             <label class="form-label">Size</label>
                             <x-select-multiple-input name="sizes_id[]" multiple 
-                                                :options="$sizes->pluck('size_name', 'id')" 
-                                                :selected="old('sizes_id')" />
-                            <!-- <select name="size_id" class="form-control form-control-sm select2">
-                                <option value="">Select Size</option>
-                                @foreach($sizes as $size)
-                                    <option value="{{ $size->id }}">{{ $size->size_name }}</option>
-                                @endforeach
-                            </select> -->
+                                :options="$sizes->pluck('size_name', 'id')" 
+                                :selected="old('sizes_id')" />
                         </div>
                         <div class="col-md-3 mb-2">
                             <label class="form-label">Sample Type</label>
@@ -370,6 +391,7 @@
                     <table class="table table-bordered table-striped table-sm text-center" style="font-size: 0.8rem;">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Fab Src.</th>
                                 <th>Color</th>
                                 <th>Sample Type</th>
@@ -392,6 +414,7 @@
                         <tbody>
                             @foreach($samples as $sample)
                             <tr>
+                                <td>{{ $sample->programme_code }}</td>
                                 <td>{{ $sample->fab_src }}</td>
                                 <td>
                                 @php
@@ -420,24 +443,34 @@
                                 <td>{{ $sample->delivery_deadline }}</td>
                                 <td>{{ $sample->tri_acr_deadline }}</td>
                                 <td>
+                                    
                                     <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $sample->id }}"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('ordermanagement.database.sampleorderprogramme.destroy', $sample->id) }}" method="POST" style="display:inline;" class="delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-soft-danger waves-effect waves-light" style="padding: 4px 6px;">
+                                        <button type="submit" class="btn btn-soft-danger waves-effect waves-light" style="padding: 4px 6px;" {{ $sample->accept_status == 0 ? '' : 'disabled' }}>
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
+                                    <form action="{{ route('ordermanagement.database.sampleorderprogramme.update', $sample->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="current_status" value="1">
+                                        <button type="submit" class="btn btn-soft-warning waves-effect waves-light" style="padding: 4px 6px;" {{ $sample->accept_status == 0 ? '' : 'disabled' }}>
+                                            <i class="fas fa-recycle"></i>
+                                        </button>
+                                    </form>
+
 
                                     <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal{{ $sample->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $sample->id }}" aria-hidden="true">
+                                    <div class="modal fade" id="editModal{{ $sample->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $sample->id }}" aria-hidden="true" {{ $sample->accept_status == 0 ? '' : 'disabled' }}>
                                         <div class="modal-dialog modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="editModalLabel{{ $sample->id }}">Edit Sample Programme</h5>
+                                                    <h5 class="modal-title" id="editModalLabel{{ $sample->id }}">Edit Sample Programme : {{ $sample->programme_code }}</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="{{ route('ordermanagement.database.sampleorderprogramme.update', $sample->id) }}" method="POST">
+                                                <form action="{{ route('ordermanagement.database.sampleorderprogramme.update', $sample->id) }}" method="POST" {{ $sample->accept_status == 0 ? '' : 'disabled' }}>
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body text-start">
@@ -472,21 +505,15 @@
                                                                 <tr>
                                                                     <th width="20%"><label class="form-label">Color</label></th>
                                                                     <td width="30%">
-                                                                        <select name="color_id" class="form-control form-control-sm select2">
-                                                                            <option value="">Select Color</option>
-                                                                            @foreach($colors as $color)
-                                                                                <option value="{{ $color->id }}" {{ $sample->color_id == $color->id ? 'selected' : '' }}>{{ $color->color_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                         <x-select-multiple-input name="colors_id[]" multiple 
+                                                                            :options="$colors->pluck('color_name', 'id')" 
+                                                                            :selected="$sample->colors->pluck('id')->toArray()" />
                                                                     </td>
                                                                     <th width="20%"><label class="form-label">Size</label></th>
                                                                     <td width="30%">
-                                                                        <select name="size_id" class="form-control form-control-sm select2">
-                                                                            <option value="">Select Size</option>
-                                                                            @foreach($sizes as $size)
-                                                                                <option value="{{ $size->id }}" {{ $sample->size_id == $size->id ? 'selected' : '' }}>{{ $size->size_name }}</option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                         <x-select-multiple-input name="sizes_id[]" multiple 
+                                                                            :options="$sizes->pluck('size_name', 'id')" 
+                                                                            :selected="$sample->sizes->pluck('id')->toArray()" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -570,7 +597,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary btn-sm">Update Sample Programme</button>
+                                                        <button type="submit" class="btn btn-primary btn-sm" {{ $sample->accept_status == 0 ? '' : 'disabled' }}>Update Sample Programme</button>
                                                     </div>
                                                 </form>
                                             </div>

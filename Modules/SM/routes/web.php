@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('sampleorderprogramme', SampleOrderProgrammeController::class)->names('sampleorderprogramme');
         Route::get('sampleorderproduction/get-orders/{buyer_id}', [SampleOrderProductionController::class, 'getOrders'])->name('sampleorderproduction.get-orders');
+        Route::get('sampleorderproduction/get-programmes/{order_id}', [SampleOrderProductionController::class, 'getProgrammes'])->name('sampleorderproduction.get-programmes');
         Route::get('sampleorderproduction/get-samples/{order_id}', [SampleOrderProductionController::class, 'getColors'])->name('sampleorderproduction.get-samples');
         Route::resource('sampleorderproduction', SampleOrderProductionController::class)->names('sampleorderproduction');
         Route::resource('sampledelivery', SampleDeliveryController::class)->names('sampledelivery');

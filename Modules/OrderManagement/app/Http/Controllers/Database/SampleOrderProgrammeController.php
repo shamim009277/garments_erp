@@ -83,6 +83,14 @@ class SampleOrderProgrammeController extends Controller
         ]);
 
         try {
+             $lastid = SampleOrderProgramme::orderBy('id','DESC')->pluck('programme_code')->first(); 
+            if(!empty($lastid)){
+                $lastid = substr($lastid,4,7)+1;                   
+            }else{
+                $lastid = 1;
+            }
+            $programme_code = 'SPR' . str_pad($lastid,7, '0', STR_PAD_LEFT);
+            $request->merge(['programme_code' => $programme_code]);
             $programme = SampleOrderProgramme::create($request->except('_token', 'colors_id', 'sizes_id', 'search_terms'));
             if ($request->has('colors_id')) {
                 $programme->colors()->attach($request->colors_id);
@@ -104,13 +112,19 @@ class SampleOrderProgrammeController extends Controller
             'sample_type_id' => 'nullable|exists:om_setup_sample_types,id',
             // ... add other validations
         ]);
-
+        
         try {
             $sample = SampleOrderProgramme::findOrFail($id);
             if($sample->accept_status == 1){
                 return redirect()->back()->with('error', 'Sample Order Programme already accepted');
             }
-            $sample->update($request->except(['_token', '_method']));
+            $sample->update($request->except(['_token', '_method', 'colors_id', 'sizes_id', 'search_terms']));
+            if ($request->has('colors_id')) {
+                $sample->colors()->sync($request->colors_id);
+            }
+            if ($request->has('sizes_id')) {
+                $sample->sizes()->sync($request->sizes_id);
+            }
             return redirect()->back()->with('success', 'Sample Order Programme updated successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

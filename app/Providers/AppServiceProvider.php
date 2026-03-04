@@ -41,15 +41,15 @@ class AppServiceProvider extends ServiceProvider
                     ->toArray();
             }));
         
-        $allowedIp = env('ALLOW_SERVER_IP');
-        $serverIp = getHostByName(getHostName());
-        if ($serverIp !== $allowedIp) {
-            abort(403, "Application is locked to specific server.");
-        }
-        $host = gethostname();
-        if ($host !== env('ALLOW_HOST')) {
-            abort(403, "This server is not allowed.");
-        }
+        // $allowedIp = env('ALLOW_SERVER_IP');
+        // $serverIp = getHostByName(getHostName());
+        // if ($serverIp !== $allowedIp) {
+        //     abort(403, "Application is locked to specific server.");
+        // }
+        // $host = gethostname();
+        // if ($host !== env('ALLOW_HOST')) {
+        //     abort(403, "This server is not allowed.");
+        // }
             
     }
 }

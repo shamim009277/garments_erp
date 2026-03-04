@@ -8,6 +8,7 @@ use Modules\OrderManagement\Models\Database\InitialOrder;
 
 use Modules\OrderManagement\Models\Setup\Buyer;
 use Modules\OrderManagement\Models\Setup\Color;
+use Modules\OrderManagement\Models\Setup\Size;
 use Modules\OrderManagement\Models\Setup\SampleType;
 
 class SampleOrderProduction extends Model
@@ -17,9 +18,11 @@ class SampleOrderProduction extends Model
     protected $table = 'sm_database_productions';
 
     protected $fillable = [
-        'order_id',
         'buyer_id',
+        'order_id',
+        'programme_id',
         'color_id',
+        'size_id',
         'sample_type_id',
         'production_quantity',
         'used_fabric_quantity',
@@ -39,6 +42,11 @@ class SampleOrderProduction extends Model
     public function color()
     {
         return $this->belongsTo(Color::class, 'color_id');
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class, 'size_id');
     }
 
     public function sampleType()

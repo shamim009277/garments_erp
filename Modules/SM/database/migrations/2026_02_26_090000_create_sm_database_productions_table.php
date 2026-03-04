@@ -18,8 +18,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('buyer_id'); 
             $table->unsignedBigInteger('order_id'); 
-            $table->unsignedBigInteger('color_id'); 
-            $table->unsignedBigInteger('sample_type_id'); 
+            $table->unsignedBigInteger('programme_id'); 
+            $table->unsignedBigInteger('color_id')->nullable(); 
+            $table->unsignedBigInteger('size_id')->nullable(); 
+            $table->unsignedBigInteger('sample_type_id')->nullable(); 
             $table->float('production_quantity'); 
             $table->float('used_fabric_quantity'); 
             $table->text('production_notes')->nullable();

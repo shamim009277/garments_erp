@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('om_database_sample_order_programme', function (Blueprint $table) {
             $table->id();
             $table->foreignId('initial_order_id')->constrained('om_database_initial_order')->onDelete('cascade');
+            $table->string('programme_code', 20)->unique();
             $table->string('fab_src')->nullable();
             $table->foreignId('color_id')->nullable()->constrained('inventory_setup_colors')->onDelete('set null');
             $table->foreignId('sample_type_id')->nullable()->constrained('inventory_setup_sample_types')->onDelete('set null');

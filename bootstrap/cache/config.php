@@ -9,15 +9,15 @@
     'name' => 'Laravel',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://localhost:8000',
+    'url' => 'https://erp.anggroupbd.com/',
     'frontend_url' => 'http://localhost:3000',
     'asset_url' => NULL,
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
     'cipher' => 'AES-256-CBC',
-    'key' => 'base64:dG6JW6PiKUOM8RCNfW4aV8wXNXkC+Uj6OglPw5yaSj8=',
+    'key' => 'base64:G2ocmz+9ZqvIJIEWzhw2WdDAUFJwwnPJ2ijh3y0ZD5w=',
     'previous_keys' => 
     array (
     ),
@@ -116,6 +116,11 @@
         'driver' => 'session',
         'provider' => 'users',
       ),
+      'sanctum' => 
+      array (
+        'driver' => 'sanctum',
+        'provider' => NULL,
+      ),
     ),
     'providers' => 
     array (
@@ -158,8 +163,8 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'E:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
-        'lock_path' => 'E:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
+        'lock_path' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -214,7 +219,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'new_erp_2025-08-04_161403',
+        'database' => 'aandg_new_erp',
         'prefix' => '',
         'foreign_key_constraints' => true,
         'busy_timeout' => NULL,
@@ -227,7 +232,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'new_erp_2025-08-04_161403',
+        'database' => 'aandg_new_erp',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -247,7 +252,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'new_erp_2025-08-04_161403',
+        'database' => 'aandg_new_erp',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -267,7 +272,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'new_erp_2025-08-04_161403',
+        'database' => 'aandg_new_erp',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -282,7 +287,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'new_erp_2025-08-04_161403',
+        'database' => 'aandg_new_erp',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -332,7 +337,7 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\laragon\\www\\garments_erp\\storage\\app/private',
+        'root' => 'H:\\laragon\\www\\garments_erp\\storage\\app/private',
         'serve' => true,
         'throw' => false,
         'report' => false,
@@ -340,8 +345,8 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\laragon\\www\\garments_erp\\storage\\app/public',
-        'url' => 'http://localhost:8000/storage',
+        'root' => 'H:\\laragon\\www\\garments_erp\\storage\\app/public',
+        'url' => 'https://erp.anggroupbd.com//storage',
         'visibility' => 'public',
         'throw' => false,
         'report' => false,
@@ -362,9 +367,10 @@
     ),
     'links' => 
     array (
-      'E:\\laragon\\www\\garments_erp\\public\\storage' => 'E:\\laragon\\www\\garments_erp\\storage\\app/public',
+      'H:\\laragon\\www\\garments_erp\\public\\storage' => 'H:\\laragon\\www\\garments_erp\\storage\\app/public',
     ),
   ),
+  'fonts_config' => 1,
   'logging' => 
   array (
     'default' => 'stack',
@@ -387,14 +393,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'E:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'E:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -459,7 +465,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'E:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -478,7 +484,7 @@
         'username' => NULL,
         'password' => NULL,
         'timeout' => NULL,
-        'local_domain' => 'localhost',
+        'local_domain' => 'erp.anggroupbd.com',
       ),
       'ses' => 
       array (
@@ -537,7 +543,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'E:\\laragon\\www\\garments_erp\\resources\\views/vendor/mail',
+        0 => 'H:\\laragon\\www\\garments_erp\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -547,7 +553,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => 'E:\\laragon\\www\\garments_erp\\vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => 'H:\\laragon\\www\\garments_erp\\vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'routes/web.php',
@@ -625,9 +631,9 @@
     ),
     'paths' => 
     array (
-      'modules' => 'E:\\laragon\\www\\garments_erp\\Modules',
-      'assets' => 'E:\\laragon\\www\\garments_erp\\public\\modules',
-      'migration' => 'E:\\laragon\\www\\garments_erp\\database/migrations',
+      'modules' => 'H:\\laragon\\www\\garments_erp\\Modules',
+      'assets' => 'H:\\laragon\\www\\garments_erp\\public\\modules',
+      'migration' => 'H:\\laragon\\www\\garments_erp\\database/migrations',
       'app_folder' => 'app/',
       'generator' => 
       array (
@@ -910,7 +916,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => 'E:\\laragon\\www\\garments_erp\\vendor/*/*',
+        0 => 'H:\\laragon\\www\\garments_erp\\vendor/*/*',
       ),
     ),
     'composer' => 
@@ -933,7 +939,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => 'E:\\laragon\\www\\garments_erp\\modules_statuses.json',
+        'statuses-file' => 'H:\\laragon\\www\\garments_erp\\modules_statuses.json',
       ),
     ),
     'activator' => 'file',
@@ -1071,7 +1077,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'E:\\laragon\\www\\garments_erp\\storage\\framework/sessions',
+    'files' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1198,9 +1204,9 @@
   array (
     'paths' => 
     array (
-      0 => 'E:\\laragon\\www\\garments_erp\\resources\\views',
+      0 => 'H:\\laragon\\www\\garments_erp\\resources\\views',
     ),
-    'compiled' => 'E:\\laragon\\www\\garments_erp\\storage\\framework\\views',
+    'compiled' => 'H:\\laragon\\www\\garments_erp\\storage\\framework\\views',
   ),
   'debugbar' => 
   array (
@@ -1216,7 +1222,7 @@
       'enabled' => true,
       'open' => NULL,
       'driver' => 'file',
-      'path' => 'E:\\laragon\\www\\garments_erp\\storage\\debugbar',
+      'path' => 'H:\\laragon\\www\\garments_erp\\storage\\debugbar',
       'connection' => NULL,
       'provider' => '',
       'hostname' => '127.0.0.1',
@@ -1360,6 +1366,61 @@
     'theme' => 'auto',
     'debug_backtrace_limit' => 50,
   ),
+  'dompdf' => 
+  array (
+    'show_warnings' => false,
+    'public_path' => NULL,
+    'convert_entities' => true,
+    'options' => 
+    array (
+      'font_dir' => 'H:\\laragon\\www\\garments_erp\\storage\\fonts',
+      'font_cache' => 'H:\\laragon\\www\\garments_erp\\storage\\fonts',
+      'temp_dir' => 'C:\\Users\\PROTTOY\\AppData\\Local\\Temp',
+      'chroot' => 'H:\\laragon\\www\\garments_erp',
+      'allowed_protocols' => 
+      array (
+        'data://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'file://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'http://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'https://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+      ),
+      'artifactPathValidation' => NULL,
+      'log_output_file' => NULL,
+      'enable_font_subsetting' => false,
+      'pdf_backend' => 'CPDF',
+      'default_media_type' => 'screen',
+      'default_paper_size' => 'a4',
+      'default_paper_orientation' => 'portrait',
+      'default_font' => 'serif',
+      'dpi' => 96,
+      'enable_php' => false,
+      'enable_javascript' => true,
+      'enable_remote' => false,
+      'allowed_remote_hosts' => NULL,
+      'font_height_ratio' => 1.1,
+      'enable_html5_parser' => true,
+    ),
+  ),
   'image' => 
   array (
     'driver' => 'Intervention\\Image\\Drivers\\Gd\\Driver',
@@ -1369,6 +1430,152 @@
       'decodeAnimation' => true,
       'blendingColor' => 'ffffff',
       'strip' => false,
+    ),
+  ),
+  'sanctum' => 
+  array (
+    'stateful' => 
+    array (
+      0 => 'localhost',
+      1 => 'localhost:3000',
+      2 => '127.0.0.1',
+      3 => '127.0.0.1:8000',
+      4 => '::1',
+      5 => 'erp.anggroupbd.com',
+    ),
+    'guard' => 
+    array (
+      0 => 'web',
+    ),
+    'expiration' => NULL,
+    'token_prefix' => '',
+    'middleware' => 
+    array (
+      'authenticate_session' => 'Laravel\\Sanctum\\Http\\Middleware\\AuthenticateSession',
+      'encrypt_cookies' => 'Illuminate\\Cookie\\Middleware\\EncryptCookies',
+      'validate_csrf_token' => 'Illuminate\\Foundation\\Http\\Middleware\\ValidateCsrfToken',
+    ),
+  ),
+  'excel' => 
+  array (
+    'exports' => 
+    array (
+      'chunk_size' => 1000,
+      'pre_calculate_formulas' => false,
+      'strict_null_comparison' => false,
+      'csv' => 
+      array (
+        'delimiter' => ',',
+        'enclosure' => '"',
+        'line_ending' => '
+',
+        'use_bom' => false,
+        'include_separator_line' => false,
+        'excel_compatibility' => false,
+        'output_encoding' => '',
+        'test_auto_detect' => true,
+      ),
+      'properties' => 
+      array (
+        'creator' => '',
+        'lastModifiedBy' => '',
+        'title' => '',
+        'description' => '',
+        'subject' => '',
+        'keywords' => '',
+        'category' => '',
+        'manager' => '',
+        'company' => '',
+      ),
+    ),
+    'imports' => 
+    array (
+      'read_only' => true,
+      'ignore_empty' => false,
+      'heading_row' => 
+      array (
+        'formatter' => 'slug',
+      ),
+      'csv' => 
+      array (
+        'delimiter' => NULL,
+        'enclosure' => '"',
+        'escape_character' => '\\',
+        'contiguous' => false,
+        'input_encoding' => 'guess',
+      ),
+      'properties' => 
+      array (
+        'creator' => '',
+        'lastModifiedBy' => '',
+        'title' => '',
+        'description' => '',
+        'subject' => '',
+        'keywords' => '',
+        'category' => '',
+        'manager' => '',
+        'company' => '',
+      ),
+      'cells' => 
+      array (
+        'middleware' => 
+        array (
+        ),
+      ),
+    ),
+    'extension_detector' => 
+    array (
+      'xlsx' => 'Xlsx',
+      'xlsm' => 'Xlsx',
+      'xltx' => 'Xlsx',
+      'xltm' => 'Xlsx',
+      'xls' => 'Xls',
+      'xlt' => 'Xls',
+      'ods' => 'Ods',
+      'ots' => 'Ods',
+      'slk' => 'Slk',
+      'xml' => 'Xml',
+      'gnumeric' => 'Gnumeric',
+      'htm' => 'Html',
+      'html' => 'Html',
+      'csv' => 'Csv',
+      'tsv' => 'Csv',
+      'pdf' => 'Dompdf',
+    ),
+    'value_binder' => 
+    array (
+      'default' => 'Maatwebsite\\Excel\\DefaultValueBinder',
+    ),
+    'cache' => 
+    array (
+      'driver' => 'memory',
+      'batch' => 
+      array (
+        'memory_limit' => 60000,
+      ),
+      'illuminate' => 
+      array (
+        'store' => NULL,
+      ),
+      'default_ttl' => 10800,
+    ),
+    'transactions' => 
+    array (
+      'handler' => 'db',
+      'db' => 
+      array (
+        'connection' => NULL,
+      ),
+    ),
+    'temporary_files' => 
+    array (
+      'local_path' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/cache/laravel-excel',
+      'local_permissions' => 
+      array (
+      ),
+      'remote_disk' => NULL,
+      'remote_prefix' => NULL,
+      'force_resync_remote' => NULL,
     ),
   ),
   'datatables' => 
@@ -1435,9 +1642,21 @@
   array (
     'name' => 'Inventory',
   ),
+  'ordermanagement' => 
+  array (
+    'name' => 'OrderManagement',
+  ),
   'payroll' => 
   array (
     'name' => 'Payroll',
+  ),
+  'sm' => 
+  array (
+    'name' => 'SM',
+  ),
+  'sample' => 
+  array (
+    'name' => 'Sample',
   ),
   'tinker' => 
   array (

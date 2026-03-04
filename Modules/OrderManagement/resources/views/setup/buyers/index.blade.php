@@ -96,7 +96,7 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <x-select-input-group name="buyer_type" label="Buyer Type"
-                                                                :options="['Local', 'Foreign', 'Both', 'Buying House', 'Retail', 'Online Seller']" :selected="$buyer->buyer_type??old('buyer_type')" required />
+                                                                :options="['Local', 'Foreign', 'Both', 'Buying House', 'Retail', 'Online Seller']" :selected="collect(['Local', 'Foreign', 'Both', 'Buying House', 'Retail', 'Online Seller'])->search($buyer->buyer_type)??old('buyer_type')" required />
                                                         </div>
                                                         <div class="col-md-12">
                                                             <x-input-group name="contact_person" label="Contact Person"

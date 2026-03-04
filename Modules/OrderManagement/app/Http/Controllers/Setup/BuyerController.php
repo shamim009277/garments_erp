@@ -67,7 +67,7 @@ class BuyerController extends Controller
             ]);
             // return $buyer;
             DB::commit();
-            return redirect()->route('ordermanagements.setup.buyers.index')->with('success', 'Buyer created successfully');
+            return redirect()->route('ordermanagement.setup.buyers.index')->with('success', 'Buyer created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to create buyer: ' . $e->getMessage());
@@ -116,7 +116,7 @@ class BuyerController extends Controller
                 
             ]);
             DB::commit();
-            return redirect()->route('ordermanagements.setup.buyers.index')->with('success', 'Buyer updated successfully');
+            return redirect()->route('ordermanagement.setup.buyers.index')->with('success', 'Buyer updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update buyer: ' . $e->getMessage());

@@ -39,18 +39,27 @@
                             </select>
                         </div>
                         <div class="col-md-2 mb-2">
-                            <label for="color_id" class="form-label">Color</label>
-                            <select name="color_id" id="color_id" class="form-control select2" required disabled>
-                                <option value="">Select Color</option>
+                            <label for="programme_id" class="form-label">Programme</label>
+                            <select name="programme_id" id="programme_id" class="form-control select2" required disabled>
+                                <option value="">Select Programme</option>
                             </select>
                         </div>
                         <div class="col-md-2 mb-2">
                             <label for="sample_type_id" class="form-label">Sample Type</label>
-                            <select name="sample_type_id" id="sample_type_id" class="form-control select2" required disabled>
+                            <select name="sample_type_id" id="sample_type_id" class="form-control select2" disabled>
                                 <option value="">Select Sample Type</option>
-                                @foreach($sampleTypes as $sampleType)
-                                    <option value="{{ $sampleType->id }}">{{ $sampleType->sample_type_name }}</option>
-                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <label for="color_id" class="form-label">Color</label>
+                            <select name="color_id" id="color_id" class="form-control select2"  disabled>
+                                <option value="">Select Color</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <label for="size_id" class="form-label">Size</label>
+                            <select name="size_id" id="size_id" class="form-control select2" disabled>
+                                <option value="">Select Size</option>
                             </select>
                         </div>
                         <div class="col-md-2 mb-2">
@@ -116,20 +125,61 @@
             let orderId = $(this).val();
             if (orderId) {
                 // Use a placeholder for the ID and replace it
-                let url = "{{ route('sms.database.sampleorderproduction.get-samples', ':id') }}";
+                let url = "{{ route('sms.database.sampleorderproduction.get-programmes', ':id') }}";
                 url = url.replace(':id', orderId);
                 $.ajax({
                     url: url,
                     type: "GET",
                     success: function(data) {
-                        let options = '<option value="">Select Color</option>';
+                        let options = '<option value="">Select Programme</option>';
                         data.forEach(function(data) {
+                            
+                                options += `<option value="${data.id}">${data.programme_code}</option>`;
+                          
+                        });
+                        $('#programme_id').html(options).prop('disabled', false);
+                        $('#sample_type_id').prop('disabled', false);
+                        $('#production_quantity').prop('disabled', false);
+                        $('#used_fabric_quantity').prop('disabled', false);
+                        $('#production_notes').prop('disabled', false);
+                        $('#submitBtn').prop('disabled', false);
+                    }
+                });
+            }
+        });
+
+        $('#programme_id').change(function() {
+            let programmeId = $(this).val();
+            if (programmeId) {
+                // Use a placeholder for the ID and replace it
+                let url = "{{ route('sms.database.sampleorderproduction.get-samples', ':id') }}";
+                url = url.replace(':id', programmeId);
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function(data) {
+                        let options = '<option value="">Select Color</option>';
+                        data.colors.forEach(function(data) {
                             
                                 options += `<option value="${data.id}">${data.color_name}</option>`;
                           
                         });
                         $('#color_id').html(options).prop('disabled', false);
-                        $('#sample_type_id').prop('disabled', false);
+                        options = '<option value="">Select Size</option>';
+                        data.sizes.forEach(function(data) {
+                            
+                                options += `<option value="${data.id}">${data.size_name}</option>`;
+                          
+                        });
+
+                        $('#size_id').html(options).prop('disabled', false);
+                        options = '<option value="">Select Sample Type</option>';
+                        data.sampleTypes.forEach(function(data) {
+                            
+                                options += `<option value="${data.id}" selected>${data.sample_type_name}</option>`;
+                          
+                        });
+                        $('#sample_type_id').html(options).prop('disabled', false);
                         $('#production_quantity').prop('disabled', false);
                         $('#used_fabric_quantity').prop('disabled', false);
                         $('#production_notes').prop('disabled', false);
