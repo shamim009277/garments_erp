@@ -14,6 +14,19 @@ use App\Traits\ToggleStatus;
 class ColorController extends Controller
 {
     use ToggleStatus;
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.colors.view')->only('index','show');
+        $this->middleware('permission:inventory.colors.add')->only('store');
+        $this->middleware('permission:inventory.colors.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.colors.delete')->only('destroy');
+    }
+
+
+
+
     // $table->id();
     // $table->string('color_code', 20)->unique();
     // $table->string('color_name', 100);
@@ -47,7 +60,7 @@ class ColorController extends Controller
      */
     public function store(ColorRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         DB::beginTransaction();
         try {
             //create color code with prefix INV-

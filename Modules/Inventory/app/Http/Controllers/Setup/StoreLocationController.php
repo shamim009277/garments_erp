@@ -44,6 +44,21 @@ class StoreLocationController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+        function __construct()
+    {
+        $this->middleware('permission:inventory.store-locations.view')->only('index','show');
+        $this->middleware('permission:inventory.store-locations.add')->only('store');
+        $this->middleware('permission:inventory.store-locations.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.store-locations.delete')->only('destroy');
+    }
+
+
+
+
+
+
     public function index()
     {
         $storelocations = StoreLocation::paginate(10);

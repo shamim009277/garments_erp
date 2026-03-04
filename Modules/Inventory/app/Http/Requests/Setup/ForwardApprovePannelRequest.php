@@ -11,6 +11,7 @@ class ForwardApprovePannelRequest extends FormRequest
      */
     public function rules(): array
     {
+        
         return [
             'organization_id' => 'required|exists:hris_setup_organizations,id',
             'user_id' => 'required|exists:users,id',

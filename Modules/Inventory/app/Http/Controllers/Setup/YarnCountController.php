@@ -12,6 +12,22 @@ use Modules\Inventory\Http\Requests\Setup\YarnCountRequest;
 class YarnCountController extends Controller
 {
     use ToggleStatus;
+
+
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.yarn-counts.view')->only('index','show');
+        $this->middleware('permission:inventory.yarn-counts.add')->only('store');
+        $this->middleware('permission:inventory.yarn-counts.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.yarn-counts.delete')->only('destroy');
+    }
+
+
+
+
+
     /**
      * Display a listing of the resource.
      */

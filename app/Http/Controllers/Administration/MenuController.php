@@ -35,7 +35,7 @@ class MenuController extends Controller
                 ->with(['parent' => function ($query) {
                     $query->select('id', 'title');
                 }])
-                ->addSelect('modules.name as module_name');
+                ->addSelect('modules.name as module_name')->orderBy('menus.id', 'desc');
 
             return DataTables::of($data)
                 ->addIndexColumn()

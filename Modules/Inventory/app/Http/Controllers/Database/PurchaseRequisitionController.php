@@ -4,6 +4,15 @@ namespace Modules\Inventory\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\HRIS\Models\Setup\Organization;
+use Modules\Inventory\Models\Setup\StoreLocation;
+use Modules\Inventory\Models\Database\PurRequisitionMain;
+use Modules\Inventory\Models\Database\PurRequisitionDetail;
+use Modules\Inventory\Models\Setup\Item;
+use App\Models\Master\Setup\Unit;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 
 class PurchaseRequisitionController extends Controller
 {
@@ -12,8 +21,12 @@ class PurchaseRequisitionController extends Controller
      */
     public function index()
     {
-        
-        return view('inventory::database.purrequisition.index');
+        $organizations = Organization::where('is_active',1)->get();
+        $store_locations = StoreLocation::where('is_active',1)->get();
+        $purrequisitions = PurRequisitionMain::where('is_done',0)->orderBy('id', 'desc')->take(50)->get();
+        $items = Item::where('is_active',1)->get();
+        $today_date = date('Y-m-d');
+        return view('inventory::database.purrequisition.index', compact('today_date','organizations','store_locations','purrequisitions','items'));
     }
 
     /**
@@ -54,4 +67,36 @@ class PurchaseRequisitionController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id) {}
+
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $type = $request->type;
+        // $match = $request->match;
+        if($type == 'search'){
+            $purrequisitions = Item::where('item_name', 'like', '%'.$search.'%')->get();
+            return response()->json($purrequisitions);
+        }else if($type == 'details'){
+            $item = Item::where('id', $search)->with('unit')->first();
+            $unit = Unit::where('id', $item->unit_id)->first();
+            $unit_standards = $unit->unit_standards;
+            $units = Unit::where('unit_standards', $unit_standards)->get();
+            return response()->json(['details'=>$item,'units'=>$units]);
+        }
+        
+    }
+
+    public function pdfData($id){
+
+        date_default_timezone_set('Asia/Dhaka');
+
+        $purrequisition = PurRequisitionMain::with('organization', 'required_by', 'store')->find($id);
+        $reqDetails = PurRequisitionDetail::with('item','pur_unit')->where('pur_req_id', $id)->get();
+        $title = 'Purchase Requisition';
+        $pdf = Pdf::loadView('inventory::database.purrequisition.pdf', compact('purrequisition','reqDetails','title'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->stream('purrequisition.pdf');
+    }
 }

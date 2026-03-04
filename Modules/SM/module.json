@@ -1,0 +1,11 @@
+{
+    "name": "SM",
+    "alias": "sms",
+    "description": "SM module for Laravel",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SM\\Providers\\SMServiceProvider"
+    ],
+    "files": []
+}

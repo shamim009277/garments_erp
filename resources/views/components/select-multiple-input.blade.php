@@ -19,6 +19,7 @@
 <select
     name="{{ $selectName }}"
     id="{{ $id }}"
+    data-trigger
     @if($multiple) multiple @endif
     @if($required) required @endif
     {{ $attributes->merge(['class' => 'form-select' . ($errors->has($name) ? ' is-invalid' : '')]) }}

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         }));
 
         View::share('ornizations_data', cache()->remember('ornizations_data', 3600, function () {
-            return Organization::active()->select('id','name','bn_name','short_name','address_bangla','email','phone','icon_name','path')->get();
+            return Organization::active()->select('id','name','bn_name','short_name','address','address_bangla','email','phone','icon_name','path')->get();
         }));
 
         // Holidays
@@ -40,6 +40,17 @@ class AppServiceProvider extends ServiceProvider
                     })
                     ->toArray();
             }));
+        
+        $allowedIp = env('ALLOW_SERVER_IP');
+        $serverIp = getHostByName(getHostName());
+        if ($serverIp !== $allowedIp) {
+            abort(403, "Application is locked to specific server.");
+        }
+        $host = gethostname();
+        if ($host !== env('ALLOW_HOST')) {
+            abort(403, "This server is not allowed.");
+        }
+            
     }
 }
 

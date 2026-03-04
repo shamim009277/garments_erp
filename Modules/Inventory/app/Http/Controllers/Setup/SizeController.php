@@ -16,6 +16,22 @@ class SizeController extends Controller
     //         $table->integer('size_rank')->nullable();
     //         $table->boolean('is_active')->default(true);
     //         $table->unsignedBigInteger('size_group_id');
+
+
+    // function __construct()
+    // {
+    //     $this->middleware('permission:inventory.sizes.view')->only('index','show');
+    //     $this->middleware('permission:inventory.sizes.add')->only('store');
+    //     $this->middleware('permission:inventory.sizes.edit')->only(['edit', 'update','toggleStatus']);
+    //     $this->middleware('permission:inventory.sizes.delete')->only('destroy');
+    // }
+
+
+
+
+
+
+
     public function index()
     {
         $sizes = Size::all();

@@ -11,6 +11,16 @@ use App\Traits\ToggleStatus;
 class CountryController extends Controller
 {
     use ToggleStatus;
+
+     function __construct()
+    {
+        $this->middleware('permission:inventory.countries.view')->only('index','show');
+        $this->middleware('permission:inventory.countries.add')->only('store');
+        $this->middleware('permission:inventory.countries.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.countries.delete')->only('destroy');
+    }
+
+
     /**
      * Display a listing of the resource.
      */

@@ -8,27 +8,58 @@ function getRole()
     return Auth::user()->role;
 }
 
+// function calculateTotalHours($start_punch, $end_punch)
+// {
+//     if (empty($start_punch) || empty($end_punch)) {
+//         return 0;
+//     }
+//     try {
+//         $start = Carbon::parse($start_punch);
+//         $end = Carbon::parse($end_punch);
+//     } catch (\Exception $e) {
+//         return 0;
+//     }
+
+//     if ($end->lessThanOrEqualTo($start)) {
+//         return 0;
+//     }
+
+//     $workMinutes = $end->diffInMinutes($start);
+//     $hours = intdiv($workMinutes, 60);
+//     $minutes = $workMinutes % 60;
+//     if ($minutes >= 45) {
+//         $hours += 1;
+//     }
+
+//     return $hours;
+// }
+
 function calculateTotalHours($start_punch, $end_punch)
 {
     if (empty($start_punch) || empty($end_punch)) {
         return 0;
     }
+
     try {
+
         $start = Carbon::parse($start_punch);
-        $end = Carbon::parse($end_punch);
+        $end   = Carbon::parse($end_punch);
+
     } catch (\Exception $e) {
+
         return 0;
+
     }
 
-    if ($end->lessThanOrEqualTo($start)) {
-        return 0;
-    }
-
-    $workMinutes = $start->diffInMinutes($end);
+    $workMinutes = $start->diffInMinutes($end, false);
+    $workMinutes = max(0, $workMinutes);
     $hours = intdiv($workMinutes, 60);
     $minutes = $workMinutes % 60;
+
     if ($minutes >= 45) {
-        $hours += 1;
+
+        $hours++;
+
     }
 
     return $hours;

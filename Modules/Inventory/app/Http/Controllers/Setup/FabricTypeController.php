@@ -16,6 +16,17 @@ class FabricTypeController extends Controller
     //         $table->string('fabric_type_description')->nullable();
     //         $table->boolean('is_active')->default(true);
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.fabic-types.view')->only('index','show');
+        $this->middleware('permission:inventory.fabic-types.add')->only('store');
+        $this->middleware('permission:inventory.fabic-types.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.fabic-types.delete')->only('destroy');
+    }
+
+
+
     public function index()
     {
         $fabictypes = FabricType::all();

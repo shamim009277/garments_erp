@@ -377,7 +377,7 @@
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
         } else if( selectedValue == '6' ){
-            $('.departmentID').prop('disabled', true);
+            $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);

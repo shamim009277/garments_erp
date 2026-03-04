@@ -144,7 +144,7 @@
                             <x-input-error :messages="$errors->get('email')" />
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                            <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror" id="edit_password" name="password" value="{{ old('password') }}" placeholder="Enter password">
                             <x-input-error :messages="$errors->get('password')" />
                         </div>

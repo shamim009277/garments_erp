@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('inventory_setup_forward_approve_pannels', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
+            $table->string('employee_id')->nullable();
             $table->string('email')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->tinyInteger('access_level')->default(2)->comment('1 = Forward, 2 = Pricing,3 = Confirmation,4 = Approval,5 = Final Approval');
+            $table->tinyInteger('access_level')->default(2)->comment('1 = Forward, 2 = Pricing,3 = Approval,4 = Account Clearance,5 = Final Approval');
             $table->foreignId('organization_id')
                     ->nullable()
                     ->constrained('hris_setup_organizations')

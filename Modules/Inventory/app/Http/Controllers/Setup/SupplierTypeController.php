@@ -18,6 +18,23 @@ class SupplierTypeController extends Controller
     //         $table->string('name', 100);
     //         $table->text('description')->nullable();
     //         $table->boolean('is_active')->default(true);
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.supplier-types.view')->only('index','show');
+        $this->middleware('permission:inventory.supplier-types.add')->only('store');
+        $this->middleware('permission:inventory.supplier-types.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.supplier-types.delete')->only('destroy');
+    }
+
+
+
+
+
+
+
+
+
     public function index()
     {
         $supplierTypes = SupplierType::all();

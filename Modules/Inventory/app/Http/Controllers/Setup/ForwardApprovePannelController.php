@@ -24,6 +24,18 @@ use Illuminate\Support\Facades\DB;
 class ForwardApprovePannelController extends Controller
 {
     use ToggleStatus;
+
+
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.forward-approve-1.view')->only('index','show');
+        $this->middleware('permission:inventory.forward-approve-1.add')->only('store');
+        $this->middleware('permission:inventory.forward-approve-1.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.forward-approve-1.delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -32,7 +44,7 @@ class ForwardApprovePannelController extends Controller
         $forapppannels = ForwardApprovePannel::all();
         $users = User::all();
         $organizations = Organization::all();
-        $access_types = ['1' => 'Forward', '2' => 'Pricing','3' => 'Confirmation','4' => 'Approval','5' => 'Final Approval'];
+        $access_types = ['1' => 'Forward', '2' => 'Pricing','3' => 'Approval','4' => 'Account Clearance','5' => 'Final Approval'];
         
         return view('inventory::setup.forapppannel.index', compact('forapppannels', 'users','organizations','access_types'));
     }
@@ -46,7 +58,7 @@ class ForwardApprovePannelController extends Controller
         $goodsCategories = User::all();
         $users = User::all();
         $organizations = Organization::all();
-        $access_types = ['1' => 'Forward', '2' => 'Pricing','3' => 'Confirmation','4' => 'Approval','5' => 'Final Approval'];
+        $access_types = ['1' => 'Forward', '2' => 'Pricing','3' => 'Approval','4' => 'Account Clearance','5' => 'Final Approval'];
         $goodsSubcategories = GoodsSubcategory::all();
         $units = Unit::all();
         return view('inventory::setup.forapppannel.index', compact('items', 'goodsCategories', 'goodsSubcategories', 'units','users','organizations','access_types'));
@@ -60,8 +72,8 @@ class ForwardApprovePannelController extends Controller
 
         $data = $request->validated();
         $employee = User::find($data['user_id']); 
-        $data['employee_id'] = $employee->employee_id;
         $data['email'] = $employee->email;
+        $data['employee_id'] = $employee->employee_id;
         DB::beginTransaction();
         try {
             $item = ForwardApprovePannel::create($data);
@@ -105,8 +117,8 @@ class ForwardApprovePannelController extends Controller
         $data = $request->validated();
         // return $data;
         $employee = User::find($data['user_id']); 
-        $data['employee_id'] = $employee->employee_id;
         $data['email'] = $employee->email;
+        $data['employee_id'] = $employee->employee_id;
         $item = ForwardApprovePannel::findOrFail($id);
         $item->update($data);
         return redirect()->route('inventory.setup.forapppannel.index')->with('success', 'Item updated successfully');

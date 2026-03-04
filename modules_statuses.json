@@ -2,5 +2,8 @@
     "Payroll": true,
     "Inventory": true,
     "HRM": true,
-    "HRIS": true
+    "HRIS": true,
+    "OrderManagement": true,
+    "Sample": true,
+    "SM": true
 }

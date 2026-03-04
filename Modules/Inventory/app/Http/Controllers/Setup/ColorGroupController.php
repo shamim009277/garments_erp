@@ -11,7 +11,18 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\ToggleStatus;    
 class ColorGroupController extends Controller
 {
+
+
     use ToggleStatus;
+
+     function __construct()
+    {
+        $this->middleware('permission:inventory.color-groups.view')->only('index','show');
+        $this->middleware('permission:inventory.color-groups.add')->only('store');
+        $this->middleware('permission:inventory.color-groups.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.color-groups.delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */

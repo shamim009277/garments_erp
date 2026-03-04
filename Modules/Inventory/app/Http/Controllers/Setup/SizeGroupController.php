@@ -12,6 +12,23 @@ use App\Traits\ToggleStatus;
 class SizeGroupController extends Controller
 {
     use ToggleStatus;
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.size-wise-groups.view')->only('index','show');
+        $this->middleware('permission:inventory.size-wise-groups.add')->only('store');
+        $this->middleware('permission:inventory.size-wise-groups.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.size-wise-groups.delete')->only('destroy');
+    }
+
+
+
+
+
+
+
+
     /**
      * Display a listing of the resource.
      */

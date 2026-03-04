@@ -13,6 +13,18 @@ class StoreLineController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.store-lines.view')->only('index','show');
+        $this->middleware('permission:inventory.store-lines.add')->only('store');
+        $this->middleware('permission:inventory.store-lines.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.store-lines.delete')->only('destroy');
+    }
+
+
+
+
     public function index()
     {
         // $table->string('line_code', 50)->unique();

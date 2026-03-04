@@ -11,6 +11,18 @@ use App\Traits\ToggleStatus;
 class ChallanPurposeController extends Controller
 {
     use ToggleStatus;
+    
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.challan-purposes.view')->only('index','show');
+        $this->middleware('permission:inventory.challan-purposes.add')->only('store');
+        $this->middleware('permission:inventory.challan-purposes.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.challan-purposes.delete')->only('destroy');
+    }
+
+
+
     /**
      * Display a listing of the resource.
      */

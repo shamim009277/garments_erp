@@ -30,6 +30,22 @@ class RackLocationController extends Controller
             //       ->references('id')->on('inventory_setup_store_line')
             //       ->onDelete('cascade');
      
+    function __construct()
+        {
+            $this->middleware('permission:inventory.rack-locations.view')->only('index','show');
+            $this->middleware('permission:inventory.rack-locations.add')->only('store');
+            $this->middleware('permission:inventory.rack-locations.edit')->only(['edit', 'update','toggleStatus']);
+            $this->middleware('permission:inventory.rack-locations.delete')->only('destroy');
+        }
+
+
+
+
+
+
+
+
+
     public function index()
     {
         $rackLocations = RackLocation::all();

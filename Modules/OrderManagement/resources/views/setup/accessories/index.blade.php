@@ -1,0 +1,127 @@
+@extends('layouts.app')
+@section('title', 'Order Management')
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            @include('components.breadcrumb', [
+                'title' => 'Order Management',
+                'subtitle' => 'Accessories',
+                'breadcrumbs' => [
+                    ['label' => 'Order Management', 'url' => route('ordermanagement.index')],
+                    ['label' => 'Setup', 'url' => route('ordermanagement.index')],
+                    ['label' => 'Accessories', 'url' => route('ordermanagement.setup.accessories.index')],
+                ],
+            ])
+        </div>
+        <div class="col-md-8">
+            <div class="card alert-primary alert-top-border padding-card">
+                <div class="card-header">
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Accessories List
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="30%">Accessories Name</th>
+                                <th width="30%">Organization</th>
+                                <th width="15%">Status</th>
+                                <th width="20%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($accessories as $key => $accessory)
+                                <tr>
+                                    <td width="5%">{{ $key + 1 }}</td>
+                                    <td width="30%">{{ $accessory->accessories_name }}</td>
+                                    <td width="30%">{{ $accessory->organization->name ?? 'N/A' }}</td>
+                                    <td class="text-center">
+                                        <p class="text-{{ $accessory->is_active ? 'success' : 'danger' }}">
+                                            {{ $accessory->is_active ? 'Active' : 'Inactive' }}</p>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-soft-success waves-effect waves-light"
+                                            style="padding: 4px 6px;" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $accessory->id }}"><i class="fas fa-edit"></i></a>
+                                        <form action="{{ route('ordermanagement.setup.accessories.destroy', $accessory->id) }}"
+                                            method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this accessory?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {{-- load edit modal --}}
+                                <div class="modal fade" id="editModal{{ $accessory->id }}" tabindex="-1"
+                                    aria-labelledby="editModalLabel{{ $accessory->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel{{ $accessory->id }}">Edit Accessory
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="moduleForm"
+                                                    action="{{ route('ordermanagement.setup.accessories.update', $accessory->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <x-input-group name="accessories_name" label="Accessories Name"
+                                                                placeholder="Enter accessories name" :value="$accessory->accessories_name??old('accessories_name')" required />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <x-select-input-group name="organization_id" label="Organization"
+                                                                :options="$organizations->pluck('name', 'id')" :selected="$accessory->organization_id??old('organization_id')" />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <x-select-input-group name="is_active" label="Is Active?"
+                                                                :options="['1' => 'Active', '0' => 'Inactive']" :selected="$accessory->is_active ? '1' : '0'" required />
+                                                        </div>
+                                                    </div>
+                                                    <x-primary-button
+                                                        class="float-start btn-sm submitBtn">Save</x-primary-button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card alert-info alert-top-border">
+                <div class="card-header">
+                    <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Accessory ...
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <form id="moduleForm" action="{{ route('ordermanagement.setup.accessories.store') }}" method="POST">
+                        @csrf
+                        <x-input-group name="accessories_name" label="Accessories Name" placeholder="Enter accessories name" :value="old('accessories_name')" required />
+                        <x-select-input-group name="organization_id" label="Organization" :options="$organizations->pluck('name', 'id')" :selected="old('organization_id')" />
+                        <x-select-input-group name="is_active" label="Is Active?" :options="['1' => 'Active', '0' => 'Inactive']" :selected="old('is_active', '1')" required />
+                        <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Add any specific JavaScript for Accessories if needed
+        });
+    </script>
+@endpush

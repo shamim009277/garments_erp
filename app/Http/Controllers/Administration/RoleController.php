@@ -110,11 +110,14 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        
         $request->validate([
             'name' => 'required',
             'permissions' => 'array',
+            //'permissions.*' => 'exists:permissions,id',
         ]);
-
+        
+       
         try {
             $role = Role::findOrFail($id);
             $role->name = $request->name;

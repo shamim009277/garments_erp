@@ -34,6 +34,31 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.suppliers.view')->only('index','show');
+        $this->middleware('permission:inventory.suppliers.add')->only('store');
+        $this->middleware('permission:inventory.suppliers.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.suppliers.delete')->only('destroy');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function index()
     {
         $suppliers = Supplier::all();

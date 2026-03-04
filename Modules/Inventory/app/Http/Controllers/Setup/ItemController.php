@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use Modules\Inventory\Models\Setup\Item;
 use Modules\Inventory\Models\Setup\GoodsCategory;
-use Modules\Inventory\Models\Setup\GoodsSubcategory;
+use Modules\Inventory\Models\Setup\GoodsSubCategory;
 use App\Models\Master\Setup\Unit;
 use Modules\Inventory\Http\Requests\Setup\ItemRequest;
 use App\Traits\ToggleStatus;
@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\DB;
 class ItemController extends Controller
 {
     use ToggleStatus;
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.items.view')->only('index','show');
+        $this->middleware('permission:inventory.items.add')->only('store');
+        $this->middleware('permission:inventory.items.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.items.delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -23,7 +32,7 @@ class ItemController extends Controller
     {
         $items = Item::all();
         $goodsCategories = GoodsCategory::all();
-        $goodsSubcategories = GoodsSubcategory::all();
+        $goodsSubcategories = GoodsSubCategory::all();
         $units = Unit::all();
         return view('inventory::setup.items.index', compact('items', 'goodsCategories', 'goodsSubcategories', 'units'));
     }
@@ -34,7 +43,7 @@ class ItemController extends Controller
     public function create()
     {
         $goodsCategories = GoodsCategory::all();
-        $goodsSubcategories = GoodsSubcategory::all();
+        $goodsSubcategories = GoodsSubCategory::all();
         $units = Unit::all();
         return view('inventory::setup.items.create', compact('goodsCategories', 'goodsSubcategories', 'units'));
     }
@@ -89,7 +98,7 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
         $goodsCategories = GoodsCategory::all();
-        $goodsSubcategories = GoodsSubcategory::all();
+        $goodsSubcategories = GoodsSubCategory::all();
         $units = Unit::all();
         return view('inventory::setup.items.show', compact('item', 'goodsCategories', 'goodsSubcategories', 'units'));
     }
@@ -101,7 +110,7 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
         $goodsCategories = GoodsCategory::all();
-        $goodsSubcategories = GoodsSubcategory::all();
+        $goodsSubcategories = GoodsSubCategory::all();
         $units = Unit::all();
         return view('inventory::setup.items.edit', compact('item', 'goodsCategories', 'goodsSubcategories', 'units'));
     }
@@ -120,7 +129,7 @@ class ItemController extends Controller
             'model' => $request->model,
             'type' => $request->type,
             'remarks' => $request->remarks,
-            'is_active' => $request->is_active,
+            
         ]);
         return redirect()->route('inventory.setup.items.index')->with('success', 'Item updated successfully');
     }
@@ -128,6 +137,13 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+/*    public function destroy($id)
+    {
+        $item = Item::findOrFail($id);
+        $item->delete();
+        return redirect()->route('inventory.setup.items.index')->with('success', 'Item deleted successfully');
+    }*/
+    
     public function destroy(Request $request) {
         try {
             Item::findOrFail($request->id)->delete();
@@ -136,9 +152,10 @@ class ItemController extends Controller
             return response()->json(['success' => false, 'message' => 'Item deletion failed: ' . $e->getMessage()]);
         }
     }
-
-    public function toggleStatus(Request $request) {
-        return $this->ToggleStatusTrait($request, Item::class);
+    //toggleStatus
+    public function toggleStatus(Request $request)
+    {
+        return $this->toggleStatusTrait($request, Item::class);
     }
     //getSubcategories
     public function getSubcategories(Request $request)
@@ -147,12 +164,13 @@ class ItemController extends Controller
         if(!$category_id){
             return response()->json('<option value="">Select a subcategory</option>');
         }
-        $subcategories = GoodsSubcategory::where('goods_category_id', $category_id)->pluck('name', 'id');
-        $html = '<option value="">Select a subcategory</option>';
-        foreach($subcategories as $id => $name){
-            $html .= "<option value='{$id}'>{$name}</option>";
-        }
-        return response()->json($html);
+        $subcategories = GoodsSubCategory::where('goods_category_id', $category_id)
+        ->select('id', 'name')
+        ->orderBy('name')
+        ->get();
+
+    return response()->json($subcategories);
+        
     }
     
 }

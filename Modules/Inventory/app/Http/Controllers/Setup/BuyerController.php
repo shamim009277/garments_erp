@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Auth;
 
 class BuyerController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:inventory.buyers.view')->only('index','show');
+        $this->middleware('permission:inventory.buyers.add')->only('store');
+        $this->middleware('permission:inventory.buyers.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.buyers.delete')->only('destroy');
+    }
     // $table->id();
     // $table->string('buyer_code', 20)->unique(); // Like BY001
     // $table->string('buyer_name', 100);

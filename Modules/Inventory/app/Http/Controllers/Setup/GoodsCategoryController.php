@@ -13,6 +13,19 @@ use App\Traits\ToggleStatus;
 class GoodsCategoryController extends Controller
 {
     use ToggleStatus;
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.goods-categories.view')->only('index','show');
+        $this->middleware('permission:inventory.goods-categories.add')->only('store');
+        $this->middleware('permission:inventory.goods-categories.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.goods-categories.delete')->only('destroy');
+    }
+
+
+
+
     // $table->id();
     // $table->string('category_code', 20)->unique();  // e.g., RM01, FG02
     // $table->string('name', 100);                   // e.g., Raw Material, Finished Goods

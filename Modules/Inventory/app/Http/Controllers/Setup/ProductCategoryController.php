@@ -17,6 +17,22 @@ class ProductCategoryController extends Controller
     // $table->boolean('is_active')->default(true);
 
     use ToggleStatus;
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.product-categories.view')->only('index','show');
+        $this->middleware('permission:inventory.product-categories.add')->only('store');
+        $this->middleware('permission:inventory.product-categories.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.product-categories.delete')->only('destroy');
+    }
+
+
+
+
+
+
+
     public function index()
     {
         $productCategories = ProductCategory::all();

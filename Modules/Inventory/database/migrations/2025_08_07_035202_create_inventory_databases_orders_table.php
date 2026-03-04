@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_databases_orders', function (Blueprint $table) {
+            $table->id();
             // Basic Order Details
             $table->enum('order_type', ['Confirmed', 'Pending', 'Cancelled'])->default('Confirmed');
             $table->enum('compile_type', ['Always Barcode', 'Manual'])->nullable();
@@ -52,12 +53,12 @@ return new class extends Migration
 
             // Pricing & Costing
             $table->decimal('garment_dye_price_per_dzn', 8, 2)->default(0);
-            $table->date('order_date');
+            $table->date('order_date')->nullable();
             $table->decimal('unit_price', 8, 2);
             $table->decimal('cm_price_per_dzn', 8, 2)->default(0);
 
             // Quantities
-            $table->integer('order_quantity');
+            $table->integer('order_quantity')->default(0);
             $table->decimal('extra_cutting_percent', 5, 2)->default(0);
             $table->boolean('fabric_booking_needed')->default(false);
 

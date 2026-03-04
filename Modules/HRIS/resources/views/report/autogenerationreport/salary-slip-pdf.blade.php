@@ -147,27 +147,27 @@
                             <table width="100%" border="1" style="border-collapse: collapse; font-size: 10px; text-align: left;">
                                 <tr>
                                     <td>মোট অতিঃ কাজের মজুরী</td>
-                                    <td>:</td>
+                                    <td style="width: 10px; padding: 2px;">:</td>
                                     <td style="padding: 3px; text-align: middle;">{{ bnNumber(number_format($overtime->hours ?? 0)) }} ঘণ্টা</td>
                                 </tr>
                                 <tr>
                                     <td>উপস্হিতি বোনাস</td>
-                                    <td>:</td>
+                                    <td style="width: 10px; padding: 2px;">:</td>
                                     <td style="padding: 3px; text-align: middle;">{{ bnNumber(number_format($overtime->hours ?? 0)) }} ঘণ্টা</td>
                                 </tr>
                                 <tr>
                                     <td>অগ্রীম কর্তন</td>
-                                    <td>:</td>
+                                    <td style="width: 10px; padding: 2px;">:</td>
                                     <td style="padding: 3px; text-align: middle;">{{ bnNumber(number_format($overtime->hours ?? 0)) }} ঘণ্টা</td>
                                 </tr>
                                 <tr>
                                     <td>মোট কৰ্তন</td>
-                                    <td>:</td>
+                                    <td style="width: 10px; padding: 2px;">:</td>
                                     <td style="padding: 3px; text-align: middle;">{{ bnNumber(number_format($overtime->hours ?? 0)) }} ঘণ্টা</td>
                                 </tr>
                                 <tr>
                                     <td>বকেয়া</td>
-                                    <td>:</td>
+                                    <td style="width: 10px; padding: 2px;">:</td>
                                     <td style="padding: 3px; text-align: middle;">{{ bnNumber(number_format($overtime->hours ?? 0)) }} ঘণ্টা</td>
                                 </tr>
                             </table>

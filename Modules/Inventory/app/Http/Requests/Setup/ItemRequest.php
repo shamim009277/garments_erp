@@ -13,20 +13,17 @@ class ItemRequest extends FormRequest
     public function rules(): array
     {
         $item_id = $this->route('item');
+
         return [
-            'goods_category_id' => ['required|exists:inventory_setup_goods_setup_category,id', Rule::unique('inventory_setup_items', 'goods_category_id')->ignore($item_id)],
-            'goods_subcategory_id' => ['required|exists:inventory_setup_goods_setup_subcategory,id', Rule::unique('inventory_setup_items', 'goods_subcategory_id')->ignore($item_id)],
-            'unit_id' => ['required|exists:master_setup_units,id', Rule::unique('inventory_setup_items', 'unit_id')->ignore($item_id)],
-            'item_name' => ['required|string', Rule::unique('inventory_setup_items', 'item_name')->ignore($item_id)],
-            'item_description' => 'nullable|string',
-            'item_barcode' => 'nullable|string',
-            'item_image' => 'nullable|string',
-            'is_active' => 'required|boolean',
-            'varient' => 'nullable|array',
-            'model' => 'nullable|string',
-            'type' => 'nullable|string',
-            'remarks' => 'nullable|string',
-            'created_by' => 'nullable|exists:users,id',
+            'goods_category_id' => ['required', 'exists:inventory_setup_goods_categories,id'],
+            'goods_subcategory_id' => ['required', 'exists:inventory_setup_goods_subcategories,id'],
+            'unit_id' => ['required', 'exists:master_setup_units,id'],
+            'item_name' => ['required', 'string', Rule::unique('inventory_setup_items', 'item_name')->ignore($item_id)],
+            'item_description' => ['nullable', 'string'],
+            'model' => ['nullable', 'string'],
+            'type' => ['nullable', 'string'],
+            'remarks' => ['nullable', 'string'],
+            'created_by' => ['nullable', 'exists:users,id'],
         ];
     }
 

@@ -14,6 +14,19 @@ use Modules\Inventory\Http\Requests\Setup\GoodsSubCategoryRequest;
 
 class GoodsSubCategoryController extends Controller
 {
+
+
+    function __construct()
+    {
+        $this->middleware('permission:inventory.goods-sub-categories.view')->only('index','show');
+        $this->middleware('permission:inventory.goods-sub-categories.add')->only('store');
+        $this->middleware('permission:inventory.goods-sub-categories.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.goods-sub-categories.delete')->only('destroy');
+    }
+
+
+
+
     /**
      * Display a listing of the resource.
      */

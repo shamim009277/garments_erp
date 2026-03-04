@@ -109,58 +109,61 @@
                                             data-id="{{ $item->id }}" style="padding: 4px 6px;"><i
                                                 class="fas fa-trash"></i></a>
                                     </td>
-                                    {{-- load edit modal --}}
-                                    <div id="editModal{{ $item->id }}" class="modal fade" tabindex="-1"
-                                        aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h6 class="modal-title" id="myModalLabel">Edit Item</h6>
-                                                    <button type="button" class="btn-close btn btn-sm"
-                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-
-                                                <form id="editForm{{ $item->id }}"
+                                </tr>
+                                {{-- load edit modal here --}}
+                                <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
+                                    aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit
+                                                    Goods Item</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="moduleForm"
                                                     action="{{ route('inventory.setup.items.update', $item->id) }}"
                                                     method="POST">
-                                                    <div class="modal-body">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input type="hidden" name="id" value="{{ $item->id }}">
-                                                        <x-input-group name="item_name" label="Item Name" type="text"
-                                                            placeholder="Enter item name" :value="$item->item_name" required />
-                                                        <x-select-input-group name="goods_category_id" id="goods_category_id"
-                                                            label="Goods Category" :options="$goodsCategories->pluck('name', 'id')" :selected="$item->goods_category_id"
-                                                            required />
+                                                    @csrf
+                                                    @method('PUT')
 
-                                                        <x-select-input-group name="goods_subcategory_id" id="goods_subcategory_id"
-                                                            label="Goods Subcategory" :options="[]" :selected="$item->goods_subcategory_id"
-                                                            required />
+                                                    <x-input-group name="item_name" label="Item Name"
+                                                        placeholder="Enter item name" :value="old('item_name', $item->item_name)" required />
+
+                                                    <x-select-input-group name="goods_category_id" class="goods_category_id"
+                                                        label="Goods Category"
+                                                        data-selected="{{ old('goods_category_id', $item->goods_category_id) }}"
+                                                        :options="$goodsCategories->pluck('name', 'id')" :selected="old('goods_category_id', $item->goods_category_id)" required />
+
+                                                    <x-select-input-group name="goods_subcategory_id"
+                                                        class="goods_subcategory_id" label="Goods Subcategory"
+                                                        data-selected="{{ old('goods_subcategory_id', $item->goods_subcategory_id) }}"
+                                                        :options="$goodsSubcategories->pluck('name', 'id')" :selected="old(
+                                                            'goods_subcategory_id',
+                                                            $item->goods_subcategory_id,
+                                                        )" required />
 
 
-                                                        <x-select-input-group name="unit_id" label="Unit"
-                                                            :options="$units->pluck('name', 'id')" :selected="$item->unit_id" required />
-                                                        <x-input-group name="model" label="Model" type="text"
-                                                            placeholder="Enter model" :value="$item->model" required />
-                                                        <x-input-group name="type" label="Type" type="text"
-                                                            placeholder="Enter type" :value="$item->type" required />
-                                                        <x-input-group name="remarks" label="Remarks" type="text"
-                                                            placeholder="Enter remarks" :value="$item->remarks" required />
-                                                        <x-select-input-group name="is_active" label="Is Active"
-                                                            :options="['1' => 'Active', '0' => 'Inactive']" :selected="$item->is_active" required />
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary waves-effect btn-sm"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <x-primary-button id="submitBtn"
-                                                            class="float-start btn-sm submitBtn">Save
-                                                            changes</x-primary-button>
-                                                    </div>
+                                                    <x-select-input-group name="unit_id" label="Unit" :options="$units->pluck('name', 'id')"
+                                                        :selected="old('unit_id', $item->unit_id)" required />
+
+                                                    <x-input-group name="model" label="Model" placeholder="Enter model"
+                                                        :value="old('model', $item->model)" required />
+
+                                                    <x-input-group name="type" label="Type" placeholder="Enter type"
+                                                        :value="old('type', $item->type)" required />
+
+                                                    <x-input-group name="remarks" label="Remarks"
+                                                        placeholder="Enter remarks" :value="old('remarks', $item->remarks)"  />
+
+                                                    <x-primary-button
+                                                        class="float-start btn-sm submitBtn">Save</x-primary-button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                </tr>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -177,13 +180,17 @@
                 <div class="card-body">
                     <form id="moduleForm" action="{{ route('inventory.setup.items.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="item_name" label="Item Name" placeholder="Enter item name"
-                            :value="old('item_name')" required />
+                        <x-input-group name="item_name" label="Item Name" placeholder="Enter item name" :value="old('item_name')"
+                            required />
+
                         <x-select-input-group name="goods_category_id" id="goods_category_id" label="Goods Category"
-                            :options="$goodsCategories->pluck('name', 'id')" :selected="old('goods_category_id')" required />
-                        <!-- load subcategory based on category On change event Load Subcategory -->
+                            data-selected="{{ old('goods_category_id') }}" :options="$goodsCategories->pluck('name', 'id')" :selected="old('goods_category_id')"
+                            required />
+
                         <x-select-input-group name="goods_subcategory_id" id="goods_subcategory_id"
-                            label="Goods Subcategory" :options="[]" :selected="old('goods_subcategory_id')" required />
+                            label="Goods Subcategory" data-selected="{{ old('goods_subcategory_id') }}"
+                            :options="[]" :selected="old('goods_subcategory_id')" required />
+
                         <x-select-input-group name="unit_id" label="Unit" :options="$units->pluck('name', 'id')" :selected="old('unit_id')"
                             required />
                         <x-input-group name="model" label="Model" placeholder="Enter model" :value="old('model')" />
@@ -297,25 +304,101 @@
             });
         });
 
-        $(document).ready(function() {
-            $('#goods_category_id').on('change', function() {
-                let categoryId = $(this).val();
-                console.log(categoryId);
-                $.ajax({
-                    url: '{{ route('inventory.setup.items.getSubcategories') }}',
-                    type: 'GET',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        category_id: categoryId
-                    },
-                    success: function(data) {
-                        $('#goods_subcategory_id').html(data);
-                    },
-                    error: function() {
-                        toastr.error('Something went wrong!');
-                    }
-                });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Choices instance
+            const categorySelect = new Choices('#goods_category_id', {
+                allowHTML: true
             });
+            const subcategorySelect = new Choices('#goods_subcategory_id', {
+                allowHTML: true
+            });
+
+            document.querySelector('#goods_category_id').addEventListener('change', function() {
+                console.log(this.value);
+                let categoryId = this.value;
+                let oldSubcategoryId = document.querySelector('#goods_subcategory_id').dataset.selected;
+
+                if (!categoryId) {
+                    subcategorySelect.clearChoices();
+                    subcategorySelect.setChoices([{
+                        value: '',
+                        label: 'Select a subcategory',
+                        selected: true
+                    }], 'value', 'label', true);
+                    return;
+                }
+
+                fetch(`{{ route('inventory.setup.items.getSubcategories') }}?category_id=${categoryId}`, {
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        subcategorySelect.clearChoices();
+                        subcategorySelect.setChoices(
+                            data.map(item => ({
+                                value: item.id,
+                                label: item.name,
+                                selected: item.id == oldSubcategoryId
+                            })),
+                            'value',
+                            'label',
+                            true
+                        );
+                    })
+                    .catch(err => console.error(err));
+            });
+            //for edit form
+            $(document).ready(function() {
+                function loadSubcategories(categoryId, selectedId = null) {
+                    if (!categoryId) {
+                        $('.goods_subcategory_id').html('<option value="">Select a subcategory</option>');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '{{ route('inventory.setup.items.getSubcategories') }}',
+                        type: 'GET',
+                        data: {
+                            category_id: categoryId
+                        },
+                        success: function(response) {
+                            let options = '<option value="">Select a subcategory</option>';
+
+                            $.each(response, function(index, item) {
+                                let selected = (item.id == selectedId) ? 'selected' :
+                                    '';
+                                options +=
+                                    `<option value="${item.id}" ${selected}>${item.name}</option>`;
+                            });
+
+                            $('.goods_subcategory_id').html(options);
+                        },
+                        error: function() {
+                            $('.goods_subcategory_id').html(
+                                '<option value="">Error loading data</option>');
+                        }
+                    });
+                }
+
+                
+                $('.goods_category_id').on('change', function() {
+                    let categoryId = $(this).val();
+                    loadSubcategories(categoryId);
+                });
+
+               
+                let initialCategoryId = $('.goods_category_id').data('selected');
+                let initialSubcategoryId = $('.goods_subcategory_id').data('selected');
+
+                if (initialCategoryId) {
+                    loadSubcategories(initialCategoryId, initialSubcategoryId);
+                }
+            });
+
+
+
         });
     </script>
 @endpush

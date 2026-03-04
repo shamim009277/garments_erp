@@ -9,12 +9,12 @@ use App\Models\Master\GeneralSetting;
 
 class GeneralSettingController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('permission:master.general-settings.view')->only('generalSettings');
-        $this->middleware('permission:master.general-settings.add')->only('generalSettingsStore');
-        $this->middleware('permission:master.general-settings.edit')->only(['edit', 'update','toggleStatus']);
-    }
+    // function __construct()
+    // {
+    //     $this->middleware('permission:master.general-settings.view')->only('generalSettings');
+    //     $this->middleware('permission:master.general-settings.add')->only('generalSettingsStore');
+    //     $this->middleware('permission:master.general-settings.edit')->only(['edit', 'update','toggleStatus']);
+    // }
 
     public function generalSettings()
     {

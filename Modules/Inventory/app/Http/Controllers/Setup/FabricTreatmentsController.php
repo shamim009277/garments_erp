@@ -16,6 +16,16 @@ class FabricTreatmentsController extends Controller
     // $table->string('fabric_treatment_description')->nullable();
     // $table->boolean('is_active')->default(true);
     use ToggleStatus;
+
+     function __construct()
+    {
+        $this->middleware('permission:inventory.fabic-treatments.view')->only('index','show');
+        $this->middleware('permission:inventory.fabic-treatments.add')->only('store');
+        $this->middleware('permission:inventory.fabic-treatments.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:inventory.fabic-treatments.delete')->only('destroy');
+    }
+
+
     public function index()
     {
         $fabricTreatments = FabricTreatments::all();

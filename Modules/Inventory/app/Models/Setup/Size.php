@@ -18,6 +18,7 @@ class Size extends Model
         'size_code',
         'size_name',
         'size_rank',
+        'size_group_id',
         'is_active',
         'created_by',
         'updated_by',

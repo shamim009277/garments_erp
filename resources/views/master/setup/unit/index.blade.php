@@ -34,6 +34,7 @@
                                     <th width="">Code</th>
                                     <th width="">Conversion Rate</th>
                                     <th width="">Root</th>
+                                    <th width="">Standards</th>
                                     <th width="">Is Active</th>
                                     <th width="">Actions</th>
                                 </tr>
@@ -46,6 +47,7 @@
                                         <td>{{ $unit->code }}</td>
                                         <td>{{ $unit->conversion_rate }}</td>
                                         <td>{{ $unit->root?->name }}</td>
+                                        <td>{{ $standards[$unit->unit_standards] }}</td>
                                         <td>
                                             <div class="square-switch" style="transform: scale(0.85); transform-origin: left center;">
                                                 <input type="checkbox" id="square-switch3{{ $unit->id }}" class="unit-toggle" data-id="{{ $unit->id }}" switch="bool" {{ $unit->is_active ? 'checked' : '' }} />
@@ -79,6 +81,7 @@
                                                             <x-input-group name="code" label="Code" type="text" placeholder="Enter code" :value="$unit->code" required />
                                                             <x-input-group name="conversion_rate" label="Conversion Rate" type="number" step="any" placeholder="Enter conversion rate" :value="$unit->conversion_rate" required />
                                                             <x-select-input-group name="root_id" label="Root" :options="$rots" :selected="$unit->root_id" required />
+                                                            <x-select-input-group name="unit_standards" label="Unit Standards" :options="$standards" :selected="$unit->unit_standards" />
                                                             <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$unit->is_active" required />
                                                         </div>
                                                         <div class="modal-footer">
@@ -110,6 +113,7 @@
                         <x-input-group name="code" label="Code" type="text" placeholder="Enter code" :value="old('code')" required />
                         <x-input-group name="conversion_rate" label="Conversion Rate" type="number" step="any" placeholder="Enter conversion rate" :value="old('conversion_rate')" required />
                         <x-select-input-group name="root_id" label="Root" :options="$rots" :selected="old('root_id')" />
+                        <x-select-input-group name="unit_standards" label="Unit Standards" :options="$standards" :selected="old('unit_standards')" />
                         <x-select-input-group name="is_active" label="Is Active?" :options="['1' => 'Active', '0' => 'Inactive']" :selected="old('is_active', '1')" required />
                         <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
                     </form>

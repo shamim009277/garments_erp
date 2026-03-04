@@ -3,14 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Models\Permission;
+use Modules\HRIS\Models\Setup\Organization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
-use Modules\HRIS\Models\Setup\Organization;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -26,8 +26,8 @@ class User extends Authenticatable
         'name',
         'role_id',
         'employee_id',
-        'email',
         'access_id',
+        'email',
         'password',
         'is_active',
     ];
@@ -59,7 +59,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
-
+    
     public function organization()
     {
         return $this->belongsTo(Organization::class, 'access_id', 'id');

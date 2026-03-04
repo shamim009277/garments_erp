@@ -160,9 +160,10 @@ class ProcessAttendenceController extends Controller
         } else if ($request->title == 2) {
             $month = $request->month;
             $year  = $request->year;
+            $org_id = $request->org_id;
             $startTime = microtime(true);
 
-            $exists = PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->exists();
+            $exists = PunchData::where('org_id', $org_id)->whereMonth('work_date', $month)->whereYear('work_date', $year)->exists();
             if ($exists) {
                 $deleteCount = PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->count();
                 PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->delete();
@@ -184,7 +185,7 @@ class ProcessAttendenceController extends Controller
             $org_id = $request->org_id;
             $user_id = Auth::id();
 
-            $exists = ProcessAttendence::whereMonth('work_date', $month)->whereYear('work_date', $year)->exists();
+            $exists = ProcessAttendence::where('org_id', $org_id)->whereMonth('work_date', $month)->whereYear('work_date', $year)->exists();
             if ($exists) {
                 if ($request->ajax()) {
                     return response()->json([
@@ -220,7 +221,7 @@ class ProcessAttendenceController extends Controller
             $year  = $request->year;
 
             $startTime = microtime(true);
-            $exists = ProcessAttendence::whereMonth('work_date', $month)
+            $exists = ProcessAttendence::where('org_id', $request->org_id)->whereMonth('work_date', $month)
                 ->whereYear('work_date', $year)
                 ->exists();
 

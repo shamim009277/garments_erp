@@ -18,6 +18,16 @@ class StoreTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     function __construct()
+    {
+        $this->middleware('permission:inventory.storetypes.view')->only('index','show');
+        $this->middleware('permission:inventory.storetypes.add')->only('store');
+        $this->middleware('permission:inventory.storetypes.edit')->only(['edit', 'update']);
+        $this->middleware('permission:inventory.storetypes.delete')->only('destroy');
+    }
+
+
     public function index()
     {
         $storetypes = StoreType::paginate(10);

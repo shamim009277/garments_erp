@@ -16,6 +16,7 @@ class Unit extends Model
         'root_id',
         'is_active',
         'is_root',
+        'unit_standards',
         'created_by',
         'updated_by',
     ];

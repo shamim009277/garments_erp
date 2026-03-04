@@ -30,6 +30,7 @@
                         preview.src = e.target.result;
                         preview.style.display = 'block';
                     };
+
                     reader.readAsDataURL(input.files[0]);
                 }
             }
