@@ -308,7 +308,7 @@
             </tr>
             <tr>
                 <td>জন্ম তারিখ : 
-                    {{ $employee->birth_date ? bnNumber(date('d-m-Y', strtotime($employee->birth_date))) : '---------' }}
+                    {{ ($employee->birth_date && $employee->birth_date != '0000-00-00') ? bnNumber(date('d-m-Y', strtotime($employee->birth_date))) : '---------' }}
                 </td>
                 <td> কাজে যোগদানের তারিখ :
                     {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------' }}

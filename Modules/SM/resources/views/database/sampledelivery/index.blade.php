@@ -13,7 +13,84 @@
         ],
         ])
     </div>
-    <div class="col-12">
+    <div class="col-12 mb-3">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <!-- Centered Title -->
+            <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
+                Sample Delivery Challan
+            </h4>
+
+            <!-- Search Input + Button in One Line -->
+            <form action="#" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2"
+                style="max-width: 400px;" role="search">
+                @csrf
+                <input class="form-control form-control-sm me-2" type="search" name="search"
+                    placeholder="Basic Order No ..." aria-label="Search">
+                <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
+                        width="14" height="14" class="me-1"></i> Search</button>
+            </form>
+            @if (1)
+            <!-- Back Button -->
+            <a href="{{ route('sms.database.sampledelivery.index') }}"
+                class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
+                <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
+            </a>
+            @endif
+        </div>
+    </div>
+     <div class="col-md-3">
+        <div class="card alert-primary alert-top-border padding-card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <i data-feather="list" width="16" height="16"></i>
+                    <h6 class="my-0 text-primary ms-2">Initial Orders List</h6>
+                </div>
+            </div>
+            @php
+            $dates = collect($deliveries)->pluck('Date');
+            $deliveryList = collect($dates)->unique();
+            @endphp
+            <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
+                <ul class="nav-custom">
+                    @foreach ($deliveryList as $key => $challanDate)
+                    <li class="nav-custom-item">
+                        <input type="checkbox" id="company{{ $challanDate }}">
+                        <label class="nav-custom-link" for="company{{ $challanDate }}">
+                            <span class="nav-custom-caret"></span>
+                            {{ $challanDate }}
+                        </label>
+                        @php
+                        $buyerIdList = collect($deliveries)->where('Date', $challanDate)->pluck('BuyerID')->unique();
+                        $buyerList = collect($buyers)->whereIn('id', $buyerIdList)->all();
+                        @endphp
+                         <ul class="nav-custom-content">
+                                @foreach ($buyerList as $buyer)
+                                <li class="nav-custom-item">
+                                <input type="checkbox" id="company{{ $buyer->id }} {{ $challanDate }}">
+                                <label class="nav-custom-link" for="company{{ $buyer->id }} {{ $challanDate }}">
+                                    <span class="nav-custom-caret"></span>
+                                    {{ $buyer->buyer_name }}
+                                </label>
+                                    @php
+                                    $chList = collect($deliveries)->where('Date', $challanDate)->where('BuyerID', $buyer->id);
+                                    @endphp
+                                    <div class="nav-custom-content">
+                                        @foreach ($chList as $key => $challan)
+                                        <a href="{{ route('sms.database.sampledelivery.show', $challan->id) }}" class="employee-link">
+                                            {{ $challan->ChallanNo }}
+                                        </a>
+                                        @endforeach
+                                    </div>
+                                    </li>
+                                @endforeach
+                        </ul>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">Create Sample Delivery</h5>
@@ -30,6 +107,15 @@
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Date</label>
                             <input type="date" name="Date" class="form-control form-control-sm" required value="{{ date('Y-m-d') }}">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Buyer</label>
+                            <select name="BuyerID" class="form-control form-control-sm select2" required>
+                                <option value="">Select Buyer</option>
+                                @foreach($buyers as $buyer)
+                                    <option value="{{ $buyer->id }}">{{ $buyer->buyer_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Employee</label>
@@ -61,68 +147,14 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary btn-sm">Save Delivery</button>
+                        <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-end">Save Delivery</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Sample Delivery List</h5>
-                <a href="{{ route('sms.database.sampledelivery.create') }}" class="btn btn-primary btn-sm">Create New Delivery</a>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Challan No</th>
-                                <th>Date</th>
-                                <th>Buyer</th>
-                                <th>Employee</th>
-                                <th>Challan Type</th>
-                                <th>Goods Type</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($deliveries as $delivery)
-                            <tr>
-                                <td>{{ $delivery->ChallanNo }}</td>
-                                <td>{{ $delivery->Date }}</td>
-                                <td>{{ $delivery->buyer->buyer_name ?? 'N/A' }}</td>
-                                <td>{{ $delivery->employee->name ?? 'N/A' }}</td>
-                                <td>
-                                    @if($delivery->ChallanType == 1) Returnable
-                                    @elseif($delivery->ChallanType == 2) Non-Returnable
-                                    @elseif($delivery->ChallanType == 3) Export
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($delivery->GoodsType == 1) Gray Fabric
-                                    @elseif($delivery->GoodsType == 2) Complete Body
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('sms.database.sampledelivery.show', $delivery->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('sms.database.sampledelivery.edit', $delivery->id) }}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('sms.database.sampledelivery.destroy', $delivery->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 </div>
 @endsection
 <script>

@@ -594,3 +594,12 @@
 [02-Mar-2026 11:49:08 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 734
 [02-Mar-2026 11:54:43 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 97
 [02-Mar-2026 12:03:11 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Queue/Worker.php on line 367
+[02-Mar-2026 12:36:01 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 411
+[03-Mar-2026 11:25:47 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 786
+[03-Mar-2026 12:07:45 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Query/Grammars/Grammar.php on line 113
+[03-Mar-2026 12:34:22 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/nesbot/carbon/src/Carbon/CarbonInterval.php on line 949
+[03-Mar-2026 12:40:02 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php on line 151
+[04-Mar-2026 12:35:28 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 411
+[04-Mar-2026 13:36:17 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 404
+[04-Mar-2026 14:06:58 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 786
+[04-Mar-2026 14:17:43 Asia/Dhaka] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/aandg/public_html/vendor/laravel/framework/src/Illuminate/Collections/Collection.php on line 1791
