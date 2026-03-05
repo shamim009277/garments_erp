@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('design_database_sampledelivery', function (Blueprint $table) {
+        Schema::create('sm_database_sampledelivery', function (Blueprint $table) {
             $table->id();
             $table->string('ChallanNo', 30);
             $table->date('Date');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
 
-        Schema::create('design_database_sampledelivery_details', function (Blueprint $table) {
+        Schema::create('sm_database_sampledelivery_details', function (Blueprint $table) {
             $table->id();
             $table->integer('ChallanID');
             $table->integer('SampleOrderProgrammeID');
