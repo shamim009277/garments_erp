@@ -112,7 +112,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::mkGjmMx5KAiIeGev',
+            '_route' => 'generated::8TlYQrD6OewDixkt',
           ),
           1 => NULL,
           2 => 
@@ -241,7 +241,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::cjd7oPtwtvPqRMlI',
+            '_route' => 'generated::EcqQh7o5lHWE2Rab',
           ),
           1 => NULL,
           2 => 
@@ -371,7 +371,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::ZYjZWOOLSz0sjUWS',
+            '_route' => 'generated::aUSlSPpHx8DxhQdu',
           ),
           1 => NULL,
           2 => 
@@ -15999,6 +15999,22 @@ app('router')->setCompiledRoutes(
           array (
             'GET' => 0,
             'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'sms.report.production.preview',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
           ),
           3 => NULL,
           4 => false,
@@ -35524,7 +35540,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::mkGjmMx5KAiIeGev' => 
+    'generated::8TlYQrD6OewDixkt' => 
     array (
       'methods' => 
       array (
@@ -35552,8 +35568,8 @@ app('router')->setCompiledRoutes(
                     return response(\\Illuminate\\Support\\Facades\\View::file(\'H:\\\\laragon\\\\www\\\\garments_erp\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000013040000000000000000";}}',
-        'as' => 'generated::mkGjmMx5KAiIeGev',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000020600000000000000000";}}',
+        'as' => 'generated::8TlYQrD6OewDixkt',
       ),
       'fallback' => false,
       'defaults' => 
@@ -35798,7 +35814,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::cjd7oPtwtvPqRMlI' => 
+    'generated::EcqQh7o5lHWE2Rab' => 
     array (
       'methods' => 
       array (
@@ -35819,7 +35835,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::cjd7oPtwtvPqRMlI',
+        'as' => 'generated::EcqQh7o5lHWE2Rab',
       ),
       'fallback' => false,
       'defaults' => 
@@ -36139,7 +36155,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::ZYjZWOOLSz0sjUWS' => 
+    'generated::aUSlSPpHx8DxhQdu' => 
     array (
       'methods' => 
       array (
@@ -36160,7 +36176,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::ZYjZWOOLSz0sjUWS',
+        'as' => 'generated::aUSlSPpHx8DxhQdu',
       ),
       'fallback' => false,
       'defaults' => 
@@ -100749,6 +100765,44 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'sms.report.production.preview' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'sms/report/sample-production',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'verified',
+        ),
+        'uses' => 'Modules\\SM\\Http\\Controllers\\Report\\SampleProductionReportController@preview',
+        'controller' => 'Modules\\SM\\Http\\Controllers\\Report\\SampleProductionReportController@preview',
+        'as' => 'sms.report.production.preview',
+        'namespace' => NULL,
+        'prefix' => '/sms/report',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'sms.setup.lines.index' => 
     array (
       'methods' => 
@@ -103390,7 +103444,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000013260000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000020820000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

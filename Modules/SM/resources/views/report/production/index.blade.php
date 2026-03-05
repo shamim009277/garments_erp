@@ -1,6 +1,37 @@
 @extends('layouts.app')
 @section('title', 'Sample Delivery')
 @section('content')
+@push('styles')
+    <style>
+        input[type="checkbox"] {
+            display: inline-block !important;
+            opacity: 1 !important;
+        }
+
+        .collapse {
+            display: none;
+            margin-left: 35px;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            color: #5156be;
+            margin-left: 5px;
+        }
+        .parent-label {
+            font-weight: bold;
+        }
+
+        .disabled-select {
+            cursor: not-allowed !important;
+            background-color: #dad9d9 !important;
+        }
+        .form-check-input:checked:disabled {
+            background-color: #b7bbf5 !important;
+            border: 1px solid #b7bbf5 !important;
+        }
+    </style>
+@endpush
 <div class="row">
     <div class="col-12">
         @include('components.breadcrumb', [
@@ -13,124 +44,295 @@
         ],
         ])
     </div>
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Create Sample Delivery</h5>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('sms.database.sampledelivery.store') }}" method="POST">
-                    <input type="hidden" name="form_type" value="1">
+    <div class="col-lg-12 pr-0">
+            <div class="card alert-primary alert-top-border padding-card">
+                <div class="card-header">
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Listing Report
+                    </h6>
+                </div>
+                <form id="employeeListingForm" action="{{ route('sms.report.production.preview') }}" method="POST" target="_blank">
                     @csrf
-                    <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <label class="form-label">Challan No</label>
-                            <input type="text" name="ChallanNo" class="form-control form-control-sm" disabled >
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Titles -->
+                            <div class="col-lg-3 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-header">
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i>Preview Title's</h6>
+                                    </div>
+                                    <div class="card-body" style="max-height:450px;min-height:450px; overflow-y: auto;">
+                                        <div class="form-check">
+                                            <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
+                                            <label class="form-check-label" for="title1">Daily Production Report</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-header">
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i> Buyers</h6>
+                                    </div>
+                                    <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
+                                        <!-- Sample departments -->
+                                        <div class="buyer-list">
+                                            <!-- Parent 1 -->
+                                            @foreach ($buyers as $buyer)
+                                            <div class="parent-wrapper">
+                                                <label class="parent-label">
+                                                    <span class="toggle-btn" data-target="children-{{ $buyer->id }}">[+]</span>
+                                                    <input type="checkbox" class="parent-checkbox buyerID" data-id="{{ $buyer->id }}" name="buyer_id[]" value="{{ $buyer->id }}"> {{ $buyer->buyer_name }}
+                                                </label>
+                                                @php
+                                                $ordersList = collect($samples)->where('initialOrder.buyer_id',$buyer->id)->all();
+                                                @endphp
+                                                <div class="collapse" id="children-{{ $buyer->id }}">
+                                                    @foreach ($ordersList as $programme)
+                                                    <label><input type="checkbox" class="form-check-input child-of-{{ $buyer->id }} ProgrammeID" name="programme_id[]" value="{{ $programme->id }}"> {{ $programme->programme_code }}</label><br>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="check_all">Check All</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all">Uncheck All</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-header">
+                                        <h6 class="my-0 text-primary"> <i data-feather="list" width="16"height="16"></i> Sample Types</h6>
+                                    </div>
+                                    <div class="card-body" style="max-height:400px;min-height:400px; overflow-y: auto;">
+                                        <!-- Sample departments -->
+                                        <div class="sample-list">
+                                            <!-- Parent 1 -->
+                                            @foreach ($sampleTypes as $sample)
+                                            <div class="parent-wrapper">
+                                                <label class="parent-label">
+                                                    <input type="checkbox" class="parent-checkbox-type sampleID" data-id="{{ $sample->id }}" name="sample_id[]" value="{{ $sample->id }}"> {{ $sample->sample_type_name }}
+                                                </label>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="check_all2">Check All</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="uncheck_all2">Uncheck All</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                          
+                            <!-- Department & Designation -->
+                             <div class="col-lg-3 mb-3 pe-lg-0">
+                                <div class="card alert-info alert-top-border">
+                                    <div class="card-body" style="max-height:460px;min-height:460px; overflow-y: auto;">
+                                        <table class="table table-sm" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Start Date</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">End Date</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <th width="40%">Organization</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="organization_id" id="organization_id" class="select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
+                                                    </td>
+                                                </tr> -->
+                                                <tr>
+                                                    <th width="40%">View Mode</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 1) }}" placeholder="View Mode" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer" style="padding:10px 15px;">
+                                        <button type="submit" class="btn btn-sm btn-primary float-end">Preview</button>
+                                    </div>
+                                </div>
+                            </div>
+                           
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="form-label">Date</label>
-                            <input type="date" name="Date" class="form-control form-control-sm" required value="{{ date('Y-m-d') }}">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="form-label">Employee</label>
-                            <select name="EmployeeID" class="form-control form-control-sm select2" required>
-                                <option value="">Select Employee</option>
-                                @foreach($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="form-label">Challan Type</label>
-                            <select name="ChallanType" class="form-select form-select-sm" required>
-                                <option value="1">Returnable</option>
-                                <option value="2">Non-Returnable</option>
-                                <option value="3">Export</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label class="form-label">Goods Type</label>
-                            <select name="GoodsType" class="form-select form-select-sm" required>
-                                <option value="1">Gray Fabric</option>
-                                <option value="2">Complete Body</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Comments</label>
-                            <input type="text" name="Comments" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-primary btn-sm">Save Delivery</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
-
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Sample Delivery List</h5>
-                <a href="{{ route('sms.database.sampledelivery.create') }}" class="btn btn-primary btn-sm">Create New Delivery</a>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Challan No</th>
-                                <th>Date</th>
-                                <th>Buyer</th>
-                                <th>Employee</th>
-                                <th>Challan Type</th>
-                                <th>Goods Type</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($deliveries as $delivery)
-                            <tr>
-                                <td>{{ $delivery->ChallanNo }}</td>
-                                <td>{{ $delivery->Date }}</td>
-                                <td>{{ $delivery->buyer->buyer_name ?? 'N/A' }}</td>
-                                <td>{{ $delivery->employee->name ?? 'N/A' }}</td>
-                                <td>
-                                    @if($delivery->ChallanType == 1) Returnable
-                                    @elseif($delivery->ChallanType == 2) Non-Returnable
-                                    @elseif($delivery->ChallanType == 3) Export
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($delivery->GoodsType == 1) Gray Fabric
-                                    @elseif($delivery->GoodsType == 2) Complete Body
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('sms.database.sampledelivery.show', $delivery->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('sms.database.sampledelivery.edit', $delivery->id) }}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('sms.database.sampledelivery.destroy', $delivery->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 </div>
 @endsection
+
+@push('scripts')
 <script>
-    $(document).ready(function() {
-        // Initialize Select2
-        $('.select2').select2();
+    $(document).ready(function () {
+        $('.parent-checkbox.buyerID, .parent-checkbox-type.sampleID,.form-check-input.buyerID').prop('checked', true);
+        $('.ProgrammeID').prop('checked', true);
 
-        
+        $('.titles').prop('checked', false);
+        $('#title1').prop('checked', true);
 
+        $('.toggle-btn').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const target = $('#' + $(this).data('target'));
+            const isOpen = target.is(':visible');
+            target.toggle();
+            $(this).text(isOpen ? '[+]' : '[-]');
+        });
+
+        $('.parent-checkbox').on('change', function () {
+            const id = $(this).data('id');
+            $(`.child-of-${id}`).prop('checked', this.checked);
+        });
+
+        $('.form-check-input').on('change', function () {
+            const classList = $(this).attr('class').split(/\s+/);
+            const childClass = classList.find(cls => cls.startsWith('child-of-'));
+            const parentId = childClass.split('-').pop();
+
+            const children = $(`.child-of-${parentId}`);
+            const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
+            console.log(parent);
+            const anyChecked = children.is(':checked');
+
+            parent.prop('checked', anyChecked);
+        });
+
+        $('#check_all').on('click', function () {
+            $('.parent-checkbox.buyerID, .form-check-input.ProgrammeID').prop('checked', true);
+        });
+
+        $('#uncheck_all').on('click', function () {
+            $('.parent-checkbox.buyerID, .form-check-input.ProgrammeID').prop('checked', false);
+        });
+
+        $('#check_all2').on('click', function () {
+            $('.sampleID').prop('checked', true);
+        });
+
+        $('#uncheck_all2').on('click', function () {
+            $('.sampleID').prop('checked', false);
+        });
+
+        // Handle All Category and Line
+
+        handleToggle('#all_category', '#category_id', '#all_category_section');
+        handleToggle('#all_line', '#line', '#all_line_section');
+
+        $('#all_category').on('change', function () {
+            handleToggle('#all_category', '#category_id', '#all_category_section');
+        });
+
+        $('#all_line').on('change', function () {
+            handleToggle('#all_line', '#line', '#all_line_section');
+        });
+
+        // Handle All District and Blood Group and Reason
+
+        handleToggle('#all_district', '#district_id', '#all_district_section');
+        handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
+        handleToggle('#all_reason', '#reason_id', '#all_reason_section');
+
+        $('#all_district').on('change', function () {
+            handleToggle('#all_district', '#district_id', '#all_district_section');
+        });
+
+        $('#all_blood_group').on('change', function () {
+            handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
+        });
+
+        $('#all_reason').on('change', function () {
+            handleToggle('#all_reason', '#reason_id', '#all_reason_section');
+        });
+
+        function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
+            const isChecked = $(checkboxSelector).is(':checked');
+
+            $(selectSelector)
+                .prop('disabled', isChecked)
+                .val(null).trigger('change');
+
+            $(selectSelector).toggleClass('disabled-select', isChecked);
+            $(sectionSelector).toggleClass('disabled-select', isChecked);
+        }
     });
+
+    $('#start_date').on('change', function () {
+        let startDate = $(this).val();
+        if (startDate) {
+            $('#end_date').attr('min', startDate);
+        } else {
+            $('#end_date').removeAttr('min');
+        }
+    });
+
+    $('#end_date').on('change', function () {
+        let endDate = $(this).val();
+        if (endDate) {
+            $('#start_date').attr('max', endDate);
+        } else {
+            $('#start_date').removeAttr('max');
+        }
+    });
+
+
+    handleTitleSelection();
+
+    // On title radio change
+    $('input[name="title"]').on('change', function() {
+        handleTitleSelection();
+    });
+
+    function handleTitleSelection() {
+        let selectedValue = $('input[name="title"]:checked').val();
+        if (selectedValue == '1') {
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
+            //$('#all_blood_group').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+        } else if (selectedValue == '2') {
+            $('.departmentID').prop('disabled', true);
+            $('.designationID').prop('disabled', false);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+        } else if (selectedValue == '3') {
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
+        } else if (selectedValue == '4') {
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', false);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+            //$('#all_blood_group').prop('disabled', false);
+        } else {
+            $('.designationID').prop('disabled', false);
+            $('.departmentID').prop('disabled', false);
+        }
+    }
+
+
+
 </script>
+
+@endpush

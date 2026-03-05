@@ -44,6 +44,12 @@
                             </select>
                         </div>
                         <div class="col-md-2 mb-2">
+                            <label for="sample_type_id" class="form-label">Sample Type</label>
+                            <select name="sample_type_id" id="sample_type_id" class="form-control select2" disabled>
+                                <option value="">Select Sample Type</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 mb-2">
                             <label for="color_id" class="form-label">Color</label>
                             <select name="color_id" id="color_id" class="form-control select2"  disabled>
                                 <option value="">Select Color</option>
@@ -53,12 +59,6 @@
                             <label for="size_id" class="form-label">Size</label>
                             <select name="size_id" id="size_id" class="form-control select2" disabled>
                                 <option value="">Select Size</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mb-2">
-                            <label for="sample_type_id" class="form-label">Sample Type</label>
-                            <select name="sample_type_id" id="sample_type_id" class="form-control select2" disabled>
-                                <option value="">Select Sample Type</option>
                             </select>
                         </div>
                         <div class="col-md-2 mb-2">
@@ -175,7 +175,7 @@
                         options = '<option value="">Select Sample Type</option>';
                         data.sampleTypes.forEach(function(data) {
                             
-                                options += `<option value="${data.id}">${data.sample_type_name}</option>`;
+                                options += `<option value="${data.id}" selected>${data.sample_type_name}</option>`;
                           
                         });
                         $('#sample_type_id').html(options).prop('disabled', false);

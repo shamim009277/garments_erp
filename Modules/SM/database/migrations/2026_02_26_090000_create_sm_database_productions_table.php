@@ -24,6 +24,8 @@ return new class extends Migration
             $table->unsignedBigInteger('sample_type_id')->nullable(); 
             $table->float('production_quantity'); 
             $table->float('used_fabric_quantity'); 
+            $table->float('delivery_qty'); 
+            $table->float('balance_qty'); 
             $table->text('production_notes')->nullable();
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class InitialOrderRequest extends FormRequest
     {
         $orderId = $this->route('initialorder');
         return [
-            'buyer_id' => 'required|exists:hris_setup_organizations,id',
+            'buyer_id' => 'required|exists:inventory_setup_buyer,id',
             'description' => 'nullable|string',
             'organization_id' => 'nullable|exists:hris_setup_organizations,id',
             'order_quantity' => 'nullable|integer|min:0',

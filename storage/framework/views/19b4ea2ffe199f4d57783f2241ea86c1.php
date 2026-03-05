@@ -185,7 +185,7 @@
 <?php endif; ?>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <th width="40%">Organization</th>
                                                     <td width="60%">
                                                         <?php if (isset($component)) { $__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36 = $component; } ?>
@@ -209,7 +209,7 @@
 <?php unset($__componentOriginalfbd96fa9ceb0dd232d7f99b6c6b44c36); ?>
 <?php endif; ?>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                                 <tr>
                                                     <th width="40%">View Mode</th>
                                                     <td width="60%">
@@ -380,7 +380,7 @@
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
+            $('#start_date').prop('disabled', false);
             //$('#all_blood_group').prop('disabled', true);
             $('#end_date').prop('disabled', true);
         } else if (selectedValue == '2') {
@@ -413,4 +413,4 @@
 </script>
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH H:\laragon\www\garments_erp\Modules\SM\resources\views\report\production\index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH H:\laragon\www\garments_erp\Modules/SM\resources/views/report/production/index.blade.php ENDPATH**/ ?>

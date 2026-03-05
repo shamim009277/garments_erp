@@ -12,7 +12,7 @@ class SampleDelivery extends Model
 {
     use HasFactory;
 
-    protected $table = 'design_database_sampledelivery';
+    protected $table = 'sm_database_sampledelivery';
 
     protected $fillable = [
         'ChallanNo',

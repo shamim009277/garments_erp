@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Reports
     Route::prefix('sms/report')->name('sms.report.')->group(function () {
         Route::get('sample-production', [SampleProductionReportController::class, 'index'])->name('sample_production');
+        Route::post('sample-production', [SampleProductionReportController::class, 'preview'])->name('production.preview');
     });
 
     // Setup Routes
@@ -46,4 +47,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         
     });
+
+   
 });

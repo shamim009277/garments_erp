@@ -11,17 +11,16 @@ class SampleDeliveryDetail extends Model
 {
     use HasFactory;
 
-    protected $table = 'design_database_sampledelivery_details';
+    protected $table = 'sm_database_sampledelivery_details';
 
     protected $fillable = [
         'ChallanID',
-        'SampleOrderProgrammeID',
-        'GoodsType',
-        'ChallanType',
+        'ProgrammeID',
+        'ProductionID',
         'Color',
+        'size',
         'Quantity',
         'Comments',
-        'C4S',
         'CreatedBy',
     ];
 
@@ -40,5 +39,10 @@ class SampleDeliveryDetail extends Model
     public function sampleOrderProgramme()
     {
         return $this->belongsTo(SampleOrderProgramme::class, 'SampleOrderProgrammeID');
+    }
+
+    public function sampleOrderProduction()
+    {
+        return $this->belongsTo(SampleOrderProduction::class, 'SampleOrderProductionID');
     }
 }

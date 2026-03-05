@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\SM\Models\Database\SampleDelivery;
 use Modules\SM\Models\Database\SampleDeliveryDetail;
+use Modules\SM\Models\Database\SampleOrderProduction;
 use Modules\OrderManagement\Models\Setup\Buyer;
 use Modules\HRIS\Models\Database\Employee;
 use Modules\OrderManagement\Models\Database\SampleOrderProgramme;
@@ -19,10 +20,11 @@ class SampleDeliveryController extends Controller
 {
     public function index()
     {
+        $buyers = Buyer::where('is_active', 1)->get();
         $deliveries = SampleDelivery::with(['buyer', 'employee'])->orderBy('id', 'desc')->get();
         $employees = Employee::where('is_active', 1)->get();
         
-        return view('sm::database.sampledelivery.index', compact('deliveries', 'employees'));
+        return view('sm::database.sampledelivery.index', compact('deliveries', 'employees','buyers'));  
     }
 
     public function create()
@@ -43,7 +45,8 @@ class SampleDeliveryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            
+            'Date' => 'required|date',
+            'BuyerID' => 'required|integer',
             'EmployeeID' => 'required|integer',
             'ChallanType' => 'required|integer',
             'GoodsType' => 'required|integer',
@@ -88,7 +91,17 @@ class SampleDeliveryController extends Controller
     public function show($id)
     {
         $delivery = SampleDelivery::with(['details.sampleOrderProgramme', 'buyer', 'employee'])->findOrFail($id);
-        return view('sm::database.sampledelivery.show', compact('delivery'));
+        $deliveryDetails = SampleDeliveryDetail::where('ChallanID', $id)->get();
+        $proIDS = collect($deliveryDetails)->pluck('ProductionID')->toArray();
+        $sampleDetProd = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->whereIn('id', $proIDS)->get();
+
+        $buyers = Buyer::where('is_active', 1)->get();
+        $deliveries = SampleDelivery::with(['buyer', 'employee'])->orderBy('id', 'desc')->get();
+        $employees = Employee::where('is_active', 1)->get();
+        $sampleProgrammes = SampleOrderProgramme::where('accept_status', 1)->get();
+        $sampleProductions = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->where('buyer_id',$delivery->BuyerID)->get();
+        // return $sampleProductions;
+        return view('sm::database.sampledelivery.show', compact('delivery', 'buyers', 'deliveries', 'employees', 'sampleProgrammes','sampleProductions','sampleDetProd','deliveryDetails'));
     }
 
     public function edit($id)
@@ -102,16 +115,41 @@ class SampleDeliveryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'ChallanNo' => 'required|string|max:30',
-            'Date' => 'required|date',
-            'BuyerID' => 'required|integer',
-            'EmployeeID' => 'required|integer',
-            'ChallanType' => 'required|integer',
-            'GoodsType' => 'required|integer',
-            'details' => 'required|array',
-        ]);
+        // return $request->all();
+        if($request->has('form_no') && $request->form_no == 2){
+            $items  = array_map('intval', $request->item_ids);
+            $itemList = SampleOrderProduction::whereIn('id', $items)->get();
+            foreach($itemList as $item){
+                $deliveryDetail = new SampleDeliveryDetail();
+                $deliveryDetail->ChallanID = $id;
+                $deliveryDetail->ProgrammeID = $item->programme_id;
+                $deliveryDetail->ProductionID = $item->id;
+                $deliveryDetail->Color = $item->color_id;
+                $deliveryDetail->size = $item->size_id;
+                $deliveryDetail->Quantity = $request->delivery_qty[$item->id];
+                $deliveryDetail->Comments =  $request->Comments[$item->id] ?? '';
+                $deliveryDetail->CreatedBy = Auth::id();
+                if(!$request->delivery_qty[$item->id]==null){
+                    $deliveryDetail->save();
+                    $item->delivery_qty += $request->delivery_qty[$item->id];
+                    $item->save();
+                }
 
+                
+            }
+             return redirect()->back()->with('success', 'Sample Delivery updated successfully.');
+        }else{
+
+        
+            $request->validate([
+                'ChallanNo' => 'required|string|max:30',
+                'Date' => 'required|date',
+                'BuyerID' => 'required|integer',
+                'EmployeeID' => 'required|integer',
+                'ChallanType' => 'required|integer',
+                'GoodsType' => 'required|integer',
+            ]);
+        
         try {
             DB::beginTransaction();
 
@@ -128,28 +166,29 @@ class SampleDeliveryController extends Controller
             // Delete existing details and recreate (Simple approach)
             // Or update existing ones. For simplicity and correctness with ID, I should probably check IDs.
             // But since this is a pair programming task, I'll go with delete-insert for simplicity unless user objects.
-            SampleDeliveryDetail::where('ChallanID', $id)->delete();
+            // SampleDeliveryDetail::where('ChallanID', $id)->delete();
 
-            foreach ($request->details as $detail) {
-                $deliveryDetail = new SampleDeliveryDetail();
-                $deliveryDetail->ChallanID = $delivery->id;
-                $deliveryDetail->SampleOrderProgrammeID = $detail['SampleOrderProgrammeID'];
-                $deliveryDetail->GoodsType = $request->GoodsType;
-                $deliveryDetail->ChallanType = $request->ChallanType;
-                $deliveryDetail->Color = $detail['Color'];
-                $deliveryDetail->Quantity = $detail['Quantity'];
-                $deliveryDetail->Comments = $detail['Comments'] ?? '';
-                $deliveryDetail->C4S = 'A';
-                $deliveryDetail->CreatedBy = Auth::id();
-                $deliveryDetail->save();
-            }
+            // foreach ($request->details as $detail) {
+            //     $deliveryDetail = new SampleDeliveryDetail();
+            //     $deliveryDetail->ChallanID = $delivery->id;
+            //     $deliveryDetail->SampleOrderProgrammeID = $detail['SampleOrderProgrammeID'];
+            //     $deliveryDetail->GoodsType = $request->GoodsType;
+            //     $deliveryDetail->ChallanType = $request->ChallanType;
+            //     $deliveryDetail->Color = $detail['Color'];
+            //     $deliveryDetail->Quantity = $detail['Quantity'];
+            //     $deliveryDetail->Comments = $detail['Comments'] ?? '';
+            //     $deliveryDetail->C4S = 'A';
+            //     $deliveryDetail->CreatedBy = Auth::id();
+            //     $deliveryDetail->save();
+            // }
 
             DB::commit();
-            return redirect()->route('sms.database.sampledelivery.index')->with('success', 'Sample Delivery updated successfully.');
+            return redirect()->back()->with('success', 'Sample Delivery updated successfully.');
 
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage())->withInput();
+        }
         }
     }
 
@@ -163,5 +202,13 @@ class SampleDeliveryController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    public function getSampleProduction(Request $request)
+    {
+        $buyerId = $request->input('buyerId');
+        $order_id = $request->input('order_id');
+        $sampleProduction = SampleProduction::where('BuyerID', $buyerId)->where('OrderID', $order_id)->first();
+        return response()->json($sampleProduction);
     }
 }

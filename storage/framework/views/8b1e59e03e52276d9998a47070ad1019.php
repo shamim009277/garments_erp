@@ -12,7 +12,87 @@
         ],
         ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     </div>
-    <div class="col-12">
+    <div class="col-12 mb-3">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <!-- Centered Title -->
+            <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">
+                Sample Delivery Challan
+            </h4>
+
+            <!-- Search Input + Button in One Line -->
+            <form action="#" method="POST" class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2"
+                style="max-width: 400px;" role="search">
+                <?php echo csrf_field(); ?>
+                <input class="form-control form-control-sm me-2" type="search" name="search"
+                    placeholder="Basic Order No ..." aria-label="Search">
+                <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
+                        width="14" height="14" class="me-1"></i> Search</button>
+            </form>
+            <?php if(1): ?>
+            <!-- Back Button -->
+            <a href="<?php echo e(route('sms.database.sampledelivery.index')); ?>"
+                class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2">
+                <i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back
+            </a>
+            <?php endif; ?>
+        </div>
+    </div>
+     <div class="col-md-3">
+        <div class="card alert-primary alert-top-border padding-card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <i data-feather="list" width="16" height="16"></i>
+                    <h6 class="my-0 text-primary ms-2">Initial Orders List</h6>
+                </div>
+            </div>
+            <?php
+            $dates = collect($deliveries)->pluck('Date');
+            $deliveryList = collect($dates)->unique();
+            ?>
+            <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
+                <ul class="nav-custom">
+                    <?php $__currentLoopData = $deliveryList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $challanDate): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li class="nav-custom-item">
+                        <input type="checkbox" id="company<?php echo e($challanDate); ?>">
+                        <label class="nav-custom-link" for="company<?php echo e($challanDate); ?>">
+                            <span class="nav-custom-caret"></span>
+                            <?php echo e($challanDate); ?>
+
+                        </label>
+                        <?php
+                        $buyerIdList = collect($deliveries)->where('Date', $challanDate)->pluck('BuyerID')->unique();
+                        $buyerList = collect($buyers)->whereIn('id', $buyerIdList)->all();
+                        ?>
+                         <ul class="nav-custom-content">
+                                <?php $__currentLoopData = $buyerList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li class="nav-custom-item">
+                                <input type="checkbox" id="company<?php echo e($buyer->id); ?> <?php echo e($challanDate); ?>">
+                                <label class="nav-custom-link" for="company<?php echo e($buyer->id); ?> <?php echo e($challanDate); ?>">
+                                    <span class="nav-custom-caret"></span>
+                                    <?php echo e($buyer->buyer_name); ?>
+
+                                </label>
+                                    <?php
+                                    $chList = collect($deliveries)->where('Date', $challanDate)->where('BuyerID', $buyer->id);
+                                    ?>
+                                    <div class="nav-custom-content">
+                                        <?php $__currentLoopData = $chList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $challan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <a href="<?php echo e(route('sms.database.sampledelivery.show', $challan->id)); ?>" class="employee-link">
+                                            <?php echo e($challan->ChallanNo); ?>
+
+                                        </a>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </div>
+                                    </li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">Create Sample Delivery</h5>
@@ -29,6 +109,15 @@
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Date</label>
                             <input type="date" name="Date" class="form-control form-control-sm" required value="<?php echo e(date('Y-m-d')); ?>">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Buyer</label>
+                            <select name="BuyerID" class="form-control form-control-sm select2" required>
+                                <option value="">Select Buyer</option>
+                                <?php $__currentLoopData = $buyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($buyer->id); ?>"><?php echo e($buyer->buyer_name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Employee</label>
@@ -60,70 +149,17 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary btn-sm">Save Delivery</button>
+                        <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-end">Create Challan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Sample Delivery List</h5>
-                <a href="<?php echo e(route('sms.database.sampledelivery.create')); ?>" class="btn btn-primary btn-sm">Create New Delivery</a>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Challan No</th>
-                                <th>Date</th>
-                                <th>Buyer</th>
-                                <th>Employee</th>
-                                <th>Challan Type</th>
-                                <th>Goods Type</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $__currentLoopData = $deliveries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $delivery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <tr>
-                                <td><?php echo e($delivery->ChallanNo); ?></td>
-                                <td><?php echo e($delivery->Date); ?></td>
-                                <td><?php echo e($delivery->buyer->buyer_name ?? 'N/A'); ?></td>
-                                <td><?php echo e($delivery->employee->name ?? 'N/A'); ?></td>
-                                <td>
-                                    <?php if($delivery->ChallanType == 1): ?> Returnable
-                                    <?php elseif($delivery->ChallanType == 2): ?> Non-Returnable
-                                    <?php elseif($delivery->ChallanType == 3): ?> Export
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?php if($delivery->GoodsType == 1): ?> Gray Fabric
-                                    <?php elseif($delivery->GoodsType == 2): ?> Complete Body
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <a href="<?php echo e(route('sms.database.sampledelivery.show', $delivery->id)); ?>" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
-                                    <a href="<?php echo e(route('sms.database.sampledelivery.edit', $delivery->id)); ?>" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
-                                    <form action="<?php echo e(route('sms.database.sampledelivery.destroy', $delivery->id)); ?>" method="POST" style="display:inline;">
-                                        <?php echo csrf_field(); ?>
-                                        <?php echo method_field('DELETE'); ?>
-                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 </div>
 <?php $__env->stopSection(); ?>
+<?php $__env->startPush('scripts'); ?>
 <script>
     $(document).ready(function() {
         // Initialize Select2
@@ -133,4 +169,5 @@
 
     });
 </script>
+<?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH H:\laragon\www\garments_erp\Modules\SM\resources\views\database\sampledelivery\index.blade.php ENDPATH**/ ?>

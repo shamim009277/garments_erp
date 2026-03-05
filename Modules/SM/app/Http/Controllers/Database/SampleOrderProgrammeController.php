@@ -34,6 +34,7 @@ class SampleOrderProgrammeController extends Controller
         // Fetch existing samples for this order
         $samples = SampleOrderProgramme::where('initial_order_id', $id)
             ->with(['color', 'sampleType', 'composition', 'item', 'fabricTreatment', 'size'])
+            ->where('current_status', '!=', 'null')
             ->get();
 
         $sampleColors = DB::table('om_database_initial_order_colors')
