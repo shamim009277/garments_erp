@@ -163,8 +163,8 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
-        'lock_path' => 'C:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
+        'lock_path' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -337,7 +337,7 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\laragon\\www\\garments_erp\\storage\\app/private',
+        'root' => 'H:\\laragon\\www\\garments_erp\\storage\\app/private',
         'serve' => true,
         'throw' => false,
         'report' => false,
@@ -345,7 +345,7 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\laragon\\www\\garments_erp\\storage\\app/public',
+        'root' => 'H:\\laragon\\www\\garments_erp\\storage\\app/public',
         'url' => 'https://erp.anggroupbd.com//storage',
         'visibility' => 'public',
         'throw' => false,
@@ -367,7 +367,7 @@
     ),
     'links' => 
     array (
-      'C:\\laragon\\www\\garments_erp\\public\\storage' => 'C:\\laragon\\www\\garments_erp\\storage\\app/public',
+      'H:\\laragon\\www\\garments_erp\\public\\storage' => 'H:\\laragon\\www\\garments_erp\\storage\\app/public',
     ),
   ),
   'fonts_config' => 1,
@@ -393,14 +393,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -465,7 +465,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
+        'path' => 'H:\\laragon\\www\\garments_erp\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -543,7 +543,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\laragon\\www\\garments_erp\\resources\\views/vendor/mail',
+        0 => 'H:\\laragon\\www\\garments_erp\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -553,7 +553,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => 'C:\\laragon\\www\\garments_erp\\vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => 'H:\\laragon\\www\\garments_erp\\vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'routes/web.php',
@@ -631,9 +631,9 @@
     ),
     'paths' => 
     array (
-      'modules' => 'C:\\laragon\\www\\garments_erp\\Modules',
-      'assets' => 'C:\\laragon\\www\\garments_erp\\public\\modules',
-      'migration' => 'C:\\laragon\\www\\garments_erp\\database/migrations',
+      'modules' => 'H:\\laragon\\www\\garments_erp\\Modules',
+      'assets' => 'H:\\laragon\\www\\garments_erp\\public\\modules',
+      'migration' => 'H:\\laragon\\www\\garments_erp\\database/migrations',
       'app_folder' => 'app/',
       'generator' => 
       array (
@@ -916,7 +916,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => 'C:\\laragon\\www\\garments_erp\\vendor/*/*',
+        0 => 'H:\\laragon\\www\\garments_erp\\vendor/*/*',
       ),
     ),
     'composer' => 
@@ -939,7 +939,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => 'C:\\laragon\\www\\garments_erp\\modules_statuses.json',
+        'statuses-file' => 'H:\\laragon\\www\\garments_erp\\modules_statuses.json',
       ),
     ),
     'activator' => 'file',
@@ -1077,7 +1077,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\laragon\\www\\garments_erp\\storage\\framework/sessions',
+    'files' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1204,9 +1204,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\laragon\\www\\garments_erp\\resources\\views',
+      0 => 'H:\\laragon\\www\\garments_erp\\resources\\views',
     ),
-    'compiled' => 'C:\\laragon\\www\\garments_erp\\storage\\framework\\views',
+    'compiled' => 'H:\\laragon\\www\\garments_erp\\storage\\framework\\views',
   ),
   'debugbar' => 
   array (
@@ -1222,7 +1222,7 @@
       'enabled' => true,
       'open' => NULL,
       'driver' => 'file',
-      'path' => 'C:\\laragon\\www\\garments_erp\\storage\\debugbar',
+      'path' => 'H:\\laragon\\www\\garments_erp\\storage\\debugbar',
       'connection' => NULL,
       'provider' => '',
       'hostname' => '127.0.0.1',
@@ -1373,10 +1373,10 @@
     'convert_entities' => true,
     'options' => 
     array (
-      'font_dir' => 'C:\\laragon\\www\\garments_erp\\storage\\fonts',
-      'font_cache' => 'C:\\laragon\\www\\garments_erp\\storage\\fonts',
-      'temp_dir' => 'C:\\Users\\Prottoy\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\laragon\\www\\garments_erp',
+      'font_dir' => 'H:\\laragon\\www\\garments_erp\\storage\\fonts',
+      'font_cache' => 'H:\\laragon\\www\\garments_erp\\storage\\fonts',
+      'temp_dir' => 'C:\\Users\\PROTTOY\\AppData\\Local\\Temp',
+      'chroot' => 'H:\\laragon\\www\\garments_erp',
       'allowed_protocols' => 
       array (
         'data://' => 
@@ -1569,7 +1569,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => 'C:\\laragon\\www\\garments_erp\\storage\\framework/cache/laravel-excel',
+      'local_path' => 'H:\\laragon\\www\\garments_erp\\storage\\framework/cache/laravel-excel',
       'local_permissions' => 
       array (
       ),

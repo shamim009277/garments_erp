@@ -112,7 +112,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::8TlYQrD6OewDixkt',
+            '_route' => 'generated::LyM1kYhKN1p7vMWs',
           ),
           1 => NULL,
           2 => 
@@ -241,7 +241,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::EcqQh7o5lHWE2Rab',
+            '_route' => 'generated::qeLql9mIBvIxA1zc',
           ),
           1 => NULL,
           2 => 
@@ -371,7 +371,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::aUSlSPpHx8DxhQdu',
+            '_route' => 'generated::Txgd5w7IVXr0Qu7y',
           ),
           1 => NULL,
           2 => 
@@ -16345,26 +16345,6 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'sms.database.sampleorderproduction.create',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/sms/database/sampledelivery/get-production' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'sms.database.sampledelivery.get-production',
           ),
           1 => NULL,
           2 => 
@@ -35560,7 +35540,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::8TlYQrD6OewDixkt' => 
+    'generated::LyM1kYhKN1p7vMWs' => 
     array (
       'methods' => 
       array (
@@ -35585,11 +35565,11 @@ app('router')->setCompiledRoutes(
                         $exception = $e->getMessage();
                     }
 
-                    return response(\\Illuminate\\Support\\Facades\\View::file(\'C:\\\\laragon\\\\www\\\\garments_erp\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
+                    return response(\\Illuminate\\Support\\Facades\\View::file(\'H:\\\\laragon\\\\www\\\\garments_erp\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000020600000000000000000";}}',
-        'as' => 'generated::8TlYQrD6OewDixkt',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000013050000000000000000";}}',
+        'as' => 'generated::LyM1kYhKN1p7vMWs',
       ),
       'fallback' => false,
       'defaults' => 
@@ -35834,7 +35814,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::EcqQh7o5lHWE2Rab' => 
+    'generated::qeLql9mIBvIxA1zc' => 
     array (
       'methods' => 
       array (
@@ -35855,7 +35835,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::EcqQh7o5lHWE2Rab',
+        'as' => 'generated::qeLql9mIBvIxA1zc',
       ),
       'fallback' => false,
       'defaults' => 
@@ -36175,7 +36155,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::aUSlSPpHx8DxhQdu' => 
+    'generated::Txgd5w7IVXr0Qu7y' => 
     array (
       'methods' => 
       array (
@@ -36196,7 +36176,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::aUSlSPpHx8DxhQdu',
+        'as' => 'generated::Txgd5w7IVXr0Qu7y',
       ),
       'fallback' => false,
       'defaults' => 
@@ -102718,45 +102698,6 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'sms.database.sampledelivery.get-production' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'sms/database/sampledelivery/get-production',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'verified',
-        ),
-        'uses' => 'Modules\\SM\\Http\\Controllers\\Database\\SampleDeliveryController@getSampleProduction',
-        'controller' => 'Modules\\SM\\Http\\Controllers\\Database\\SampleDeliveryController@getSampleProduction',
-        'as' => 'sms.database.sampledelivery.get-production',
-        'namespace' => NULL,
-        'prefix' => '/sms/database',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
     'sms.database.sampledelivery.index' => 
     array (
       'methods' => 
@@ -103497,13 +103438,13 @@ app('router')->setCompiledRoutes(
       'uri' => 'storage/{path}',
       'action' => 
       array (
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:3:{s:4:"disk";s:5:"local";s:6:"config";a:5:{s:6:"driver";s:5:"local";s:4:"root";s:47:"C:\\laragon\\www\\garments_erp\\storage\\app/private";s:5:"serve";b:1;s:5:"throw";b:0;s:6:"report";b:0;}s:12:"isProduction";b:0;}s:8:"function";s:323:"function (\\Illuminate\\Http\\Request $request, string $path) use ($disk, $config, $isProduction) {
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:3:{s:4:"disk";s:5:"local";s:6:"config";a:5:{s:6:"driver";s:5:"local";s:4:"root";s:47:"H:\\laragon\\www\\garments_erp\\storage\\app/private";s:5:"serve";b:1;s:5:"throw";b:0;s:6:"report";b:0;}s:12:"isProduction";b:0;}s:8:"function";s:323:"function (\\Illuminate\\Http\\Request $request, string $path) use ($disk, $config, $isProduction) {
                     return (new \\Illuminate\\Filesystem\\ServeFile(
                         $disk,
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000020820000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000013270000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,
