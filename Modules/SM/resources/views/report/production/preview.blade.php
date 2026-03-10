@@ -48,12 +48,12 @@
                                 
                                     <tr>
                                         <td>{{ $sl++ }}</td>
-                                        <td>{{ $employee->programme->programme_code }}</td>
-                                        <td>{{ $employee->initialOrder->order_code }}</td>
-                                        <td>{{ $employee->color->color_name }}</td>
-                                        <td>{{ $employee->size->size_name }}</td>
-                                        <td>{{ $employee->sampleType->sample_type_name }}</td>
-                                        <td>{{ $employee->production_quantity }}</td>
+                                        <td>{{ @$employee->programme->programme_code }}</td>
+                                        <td>{{ @$employee->initialOrder->order_code }}</td>
+                                        <td>{{ @$employee->color->color_name }}</td>
+                                        <td>{{ @$employee->size->size_name }}</td>
+                                        <td>{{ @$employee->sampleType->sample_type_name }}</td>
+                                        <td>{{ @$employee->production_quantity }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -84,12 +84,12 @@
                                 
                                     <tr>
                                         <td>{{ $sl++ }}</td>
-                                        <td>{{ $employee->programme->programme_code }}</td>
-                                        <td>{{ $employee->initialOrder->order_code }}</td>
-                                        <td>{{ $employee->color->color_name }}</td>
-                                        <td>{{ $employee->size->size_name }}</td>
-                                        <td>{{ $employee->sampleType->sample_type_name }}</td>
-                                        <td>{{ $employee->production_quantity }}</td>
+                                        <td>{{ @$employee->programme->programme_code }}</td>
+                                        <td>{{ @$employee->initialOrder->order_code }}</td>
+                                        <td>{{ @$employee->color->color_name }}</td>
+                                        <td>{{ @$employee->size->size_name }}</td>
+                                        <td>{{ @$employee->sampleType->sample_type_name }}</td>
+                                        <td>{{ @$employee->production_quantity }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
