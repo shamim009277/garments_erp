@@ -84,7 +84,7 @@ class ItemController extends Controller
                 'is_active' => true
             ]);
             DB::commit();
-            return redirect()->route('ordermanagements.setup.items.index')->with('success', 'Item created successfully');
+            return redirect()->route('ordermanagement.setup.items.index')->with('success', 'Item created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to create item: ' . $e->getMessage());
@@ -131,7 +131,7 @@ class ItemController extends Controller
             'remarks' => $request->remarks,
             
         ]);
-        return redirect()->route('ordermanagements.setup.items.index')->with('success', 'Item updated successfully');
+        return redirect()->route('ordermanagement.setup.items.index')->with('success', 'Item updated successfully');
     }
 
     /**

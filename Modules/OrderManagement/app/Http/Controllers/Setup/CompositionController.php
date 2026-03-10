@@ -61,7 +61,7 @@ class CompositionController extends Controller
        }
        DB::commit();
 
-        return redirect()->route('ordermanagements.setup.compositions.index')->with('success', 'Composition created successfully');
+        return redirect()->route('ordermanagement.setup.compositions.index')->with('success', 'Composition created successfully');
     }
 
     /**
@@ -94,7 +94,7 @@ class CompositionController extends Controller
         $composition = Composition::findOrFail($id);
         $composition->update($request->all());
 
-        return redirect()->route('ordermanagements.setup.compositions.index')->with('success', 'Composition updated successfully');
+        return redirect()->route('ordermanagement.setup.compositions.index')->with('success', 'Composition updated successfully');
     }
 
     /**

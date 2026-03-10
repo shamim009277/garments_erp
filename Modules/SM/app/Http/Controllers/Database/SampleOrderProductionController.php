@@ -20,7 +20,7 @@ use Modules\HRIS\Models\Database\Employee;
 use Modules\Inventory\Models\Setup\ProductCategory;
 use Modules\SM\Models\Database\SampleOrderProduction;
 use Modules\HRIS\Models\Setup\Organization;
-
+use Carbon\Carbon;
 
 
 
@@ -35,8 +35,10 @@ class SampleOrderProductionController extends Controller
         // return $employee_id;
         $samples = SampleOrderProgramme::where('accept_status',1)->with('initialOrder')->get();
         $buyers = collect($samples->pluck('initialOrder.buyer'))->unique('id');
+        $startDate = Carbon::now()->format('Y-m-d');
+        $sampleProductions = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->where('production_date',$startDate )->get();
         // return $buyers;
-        return view('sm::database.sampleorderproduction.index', compact('buyers'));
+        return view('sm::database.sampleorderproduction.index', compact('buyers','sampleProductions'));
     }
 
     public function getOrders($buyerId)
@@ -115,7 +117,7 @@ class SampleOrderProductionController extends Controller
 
         try {
             DB::beginTransaction();
-
+            $date = Carbon::now()->format('Y-m-d');
             SampleOrderProduction::updateOrCreate(
                 [
                     'buyer_id' => $request->buyer_id,
@@ -126,6 +128,7 @@ class SampleOrderProductionController extends Controller
                     'sample_type_id' => $request->sample_type_id,
                     'production_quantity' => $request->production_quantity,
                     'used_fabric_quantity' => $request->used_fabric_quantity,
+                    'production_date' => $date,
                     'production_notes' => $request->production_notes,
                 ]
             );

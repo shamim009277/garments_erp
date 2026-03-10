@@ -1,9 +1,8 @@
-@extends('layouts.app')
-@section('title', 'Sample Production Entry')
-@section('content')
+<?php $__env->startSection('title', 'Sample Production Entry'); ?>
+<?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-12">
-        @include('components.breadcrumb', [
+        <?php echo $__env->make('components.breadcrumb', [
         'title' => 'Sample Management',
         'subtitle' => 'Sample Production Entry',
         'breadcrumbs' => [
@@ -11,7 +10,7 @@
         ['label' => 'Database', 'url' => route('sms.index')],
         ['label' => 'Sample Production', 'url' => route('sms.database.sampleorderproduction.index')],
         ],
-        ])
+        ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     </div>
     <div class="col-md-12">
         <div class="card">
@@ -19,17 +18,17 @@
                 <h5 class="card-title">Sample Production Entry</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('sms.database.sampleorderproduction.store') }}" method="POST">
-                    @csrf
+                <form action="<?php echo e(route('sms.database.sampleorderproduction.store')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
                     <input type="hidden" name="sample_order_programme_id" id="sample_order_programme_id">
                     <div class="row">
                         <div class="col-md-2 mb-2">
                             <label for="buyer_id" class="form-label">Buyer</label>
                             <select name="buyer_id" id="buyer_id" class="form-control select2" required>
                                 <option value="">Select Buyer</option>
-                                @foreach($buyers as $buyer)
-                                    <option value="{{ $buyer->id }}">{{ $buyer->buyer_name }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $buyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $buyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($buyer->id); ?>"><?php echo e($buyer->buyer_name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div class="col-md-2 mb-2">
@@ -105,20 +104,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
+                                <?php
                                 $i = 1;
-                                @endphp
-                                @foreach ($sampleProductions as $employee)
+                                ?>
+                                <?php $__currentLoopData = $sampleProductions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $employee->programme->programme_code }}</td>
-                                        <td>{{ $employee->initialOrder->order_code }}</td>
-                                        <td>{{ $employee->color->color_name }}</td>
-                                        <td>{{ $employee->size->size_name }}</td>
-                                        <td>{{ $employee->sampleType->sample_type_name }}</td>
-                                        <td>{{ $employee->production_quantity }}</td>
+                                        <td><?php echo e($i++); ?></td>
+                                        <td><?php echo e($employee->programme->programme_code); ?></td>
+                                        <td><?php echo e($employee->initialOrder->order_code); ?></td>
+                                        <td><?php echo e($employee->color->color_name); ?></td>
+                                        <td><?php echo e($employee->size->size_name); ?></td>
+                                        <td><?php echo e($employee->sampleType->sample_type_name); ?></td>
+                                        <td><?php echo e($employee->production_quantity); ?></td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -127,9 +126,9 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     $(document).ready(function() {
         // Initialize Select2
@@ -144,7 +143,7 @@
             
             if (buyerId) {
                 // Use a placeholder for the ID and replace it
-                let url = "{{ route('sms.database.sampleorderproduction.get-orders', ':id') }}";
+                let url = "<?php echo e(route('sms.database.sampleorderproduction.get-orders', ':id')); ?>";
                 url = url.replace(':id', buyerId);
 
                 $.ajax({
@@ -166,7 +165,7 @@
             let orderId = $(this).val();
             if (orderId) {
                 // Use a placeholder for the ID and replace it
-                let url = "{{ route('sms.database.sampleorderproduction.get-programmes', ':id') }}";
+                let url = "<?php echo e(route('sms.database.sampleorderproduction.get-programmes', ':id')); ?>";
                 url = url.replace(':id', orderId);
                 $.ajax({
                     url: url,
@@ -193,7 +192,7 @@
             let programmeId = $(this).val();
             if (programmeId) {
                 // Use a placeholder for the ID and replace it
-                let url = "{{ route('sms.database.sampleorderproduction.get-samples', ':id') }}";
+                let url = "<?php echo e(route('sms.database.sampleorderproduction.get-samples', ':id')); ?>";
                 url = url.replace(':id', programmeId);
                 $.ajax({
                     url: url,
@@ -232,4 +231,6 @@
 
     });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH H:\laragon\www\garments_erp\Modules/SM\resources/views/database/sampleorderproduction/index.blade.php ENDPATH**/ ?>

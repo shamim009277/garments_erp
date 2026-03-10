@@ -24,7 +24,7 @@ class BuyerMerchantController extends Controller
     {
         $buyerMerchants = BuyerMerchant::with(['buyer', 'merchant', 'organization'])->get();
         $buyers = Buyer::all();
-        $merchants = Employee::all();
+        $merchants = Employee::where('department_id',15)->get();
         $organizations = Organization::all();
         return view('ordermanagement::setup.buyermerchants.index', compact('buyerMerchants', 'buyers', 'merchants', 'organizations'));
     }

@@ -1,30 +1,29 @@
-@extends('layouts.app')
-@section('title', 'Sample Production Report')
-@section('content')
+<?php $__env->startSection('title', 'Sample Production Report'); ?>
+<?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-12">
-            @include('components.breadcrumb', [
+            <?php echo $__env->make('components.breadcrumb', [
                 'title' => 'Sample Production Report',
                 'subtitle' => 'Preview',
                 'breadcrumbs' => [
                     ['label' => 'Sample Production Report', 'url' => route('sms.report.sample_production')],
                     ['label' => 'Preview', 'url' => route('sms.report.production.preview')],
                 ],
-            ])
+            ], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
         </div>
         <div class="col-lg-12 pr-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    @if($title == 1)
+                    <?php if($title == 1): ?>
                         <h6 class="my-0 text-primary text-center">Daily Production Report</h6>
-                         <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
-                    @else
+                         <p class="ms-auto text-center">Date: <?php echo e(now()->format('Y-m-d')); ?></p>
+                    <?php else: ?>
                         <h6 class="my-0 text-primary text-center">Production Report ( Date Range )</h6>
-                        <p class="ms-auto text-center">({{ $startDate }} to {{ $endDate }})</p>
-                    @endif
+                        <p class="ms-auto text-center">(<?php echo e($startDate); ?> to <?php echo e($endDate); ?>)</p>
+                    <?php endif; ?>
                     
                 </div>
-                @if($title == 1)
+                <?php if($title == 1): ?>
                 <div class="card-body">
                     <div style="overflow-x: auto;">
                         <table class="table table-bordered table-hover table-striped" style="width: 100%;">
@@ -40,27 +39,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               @php
+                               <?php
                                 $sl = 1;
-                               @endphp
-                                @foreach ($sampleProductions as $employee)
+                               ?>
+                                <?php $__currentLoopData = $sampleProductions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                 
                                     <tr>
-                                        <td>{{ $sl++ }}</td>
-                                        <td>{{ $employee->programme->programme_code }}</td>
-                                        <td>{{ $employee->initialOrder->order_code }}</td>
-                                        <td>{{ $employee->color->color_name }}</td>
-                                        <td>{{ $employee->size->size_name }}</td>
-                                        <td>{{ $employee->sampleType->sample_type_name }}</td>
-                                        <td>{{ $employee->production_quantity }}</td>
+                                        <td><?php echo e($sl++); ?></td>
+                                        <td><?php echo e($employee->programme->programme_code); ?></td>
+                                        <td><?php echo e($employee->initialOrder->order_code); ?></td>
+                                        <td><?php echo e($employee->color->color_name); ?></td>
+                                        <td><?php echo e($employee->size->size_name); ?></td>
+                                        <td><?php echo e($employee->sampleType->sample_type_name); ?></td>
+                                        <td><?php echo e($employee->production_quantity); ?></td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                @else
+                <?php else: ?>
                <div class="card-body">
                     <div style="overflow-x: auto;">
                         <table class="table table-bordered table-hover table-striped" style="width: 100%;">
@@ -76,33 +75,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
+                                <?php
                                 $sl = 1;
-                               @endphp
-                                @foreach ($sampleProductions as $employee)
+                               ?>
+                                <?php $__currentLoopData = $sampleProductions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                 
                                     <tr>
-                                        <td>{{ $sl++ }}</td>
-                                        <td>{{ $employee->programme->programme_code }}</td>
-                                        <td>{{ $employee->initialOrder->order_code }}</td>
-                                        <td>{{ $employee->color->color_name }}</td>
-                                        <td>{{ $employee->size->size_name }}</td>
-                                        <td>{{ $employee->sampleType->sample_type_name }}</td>
-                                        <td>{{ $employee->production_quantity }}</td>
+                                        <td><?php echo e($sl++); ?></td>
+                                        <td><?php echo e($employee->programme->programme_code); ?></td>
+                                        <td><?php echo e($employee->initialOrder->order_code); ?></td>
+                                        <td><?php echo e($employee->color->color_name); ?></td>
+                                        <td><?php echo e($employee->size->size_name); ?></td>
+                                        <td><?php echo e($employee->sampleType->sample_type_name); ?></td>
+                                        <td><?php echo e($employee->production_quantity); ?></td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     $('.table').DataTable({
         'paging'      : false,
@@ -119,4 +118,6 @@
         ]
     });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH H:\laragon\www\garments_erp\Modules/SM\resources/views/report/production/preview.blade.php ENDPATH**/ ?>

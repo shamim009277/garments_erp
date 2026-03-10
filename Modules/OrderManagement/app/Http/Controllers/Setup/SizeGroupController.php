@@ -63,7 +63,7 @@ class SizeGroupController extends Controller
             ]);
             $sizeGroup->save();
             DB::commit();
-            return redirect()->route('ordermanagements.setup.sizegroups.index')->with('success', 'Size Group created successfully');
+            return redirect()->route('ordermanagement.setup.sizegroups.index')->with('success', 'Size Group created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to create Size Group: ' . $e->getMessage());
@@ -100,7 +100,7 @@ class SizeGroupController extends Controller
                 'is_active' => $request->is_active,
             ]);
             DB::commit();
-            return redirect()->route('ordermanagements.setup.sizegroups.index')->with('success', 'Size Group updated successfully');
+            return redirect()->route('ordermanagement.setup.sizegroups.index')->with('success', 'Size Group updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update Size Group: ' . $e->getMessage());

@@ -47,7 +47,7 @@ class CountryController extends Controller
             $country = Country::create($request->validated());
             // return $country;
             DB::commit();
-            return redirect()->route('ordermanagements.setup.countries.index')->with('success', 'Country created successfully');
+            return redirect()->route('ordermanagement.setup.countries.index')->with('success', 'Country created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to create country: ' . $e->getMessage());
@@ -96,7 +96,7 @@ class CountryController extends Controller
                 $country->save();
             }
             DB::commit();
-            return redirect()->route('ordermanagements.setup.countries.index')->with('success', 'Country updated successfully');
+            return redirect()->route('ordermanagement.setup.countries.index')->with('success', 'Country updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update country: ' . $e->getMessage());
@@ -112,7 +112,7 @@ class CountryController extends Controller
             $country = Country::findOrFail( $request->id);
             $country->delete();
             DB::commit();
-            return redirect()->route('ordermanagements.setup.countries.index')->with('success', 'Country deleted successfully');
+            return redirect()->route('ordermanagement.setup.countries.index')->with('success', 'Country deleted successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to delete country: ' . $e->getMessage());

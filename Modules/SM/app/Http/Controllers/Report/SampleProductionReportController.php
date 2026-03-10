@@ -19,7 +19,7 @@ class SampleProductionReportController extends Controller
 {
     public function index(Request $request)
     {
-        $startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $startDate = Carbon::now()->format('Y-m-d');
         $endDate = Carbon::now()->endOfMonth()->format('Y-m-d');
         $sampleTypes = SampleType::where('is_active', 1)->get();
         $samples = SampleOrderProgramme::where('accept_status',1)->with('initialOrder')->get();
@@ -34,13 +34,25 @@ class SampleProductionReportController extends Controller
         //     'message' => 'Preview data fetched successfully',
         //     'data' => $request->all()
         // ]);
-        // $startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
-        // $endDate = Carbon::now()->endOfMonth()->format('Y-m-d');
+        
         // $sampleTypes = SampleType::where('is_active', 1)->get();
         // $samples = SampleOrderProgramme::where('accept_status',1)->with('initialOrder')->get();
         $title = $request->title;
-        $sampleProductions = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->whereIn('buyer_id',$request->buyer_id)->get();
-        return view('sm::report.production.preview', compact('sampleProductions','title'));
+        if($title == 1){
+
+            $startDate = date('Y-m-d', strtotime($request->start_date));
+            $endDate = Carbon::now()->format('Y-m-d');
+            $sampleProductions = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->where('production_date',$startDate )->whereIn('buyer_id',$request->buyer_id)->whereIn('sample_type_id',$request->sample_id)->get();
+
+        }else if($title == 2){
+
+            $startDate = $request->start_date;
+            $endDate = $request->end_date;
+            $sampleProductions = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->whereIn('buyer_id',$request->buyer_id)->whereBetween('production_date', [$startDate, $endDate])->get();
+        }
+        // dd($sampleProductions);
+        
+        return view('sm::report.production.preview', compact('sampleProductions','title','startDate','endDate'));
 
         return response()->json([
             'success' => true,

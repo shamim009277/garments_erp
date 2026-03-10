@@ -26,6 +26,7 @@ return new class extends Migration
             $table->float('used_fabric_quantity'); 
             $table->float('delivery_qty'); 
             $table->float('balance_qty'); 
+            $table->date('production_date')->nullable();
             $table->text('production_notes')->nullable();
             $table->timestamps();
         });

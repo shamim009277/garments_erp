@@ -35,7 +35,7 @@ class InitialOrderController extends Controller
         $colors = Color::all();
         $sizes = Size::all();
         $orderTypes = OrderType::all();
-        $merchants = Employee::all();
+        $merchants = Employee::where('department_id',15)->get();
         $yarnCounts = YarnCount::all();
         $productCategories = ProductCategory::all();
         // return $yarnCounts;

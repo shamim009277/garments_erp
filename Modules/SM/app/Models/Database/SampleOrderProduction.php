@@ -28,7 +28,8 @@ class SampleOrderProduction extends Model
         'used_fabric_quantity',
         'production_notes',
         'delivery_qty',
-        'balance_qty'
+        'balance_qty',
+        'production_date'
     ];
 
     public function initialOrder()

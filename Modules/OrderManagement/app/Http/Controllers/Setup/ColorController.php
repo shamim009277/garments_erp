@@ -131,7 +131,7 @@ class ColorController extends Controller
             ]);
             $color->save();
             DB::commit();
-            return redirect()->route('ordermanagements.setup.colors.index')->with('success', 'Color updated successfully');
+            return redirect()->route('ordermanagement.setup.colors.index')->with('success', 'Color updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update Color: ' . $e->getMessage());
