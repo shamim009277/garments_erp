@@ -177,14 +177,12 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-
             function cleanText(text) {
                 if (!text) return '';
                 text = text.trim().replace(/\s+/g, ' ');
                 if (text === 'Select an option') return '';
                 return text;
             }
-
             function generateAddress() {
                 let district = cleanText($('#ndistrict_id_bangla option:selected').text());
                 let thana = cleanText($('#nthana_id_bangla option:selected').text());
@@ -198,7 +196,6 @@
 
             // initial call
             generateAddress();
-
             // events
             $('#ndistrict_id_bangla, #nthana_id_bangla').on('change', generateAddress);
             $('#npost_office_bangla, #nvillage_bangla').on('keyup', generateAddress);

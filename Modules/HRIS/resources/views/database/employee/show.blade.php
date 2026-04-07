@@ -162,11 +162,6 @@
                             @include('hris::database.employee.tab10')
                         </div>
                         @endif
-                        @if($tab == 11)
-                        <div class="tab-pane {{ $tab == 11 ? 'active' : '' }}" id="operation" role="tabpanel">
-                            @include('hris::database.employee.tab11')
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>
