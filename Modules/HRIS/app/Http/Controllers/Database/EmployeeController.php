@@ -62,7 +62,7 @@ class EmployeeController extends Controller
         $designations = Designation::active()->pluck('designation', 'id');
         $departments = Department::active()->pluck('department', 'id');
 
-        $districts = District::active()->pluck('name', 'id');
+        $districts = District::active()->orderBy('name', 'asc')->pluck('name', 'id');
         $shifts = Shift::active()->pluck('shift', 'shift');
         $units = Unit::active()->pluck('unit', 'code');
         $organizations = Organization::active()->pluck('short_name', 'id');
@@ -165,8 +165,8 @@ class EmployeeController extends Controller
             $designations = Designation::active()->pluck('designation', 'id');
             $departments = Department::active()->pluck('department', 'id');
 
-            $districts = District::active()->pluck('name', 'id');
-            $thanas = Thana::active()->pluck('name', 'id');
+            $districts = District::active()->orderBy('name', 'asc')->pluck('name', 'id');
+            $thanas = Thana::active()->orderBy('name', 'asc')->pluck('name', 'id');
             $units = Unit::active()->pluck('unit', 'code');
             $lines = Line::active()->pluck('line', 'code');
             $shifts = Shift::active()->pluck('shift', 'shift');
@@ -218,15 +218,15 @@ class EmployeeController extends Controller
             $nationalities = Nationalities::active()->pluck('nationality', 'nl_code');
             $marital_status = MaritalStatus::active()->pluck('maritalstatus', 'ms_code');
             $sex = Sex::active()->pluck('sex', 'sx_code');
-            $districts = District::active()->pluck('name', 'id');
-            $thanas = Thana::active()->pluck('name', 'id');
+            $districts = District::active()->orderBy('name', 'asc')->pluck('name', 'id');
+            $thanas = Thana::active()->orderBy('name', 'asc')->pluck('name', 'id');
             $employee = Employee::select('employee_id','id','org_id','joining_date')->find($id);
             $employee_personal = EmployeePersonal::where('employee_id', $employee->employee_id)->first();
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'districts' => $districts, 'thanas' => $thanas, 'sex' => $sex, 'nationalities' => $nationalities, 'marital_status' => $marital_status, 'religions' => $religions, 'degrees' => $degrees, 'employee_personal' => $employee_personal]);
         }else if($request->get('tab') == 10){
             $tab = $request->get('tab');
-            $districts = District::active()->pluck('bn_name', 'id');
-            $thanas = Thana::active()->pluck('bn_name', 'id');
+            $districts = District::active()->orderBy('name', 'asc')->pluck('bn_name', 'id');
+            $thanas = Thana::active()->orderBy('name', 'asc')->pluck('bn_name', 'id');
             $employee = Employee::select('employee_id','id','org_id')->find($id);
             $employee_bangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_bangla' => $employee_bangla, 'districts' => $districts, 'thanas' => $thanas]);
