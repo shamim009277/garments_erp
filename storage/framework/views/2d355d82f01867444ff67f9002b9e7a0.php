@@ -127,7 +127,7 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>Order Type:</strong></td>
-                                    <td><?php echo e($order->orderType->name ?? 'N/A'); ?></td>
+                                    <td><?php echo e($order->orderType->order_type ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Merchant:</strong></td>

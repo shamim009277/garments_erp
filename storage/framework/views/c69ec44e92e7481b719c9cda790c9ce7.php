@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Initial Order</title>
-    <link rel="shortcut icon" href="{{ public_path('backend/assets/images/logo-sm.svg') }}">
+    <link rel="shortcut icon" href="<?php echo e(public_path('backend/assets/images/logo-sm.svg')); ?>">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />
     <style>
@@ -149,20 +149,21 @@
 <body>
     <!-- Watermark -->
     <div class="watermark">
-        {{ $general->full_name }} - {{ now()->format('Y') }}
+        <?php echo e($general->full_name); ?> - <?php echo e(now()->format('Y')); ?>
+
     </div>
-    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
+    <img src="<?php echo e(public_path('backend/assets/images/logo-sm.svg')); ?>" class="watermark-image" alt="watermark">
     <!-- Header -->
     <header>
         <div style="display: flex; align-items: center;">
             <!-- Logo -->
             <div>
-                <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;">
+                <img src="<?php echo e(public_path('backend/assets/images/logo-sm.svg')); ?>" alt="Logo" style="width: 40px; height: 40px;">
             </div>
 
             <!-- Company Info -->
             <div class="company-info">
-                <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $general->full_name }}</div>
+                <div style="font-weight: bold; font-size: 14px; font-family: italic"><?php echo e($general->full_name); ?></div>
                 <div style="font-size: 12px;font-weight: normal; font-family: italic">Address, City, Country</div>
                 <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: info@company.com | Phone: +880123456789</div>
             </div>
@@ -178,27 +179,27 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>Order Code:</strong></td>
-                                    <td>{{ $order->order_code }}</td>
+                                    <td><?php echo e($order->order_code); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Buyer:</strong></td>
-                                    <td>{{ $order->buyer->buyer_name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->buyer->buyer_name ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Organization:</strong></td>
-                                    <td>{{ $order->organization->name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->organization->name ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Order Quantity:</strong></td>
-                                    <td>{{ $order->order_quantity ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->order_quantity ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Style:</strong></td>
-                                    <td>{{ $order->style ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->style ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>PO:</strong></td>
-                                    <td>{{ $order->po ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->po ?? 'N/A'); ?></td>
                                 </tr>
                             </table>
                         </div>
@@ -209,36 +210,38 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>GSM:</strong></td>
-                                    <td>{{ $order->gsm ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->gsm ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Season:</strong></td>
-                                    <td>{{ $order->seasson ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->seasson ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Fabrication:</strong></td>
-                                    <td>{{ $order->fabrication ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->fabrication ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Finish Type:</strong></td>
-                                    <td>{{ $order->finish_type ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->finish_type ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Color:</strong></td>
                                     <td>
-                                        @php
+                                        <?php
                                             $colorList = $order->colors->pluck('color_code')->filter()->implode(', ');
-                                        @endphp
-                                        {{ $colorList ?: 'N/A' }}
+                                        ?>
+                                        <?php echo e($colorList ?: 'N/A'); ?>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><strong>Size:</strong></td>
                                     <td>
-                                        @php
+                                        <?php
                                             $sizeList = $order->sizes->pluck('size_name')->filter()->implode(', ');
-                                        @endphp
-                                        {{ $sizeList ?: 'N/A' }}
+                                        ?>
+                                        <?php echo e($sizeList ?: 'N/A'); ?>
+
                                     </td>
                                 </tr>
                             </table>
@@ -252,19 +255,19 @@
                         <table class="table table-sm">
                             <tr>
                                 <td width="30%"><strong>Order Type:</strong></td>
-                                <td>{{ $order->orderType->name ?? 'N/A' }}</td>
+                                <td><?php echo e($order->orderType->name ?? 'N/A'); ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Merchant:</strong></td>
-                                <td>{{ $order->merchant->name ?? 'N/A' }}</td>
+                                <td><?php echo e($order->merchant->name ?? 'N/A'); ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Yarn Count:</strong></td>
-                                <td>{{ $order->yarnCount->yarn_count_name ?? 'N/A' }}</td>
+                                <td><?php echo e($order->yarnCount->yarn_count_name ?? 'N/A'); ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Product Category:</strong></td>
-                                <td>{{ $order->productCategory->product_category_name ?? 'N/A' }}</td>
+                                <td><?php echo e($order->productCategory->product_category_name ?? 'N/A'); ?></td>
                             </tr>
                         </table>
                     </div>
@@ -275,19 +278,19 @@
                         <table class="table table-sm">
                             <tr>
                                 <td width="30%"><strong>Description:</strong></td>
-                                <td>{{ $order->description ?? 'N/A' }}</td>
+                                <td><?php echo e($order->description ?? 'N/A'); ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Instructions:</strong></td>
-                                <td>{{ $order->instructions ?? 'N/A' }}</td>
+                                <td><?php echo e($order->instructions ?? 'N/A'); ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Created At:</strong></td>
-                                <td>{{ $order->created_at->format('d M Y H:i') }}</td>
+                                <td><?php echo e($order->created_at->format('d M Y H:i')); ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Updated At:</strong></td>
-                                <td>{{ $order->updated_at->format('d M Y H:i') }}</td>
+                                <td><?php echo e($order->updated_at->format('d M Y H:i')); ?></td>
                             </tr>
                         </table>
                     </div>
@@ -300,27 +303,27 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>Order Code:</strong></td>
-                                    <td>{{ $order->order_code }}</td>
+                                    <td><?php echo e($order->order_code); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Buyer:</strong></td>
-                                    <td>{{ $order->buyer->buyer_name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->buyer->buyer_name ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Organization:</strong></td>
-                                    <td>{{ $order->organization->name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->organization->name ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Order Quantity:</strong></td>
-                                    <td>{{ $order->order_quantity ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->order_quantity ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Style:</strong></td>
-                                    <td>{{ $order->style ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->style ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>PO:</strong></td>
-                                    <td>{{ $order->po ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->po ?? 'N/A'); ?></td>
                                 </tr>
                             </table>
                         </div>
@@ -329,36 +332,38 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>GSM:</strong></td>
-                                    <td>{{ $order->gsm ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->gsm ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Season:</strong></td>
-                                    <td>{{ $order->seasson ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->seasson ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Fabrication:</strong></td>
-                                    <td>{{ $order->fabrication ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->fabrication ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Finish Type:</strong></td>
-                                    <td>{{ $order->finish_type ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->finish_type ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Color:</strong></td>
                                     <td>
-                                        @php
+                                        <?php
                                             $colorList = $order->colors->pluck('color_code')->filter()->implode(', ');
-                                        @endphp
-                                        {{ $colorList ?: 'N/A' }}
+                                        ?>
+                                        <?php echo e($colorList ?: 'N/A'); ?>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><strong>Size:</strong></td>
                                     <td>
-                                        @php
+                                        <?php
                                             $sizeList = $order->sizes->pluck('size_name')->filter()->implode(', ');
-                                        @endphp
-                                        {{ $sizeList ?: 'N/A' }}
+                                        ?>
+                                        <?php echo e($sizeList ?: 'N/A'); ?>
+
                                     </td>
                                 </tr>
                             </table>
@@ -368,19 +373,19 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>Order Type:</strong></td>
-                                    <td>{{ $order->orderType->name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->orderType->name ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Merchant:</strong></td>
-                                    <td>{{ $order->merchant->name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->merchant->name ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Yarn Count:</strong></td>
-                                    <td>{{ $order->yarnCount->yarn_count_name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->yarnCount->yarn_count_name ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Product Category:</strong></td>
-                                    <td>{{ $order->productCategory->product_category_name ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->productCategory->product_category_name ?? 'N/A'); ?></td>
                                 </tr>
                             </table>
                         </div>
@@ -389,19 +394,19 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>Description:</strong></td>
-                                    <td>{{ $order->description ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->description ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Instructions:</strong></td>
-                                    <td>{{ $order->instructions ?? 'N/A' }}</td>
+                                    <td><?php echo e($order->instructions ?? 'N/A'); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Created At:</strong></td>
-                                    <td>{{ $order->created_at->format('d M Y H:i') }}</td>
+                                    <td><?php echo e($order->created_at->format('d M Y H:i')); ?></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Updated At:</strong></td>
-                                    <td>{{ $order->updated_at->format('d M Y H:i') }}</td>
+                                    <td><?php echo e($order->updated_at->format('d M Y H:i')); ?></td>
                                 </tr>
                             </table>
                         </div>
@@ -409,3 +414,4 @@
                 </div>
 </body>
 </html>
+<?php /**PATH H:\laragon\www\garments_erp\Modules/OrderManagement\resources/views/database/initialorders/pdf.blade.php ENDPATH**/ ?>

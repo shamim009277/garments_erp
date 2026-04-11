@@ -61,7 +61,7 @@
             $org = collect($orders)->pluck('organization');
             $orgList = collect($org)->unique();
             @endphp
-            <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
+            <div class="card-body" style="min-height: 677px;max-height: 677px; overflow-y: auto;">
                 <ul class="nav-custom">
                     @foreach ($orgList as $key => $org)
                     <li class="nav-custom-item">
@@ -133,11 +133,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Order Quantity:</strong></td>
+                                    <td><strong>Order Quantity *:</strong></td>
                                     <td>
                                         <x-text-input name="order_quantity" class="form-control-sm"
                                             placeholder="Enter order quantity" :value="old('order_quantity')"
-                                            type="number" min="0" />
+                                            type="number" min="0" required />
                                     </td>
                                 </tr>
                                 <tr>
@@ -213,7 +213,7 @@
                             <h6 class="text-primary mb-3">Order Details</h6>
                             <table class="table table-sm">
                                 <tr>
-                                    <td width="30%"><strong>Order Type:</strong></td>
+                                    <td width="30%"><strong>Order Type *:</strong></td>
                                     <td width="70%">
                                         <x-select-search-input name="order_type_id"
                                             :options="$orderTypes->pluck('order_type', 'id')"
@@ -221,27 +221,27 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Merchant:</strong></td>
+                                    <td><strong>Merchant *:</strong></td>
                                     <td>
                                         <x-select-search-input name="merchant_id"
                                             :options="$merchants->pluck('name', 'id')"
-                                            :selected="old('merchant_id')" />
+                                            :selected="old('merchant_id')" required />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Yarn Count:</strong></td>
+                                    <td><strong>Yarn Count *:</strong></td>
                                     <td>
                                         <x-select-search-input name="yarn_count_id"
                                             :options="$yarnCounts->pluck('yarn_count_name', 'id')"
-                                            :selected="old('yarn_count_id')" />
+                                            :selected="old('yarn_count_id')" required />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Product Category:</strong></td>
+                                    <td><strong>Product Category *:</strong></td>
                                     <td>
                                         <x-select-search-input name="product_category_id"
                                             :options="$productCategories->pluck('product_category_name', 'id')"
-                                            :selected="old('product_category_id')" />
+                                            :selected="old('product_category_id')" required />
                                     </td>
                                 </tr>
                             </table>

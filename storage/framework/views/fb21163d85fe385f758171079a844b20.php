@@ -394,12 +394,22 @@
                             <input type="date" name="delivery_deadline" class="form-control form-control-sm">
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label">Print & Emb Inst.</label>
-                            <textarea name="print_emb_inst" class="form-control form-control-sm" rows="2"></textarea>
+                            <label class="form-label">Print & Emb</label>
+                            <select name="print_emb_inst" class="form-control form-control-sm select2">
+                                <option value="">Select Print & Emb Inst</option>
+                                    <option value="yes">YES</option>
+                                    <option value="no">NO</option>
+                            </select>
                         </div>
                          <div class="col-md-3 mb-2">
                             <label class="form-label">Tri & Acr</label>
-                            <textarea name="tri_acr" class="form-control form-control-sm" rows="2"></textarea>
+                            <select name="tri_acr_id" class="form-control form-control-sm select2">
+                                <option value="">Select Tri & Acr</option>
+                                    <option value="yes">YES</option>
+                                    <option value="no">NO</option>
+                               
+                            </select>
+                            <!-- <textarea name="tri_acr" class="form-control form-control-sm" rows="2"></textarea> -->
                         </div>
                         <div class="col-md-3 mb-2">
                             <label class="form-label">Tri & Acr Deadline</label>

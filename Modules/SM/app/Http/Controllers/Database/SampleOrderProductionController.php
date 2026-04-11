@@ -127,6 +127,7 @@ class SampleOrderProductionController extends Controller
                     'size_id' => $request->size_id,
                     'sample_type_id' => $request->sample_type_id,
                     'production_quantity' => $request->production_quantity,
+                    'balance_qty' => $request->production_quantity,
                     'used_fabric_quantity' => $request->used_fabric_quantity,
                     'production_date' => $date,
                     'production_notes' => $request->production_notes,

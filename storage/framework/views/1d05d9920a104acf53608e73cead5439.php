@@ -16,10 +16,12 @@
                 <div class="card-header">
                     <?php if($title == 1): ?>
                         <h6 class="my-0 text-primary text-center">Daily Production Report</h6>
+                         <p class="ms-auto text-center">Date: <?php echo e(now()->format('Y-m-d')); ?></p>
                     <?php else: ?>
-                        <h6 class="my-0 text-primary text-center">Employees With Blood Group</h6>
+                        <h6 class="my-0 text-primary text-center">Production Report ( Date Range )</h6>
+                        <p class="ms-auto text-center">(<?php echo e($startDate); ?> to <?php echo e($endDate); ?>)</p>
                     <?php endif; ?>
-                    <p class="ms-auto text-center">Date: <?php echo e(now()->format('Y-m-d')); ?></p>
+                    
                 </div>
                 <?php if($title == 1): ?>
                 <div class="card-body">
@@ -28,39 +30,67 @@
                             <thead>
                                 <tr>
                                     <th>SL</th>
-                                   
+                                    <th>Programme ID</th>
+                                    <th>Order ID</th>
+                                    <th>Color</th>
+                                    <th>Size</th>
+                                    <th>Sample Type</th>
+                                    <th>Production Qty</th>
                                 </tr>
                             </thead>
                             <tbody>
+                               <?php
+                                $sl = 1;
+                               ?>
                                 <?php $__currentLoopData = $sampleProductions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                
                                     <tr>
-                                        <td><?php echo e($employee->id); ?></td>
-                                       
+                                        <td><?php echo e($sl++); ?></td>
+                                        <td><?php echo e(@$employee->programme->programme_code); ?></td>
+                                        <td><?php echo e(@$employee->initialOrder->order_code); ?></td>
+                                        <td><?php echo e(@$employee->color->color_name); ?></td>
+                                        <td><?php echo e(@$employee->size->size_name); ?></td>
+                                        <td><?php echo e(@$employee->sampleType->sample_type_name); ?></td>
+                                        <td><?php echo e(@$employee->production_quantity); ?></td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                
                 <?php else: ?>
-                <div class="card-body">
+               <div class="card-body">
                     <div style="overflow-x: auto;">
                         <table class="table table-bordered table-hover table-striped" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>SL</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Department</th>
-                                    <th>Designation</th>
-                                    <th>Category</th>
-                                    <th>Blood Group</th>
-                                    <th>District</th>
+                                    <th>Programme ID</th>
+                                    <th>Order ID</th>
+                                    <th>Color</th>
+                                    <th>Size</th>
+                                    <th>Sample Type</th>
+                                    <th>Production Qty</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                $sl = 1;
+                               ?>
+                                <?php $__currentLoopData = $sampleProductions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
                                 
+                                    <tr>
+                                        <td><?php echo e($sl++); ?></td>
+                                        <td><?php echo e(@$employee->programme->programme_code); ?></td>
+                                        <td><?php echo e(@$employee->initialOrder->order_code); ?></td>
+                                        <td><?php echo e(@$employee->color->color_name); ?></td>
+                                        <td><?php echo e(@$employee->size->size_name); ?></td>
+                                        <td><?php echo e(@$employee->sampleType->sample_type_name); ?></td>
+                                        <td><?php echo e(@$employee->production_quantity); ?></td>
+                                    </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>

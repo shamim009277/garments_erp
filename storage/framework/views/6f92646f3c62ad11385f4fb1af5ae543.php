@@ -47,12 +47,12 @@
                                 
                                     <tr>
                                         <td><?php echo e($sl++); ?></td>
-                                        <td><?php echo e($employee->programme->programme_code); ?></td>
-                                        <td><?php echo e($employee->initialOrder->order_code); ?></td>
-                                        <td><?php echo e($employee->color->color_name); ?></td>
-                                        <td><?php echo e($employee->size->size_name); ?></td>
-                                        <td><?php echo e($employee->sampleType->sample_type_name); ?></td>
-                                        <td><?php echo e($employee->production_quantity); ?></td>
+                                        <td><?php echo e(@$employee->programme->programme_code); ?></td>
+                                        <td><?php echo e(@$employee->initialOrder->order_code); ?></td>
+                                        <td><?php echo e(@$employee->color->color_name); ?></td>
+                                        <td><?php echo e(@$employee->size->size_name); ?></td>
+                                        <td><?php echo e(@$employee->sampleType->sample_type_name); ?></td>
+                                        <td><?php echo e(@$employee->production_quantity); ?></td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
@@ -83,12 +83,12 @@
                                 
                                     <tr>
                                         <td><?php echo e($sl++); ?></td>
-                                        <td><?php echo e($employee->programme->programme_code); ?></td>
-                                        <td><?php echo e($employee->initialOrder->order_code); ?></td>
-                                        <td><?php echo e($employee->color->color_name); ?></td>
-                                        <td><?php echo e($employee->size->size_name); ?></td>
-                                        <td><?php echo e($employee->sampleType->sample_type_name); ?></td>
-                                        <td><?php echo e($employee->production_quantity); ?></td>
+                                        <td><?php echo e(@$employee->programme->programme_code); ?></td>
+                                        <td><?php echo e(@$employee->initialOrder->order_code); ?></td>
+                                        <td><?php echo e(@$employee->color->color_name); ?></td>
+                                        <td><?php echo e(@$employee->size->size_name); ?></td>
+                                        <td><?php echo e(@$employee->sampleType->sample_type_name); ?></td>
+                                        <td><?php echo e(@$employee->production_quantity); ?></td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>

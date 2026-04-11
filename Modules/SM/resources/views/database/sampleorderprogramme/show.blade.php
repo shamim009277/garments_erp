@@ -350,11 +350,10 @@
                                                         <table class="table table-bordered">
                                                             <tbody>
                                                                 <tr>
-                                                                   
-                                                                    <th width="20%"><label class="form-label">Item Name</label></th>
+                                                                    <th width="20%"><label class="form-label">Programme Status</label></th>
                                                                     <td width="30%">
                                                                         <select name="current_status" class="form-control form-control-sm select2">
-                                                                            <option value="">Programme Status</option>
+                                                                            
                                                                             @foreach(['1'=>'Program Done By Merchandise','2'=>'Program Received By Sample','3'=>'Ready To Sweing','4'=>'Sweing Started','5'=>'Sweing Completed'] as $key => $item)
                                                                                @if($key >= $sample->current_status)
                                                                                     <option value="{{ $key }}" {{ $sample->current_status == $key ? 'selected' : '' }}>{{ $item }}</option>

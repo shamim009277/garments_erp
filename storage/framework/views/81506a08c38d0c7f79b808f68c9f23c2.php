@@ -46,7 +46,7 @@
     <div class="col-lg-12 pr-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Employee Listing Report
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Sample Production Report
                     </h6>
                 </div>
                 <form id="employeeListingForm" action="<?php echo e(route('sms.report.production.preview')); ?>" method="POST" target="_blank">
@@ -63,6 +63,10 @@
                                         <div class="form-check">
                                             <input type="radio" id="title1" name="title" value="1"class="form-check-input titles" checked>
                                             <label class="form-check-label" for="title1">Daily Production Report</label>
+                                        </div>
+                                         <div class="form-check">
+                                            <input type="radio" id="title2" name="title" value="2"class="form-check-input titles">
+                                            <label class="form-check-label" for="title2">Production Report (Date Range)</label>
                                         </div>
                                     </div>
                                 </div>
@@ -140,14 +144,14 @@
                                                     <td width="60%">
                                                         <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'start_date','type' => 'date','id' => 'start_date','class' => 'form-control-sm','value' => ''.e(old('start_date', $startDate)).'','placeholder' => 'Start Date','disabled' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'start_date','type' => 'date','id' => 'start_date','class' => 'form-control-sm','value' => ''.e(old('start_date', $startDate)).'','placeholder' => 'Start Date']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'start_date','type' => 'date','id' => 'start_date','class' => 'form-control-sm','value' => ''.e(old('start_date', $startDate)).'','placeholder' => 'Start Date','disabled' => true]); ?>
+<?php $component->withAttributes(['name' => 'start_date','type' => 'date','id' => 'start_date','class' => 'form-control-sm','value' => ''.e(old('start_date', $startDate)).'','placeholder' => 'Start Date']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -165,14 +169,14 @@
                                                     <td width="60%">
                                                         <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'end_date','type' => 'date','id' => 'end_date','class' => 'form-control-sm','value' => ''.e(old('end_date', $endDate)).'','placeholder' => 'End Date','disabled' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'end_date','type' => 'date','id' => 'end_date','class' => 'form-control-sm','value' => ''.e(old('end_date', $endDate)).'','placeholder' => 'End Date']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'end_date','type' => 'date','id' => 'end_date','class' => 'form-control-sm','value' => ''.e(old('end_date', $endDate)).'','placeholder' => 'End Date','disabled' => true]); ?>
+<?php $component->withAttributes(['name' => 'end_date','type' => 'date','id' => 'end_date','class' => 'form-control-sm','value' => ''.e(old('end_date', $endDate)).'','placeholder' => 'End Date']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -279,14 +283,15 @@
         $('.form-check-input').on('change', function () {
             const classList = $(this).attr('class').split(/\s+/);
             const childClass = classList.find(cls => cls.startsWith('child-of-'));
-            const parentId = childClass.split('-').pop();
+           if (childClass) {
+        const parentId = childClass.split('-').pop();
 
-            const children = $(`.child-of-${parentId}`);
-            const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
-            console.log(parent);
-            const anyChecked = children.is(':checked');
-
-            parent.prop('checked', anyChecked);
+        const children = $(`.child-of-${parentId}`);
+        const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
+        
+        const anyChecked = children.is(':checked');
+        parent.prop('checked', anyChecked);
+            }
         });
 
         $('#check_all').on('click', function () {
@@ -305,36 +310,8 @@
             $('.sampleID').prop('checked', false);
         });
 
-        // Handle All Category and Line
-
-        handleToggle('#all_category', '#category_id', '#all_category_section');
-        handleToggle('#all_line', '#line', '#all_line_section');
-
-        $('#all_category').on('change', function () {
-            handleToggle('#all_category', '#category_id', '#all_category_section');
-        });
-
-        $('#all_line').on('change', function () {
-            handleToggle('#all_line', '#line', '#all_line_section');
-        });
-
-        // Handle All District and Blood Group and Reason
-
-        handleToggle('#all_district', '#district_id', '#all_district_section');
-        handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
-        handleToggle('#all_reason', '#reason_id', '#all_reason_section');
-
-        $('#all_district').on('change', function () {
-            handleToggle('#all_district', '#district_id', '#all_district_section');
-        });
-
-        $('#all_blood_group').on('change', function () {
-            handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
-        });
-
-        $('#all_reason').on('change', function () {
-            handleToggle('#all_reason', '#reason_id', '#all_reason_section');
-        });
+        
+       
 
         function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
             const isChecked = $(checkboxSelector).is(':checked');
@@ -377,34 +354,16 @@
     function handleTitleSelection() {
         let selectedValue = $('input[name="title"]:checked').val();
         if (selectedValue == '1') {
-            $('.departmentID').prop('disabled', false);
-            $('.designationID').prop('disabled', true);
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', false);
-            //$('#all_blood_group').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-        } else if (selectedValue == '2') {
-            $('.departmentID').prop('disabled', true);
-            $('.designationID').prop('disabled', false);
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-        } else if (selectedValue == '3') {
-            $('.departmentID').prop('disabled', false);
-            $('.designationID').prop('disabled', true);
-            $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
-        } else if (selectedValue == '4') {
-            $('.departmentID').prop('disabled', false);
-            $('.designationID').prop('disabled', true);
-            $('.blood_group').prop('disabled', false);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-            //$('#all_blood_group').prop('disabled', false);
+        } else if (selectedValue == '2') {
+            console.log(selectedValue);
+
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
         } else {
-            $('.designationID').prop('disabled', false);
-            $('.departmentID').prop('disabled', false);
+            $('#start_date').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
         }
     }
 

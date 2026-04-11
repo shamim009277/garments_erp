@@ -357,11 +357,10 @@
                                                         <table class="table table-bordered">
                                                             <tbody>
                                                                 <tr>
-                                                                   
-                                                                    <th width="20%"><label class="form-label">Item Name</label></th>
+                                                                    <th width="20%"><label class="form-label">Programme Status</label></th>
                                                                     <td width="30%">
                                                                         <select name="current_status" class="form-control form-control-sm select2">
-                                                                            <option value="">Programme Status</option>
+                                                                            
                                                                             <?php $__currentLoopData = ['1'=>'Program Done By Merchandise','2'=>'Program Received By Sample','3'=>'Ready To Sweing','4'=>'Sweing Started','5'=>'Sweing Completed']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                                <?php if($key >= $sample->current_status): ?>
                                                                                     <option value="<?php echo e($key); ?>" <?php echo e($sample->current_status == $key ? 'selected' : ''); ?>><?php echo e($item); ?></option>

@@ -124,7 +124,7 @@
                             <table class="table table-sm">
                                 <tr>
                                     <td width="30%"><strong>Order Type:</strong></td>
-                                    <td>{{ $order->orderType->name ?? 'N/A' }}</td>
+                                    <td>{{ $order->orderType->order_type ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Merchant:</strong></td>

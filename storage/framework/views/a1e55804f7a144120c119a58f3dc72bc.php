@@ -49,14 +49,14 @@
                             <div class="col-md-6">
                                 <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'organization_id','label' => 'Organization','options' => $organizations->pluck('name', 'id'),'selected' => old('organization_id')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'organization_id','label' => 'Organization *','options' => $organizations->pluck('name', 'id'),'selected' => old('organization_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'organization_id','label' => 'Organization','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($organizations->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('organization_id'))]); ?>
+<?php $component->withAttributes(['name' => 'organization_id','label' => 'Organization *','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($organizations->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('organization_id')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
@@ -71,14 +71,14 @@
                             <div class="col-md-6">
                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'order_quantity','label' => 'Order Quantity','placeholder' => 'Enter order quantity','value' => old('order_quantity'),'type' => 'number','min' => '0']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'order_quantity','label' => 'Order Quantity *','placeholder' => 'Enter order quantity','value' => old('order_quantity'),'type' => 'number','min' => '0','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'order_quantity','label' => 'Order Quantity','placeholder' => 'Enter order quantity','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('order_quantity')),'type' => 'number','min' => '0']); ?>
+<?php $component->withAttributes(['name' => 'order_quantity','label' => 'Order Quantity *','placeholder' => 'Enter order quantity','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('order_quantity')),'type' => 'number','min' => '0','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -93,14 +93,14 @@
                             <div class="col-md-6">
                                 <?php if (isset($component)) { $__componentOriginal66a280159691934507706df376ef5a6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal66a280159691934507706df376ef5a6a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'style','label' => 'Style','placeholder' => 'Enter style','value' => old('style')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-group','data' => ['name' => 'style','label' => 'Style *','placeholder' => 'Enter style','value' => old('style'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'style','label' => 'Style','placeholder' => 'Enter style','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('style'))]); ?>
+<?php $component->withAttributes(['name' => 'style','label' => 'Style *','placeholder' => 'Enter style','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('style')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal66a280159691934507706df376ef5a6a)): ?>
@@ -269,14 +269,14 @@
                             <div class="col-md-6">
                                 <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'order_type_id','label' => 'Order Type','options' => $orderTypes->pluck('name', 'id'),'selected' => old('order_type_id')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'order_type_id','label' => 'Order Type *','options' => $orderTypes->pluck('name', 'id'),'selected' => old('order_type_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'order_type_id','label' => 'Order Type','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($orderTypes->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('order_type_id'))]); ?>
+<?php $component->withAttributes(['name' => 'order_type_id','label' => 'Order Type *','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($orderTypes->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('order_type_id')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>
@@ -335,14 +335,14 @@
                             <div class="col-md-6">
                                 <?php if (isset($component)) { $__componentOriginal243648788f657c94d456cacfc3f7cdc3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal243648788f657c94d456cacfc3f7cdc3 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'product_category_id','label' => 'Product Category','options' => $productCategories->pluck('name', 'id'),'selected' => old('product_category_id')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-input-group','data' => ['name' => 'product_category_id','label' => 'Product Category *','options' => $productCategories->pluck('name', 'id'),'selected' => old('product_category_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-input-group'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'product_category_id','label' => 'Product Category','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($productCategories->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('product_category_id'))]); ?>
+<?php $component->withAttributes(['name' => 'product_category_id','label' => 'Product Category *','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($productCategories->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('product_category_id')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal243648788f657c94d456cacfc3f7cdc3)): ?>

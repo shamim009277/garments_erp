@@ -84,7 +84,7 @@
             $org = collect($orders)->pluck('organization');
             $orgList = collect($org)->unique();
             ?>
-            <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
+            <div class="card-body" style="min-height: 850px;max-height: 850px; overflow-y: auto;">
                 <ul class="nav-custom">
                     <?php $__currentLoopData = $orgList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $org): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="nav-custom-item">
@@ -269,9 +269,9 @@
                             <input type="text" name="style_no" value="<?php echo e($order->style ?? 'N/A'); ?>" class="form-control form-control-sm">
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label">Item Name</label>
-                            <select name="item_id" class="form-control form-control-sm select2">
-                                <option value="">Select Item</option>
+                            <label class="form-label">Product Name *</label>
+                            <select name="item_id" class="form-control form-control-sm select2" required>
+                                <option value="">Select Product</option>
                                 <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($item->id); ?>" <?php echo e($order->product_category_id == $item->id ? 'selected' : ''); ?>><?php echo e($item->product_category_name); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -282,8 +282,8 @@
                             <input type="text" name="gsm" value="<?php echo e($order->gsm ?? 'N/A'); ?>" class="form-control form-control-sm">
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label">Fab Src.</label>
-                            <select name="fab_src" class="form-control form-control-sm select2">
+                            <label class="form-label">Fab Src. *</label>
+                            <select name="fab_src" class="form-control form-control-sm select2" required>
                                 <option value="">Select Fabric Source</option>
                                 <?php $__currentLoopData = $fabricSources; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $source): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($source->fabric_source_name); ?>"><?php echo e($source->fabric_source_name); ?></option>
@@ -337,8 +337,8 @@
 <?php endif; ?>
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label">Sample Type</label>
-                            <select name="sample_type_id" class="form-control form-control-sm select2">
+                            <label class="form-label">Sample Type *</label>
+                            <select name="sample_type_id" class="form-control form-control-sm select2" required>
                                 <option value="">Select Sample Type</option>
                                 <?php $__currentLoopData = $sampleTypes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sampleType): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($sampleType->id); ?>"><?php echo e($sampleType->sample_type_name); ?></option>
@@ -356,7 +356,11 @@
                         </div>
                         <div class="col-md-3 mb-2">
                             <label class="form-label">Trims Fabric</label>
-                            <input type="text" name="trims_fabric" class="form-control form-control-sm">
+                            <select name="trims_fabric" class="form-control form-control-sm select2">
+                                <option value="">Select Trims Fabric</option>
+                                    <option value="yes">YES</option>
+                                    <option value="no">NO</option>
+                            </select>
                         </div>
                         <div class="col-md-3 mb-2">
                             <label class="form-label">Wash Type</label>
@@ -377,8 +381,8 @@
                             <input type="number" step="0.0001" name="fin_fab_kg" class="form-control form-control-sm">
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label">Qty (Pcs)</label>
-                            <input type="number" name="qty_pcs" class="form-control form-control-sm">
+                            <label class="form-label">Qty (Pcs) *</label>
+                            <input type="number" name="qty_pcs" class="form-control form-control-sm" required>
                         </div>
                         <div class="col-md-3 mb-2">
                             <label class="form-label">Fabric Treatment</label>
@@ -390,19 +394,29 @@
                             </select>
                         </div>
                          <div class="col-md-3 mb-2">
-                            <label class="form-label">Delivery Deadline</label>
+                            <label class="form-label">Delivery Date</label>
                             <input type="date" name="delivery_deadline" class="form-control form-control-sm">
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label">Print & Emb Inst.</label>
-                            <textarea name="print_emb_inst" class="form-control form-control-sm" rows="2"></textarea>
+                            <label class="form-label">Print & Emb</label>
+                            <select name="print_emb_inst" class="form-control form-control-sm select2">
+                                <option value="">Select Print & Emb Inst</option>
+                                    <option value="yes">YES</option>
+                                    <option value="no">NO</option>
+                            </select>
                         </div>
                          <div class="col-md-3 mb-2">
                             <label class="form-label">Tri & Acr</label>
-                            <textarea name="tri_acr" class="form-control form-control-sm" rows="2"></textarea>
+                            <select name="tri_acr" class="form-control form-control-sm select2">
+                                <option value="">Select Tri & Acr</option>
+                                    <option value="yes">YES</option>
+                                    <option value="no">NO</option>
+                               
+                            </select>
+                            <!-- <textarea name="tri_acr" class="form-control form-control-sm" rows="2"></textarea> -->
                         </div>
                         <div class="col-md-3 mb-2">
-                            <label class="form-label">Tri & Acr Deadline</label>
+                            <label class="form-label">Tri & Acr Delivery Date</label>
                             <input type="date" name="tri_acr_deadline" class="form-control form-control-sm">
                         </div>
                         <div class="col-md-3 mb-2">
@@ -447,6 +461,7 @@
                                 <th>Size</th>
                                 <th>Deadline</th>
                                 <th>Tri & Acr Deadline</th>
+                                <th>Prog. Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -483,6 +498,7 @@
                                 </td>
                                 <td><?php echo e($sample->delivery_deadline); ?></td>
                                 <td><?php echo e($sample->tri_acr_deadline); ?></td>
+                                <td><?php echo e($sample->current_status != null ? ['1'=>'Program Done By Merchandise','2'=>'Program Received By Sample','3'=>'Ready To Sweing','4'=>'Sweing Started','5'=>'Sweing Completed'][$sample->current_status] : ''); ?></td>
                                 <td>
                                     
                                     <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal<?php echo e($sample->id); ?>"><i class="fas fa-edit"></i></a>

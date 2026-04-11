@@ -61,7 +61,7 @@
             $org = collect($orders)->pluck('organization');
             $orgList = collect($org)->unique();
             ?>
-            <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
+            <div class="card-body" style="min-height: 677px;max-height: 677px; overflow-y: auto;">
                 <ul class="nav-custom">
                     <?php $__currentLoopData = $orgList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $org): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="nav-custom-item">
@@ -170,18 +170,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Order Quantity:</strong></td>
+                                    <td><strong>Order Quantity *:</strong></td>
                                     <td>
                                         <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'order_quantity','class' => 'form-control-sm','placeholder' => 'Enter order quantity','value' => old('order_quantity'),'type' => 'number','min' => '0']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['name' => 'order_quantity','class' => 'form-control-sm','placeholder' => 'Enter order quantity','value' => old('order_quantity'),'type' => 'number','min' => '0','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'order_quantity','class' => 'form-control-sm','placeholder' => 'Enter order quantity','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('order_quantity')),'type' => 'number','min' => '0']); ?>
+<?php $component->withAttributes(['name' => 'order_quantity','class' => 'form-control-sm','placeholder' => 'Enter order quantity','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('order_quantity')),'type' => 'number','min' => '0','required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -409,7 +409,7 @@
                             <h6 class="text-primary mb-3">Order Details</h6>
                             <table class="table table-sm">
                                 <tr>
-                                    <td width="30%"><strong>Order Type:</strong></td>
+                                    <td width="30%"><strong>Order Type *:</strong></td>
                                     <td width="70%">
                                         <?php if (isset($component)) { $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $attributes; } ?>
@@ -434,18 +434,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Merchant:</strong></td>
+                                    <td><strong>Merchant *:</strong></td>
                                     <td>
                                         <?php if (isset($component)) { $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'merchant_id','options' => $merchants->pluck('name', 'id'),'selected' => old('merchant_id')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'merchant_id','options' => $merchants->pluck('name', 'id'),'selected' => old('merchant_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-search-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'merchant_id','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($merchants->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('merchant_id'))]); ?>
+<?php $component->withAttributes(['name' => 'merchant_id','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($merchants->pluck('name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('merchant_id')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2)): ?>
@@ -459,18 +459,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Yarn Count:</strong></td>
+                                    <td><strong>Yarn Count *:</strong></td>
                                     <td>
                                         <?php if (isset($component)) { $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'yarn_count_id','options' => $yarnCounts->pluck('yarn_count_name', 'id'),'selected' => old('yarn_count_id')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'yarn_count_id','options' => $yarnCounts->pluck('yarn_count_name', 'id'),'selected' => old('yarn_count_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-search-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'yarn_count_id','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($yarnCounts->pluck('yarn_count_name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('yarn_count_id'))]); ?>
+<?php $component->withAttributes(['name' => 'yarn_count_id','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($yarnCounts->pluck('yarn_count_name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('yarn_count_id')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2)): ?>
@@ -484,18 +484,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Product Category:</strong></td>
+                                    <td><strong>Product Category *:</strong></td>
                                     <td>
                                         <?php if (isset($component)) { $__componentOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'product_category_id','options' => $productCategories->pluck('product_category_name', 'id'),'selected' => old('product_category_id')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select-search-input','data' => ['name' => 'product_category_id','options' => $productCategories->pluck('product_category_name', 'id'),'selected' => old('product_category_id'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select-search-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'product_category_id','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($productCategories->pluck('product_category_name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('product_category_id'))]); ?>
+<?php $component->withAttributes(['name' => 'product_category_id','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($productCategories->pluck('product_category_name', 'id')),'selected' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('product_category_id')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal2da57bd62e95163b41a4e48b6d67ccd2)): ?>

@@ -58,11 +58,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Order Quantity:</strong></td>
+                                        <td><strong>Order Quantity *:</strong></td>
                                         <td>
                                             <x-text-input name="order_quantity" class="form-control-sm" 
                                                 placeholder="Enter order quantity" :value="$order->order_quantity ?? old('order_quantity')" 
-                                                type="number" min="0" />
+                                                type="number" min="0" required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -138,19 +138,19 @@
                                 <h6 class="text-primary mb-3">Order Details</h6>
                                 <table class="table table-sm">
                                     <tr>
-                                        <td width="30%"><strong>Order Type:</strong></td>
+                                        <td width="30%"><strong>Order Type *:</strong></td>
                                         <td width="70%">
                                             <x-select-search-input name="order_type_id" 
                                                 :options="$orderTypes->pluck('order_type', 'id')" 
-                                                :selected="$order->order_type_id ?? old('order_type_id')" />
+                                                :selected="$order->order_type_id ?? old('order_type_id')" required />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Merchant:</strong></td>
+                                        <td><strong>Merchant *:</strong></td>
                                         <td>
                                             <x-select-search-input name="merchant_id" 
                                                 :options="$merchants->pluck('name', 'id')" 
-                                                :selected="$order->merchant_id ?? old('merchant_id')" />
+                                                :selected="$order->merchant_id ?? old('merchant_id')" required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -162,11 +162,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Product Category:</strong></td>
+                                        <td><strong>Product Category *:</strong></td>
                                         <td>
                                             <x-select-search-input name="product_category_id" 
                                                 :options="$productCategories->pluck('product_category_name', 'id')" 
-                                                :selected="$order->product_category_id ?? old('product_category_id')" />
+                                                :selected="$order->product_category_id ?? old('product_category_id')" required />
                                         </td>
                                     </tr>
                                 </table>

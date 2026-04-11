@@ -30,18 +30,18 @@
                                     :selected="old('buyer_id')" required />
                             </div>
                             <div class="col-md-6">
-                                <x-select-input-group name="organization_id" label="Organization" 
+                                <x-select-input-group name="organization_id" label="Organization *" 
                                     :options="$organizations->pluck('name', 'id')" 
-                                    :selected="old('organization_id')" />
+                                    :selected="old('organization_id')" required />
                             </div>
                             <div class="col-md-6">
-                                <x-input-group name="order_quantity" label="Order Quantity" 
+                                <x-input-group name="order_quantity" label="Order Quantity *" 
                                     placeholder="Enter order quantity" :value="old('order_quantity')" 
-                                    type="number" min="0" />
+                                    type="number" min="0" required />
                             </div>
                             <div class="col-md-6">
-                                <x-input-group name="style" label="Style" 
-                                    placeholder="Enter style" :value="old('style')" />
+                                <x-input-group name="style" label="Style *" 
+                                    placeholder="Enter style" :value="old('style')" required />
                             </div>
                             <div class="col-md-6">
                                 <x-input-group name="gsm" label="GSM" 
@@ -74,9 +74,9 @@
                                     :selected="old('size_id')" />
                             </div>
                             <div class="col-md-6">
-                                <x-select-input-group name="order_type_id" label="Order Type" 
+                                <x-select-input-group name="order_type_id" label="Order Type *" 
                                     :options="$orderTypes->pluck('name', 'id')" 
-                                    :selected="old('order_type_id')" />
+                                    :selected="old('order_type_id')" required />
                             </div>
                             <div class="col-md-6">
                                 <x-select-input-group name="merchant_id" label="Merchant" 
@@ -89,9 +89,9 @@
                                     :selected="old('yarn_count_id')" />
                             </div>
                             <div class="col-md-6">
-                                <x-select-input-group name="product_category_id" label="Product Category" 
+                                <x-select-input-group name="product_category_id" label="Product Category *" 
                                     :options="$productCategories->pluck('name', 'id')" 
-                                    :selected="old('product_category_id')" />
+                                    :selected="old('product_category_id')" required />
                             </div>
                             {{-- <div class="col-12">
                                 <x-textarea-group name="description" label="Description" 

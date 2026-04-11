@@ -16,6 +16,8 @@ use Modules\OrderManagement\Models\Database\SampleOrderProgramme;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isEmpty;
+
 class SampleDeliveryController extends Controller
 {
     public function index()
@@ -91,6 +93,7 @@ class SampleDeliveryController extends Controller
     public function show($id)
     {
         $delivery = SampleDelivery::with(['details.sampleOrderProgramme', 'buyer', 'employee'])->findOrFail($id);
+
         $deliveryDetails = SampleDeliveryDetail::where('ChallanID', $id)->get();
         $proIDS = collect($deliveryDetails)->pluck('ProductionID')->toArray();
         $sampleDetProd = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->whereIn('id', $proIDS)->get();
@@ -99,8 +102,8 @@ class SampleDeliveryController extends Controller
         $deliveries = SampleDelivery::with(['buyer', 'employee'])->orderBy('id', 'desc')->get();
         $employees = Employee::where('is_active', 1)->get();
         $sampleProgrammes = SampleOrderProgramme::where('accept_status', 1)->get();
-        $sampleProductions = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->where('buyer_id',$delivery->BuyerID)->get();
-        // return $sampleProductions;
+        $sampleProductions = SampleOrderProduction::with(['programme','initialOrder','color','size','sampleType'])->where('buyer_id',$delivery->BuyerID)->where('balance_qty','>',0)->get();
+        // return $deliveryDetails;
         return view('sm::database.sampledelivery.show', compact('delivery', 'buyers', 'deliveries', 'employees', 'sampleProgrammes','sampleProductions','sampleDetProd','deliveryDetails'));
     }
 
@@ -196,8 +199,11 @@ class SampleDeliveryController extends Controller
     {
         try {
             $delivery = SampleDelivery::findOrFail($id);
-            $delivery->details()->delete();
-            $delivery->delete();
+            if(isEmpty($delivery->details)){
+                return redirect()->back()->with('error', 'Sample Delivery Is Not Empty.');
+            }else{
+                $delivery->delete();
+            }
             return redirect()->route('sms.database.sampledelivery.index')->with('success', 'Sample Delivery deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
