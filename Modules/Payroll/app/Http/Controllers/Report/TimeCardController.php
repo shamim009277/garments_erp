@@ -115,11 +115,12 @@ class TimeCardController extends Controller
             $title = $request->title;
             $year = $request->year;
             $monthName = Carbon::createFromFormat('m', $request->month)->format('F');
+            $orgid = $request->organization_id;
 
             if ($request->view_mode == 1) {
-                return view('payroll::report.timecard.preview', compact('datas', 'title', 'monthName', 'year', 'uniqueEmployee'));
+                return view('payroll::report.timecard.preview', compact('datas', 'title', 'monthName', 'year', 'uniqueEmployee', 'orgid'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.timecard.pdf', compact('datas', 'title', 'monthName', 'year', 'uniqueEmployee'))
+                $pdf = Pdf::loadView('payroll::report.timecard.timecard', compact('datas', 'title', 'monthName', 'year', 'uniqueEmployee', 'orgid'))
                     ->setPaper('a4', 'portrait');
 
                 return $pdf->stream('timecard.pdf');
