@@ -170,7 +170,7 @@
                                                         <x-select-input name="reason_id" id="reason_id" class="select2" :options="$employeeCategories" placeholder="Reason ID" />
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                {{-- <tr>
                                                     <th>Start Date</th>
                                                     <td width="60%">
                                                         <x-text-input name="start_date" type="date" id="start_date" class="form-control-sm" value="{{ old('start_date', $startDate) }}" placeholder="Start Date" disabled />
@@ -180,6 +180,18 @@
                                                     <th width="40%">End Date</th>
                                                     <td width="60%">
                                                         <x-text-input name="end_date" type="date" id="end_date" class="form-control-sm" value="{{ old('end_date', $endDate) }}" placeholder="End Date" disabled />
+                                                    </td>
+                                                </tr> --}}
+                                                <tr>
+                                                    <th>Month</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="month" id="month" class="select2" :options="$months" selected="{{ old('month', date('m')) }}" placeholder="Month" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Year</th>
+                                                    <td width="60%" id="year_section">
+                                                        <x-text-input name="year" type="text" id="year" class="form-control-sm" value="{{ date('Y') }}" placeholder="Year"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -218,153 +230,176 @@
 
 @push('scripts')
 <script>
-    $(document).ready(function () {
-        $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
-        $('.designationID').prop('checked', true);
+$(document).ready(function () {
+    $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
+    $('.designationID').prop('checked', true);
 
-        $('.titles').prop('checked', false);
-        $('#title1').prop('checked', true);
+    $('.titles').prop('checked', false);
+    $('#title1').prop('checked', true);
 
-        $('.toggle-btn').on('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+    // =========================
+    // Toggle Section Button
+    // =========================
+    $('.toggle-btn').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-            const target = $('#' + $(this).data('target'));
-            const isOpen = target.is(':visible');
-            target.toggle();
-            $(this).text(isOpen ? '[+]' : '[-]');
-        });
+        const target = $('#' + $(this).data('target'));
+        const isOpen = target.is(':visible');
 
-        $('.parent-checkbox').on('change', function () {
-            const id = $(this).data('id');
-            $(`.child-of-${id}`).prop('checked', this.checked);
-        });
-
-        $('.form-check-input').on('change', function () {
-            const classList = $(this).attr('class').split(/\s+/);
-            const childClass = classList.find(cls => cls.startsWith('child-of-'));
-            const parentId = childClass.split('-').pop();
-
-            const children = $(`.child-of-${parentId}`);
-            const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
-            const anyChecked = children.is(':checked');
-
-            parent.prop('checked', anyChecked);
-        });
-
-        $('#check_all').on('click', function () {
-            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
-        });
-
-        $('#uncheck_all').on('click', function () {
-            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
-        });
-
-        $('#check_all2').on('click', function () {
-            $('.designationID').prop('checked', true);
-        });
-
-        $('#uncheck_all2').on('click', function () {
-            $('.designationID').prop('checked', false);
-        });
-
-        // Handle All Category and Line
-
-        handleToggle('#all_category', '#category_id', '#all_category_section');
-        handleToggle('#all_line', '#line', '#all_line_section');
-
-        $('#all_category').on('change', function () {
-            handleToggle('#all_category', '#category_id', '#all_category_section');
-        });
-
-        $('#all_line').on('change', function () {
-            handleToggle('#all_line', '#line', '#all_line_section');
-        });
-
-        // Handle All District and Blood Group and Reason
-
-        handleToggle('#all_district', '#district_id', '#all_district_section');
-        handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
-        handleToggle('#all_reason', '#reason_id', '#all_reason_section');
-
-        $('#all_district').on('change', function () {
-            handleToggle('#all_district', '#district_id', '#all_district_section');
-        });
-
-        $('#all_blood_group').on('change', function () {
-            handleToggle('#all_blood_group', '#blood_group', '#all_blood_group_section');
-        });
-
-        $('#all_reason').on('change', function () {
-            handleToggle('#all_reason', '#reason_id', '#all_reason_section');
-        });
-
-        function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
-            const isChecked = $(checkboxSelector).is(':checked');
-
-            $(selectSelector)
-                .prop('disabled', isChecked)
-                .val(null).trigger('change');
-
-            $(selectSelector).toggleClass('disabled-select', isChecked);
-            $(sectionSelector).toggleClass('disabled-select', isChecked);
-        }
+        target.toggle();
+        $(this).text(isOpen ? '[+]' : '[-]');
     });
 
-    $('#start_date').on('change', function () {
-        let startDate = $(this).val();
-        if (startDate) {
-            $('#end_date').attr('min', startDate);
-        } else {
-            $('#end_date').removeAttr('min');
-        }
+    // =========================
+    // Parent → Child Checkbox
+    // =========================
+    $('.parent-checkbox').on('change', function () {
+        const id = $(this).data('id');
+        $(`.child-of-${id}`).prop('checked', this.checked);
     });
 
-    $('#end_date').on('change', function () {
-        let endDate = $(this).val();
-        if (endDate) {
-            $('#start_date').attr('max', endDate);
-        } else {
-            $('#start_date').removeAttr('max');
-        }
+    // =========================
+    // Child → Parent Checkbox (SAFE)
+    // =========================
+    $(document).on('change', '.form-check-input', function () {
+        const classAttr = $(this).attr('class');
+        if (!classAttr) return;
+
+        const classList = classAttr.split(/\s+/);
+        const childClass = classList.find(cls => cls.startsWith('child-of-'));
+
+        if (!childClass) return;
+        const parentId = childClass.split('-').pop();
+        const children = $(`.child-of-${parentId}`);
+        const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
+
+        parent.prop('checked', children.is(':checked'));
     });
 
+    // =========================
+    // Check / Uncheck All
+    // =========================
+    function toggleAll(selector, status) {
+        $(selector).prop('checked', status);
+    }
 
+    $('#check_all').on('click', () => toggleAll('.parent-checkbox.departmentID, .form-check-input.departmentID', true));
+    $('#uncheck_all').on('click', () => toggleAll('.parent-checkbox.departmentID, .form-check-input.departmentID', false));
+
+    $('#check_all2').on('click', () => toggleAll('.designationID', true));
+    $('#uncheck_all2').on('click', () => toggleAll('.designationID', false));
+
+    // =========================
+    // Toggle Handler (Reusable)
+    // =========================
+    function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
+        const isChecked = $(checkboxSelector).is(':checked');
+
+        $(selectSelector)
+            .prop('disabled', isChecked)
+            .val(null).trigger('change');
+
+        $(selectSelector).toggleClass('disabled-select', isChecked);
+        $(sectionSelector).toggleClass('disabled-select', isChecked);
+    }
+
+    // =========================
+    // Toggle Config
+    // =========================
+    const toggleConfigs = [
+        ['#all_category', '#category_id', '#all_category_section'],
+        ['#all_line', '#line', '#all_line_section'],
+    ];
+
+    toggleConfigs.forEach(([checkbox, select, section]) => {
+        handleToggle(checkbox, select, section);
+
+        $(checkbox).on('change', function () {
+            handleToggle(checkbox, select, section);
+        });
+    });
+
+    // =========================
+    // Flatpickr Init
+    // =========================
+    const datePicker = flatpickr("#date", {
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "d-m-Y",
+        allowInput: true,
+    });
+
+    // =========================
+    // Title Based Control
+    // =========================
     handleTitleSelection();
 
-    // On title radio change
-    $('input[name="title"]').on('change', function() {
+    $('input[name="title"]').on('change', function () {
         handleTitleSelection();
     });
 
     function handleTitleSelection() {
+
         let selectedValue = $('input[name="title"]:checked').val();
+
+        const $singleDate = $('#date');
+        const $departments = $('.departmentID');
+        const $designations = $('.designationID');
+        const $month = $('#month');
+        const $year = $('#year');
+
+        // Reset All
+        $departments.prop('disabled', false);
+        $designations.prop('disabled', false);
+
+        $singleDate.prop('disabled', false).prop('readonly', false).removeClass('disabled-select');
+
+        // Enable Flatpickr
+        enablePicker(datePicker);
+
         if (selectedValue == '1') {
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
-            $('#date').prop('disabled', true);
-        } else if (selectedValue == '2') {
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-            $('#date').prop('disabled', false);
-        } else if (selectedValue == '3') {
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
-            $('#date').prop('disabled', true);
-        } else if (selectedValue == '4') {
-            $('.blood_group').prop('disabled', false);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-        } else {
-            $('.designationID').prop('disabled', false);
-            $('.departmentID').prop('disabled', false);
+            // Joining (Range)
+            $month.prop('disabled', false);
+            $year.prop('disabled', false);
+            disableSingleDate();
+        } 
+        else if (selectedValue == '2') {
+            // Single Date
+            $month.prop('disabled', true);
+            $year.prop('disabled', true);
+
+        } 
+        else if (selectedValue == '3') {
+            $month.prop('disabled', false);
+            $year.prop('disabled', false);
+
+            disableSingleDate();
+        } 
+
+        // =========================
+        // Helper Functions
+        // =========================
+        function disableSingleDate() {
+            disablePicker(datePicker, $singleDate);
+        }
+
+        function disablePicker(picker, $el) {
+            $el.prop('disabled', true).prop('readonly', true).addClass('disabled-select');
+
+            if (picker) {
+                picker.set('clickOpens', false);
+                $(picker.altInput).prop('disabled', true).addClass('disabled-select');
+            }
+        }
+
+        function enablePicker(picker) {
+            if (picker) {
+                picker.set('clickOpens', true);
+                $(picker.altInput).prop('disabled', false).removeClass('disabled-select');
+            }
         }
     }
-
-
-
+});
 </script>
-
 @endpush

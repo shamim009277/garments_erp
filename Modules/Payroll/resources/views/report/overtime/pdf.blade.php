@@ -1,344 +1,361 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Employee Listing Report</title>
-    <link rel="shortcut icon" href="{{ public_path('backend/assets/images/logo-sm.svg') }}">
-    <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
-    <meta name="author" content="ERP Team" />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+@extends('payroll::components.layouts.pdf')
+@section('title', 'Overtime Report')
+<style>
+    body {
+        font-size: 11px;
+    }
 
-        body {
-            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 11px;
-            line-height: 1.5;
-            color: #000;
-            margin: 0;
-            padding: 0;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: auto;
+    }
 
-        @page {
-            margin: 110px 20px 50px 20px;
-        }
+    thead {
+        display: table-header-group;
+    }
 
-        .page::after {
-            content: counter(page);
-        }
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
 
-        header {
-            position: fixed;
-            top: -100px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            padding-bottom: 10px;
-        }
+    th,
+    td {
+        border: 1px solid #000;
+        padding: 4px;
+        vertical-align: middle;
+    }
 
-        footer {
-            position: fixed;
-            bottom: -40px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 10px;
-            color: #555;
-            border-top: 1px solid #ccc;
-            padding-top: 5px;
-        }
+    .text-center {
+        text-align: center;
+    }
 
-        footer .printed-by {
-            float: left;
-            text-align: left;
-            width: 50%;
-        }
+    .page-break {
+        page-break-before: always;
+    }
+</style>
+@php
+    $reportTitle = match ($title) {
+        '1' => 'Department-wise Daily Basis Monthly Overtime',
+        '2' => 'Department-wise Daily Overtime',
+        default => '',
+    };
 
-        footer .page-count {
-            float: right;
-            text-align: right;
-            width: 50%;
-        }
+    $reportSubTitle = in_array($title, [1])
+        ? 'Month: ' . ($monthName . ' ' . $year ?? '')
+        : (in_array($title, [2])
+            ? 'Date: ' . \Carbon\Carbon::parse($date)->format('d-m-Y')
+            : '');
+@endphp
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+{{-- ================= CONTENT ================= --}}
+@section('content')
+    @if ($title == 1)
+        @if ($datas->count() > 0)
+            @foreach ($uniqueSection as $section)
+                @php
+                    $departmentDatas = $datas->groupBy(function ($item) {
+                        return optional($item->employee->department->parentDepartment)->department;
+                    });
+                    $depTotal = 0;
+                @endphp
 
-        thead {
-            display: table-header-group;
-            background-color: #f2f2f2;
-        }
+                @foreach ($departmentDatas as $department => $groupedData)
+                    @php
+                        $SectionDatas = $groupedData->groupBy(function ($item) {
+                            return optional($item->employee->department)->department;
+                        });
+                    @endphp
 
-        tfoot {
-            display: table-footer-group;
-        }
-
-        th, td {
-            padding: 6px 8px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .sub-title {
-            font-size: 12px;
-            color: #666;
-        }
-
-        p {
-            margin: 0;
-        }
-
-        .no-border td, .no-border th {
-            border: none !important;
-        }
-
-        .company-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.2;
-        }
-
-        .watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 40px;
-            font-weight: 700;
-            color: rgba(0, 0, 0, 0.08);
-            pointer-events: none;
-            z-index: 0;
-            white-space: nowrap;
-        }
-
-        .watermark-image {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.08;
-            width: 300px;
-            height: auto;
-            pointer-events: none;
-            z-index: 0;
-        }
-    </style>
-
-</head>
-<body>
-    <!-- Watermark -->
-    <div class="watermark">
-        {{ $general->full_name }} - {{ now()->format('Y') }}
-    </div>
-    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
-    <!-- Header -->
-    <header>
-        <div style="display: flex; align-items: center;">
-            <!-- Logo -->
-            <div>
-                <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;">
-            </div>
-
-            <!-- Company Info -->
-            <div class="company-info">
-                <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $general->full_name }}</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Address, City, Country</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: info@company.com | Phone: +880123456789</div>
-            </div>
-        </div>
-        <hr style="border: 1px solid #ccc;">
-    </header>
-
-    <!-- Footer -->
-    <footer>
-        <div style="display: flex; justify-content: space-between; font-size: 10px;">
-            <div>
-                Printed by {{ auth()->user()->name ?? 'System' }}
-            </div>
-            <div>
-                Page <span class="page"></span> | {{ now()->format('d-m-Y h:i A') }}
-            </div>
-        </div>
-    </footer>
-
-    <!-- PDF Body -->
-    @if($title == 1)
-    <h3 style="text-align:center; margin: 20px 0px;">Department-wise Listing of Employees</h3>
-    @endif
-    @if($title == 2)
-    <h3 style="text-align:center; margin: 20px 0px;">Designation-wise Listing of Employees</h3>
-    @endif
-    @if($title == 3)
-    <h3 style="text-align:center; margin: 20px 0px;">Employees Joined Within Date Range</h3>
-    @endif
-    @if($title == 4)
-    <h3 style="text-align:center; margin: 20px 0px;">Employees With Blood Group</h3>
-    @endif
-
-
-    @if($title == 1)
-        <table style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>SL</th>
-                    <th>Employee ID</th>
-                    <th>Name</th>
-                    <th>Department</th>
-                    <th>Designation</th>
-                    <th>Category</th>
-                    <th>Join Date</th>
-                    <th>District</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($employees as $index => $employee)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $employee->employee_id }}</td>
-                        <td>{{ $employee->name }}</td>
-                        <td>{{ $employee->department->department ?? '' }}</td>
-                        <td>{{ $employee->designation->designation ?? '' }}</td>
-                        <td>{{ $employee->designation->category_code ?? '' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($employee->joining_date)->format('d-m-Y') }}</td>
-                        <td>{{ $employee->mdistrict->name ?? '' }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="8" style="text-align: center;">No data available</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-        @elseif($title == 2)
-        <div class="card-body">
-            <div style="overflow-x: auto;">
-                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Department</th>
-                            <th>Designation</th>
-                            <th>Category</th>
-                            <th>Joining Date</th>
-                            <th>District</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($uniqueDesignations as $designation)
-                            <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
-                                <td></td>
-                                <td style="text-align: center; color: #5156be;">{!! $designation->designation !!}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <?php $sl1 = 1; ?>
-                            @foreach ($employees as $employee)
-                            @if($employee->designation_id == $designation->id)
+                    @foreach ($SectionDatas as $section => $groupedData)
+                        @php
+                            $groupedDatas = $groupedData->groupBy('employee_id');
+                        @endphp
+                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                            <thead>
                                 <tr>
-                                    <td>{{ $sl1 }}</td>
-                                    <td>{{ $employee->employee_id }}</td>
-                                    <td>{{ $employee->name }}</td>
-                                    <td>{{ $employee->department->department ?? '' }}</td>
-                                    <td>{{ $employee->designation->designation ?? '' }}</td>
-                                    <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
-                                    <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                    <td>{{ $employee->mdistrict->name ?? '' }}</td>
+                                    <th> <span style="font-size: 12px; color: rgb(22, 2, 94);">Department : </span>
+                                        {{ $department }} <span style="font-size: 12px; color: rgb(22, 2, 94);"> Section :
+                                        </span> {{ $section }}</th>
                                 </tr>
-                                <?php $sl1++; ?>
-                            @endif
+                            </thead>
+                        </table>
+                        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+
+                                    @foreach ($dates as $date)
+                                        <th class="text-center">{{ date('d', strtotime($date)) }}</th>
+                                    @endforeach
+                                    <th class="text-center">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($groupedDatas as $index => $records)
+                                    @php
+                                        $employee = $records->first()->employee;
+                                        $organization = $records->first()->organization;
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                        <td>{{ $employee->name }}</td>
+
+                                        @foreach ($dates as $date)
+                                            @php
+                                                $entry = $records->firstWhere('work_date', $date);
+                                            @endphp
+                                            <td class="text-center">{{ $entry->ot_hours ?? '-' }}</td>
+                                        @endforeach
+                                        <td class="text-center">{{ $records->sum('ot_hours') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endforeach
+                @endforeach
+            @endforeach
+        @else
+            <div class="text-center mt-5" style="font-size:12px; font-weight:bold; color:red; margin-top:20px;">
+                No data available for this data combination.
+            </div>
+        @endif
+    @elseif($title == 2)
+        @if ($datas->count() > 0)
+            @php
+                $departmentDatas = $datas->groupBy(function ($item) {
+                    return optional($item->employee->department->parentDepartment)->department;
+                });
+            @endphp
+            @foreach ($departmentDatas as $department => $departmentGroup)
+                @php
+                    $sectionDatas = $departmentGroup->groupBy(function ($item) {
+                        return optional($item->employee->department)->department;
+                    });
+
+                    $departmentTotalOt = 0;
+                    $departmentEmployees = collect();
+                @endphp
+
+                @foreach ($sectionDatas as $section => $sectionGroup)
+                    @php
+                        $employeeGroups = $sectionGroup->groupBy('employee_id');
+
+                        $sectionTotalOt = $sectionGroup->sum('ot_hours');
+                        $sectionEmployees = $sectionGroup->pluck('employee_id')->unique();
+
+                        // Department accumulate
+                        $departmentTotalOt += $sectionTotalOt;
+                        $departmentEmployees = $departmentEmployees->merge($sectionEmployees);
+                    @endphp
+
+                    {{-- Header --}}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Department: {{ $department }} |
+                                    Section: {{ $section }}
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    {{-- Employee Table --}}
+                    <table class="table table-bordered" style="margin-top: 0px;">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Emp ID</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>In</th>
+                                <th>Out</th>
+                                <th>OT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($employeeGroups as $records)
+                                @php
+                                    $employee = $records->first()->employee;
+                                @endphp
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                    <td>{{ $employee->name }}</td>
+                                    <td>{{ optional($employee->designation)->designation }}</td>
+                                    <td>{{ optional($employee->designation)->category_code }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($records->first()->work_date)) }}</td>
+                                    <td>{{ date('h:i A', strtotime($records->first()->start_punch)) }}</td>
+                                    <td>{{ date('h:i A', strtotime($records->first()->end_punch)) }}</td>
+                                    <td class="text-center">{{ $records->sum('ot_hours') }}</td>
+                                </tr>
                             @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @elseif($title == 3)
-        <div class="card-body">
-            <div style="overflow-x: auto;">
-                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Department</th>
-                            <th>Designation</th>
-                            <th>Category</th>
-                            <th>Joining Date</th>
-                            <th>District</th>
+                        </tbody>
+                    </table>
+
+                    {{-- ✅ Section Summary --}}
+                    <table style="margin-top: 0px;">
+                        <tr style="background:#160144;color:white;">
+                            <td colspan="8" class="text-right">
+                                Section Summary =>
+                                Total Employees: {{ $sectionEmployees->count() }}
+                            </td>
+                            <td class="text-center" width="30">
+                                {{ $sectionTotalOt }}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($employees as $employee)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employee->employee_id }}</td>
-                                <td>{{ $employee->name }}</td>
-                                <td>{{ $employee->department->department }}</td>
-                                <td>{{ $employee->designation->designation }}</td>
-                                <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
-                                <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                <td>{{ $employee->mdistrict->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    </table>
+                @endforeach
+
+                {{-- ✅ Department Summary --}}
+                <table style="margin-top: 0px;">
+                    <tr style="background:#ecb119;color:black;">
+                        <td colspan="8" class="text-right">
+                            Department Summary =>
+                            Total Employees: {{ $departmentEmployees->unique()->count() }}
+                        </td>
+                        <td class="text-center" width="30">
+                            {{ $departmentTotalOt }}
+                        </td>
+                    </tr>
                 </table>
-            </div>
-        </div>
-        @elseif($title == 4)
-        <div class="card-body">
-            <div style="overflow-x: auto;">
-                <table class="table table-bordered table-hover table-striped" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Department</th>
-                            <th>Designation</th>
-                            <th>Category</th>
-                            <th>Blood Group</th>
-                            <th>District</th>
+            @endforeach
+            <table style="margin-top: 0px;">
+                <tr style="background:#025793;color:white;">
+                    <td colspan="8" class="text-right">
+                        Overall Summary =>
+                        Total Employees: {{ $datas->unique()->count() }}
+                    </td>
+                    <td class="text-center" width="30">
+                        {{ $datas->sum('ot_hours') }}
+                    </td>
+                </tr>
+                </>
+            @else
+                <div class="text-center mt-5 text-danger">
+                    No data available
+                </div>
+        @endif
+    @elseif($title == 3)
+        @if ($datas->count() > 0)
+
+            @php
+                $grandTotal = 0;
+                $grandEmployees = collect();
+            @endphp
+
+            @foreach ($sectionGrouped as $section => $overtimes)
+                @php
+                    $sectionDepartment = $overtimes->groupBy('department');
+                    $sectionTotal = 0;
+                    $sectionEmployees = collect();
+                @endphp
+
+                @foreach ($sectionDepartment as $department => $deptData)
+                    @php
+                        $deptTotal = $deptData->sum('total_ot');
+                        $sectionTotal += $deptTotal;
+
+                        $deptEmployees = $deptData->pluck('employee_id')->unique();
+                        $sectionEmployees = $sectionEmployees->merge($deptEmployees);
+
+                        $grandTotal += $deptTotal;
+                        $grandEmployees = $grandEmployees->merge($deptEmployees);
+                    @endphp
+
+                    {{-- Header --}}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Department: {{ $section }} |
+                                    Section: {{ $department }}
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    {{-- Employee Table --}}
+                    <table class="table table-bordered" style="margin-top:0;">
+                        <thead>
+                            <tr>
+                                <th width="5%">SL</th>
+                                <th class="text-center">Employee ID</th>
+                                <th width="20%">Employee Name</th>
+                                <th class="text-center">Department</th>
+                                <th width="20%" class="text-center">Designation</th>
+                                <th class="text-center">Category</th>
+                                <th class="text-center" width="15%">Total OT Hour</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($deptData as $data)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ str_pad($data->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                    <td>{{ $data->name }}</td>
+                                    <td class="text-center">{{ $data->department }}</td>
+                                    <td class="text-center">{{ $data->designation }}</td>
+                                    <td class="text-center">{{ $data->category_code }}</td>
+                                    <td class="text-center" width="10%">{{ $data->total_ot }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    {{-- Department Summary --}}
+                    <table style="margin-top:0;">
+                        <tr style="background:#ecb119;color:black;">
+                            <td colspan="6" class="text-right">
+                                Section Summary ({{ $department }}) =>
+                                Total Employees: {{ $deptEmployees->count() }}
+                            </td>
+                            <td class="text-center" width="15%">
+                                {{ $deptTotal }}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($employees as $employee)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employee->employee_id }}</td>
-                                <td>{{ $employee->name }}</td>
-                                <td>{{ $employee->department->department }}</td>
-                                <td>{{ $employee->designation->designation }}</td>
-                                <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
-                                <td>{{ $employee->employeePersonal->blood_group }}</td>
-                                <td>{{ $employee->mdistrict->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    </table>
+                @endforeach
+
+                {{-- Section Summary --}}
+                <table style="margin-top:0;">
+                    <tr style="background:#160144;color:white;">
+                        <td colspan="6" class="text-right">
+                            Department Summary ({{ $section }}) =>
+                            Total Employees: {{ $sectionEmployees->unique()->count() }}
+                        </td>
+                        <td class="text-center" width="15%">
+                            {{ $sectionTotal }}
+                        </td>
+                    </tr>
                 </table>
+            @endforeach
+
+            {{-- Overall Summary --}}
+            <table style="margin-top:0;">
+                <tr style="background:#025793;color:white;">
+                    <td colspan="6" class="text-right">
+                        Overall Summary =>
+                        Total Employees: {{ $grandEmployees->unique()->count() }}
+                    </td>
+                    <td class="text-center" width="15%">
+                        {{ $grandTotal }}
+                    </td>
+                </tr>
+            </table>
+        @else
+            <div class="text-center mt-5 text-danger">
+                No data available
             </div>
-        </div>
+        @endif
+
     @endif
-</body>
-</html>
+@endsection
