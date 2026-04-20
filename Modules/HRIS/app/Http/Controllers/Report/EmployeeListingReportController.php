@@ -61,7 +61,7 @@ class EmployeeListingReportController extends Controller
             }elseif($line==false){
                 $line=$request->line;
             }
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name', 'employeeSalary:employee_id,gross_salary,basic'])
                     ->whereHas('designation')
                     ->whereIn('department_id', $request->department_id)
                     ->when($line==true, fn($q) =>
@@ -150,7 +150,7 @@ class EmployeeListingReportController extends Controller
                     ->whereBetween('joining_date', [$request->start_date, $request->end_date])
                     ->when($request->filled('employee_id'), fn($q) =>
                          $q->where('employee_id', $request->employee_id))
-                         ->when($request->filled('category_id'), function ($q) use ($request) {
+                         ->when($request->filled('category_id'), function ($q) use ($request) { 
                             $q->whereHas('designation', function ($q2) use ($request) {
                                 $q2->where('category_code', $request->category_id);
                             });
