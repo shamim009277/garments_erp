@@ -15,10 +15,10 @@ class DistrictController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.district.view')->only('index');
-        $this->middleware('permission:hris.district.add')->only('store');
-        $this->middleware('permission:hris.district.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.district.delete')->only('destroy');
+        $this->middleware('permission:hris.districts.view')->only('index');
+        $this->middleware('permission:hris.districts.add')->only('store');
+        $this->middleware('permission:hris.districts.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.districts.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

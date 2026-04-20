@@ -14,10 +14,10 @@ class DivisionController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.division.view')->only('index');
-        $this->middleware('permission:hris.division.add')->only('store');
-        $this->middleware('permission:hris.division.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.division.delete')->only('destroy');
+        $this->middleware('permission:hris.divisions.view')->only('index');
+        $this->middleware('permission:hris.divisions.add')->only('store');
+        $this->middleware('permission:hris.divisions.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.divisions.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

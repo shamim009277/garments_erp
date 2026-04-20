@@ -15,10 +15,10 @@ class EmpGatepassReasonController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.gate-pass-reason.view')->only('index');
-        $this->middleware('permission:hris.gate-pass-reason.add')->only('store');
-        $this->middleware('permission:hris.gate-pass-reason.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.gate-pass-reason.delete')->only('destroy');
+        $this->middleware('permission:hris.gatepass-reason.view')->only('index');
+        $this->middleware('permission:hris.gatepass-reason.add')->only('store');
+        $this->middleware('permission:hris.gatepass-reason.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.gatepass-reason.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.
