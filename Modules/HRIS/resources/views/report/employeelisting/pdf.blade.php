@@ -130,7 +130,7 @@
                 @if($employees->count() > 0)   
                     @foreach ($uniqueSection as $section)
                         @php
-                            $uniqueDepartment = $datas
+                            $uniqueDepartment = $employees
                                 ->filter(function ($emp) use ($section) {
                                     $parentId = optional(optional($emp->department)->parentDepartment)->id;
                                     return $parentId == $section['parent_department_id'];

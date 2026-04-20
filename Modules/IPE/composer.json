@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/ipe",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\IPE\\": "app/",
+            "Modules\\IPE\\Database\\Factories\\": "database/factories/",
+            "Modules\\IPE\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\IPE\\Tests\\": "tests/"
+        }
+    }
+}
