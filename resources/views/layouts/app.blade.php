@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ $general->short_name }} | @yield('title', config('app.name'))</title>
+    <title>{{ isset($general) ? $general->short_name : 'ERP' }} | @yield('title', config('app.name'))</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Garments ERP - Complete Solution for Garments Manufacturing and Management" />
     <meta name="author" content="ERP Team" />

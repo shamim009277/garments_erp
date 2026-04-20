@@ -18,14 +18,33 @@
                 <div class="card-header">
                     @if($title == 1)
                         <h6 class="my-0 text-primary text-center">Department-wise Listing of Employees</h6>
+                        <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
                     @elseif($title == 2)
                         <h6 class="my-0 text-primary text-center">Designation-wise Listing of Employees</h6>
+                        <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
                     @elseif($title == 3)
                         <h6 class="my-0 text-primary text-center">Employees Joined Within Date Range</h6>
+                        <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
                     @elseif($title == 4)
                         <h6 class="my-0 text-primary text-center">Employees With Blood Group</h6>
+                        <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
+                    @elseif($title == 5)
+                        <h6 class="my-0 text-primary text-center">
+                            Department Wise Employee Joined <br>
+                            <span class="text-secondary" style="font-size: 12px; margin-top: 5px;">Date Range: {{ $start }} - {{ $end }}</span>
+                        </h6>
+                    @elseif($title == 6)
+                        <h6 class="my-0 text-primary text-center">
+                            Employee Resignation <br>
+                            <span class="text-secondary" style="font-size: 12px; margin-top: 5px;">Date Range: {{ $start }} - {{ $end }}</span>
+                        </h6>
+                    @elseif($title == 7)
+                        <h6 class="my-0 text-primary text-center">
+                            Employee Long Absence <br>
+                            <span class="text-secondary" style="font-size: 12px; margin-top: 5px;">Date Range: {{ $start }} - {{ $end }}</span>
+                        </h6>
                     @endif
-                    <p class="ms-auto text-center">Date: {{ now()->format('Y-m-d') }}</p>
+                    
                 </div>
                 @if($title == 1)
                 <div class="card-body">
@@ -210,6 +229,48 @@
                         </table>
                     </div>
                 </div>
+                @elseif($title == 5 || $title == 6 || $title == 7)
+                    <div class="card-body">
+                        <div style="overflow-x: auto;">
+                            <table class="table table-bordered table-hover table-striped" style="width: 100%;" id="employeeTable">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Organization</th>
+                                        <th>Employee ID</th>
+                                        <th>Employee Name</th>
+                                        <th>Section</th>
+                                        <th>Department</th>
+                                        <th>Designation</th>
+                                        <th>Category</th>
+                                        <th>Joining Date</th>
+                                        <th>
+                                            {{ $title == 5 ? "Birth Date" : "Leaving Date" }}
+                                        </th>
+                                        <th>Gross Salary</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($employees as $employee)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $employee->organization->short_name }}</td>
+                                            <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
+                                            <td>{{ $employee->name }}</td>
+                                            <td>{{ $employee->department->department }}</td>
+                                            <td>{{ $employee->department->parentDepartment->department }}</td>
+                                            <td>{{ $employee->designation->designation }}</td>
+                                            <td>{{ $employee->designation->category_code }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
+                                            <td>{{ $title == 5 ? '' : date('d-m-Y', strtotime($employee->leaving_date)) }}</td>
+                                            <td>{{ $employee->employeeSalary->gross_salary ?? 'N/A' }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>

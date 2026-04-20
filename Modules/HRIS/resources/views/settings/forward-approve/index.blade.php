@@ -417,6 +417,16 @@
                             employee_category_id: employee_category_id,
                             _token: "{{ csrf_token() }}"
                         },
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Please wait...',
+                                text: 'Loading employee data...',
+                                allowOutsideClick: false,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                }
+                            });
+                        },
                         success: function (response) {
                             $('#user_table_body').html('');
                             response.forEach(emp => {
@@ -432,9 +442,10 @@
                                     </tr>
                                 `);
                             });
+                            Swal.close();
                         },
                         error: function (xhr, status, error) {
-                            console.log(error);
+                            Swal.fire('Error!', 'Something went wrong while fetching data.', 'error');
                         }
                     });
                 }else{

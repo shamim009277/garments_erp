@@ -2,5 +2,6 @@
     "Payroll": true,
     "Inventory": true,
     "HRM": true,
-    "HRIS": true
+    "HRIS": true,
+    "IPE": true
 }

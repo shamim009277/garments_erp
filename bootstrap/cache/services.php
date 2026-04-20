@@ -29,16 +29,19 @@
     25 => 'Intervention\\Image\\Laravel\\ServiceProvider',
     26 => 'Laravel\\Breeze\\BreezeServiceProvider',
     27 => 'Laravel\\Pail\\PailServiceProvider',
-    28 => 'Laravel\\Sail\\SailServiceProvider',
-    29 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    30 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    31 => 'Carbon\\Laravel\\ServiceProvider',
-    32 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    33 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    34 => 'Nwidart\\Modules\\LaravelModulesServiceProvider',
-    35 => 'Spatie\\Permission\\PermissionServiceProvider',
-    36 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    37 => 'App\\Providers\\AppServiceProvider',
+    28 => 'Laravel\\Reverb\\ApplicationManagerServiceProvider',
+    29 => 'Laravel\\Reverb\\ReverbServiceProvider',
+    30 => 'Laravel\\Sail\\SailServiceProvider',
+    31 => 'Laravel\\Sanctum\\SanctumServiceProvider',
+    32 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    33 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    34 => 'Carbon\\Laravel\\ServiceProvider',
+    35 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    36 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    37 => 'Nwidart\\Modules\\LaravelModulesServiceProvider',
+    38 => 'Spatie\\Permission\\PermissionServiceProvider',
+    39 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    40 => 'App\\Providers\\AppServiceProvider',
   ),
   'eager' => 
   array (
@@ -56,14 +59,16 @@
     11 => 'Barryvdh\\DomPDF\\ServiceProvider',
     12 => 'Intervention\\Image\\Laravel\\ServiceProvider',
     13 => 'Laravel\\Pail\\PailServiceProvider',
-    14 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    15 => 'Carbon\\Laravel\\ServiceProvider',
-    16 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    17 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    18 => 'Nwidart\\Modules\\LaravelModulesServiceProvider',
-    19 => 'Spatie\\Permission\\PermissionServiceProvider',
-    20 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    21 => 'App\\Providers\\AppServiceProvider',
+    14 => 'Laravel\\Reverb\\ReverbServiceProvider',
+    15 => 'Laravel\\Sanctum\\SanctumServiceProvider',
+    16 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    17 => 'Carbon\\Laravel\\ServiceProvider',
+    18 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    19 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    20 => 'Nwidart\\Modules\\LaravelModulesServiceProvider',
+    21 => 'Spatie\\Permission\\PermissionServiceProvider',
+    22 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    23 => 'App\\Providers\\AppServiceProvider',
   ),
   'deferred' => 
   array (
@@ -218,6 +223,8 @@
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'Illuminate\\Contracts\\Validation\\UncompromisedVerifier' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'Laravel\\Breeze\\Console\\InstallCommand' => 'Laravel\\Breeze\\BreezeServiceProvider',
+    'Laravel\\Reverb\\ApplicationManager' => 'Laravel\\Reverb\\ApplicationManagerServiceProvider',
+    'Laravel\\Reverb\\Contracts\\ApplicationProvider' => 'Laravel\\Reverb\\ApplicationManagerServiceProvider',
     'Laravel\\Sail\\Console\\InstallCommand' => 'Laravel\\Sail\\SailServiceProvider',
     'Laravel\\Sail\\Console\\PublishCommand' => 'Laravel\\Sail\\SailServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
@@ -264,6 +271,9 @@
     array (
     ),
     'Laravel\\Breeze\\BreezeServiceProvider' => 
+    array (
+    ),
+    'Laravel\\Reverb\\ApplicationManagerServiceProvider' => 
     array (
     ),
     'Laravel\\Sail\\SailServiceProvider' => 

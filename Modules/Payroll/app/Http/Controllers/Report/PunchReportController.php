@@ -293,9 +293,6 @@ class PunchReportController extends Controller
                 ->orderBy('attendence.employee_id', 'asc')
                 ->get();
 
-            //dd($datas);
-
-
             $uniqueDepartments = $datas->unique('department_id')->pluck('department', 'department_id');
             $title = $request->title;
             $date = $request->date;

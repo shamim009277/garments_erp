@@ -173,3 +173,34 @@
     </div>
     </form>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            function cleanText(text) {
+                if (!text) return '';
+                text = text.trim().replace(/\s+/g, ' ');
+                if (text === 'Select an option') return '';
+                return text;
+            }
+            function generateAddress() {
+                let district = cleanText($('#ndistrict_id_bangla option:selected').text());
+                let thana = cleanText($('#nthana_id_bangla option:selected').text());
+                let postOffice = cleanText($('#npost_office_bangla').val());
+                let village = cleanText($('#nvillage_bangla').val());
+
+                let parts = [village, postOffice, thana, district].filter(Boolean);
+                let address = parts.join(', ');
+                $('#emergency_address').val(address);
+            }
+
+            // initial call
+            generateAddress();
+            // events
+            $('#ndistrict_id_bangla, #nthana_id_bangla').on('change', generateAddress);
+            $('#npost_office_bangla, #nvillage_bangla').on('keyup', generateAddress);
+            // select2 থাকলে (optional but recommended)
+            $('#ndistrict_id_bangla, #nthana_id_bangla').on('change.select2', generateAddress);
+        });
+    </script>
+@endpush

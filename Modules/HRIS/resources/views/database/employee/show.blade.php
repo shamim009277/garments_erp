@@ -47,61 +47,61 @@
                 <div class="card-body px-0 py-0" style="min-height: 500px;">
                     <ul class="nav nav-tabs nav-tabs-custom" role="tablist" style="background-color: #5559ca; color: white;border-radius: 0px !important;">
                         <li class="nav-item">
-                            <a href="#basic" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 1]) }}" class="nav-link border-none {{ $tab == 1 ? 'active' : '' }}" title="Basic" role="tab" style="hover: white !important;">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 1]) }}" class="nav-link border-none {{ $tab == 1 ? 'active' : '' }}" title="Basic" role="tab" style="hover: white !important;">
                                 <span class="d-block d-sm-none"><i class="fa fa-user"></i></span>
                                 <span class="d-none d-sm-block">Basic</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#salary" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 2]) }}" class="nav-link border-none {{ $tab == 2 ? 'active' : '' }}" title="Salary Info" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 2]) }}" class="nav-link border-none {{ $tab == 2 ? 'active' : '' }}" title="Salary Info" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-credit-card"></i></span>
                                 <span class="d-none d-sm-block">Salary Info</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#education" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 3]) }}" class="nav-link border-none {{ $tab == 3 ? 'active' : '' }}" title="Education" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 3]) }}" class="nav-link border-none {{ $tab == 3 ? 'active' : '' }}" title="Education" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-graduation-cap"></i></span>
                                 <span class="d-none d-sm-block">Education</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#training" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 4]) }}" class="nav-link border-none {{ $tab == 4 ? 'active' : '' }}" title="Training" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 4]) }}" class="nav-link border-none {{ $tab == 4 ? 'active' : '' }}" title="Training" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-chalkboard-teacher"></i></span>
                                 <span class="d-none d-sm-block">Training</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#experience" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 5]) }}" class="nav-link border-none {{ $tab == 5 ? 'active' : '' }}" title="Experience" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 5]) }}" class="nav-link border-none {{ $tab == 5 ? 'active' : '' }}" title="Experience" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-toolbox"></i></span>
                                 <span class="d-none d-sm-block">Experience</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#service" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 6]) }}" class="nav-link border-none {{ $tab == 6 ? 'active' : '' }}" title="Service" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 6]) }}" class="nav-link border-none {{ $tab == 6 ? 'active' : '' }}" title="Service" role="tab">
                                 <span class="d-block d-sm-none"><i class="fa fa-briefcase"></i></span>
                                 <span class="d-none d-sm-block">Service</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#reference" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 7]) }}" class="nav-link border-none {{ $tab == 7 ? 'active' : '' }}" title="Reference" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 7]) }}" class="nav-link border-none {{ $tab == 7 ? 'active' : '' }}" title="Reference" role="tab">
                                 <span class="d-block d-sm-none"><i class="far fa-address-card"></i></span>
                                 <span class="d-none d-sm-block">Reference</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#documents" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 8]) }}" class="nav-link border-none {{ $tab == 8 ? 'active' : '' }}" title="Documents" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 8]) }}" class="nav-link border-none {{ $tab == 8 ? 'active' : '' }}" title="Documents" role="tab">
                                 <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                 <span class="d-none d-sm-block">Documents</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#miscellaneous" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 9]) }}" class="nav-link border-none {{ $tab == 9 ? 'active' : '' }}" title="Mescellaneous" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 9]) }}" class="nav-link border-none {{ $tab == 9 ? 'active' : '' }}" title="Mescellaneous" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-tools"></i></span>
                                 <span class="d-none d-sm-block">Mescellaneous</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#bangla" data-url="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 10]) }}" class="nav-link border-none {{ $tab == 10 ? 'active' : '' }}" title="Bangla" role="tab">
+                            <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 10]) }}" class="nav-link border-none {{ $tab == 10 ? 'active' : '' }}" title="Bangla" role="tab">
                                 <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                                 <span class="d-none d-sm-block">Bangla</span>
                             </a>
@@ -112,61 +112,56 @@
                     </ul>
 
                     <div class="tab-content text-muted">
+                        @if($tab == 1)
                         <div class="tab-pane {{ $tab == 1 ? 'active' : '' }}    " id="basic" role="tabpanel">
-                            @if($tab == 1)
-                                @include('hris::database.employee.tab1')
-                            @endif
+                            @include('hris::database.employee.tab1')
                         </div>
+                        @endif
+                        @if($tab == 2)
                         <div class="tab-pane {{ $tab == 2 ? 'active' : '' }}" id="salary" role="tabpanel">
-                            @if($tab == 2)
-                                @include('hris::database.employee.tab2')
-                            @endif
+                            @include('hris::database.employee.tab2')
                         </div>
+                        @endif
+                        @if($tab == 3)
                         <div class="tab-pane {{ $tab == 3 ? 'active' : '' }}" id="education" role="tabpanel">
-                            @if($tab == 3)
-                                @include('hris::database.employee.tab3')
-                            @endif
+                            @include('hris::database.employee.tab3')
                         </div>
+                        @endif
+                        @if($tab == 4)
                         <div class="tab-pane {{ $tab == 4 ? 'active' : '' }}" id="training" role="tabpanel">
-                            @if($tab == 4)
-                                @include('hris::database.employee.tab4')
-                            @endif
+                            @include('hris::database.employee.tab4')
                         </div>
+                        @endif
+                        @if($tab == 5)
                         <div class="tab-pane {{ $tab == 5 ? 'active' : '' }}" id="experience" role="tabpanel">
-                            @if($tab == 5)
-                                @include('hris::database.employee.tab5')
-                            @endif
+                            @include('hris::database.employee.tab5')
                         </div>
+                        @endif
+                        @if($tab == 6)
                         <div class="tab-pane {{ $tab == 6 ? 'active' : '' }}" id="service" role="tabpanel">
-                            @if($tab == 6)
-                                @include('hris::database.employee.tab6')
-                            @endif
+                            @include('hris::database.employee.tab6')
                         </div>
+                        @endif
+                        @if($tab == 7)
                         <div class="tab-pane {{ $tab == 7 ? 'active' : '' }}" id="reference" role="tabpanel">
-                            @if($tab == 7)
-                                @include('hris::database.employee.tab7')
-                            @endif
+                            @include('hris::database.employee.tab7')
                         </div>
+                        @endif
+                        @if($tab == 8)
                         <div class="tab-pane {{ $tab == 8 ? 'active' : '' }}" id="documents" role="tabpanel">
-                            @if($tab == 8)
-                                @include('hris::database.employee.tab8')
-                            @endif
+                            @include('hris::database.employee.tab8')
                         </div>
+                        @endif
+                        @if($tab == 9)
                         <div class="tab-pane {{ $tab == 9 ? 'active' : '' }}" id="miscellaneous" role="tabpanel">
-                            @if($tab == 9)
-                                @include('hris::database.employee.tab9')
-                            @endif
+                            @include('hris::database.employee.tab9')
                         </div>
+                        @endif
+                        @if($tab == 10)
                         <div class="tab-pane {{ $tab == 10 ? 'active' : '' }}" id="bangla" role="tabpanel">
-                            @if($tab == 10)
-                                @include('hris::database.employee.tab10')
-                            @endif
+                            @include('hris::database.employee.tab10')
                         </div>
-                        <div class="tab-pane {{ $tab == 11 ? 'active' : '' }}" id="operation" role="tabpanel">
-                            @if($tab == 11)
-                                @include('hris::database.employee.tab11')
-                            @endif
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -177,61 +172,16 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // Initialize plugins for initial load
-            initPlugins();
+            // Date restriction
+            let today = new Date().toISOString().split('T')[0];
+            $('#joining_date').attr('min', today);
 
-            $('.nav-link').on('click', function(e) {
-                e.preventDefault();
-                var target = $(this).attr('href');
-                var url = $(this).data('url');
-                var tabContent = $(target);
-
-                // Update active state
-                $('.nav-link').removeClass('active');
-                $(this).addClass('active');
-                $('.tab-pane').removeClass('active');
-                tabContent.addClass('active');
-
-                // Load content if empty
-                if (tabContent.html().trim() === '') {
-                    // Show loader
-                    tabContent.html('<div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>');
-                    
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        success: function(response) {
-                            tabContent.html(response);
-                            initPlugins();
-                        },
-                        error: function(xhr) {
-                            tabContent.html('<div class="alert alert-danger">Error loading data</div>');
-                        }
-                    });
-                }
+            // Initialize Select2
+            $('.select2').select2({
+                placeholder: "Select an option",
+                allowClear: true,
+                width: '100%'
             });
-
-            function initPlugins() {
-                // Date restriction
-                let today = new Date().toISOString().split('T')[0];
-                if($('#joining_date').length > 0) {
-                    $('#joining_date').attr('min', today);
-                }
-
-                // Initialize Select2
-                if($('.select2').length > 0) {
-                    $('.select2').select2({
-                        placeholder: "Select an option",
-                        allowClear: true,
-                        width: '100%'
-                    });
-                }
-                
-                // Re-initialize feather icons if they are used in the partials
-                if(typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-            }
         });
     </script>
 @endpush

@@ -50,6 +50,7 @@ class ProcessAttendanceJob implements ShouldQueue
     {
         try {
             ini_set('memory_limit', '2048M');
+            ini_set('max_execution_time', 7200);
             
             $month = $this->month;
             $year = $this->year;

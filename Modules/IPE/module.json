@@ -1,0 +1,11 @@
+{
+    "name": "IPE",
+    "alias": "ipe",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\IPE\\Providers\\IPEServiceProvider"
+    ],
+    "files": []
+}

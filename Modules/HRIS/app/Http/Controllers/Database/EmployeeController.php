@@ -62,7 +62,7 @@ class EmployeeController extends Controller
         $designations = Designation::active()->pluck('designation', 'id');
         $departments = Department::active()->pluck('department', 'id');
 
-        $districts = District::active()->pluck('name', 'id');
+        $districts = District::active()->orderBy('name', 'asc')->pluck('name', 'id');
         $shifts = Shift::active()->pluck('shift', 'shift');
         $units = Unit::active()->pluck('unit', 'code');
         $organizations = Organization::active()->pluck('short_name', 'id');
@@ -159,98 +159,76 @@ class EmployeeController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $tab = $request->get('tab', 1);
-        
-        if($tab == 1){
+        if($request->get('tab') == 1){
+            $tab = $request->get('tab');
             $employee = Employee::find($id);
             $designations = Designation::active()->pluck('designation', 'id');
             $departments = Department::active()->pluck('department', 'id');
 
-            $districts = District::active()->pluck('name', 'id');
-            $thanas = Thana::active()->pluck('name', 'id');
+            $districts = District::active()->orderBy('name', 'asc')->pluck('name', 'id');
+            $thanas = Thana::active()->orderBy('name', 'asc')->pluck('name', 'id');
             $units = Unit::active()->pluck('unit', 'code');
             $lines = Line::active()->pluck('line', 'code');
             $shifts = Shift::active()->pluck('shift', 'shift');
             $organizations = Organization::active()->pluck('short_name', 'id');
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab1', ['employee' => $employee, 'tab' => $tab, 'designations' => $designations, 'departments' => $departments, 'districts' => $districts, 'thanas' => $thanas, 'shifts' => $shifts, 'organizations' => $organizations, 'units' => $units, 'lines' => $lines]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'designations' => $designations, 'departments' => $departments, 'districts' => $districts, 'thanas' => $thanas, 'shifts' => $shifts, 'organizations' => $organizations, 'units' => $units, 'lines' => $lines]);
-        }else if($tab == 2){
+        }else if($request->get('tab') == 2){
+            $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id','org_id')->find($id);
             $setting = Setting::active()->first();
             $employee_salary = EmployeeSalary::where('employee_id', $employee->employee_id)->first();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab2', ['employee' => $employee, 'tab' => $tab, 'employee_salary' => $employee_salary, 'setting' => $setting]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_salary' => $employee_salary, 'setting' => $setting]);
-        }else if($tab == 3){
+        }else if($request->get('tab') == 3){
             $degrees = Degree::active()->pluck('degree', 'id');
             $boards = EducationBoard::active()->pluck('name', 'name');
+            $tab = $request->get('tab');
             $employee = Employee::find($id);
             $employee_education = EmployeeEducation::with('degree')->where('employee_id', $employee->employee_id)->get();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab3', ['employee' => $employee, 'tab' => $tab, 'degrees' => $degrees, 'boards' => $boards, 'employee_education' => $employee_education]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'degrees' => $degrees, 'boards' => $boards, 'employee_education' => $employee_education]);
-        }else if($tab == 4){
+        }else if($request->get('tab') == 4){
+            $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_training = EmployeeTraining::where('employee_id', $employee->employee_id)->get();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab4', ['employee' => $employee, 'tab' => $tab, 'employee_training' => $employee_training]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_training' => $employee_training]);
-        }else if($tab == 5){
+        }else if($request->get('tab') == 5){
+            $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_experience = EmployeeExperience::where('employee_id', $employee->employee_id)->get();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab5', ['employee' => $employee, 'tab' => $tab, 'employee_experience' => $employee_experience]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_experience' => $employee_experience]);
-        }else if($tab == 6){
+        }else if($request->get('tab') == 6){
+            $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_service = EmployeeService::where('employee_id', $employee->employee_id)->get();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab6', ['employee' => $employee, 'tab' => $tab, 'employee_service' => $employee_service]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_service' => $employee_service]);
-        }else if($tab == 7){
+        }else if($request->get('tab') == 7){
+            $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_references = EmployeeReference::where('employee_id', $employee->employee_id)->get();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab7', ['employee' => $employee, 'tab' => $tab, 'employee_references' => $employee_references]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_references' => $employee_references]);
-        }else if($tab == 8){
+        }else if($request->get('tab') == 8){
+            $tab = $request->get('tab');
             $employee = Employee::select('employee_id','id')->find($id);
             $employee_documents = EmployeeDocument::with(['document:id,name'])->where('employee_id', $employee->employee_id)->get();
             $documents = Document::active()->get();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab8', ['employee' => $employee, 'tab' => $tab, 'documents' => $documents, 'employee_documents' => $employee_documents]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'documents' => $documents, 'employee_documents' => $employee_documents]);
-        }else if($tab == 9){
+        }else if($request->get('tab') == 9){
+            $tab = $request->get('tab');
             $degrees = Degree::active()->pluck('degree', 'id');
             $religions = Religion::active()->pluck('religion', 'religion_code');
             $nationalities = Nationalities::active()->pluck('nationality', 'nl_code');
             $marital_status = MaritalStatus::active()->pluck('maritalstatus', 'ms_code');
             $sex = Sex::active()->pluck('sex', 'sx_code');
-            $districts = District::active()->pluck('name', 'id');
-            $thanas = Thana::active()->pluck('name', 'id');
+            $districts = District::active()->orderBy('name', 'asc')->pluck('name', 'id');
+            $thanas = Thana::active()->orderBy('name', 'asc')->pluck('name', 'id');
             $employee = Employee::select('employee_id','id','org_id','joining_date')->find($id);
             $employee_personal = EmployeePersonal::where('employee_id', $employee->employee_id)->first();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab9', ['employee' => $employee, 'tab' => $tab, 'districts' => $districts, 'thanas' => $thanas, 'sex' => $sex, 'nationalities' => $nationalities, 'marital_status' => $marital_status, 'religions' => $religions, 'degrees' => $degrees, 'employee_personal' => $employee_personal]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'districts' => $districts, 'thanas' => $thanas, 'sex' => $sex, 'nationalities' => $nationalities, 'marital_status' => $marital_status, 'religions' => $religions, 'degrees' => $degrees, 'employee_personal' => $employee_personal]);
-        }else if($tab == 10){
-            $districts = District::active()->pluck('bn_name', 'id');
-            $thanas = Thana::active()->pluck('bn_name', 'id');
+        }else if($request->get('tab') == 10){
+            $tab = $request->get('tab');
+            $districts = District::active()->orderBy('name', 'asc')->pluck('bn_name', 'id');
+            $thanas = Thana::active()->orderBy('name', 'asc')->pluck('bn_name', 'id');
             $employee = Employee::select('employee_id','id','org_id')->find($id);
             $employee_bangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
-            if ($request->ajax()) {
-                return view('hris::database.employee.tab10', ['employee' => $employee, 'tab' => $tab, 'employee_bangla' => $employee_bangla, 'districts' => $districts, 'thanas' => $thanas]);
-            }
             return view('hris::database.employee.show', ['employee' => $employee, 'tab' => $tab, 'employee_bangla' => $employee_bangla, 'districts' => $districts, 'thanas' => $thanas]);
         }
     }
@@ -329,7 +307,7 @@ class EmployeeController extends Controller
                 'line'    => $th->getLine(),
                 'file'    => $th->getFile(),
             ]);
-            return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('error', 'Failed to update employee: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Failed to update employee: ' . $th->getMessage());
         }
     }
     /**
@@ -373,24 +351,19 @@ class EmployeeController extends Controller
         try {
             $validated = $request->validated();
             $employee_bangla = EmployeeBangla::where('employee_id', $request->employee_id)->first();
-            $employee = Employee::where('employee_id', $request->employee_id)->first();
             if($employee_bangla){
                 $employee_bangla->fill($validated);
                 if ($employee_bangla->isDirty()) {
                     $employee_bangla->update($validated);
-                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('success', 'Employee bangla updated successfully');
+                    return redirect()->back()->with('success', 'Employee bangla updated successfully');
                 } else {
-                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('info', 'No changes detected');
+                    return redirect()->back()->with('info', 'No changes detected');
                 }
             }else{
                 EmployeeBangla::create($validated);
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('success', 'Employee bangla saved successfully');
+                return redirect()->back()->with('success', 'Employee bangla saved successfully');
             }
         } catch (\Exception $e) {
-            $employee = Employee::where('employee_id', $request->employee_id)->first();
-            if($employee){
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 10])->with('error', 'Employee bangla creation failed: ' . $e->getMessage());
-            }
             return redirect()->back()->with('error', 'Employee bangla creation failed: ' . $e->getMessage());
         }
     }
@@ -401,7 +374,6 @@ class EmployeeController extends Controller
         try {
             $validated = $request->validated();
             $employee_personal = EmployeePersonal::where('employee_id', $request->employee_id)->first();
-            $employee = Employee::where('employee_id', $request->employee_id)->first();
 
             if ($employee_personal) {
                 $employee_personal->fill($validated);
@@ -418,10 +390,10 @@ class EmployeeController extends Controller
                         'nvillage_bangla'    => $employee_personal->nvillage,
                     ]);
                     DB::commit();
-                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('success', 'Employee personal data updated successfully');
+                    return redirect()->back()->with('success', 'Employee personal data updated successfully');
                 } else {
                     DB::rollBack();
-                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('info', 'No changes detected');
+                    return redirect()->back()->with('info', 'No changes detected');
                 }
             } else {
                 $personal = EmployeePersonal::create($validated);
@@ -437,7 +409,7 @@ class EmployeeController extends Controller
                 }
 
                 DB::commit();
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('success', 'Employee personal data saved successfully');
+                return redirect()->back()->with('success', 'Employee personal data saved successfully');
             }
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -449,10 +421,6 @@ class EmployeeController extends Controller
                 'trace'   => $th->getTraceAsString(),
             ]);
 
-            $employee = Employee::where('employee_id', $request->employee_id)->first();
-            if($employee){
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 9])->with('error', 'Employee personal data creation failed. Please contact admin.');
-            }
             return redirect()->back()->with('error', 'Employee personal data creation failed. Please contact admin.');
         }
     }
@@ -495,18 +463,12 @@ class EmployeeController extends Controller
                 $changesMade = true;
             }
 
-            $employee = Employee::where('employee_id', $employee_id)->first();
             if ($changesMade) {
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 8])->with('success', 'Employee documents updated successfully.');
+                return redirect()->back()->with('success', 'Employee documents updated successfully.');
             } else {
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 8])->with('info', 'No changes detected.');
+                return redirect()->back()->with('info', 'No changes detected.');
             }
         } catch (\Exception $e) {
-            $employee_id = is_array($validated['employee_id']) ? $validated['employee_id'][0] : $validated['employee_id'];
-            $employee = Employee::where('employee_id', $employee_id)->first();
-            if($employee){
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 8])->with('error', 'Failed to update employee documents: ' . $e->getMessage());
-            }
             return redirect()->back()->with('error', 'Failed to update employee documents: ' . $e->getMessage());
         }
     }
@@ -514,27 +476,22 @@ class EmployeeController extends Controller
     public function storeEmployeeSalary(EmployeeSalaryRequest $request){
         try {
             $validated = $request->validated();
-            $employee = Employee::where('employee_id', $request->employee_id)->first();
             $employee_salary = EmployeeSalary::where('employee_id', $request->employee_id)->first();
             if($employee_salary){
                 $employee_salary->fill($validated);
                 $validated['ot_rate'] = round(($validated['basic']/240)*2);
                 if ($employee_salary->isDirty()) {
                     $employee_salary->update($validated);
-                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('success', 'Employee salary updated successfully');
+                    return redirect()->back()->with('success', 'Employee salary updated successfully');
                 } else {
-                    return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('info', 'No changes detected');
+                    return redirect()->back()->with('info', 'No changes detected');
                 }
             }else{
                 $validated['ot_rate'] = round(($validated['basic']/240)*2);
                 EmployeeSalary::create($validated);
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('success', 'Employee salary saved successfully');
+                return redirect()->back()->with('success', 'Employee salary saved successfully');
             }
         } catch (\Exception $e) {
-            $employee = Employee::where('employee_id', $request->employee_id)->first();
-            if($employee){
-                return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 2])->with('error', 'Employee salary creation failed: ' . $e->getMessage());
-            }
             return redirect()->back()->with('error', 'Employee salary creation failed: ' . $e->getMessage());
         }
     }
