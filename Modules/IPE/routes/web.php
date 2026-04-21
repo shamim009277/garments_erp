@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Modules\IPE\Http\Controllers\IPEController;
 use Modules\IPE\Http\Controllers\Setting\AssessmentAccessController;
 use Modules\IPE\Http\Controllers\Setup\HelperQuestionsController;
+use Modules\IPE\Http\Controllers\Setup\PackingQuestionsController;
+
 
 
 
@@ -21,6 +23,10 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(functi
             Route::post('/helperquestions/toggle', [HelperQuestionsController::class, 'toggleStatus'])->name('helperquestions.toggle');
             Route::post('/helperquestions/delete', [HelperQuestionsController::class, 'destroy'])->name('helperquestions.delete');
             Route::resource('helperquestions', HelperQuestionsController::class)->names('helperquestions');
+
+            Route::post('/packingquestions/toggle', [PackingQuestionsController::class, 'toggleStatus'])->name('packingquestions.toggle');
+            Route::post('/packingquestions/delete', [PackingQuestionsController::class, 'destroy'])->name('packingquestions.delete');
+            Route::resource('packingquestions', PackingQuestionsController::class)->names('packingquestions');
         });
 
 
