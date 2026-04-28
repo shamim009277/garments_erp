@@ -17,7 +17,7 @@ class HelperQuestionsController extends Controller
      */
     public function index()
     {
-        $helperQuestions = HelperQuestion::latest()->get();
+        $helperQuestions = HelperQuestion::active()->latest()->get();
         return view('ipe::setup.helperquestions.index', compact('helperQuestions'));
     }
 

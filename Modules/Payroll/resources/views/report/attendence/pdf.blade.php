@@ -118,7 +118,7 @@
                         $department = $sindata->department;
                     @endphp
                     <div style="font-size:10px; font-weight:bold; margin-bottom:5px;">
-                            Name: {{ $sindata->name }} <br> 
+                            Name: {{ $sindata->name }} <br>
                             Employee ID: {{ str_pad($sindata->employee_id, 8, '0', STR_PAD_LEFT) }} <br>
                             Department: {{ $department }}
                     </div>

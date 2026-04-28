@@ -36,7 +36,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>#</td>
+                                    <td>1</td>
                                     <td>
                                         <input type="text" name="sl" class="form-control form-control-sm @error('sl') is-invalid @enderror" placeholder="i.e. 1" required>
                                         @error('sl')
@@ -78,9 +78,10 @@
                                     </td>
                                 </tr>
 
-                                @foreach($helperQuestions as $helperQuestion)
+                                </form>
+                                @foreach($helperQuestions as $key => $helperQuestion)
                                     <tr id="row-{{ $helperQuestion->id }}">
-                                        <td>{{ $helperQuestion->sl }}</td>
+                                        <td>{{ $key+1 }}</td>
                                         <td class="text-center">{{ $helperQuestion->sl }}</td>
                                         <td>{{ $helperQuestion->question }}</td>
                                         <td>{{ $helperQuestion->question_bn }}</td>
@@ -129,7 +130,7 @@
                             </tbody>
                         </table>
                     </div>
-                </form>
+                
             </div>
         </div>
     </div>

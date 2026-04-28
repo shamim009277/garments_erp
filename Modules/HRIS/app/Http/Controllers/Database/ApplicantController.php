@@ -76,9 +76,11 @@ class ApplicantController extends Controller
         if ($birth_certificate_no_exist) {
             return redirect()->back()->with('error', 'Birth Certificate No already exists');
         }
+        
         try {
             $data = $request->validated();
             $data['entry_date'] = date('Y-m-d');
+            $data['ipe_assessment_required'] = $request->ipe_assessment_required == 'on' ? 1 : 0;
             $data['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
             $data['interview_status'] = 'Pending';
             $applicant = Applicant::create($data);
