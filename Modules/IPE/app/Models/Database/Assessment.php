@@ -5,6 +5,8 @@ namespace Modules\IPE\Models\Database;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Modules\HRIS\Models\Setup\Designation;
+use Modules\IPE\Models\Database\AssessmentDetailsHelper;
 // use Modules\IPE\Database\Factories\Database/AssessmentFactory;
 
 class Assessment extends Model
@@ -15,7 +17,7 @@ class Assessment extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['org_id','applicant_id','name','name_bangla','mobile','department_id','designation_id','entry_date','degree_id','exp_year','exp_month','line','is_active'];
+    protected $fillable = ['org_id','applicant_id','assessment_date','name','name_bangla','mobile','department_id','designation_id','entry_date','degree_id','exp_year','exp_month','line','is_done','is_active'];
 
     public static function booted()
     {
@@ -37,6 +39,18 @@ class Assessment extends Model
                 }
             }
         });
+    }
+
+    public function details(){
+        return $this->hasMany(AssessmentDetailsHelper::class,'assessment_id','id');
+    }
+
+    public function processes(){
+        return $this->hasMany(AssessmentProcess::class,'assessment_id','id');
+    }
+
+    public function designation(){
+        return $this->belongsTo(Designation::class,'designation_id','id');
     }
 
     public function scopeActive($query) {

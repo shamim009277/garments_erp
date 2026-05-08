@@ -39,6 +39,11 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(functi
         //Database
         Route::prefix('database')->name('database.')->group(function () {
             Route::post('/assessments/search', [AssessmentController::class, 'getSearch'])->name('assessments.search');
+            Route::post('/assessments/complete', [AssessmentController::class, 'completeAssessment'])->name('assessments.complete');
+            Route::post('/assessment/question/store', [AssessmentController::class, 'storeQuestion'])->name('assessment.question.store');
+            Route::post('/assessment/process/store', [AssessmentController::class, 'storeProcess'])->name('assessment.process.store');
+            Route::post('/assessment/process/delete', [AssessmentController::class, 'destroyProcess'])->name('assessment.process.delete');
+            Route::post('/assessment/delete', [AssessmentController::class, 'destroy'])->name('assessment.delete');
             Route::resource('assessments', AssessmentController::class)->names('assessments');
         });
 

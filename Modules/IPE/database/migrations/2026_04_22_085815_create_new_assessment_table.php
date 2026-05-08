@@ -30,12 +30,12 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
 
-            $table->index('applicat_id');
+            $table->index('applicant_id');
             $table->index('designation_id');
             $table->index('line');
             $table->index('org_id');
             $table->foreign('department_id')->references('id')->on('hris_setup_departments')->onDelete('cascade');
-            $table->foreign('applicat_id')->references('id')->on('hris_database_new_applicant')->onDelete('cascade');
+            $table->foreign('applicant_id')->references('id')->on('hris_database_new_applicant')->onDelete('cascade');
             $table->foreign('designation_id')->references('id')->on('hris_setup_designations')->onDelete('cascade');
             $table->foreign('degree_id')->references('id')->on('hris_setup_degrees')->onDelete('cascade');
             $table->foreign('org_id')->references('id')->on('hris_setup_organizations')->onDelete('cascade');

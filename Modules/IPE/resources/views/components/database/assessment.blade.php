@@ -7,7 +7,7 @@
         </h6>
     </div>
 
-    <div class="card-body" style="min-height:457px; max-height:457px; overflow-y:auto;">
+    <div class="card-body" style="min-height:460px; max-height:670px; overflow-y:auto;">
 
         @php
             $companyWise = collect($pendingApplicants)->groupBy('org_id');
