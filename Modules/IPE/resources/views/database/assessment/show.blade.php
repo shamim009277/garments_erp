@@ -51,16 +51,12 @@
                 <form action="{{ route('ipe.database.assessments.search') }}" method="POST"
                     class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
                     @csrf
-                    <input class="form-control form-control-sm me-2" type="search" name="search"
-                        placeholder="Applicant Card No ..." aria-label="Search">
-                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
-                            width="14" height="14" class="me-1"></i> Search</button>
+                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Applicant Card No ..." aria-label="Search">
+                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search" width="14" height="14" class="me-1"></i> Search</button>
                 </form>
                 @if ($unique_applicant)
                     <!-- Back Button -->
-                    <a href="{{ route('ipe.database.assessments.index') }}"
-                        class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2"><i
-                            data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back </a>
+                    <a href="{{ route('ipe.database.assessments.index') }}" class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2"><i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back </a>
                 @endif
             </div>
         </div>
@@ -70,15 +66,10 @@
 
         <div class="col-lg-9">
             <div class="card alert-info alert-top-border">
-                <div class="card-header d-flex justify-content-between align-items-center flex-wrap px-10 py-12"
-                    style="padding: 16px 20px">
-                    <h6 class="my-0 text-primary d-flex align-items-center gap-1"><i data-feather="list" width="18"
-                            height="18"></i>
-                        {!! $unique_applicant
-                            ? 'New Assessment For: ' . $unique_applicant->designation->designation
-                            : 'Input Parameters For New Applicant ...' !!}
-                        <a href="#"
-                            class="btn btn-soft-success btn-xs waves-effect waves-light {{ $unique_applicant->is_done ? 'disabled' : '' }}"
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap px-10 py-12" style="padding: 16px 20px">
+                    <h6 class="my-0 text-primary d-flex align-items-center gap-1"><i data-feather="list" width="18" height="18"></i>
+                        {!! $unique_applicant ? 'New Assessment For: ' . $unique_applicant->designation->designation : 'Input Parameters For New Applicant ...' !!}
+                        <a href="#" class="btn btn-soft-success btn-xs waves-effect waves-light {{ $unique_applicant->is_done ? 'disabled' : '' }}"
                             style="padding: 4px 6px; {{ $unique_applicant->is_done ? 'pointer-events: none; opacity: 0.5;' : '' }}"
                             data-bs-toggle="modal" data-bs-target="#editModal{{ $unique_applicant->id }}">
                             <i class="fas fa-edit"></i> Edit
@@ -87,6 +78,7 @@
 
                     <div class="d-flex gap-2 mt-2 mt-md-0">
                         @if ($unique_applicant)
+                            <a href="{{ route('ipe.database.assessments.pdf', $unique_applicant->id) }}" target="_blank" class="btn btn-primary btn-sm d-flex align-items-center"><i data-feather="file-text" width="16" height="16" class="me-1"></i> PDF</a>
                             <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}" class="btn btn-danger btn-sm d-flex align-items-center delete-assessment"><i data-feather="trash-2" width="16" height="16" class="me-1"></i> Delete</a>
 
                             <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}" data-status="{{ $unique_applicant->is_done }}"
@@ -509,8 +501,8 @@
                                             <tbody>
                                                 @foreach ($unique_applicant->processes as $process)
                                                     <tr id="row-{{ $process->id }}">
-                                                        <td>{{ $process->process->process }}</td>
-                                                        <td>{{ $process->process->process_name }}</td>
+                                                        <td>{{ $process->processName->process }}</td>
+                                                        <td>{{ $process->processName->process_name }}</td>
                                                         <td class="text-right">{{ $process->declare }}</td>
                                                         <td class="text-right">{{ $process->cycle_one }}</td>
                                                         <td class="text-right">{{ $process->cycle_two }}</td>

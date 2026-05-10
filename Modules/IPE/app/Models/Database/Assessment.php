@@ -5,8 +5,11 @@ namespace Modules\IPE\Models\Database;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Modules\HRIS\Models\Database\Applicant;
+use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\IPE\Models\Database\AssessmentDetailsHelper;
+use Modules\IPE\Models\Database\AssessmentProcess;
 // use Modules\IPE\Database\Factories\Database/AssessmentFactory;
 
 class Assessment extends Model
@@ -51,6 +54,14 @@ class Assessment extends Model
 
     public function designation(){
         return $this->belongsTo(Designation::class,'designation_id','id');
+    }
+
+    public function department(){
+        return $this->belongsTo(Department::class,'department_id','id');
+    }
+
+    public function applicant() {
+        return $this->belongsTo(Applicant::class, 'applicant_id',);
     }
 
     public function scopeActive($query) {

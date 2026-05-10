@@ -239,9 +239,31 @@ class ProcessSalaryController extends Controller
                     }
 
                     $deduction = $advrefund + $employee->tax + $bpayforlong;
-                    $totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct);  
+                    $totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct);
                     $netpayable = ($grpay + $otamount + $arear) - $deduction;
                     $totalnetpayable = ($grpay + $totalotamount + $arear) - $deduction;
+
+                    // Required field check
+                    $requiredFields = [
+                        $employee->org_id,
+                        $year,
+                        $month,
+                        $empid,
+                        $employee->department_id,
+                        $employee->designation_id,
+                        $employee->basic,
+                        $employee->gross_salary,
+                        $employee->category_code,
+                    ];
+
+                    $hasMissingData = collect($requiredFields)->contains(function ($value) {
+                        return is_null($value) || $value === '' || $value === 'Nil' || $value === '0' || $value === 0;
+                    });
+
+                    // Skip employee if data missing
+                    if ($hasMissingData) {
+                        continue;
+                    }
 
                     // Save ProcessSalary
                     $salarydata = new ProcessSalary();

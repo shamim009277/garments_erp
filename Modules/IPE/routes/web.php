@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(functi
 
         //Database
         Route::prefix('database')->name('database.')->group(function () {
+            Route::get('/assessments/pdf/{id}', [AssessmentController::class, 'pdf'])->name('assessments.pdf');
             Route::post('/assessments/search', [AssessmentController::class, 'getSearch'])->name('assessments.search');
             Route::post('/assessments/complete', [AssessmentController::class, 'completeAssessment'])->name('assessments.complete');
             Route::post('/assessment/question/store', [AssessmentController::class, 'storeQuestion'])->name('assessment.question.store');

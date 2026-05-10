@@ -55,7 +55,7 @@ class ProcessBonusController extends Controller
 
                 $start_date = Carbon::parse($request->base_date)->startOfMonth()->format('Y-m-d');
                 $end_date = Carbon::parse($request->base_date)->format('Y-m-d');
-                
+
                 // Get slab settings (default to 12, 6, 3 months if not provided)
                 $slab1_m = $request->input('slab1_months', 12);
                 $slab1_p = $request->input('slab1_percent', 100);
@@ -114,6 +114,28 @@ class ProcessBonusController extends Controller
                             $percent = $slab2_p;
                         } elseif ($jDate <= $limit3) {
                             $percent = $slab3_p;
+                        }
+
+                        // Required field check
+                        $requiredFields = [
+                            $data->employee_id,
+                            $request->year,
+                            $month,
+                            $data->employee_id,
+                            $data->department_id,
+                            $data->designation_id,
+                            $data->basic,
+                            $data->gross_salary,
+                            $data->category_code,
+                        ];
+
+                        $hasMissingData = collect($requiredFields)->contains(function ($value) {
+                            return is_null($value) || $value === '' || $value === 'Nil' || $value === '0' || $value === 0;
+                        });
+
+                        // Skip employee if data missing
+                        if ($hasMissingData) {
+                            continue;
                         }
 
                         if ($percent > 0) {

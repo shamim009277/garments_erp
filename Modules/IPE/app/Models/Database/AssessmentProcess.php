@@ -42,7 +42,7 @@ class AssessmentProcess extends Model
         return $this->belongsTo(Assessment::class, 'assessment_id');
     }
 
-    public function process() {
+    public function processName() {
         return $this->belongsTo(Process::class, 'process_id');
     }
 

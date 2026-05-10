@@ -33,7 +33,7 @@ class DepartureController extends Controller
         ]);
         try {
             $employee = Employee::where('employee_id', $request->employee_id)->first();
-            if(Auth::user()->access_id != $employee->org_id || Auth::user()->access_id != 0){
+            if(Auth::user()->access_id != $employee->org_id && Auth::user()->access_id != 0){
                 return redirect()->back()->with('error', 'You are not authorized to depart this employee');
             }
 

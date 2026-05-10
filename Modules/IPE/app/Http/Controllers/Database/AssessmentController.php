@@ -3,6 +3,7 @@
 namespace Modules\IPE\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,6 @@ use Modules\HRIS\Models\Database\Applicant;
 use Modules\HRIS\Models\Setup\Degree;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
-use Modules\HRIS\Models\Setup\District;
 use Modules\HRIS\Models\Setup\Line;
 use Modules\HRIS\Models\Setup\Organization;
 use Modules\IPE\Http\Requests\Database\AssessmentRequest;
@@ -109,7 +109,7 @@ class AssessmentController extends Controller
             ->where('ipe_assessment_required', 1)
             ->get();
 
-        $unique_applicant = Assessment::with(['details', 'designation:id,designation', 'processes'])->where('id', $id)->first();
+        $unique_applicant = Assessment::with(['details', 'designation:id,designation', 'processes','processes.processName:id,process,process_name','department:id,department'])->where('id', $id)->first();
         //dd(\DB::getQueryLog());
         $unique_department = $pending_applicants->unique('department_id');
         $assessment = Assessment::find($id);
@@ -254,4 +254,17 @@ class AssessmentController extends Controller
             return response()->json(['success' => false, 'message' => 'Assessment Process creation failed: ' . $e->getMessage()]);
         }
     }
+
+        public function pdf($id)
+        {
+            try {
+                $assessment = Assessment::with(['details', 'designation:id,designation', 'processes','processes.processName:id,process,process_name','department:id,department','applicant:id,birth_date'])->findOrFail($id);
+                $pdf = Pdf::loadView('ipe::database.assessment.pdf', compact('assessment'))
+                ->setPaper('a4', 'portrait');
+
+               return $pdf->stream('assessment.pdf');
+            } catch (\Throwable $e) {
+                return redirect()->back()->with('error', 'Failed to generate PDF: ' . $e->getMessage());
+            }
+        }
 }
