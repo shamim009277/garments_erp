@@ -109,7 +109,7 @@ class AssessmentController extends Controller
             ->where('ipe_assessment_required', 1)
             ->get();
 
-        $unique_applicant = Assessment::with(['details', 'designation:id,designation', 'processes','processes.processName:id,process,process_name','department:id,department'])->where('id', $id)->first();
+        $unique_applicant = Assessment::with(['details', 'designation:id,designation','applicant:id,designation_id,determined_salary,final_designation_id,joining_date','applicant.department:id,department','applicant.designation:id,designation','applicant.organization:id,short_namesses','processes.processName:id,process,process_name','department:id,department'])->where('id', $id)->first();
         //dd(\DB::getQueryLog());
         $unique_department = $pending_applicants->unique('department_id');
         $assessment = Assessment::find($id);

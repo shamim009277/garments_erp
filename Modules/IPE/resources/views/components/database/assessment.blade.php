@@ -6,43 +6,34 @@
             {{ $title }}
         </h6>
     </div>
+    @php
+        $minHeight = ($uniqueApplicant ? 670 : 460);
+    @endphp
 
-    <div class="card-body" style="min-height:460px; max-height:670px; overflow-y:auto;">
-
+    <div class="card-body" style="min-height:{{ $minHeight }}px; max-height:{{ $minHeight }}px; overflow-y:auto;">
         @php
             $companyWise = collect($pendingApplicants)->groupBy('org_id');
         @endphp
-
         <ul class="nav-custom">
-
             @foreach ($companyWise as $companyId => $companyApplicants)
-
                 @php
                     $companyName = $companyApplicants->first()->Organization->short_name ?? 'N/A';
                     $departmentWise = $companyApplicants->groupBy('department_id');
-
                     $isCompanyActive = $uniqueApplicant && $uniqueApplicant->org_id == $companyId;
                 @endphp
 
                 <li class="nav-custom-item">
-
                     <input type="checkbox" id="company{{ $companyId }}" {{ $isCompanyActive ? 'checked' : '' }}>
-
-                    <label class="nav-custom-link" for="company{{ $companyId }}"
-                        style="{{ $isCompanyActive ? 'background:#f2b14b;border-radius:3px;' : '' }}">
-
+                    <label class="nav-custom-link" for="company{{ $companyId }}" style="{{ $isCompanyActive ? 'background:#f2b14b;border-radius:3px;' : '' }}">
                         <span class="nav-custom-caret"></span>
                         {{ $companyName }} ({{ $companyApplicants->count() }})
                     </label>
 
                     <ul class="nav-custom-content">
-
                         @foreach ($departmentWise as $departmentId => $departmentApplicants)
                             @php
                                 $departmentName = $departmentApplicants->first()->department->department ?? 'N/A';
-
                                 $dateWise = $departmentApplicants->groupBy('entry_date');
-
                                 $isDepartmentActive =
                                     $uniqueApplicant &&
                                     $uniqueApplicant->org_id == $companyId &&
@@ -50,10 +41,8 @@
                             @endphp
 
                             <li class="nav-custom-item">
-
                                 <input type="checkbox" id="dept{{ $companyId }}-{{ $departmentId }}"
                                     {{ $isDepartmentActive ? 'checked' : '' }}>
-
                                 <label class="nav-custom-link" for="dept{{ $companyId }}-{{ $departmentId }}"
                                     style="{{ $isDepartmentActive ? 'background:#D75350;border-radius:3px;' : '' }}">
 
@@ -63,7 +52,6 @@
                                 </label>
 
                                 <ul class="nav-custom-content">
-
                                     @foreach ($dateWise as $entryDate => $dateApplicants)
                                         @php
                                             $isDateActive =
@@ -74,17 +62,9 @@
                                         @endphp
 
                                         <li class="nav-custom-item">
-
-                                            <input type="checkbox"
-                                                id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}"
-                                                {{ $isDateActive ? 'checked' : '' }}>
-
-                                            <label class="nav-custom-link"
-                                                for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}"
-                                                style="{{ $isDateActive ? 'background:#75bcf5;border-radius:3px;' : '' }}">
-
+                                            <input type="checkbox" id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}" {{ $isDateActive ? 'checked' : '' }}>
+                                            <label class="nav-custom-link" for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}" style="{{ $isDateActive ? 'background:#75bcf5;border-radius:3px;' : '' }}">
                                                 <span class="nav-custom-caret"></span>
-
                                                 {{ \Carbon\Carbon::parse($entryDate)->format('d-M-Y') }}
                                                 ({{ $dateApplicants->count() }})
                                             </label>

@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $organizations = [];
         try {
             $organizations = cache()->remember('ornizations_data', 3600, function () {
-                return Organization::active()->select('id','name','bn_name','short_name','address_bangla','email','phone','icon_name','path')->get();
+                return Organization::active()->select('id','name','bn_name','short_name','address_bangla','email','phone','icon_name','signature','path')->get();
             });
         } catch (\Throwable $e) {
             // Log::error('Organization fetch failed: ' . $e->getMessage());

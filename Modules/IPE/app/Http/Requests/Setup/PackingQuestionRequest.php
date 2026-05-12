@@ -12,7 +12,7 @@ class PackingQuestionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('id') ?? $this->route('helper_question');
+        $id = $this->route('id') ?? $this->route('packingquestion');
 
         return [
             'sl' => ['required', 'integer'],

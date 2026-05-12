@@ -74,11 +74,16 @@
                             data-bs-toggle="modal" data-bs-target="#editModal{{ $unique_applicant->id }}">
                             <i class="fas fa-edit"></i> Edit
                         </a>
+                        <a href="#" class="btn btn-soft-info btn-xs waves-effect waves-light {{ $unique_applicant->is_done ? '' : 'disabled' }}"
+                            style="padding: 4px 6px; {{ $unique_applicant->is_done ? '' : 'pointer-events: none; opacity: 0.5;' }}"
+                            data-bs-toggle="modal" data-bs-target="#statusModal{{ $unique_applicant->id }}">
+                            <i class="fas fa-rocket"></i> Status
+                        </a>
                     </h6>
 
                     <div class="d-flex gap-2 mt-2 mt-md-0">
                         @if ($unique_applicant)
-                            <a href="{{ route('ipe.database.assessments.pdf', $unique_applicant->id) }}" target="_blank" class="btn btn-primary btn-sm d-flex align-items-center"><i data-feather="file-text" width="16" height="16" class="me-1"></i> PDF</a>
+                            <a href="{{ route('ipe.database.assessments.pdf', $unique_applicant->id) }}" target="_blank" class="btn btn-primary btn-sm d-flex align-items-center {{ $unique_applicant->is_done ? '' : 'disabled' }}"><i data-feather="file-text" width="16" height="16" class="me-1"></i> PDF</a>
                             <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}" class="btn btn-danger btn-sm d-flex align-items-center delete-assessment"><i data-feather="trash-2" width="16" height="16" class="me-1"></i> Delete</a>
 
                             <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}" data-status="{{ $unique_applicant->is_done }}"
@@ -101,13 +106,10 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h6 class="modal-title" id="myModalLabel">Edit Assessment</h6>
-                                <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
-                            <form id="editForm{{ $unique_applicant->id }}"
-                                action="{{ route('ipe.database.assessments.update', $unique_applicant->id) }}"
-                                method="POST">
+                            <form id="editForm{{ $unique_applicant->id }}" action="{{ route('ipe.database.assessments.update', $unique_applicant->id) }}" method="POST">
                                 <div class="modal-body">
                                     @csrf
                                     @method('PUT')
@@ -144,6 +146,64 @@
                     </div>
                 </div>
 
+                <div id="statusModal{{ $unique_applicant->id }}" class="modal fade" tabindex="-1"
+                    aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="myModalLabel">Update Applicant Status</h6>
+                                <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <form id="editForm{{ $unique_applicant->id }}" action="{{ route('ipe.database.assessments.update', $unique_applicant->id) }}" method="POST">
+                                <div class="modal-body">
+                                    @csrf
+                                    @method('PUT')
+                                    <x-select-search-input name="final_designation_id" id="final_designation_id"
+                                        label="Final Designation" :options="$designations" :selected="old(
+                                            'final_designation_id',
+                                            $unique_applicant ? $unique_applicant->designation_id : null,
+                                        )" required />
+
+                                    <x-select-input-group name="interview_status" id="interview_status"
+                                        label="Interview Status" :options="[
+                                            'Pending' => 'Pending',
+                                            'Selected' => 'Selected',
+                                            'Disqualify' => 'Disqualify',
+                                            'Not Recruit' => 'Not Recruit',
+                                        ]" :selected="old(
+                                            'interview_status',
+                                            $unique_applicant ? $unique_applicant->applicant->interview_status : 'Pending',
+                                        )"/>
+
+                                    <x-input-group name="determined_salary" label="Determined Salary"
+                                        id="determined_salary" type="number" pattern="[0-9]{10,30}"
+                                        placeholder="Enter determined salary" :value="old(
+                                            'determined_salary',
+                                            $unique_applicant ? $unique_applicant->applicant->determined_salary : null,
+                                        )" />
+
+                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date"
+                                        class="holiday-date" type="text" placeholder="Enter joining date"
+                                        :value="old(
+                                            'joining_date',
+                                            $unique_applicant
+                                                ? \Carbon\Carbon::parse($unique_applicant->applicant->joining_date)->format(
+                                                    'd-m-Y',
+                                                )
+                                                : null,
+                                        )" />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
+                                    <x-primary-button id="submitBtn" class="float-start btn-sm submitBtn" :disabled="!$disabled">Save changes</x-primary-button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- General Section --}}
                 <div class="card-body" style="min-height: 400px; overflow-y: auto;">
                     <form id="basicQuestion">
@@ -151,15 +211,13 @@
                         <input type="hidden" name="assessment_id" value="{{ $unique_applicant->id }}">
 
                         <div class="card" style="padding:0px !importent;" id="basicQuestionWrapper">
-                            <div class="card-header bg-primary d-flex justify-content-between align-items-center flex-wrap"
-                                style="padding: 10px 10px">
+                            <div class="card-header bg-primary d-flex justify-content-between align-items-center flex-wrap" style="padding: 10px 10px">
                                 <h6 class="my-0 text-white d-flex align-items-center gap-1">
                                     Basic Questions || <span>Marks: {{ $unique_applicant->details->count() * 5 }}</span>
                                 </h6>
 
                                 <div class="d-flex gap-2 mt-2 mt-md-0">
-                                    <span class="p-1 text-white">Obtain Marks:
-                                        {{ $unique_applicant->details->where('status', 1)->count() * 5 }}</span>
+                                    <span class="p-1 text-white">Obtain Marks:{{ $unique_applicant->details->where('status', 1)->count() * 5 }}</span>
                                 </div>
                             </div>
 
@@ -271,8 +329,7 @@
                                                             ->mapWithKeys(fn($item) => [$item->id => $item->answer_bn])
                                                             ->toArray();
 
-                                                        $saved =
-                                                            $unique_applicant->details->firstWhere('sl', $key) ?? null;
+                                                        $saved = $unique_applicant->details->firstWhere('sl', $key) ?? null;
 
                                                         $selectedQuestion =
                                                             $saved->question_id ??
@@ -443,10 +500,6 @@
                         </div>
                     </form>
                 </div>
-
-
-
-
                 <div class="card-footer" style="padding:14px 20px;">
 
                 </div>
@@ -516,10 +569,7 @@
                                                         <td class="text-right">{{ $process->efficiency }}</td>
                                                         <td class="text-right">
                                                             {{-- <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $process->id }}"><i class="fas fa-edit"></i></a> --}}
-                                                            <a href="#"
-                                                                class="btn btn-soft-danger waves-effect waves-light delete-process"
-                                                                data-id="{{ $process->id }}"
-                                                                style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                                            <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-process" data-id="{{ $process->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

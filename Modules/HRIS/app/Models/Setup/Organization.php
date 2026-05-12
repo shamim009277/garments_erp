@@ -25,6 +25,7 @@ class Organization extends Model
         'phone',
         'icon_name',
         'path',
+        'signature',
         'is_active',
         'created_by',
         'updated_by',

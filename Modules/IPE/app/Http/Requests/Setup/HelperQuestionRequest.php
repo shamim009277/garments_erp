@@ -12,10 +12,11 @@ class HelperQuestionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('id') ?? $this->route('helper_question');
+        $id = $this->route('helperquestion');
 
         return [
             'sl' => ['required', 'integer'],
+
             'question' => [
                 'required',
                 'string',
