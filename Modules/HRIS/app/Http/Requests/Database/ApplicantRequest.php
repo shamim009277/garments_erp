@@ -37,7 +37,6 @@ class ApplicantRequest extends FormRequest
             'recruitment_type' => ['nullable', 'string', 'max:255'],
             'replace_id' => ['nullable', 'integer'],
             'file_entry' => ['nullable', 'string', 'max:255'],
-            'ipe_assessment_required' => ['nullable', 'boolean'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }

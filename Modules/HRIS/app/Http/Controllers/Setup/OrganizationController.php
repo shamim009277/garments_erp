@@ -43,6 +43,12 @@ class OrganizationController extends Controller
                 $data['path'] = $logoPath['path'];
             }
 
+            if ($request->hasFile('signature')) {
+                $signature = $request->file('signature');
+                $signaturePath = $fileUploadService->upload($signature, 'signature', []);
+                $data['signature'] = $signaturePath['path'];
+            }
+
             Organization::create($data);
             cache()->forget('ornizations_data');
             return redirect()->route('hris.setup.organizations.index')->with('success', 'Organization created successfully');
@@ -67,6 +73,12 @@ class OrganizationController extends Controller
                 $data['path'] = $logoPath['path'];
             }
 
+            if ($request->hasFile('signature')) {
+                $signature = $request->file('signature');
+                $signaturePath = $fileUploadService->upload($signature, 'signature', []);
+                $data['signature'] = $signaturePath['path'];
+            }
+
             $organization->update($data);
             cache()->forget('ornizations_data');
 
@@ -85,6 +97,10 @@ class OrganizationController extends Controller
             $fileUploadService = new FileUploadService();
             if ($organization->path) {
                 $fileUploadService->delete($organization->path);
+            }
+
+            if ($organization->signature) {
+                $fileUploadService->delete($organization->signature);
             }
             $organization->delete();
             cache()->forget('ornizations_data');

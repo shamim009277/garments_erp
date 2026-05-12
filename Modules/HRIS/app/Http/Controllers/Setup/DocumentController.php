@@ -14,10 +14,10 @@ class DocumentController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.document.view')->only('index');
-        $this->middleware('permission:hris.document.add')->only('store');
-        $this->middleware('permission:hris.document.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.document.delete')->only('destroy');
+        $this->middleware('permission:hris.documents.view')->only('index');
+        $this->middleware('permission:hris.documents.add')->only('store');
+        $this->middleware('permission:hris.documents.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.documents.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

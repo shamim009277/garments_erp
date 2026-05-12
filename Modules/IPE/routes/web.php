@@ -2,18 +2,53 @@
 
 use App\Http\Middleware\ModuleActive;
 use Illuminate\Support\Facades\Route;
+use Modules\IPE\Http\Controllers\Database\AssessmentController;
 use Modules\IPE\Http\Controllers\IPEController;
 use Modules\IPE\Http\Controllers\Setting\AssessmentAccessController;
+use Modules\IPE\Http\Controllers\Setup\AssessmentGroupController;
+use Modules\IPE\Http\Controllers\Setup\HelperQuestionsController;
+use Modules\IPE\Http\Controllers\Setup\PackingQuestionsController;
+use Modules\IPE\Http\Controllers\Setup\ProcessController;
 
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::resource('ipes', IPEController::class)->names('ipe');
-// });
+
 
 Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(function () {
     Route::resource('ipe', IPEController::class)->names('ipe');
 
     Route::prefix('ipe')->name('ipe.')->group(function () {
+        //Setup
+        Route::prefix('setup')->name('setup.')->group(function () {
+            Route::post('/helperquestions/toggle', [HelperQuestionsController::class, 'toggleStatus'])->name('helperquestions.toggle');
+            Route::post('/helperquestions/delete', [HelperQuestionsController::class, 'destroy'])->name('helperquestions.delete');
+            Route::resource('helperquestions', HelperQuestionsController::class)->names('helperquestions');
+
+            Route::post('/packingquestions/toggle', [PackingQuestionsController::class, 'toggleStatus'])->name('packingquestions.toggle');
+            Route::post('/packingquestions/delete', [PackingQuestionsController::class, 'destroy'])->name('packingquestions.delete');
+            Route::resource('packingquestions', PackingQuestionsController::class)->names('packingquestions');
+
+            Route::post('/assessment-groups/toggle', [AssessmentGroupController::class, 'toggleStatus'])->name('assessment-groups.toggle');
+            Route::post('/assessment-groups/delete', [AssessmentGroupController::class, 'destroy'])->name('assessment-groups.delete');
+            Route::resource('assessment-groups', AssessmentGroupController::class)->names('assessment-groups');
+
+            Route::post('/processes/toggle', [ProcessController::class, 'toggleStatus'])->name('processes.toggle');
+            Route::post('/processes/delete', [ProcessController::class, 'destroy'])->name('processes.delete');
+            Route::resource('processes', ProcessController::class)->names('processes');
+        });
+
+        //Database
+        Route::prefix('database')->name('database.')->group(function () {
+            Route::get('/assessments/pdf/{id}', [AssessmentController::class, 'pdf'])->name('assessments.pdf');
+            Route::post('/assessments/search', [AssessmentController::class, 'getSearch'])->name('assessments.search');
+            Route::post('/assessments/complete', [AssessmentController::class, 'completeAssessment'])->name('assessments.complete');
+            Route::post('/assessment/question/store', [AssessmentController::class, 'storeQuestion'])->name('assessment.question.store');
+            Route::post('/assessment/process/store', [AssessmentController::class, 'storeProcess'])->name('assessment.process.store');
+            Route::post('/assessment/process/delete', [AssessmentController::class, 'destroyProcess'])->name('assessment.process.delete');
+            Route::post('/assessment/delete', [AssessmentController::class, 'destroy'])->name('assessment.delete');
+            Route::resource('assessments', AssessmentController::class)->names('assessments');
+        });
+
+
         //Settings
         Route::prefix('settings')->name('settings.')->group(function () {
             Route::post('/assessment-access/delete', [AssessmentAccessController::class, 'destroy'])->name('assessment-access.delete');

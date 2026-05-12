@@ -22,6 +22,7 @@ class OrganizationRequest extends FormRequest
             'email' =>['nullable','string','max:255'],
             'phone'=>['nullable','string','max:255'],
             'logo'=>['nullable','max:255'],
+            'signature'=>['nullable','max:255'],
             'is_active' => ['required', 'boolean'],
         ];
     }

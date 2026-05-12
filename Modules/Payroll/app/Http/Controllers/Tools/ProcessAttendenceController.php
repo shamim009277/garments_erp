@@ -40,7 +40,7 @@ class ProcessAttendenceController extends Controller
         $yearlist = array_combine(range(2025, Carbon::now()->format('Y')), range(2025, Carbon::now()->format('Y')));
         $date = Carbon::now()->format('d-m-Y');
 
-        $start_date = '2026-01-01'; 
+        $start_date = '2026-01-01';
         $end_date = '2026-01-31';
         // $datas = ProcessAttendence::where('org_id', 1)->whereBetween('work_date', [$start_date, $end_date])->get();
         // $allempids = $datas->pluck('employee_id')->unique()->toArray();
@@ -115,15 +115,15 @@ class ProcessAttendenceController extends Controller
         ini_set('memory_limit', '2048M');
 
         if ($request->title == 1) {
-            
             $pre_date = Carbon::parse($request->date)->format('Y-m-d');
             $month = Carbon::parse($pre_date)->format('m');
             $year  = Carbon::parse($pre_date)->format('Y');
             $start_date = Carbon::parse($pre_date)->startOfMonth()->format('Y-m-d');
             $end_date = Carbon::parse($pre_date)->endOfMonth()->format('Y-m-d');
+            $org_id = $request->org_id;
 
             // ✅ Check if punch data already exists for this month
-            $exists = PunchData::where('org_id', $request->org_id)->whereBetween('work_date', [$start_date, $end_date])->exists();
+            $exists = PunchData::where('org_id', $request->org_id)->whereBetween('work_date', [$start_date, $end_date])->where('org_id', $request->org_id)->exists();
             if ($exists) {
                 if ($request->ajax()) {
                     return response()->json([
@@ -153,19 +153,17 @@ class ProcessAttendenceController extends Controller
                 ]);
             }
 
-            return redirect()->back()->with(
-                'success',
-                "✅ Attendance Pre Process job dispatched successfully. Job ID: {$jobStatus->id}"
-            );
+            return redirect()->back()->with('success', "✅ Attendance Pre Process job dispatched successfully. Job ID: {$jobStatus->id}");
         } else if ($request->title == 2) {
             $month = $request->month;
             $year  = $request->year;
+            $org_id = $request->org_id;
             $startTime = microtime(true);
 
-            $exists = PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->exists();
+            $exists = PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->where('org_id', $org_id)->exists();
             if ($exists) {
-                $deleteCount = PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->count();
-                PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->delete();
+                $deleteCount = PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->where('org_id', $org_id)->count();
+                PunchData::whereMonth('work_date', $month)->whereYear('work_date', $year)->where('org_id', $org_id)->delete();
                 $lastId = DB::table('payroll_tools_punch_data')->max('id') ?? 0;
                 $newAutoIncrement = $lastId + 1;
 
@@ -184,7 +182,7 @@ class ProcessAttendenceController extends Controller
             $org_id = $request->org_id;
             $user_id = Auth::id();
 
-            $exists = ProcessAttendence::whereMonth('work_date', $month)->whereYear('work_date', $year)->exists();
+            $exists = ProcessAttendence::whereMonth('work_date', $month)->whereYear('work_date', $year)->where('org_id', $org_id)->exists();
             if ($exists) {
                 if ($request->ajax()) {
                     return response()->json([
@@ -205,7 +203,7 @@ class ProcessAttendenceController extends Controller
             ]);
 
             ProcessAttendanceJob::dispatch($month, $year, $org_id, $user_id, $jobStatus->id);
-            
+
             if ($request->ajax()) {
                 return response()->json([
                     'success' => true,
@@ -218,19 +216,23 @@ class ProcessAttendenceController extends Controller
         } else if ($request->title == 4) {
             $month = $request->month;
             $year  = $request->year;
+            $org_id = $request->org_id;
 
             $startTime = microtime(true);
             $exists = ProcessAttendence::whereMonth('work_date', $month)
                 ->whereYear('work_date', $year)
+                ->where('org_id', $org_id)
                 ->exists();
 
             if ($exists) {
                 $deletedCount = ProcessAttendence::whereMonth('work_date', $month)
                     ->whereYear('work_date', $year)
+                    ->where('org_id', $org_id)
                     ->count();
 
                 ProcessAttendence::whereMonth('work_date', $month)
                     ->whereYear('work_date', $year)
+                    ->where('org_id', $org_id)
                     ->delete();
 
                 $lastId = DB::table('payroll_tools_process_attendence')->max('id') ?? 0;
@@ -262,5 +264,5 @@ class ProcessAttendenceController extends Controller
         return view('payroll::edit');
     }
 
-    
+
 }

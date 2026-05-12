@@ -2,16 +2,18 @@
 
 namespace Modules\HRIS\Models\Database;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\HRIS\Models\Setup\District;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
+use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
-use Modules\HRIS\Models\Setup\Organization;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\HRIS\Models\Database\Employee;
+use Modules\HRIS\Models\Setup\District;
 use Modules\HRIS\Models\Setup\Line;
+use Modules\HRIS\Models\Setup\Organization;
+use Modules\IPE\Models\Database\Assessment;
 // use Modules\HRIS\Database\Factories\Database\ApplicantFactory;
 
 class Applicant extends Model
@@ -74,6 +76,11 @@ class Applicant extends Model
     public function organization() : BelongsTo
     {
         return $this->belongsTo(Organization::class,'org_id','id');
+    }
+
+    public function assessment() : HasOne
+    {
+        return $this->hasOne(Assessment::class);
     }
 
     public function getInterviewStatusLabelAttribute()

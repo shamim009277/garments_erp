@@ -14,10 +14,10 @@ class DepartureReasonController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.departure-reasons.view')->only('index');
-        $this->middleware('permission:hris.departure-reasons.add')->only('store');
-        $this->middleware('permission:hris.departure-reasons.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.departure-reasons.delete')->only('destroy');
+        $this->middleware('permission:hris.departure-reason.view')->only('index');
+        $this->middleware('permission:hris.departure-reason.add')->only('store');
+        $this->middleware('permission:hris.departure-reason.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.departure-reason.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

@@ -14,10 +14,10 @@ class EmployeeCategoryController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.employee-category.view')->only('index');
-        $this->middleware('permission:hris.employee-category.add')->only('store');
-        $this->middleware('permission:hris.employee-category.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.employee-category.delete')->only('destroy');
+        $this->middleware('permission:hris.employee-categories.view')->only('index');
+        $this->middleware('permission:hris.employee-categories.add')->only('store');
+        $this->middleware('permission:hris.employee-categories.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.employee-categories.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

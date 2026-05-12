@@ -30,6 +30,7 @@
                                 <th width="10%">Address (Bangla)</th>
                                 <th width="10%">Email & Phone</th>
                                 <th width="10%" class="text-center">Logo</th>
+                                <th width="" class="text-center">Sig</th>
                                 <th width="5%">Is Active</th>
                                 <th width="10%">Actions</th>
                             </tr>
@@ -49,6 +50,9 @@
                                     </td>
                                     <td class="text-center">
                                         <img src="{{ Storage::url($organization->path) }}" alt="" width="60px">
+                                    </td>
+                                    <td class="text-center">
+                                        <img src="{{ Storage::url($organization->signature) }}" alt="" width="60px">
                                     </td>
                                     <td>
                                         <div class="square-switch">
@@ -83,6 +87,11 @@
                                                             <x-input-label for="logo" text="Logo" />
                                                             <x-image-input name="logo" label="Logo" :value="$organization->path" preview />
                                                             <x-input-error :messages="$errors->get('logo')" />
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <x-input-label for="logo" text="Authorized Signature" />
+                                                            <x-image-input name="signature" label="Authorized Signature" :value="$organization->signature" preview />
+                                                            <x-input-error :messages="$errors->get('signature')" />
                                                         </div>
                                                         <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$organization->is_active" required />
                                                     </div>
@@ -119,8 +128,13 @@
                         <x-input-group name="phone" label="Phone" type="text" placeholder="For multiple write comma separated" :value="old('phone')" />
                         <div class="mb-3">
                             <x-input-label for="logo" text="Logo" />
-                            <x-image-input name="logo" label="Logo" preview />
+                            <x-image-input name="logo" id="logo1" label="Logo" preview />
                             <x-input-error :messages="$errors->get('logo')" />
+                        </div>
+                        <div class="mb-3">
+                            <x-input-label for="logo" text="Authorized Signature" />
+                            <x-image-input name="signature" id="signature1" label="Authorized Signature" preview />
+                            <x-input-error :messages="$errors->get('signature')" />
                         </div>
                         <x-select-input-group
                             name="is_active"

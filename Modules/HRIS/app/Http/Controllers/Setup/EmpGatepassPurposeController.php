@@ -14,10 +14,10 @@ class EmpGatepassPurposeController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.gate-pass-purpose.view')->only('index');
-        $this->middleware('permission:hris.gate-pass-purpose.add')->only('store');
-        $this->middleware('permission:hris.gate-pass-purpose.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.gate-pass-purpose.delete')->only('destroy');
+        $this->middleware('permission:hris.gatepass-purpose.view')->only('index');
+        $this->middleware('permission:hris.gatepass-purpose.add')->only('store');
+        $this->middleware('permission:hris.gatepass-purpose.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.gatepass-purpose.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.
