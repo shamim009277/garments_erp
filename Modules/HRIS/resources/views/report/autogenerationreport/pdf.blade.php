@@ -158,6 +158,7 @@
 @php
     $orgdata = $ornizations_data->where('id', $orgid)->first();
     $orgname = $orgdata->bn_name ?? '';
+    $orgname_en = $orgdata->name ?? '';
     $address = $orgdata->address_bangla ?? '';
 
     if (!empty($orgdata?->path)) {
@@ -170,7 +171,7 @@
 @endphp
 
 <body>
-    @if ($title !== 6)
+    @if ($title !== 6 && $title != 8 && $title != 9)
         <div class="header">
             <div class="header">
                 <table width="100%">
@@ -308,7 +309,7 @@
             </tr>
             <tr>
                 <td>জন্ম তারিখ : 
-                    {{ $employee->birth_date ? bnNumber(date('d-m-Y', strtotime($employee->birth_date))) : '---------' }}
+                    {{ ($employee->birth_date && $employee->birth_date != '0000-00-00') ? bnNumber(date('d-m-Y', strtotime($employee->birth_date))) : '---------' }}
                 </td>
                 <td> কাজে যোগদানের তারিখ :
                     {{ $employee->joining_date ? bnNumber(date('d-m-Y', strtotime($employee->joining_date))) : '---------' }}
@@ -848,18 +849,18 @@
                     @endif
                     <!-- Signature -->
                     {{-- <table class="signature-section">
-            <tr>
-                <td>
-                    <div class="sign-line"></div>
-                    তারিখ ও স্বাক্ষর<br>
-                    শ্রমিক অথবা টিপসই
-                </td>
-                <td align="right">
-                    <div class="sign-line"></div>
-                    মনোনয়ন প্রদানকারী শ্রমিকের স্বাক্ষর, টিপসই ও তারিখ
-                </td>
-            </tr>
-        </table> --}}
+                    <tr>
+                        <td>
+                            <div class="sign-line"></div>
+                            তারিখ ও স্বাক্ষর<br>
+                            শ্রমিক অথবা টিপসই
+                        </td>
+                        <td align="right">
+                            <div class="sign-line"></div>
+                            মনোনয়ন প্রদানকারী শ্রমিকের স্বাক্ষর, টিপসই ও তারিখ
+                        </td>
+                    </tr>
+                </table> --}}
                 @elseif($title == 4)
                     @if (!empty($employee))
                         <table width="100%" style="margin-bottom: 10px;">
@@ -1248,6 +1249,743 @@
                             No pay slip found
                         </div>
                     @endif
+                @elseif($title == 7)
+
+                    <?php 
+                        // Daily basic ÷ 8 × 2  (standard formula)
+                        $workingDaysPerMonth = 26;
+                        $dailyBasic    = $employee->basic_salary / $workingDaysPerMonth;
+                        $otRatePerHour = ($dailyBasic / 8) * 2;
+                        // Round to 2 dp
+                        $otRatePerHour = round($otRatePerHour, 2);
+
+                        // ---- Last month earned leave encashment (1 day per month of last year) ----
+                        $earnedLeaveAmount = round($dailyBasic, 2);   // placeholder; override from $settlement if available
+                        // ---- If a $settlement object is passed from controller, use it ----
+                        $settlement = $employee ?? null;
+            
+                        $lastMonth     = $settlement->last_month           ?? now()->format('F');
+                        $lastYear      = $settlement->joining_date            ?? now()->year;
+                        $leaveFrom     = $settlement->joining_date           ?? ($employee->joining_date ? $employee->joining_date->format('d/m/Y') : '');
+                        $leaveTo       = $settlement->leaving_date             ?? ($employee->leaving_date ? $employee->leaving_date->format('d/m/Y') : '');
+                          // Earned leave last month (1 day per month's basic)
+                        $earnedLeaveLastMonth = $settlement->employee_id ?? $earnedLeaveAmount;
+            
+                        $totalPayable  = $settlement->total_payable        ?? 0;
+                        $totalInWords  = $settlement->total_in_words       ?? 'Zero';
+
+                    ?>
+                      <div class="fs-title" style="text-align: center; font-size: 18px;">চূড়ান্ত নিষ্পত্তিকরণ ফরম</div>
+ 
+                        {{-- Date top-right --}}
+                        <div class="fs-date-right" style="text-align: right">তারিখ : {{ $todayBn }}</div>
+                
+                        {{-- Sub-heading --}}
+                        <div class="fs-section-heading" style="font-size: 18px">
+                            অত্র প্রতিষ্ঠানের চাকুরী হইতে স্বয়হিত / চাকুরী অবসান / চাকুরীচ্যুতি / অথবা বরখাস্ত এর পরিপ্রেক্ষিতে
+                        </div>
+                
+                        {{-- Employee identity row --}}
+                        <table class="fs-main-table" style="margin-bottom:4px;">
+                            <tr>
+                                <td style="width:80px;">জনাব/ জনাবা :</td>
+                                <td style="width:220px;">{{ $employee->name_bangla }}</td>
+                                <td style="width:120;">পদবী :</td>
+                                <td style="width:220px;">{{ $employee->designation_name ?? '-------' }}</td>
+                            </tr>
+                            <tr>
+                                <td style="width:80px;">কার্ড নং :</td>
+                                <td style="width:220px;">{{ bnNumber($employee->employee_id) }}</td>
+                                <td style="width:120px;">সেকশন/বিভাগ :</td>
+                                <td style="width:220px;">
+                                    {{ $employee->department_name??'' }}
+                                    , এর সহিত চূড়ান্ত নিষ্পত্তি করা হইল ।
+                                </td>
+                            </tr>
+                        </table>
+                
+                        <div class="fs-divider"></div>
+                
+                        {{-- ---- Row 1: Joining / Termination / Service duration ---- --}}
+                        <table class="fs-main-table" style="margin-bottom:6px;">
+                            <tr>
+                                <td class="fs-row-label">১। যোগদানের তারিখ :</td>
+                                <td style="width:110px;">{{ $employee->joining_date??'' }}</td>
+                                <td style="width:130px;">অবসানের তারিখ :</td>
+                                <td style="width:100px;">{{ $employee->joining_date??'' }}</td>
+                                <td style="width:60px;">মেয়াদকাল :</td>
+                                <td style="width:28px;">{{ $serviceYearsBn??'' }}</td>
+                                <td style="width:36px;">বছর</td>
+                                <td style="width:28px;">{{ $serviceMonthsBn??'' }}</td>
+                                <td style="width:36px;">মাস</td>
+                                <td style="width:28px;">{{ $serviceDaysBn??'' }}</td>
+                                <td>দিন</td>
+                            </tr>
+                        </table>
+                
+                        {{-- ---- Row 2: Salary ---- --}}
+                        <table class="fs-main-table" style="margin-bottom:4px;">
+                            <tr>
+                                <td class="fs-row-label">২। বেতন/পারিশ্রমিক/ভাতা এর বর্তমান হার :</td>
+                                <td colspan="3"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="width:130px;">(ক) মূল বেতন</td>
+                                <td class="fs-amount-col">{{ bnNumber(number_format($employee->basic_salary, 0))??'' }}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>(খ) অন্যান্য ভাতা</td>
+                                <td class="fs-amount-col">{{ bnNumber(number_format($employee->home_allowance, 0))??'' }}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>(গ) মোট বেতন</td>
+                                <td class="fs-amount-col">{{ bnNumber(number_format($employee->basic_salary + $employee->home_allowance, 0))??'' }}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                
+                        {{-- ---- Row 3: OT rate ---- --}}
+                        <table class="fs-main-table" style="margin-bottom:4px;">
+                            <tr>
+                                <td class="fs-row-label">৩। ওভারটাইম ভাতার হার: ঘন্টা প্রতি টাকা :</td>
+                                <td style="width:80px;">{{ bnNumber(number_format($otRatePerHour, 2))??'' }}</td>
+                                <td>টাকা</td>
+                            </tr>
+                        </table>
+                
+                        {{-- ---- Row 4: Last month earned leave ---- --}}
+                        <table class="fs-main-table" style="margin-bottom:4px;">
+                            <tr>
+                                <td class="fs-row-label">৪। প্রদেয় সর্বশেষ</td>
+                                <td style="width:75px;"><strong>{{ $lastMonth??'' }}</strong></td>
+                                <td style="width:55px;">{{ bnNumber($lastYear??'') }}</td>
+                                <td>মাসের বেতনের প্রেক্ষিতে এক দিনের অর্জিত ছুটি :</td>
+                                <td class="fs-amount-col">{{ bnNumber(number_format($earnedLeaveLastMonth, 2)) }}</td>
+                                <td class="fs-unit">টাকা</td>
+                            </tr>
+                        </table>
+                
+                        {{-- ---- Row 5: Earned leave detail ---- --}}
+                        <table class="fs-main-table" style="margin-bottom:4px;">
+                            <tr>
+                                <td class="fs-row-label">৫। অর্জিত ছুটির হিসাব</td>
+                                <td style="width:90px;">{{ bnNumber($leaveFrom??'') }}</td>
+                                <td style="width:90px;">{{ bnNumber($leaving_date??'') }}</td>
+                                <td style="width:50px;">ইং পর্যন্ত</td>
+                                <td style="width:28px;">{{ bnNumber($leaveQty??'') }}</td>
+                                <td style="width:90px;"></td>
+                                <td style="width:90px;">দিনের জন্য</td>
+                                <td class="fs-amount-col" style="width:60px; text-align: right;">0000{{-- {{ bnNumber(number_format($leaveAmount, 0))??'' }} --}}</td>
+                                <td class="fs-unit">টাকা</td>
+                            </tr>
+                        </table>
+                
+                        {{-- ---- Row 6: Resources (সমুদয় সাধন) ---- --}}
+                        <table class="fs-main-table" style="margin-bottom:4px;">
+                            <tr>
+                                <td class="fs-row-label">৬। সমন্বয় সাধন (যদি থাকে) :</td>
+                                <td style="width:28px;">{{ bnNumber($resourceDays??'') }}</td>
+                                <td style="width:20px;"></td>
+                                <td style="width:20px;"></td>
+                                <td style="width:50px;"></td>
+                                <td style="width:30px;"></td>
+                                <td style="padding-right:100px;">দিনের জন্য (-)</td>
+                                <td class="fs-amount-col text-right" style="width:60px; text-align: right;">0000{{-- {{ bnNumber(number_format($resourceAmount, 0))??'' }} --}}</td>
+                                <td class="fs-unit">টাকা</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="6" style="text-align:right; padding-right:6px;">মোট :</td>
+                                <td class="fs-amount-col underline text-right" style="text-align: right;">0000{{-- {{ bnNumber(number_format($leaveAmount - $resourceAmount, 0))??'' }} --}}</td>
+                                <td class="fs-unit">টাকা</td>
+                            </tr>
+                        </table>
+                
+                        {{-- ---- Row 7: Gratuity ---- --}}
+                        <table class="fs-main-table" style="margin-bottom:4px;">
+                            <tr>
+                                <td class="fs-row-label">৭। গ্র্যাচুইটিঃ</td>
+                                <td style="width:28px;">{{ $gratuityYearsBn??'' }}</td>
+                                <td style="width:36px;">বছর</td>
+                                <td style="width:28px;">{{ $gratuityMonthsBn??'' }}</td>
+                                <td style="width:36px;">মাস</td>
+                                <td style="width:28px;">{{ $gratuityDaysBn??'' }}</td>
+                                <td style="width:36px;">দিন</td>
+                                <td>কাজ করার জন্য</td>
+                                <td style="width:145px;">{{-- {{ bnNumber($gratuityWorkDays)??'' }} --}}</td>
+                                <td style="padding-right:36px;">দিনের বেসিক :</td>
+                                <td class="fs-amount-col">0000{{-- {{ bnNumber(number_format($gratuityTotal, 0))??'' }} --}}</td>
+                                <td class="fs-unit">টাকা</td>
+                            </tr>
+                        </table>
+                
+                        {{-- Gratuity sub-notes --}}
+                        <table class="fs-main-table" style="margin-bottom:6px; font-size:12px;">
+                            <tr>
+                                <td style="width:20px;"></td>
+                                <td>
+                                    (পাঁচ (৫) বছর পূর্ণ হওয়ার ক্ষেত্রে প্রতি ১ বছরের জন্য ১৪ দিনের বেসিক) &nbsp;&nbsp;&nbsp;
+                                    <span style="float:right; margin-right:66px; text-decoration: underline;"></span>
+                                    <span style="min-width:80px; display:inline-block; text-align:right;">{{-- {{ bnNumber(number_format($totalPayable, 0))??'' }} --}}</span>
+                                    টাকা
+                                </td>
+                                <td style="width:140px;"></td>
+                                 <td class="fs-amount-col underline" style="width:140px;">সর্বমোট প্রদেয় টাকা :</td>
+                                 <td style="width:10px;">টাকা</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="font-size:11px;">
+                                    এবং<br>
+                                    (দশ (১০) বছর পূর্ণ হওয়ার ক্ষেত্রে প্রতি ১ বছরের জন্য ৩০ দিনের বেসিক)
+                                </td>
+                            </tr>
+                        </table>
+                
+                        <div class="fs-divider"></div>
+                
+                        {{-- ---- Declaration ---- --}}
+                        <div class="fs-main-table">
+                            <p style="font-size: 15px;">  আমি  {{ $orgname }}   হইতে আমার প্রাপ্য ও বকেয়া সম্পূর্ণ চূড়ান্ত নিষ্পত্তিকরণ বাবদ টাকা  {{ bnNumber(number_format($employee->basic_salary, 0))??'' }}</p>
+                          
+                            {{-- <strong>{{ bnNumber(number_format($employee->basic_salary, 0))??'' }}</strong> --}}
+                            <br>
+                            (কথায় – &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong>{{ $totalInWords??'' }}</strong>
+                            &nbsp;&nbsp;&nbsp;) মাত্র এর প্রতি স্বীকৃতি করিছি এবং অঙ্গীকার করিছি
+                            <br>
+                            যে, এই প্রতিষ্ঠানে আমার আর কোন আর্থিক কিংবা অন্যান্য দাবী নাই; যদি কখনও দাবী করি তাহলে তাহা সর্বদালতে বাতিল বলিয়া অগ্রায্য হইবে ।
+                        </div>
+                
+                        <br>
+                
+                        {{-- ---- Witness / Signatory section ---- --}}
+                        <div class="fs-witness-title">স্বাক্ষী :</div>
+                
+                        <table class="nominee-table info-table">
+                            <tr>
+                                <td style="width:25%; height: 50px;">নাম :</td>
+                                <td style="width:25%; height: 50px;">পদবী :</td>
+                                <td style="width:25%; height: 50px;">স্বাক্ষর :</td>
+                                <td style="width:25%; height: 50px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:25%; height: 50px;">নাম :</td>
+                                <td style="width:25%; height: 50px;">পদবী :</td>
+                                <td style="width:25%; height: 50px;">স্বাক্ষর :</td>
+                                <td style="width:25%; height: 50px;"></td>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        {{-- ---- Footer signatures ---- --}}
+                        <table class="fs-footer-table">
+                            <tr>
+                                <td style="width:220;">প্রস্তুতকারী</td>
+                                <td style="width:320px;">সিনিয়র হিসাব রক্ষক</td>
+                                <td style="width:220px;">কর্তৃপক্ষ</td>
+                            </tr>
+                        </table>
+
+
+                 @elseif($title == 8)
+                <!-- ID Card Design -->
+                <style>
+                    .id-card-container {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .id-card-front {
+                        width: 100%;
+                        height: 100%;
+                        padding: 2px;
+                        page-break-after: always;
+                        page-break-inside: avoid;
+                        box-sizing: border-box;
+                    }
+                    .id-card-back {
+                        width: 100%;
+                        height: 100%;
+                        padding: 2px;
+                        page-break-inside: avoid;
+                        box-sizing: border-box;
+                    }
+                    .id-card-header {
+                        text-align: center;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .id-card-logo {
+                        width: 40px;
+                        height: 40px;
+                        margin-bottom: 0px;
+                    }
+                    .id-card-company {
+                        font-size: 12px;
+                        font-weight: bold;
+                        color: #0047ba;
+                        line-height: 1;
+                        white-space: nowrap;
+                    }
+                    .id-card-subtitle {
+                        font-size: 10px;
+                        color: #000;
+                        margin: 0;
+                    }
+                    .id-card-photo {
+                        text-align: center;
+                        margin: 3px 0;
+                    }
+                    .id-card-photo img {
+                        width: 80px;
+                        height: 80px;
+                        border: 1px solid #000;
+                    }
+                    .id-card-info-table {
+                        width: 100%;
+                        font-size: 12px;
+                        border-collapse: collapse;
+                        margin-top: 3px;
+                    }
+                    .id-card-info-table td {
+                        padding: 0;
+                        vertical-align: top;
+                        line-height: 1.2;
+                        white-space: nowrap;
+                    }
+                    .id-card-label {
+                        font-weight: bold;
+                        width: 50px;
+                        white-space: nowrap;
+                    }
+                    .id-card-signatures-table {
+                        width: 100%;
+                        margin-top: 6px;
+                        font-size: 9px;
+                        border-collapse: collapse;
+                    }
+                    .id-card-signatures-table td {
+                        text-align: center;
+                        width: 50%;
+                        vertical-align: top;
+                        padding: 0 3px;
+                    }
+                    .id-card-sign-img {
+                        width: 45px;
+                        height: 15px;
+                        margin-bottom: 1px;
+                    }
+                    .id-card-back-title {
+                        font-size: 8px;
+                        /* font-weight: bold; */
+                        margin-bottom: 3px;
+                        text-align: center;
+                    }
+                    .id-card-address {
+                        font-size: 7px;
+                        line-height: 1.3;
+                        margin-bottom: 4px;
+                    }
+                    .id-card-phone {
+                        font-size: 7px;
+                        margin-bottom: 4px;
+                    }
+                    .id-card-message {
+                        font-size: 9px;
+                        color: #000;
+                        font-style: italic;
+                        margin-bottom: 4px;
+                        text-align: center;
+                        line-height: 1.2;
+                    }
+                    .id-card-blood {
+                        font-size: 10px;
+                        color: #ff0000;
+                        font-weight: bold;
+                        margin-bottom: 4px;
+                        text-align: center;
+                    }
+                    .id-card-permanent {
+                        font-size: 10px;
+                        line-height: 1.3;
+                    }
+                    .id-card-permanent-title {
+                        font-weight: bold;
+                        margin-bottom: 2px;
+                        font-size: 8px;
+                    }
+                </style>
+
+                <div class="id-card-container">
+                    <!-- Front Side -->
+                    <div class="id-card-front">
+                        <div class="id-card-header">
+                           <!-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="id-card-logo" alt="Logo">-->
+                           <img src="{{ $logo }}" width="40" height="40" class="id-card-logo" alt="Logo">
+                            <div class="id-card-company">{{ $orgname_en }}</div>
+                            <div class="id-card-subtitle">পরিচয়পত্র (ID Card)</div>
+                        </div>
+
+                        <div class="id-card-photo">
+                            <!--<img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">-->
+                            <img src="{{ $photoBase64 ?? '' }}" style="width:80px; height:80px; object-fit:cover;" alt="Employee Photo">
+                        </div>
+
+                        <table class="id-card-info-table">
+                            <tr>
+                                <td class="id-card-label">ID No :</td>
+                                <td>{{ $employee->employee_id ?? '---' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">Name :</td>
+                                <td>{{ $employee->name ?? 'Md. Abdullah Al Mamun' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">Desig. :</td>
+                                <td>{{ $employee->designation_name ?? 'Manager' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">Pur. of Work :</td>
+                                <td>{{ $employee->purpose_of_work ?? 'বিনা বিলম্বে পরিশোধ করা হবে।' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">Section :</td>
+                                <td>{{ $employee->department_name ?? 'Accounts' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">Line :</td>
+                                <td>{{ $employee->line_name ?? 'Nil' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">Date of Joining :</td>
+                                <td>{{ $employee->joining_date ? date('d/m/Y', strtotime($employee->joining_date)) : '01/09/2018' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">Issue Date :</td>
+                                <td>{{ date('d/m/Y') }}</td>
+                            </tr>
+                        </table>
+
+                        <table class="id-card-signatures-table">
+                            <tr>
+                                <td>
+                                    @if(file_exists(public_path('backend/assets/images/signature-holder.png')))
+                                        <!--<img src="{{ public_path('backend/assets/images/signature-holder.png') }}" class="id-card-sign-img" alt="">-->
+                                          <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
+                                    @else
+                                        <div style="border-top: 1px solid #000; width: 45px; height: 12px; margin: 0 auto;">
+                                              <!--<img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">-->
+                                               <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
+                                        </div>
+                                    @endif
+                                    <div>Holder Sign</div>
+                                </td>
+                                <td>
+                                    @if(file_exists(public_path('backend/assets/images/signature-auth.png')))
+                                        <img src="{{ public_path('backend/assets/images/signature-auth.png') }}" class="id-card-sign-img" alt="">
+                                    @else
+                                        <div style="border-top: 1px solid #000; width: 45px; height: 12px; margin: 0 auto;">
+                                              <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">
+                                        </div>
+                                    @endif
+                                    <div>Authorized Sign</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- Back Side -->
+                    <div class="id-card-back">
+                        <div class="id-card-back-title">মেয়াদ: অব্যহতির আগ পর্যন্ত</div>
+                        <div class="id-card-address">
+                            মালিক/প্রতিষ্ঠানের ঠিকানা :<br>
+                            01, Hariken Road, Daulatpur,<br>
+                            National University, Gazipur.
+                        </div>
+
+                        <div class="id-card-phone">
+                            <strong>Phone No :</strong><br>
+                            {{ $employee->mobile ?? '01840818701' }}
+                        </div>
+
+                        <div class="id-card-back-title">
+                            উহা পরিশোধের দাবির্থী মালিক প্রতিষ্ঠান কর্তৃক<br>
+                            বিলম্বিত পরিশোধ করা বিলম্বিত হবে।
+                        </div>
+
+                        <div class="id-card-blood">
+                            Blood Group : {{ $employee->blood_group ?? 'AB+' }}
+                        </div>
+
+                        <div class="id-card-permanent">
+                            <div class="id-card-permanent-title">Permanent Address</div>
+                            Village : {{ $employee->mvillage_bangla ?? 'Talsar Bajar Para' }}<br>
+                            P.Office : {{ $employee->mpost_office_bangla ?? 'Talsar' }}<br>
+                            Thana : {{ $employee->thana_name ?? 'Kotchadpur' }}<br>
+                            District : {{ $employee->district_name ?? 'Jhenaidah' }}<br><br>
+
+                            <strong>Emergency Mobile No :</strong><br>
+                            {{ $employee->emergency_mobile ?? '01911983379' }}<br><br>
+
+                            <strong>National ID No :</strong><br>
+                            {{ $employee->national_id ?? '4623816339' }}
+                        </div>
+                    </div>
+                </div>
+                  @elseif($title == 9)
+                <!-- ID Card Design -->
+                <style>
+                    .id-card-container {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .id-card-front {
+                        width: 100%;
+                        height: 100%;
+                        padding: 2px;
+                        page-break-after: always;
+                        page-break-inside: avoid;
+                        box-sizing: border-box;
+                    }
+                    .id-card-back {
+                        width: 100%;
+                        height: 100%;
+                        padding: 2px;
+                        page-break-inside: avoid;
+                        box-sizing: border-box;
+                    }
+                    .id-card-header {
+                        text-align: center;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .id-card-logo {
+                        width: 50px;
+                        height: 50px;
+                        margin-bottom: 1px;
+                    }
+                    .id-card-company {
+                        font-size: 12px;
+                        font-weight: bold;
+                        color: #0047ba;
+                        line-height: 1;
+                        white-space: nowrap;
+                    }
+                    .id-card-subtitle {
+                        font-size: 10px;
+                        color: #000;
+                        margin: 0;
+                    }
+                    .id-card-photo {
+                        text-align: center;
+                        margin: 3px 0;
+                    }
+                    .id-card-photo img {
+                        width: 80px;
+                        height: 80px;
+                        border: 1px solid #000;
+                    }
+                    .id-card-info-table {
+                        width: 100%;
+                        font-size: 12px;
+                        border-collapse: collapse;
+                        margin-top: 3px;
+                    }
+                    .id-card-info-table td {
+                        padding: 0;
+                        vertical-align: top;
+                        line-height: 1.2;
+                        white-space: nowrap;
+                    }
+                    .id-card-label {
+                       /*  font-weight: bold; */
+                        width: 20px;
+                        white-space: nowrap;
+                    }
+                    .id-card-signatures-table {
+                        width: 100%;
+                        margin-top: 6px;
+                        font-size: 9px;
+                        border-collapse: collapse;
+                    }
+                    .id-card-signatures-table td {
+                        text-align: center;
+                        width: 50%;
+                        vertical-align: top;
+                        padding: 0 3px;
+                    }
+                    .id-card-sign-img {
+                        width: 45px;
+                        height: 15px;
+                        margin-bottom: 1px;
+                    }
+                    .id-card-back-title {
+                        font-size: 8px;
+                        /* font-weight: bold; */
+                        margin-bottom: 3px;
+                        text-align: center;
+                    }
+                    .id-card-address {
+                        font-size: 7px;
+                        line-height: 1.3;
+                        margin-bottom: 4px;
+                    }
+                    .id-card-phone {
+                        font-size: 7px;
+                        margin-bottom: 4px;
+                    }
+                    .id-card-message {
+                        font-size: 9px;
+                        color: #000;
+                        font-style: italic;
+                        margin-bottom: 4px;
+                        text-align: center;
+                        line-height: 1.2;
+                    }
+                    .id-card-blood {
+                        font-size: 10px;
+                        color: #ff0000;
+                        /* font-weight: bold; */
+                        margin-bottom: 4px;
+                        text-align: center;
+                    }
+                    .id-card-permanent {
+                        font-size: 10px;
+                        line-height: 1.3;
+                    }
+                    .id-card-permanent-title {
+                        /* font-weight: bold; */
+                        margin-bottom: 2px;
+                        font-size: 8px;
+                    }
+                    .fake-bold {
+                        font-weight: normal;
+                        letter-spacing: 0;
+                        -webkit-text-stroke: 1px currentColor;
+                    }
+                </style>
+
+                <div class="id-card-container">
+                    <!-- Front Side -->
+                    <div class="id-card-front">
+                        <div class="id-card-header">
+                           <!-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="id-card-logo" alt="Logo">-->
+                           <img src="{{ $logo }}" width="40" height="40" class="id-card-logo" alt="Logo">
+                           <div class="id-card-company">{{ $orgname_en }}</div>
+                           <div class="id-card-subtitle">পরিচয়পত্র (ID Card)</div>
+                        </div>
+
+                        <div class="id-card-photo">
+                           @if($photoBase64 != '')
+                              <img src="{{ $photoBase64 }}" style="width:60px; height:60px; object-fit:cover;" alt="Employee Photo">
+                           @endif
+                        </div>
+
+                        <table class="id-card-info-table">
+                            <tr>
+                                <td class="id-card-label">আইডি নং :</td>
+                                <td>{{ bnNumber($employee->employee_id) ?? '---' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">নাম :</td>
+                                <td>{{ $employee->name_bangla ?? 'Md. Abdullah Al Mamun' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">পদবি :</td>
+                                <td>{{ $employee->designation_name ?? 'Manager' }}</td>
+                            </tr>
+                            {{-- <tr>
+                                <td class="id-card-label">Pur. of Work :</td>
+                                <td>{{ $employee->purpose_of_work ?? 'বিনা বিলম্বে পরিশোধ করা হবে।' }}</td>
+                            </tr> --}}
+                            <tr>
+                                <td class="id-card-label">বিভাগ :</td>
+                                <td>{{ $employee->department_name ?? 'Accounts' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">লাইন :</td>
+                                <td>{{ bnNumber($employee->line) ?? 'Nil' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">যোগ দাণের তারিখ :</td>
+                                <td>{{ $employee->joining_date ? bnNumber(date('d/m/Y', strtotime($employee->joining_date))) : '--' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="id-card-label">ইস্যু তারিখ :</td>
+                                <td>{{ $employee->joining_date ? bnNumber(date('d/m/Y', strtotime($employee->joining_date))) : '--' }}</td>
+                            </tr>
+                        </table>
+
+                        <table class="id-card-signatures-table">
+                            <tr>
+                                <td>
+                                    @if(file_exists(public_path('backend/assets/images/signature-holder.png')))
+                                        <!--<img src="{{ public_path('backend/assets/images/signature-holder.png') }}" class="id-card-sign-img" alt="">-->
+                                        <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
+                                    @else
+                                        <div style="border-top: 1px solid #000; width: 45px; height: 12px; margin: 0 auto;">
+                                             <!-- <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">-->
+                                             <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
+                                        </div>
+                                    @endif
+                                    <div>Holder Sign</div>
+                                </td>
+                                <td>
+                                    @if(file_exists(public_path('backend/assets/images/signature-auth.png')))
+                                        <img src="{{ public_path('backend/assets/images/signature-auth.png') }}" class="id-card-sign-img" alt="">
+                                    @else
+                                        <div style="border-top: 1px solid #000; width: 45px; height: 12px; margin: 0 auto;">
+                                              <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">
+                                        </div>
+                                    @endif
+                                    <div>Authorized Sign</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- Back Side -->
+                   <div class="id-card-back">
+                        <div class="id-card-back-title">মেয়াদ: অব্যহতির আগ পর্যন্ত</div>
+                        <div class="id-card-address fake-bold">
+                            কারখানা প্রতিষ্ঠানের ঠিকানা :<br>
+                            ০১, হারিকেন রোড, দৌলতপুর,<br> জাতীয় বিশ্ববিদ্যালয়, গাজীপুর।
+                        </div>
+
+                        <div class="id-card-phone fake-bold">
+                            টেলিফোন নং :<br>
+                             ০১৮৪০৮১৮৭০
+                        </div>
+
+                        <div class="id-card-back-title">
+                            উক্ত পরিচয়পত্র হারিয়ে গেলে তাৎক্ষনিকভাবে <br>
+                            ব্যবস্থাপনা কর্তৃপক্ষকে জানাতে হবে।
+                        </div>
+
+                        <div class="id-card-blood fake-bold">
+                           রক্তের গ্রুপ : {{ $employee->blood_group ?? 'AB+' }}
+                        </div>
+
+                        <div class="id-card-permanent">
+                            <div class="id-card-permanent-title fake-bold">স্থায়ী ঠিকানা :</div>
+                            গ্রাম : {{ $employee->mvillage_bangla ?? 'Talsar Bajar Para' }}<br>
+                            ডাকঘর : {{ $employee->mpost_office_bangla ?? 'Talsar' }}<br>
+                            থানা : {{ $employee->thana_name ?? 'Kotchadpur' }}<br>
+                            জেলা  : {{ $employee->district_name ?? 'Jhenaidah' }}<br><br>
+
+                            জরুরী যোগাযোগের ফোন নং :<br>
+                            {{ $employee->emergency_mobile ?? '01911983379' }}<br><br>
+
+                            জাতীয় পরিচয়পত্র নং :<br>
+                            {{ $employee->national_id ?? '4623816339' }}
+                        </div>
+                    </div>
+                </div>
     @endif
 </body>
 

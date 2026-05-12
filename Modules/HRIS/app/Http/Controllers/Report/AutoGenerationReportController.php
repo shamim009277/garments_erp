@@ -138,7 +138,7 @@ class AutoGenerationReportController extends Controller
                 }
 
                 return $mpdf->Output('joining_letter.pdf', 'I');
-            }else if($request->title == 2 || $request->title == 3 || $request->title == 4 || $request->title == 5 || $request->title == 6){
+            }else if($request->title == 2 || $request->title == 3 || $request->title == 4 || $request->title == 5 || $request->title == 6 || $request->title == 7){
                 //Appointment Letter
                 $employees = DB::table('hris_database_employee_basic as e')
                     ->leftJoin('hris_database_employee_salary as s', 'e.employee_id', '=', 's.employee_id')
@@ -196,7 +196,7 @@ class AutoGenerationReportController extends Controller
                         's.medical_allowance',
                         's.conveyance',
                         's.food_allowance',
-                        'e.joining_date',
+                        'e.leaving_date',
                     )
                     ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                         $q->whereBetween('e.joining_date', [$start_date, $end_date]);
@@ -211,6 +211,7 @@ class AutoGenerationReportController extends Controller
                     ->orderBy('e.joining_date', 'desc')
                     ->limit(50)
                     ->get(); 
+                    $todayBn       = bnNumber(date('d/m/Y'));
                     if ($employees->isEmpty()) {
                         return view('hris::report.autogenerationreport.notfound', [
                             'message' => 'No employee found! may be date range , employee id or organization some information is incorrect.'
@@ -261,7 +262,7 @@ class AutoGenerationReportController extends Controller
 
                             $html = view('hris::report.autogenerationreport.pdf', [
                                 'employeeChunk' => $employeeChunk,
-                                'title' => 6, 'orgid' => $orgid,
+                                'title' => 6, 'orgid' => $orgid, 'todayBn' => $todayBn
                             ])->render();
 
                             $mpdf->WriteHTML($html);
@@ -276,7 +277,7 @@ class AutoGenerationReportController extends Controller
                 $mpdf->WriteHTML($html);
                 return $mpdf->Output('joining_letter.pdf', 'I'); */
                 foreach($employees as $index => $emp){
-                    $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp,'orgid' => $orgid,'title' => $request->title])->render();
+                    $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp,'orgid' => $orgid,'title' => $request->title, 'todayBn' => $todayBn])->render();
                     $mpdf->WriteHTML($html);
 
                     if ($index != count($employees) - 1) {
@@ -285,7 +286,149 @@ class AutoGenerationReportController extends Controller
                 }
 
                 return $mpdf->Output('autogeneration.pdf', 'I');
+            }else if($request->title == 8 || $request->title == 9){
+                set_time_limit(300); // 5 minutes
+                ini_set('memory_limit', '512M');
+                $employees = DB::table('hris_database_employee_basic as e')
+                ->leftJoin('hris_database_employee_salary as s', 'e.employee_id', '=', 's.employee_id')
+                ->leftJoin('hris_database_employee_bangla as b', 'e.employee_id', '=', 'b.employee_id')
+                ->leftJoin('hris_setup_departments as d', 'e.department_id', '=', 'd.id')
+                ->leftJoin('hris_setup_designations as des', 'e.designation_id', '=', 'des.id')
+                ->leftJoin('hris_setup_thanas as t', 'b.mthana_id_bangla', '=', 't.id')
+                ->leftJoin('hris_setup_districts as dis', 'b.mdistrict_id_bangla', '=', 'dis.id')
+                ->leftJoin('hris_setup_organizations as org', 'e.org_id', '=', 'org.id')
+                ->when($request->filled('organization_id'), function ($q) use ($orgid) {
+                    $q->where('e.org_id', $orgid);
+                })
+                ->select(
+                    'e.org_id',
+                    'e.employee_id as emp_id',
+                    'e.employee_id',
+                    'b.name_bangla',
+                    'b.fname_bangla',
+                    'b.mvillage_bangla',
+                    'b.mpost_office_bangla',
+                    't.bn_name as thana_name',
+                    'dis.bn_name as district_name',
+                    'd.department_bn as department_name',
+                    'des.designation_bn as designation_name',
+                    's.gross_salary as basic_salary',
+                    'e.joining_date',
+                    'e.line',
+                    'org.bn_name as org_name',
+                    'e.name',
+                     DB::raw("COALESCE(NULLIF(TRIM(e.photo), ''), '') as photo"),
+                     DB::raw("COALESCE(NULLIF(TRIM(e.signature), ''), '') as signature"),
+                    )
+                ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
+                    $q->whereBetween('e.joining_date', [$start_date, $end_date]);
+                }) 
+                ->when($request->filled('employee_id'), function ($q) use ($request) {
+                    $ids = is_array($request->employee_id)
+                        ? $request->employee_id
+                        : [$request->employee_id];
+
+                    $q->whereIn('e.employee_id', $ids);
+                })
+               ->orderBy('e.joining_date', 'desc')
+                ->limit(50)
+                ->get(); 
+                if ($employees->isEmpty()) {
+                    return view('hris::report.autogenerationreport.notfound', [
+                        'message' => 'No employee found!'
+                    ]);
+                }
+                    $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+                    $fontDirs = $defaultConfig['fontDir'];
+                    $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+                    $fontData = $defaultFontConfig['fontdata'];
+                    $customPaper = array(49,76);
+                    // For ID card (title 8), no margins to fit exactly on the card
+                    $isIdCard = ($request->title == 8 || $request->title == 9);
+                    $mpdf = new \Mpdf\Mpdf([
+                        'mode' => 'utf-8',
+                        'format' => $customPaper,
+                        'margin_top' => $isIdCard ? 0 : 10,
+                        'margin_bottom' => $isIdCard ? 0 : 10,
+                        'margin_left' => $isIdCard ? 0 : 10,
+                        'margin_right' => $isIdCard ? 0 : 10,
+                        'fontDir' => array_merge($fontDirs, [
+                            public_path('fonts'),
+                        ]),
+                        'fontdata' => $fontData + [
+                            'solaimanlipi' => [
+                                'R' => 'SolaimanLipi.ttf',
+                                'B'  => 'SolaimanLipi.ttf',
+                            ],
+                        ],
+                        'default_font' => 'solaimanlipi',
+                        'tempDir' => storage_path('app/mpdf-temp'),
+
+                        // ✅ এই তিনটি সেটিং বাংলা ঠিক রাখবে:
+                        'autoScriptToLang' => true,
+                        'autoLangToFont' => true,
+                        'useOTL' => true, // এখানে দিও, property নয়!
+                    ]);
+                
+                foreach($employees as $index => $emp){
+                     // Safe base64 converter
+                    $toBase64 = function(string $path): string {
+                        if (!is_file($path) || !is_readable($path)) return '';
+                        try {
+                            $ext  = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                            $mime = match($ext) {
+                                'jpg','jpeg' => 'image/jpeg',
+                                'webp'       => 'image/webp',
+                                'gif'        => 'image/gif',
+                                default      => 'image/png',
+                            };
+                            return 'data:'.$mime.';base64,'.base64_encode(file_get_contents($path));
+                        } catch (\Exception $e) { return ''; }
+                    };
+                
+                    // Employee photo
+                    $photoName = trim((string)($emp->photo ?? ''));
+                    $photoBase64 = '';
+                    if (!empty($photoName)) {
+                        $p = str_contains($photoName, 'storage/')
+                            ? public_path($photoName)
+                            : public_path('storage/'.$photoName);
+                        $photoBase64 = $toBase64($p);
+                    }
+                    
+                    // Employeesigneture
+                    $signatureName = trim((string)($emp->signature ?? ''));
+                    $photoBaseSin64 = '';
+                    if (!empty($signatureName)) {
+                        $s = str_contains($signatureName, 'storage/')
+                            ? public_path($signatureName)
+                            : public_path('storage/'.$signatureName);
+                        $photoBaseSin64 = $toBase64($s);
+                    }
+                    
+                    
+                    $html = view('hris::report.autogenerationreport.pdf', [
+                        'employee'    => $emp,
+                        'orgid'       => $orgid,
+                        'title'       => $request->title,
+                        'photoBase64' => $photoBase64,  // ✅ pass base64
+                        'photoBaseSin64' => $photoBaseSin64,
+                    ])->render();
+
+                    //$html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp,'orgid' => $orgid,'title' => $request->title])->render();
+                    //dd($html);
+                    $mpdf->WriteHTML($html);
+
+                    // For ID card (title 8), front and back are already separated by page-break in template
+                    // For other titles, add new page between employees
+                    if ($index != count($employees) - 1 && $request->title != 8) {
+                        $mpdf->AddPage(); // নতুন পেজ
+                    }
+                }
+
+                return $mpdf->Output('joining_letter.pdf', 'I');
             }
+            
 
     }
 

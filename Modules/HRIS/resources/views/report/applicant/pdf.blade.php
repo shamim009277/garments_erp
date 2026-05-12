@@ -139,18 +139,34 @@
         }
     </style>
 </head>
+@php
+    $orgdata = $ornizations_data->where('id', $orgid)->first();
+    $orgname = $orgdata->bn_name ?? '';
+    $orgname_en = $orgdata->name ?? '';
+    $address = $orgdata->address_bangla ?? '';
+
+    if (!empty($orgdata?->path)) {
+        $logo = public_path('storage/' . $orgdata->path);
+    } elseif (!empty($general?->full_name)) {
+        $logo = public_path('storage/' . $general->logo_path);
+    } else {
+        $logo = public_path('backend/assets/images/logo-sm.svg');
+    }
+@endphp
 <body>
     <!-- Watermark -->
     <div class="watermark">
         {{ $general->full_name }} - {{ now()->format('Y') }}
     </div>
-    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
+    {{-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark"> --}}
+     <img src="{{ $logo }}" width="50" height="50" alt="Logo" class="watermark-image" alt="watermark">
     <!-- Header -->
     <header>
         <div style="display: flex; align-items: center;">
             <!-- Logo -->
             <div>
-                <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;">
+                {{-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo" style="width: 40px; height: 40px;"> --}}
+                 <img src="{{ $logo }}" width="50" height="50" alt="Logo">
             </div>
 
             <!-- Company Info -->

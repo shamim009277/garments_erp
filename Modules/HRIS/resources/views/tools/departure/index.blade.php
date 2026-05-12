@@ -81,7 +81,7 @@
                                         </tr>
                                         <tr>
                                             <th>Leaving Date</th>
-                                            <td><x-text-input name="leaving_date" id="leaving_date" type="date" class="form-control-sm" placeholder="YYYY-MM-DD" required /></td>
+                                            <td><x-text-input name="leaving_date" id="leaving_date" type="text" class="form-control-sm" placeholder="YYYY-MM-DD" required /></td>
                                         </tr>
                                         <tr>
                                             <th>Notes</th>
@@ -113,20 +113,15 @@
 
 @push('scripts')
 <script>
+    // ✅ বাইরে declare করো যাতে সব জায়গায় access পাওয়া যায়
+    let leavingDatePicker;
+    let mtreturnDatePicker;
+
     $(document).ready(function () {
-        // Initialize Select2
         $('.select2').select2({
             placeholder: "Select an option",
             allowClear: true,
             width: '100%'
-        });
-
-        // Image preview
-        $('input[name="document"]').on('change', function () {
-            const [file] = this.files;
-            if (file) {
-                $('#photoPreview').attr('src', URL.createObjectURL(file));
-            }
         });
 
         $('#reason').on('change', function () {
@@ -137,6 +132,22 @@
                 $('#mtreturn_date').prop('required', false);
             }
         });
+
+        // ✅ এখন globally accessible
+        leavingDatePicker = flatpickr("#leaving_date", {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+        });
+
+        mtreturnDatePicker = flatpickr("#mtreturn_date", {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+        });
+
+        employeeInfo();
+        $("#employee_id").on("blur", function () {
+            employeeInfo();
+        });
     });
 
     function employeeInfo() {
@@ -146,76 +157,61 @@
             $.ajax({
                 url: "{{ route('hris.tools.departure.info') }}",
                 type: "POST",
-            data: {
-                employee_id: employeeId
-            },
-            success: function (response) {
-                $("#name").val('');
-                $("#designation").val('');
-                $("#department").val('');
-                $("#join_date").val('');
-                $("#designation_id").val('');
-                $("#department_id").val('');
+                data: { employee_id: employeeId },
+                success: function (response) {
+                    $("#name, #designation, #department, #join_date").val('');
+                    leavingDatePicker.clear();
+                    mtreturnDatePicker.clear();
 
-                if (response && Object.keys(response).length > 0) {
-                    $("#name").val(response.name || '');
-                    $("#designation").val(response.designation?.designation || '');
-                    $("#department").val(response.department?.department || '');
-                    $("#join_date").val(response.joining_date || '');
+                    if (response && Object.keys(response).length > 0) {
+                        $("#name").val(response.name || '');
+                        $("#designation").val(response.designation?.designation || '');
+                        $("#department").val(response.department?.department || '');
+                        $("#join_date").val(response.joining_date || '');
 
-                    if(response.joining_date){
-                        let start = new Date(response.joining_date);
-                        let today = new Date();
-
-                        let years = today.getFullYear() - start.getFullYear();
-                        let months = today.getMonth() - start.getMonth();
-                        let days = today.getDate() - start.getDate();
-
-                        if (days < 0) {
-                            days = 0;
-                        }
-                        if (months < 0) {
-                            months = 0;
+                        if (response.joining_date) {
+                            let start = new Date(response.joining_date);
+                            let today = new Date();
+                            let years  = today.getFullYear() - start.getFullYear();
+                            let months = today.getMonth() - start.getMonth();
+                            let days   = today.getDate() - start.getDate();
+                            if (days < 0)   days = 0;
+                            if (months < 0) months = 0;
+                            $("#year").val(years);
+                            $("#month").val(months);
+                            $("#day").val(days);
                         }
 
-                        $("#year").val(years);
-                        $("#month").val(months);
-                        $("#day").val(days);
+                        if (response.reason) {
+                            $("#reason").val(response.reason).trigger('change');
+                        }
+                        if (response.salaried) {
+                            $("#salaried").val(response.salaried).trigger('change');
+                        }
+
+                        // ✅ এখন error আসবে না
+                        if (response.leaving_date) {
+                            leavingDatePicker.setDate(
+                                response.leaving_date.toString().substring(0, 10), true
+                            );
+                        }
+                        if (response.mtreturn_date) {
+                            mtreturnDatePicker.setDate(
+                                response.mtreturn_date.toString().substring(0, 10), true
+                            );
+                        }
+
+                        $("#leaving_note").val(response.leaving_note || '');
+
+                    } else {
+                        Swal.fire({ icon: 'error', title: 'Error!', text: 'Failed to load employee info.' });
                     }
-                    $("#designation_id").val(response.designation_id || '');
-                    $("#department_id").val(response.department_id || '');
-                    if(response.reason){
-                        $("#reason").val(response.reason).trigger('change');
-                    }
-                    if(response.salaried){
-                        $("#salaried").val(response.salaried).trigger('change');
-                    }
-                    $("#leaving_date").val(response.leaving_date || '');
-                    $("#notes").val(response.leaving_note || '');
-                    $("#mtreturn_date").val(response.mtreturn_date || '');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'Failed to load employee info.',
-                    });
+                },
+                error: function () {
+                    Swal.fire({ icon: 'error', title: 'Error!', text: 'Failed to load employee info.' });
                 }
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Failed to load employee info.',
-                });
-            }
             });
         }
     }
-
-
-    employeeInfo();
-    $("#employee_id").on("blur", function () {
-        employeeInfo();
-    });
 </script>
 @endpush

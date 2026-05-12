@@ -194,3 +194,6 @@ class Employee extends Model
         return $this->hasMany(EmployeeIncrement::class, 'employee_id', 'employee_id');
     }
 }
+
+
+

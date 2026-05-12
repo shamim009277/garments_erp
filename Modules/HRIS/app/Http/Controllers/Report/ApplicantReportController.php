@@ -50,7 +50,7 @@ class ApplicantReportController extends Controller
             'title' => 'required',
             'employee_id' => 'nullable|numeric|min:6',
             'view_mode' => 'required|string|min:1|max:1',
-            'organization_id' => 'required|integer|min:1|max:1',
+            'organization_id' => 'required|integer|min:1|max:9',
         ]);
         $startDate = $request->start_date;
         $endDate = $request->end_date;
@@ -92,11 +92,11 @@ class ApplicantReportController extends Controller
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
             if($request->view_mode == 1){
-                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
+                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
-                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
+                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
@@ -119,11 +119,11 @@ class ApplicantReportController extends Controller
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
             if($request->view_mode == 1){
-                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
+                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
-                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
+                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
@@ -241,6 +241,7 @@ class ApplicantReportController extends Controller
 
                 ->where('final_status', 1)
                 ->where('hris_database_new_applicant.employee_id', '!=', 0)
+                ->where('hris_database_new_applicant.org_id', $orgid)
                 ->whereNotNull('hris_database_new_applicant.employee_id')
                 ->orderBy('entry_date', 'asc')
                 ->get();

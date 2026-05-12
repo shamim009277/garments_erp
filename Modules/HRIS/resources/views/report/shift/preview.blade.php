@@ -55,8 +55,8 @@
                                         <td class="text-center">{{ str_pad($shift->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{ $shift->employeeBasic->name }}</td>
                                         <td>{{ $shift->employeeBasic->department->department }}</td>
-                                        <td>{{ $shift->employeeBasic->designation->designation }}</td>
-                                        <td class="text-center">{{ $shift->employeeBasic->designation->category_code }}</td>
+                                        <td>{{ $shift->employeeBasic->designation->designation??'' }}</td>
+                                        <td class="text-center">{{ $shift->employeeBasic->designation->category_code??'' }}</td>
                                         <td class="text-center">{{ date('d-m-Y',strtotime($shift->date)) }}</td>
                                         <td class="text-center">{{ $shift->shift }}</td>
                                     </tr>

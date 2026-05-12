@@ -53,7 +53,7 @@ class ShiftingReportController extends Controller
             'title' => 'required',
             'employee_id' => 'nullable|numeric|min:6',
             'view_mode' => 'required|string|min:1|max:1',
-            'organization_id' => 'required|integer|min:1|max:1',
+            'organization_id' => 'required|integer|min:1|max:9',
         ]);
 
         $orgid = $request->organization_id;
@@ -140,11 +140,11 @@ class ShiftingReportController extends Controller
             $uniqueDesignations = $shifts->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
             if($request->view_mode == 1){
-                return view('hris::report.shift.preview', compact('employees','title','uniqueDesignations','startDate','endDate','orgid'));
+                return view('hris::report.shift.preview', compact('shifts','title','uniqueDesignations','startDate','endDate','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
-                $pdf = Pdf::loadView('hris::report.shift.pdf', compact('employees','title','uniqueDesignations','startDate','endDate','orgid'))->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('hris::report.shift.pdf', compact('shifts','title','uniqueDesignations','startDate','endDate','orgid'))->setPaper('a4', 'portrait');
                 return $pdf->stream('employee.pdf');
             }
         }elseif($request->title == 3){
@@ -187,11 +187,11 @@ class ShiftingReportController extends Controller
             $title = $request->title;
 
             if($request->view_mode == 1){
-                return view('hris::report.shift.preview', compact('shifts','title','uniqueDepartments','months','month','year'));
+                return view('hris::report.shift.preview', compact('shifts','title','uniqueDepartments','months','month','year','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
-                $pdf = Pdf::loadView('hris::report.shift.pdf', compact('shifts','title','uniqueDepartments','months','month','year'))->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('hris::report.shift.pdf', compact('shifts','title','uniqueDepartments','months','month','year','orgid'))->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
             }

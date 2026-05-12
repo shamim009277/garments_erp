@@ -91,6 +91,18 @@
                                             <input type="radio" id="title6" name="title" value="6"class="form-check-input titles">
                                             <label class="form-check-label" for="title6">Pay Slip</label>
                                         </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="title7" name="title" value="7"class="form-check-input titles">
+                                            <label class="form-check-label" for="title7">Final Settlement Form </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="title8" name="title" value="8"class="form-check-input titles">
+                                            <label class="form-check-label" for="title8">ID Card </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="title9" name="title" value="9"class="form-check-input titles">
+                                            <label class="form-check-label" for="title9">ID Card Bangla</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -377,6 +389,18 @@
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
         } else if( selectedValue == '6' ){
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+        }else if( selectedValue == '7' ){
+            $('.departmentID').prop('disabled', false);
+            $('.designationID').prop('disabled', true);
+            $('.blood_group').prop('disabled', true);
+            $('#start_date').prop('disabled', true);
+            $('#end_date').prop('disabled', true);
+        }else if( selectedValue == '8' || selectedValue == '9' ){
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
