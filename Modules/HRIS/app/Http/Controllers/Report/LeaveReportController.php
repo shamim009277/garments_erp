@@ -62,7 +62,7 @@ class LeaveReportController extends Controller
             $start = Carbon::parse($request->start_date)->format('Y-m-d');
             $end = Carbon::parse($request->end_date)->format('Y-m-d');
 
-            $leaves = LeaveApplication::with(['employee:id,org_id,name', 'leaveReason:id,reason', 'department:id,department', 'designation:id,designation,category_code'])
+            $employees = LeaveApplication::with(['employee:id,org_id,name', 'leaveReason:id,reason', 'department:id,department', 'designation:id,designation,category_code'])
                     ->whereIn('department_id', $request->department_id)
                     ->when($request->filled('employee_id'), fn($q) =>
                          $q->where('employee_id', $request->employee_id))
@@ -78,15 +78,15 @@ class LeaveReportController extends Controller
                     ->orderBy('employee_id', 'asc')
                     ->get();
 
-            $uniqueDepartments = $leaves->unique('department_id')->pluck('department','department_id');
+            $uniqueDepartments = $employees->unique('department_id')->pluck('department','department_id');
             $title = $request->title;
 
             if($request->view_mode == 1){
-                return view('hris::report.leave.preview', compact('leaves','title','uniqueDepartments'));
+                return view('hris::report.leave.preview', compact('employees','title','uniqueDepartments'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
-                $pdf = Pdf::loadView('hris::report.leave.pdf', compact('leaves','title','uniqueDepartments'))->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('hris::report.leave.pdf', compact('employees','title','uniqueDepartments'))->setPaper('a4', 'portrait');
 
                 return $pdf->stream('employee.pdf');
             }
@@ -129,8 +129,8 @@ class LeaveReportController extends Controller
         }elseif($request->title == 3){
             $request->validate([
                 'department_id' => 'required|array',
-                'start_date' => 'required|array',
-                'end_date' => 'required|array',
+                /* 'start_date' => 'required|array',
+                'end_date' => 'required|array', */
             ]);
             $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
                     ->whereIn('department_id', $request->department_id)

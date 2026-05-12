@@ -306,8 +306,6 @@ class EmployeeListingReportController extends Controller
                 })
                 ->values();
 
-            dd($uniqueSection);
-
             $organization = Organization::active()->where('id', $request->organization_id)->first()->name;
             $start_date = $start;
             $end_date = $end;    

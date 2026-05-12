@@ -1493,7 +1493,7 @@
                         </table>
 
 
-                @elseif($title == 8)
+                 @elseif($title == 8)
                 <!-- ID Card Design -->
                 <style>
                     .id-card-container {
@@ -1521,9 +1521,9 @@
                         padding: 0;
                     }
                     .id-card-logo {
-                        width: 50px;
-                        height: 50px;
-                        margin-bottom: 1px;
+                        width: 40px;
+                        height: 40px;
+                        margin-bottom: 0px;
                     }
                     .id-card-company {
                         font-size: 12px;
@@ -1625,19 +1625,21 @@
                     <!-- Front Side -->
                     <div class="id-card-front">
                         <div class="id-card-header">
-                            <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="id-card-logo" alt="Logo">
+                           <!-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="id-card-logo" alt="Logo">-->
+                           <img src="{{ $logo }}" width="40" height="40" class="id-card-logo" alt="Logo">
                             <div class="id-card-company">{{ $orgname_en }}</div>
                             <div class="id-card-subtitle">পরিচয়পত্র (ID Card)</div>
                         </div>
 
                         <div class="id-card-photo">
-                            <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">
+                            <!--<img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">-->
+                            <img src="{{ $photoBase64 ?? '' }}" style="width:80px; height:80px; object-fit:cover;" alt="Employee Photo">
                         </div>
 
                         <table class="id-card-info-table">
                             <tr>
                                 <td class="id-card-label">ID No :</td>
-                                <td>{{ $employee->employee_id ?? 'AC-000003' }}</td>
+                                <td>{{ $employee->employee_id ?? '---' }}</td>
                             </tr>
                             <tr>
                                 <td class="id-card-label">Name :</td>
@@ -1673,10 +1675,12 @@
                             <tr>
                                 <td>
                                     @if(file_exists(public_path('backend/assets/images/signature-holder.png')))
-                                        <img src="{{ public_path('backend/assets/images/signature-holder.png') }}" class="id-card-sign-img" alt="">
+                                        <!--<img src="{{ public_path('backend/assets/images/signature-holder.png') }}" class="id-card-sign-img" alt="">-->
+                                          <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
                                     @else
                                         <div style="border-top: 1px solid #000; width: 45px; height: 12px; margin: 0 auto;">
-                                              <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">
+                                              <!--<img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">-->
+                                               <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
                                         </div>
                                     @endif
                                     <div>Holder Sign</div>
@@ -1709,7 +1713,7 @@
                             {{ $employee->mobile ?? '01840818701' }}
                         </div>
 
-                        <div class="id-card-message">
+                        <div class="id-card-back-title">
                             উহা পরিশোধের দাবির্থী মালিক প্রতিষ্ঠান কর্তৃক<br>
                             বিলম্বিত পরিশোধ করা বিলম্বিত হবে।
                         </div>
@@ -1870,19 +1874,22 @@
                     <!-- Front Side -->
                     <div class="id-card-front">
                         <div class="id-card-header">
-                            <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="id-card-logo" alt="Logo">
-                            <div class="id-card-company">{{ $orgname_en }}</div>
-                            <div class="id-card-subtitle">পরিচয়পত্র (ID Card)</div>
+                           <!-- <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="id-card-logo" alt="Logo">-->
+                           <img src="{{ $logo }}" width="40" height="40" class="id-card-logo" alt="Logo">
+                           <div class="id-card-company">{{ $orgname_en }}</div>
+                           <div class="id-card-subtitle">পরিচয়পত্র (ID Card)</div>
                         </div>
 
                         <div class="id-card-photo">
-                            <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">
+                           @if($photoBase64 != '')
+                              <img src="{{ $photoBase64 }}" style="width:60px; height:60px; object-fit:cover;" alt="Employee Photo">
+                           @endif
                         </div>
 
                         <table class="id-card-info-table">
                             <tr>
                                 <td class="id-card-label">আইডি নং :</td>
-                                <td>{{ bnNumber($employee->employee_id) ?? 'AC-000003' }}</td>
+                                <td>{{ bnNumber($employee->employee_id) ?? '---' }}</td>
                             </tr>
                             <tr>
                                 <td class="id-card-label">নাম :</td>
@@ -1906,11 +1913,11 @@
                             </tr>
                             <tr>
                                 <td class="id-card-label">যোগ দাণের তারিখ :</td>
-                                <td>{{ $employee->joining_date ? date('d/m/Y', strtotime($employee->joining_date)) : '01/09/2018' }}</td>
+                                <td>{{ $employee->joining_date ? bnNumber(date('d/m/Y', strtotime($employee->joining_date))) : '--' }}</td>
                             </tr>
                             <tr>
                                 <td class="id-card-label">ইস্যু তারিখ :</td>
-                                <td>{{ $employee->joining_date ? date('d/m/Y', strtotime($employee->joining_date)) : '01/09/2018' }}</td>
+                                <td>{{ $employee->joining_date ? bnNumber(date('d/m/Y', strtotime($employee->joining_date))) : '--' }}</td>
                             </tr>
                         </table>
 
@@ -1918,10 +1925,12 @@
                             <tr>
                                 <td>
                                     @if(file_exists(public_path('backend/assets/images/signature-holder.png')))
-                                        <img src="{{ public_path('backend/assets/images/signature-holder.png') }}" class="id-card-sign-img" alt="">
+                                        <!--<img src="{{ public_path('backend/assets/images/signature-holder.png') }}" class="id-card-sign-img" alt="">-->
+                                        <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
                                     @else
                                         <div style="border-top: 1px solid #000; width: 45px; height: 12px; margin: 0 auto;">
-                                              <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">
+                                             <!-- <img src="{{ public_path($employee->photo ?? 'backend/assets/images/users/user-dummy-img.jpg') }}" alt="Employee Photo">-->
+                                             <img src="{{ $photoBaseSin64 ?? '' }}" style="width:45px; height:12px; object-fit:cover;" alt="Employee Photo">
                                         </div>
                                     @endif
                                     <div>Holder Sign</div>
@@ -1953,7 +1962,7 @@
                              ০১৮৪০৮১৮৭০
                         </div>
 
-                        <div class="id-card-message">
+                        <div class="id-card-back-title">
                             উক্ত পরিচয়পত্র হারিয়ে গেলে তাৎক্ষনিকভাবে <br>
                             ব্যবস্থাপনা কর্তৃপক্ষকে জানাতে হবে।
                         </div>

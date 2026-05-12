@@ -142,7 +142,13 @@
 <body>
     <!-- Watermark -->
     <div class="watermark">
-        {{ $general->full_name }} - {{ now()->format('Y') }}
+        @php
+        $orgdata = $ornizations_data->where('id', $orgid)->first();
+        $orgname = $orgdata->bn_name ?? '';
+        $orgname_en = $orgdata->name ?? '';
+        $address = $orgdata->address_bangla ?? '';
+        @endphp
+        {{ $orgname }} - {{ now()->format('Y') }}
     </div>
     <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
     <!-- Header -->
@@ -155,7 +161,7 @@
 
             <!-- Company Info -->
             <div class="company-info">
-                <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $general->full_name }}</div>
+                <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $orgname_en }}</div>
                 <div style="font-size: 12px;font-weight: normal; font-family: italic">Address, City, Country</div>
                 <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: info@company.com | Phone: +880123456789</div>
             </div>
@@ -227,9 +233,16 @@
                                             <td>{{ $sl1 }}</td>
                                             <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                             <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td>
+                                            <td>{{ $employee->department->department??'N/A' }}</td>
+                                            <td>{{ $employee->designation->designation??'N/A' }}</td>
+                                            {{-- <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @endif</td> --}}
+                                            <td>
+                                                @php
+                                                    $categoryMap = ['O' => 'Officer', 'M' => 'Manager', 'S' => 'Staff', 'W' => 'Worker'];
+                                                    $code = $employee->designation?->category_code;
+                                                @endphp
+                                                {{ $categoryMap[$code] ?? 'N/A' }}
+                                            </td>
                                             <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
                                             <td>{{ $employee->mdistrict->name ?? '' }}</td>
                                         </tr>

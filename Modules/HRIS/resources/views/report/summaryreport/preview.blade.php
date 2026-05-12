@@ -44,7 +44,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $count = $uniqueDepartments->count(); ?>
+                               
                                 @foreach($uniqueDepartments as $department)
                                   <?php $deptEmployeeCount = $employees->where('department_id', $department->id)->count(); ?>
                                     <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
@@ -64,11 +64,18 @@
                                             <td>{{ $sl1 }}</td>
                                             <td>{{ str_pad($employee->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                             <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
+                                            <td>{{ $employee->department->department  ?? 'N/A' }}</td>
+                                            <td>{{ $employee->designation->designation ?? 'N/A' }}</td>
+                                            {{-- <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td> --}}
+                                            <td>
+                                                @php
+                                                    $categoryMap = ['O' => 'Officer', 'M' => 'Manager', 'S' => 'Staff', 'W' => 'Worker'];
+                                                    $code = $employee->designation?->category_code;
+                                                @endphp
+                                                {{ $categoryMap[$code] ?? 'N/A' }}
+                                            </td>
                                             <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                            <td>{{ $employee->mdistrict->name ?? '' }}</td>
+                                            <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
                                         </tr>
                                         <?php $sl1++; ?>
                                     @endif

@@ -92,11 +92,11 @@ class ApplicantReportController extends Controller
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
             if($request->view_mode == 1){
-                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
+                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
-                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
+                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
@@ -119,11 +119,11 @@ class ApplicantReportController extends Controller
             $uniqueDesignations = $employees->unique('designation_id')->pluck('designation','designation_id');
             $title = $request->title;
             if($request->view_mode == 1){
-                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations'));
+                return view('hris::report.applicant.preview', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'));
             }elseif($request->view_mode == 2){
                 ini_set('memory_limit', '2048M');
                 ini_set('max_execution_time', '300');
-                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations'))
+                $pdf = Pdf::loadView('hris::report.applicant.pdf', compact('employees','title','uniqueDepartments','uniqueDesignations','orgid'))
                 ->setPaper('a4', 'portrait');
 
                return $pdf->stream('employee.pdf');
