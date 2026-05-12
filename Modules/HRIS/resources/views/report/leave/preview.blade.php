@@ -56,7 +56,12 @@
                                         <td>{{ $employee->department->department }}</td>
                                         <td>{{ $employee->designation->designation }}</td>
                                         <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                        <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
+                                        <td>{{ $employee->joining_date ? date('d-m-Y', strtotime($employee->joining_date)) : '--' }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td>{{ $employee->mdistrict->name ?? '' }}</td>
                                     </tr>
                                 @endforeach

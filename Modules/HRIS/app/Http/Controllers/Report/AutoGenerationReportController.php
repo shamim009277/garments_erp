@@ -287,7 +287,8 @@ class AutoGenerationReportController extends Controller
 
                 return $mpdf->Output('autogeneration.pdf', 'I');
             }else if($request->title == 8 || $request->title == 9){
-                
+                set_time_limit(300); // 5 minutes
+                ini_set('memory_limit', '512M');
                 $employees = DB::table('hris_database_employee_basic as e')
                 ->leftJoin('hris_database_employee_salary as s', 'e.employee_id', '=', 's.employee_id')
                 ->leftJoin('hris_database_employee_bangla as b', 'e.employee_id', '=', 'b.employee_id')
@@ -315,6 +316,9 @@ class AutoGenerationReportController extends Controller
                     'e.joining_date',
                     'e.line',
                     'org.bn_name as org_name',
+                    'e.name',
+                     DB::raw("COALESCE(NULLIF(TRIM(e.photo), ''), '') as photo"),
+                     DB::raw("COALESCE(NULLIF(TRIM(e.signature), ''), '') as signature"),
                     )
                 ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                     $q->whereBetween('e.joining_date', [$start_date, $end_date]);
@@ -367,7 +371,52 @@ class AutoGenerationReportController extends Controller
                     ]);
                 
                 foreach($employees as $index => $emp){
-                    $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp,'orgid' => $orgid,'title' => $request->title])->render();
+                     // Safe base64 converter
+                    $toBase64 = function(string $path): string {
+                        if (!is_file($path) || !is_readable($path)) return '';
+                        try {
+                            $ext  = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                            $mime = match($ext) {
+                                'jpg','jpeg' => 'image/jpeg',
+                                'webp'       => 'image/webp',
+                                'gif'        => 'image/gif',
+                                default      => 'image/png',
+                            };
+                            return 'data:'.$mime.';base64,'.base64_encode(file_get_contents($path));
+                        } catch (\Exception $e) { return ''; }
+                    };
+                
+                    // Employee photo
+                    $photoName = trim((string)($emp->photo ?? ''));
+                    $photoBase64 = '';
+                    if (!empty($photoName)) {
+                        $p = str_contains($photoName, 'storage/')
+                            ? public_path($photoName)
+                            : public_path('storage/'.$photoName);
+                        $photoBase64 = $toBase64($p);
+                    }
+                    
+                    // Employeesigneture
+                    $signatureName = trim((string)($emp->signature ?? ''));
+                    $photoBaseSin64 = '';
+                    if (!empty($signatureName)) {
+                        $s = str_contains($signatureName, 'storage/')
+                            ? public_path($signatureName)
+                            : public_path('storage/'.$signatureName);
+                        $photoBaseSin64 = $toBase64($s);
+                    }
+                    
+                    
+                    $html = view('hris::report.autogenerationreport.pdf', [
+                        'employee'    => $emp,
+                        'orgid'       => $orgid,
+                        'title'       => $request->title,
+                        'photoBase64' => $photoBase64,  // ✅ pass base64
+                        'photoBaseSin64' => $photoBaseSin64,
+                    ])->render();
+
+                    //$html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp,'orgid' => $orgid,'title' => $request->title])->render();
+                    //dd($html);
                     $mpdf->WriteHTML($html);
 
                     // For ID card (title 8), front and back are already separated by page-break in template

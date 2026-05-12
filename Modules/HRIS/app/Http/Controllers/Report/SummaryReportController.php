@@ -31,7 +31,7 @@ class SummaryReportController extends Controller
         $parentDepartments = ParentDepartment::with('departments')->whereHas('departments') ->orderBy('department', 'asc') ->get();
         $designations = Designation::orderBy('designation', 'asc')->get();
         $gatepass_purposes = EmpGatepassPurpose::pluck('purpose', 'id')->toArray();
-        $employeeCategories = EmployeeCategory::pluck('category', 'id')->toArray();
+        $employeeCategories = EmployeeCategory::pluck('category', 'category_code')->toArray();
 
         return view('hris::report.summaryreport.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'gatepass_purposes', 'employeeCategories'));
     }
@@ -45,9 +45,9 @@ class SummaryReportController extends Controller
             'title' => 'required',
             'employee_id' => 'nullable|numeric|min:6',
             'view_mode' => 'required|string|min:1|max:1',
-            'organization_id' => 'required|integer|min:1|max:1',
+            'organization_id' => 'required|integer|min:1|max:9',
         ]);
-
+        $orgid = $request->organization_id;
         if($request->title == 1){
             $request->validate([
                 'department_id' => 'required|array',
@@ -62,36 +62,40 @@ class SummaryReportController extends Controller
                                 $q2->where('category_code', $request->category_id);
                             });
                     })
-                    ->when($request->filled('organization_id'), fn($q) =>
-                        $q->where('org_id', $request->organization_id))
+                    /* ->when($request->filled('organization_id'), fn($q) =>
+                        $q->where('org_id', $request->organization_id)) */
+                    ->when($request->filled('organization_id'), function ($q) use ($orgid) {
+                    $q->where('org_id', $orgid);
+                })
                     ->when($request->filled('designation_id'), fn($q) =>
                         $q->whereIn('designation_id', $request->designation_id))
                     ->orderBy('designation_id', 'asc')
                     ->orderBy('employee_id', 'asc')
                     ->get();
+                $uniqueDepartments = $employees->unique('department_id')->pluck('department', 'department_id');
                 $title = $request->title;
 
                 if($request->view_mode == 1){
-                    return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments'));
+                    return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments', 'orgid'));
                 }elseif($request->view_mode == 2){
                     ini_set('memory_limit', '2048M');
                     ini_set('max_execution_time', '300');
-                    $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments'))
+                    $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments','orgid'))
                     ->setPaper('a4', 'portrait');
                    // return $pdf->stream('employee.pdf');
                 }
             if($request->view_mode == 1){
-                return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments'));
+                return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments','orgid'));
             }elseif($request->view_mode == 2){
-                $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments'))
+                $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments','orgid'))
                 ->setPaper('a4', 'portrait');
 
                 if($request->view_mode == 1){
-                    return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDesignations'));
+                    return view('hris::report.summaryreport.preview', compact('employees','title','uniqueDepartments','orgid'));
                 }elseif($request->view_mode == 2){
                     ini_set('memory_limit', '2048M');
                     ini_set('max_execution_time', '300');
-                    $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDesignations'))
+                    $pdf = Pdf::loadView('hris::report.summaryreport.pdf', compact('employees','title','uniqueDepartments','orgid'))
                     ->setPaper('a4', 'portrait');
 
                 return $pdf->stream('employee.pdf');

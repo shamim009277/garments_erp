@@ -46,16 +46,45 @@
                     @endif
                     <th>Joining Date</th>
                     <th>District</th>
+                    <th>Gross Salary</th>
+                    <th>Basic Salary</th>
                 </tr>
             </thead>
             <tbody>
-                @if(count($employees) > 0)
+                    {{--  <tbody>
+                            @foreach ($employees as $employee)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
+                                    <td>{{ $employee->name }}</td>
+                                    <td>{{ $employee->department->department }}</td>
+                                    <td>{{ $employee->designation->designation }}</td>
+                                    <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
+                                    <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
+                                    <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody> --}}
+                @foreach($uniqueDepartments as $departmentId => $department)
+                    <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
+                        <td></td>
+                        <td style="text-align: center; color: #5156be;">{!! $department->department !!}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <?php $sl1 = 1; ?>
                     @foreach ($employees as $employee)
+                    @if($employee->department_id == $department->id)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $sl1 }}</td>
                             <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                             <td>{{ $employee->name }}</td>
-                            <td>{{ $employee->department->department }}</td>
+                            {{-- <td>{{ $employee->department->department }}</td> --}}
                             <td>{{ $employee->designation->designation }}</td>
                             <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
                             @if($title == 4)
@@ -63,13 +92,13 @@
                             @endif
                             <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
                             <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
+                            <td>{{ $employee->employeeSalary->gross_salary ?? 'N/A' }}</td>
+                            <td>{{ $employee->employeeSalary->basic ?? 'N/A' }}</td>
                         </tr>
+                        <?php $sl1++; ?>
+                    @endif
                     @endforeach
-                @else
-                    <tr>
-                        <td colspan="12" style="text-align: center; vertical-align: middle;color:#FF6C37">No Data Found <br> <small>Try to change the date range or filter</small></td>
-                    </tr>
-                @endif
+                @endforeach
             </tbody>
         </table>
     @elseif($title == 2)
