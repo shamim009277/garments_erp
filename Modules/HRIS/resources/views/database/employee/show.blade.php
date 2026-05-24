@@ -107,7 +107,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-
+                             <a href="{{ route('hris.database.employee.show', ['employee' => $employee->id,'tab' => 11]) }}" class="nav-link border-none {{ $tab == 11 ? 'active' : '' }}" title="Permission" role="tab">
+                                <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                                <span class="d-none d-sm-block">Permission</span>
+                            </a>
                         </li>
                     </ul>
 
@@ -160,6 +163,11 @@
                         @if($tab == 10)
                         <div class="tab-pane {{ $tab == 10 ? 'active' : '' }}" id="bangla" role="tabpanel">
                             @include('hris::database.employee.tab10')
+                        </div>
+                        @endif
+                        @if($tab == 11)
+                        <div class="tab-pane {{ $tab == 11 ? 'active' : '' }}" id="permission" role="tabpanel">
+                            @include('hris::database.employee.tab11')
                         </div>
                         @endif
                     </div>

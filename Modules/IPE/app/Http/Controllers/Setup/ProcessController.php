@@ -3,12 +3,14 @@
 namespace Modules\IPE\Http\Controllers\Setup;
 
 use App\Http\Controllers\Controller;
+use App\Traits\ToggleStatus;
 use Illuminate\Http\Request;
 use Modules\IPE\Http\Requests\Setup\ProcessRequest;
 use Modules\IPE\Models\Setup\Process;
 
 class ProcessController extends Controller
 {
+    use ToggleStatus;
     /**
      * Display a listing of the resource.
      */

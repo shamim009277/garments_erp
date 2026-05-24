@@ -45,7 +45,7 @@ class ApplicantController extends Controller
             ->where('final_status', 0)
             ->get();
 
-        $unique_applicant = [];
+        $unique_applicant = NULL;
         //dd(\DB::getQueryLog());
         $unique_department = $pending_applicants->unique('department_id');
         return view('hris::database.newapplicant.index', compact('departments', 'designations', 'districts', 'pending_applicants','unique_applicant','unique_department','today','organizations','maxDate','lines'));
@@ -76,7 +76,7 @@ class ApplicantController extends Controller
         if ($birth_certificate_no_exist) {
             return redirect()->back()->with('error', 'Birth Certificate No already exists');
         }
-        
+
         try {
             $data = $request->validated();
             $data['entry_date'] = date('Y-m-d');

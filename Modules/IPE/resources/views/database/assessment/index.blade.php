@@ -31,7 +31,7 @@
                     ['label' => 'Database', 'url' => route('ipe.index')],
                     ['label' => 'Assessment', 'url' => route('ipe.database.assessments.index')],
                 ],
-            ])  
+            ])
         </div>
         <div class="col-12 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
@@ -51,104 +51,14 @@
                 </form>
                 @if ($unique_applicant)
                     <!-- Back Button -->
-                    <a href="{{ route('ipe.database.assessments.index') }}" 
+                    <a href="{{ route('ipe.database.assessments.index') }}"
                         class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2"><i
                             data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back </a>
                 @endif
             </div>
         </div>
         <div class="col-lg-3 pe-lg-0">
-            {{-- <div class="card alert-primary alert-top-border padding-card">
-                <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Pending
-                        Assessment List</h6>
-                </div>
-                <div class="card-body" style="min-height: 457px;max-height: 457px; overflow-y: auto;">
-                    @php
-                        $companyWise = collect($pending_applicants)->groupBy('org_id');
-                    @endphp
-                    <ul class="nav-custom">
-                        @foreach ($companyWise as $companyId => $companyApplicants)
-                            @php
-                                $companyName = $companyApplicants->first()->Organization->short_name ?? 'N/A';
-                                $departmentWise = $companyApplicants->groupBy('department_id');
-                                $isCompanyActive = $unique_applicant && $unique_applicant->org_id == $companyId;
-                            @endphp
-
-
-                            <li class="nav-custom-item">
-                                <input type="checkbox" id="company{{ $companyId }}" {{ $isCompanyActive ? 'checked' : '' }}>
-                                <label class="nav-custom-link" for="company{{ $companyId }}" style="{{ $isCompanyActive ? 'background:#f2b14b; border-radius: 3px;' : '' }}">
-                                    <span class="nav-custom-caret"></span>
-                                    {{ $companyName }} ({{ $companyApplicants->count() }})
-                                </label>
-
-                                <ul class="nav-custom-content">
-                                    @foreach ($departmentWise as $departmentId => $departmentApplicants)
-                                        @php
-                                            $departmentName = $departmentApplicants->first()->department->department ?? 'N/A';
-                                            $dateWise = $departmentApplicants->groupBy('entry_date');
-                                            $isDepartmentActive = $unique_applicant && $unique_applicant->org_id == $companyId && $unique_applicant->department_id == $departmentId;
-                                        @endphp
-
-                                        <li class="nav-custom-item">
-                                            <input type="checkbox" id="dept{{ $companyId }}-{{ $departmentId }}" {{ $isDepartmentActive ? 'checked' : '' }}>
-                                            <label class="nav-custom-link" for="dept{{ $companyId }}-{{ $departmentId }}" style="{{ $isDepartmentActive ? 'background:#D75350; border-radius: 3px;' : '' }}">
-                                                <span class="nav-custom-caret"></span>
-                                                {{ $departmentName }} ({{ $departmentApplicants->count() }})
-                                            </label>
-
-                                            <ul class="nav-custom-content">
-                                                @foreach ($dateWise as $entryDate => $dateApplicants)
-                                                    @php
-                                                        $isDateActive = $unique_applicant && $unique_applicant->org_id == $companyId && $unique_applicant->department_id == $departmentId && $unique_applicant->entry_date == $entryDate;
-                                                    @endphp
-
-                                                    <li class="nav-custom-item">
-                                                        <input type="checkbox" id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}" {{ $isDateActive ? 'checked' : '' }}>
-                                                        <label class="nav-custom-link" for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}" style="{{ $isDateActive ? 'background:#75bcf5; border-radius: 3px;' : '' }}">
-                                                            <span class="nav-custom-caret"></span>
-                                                            {{ \Carbon\Carbon::parse($entryDate)->format('d-M-Y') }} ({{ $dateApplicants->count() }})
-                                                        </label>
-
-                                                        <div class="nav-custom-content">
-                                                            @foreach ($dateApplicants as $applicant)
-                                                                @php
-                                                                    $assessment = $applicant->assessment;
-                                                                @endphp
-                                                                @if($assessment && isset($applicant->assessment))
-                                                                   <a href="{{ route('ipe.database.assessments.show', $applicant->assessment->id) }}"
-                                                                        class="employee-link" style="{{ $unique_applicant && $unique_applicant->id == $applicant->assessment->id ? 'color: #ffffff; background:#4549A2; border-radius: 3px;' : '' }}">
-                                                                        {{ $applicant->id }} :: {{ strtoupper($applicant->name) }}
-                                                                    </a>
-                                                                @else
-                                                                    <a href="javascript:void(0)"
-                                                                        data-id="{{ $applicant->id }}"
-                                                                        data-ORG_id="{{ $applicant->org_id }}"
-                                                                        data-name="{{ $applicant->name }}"
-                                                                        data-name_bn="{{ $applicant->name_bangla }}"
-                                                                        data-entry_date="{{ $applicant->entry_date }}"
-                                                                        data-mobile="{{ $applicant->mobile }}"
-                                                                        data-line="{{ $applicant->line }}"
-                                                                        data-designation_id="{{ $applicant->designation_id }}"
-                                                                        class="employee-link employee-show" style="{{ $unique_applicant && $unique_applicant->id == $applicant->assessment->id ? 'color: #ffffff; background:#4549A2; border-radius: 3px;' : '' }}">
-                                                                        {{ $applicant->id }} :: {{ strtoupper($applicant->name) }}
-                                                                    </a>
-                                                                @endif
-                                                            @endforeach
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div> --}}
-            <x-ipe::database.assessment 
+            <x-ipe::database.assessment
                 title="Pending Assessment List"
                 :pending-applicants="$pending_applicants"
                 :unique-applicant="$unique_applicant" />

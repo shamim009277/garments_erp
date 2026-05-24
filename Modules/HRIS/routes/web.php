@@ -239,6 +239,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/employee/bangla', [EmployeeController::class, 'storeEmployeeBangla'])->name('employee.bangla');
             Route::post('/employee/salary', [EmployeeController::class, 'storeEmployeeSalary'])->name('employee.salary');
             Route::post('/employee/personal', [EmployeeController::class, 'storeEmployeePersonal'])->name('employee.personal');
+            Route::post('/employee/permission', [EmployeeController::class, 'storeEmployeePermission'])->name('employee.permission');
             Route::post('/employee/document', [EmployeeController::class, 'storeEmployeeDocument'])->name('employee.document');
             Route::post('/employee-info', [EmployeeController::class, 'getEmployeeInfo'])->name('employee.info');
             Route::resource('employee', EmployeeController::class)->names('employee');

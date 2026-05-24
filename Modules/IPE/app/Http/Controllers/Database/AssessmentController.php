@@ -78,8 +78,8 @@ class AssessmentController extends Controller
             $data['assessment_date'] = Carbon::now()->format('Y-m-d');
             $data['is_done'] = 0;
 
-            Assessment::create($data);
-            return redirect()->route('ipe.database.assessments.index')->with('success', 'Assessment created successfully');
+            $assessment = Assessment::create($data);
+            return redirect()->route('ipe.database.assessments.show',$assessment->id)->with('success', 'Assessment created successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to create assessment: ' . $e->getMessage());
         }

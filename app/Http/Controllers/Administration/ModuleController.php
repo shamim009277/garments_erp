@@ -15,10 +15,10 @@ class ModuleController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:administration.module.view')->only('index');
-        $this->middleware('permission:administration.module.add')->only('store');
-        $this->middleware('permission:administration.module.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:administration.module.delete')->only('destroy');
+        $this->middleware('permission:administration.modules.view')->only('index');
+        $this->middleware('permission:administration.modules.add')->only('store');
+        $this->middleware('permission:administration.modules.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:administration.modules.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.
