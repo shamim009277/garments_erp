@@ -103,8 +103,8 @@
                 <div class="card-body">
                     <form id="moduleForm" action="{{ route('ipe.setup.assessment-groups.store') }}" method="POST">
                         @csrf
-                        <x-input-group name="name" label="Name" type="text" placeholder="Enter name" :value="old('name')" required />
-                        <x-input-group name="code" label="Code" type="text" placeholder="Enter code" :value="old('code')" required readonly />
+                        <x-input-group name="name" label="Name" id="name" type="text" placeholder="Enter name" :value="old('name')" required />
+                        <x-input-group name="code" label="Code" id="code" type="text" placeholder="Enter code" :value="old('code')" required readonly />
                         <label for="line_id">Designation <span class="text-danger">*</span></label>
                         <x-select-multiple-input
                             name="designation_id[]"
@@ -144,7 +144,7 @@
 
             let timeout = null;
 
-            $('input[name="name"]').on('keyup', function () {
+            $('#name').on('keyup', function () {
 
                 clearTimeout(timeout);
                 let name = $(this).val();
@@ -152,9 +152,9 @@
                 timeout = setTimeout(function () {
                     if (name.length > 0) {
                         let code = generateUniqueCode(name);
-                        $('input[name="code"]').val(code);
+                        $('#code').val(code);
                     } else {
-                        $('input[name="code"]').val('');
+                        $('#code').val('');
                     }
 
                 }, 500);

@@ -43,16 +43,12 @@
                                     <tbody>
                                         <tr>
                                             <td style="border: none;">
-                                                <x-select-input name="organization_id" id="organization_id"
-                                                    class="form-control-sm select2" :options="$organizations"
-                                                    selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
+                                                <x-select-input name="organization_id" id="organization_id" class="form-control-sm select2" :options="$organizations" selected="{{ old('organization_id', 1) }}" placeholder="Organization" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="border: none;">
-                                                <x-text-input name="emp_id" id="employee_id" class="form-control-sm"
-                                                    type="text" value="{{ old('employee_id') }}"
-                                                    placeholder="Employee ID" required />
+                                                <x-text-input name="emp_id" id="employee_id" class="form-control-sm" type="text" value="{{ old('employee_id') }}" placeholder="Employee ID" required />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -63,21 +59,22 @@
                                     <tbody>
                                         <tr>
                                             <td style="border: none;">
-                                                <x-text-input name="start_date" id="start_date" class="form-control-sm"
-                                                    type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                <x-text-input name="start_date" id="start_date" class="form-control-sm" type="date" value="{{ date('d-m-Y') }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="border: none;">
-                                                <x-text-input name="end_date" id="end_date" class="form-control-sm"
-                                                    type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                <x-text-input name="end_date" id="end_date" class="form-control-sm" type="date" value="{{ date('d-m-Y') }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th class="flex justify-end items-center gap-2" style="border: none;">
-                                                <x-primary-button id="displayBtn" class="btn-sm submitBtn display-date"
-                                                    type="button" style="margin-left: 8px;">
+                                                <x-primary-button id="displayBtn" class="btn-sm submitBtn display-date" type="button" style="margin-left: 8px;">
                                                     Display
+                                                </x-primary-button>
+
+                                                <x-primary-button id="addManuallyBtn" class="btn-sm submitBtn display-date" type="button" style="margin-left: 8px;">
+                                                    Add Manually
                                                 </x-primary-button>
                                             </th>
                                         </tr>
@@ -98,19 +95,26 @@
                 </div>
                 <div class="card-body" style="overflow-y: auto;">
                     <div style="overflow-x: auto;">
-                        <table class="table table-sm table-hover table-striped" style="width: 100%">
-                            <thead class="table-light">
-                                <tr>
-                                    <th width="">Employee ID</th>
-                                    <th width="">Work Date</th>
-                                    <th width="">Day</th>
-                                    <th width="">Shift</th>
-                                    <th width="">Start Punch</th>
-                                    <th width="">End Punch</th>
-                                </tr>
-                            </thead>
-                            <tbody id="employeedata"></tbody>
-                        </table>
+                        <form id="punchForm">
+                            <table class="table table-sm table-hover table-striped" style="width: 100%">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th width="">Employee ID</th>
+                                        <th width="">Work Date</th>
+                                        <th width="">Day</th>
+                                        <th width="">Shift</th>
+                                        <th width="">Start Punch</th>
+                                        <th width="">End Punch</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeedata"></tbody>
+                            </table>
+                            <tfoot>
+                                <x-primary-button id="submitBtn" class="btn-sm submitBtn" type="button" style="margin-left: 8px;" style="display: none;">
+                                    Save Changes
+                                </x-primary-button>
+                            </tfoot>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -152,7 +156,7 @@
                     beforeSend: function() {
                         Swal.fire({
                             title: 'Please wait...',
-                            text: 'Loading employee holiday data...',
+                            text: 'Loading employee punch data...',
                             allowOutsideClick: false,
                             didOpen: () => {
                                 Swal.showLoading();
@@ -161,6 +165,8 @@
                     },
                     success: function(response) {
                         $('#employeedata').empty();
+                        $('#submitBtn').css('display', 'none');
+                        $('#submitBtn').prop('disabled', true);
 
                         if (response.success && response.data.length > 0) {
                             let row = ``;
@@ -196,6 +202,150 @@
                             'error');
                     }
                 });
+            });
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '#addManuallyBtn', function(e) {
+                e.preventDefault();
+                let startDate = $('#start_date').val();
+                let endDate = $('#end_date').val();
+                let empId = $('#employee_id').val();
+                let organizationId = $('#organization_id').val();
+                let form = 2;
+
+                if (startDate == '' || endDate == '' || empId == '' || organizationId == '') {
+                    Swal.fire(
+                        'Error!',
+                        'Please fill Employee ID, Start Date and End Date fields.',
+                        'error'
+                    );
+                    return;
+                }
+
+                $.ajax({
+                    url: '{{ route('payroll.tools.edit-punchdata.store') }}',
+                    type: 'POST',
+                    data: {
+                        start_date: startDate,
+                        end_date: endDate,
+                        employee_id: empId,
+                        organization_id: organizationId,
+                        form: form,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Please wait...',
+                            text: 'Loading employee punch data...',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        $('#employeedata').empty();
+
+                        console.log(response);
+
+                        if (response.success && response.data.length > 0) {
+                            $('#submitBtn').css('display', 'inline-block');
+                            $('#submitBtn').prop('disabled', false);
+
+                            let row = '';
+
+                            response.data.forEach((emp, index) => {
+
+                                let startPunch = emp.start_punch || '';
+                                let endPunch = emp.end_punch || '';
+                                let empId = String(emp.employee_id).padStart(6, '0');
+
+                                const date = new Date(emp.work_date);
+
+                                const dayName = date.toLocaleDateString('en-US', {
+                                    weekday: 'long'
+                                });
+
+                                row += `
+                                <tr>
+                                    <td>
+                                        ${empId}
+                                        <input type="hidden" name="rows[${index}][employee_id]" value="${emp.employee_id}">
+                                        <input type="hidden" name="rows[${index}][organization_id]" value="${emp.organization_id}">
+                                    </td>
+
+                                    <td>
+                                        ${emp.work_date}
+                                        <input type="hidden" name="rows[${index}][work_date]" value="${emp.work_date}">
+                                    </td>
+
+                                    <td>${dayName}</td>
+
+                                    <td>
+                                        ${emp.shift}
+                                        <input type="hidden" name="rows[${index}][shift]" value="${emp.shift}">
+                                    </td>
+
+                                    <td>
+                                        <input type="text"
+                                            class="form-control form-control-sm"
+                                            name="rows[${index}][start_punch]"
+                                            value="${startPunch}">
+                                    </td>
+
+                                    <td>
+                                        <input type="text"
+                                            class="form-control form-control-sm"
+                                            name="rows[${index}][end_punch]"
+                                            value="${endPunch}">
+                                    </td>
+                                </tr>`;
+                            });
+
+                            $('#employeedata').html(row);
+                            Swal.close();
+
+                        } else {
+                            $('#submitBtn').css('display', 'none');
+                            $('#submitBtn').prop('disabled', true);
+                            Swal.fire('Info!', 'No data found!', 'info');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Error!', 'Something went wrong while fetching data.',
+                            'error');
+                    }
+                });
+            });
+        });
+
+        $(document).on('click', '#submitBtn', function(e) {
+            e.preventDefault();
+            let form = $('#punchForm');
+
+            $.ajax({
+                url: '{{ route('payroll.tools.edit-punchdata.manual-store') }}',
+                type: 'POST',
+                data: $('#punchForm').serialize(),
+                success: function(response) {
+                    console.log(response);
+
+                    Swal.fire('Success!', response.message, 'success');
+                    if (response.data) {
+                        renderFromResponse(response.data);
+                    }
+                },
+                error: function(xhr) {
+                    let res = xhr.responseJSON;
+                    if (xhr.status === 422) {
+                        console.log(res.errors);
+                        Swal.fire('Validation Error!', res.message, 'warning');
+                    }
+                    else {
+                        Swal.fire('Error!', res.message || 'Server error', 'error');
+                    }
+                }
             });
         });
 
