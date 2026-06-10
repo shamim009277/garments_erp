@@ -352,7 +352,6 @@
             @if(!$loop->last)
                 <div style="page-break-after: always;"></div>
             @endif
-
         @endif
     @endforeach
 </body>

@@ -209,7 +209,7 @@
                                                 <tr>
                                                     <th width="40%">View Mode</th>
                                                     <td width="60%">
-                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 1) }}" placeholder="View Mode" />
+                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 2) }}" placeholder="View Mode" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -363,19 +363,19 @@ $(document).ready(function () {
             $month.prop('disabled', false);
             $year.prop('disabled', false);
             disableSingleDate();
-        } 
+        }
         else if (selectedValue == '2') {
             // Single Date
             $month.prop('disabled', true);
             $year.prop('disabled', true);
 
-        } 
+        }
         else if (selectedValue == '3') {
             $month.prop('disabled', false);
             $year.prop('disabled', false);
 
             disableSingleDate();
-        } 
+        }
 
         // =========================
         // Helper Functions

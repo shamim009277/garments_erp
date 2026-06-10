@@ -69,7 +69,7 @@
                                             <label class="form-check-label" for="title2">Department-wise Absent Report (Date Range)</label>
                                         </div>
                                         <br>
-                                        
+
                                         <div class="form-check">
                                             <input type="radio" id="title3" name="title" value="3" class="form-check-input titles">
                                             <label class="form-check-label" for="title3">Department-wise Daily Absent (Abnormal)</label>
@@ -200,7 +200,7 @@
                                                 <tr>
                                                     <th width="40%">View Mode</th>
                                                     <td width="60%">
-                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 1) }}" placeholder="View Mode" />
+                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 2) }}" placeholder="View Mode" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -248,7 +248,7 @@
 
             const classList = classAttr.split(/\s+/);
             const childClass = classList.find(cls => cls.startsWith('child-of-'));
-            
+
             if (childClass) {
                 const parentId = childClass.split('-').pop();
 
@@ -325,7 +325,7 @@
 
         function handleTitleSelection() {
             let selectedValue = $('input[name="title"]:checked').val();
-            
+
             // Default to 1 if undefined
             if (!selectedValue) selectedValue = '1';
 
@@ -334,13 +334,13 @@
 
             if (selectedValue == '1' || selectedValue == '3') {
                 $('#date').prop('disabled', false).removeClass('disabled-select');
-                
+
                 $('#start_date').prop('disabled', true).addClass('disabled-select').css('pointer-events', 'none');
                 $('#end_date').prop('disabled', true).addClass('disabled-select').css('pointer-events', 'none');
             } else if (selectedValue == '2' || selectedValue == '4') {
                 $('#start_date').prop('disabled', false).removeClass('disabled-select');
                 $('#end_date').prop('disabled', false).removeClass('disabled-select');
-                
+
                 $('#date').prop('disabled', true).addClass('disabled-select').css('pointer-events', 'none');
             }
         }

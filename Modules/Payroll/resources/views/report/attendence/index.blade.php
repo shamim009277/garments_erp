@@ -195,7 +195,7 @@
                                                 <tr>
                                                     <th width="40%">View Mode</th>
                                                     <td width="60%">
-                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 1) }}" placeholder="View Mode" />
+                                                        <x-select-input name="view_mode" id="view_mode" class="select2" :options="['1' => 'Normal View', '2' => 'PDF View']" selected="{{ old('view_mode', 2) }}" placeholder="View Mode" />
                                                     </td>
                                                 </tr>
                                             </tbody>
