@@ -301,7 +301,7 @@ class PunchReportController extends Controller
             if ($request->view_mode == 1) {
                 return view('payroll::report.punch.preview', compact('datas', 'title', 'uniqueDepartments', 'date'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.punch.pdf2', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'))->setPaper('a4', 'portrait');
+                $pdf = Pdf::loadView('payroll::report.punch.pdf2', compact('datas', 'title', 'uniqueDepartments', 'date', 'orgid'))->setPaper('a4', 'landscape');
 
                 return $pdf->stream('punch.pdf');
             }

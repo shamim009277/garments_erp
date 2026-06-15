@@ -65,16 +65,15 @@
                         <thead>
                             <tr>
                                 <th class="text-center">SL</th>
-                                <th class="text-center">Org</th>
                                 <th>Employee ID</th>
                                 <th>Employee Name</th>
                                 <th>Department</th>
                                 <th>Designation</th>
-                                <th>Category</th>
+                                <th class="text-center">Category</th>
                                 <th class="text-center">Date</th>
                                 <th>Start Punch</th>
                                 <th>End Punch</th>
-                                <th class="text-center" width="5px">Attn Type</th>
+                                <th class="text-center">Attn Type</th>
                             </tr>
                         </thead>
 
@@ -85,17 +84,16 @@
                             @foreach ($rows as $overtime)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center">{{ $overtime->short_name }}</td>
                                     <td>{{ str_pad($overtime->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                     <td>{{ $overtime->name }}</td>
                                     <td>{{ $overtime->department }}</td>
                                     <td>{{ $overtime->designation }}</td>
-                                    <td>{{ $overtime->category_code }}</td>
+                                    <td class="text-center">{{ $overtime->category_code }}</td>
                                     <td class="text-center">
                                         {{ date('d-m-Y', strtotime($overtime->work_date)) }}
                                     </td>
-                                    <td>{{ $overtime->start_punch }}</td>
-                                    <td>{{ $overtime->end_punch }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($overtime->start_punch)->format('h:i A') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($overtime->end_punch)->format('h:i A') }}</td>
                                     <td class="text-center">{{ $overtime->attn_type }}</td>
                                 </tr>
                             @endforeach
@@ -126,7 +124,6 @@
                         <thead>
                             <tr>
                                 <th class="text-center">SL</th>
-                                <th class="text-center">Org</th>
                                 <th>Department</th>
                                 <th>Designation</th>
                                 <th>Category</th>
@@ -140,7 +137,6 @@
                             @foreach ($datas as $key => $data)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center">{{ $data->short_name }}</td>
                                     <td>{{ $data->department }}</td>
                                     <td>{{ $data->designation }}</td>
                                     <td>{{ $data->category_code }}</td>

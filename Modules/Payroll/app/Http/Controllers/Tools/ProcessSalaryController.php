@@ -273,11 +273,11 @@ class ProcessSalaryController extends Controller
                     $salarydata->employee_id = $empid;
                     $salarydata->department_id = $employee->department_id;
                     $salarydata->designation_id = $employee->designation_id;
-                    $salarydata->line = $employee->line;
-                    $salarydata->unit = $employee->unit;
+                    $salarydata->line = $employee->line??0;
+                    $salarydata->unit = $employee->unit??0;
                     $salarydata->category = $employee->category_code;
                     $salarydata->reason = $employee->reason;
-                    $salarydata->grade = $employee->grade;
+                    $salarydata->grade = $employee->grade??0;
                     $salarydata->leaving_date = $leavingDate = ($employee->leaving_date == "0000-00-00") ? null : $employee->leaving_date;
                     $salarydata->ot_payable = $employee->ot_payable;
                     $salarydata->salary_from_bank = $employee->salary_from_bank;
