@@ -82,6 +82,6 @@ class PackingQuestionsController extends Controller
     }
 
     public function toggleStatus(Request $request) {
-        return $this->ToggleStatusTrait($request, PackingQuestion::class);   
+        return $this->ToggleStatusTrait($request, PackingQuestion::class);
     }
 }

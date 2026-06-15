@@ -7,9 +7,11 @@ use Modules\IPE\Http\Controllers\IPEController;
 use Modules\IPE\Http\Controllers\Setting\AssessmentAccessController;
 use Modules\IPE\Http\Controllers\Setup\AssessmentGroupController;
 use Modules\IPE\Http\Controllers\Setup\HelperQuestionsController;
+use Modules\IPE\Http\Controllers\Setup\MachineProcessController;
+use Modules\IPE\Http\Controllers\Setup\MachineTypeController;
 use Modules\IPE\Http\Controllers\Setup\PackingQuestionsController;
 use Modules\IPE\Http\Controllers\Setup\ProcessController;
-
+use Modules\IPE\Http\Controllers\Setup\QualityQuestionsController;
 
 
 
@@ -27,6 +29,10 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(functi
             Route::post('/packingquestions/delete', [PackingQuestionsController::class, 'destroy'])->name('packingquestions.delete');
             Route::resource('packingquestions', PackingQuestionsController::class)->names('packingquestions');
 
+            Route::post('/qualityquestions/toggle', [QualityQuestionsController::class, 'toggleStatus'])->name('qualityquestions.toggle');
+            Route::post('/qualityquestions/delete', [QualityQuestionsController::class, 'destroy'])->name('qualityquestions.delete');
+            Route::resource('qualityquestions', QualityQuestionsController::class)->names('qualityquestions');
+
             Route::post('/assessment-groups/toggle', [AssessmentGroupController::class, 'toggleStatus'])->name('assessment-groups.toggle');
             Route::post('/assessment-groups/delete', [AssessmentGroupController::class, 'destroy'])->name('assessment-groups.delete');
             Route::resource('assessment-groups', AssessmentGroupController::class)->names('assessment-groups');
@@ -34,6 +40,14 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(functi
             Route::post('/processes/toggle', [ProcessController::class, 'toggleStatus'])->name('processes.toggle');
             Route::post('/processes/delete', [ProcessController::class, 'destroy'])->name('processes.delete');
             Route::resource('processes', ProcessController::class)->names('processes');
+
+            Route::post('/machineprocesses/toggle', [MachineProcessController::class, 'toggleStatus'])->name('machineprocesses.toggle');
+            Route::post('/machineprocesses/delete', [MachineProcessController::class, 'destroy'])->name('machineprocesses.delete');
+            Route::resource('machineprocesses', MachineProcessController::class)->names('machineprocesses');
+
+            Route::post('/machine-types/toggle', [MachineTypeController::class, 'toggleStatus'])->name('machine-types.toggle');
+            Route::post('/machine-types/delete', [MachineTypeController::class, 'destroy'])->name('machine-types.delete');
+            Route::resource('machine-types', MachineTypeController::class)->names('machine-types');
         });
 
         //Database

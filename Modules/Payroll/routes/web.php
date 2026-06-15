@@ -54,8 +54,14 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(fu
              Route::resource('process-salary', ProcessSalaryController::class)->names('process-salary');
              Route::resource('process-bonus', ProcessBonusController::class)->names('process-bonus');
              Route::resource('process-halfsalary', ProcessHalfSalaryController::class)->names('process-halfsalary');
+
+             Route::post('/edit-attendence/manual-store', [EditAttendenceController::class, 'manualStore'])->name('edit-attendence.manual-store');
              Route::resource('edit-attendence', EditAttendenceController::class)->names('edit-attendence');
+
+
+             Route::post('/edit-punchdata/manual-store', [EditPunchDataController::class, 'manualStore'])->name('edit-punchdata.manual-store');
              Route::resource('edit-punchdata', EditPunchDataController::class)->names('edit-punchdata');
+
              Route::resource('ot-adjustment', OTAdjustmentController::class)->names('ot-adjustment');
              Route::resource('attendence-adjustment', AttendenceAdjustmentController::class)->names('attendence-adjustment');
         });

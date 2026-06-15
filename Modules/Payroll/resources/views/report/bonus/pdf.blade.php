@@ -96,7 +96,6 @@
                                     <td>{{ number_format($bonus->basic, 2) }}</td>
                                     <td>{{ number_format($bonus->amount, 2) }}</td>
                                     <td>{{ number_format($bonus->percentage, 2) }}</td>
-                                    <td class="text-center"></td>
                                 </tr>
                             @endforeach
                         </tbody>

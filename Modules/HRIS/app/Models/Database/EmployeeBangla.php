@@ -48,6 +48,9 @@ class EmployeeBangla extends Model
         'emergency_relation',
         'emergency_address',
         'emergency_mobile',
+        'created_by',
+        'updated_by',
+        'is_active'
     ];
 
     public function employee() : BelongsTo
@@ -92,14 +95,14 @@ class EmployeeBangla extends Model
 
     public static function booted()
     {
-        static::creating(function ($employeeb) {
-            $employeeb->created_by = Auth::id();
-            $employeeb->updated_by = Auth::id();
-        });
+        // static::creating(function ($employeeb) {
+        //     $employeeb->created_by = Auth::id();
+        //     $employeeb->updated_by = Auth::id();
+        // });
 
-        static::updating(function ($employeeb) {
-            $employeeb->updated_by = Auth::id();
-        });
+        // static::updating(function ($employeeb) {
+        //     $employeeb->updated_by = Auth::id();
+        // });
 
         static::addGlobalScope('accessFilter', function ($query) {
             if (Auth::check()) {
@@ -119,9 +122,4 @@ class EmployeeBangla extends Model
     public function scopeInactive($query) {
         return $query->where('is_active', false);
     }
-
-    // protected static function newFactory(): Database\EmployeeBanglaFactory
-    // {
-    //     // return Database\EmployeeBanglaFactory::new();
-    // }
 }

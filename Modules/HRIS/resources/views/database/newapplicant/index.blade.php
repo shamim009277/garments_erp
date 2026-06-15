@@ -254,6 +254,9 @@
                                         $unique_applicant ? $unique_applicant->birth_certificate_no : null,
                                     )" />
                             </div>
+                            @php
+                                $unique = ($unique_applicant?->ipe_assessment_required == 1);
+                            @endphp
 
                             @if ($unique_applicant)
                                 <div class="col-lg-4 col-md-6 pr-0">
@@ -266,74 +269,73 @@
                                         )" />
                                 </div>
 
-                                <div class="col-lg-4 col-md-6 pr-0">
-                                    <x-select-input-group name="interview_status" id="interview_status"
-                                        label="Interview Status" :options="[
-                                            'Pending' => 'Pending',
-                                            'Selected' => 'Selected',
-                                            'Disqualify' => 'Disqualify',
-                                            'Not Recruit' => 'Not Recruit',
-                                        ]" :selected="old(
-                                            'interview_status',
-                                            $unique_applicant ? $unique_applicant->interview_status : 'Pending',
-                                        )" />
-                                </div>
+                                @if(!$unique)
+                                    <div class="col-lg-4 col-md-6 pr-0">
+                                        <x-select-input-group name="interview_status" id="interview_status"
+                                            label="Interview Status" :options="[
+                                                'Pending' => 'Pending',
+                                                'Selected' => 'Selected',
+                                                'Disqualify' => 'Disqualify',
+                                                'Not Recruit' => 'Not Recruit',
+                                            ]" :selected="old(
+                                                'interview_status',
+                                                $unique_applicant ? $unique_applicant->interview_status : 'Selected',
+                                            )" />
+                                    </div>
 
-                                <div class="col-lg-4 col-md-6 pr-0" id="final_designation_section">
-                                    <x-select-search-input name="final_designation_id" id="final_designation_id"
-                                        label="Final Designation" :options="$designations" :selected="old(
-                                            'final_designation_id',
-                                            $unique_applicant ? $unique_applicant->final_designation_id : null,
-                                        )" />
-                                </div>
+                                    <div class="col-lg-4 col-md-6 pr-0" id="final_designation_section">
+                                        <x-select-search-input name="final_designation_id" id="final_designation_id"
+                                            label="Final Designation" :options="$designations" :selected="old(
+                                                'final_designation_id',
+                                                $unique_applicant ? $unique_applicant->designation_id : null,
+                                            )" />
+                                    </div>
 
-                                <div class="col-lg-4 col-md-6 pr-0" id="joining_date_section">
-                                    <x-input-group name="joining_date" label="Joining Date" id="joining_date"
-                                        class="holiday-date" type="text" placeholder="Enter joining date"
-                                        :value="old(
-                                            'joining_date',
-                                            $unique_applicant
-                                                ? \Carbon\Carbon::parse($unique_applicant->joining_date)->format(
-                                                    'd-m-Y',
-                                                )
-                                                : null,
-                                        )" />
-                                </div>
+                                    <div class="col-lg-4 col-md-6 pr-0" id="joining_date_section">
+                                        <x-input-group name="joining_date" label="Joining Date" id="joining_date"
+                                            class="holiday-date" type="text" placeholder="Enter joining date"
+                                            :value="old(
+                                                'joining_date',
+                                                $unique_applicant
+                                                    ? \Carbon\Carbon::parse($unique_applicant->joining_date)->format(
+                                                        'd-m-Y',
+                                                    )
+                                                    : null,
+                                            )" />
+                                    </div>
 
-                                <div class="col-lg-4 col-md-6 pr-0" id="proposed_salary_section">
-                                    <x-input-group name="proposed_salary" label="Proposed Salary" id="proposed_salary"
-                                        type="number" pattern="[0-9]{10,30}" placeholder="Enter proposed salary"
-                                        :value="old(
-                                            'proposed_salary',
-                                            $unique_applicant ? $unique_applicant->proposed_salary : null,
-                                        )" />
-                                </div>
+                                    <div class="col-lg-4 col-md-6 pr-0" id="proposed_salary_section">
+                                        <x-input-group name="proposed_salary" label="Proposed Salary" id="proposed_salary"
+                                            type="number" pattern="[0-9]{10,30}" min="0" placeholder="Enter proposed salary"
+                                            :value="old(
+                                                'proposed_salary',
+                                                $unique_applicant ? $unique_applicant->proposed_salary : null,
+                                            )" />
+                                    </div>
 
-                                <div class="col-lg-4 col-md-6 pr-0" id="determined_salary_section">
-                                    <x-input-group name="determined_salary" label="Determined Salary"
-                                        id="determined_salary" type="number" pattern="[0-9]{10,30}"
-                                        placeholder="Enter determined salary" :value="old(
-                                            'determined_salary',
-                                            $unique_applicant ? $unique_applicant->determined_salary : null,
-                                        )" />
-                                </div>
+                                    <div class="col-lg-4 col-md-6 pr-0" id="determined_salary_section">
+                                        <x-input-group name="determined_salary" label="Determined Salary"
+                                            id="determined_salary" type="number" min="0" pattern="[0-9]{10,30}"
+                                            placeholder="Enter determined salary" :value="old(
+                                                'determined_salary',
+                                                $unique_applicant ? $unique_applicant->determined_salary : null,
+                                            )" />
+                                    </div>
 
-                                <div class="col-lg-4 col-md-6 pr-0" id="remarks_section">
-                                    <x-input-group name="remarks" label="Remarks" id="remarks" type="text" placeholder="Enter remarks" :value="old('remarks', $unique_applicant ? $unique_applicant->remarks : null)" />
-                                </div>
+                                    <div class="col-lg-4 col-md-6 pr-0" id="remarks_section">
+                                        <x-input-group name="remarks" label="Remarks" id="remarks" type="text" placeholder="Enter remarks" :value="old('remarks', $unique_applicant ? $unique_applicant->remarks : null)" />
+                                    </div>
+                                @endif
                             @endif
 
                             <div class="col-lg-4 col-md-6 pr-0">
                                 <div class="form-check" style="margin-top: 38px;">
-                                    <input class="form-check-input" type="checkbox" style="display: inline-block;" name="ipe_assessment_required" id="ipe_assessment_required" :checked="{{ old('ipe_assessment_required', $unique_applicant ? $unique_applicant->ipe_assessment_required : null) ? 'checked' : '' }}">
+                                    <input class="form-check-input" type="checkbox" style="display: inline-block;" name="ipe_assessment_required" id="ipe_assessment_required" {{ old('ipe_assessment_required', $unique_applicant?->ipe_assessment_required) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="ipe_assessment_required">IPE Assessment Required</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @php
-                        $unique = ($unique_applicant && $unique_applicant->ipe_assessment_required == 1)?true:false;
-                    @endphp
                     <div class="card-footer" style="padding:14px 20px;">
                         <x-primary-button class="float-start btn-sm submitBtn" :disabled="$unique">{{ $unique_applicant ? 'Update' : 'Submit' }}</x-primary-button>
                     </div>
@@ -388,7 +390,7 @@
                     $('#joining_date').prop('required', true);
                     $('#proposed_salary').prop('required', true);
                     $('#determined_salary').prop('required', true);
-                    $('#remarks').prop('required', true);
+                    $('#remarks').prop('false', true);
                 } else {
                     $('#final_designation_id').hide();
                     $('#joining_date_section').hide();
@@ -425,6 +427,12 @@
             $('.select2').select2({
                 placeholder: "Select an option",
                 allowClear: true
+            });
+        });
+
+        $(document).ready(function () {
+            $('#proposed_salary').on('input', function () {
+                $('#determined_salary').val($(this).val());
             });
         });
 

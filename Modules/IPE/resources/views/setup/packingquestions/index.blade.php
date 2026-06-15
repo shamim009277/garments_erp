@@ -81,9 +81,11 @@
                                         </select>
                                     </td>
                                     <td class="text-center">
-                                        <x-primary-button class="float-start btn-sm submitBtn">Save</x-primary-button>
+                                        <x-primary-button type="submit" class="float-start btn-sm submitBtn">Save</x-primary-button>
                                     </td>
                                 </tr>
+
+                                </form>
 
                                 @foreach($packingQuestions as $packingQuestion)
                                     <tr id="row-{{ $packingQuestion->id }}">
@@ -140,7 +142,7 @@
                             </tbody>
                         </table>
                     </div>
-                </form>
+
             </div>
         </div>
     </div>

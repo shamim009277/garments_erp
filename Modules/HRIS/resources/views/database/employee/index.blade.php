@@ -336,19 +336,19 @@
                                         <th width="30%" style="border: none;">Father Name </th>
                                         <td width="70%" style="border: none;"><x-text-input name="father_name"
                                                 class="form-control-sm" id="father_name" placeholder="Father Name"
-                                                value="{{ old('father_name') }}" autocomplete="off" required /></td>
+                                                value="{{ old('father_name') }}" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Mother Name </th>
                                         <td width="70%" style="border: none;"><x-text-input name="mother_name"
                                                 class="form-control-sm" id="mother_name" placeholder="Mother Name"
-                                                value="{{ old('mother_name') }}" autocomplete="off" required /></td>
+                                                value="{{ old('mother_name') }}" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Spouse Name </th>
                                         <td width="70%" style="border: none;"><x-text-input name="spouse_name"
                                                 class="form-control-sm" id="spouse_name" placeholder="Spouse Name"
-                                                value="{{ old('spouse_name') }}" autocomplete="off" /></td>
+                                                value="{{ old('spouse_name') }}" /></td>
                                     </tr>
                                 </table>
                             </div>
@@ -486,6 +486,23 @@
                 const joiningDate = $(this).data('joining_date');
                 const name = $(this).data('name');
 
+                const joiningDatePicker = flatpickr("#joining_date", {
+                    dateFormat: "Y-m-d",
+                });
+                const confirmDatePicker = flatpickr("#confirmation_date", {
+                    dateFormat: "Y-m-d",
+                });
+                const referenceDatePicker = flatpickr("#refrerence_date", {
+                    dateFormat: "Y-m-d",
+                });
+                let joining_date = joiningDate;
+                let confirm_date = joiningDate;
+
+                // Set date
+                joiningDatePicker.setDate(joining_date);
+                confirmDatePicker.setDate(confirm_date);
+                referenceDatePicker.setDate(joining_date);
+
                 $('#employee_id').val(id);
                 $('#applicant_id').val(applicantId);
                 $('#department_id').val(departmentId).change();
@@ -493,6 +510,7 @@
                 $('#line').val(line).change();
                 $('#designation_id').val(finalDesignationId).change();
                 $('#pdistrict_id').val(districtId).change();
+                $('#mdistrict_id').val(districtId).change();
                 $('#pthana_id').val(thanaId).change();
                 $('#joining_date').val(joiningDate).trigger('change');
                 $("#name").val(name);

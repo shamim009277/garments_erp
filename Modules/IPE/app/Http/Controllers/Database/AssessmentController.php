@@ -18,7 +18,9 @@ use Modules\IPE\Http\Requests\Database\ProcessStoreRequest;
 use Modules\IPE\Models\Database\Assessment;
 use Modules\IPE\Models\Database\AssessmentDetailsHelper;
 use Modules\IPE\Models\Database\AssessmentProcess;
+use Modules\IPE\Models\Setup\AssessmentGroup;
 use Modules\IPE\Models\Setup\HelperQuestion;
+use Modules\IPE\Models\Setup\PackingQuestion;
 use Modules\IPE\Models\Setup\Process;
 
 class AssessmentController extends Controller
@@ -66,9 +68,17 @@ class AssessmentController extends Controller
     public function store(AssessmentRequest $request)
     {
         $request->validated();
+        $data = $request->validated();
+
+        // check group
+        $applicant = Applicant::find($data['applicant_id']);
+        $groups = AssessmentGroup::active()->where('designation_id', $applicant->designation_id)->first();
+
+        if (!$groups) {
+            return redirect()->back()->with('error', 'Group not found for this department');
+        }
+
         try {
-            $data = $request->validated();
-            $applicant = Applicant::find($data['applicant_id']);
             $data['department_id'] = $applicant->department_id;
             $data['entry_date'] = $applicant->entry_date;
             $data['org_id'] = $applicant->org_id;
@@ -78,8 +88,8 @@ class AssessmentController extends Controller
             $data['assessment_date'] = Carbon::now()->format('Y-m-d');
             $data['is_done'] = 0;
 
-            Assessment::create($data);
-            return redirect()->route('ipe.database.assessments.index')->with('success', 'Assessment created successfully');
+            $assessment = Assessment::create($data);
+            return redirect()->route('ipe.database.assessments.show', $assessment->id)->with('success', 'Assessment created successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to create assessment: ' . $e->getMessage());
         }
@@ -109,7 +119,7 @@ class AssessmentController extends Controller
             ->where('ipe_assessment_required', 1)
             ->get();
 
-        $unique_applicant = Assessment::with(['details', 'designation:id,designation','applicant:id,designation_id,determined_salary,final_designation_id,joining_date','applicant.department:id,department','applicant.designation:id,designation','applicant.organization:id,short_namesses','processes.processName:id,process,process_name','department:id,department'])->where('id', $id)->first();
+        $unique_applicant = Assessment::with(['details', 'designation:id,designation', 'applicant:id,designation_id,determined_salary,final_designation_id,joining_date', 'applicant.department:id,department', 'applicant.designation:id,designation', 'applicant.organization:id,short_namesses', 'processes.processName:id,process,process_name', 'department:id,department'])->where('id', $id)->first();
         //dd(\DB::getQueryLog());
         $unique_department = $pending_applicants->unique('department_id');
         $assessment = Assessment::find($id);
@@ -117,7 +127,24 @@ class AssessmentController extends Controller
         $assessments = AssessmentDetailsHelper::where('assessment_id', $id)->get();
         $processlist = Process::active()->pluck('process_name', 'id');
 
-        return view('ipe::database.assessment.show', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions', 'processlist'));
+        $groups = AssessmentGroup::active()->where('designation_id', $unique_applicant->designation_id)->first();
+
+        // if (!$groups) {
+        //     return view('ipe::database.assessment.default', compact('unique_applicant', 'pending_applicants'));
+        // }
+
+        // if ($groups->code == 'HG - 930') {
+        //     return view('ipe::database.assessment.show', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions', 'processlist'));
+        // } else if ($groups->code == 'HGG - 614') {
+        // }
+
+        $pacquestionds = PackingQuestion::active()->select('id','sl','type','question','question_bn','answer','answer_bn')->orderBy('type')->orderBy('sl')->orderBy('id')->get()->groupBy(['type', 'sl']);
+        $packgen_questionds = $pacquestionds->get(1, collect());
+        $packpractical_questionds = $pacquestionds->get(2, collect());
+
+        dd($pacquestionds, $packgen_questionds, $packpractical_questionds);
+
+        return view('ipe::database.assessment.helpergeneral', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions', 'processlist'));
     }
 
     /**
@@ -135,7 +162,7 @@ class AssessmentController extends Controller
     {
         try {
             $assessment = Assessment::findOrFail($id);
-            if($assessment ->is_done){
+            if ($assessment->is_done) {
                 return redirect()->back()->with('error', 'Cannot update a completed assessment');
             }
             $assessment->update($request->only('degree_id', 'exp_year', 'exp_month'));
@@ -150,9 +177,9 @@ class AssessmentController extends Controller
      */
     public function destroy(Request $request)
     {
-       try {
+        try {
             $assessment = Assessment::findOrFail($request->id);
-            if($assessment->is_done){
+            if ($assessment->is_done) {
                 return response()->json(['success' => false, 'message' => 'Cannot delete a completed assessment']);
             }
 
@@ -161,18 +188,17 @@ class AssessmentController extends Controller
 
             $assessment->delete();
 
-            return response()->json(['success' => true, 'message' => 'Assessment deleted successfully','redirect' => url('/ipe/database/assessments')]);
+            return response()->json(['success' => true, 'message' => 'Assessment deleted successfully', 'redirect' => url('/ipe/database/assessments')]);
         } catch (\Throwable $e) {
             return response()->json(['success' => false, 'message' => 'Assessment deletion failed: ' . $e->getMessage()]);
         }
-
     }
 
     public function destroyProcess(Request $request)
     {
         try {
-            $process =AssessmentProcess::findOrFail($request->id);
-            if($process->assessment->is_done){
+            $process = AssessmentProcess::findOrFail($request->id);
+            if ($process->assessment->is_done) {
                 return response()->json(['success' => false, 'message' => 'Cannot delete process from a completed assessment']);
             }
             $process->delete();
@@ -191,14 +217,15 @@ class AssessmentController extends Controller
             ]);
             return response()->json(['success' => true, 'message' => 'Assessment status updated successfully']);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json(['success' => false,'message' => 'Assessment not found'], 404);
+            return response()->json(['success' => false, 'message' => 'Assessment not found'], 404);
         } catch (\Throwable $e) {
-            return response()->json(['success' => false,'message' => 'Assessment status update failed' ], 500);
+            return response()->json(['success' => false, 'message' => 'Assessment status update failed'], 500);
         }
     }
 
-    public function getSearch(Request $request) {
-        try{
+    public function getSearch(Request $request)
+    {
+        try {
             $data = Assessment::where('applicant_id', $request->search)->first();
             return redirect()->route('ipe.database.assessments.show', $data->id)->with('success', 'Search completed successfully');
         } catch (\Throwable $e) {
@@ -255,16 +282,16 @@ class AssessmentController extends Controller
         }
     }
 
-        public function pdf($id)
-        {
-            try {
-                $assessment = Assessment::with(['details', 'designation:id,designation', 'processes','processes.processName:id,process,process_name','department:id,department','applicant:id,birth_date'])->findOrFail($id);
-                $pdf = Pdf::loadView('ipe::database.assessment.pdf', compact('assessment'))
+    public function pdf($id)
+    {
+        try {
+            $assessment = Assessment::with(['details', 'designation:id,designation', 'processes', 'processes.processName:id,process,process_name', 'department:id,department', 'applicant:id,birth_date'])->findOrFail($id);
+            $pdf = Pdf::loadView('ipe::database.assessment.pdf', compact('assessment'))
                 ->setPaper('a4', 'portrait');
 
-               return $pdf->stream('assessment.pdf');
-            } catch (\Throwable $e) {
-                return redirect()->back()->with('error', 'Failed to generate PDF: ' . $e->getMessage());
-            }
+            return $pdf->stream('assessment.pdf');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Failed to generate PDF: ' . $e->getMessage());
         }
+    }
 }
