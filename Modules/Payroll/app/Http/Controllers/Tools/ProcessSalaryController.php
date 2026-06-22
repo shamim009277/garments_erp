@@ -291,6 +291,7 @@ class ProcessSalaryController extends Controller
                     $salarydata->general_holiday_days = 0;
                     $salarydata->rwh = $rwh;
                     $salarydata->wrh = $gwh;
+                    $salarydata->gross_salary = $employee->gross_salary;
                     $salarydata->basic = $employee->basic;
                     $salarydata->home_allowance = $employee->home_allowance;
                     $salarydata->medical_allowance = $employee->medical_allowance;

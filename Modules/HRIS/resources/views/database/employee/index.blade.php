@@ -73,7 +73,8 @@
 
                                         <li class="nav-custom-item">
                                             <input type="checkbox" id="dept{{ $companyId }}-{{ $departmentId }}">
-                                            <label class="nav-custom-link" for="dept{{ $companyId }}-{{ $departmentId }}">
+                                            <label class="nav-custom-link"
+                                                for="dept{{ $companyId }}-{{ $departmentId }}">
                                                 <span class="nav-custom-caret"></span>
                                                 {{ $departmentName }} ({{ $deptApplicants->count() }})
                                             </label>
@@ -84,8 +85,10 @@
                                                         $dateLabel = \Carbon\Carbon::parse($entryDate)->format('d-M-Y');
                                                     @endphp
                                                     <li class="nav-custom-item">
-                                                        <input type="checkbox" id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}">
-                                                        <label class="nav-custom-link" for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}">
+                                                        <input type="checkbox"
+                                                            id="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}">
+                                                        <label class="nav-custom-link"
+                                                            for="date{{ $companyId }}-{{ $departmentId }}-{{ $entryDate }}">
                                                             <span class="nav-custom-caret"></span>
                                                             {{ $dateLabel }} ({{ $dateApplicants->count() }})
                                                         </label>
@@ -94,6 +97,7 @@
                                                             @foreach ($dateApplicants as $applicant)
                                                                 <a href="javascript:void(0);" class="employee-link"
                                                                     data-line="{{ $applicant->line }}"
+                                                                    data-unit="{{ $applicant->unit }}"
                                                                     data-org_id="{{ $applicant->org_id }}"
                                                                     data-id="{{ $applicant->employee_id }}"
                                                                     data-applicant_id="{{ $applicant->id }}"
@@ -173,7 +177,7 @@
                                             <tr>
                                                 <th width="30%" style="border: none;">Unit </th>
                                                 <td width="70%" style="border: none;"><x-select-input name="unit"
-                                                        id="unit" class="select2" :options="$units" /></td>
+                                                        id="unit" class="select2" :options="[]" /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Line </th>
@@ -428,22 +432,39 @@
                 }
             });
 
-            $('#unit').on('change', function() {
-                $('#line').empty();
-                let unitcode = $(this).val();
-                if (unitcode) {
-                    $.ajax({
-                        url: '/hris/database/unit/' + unitcode,
-                        type: 'GET',
-                        success: function(data) {
-                            $('#line').empty();
-                            $('#line').append('<option value="">Select Line</option>');
-                            $.each(data, function(key, value) {
-                                $('#line').append('<option value="' + key + '">' +
-                                    value + '</option>');
-                            });
-                        }
-                    });
+            let orgid = $('#org_id').val();
+            if (orgid) {
+                getUnitLine(orgid);
+            }
+
+            // $('#unit').on('change', function() {
+            //     $('#line').empty();
+            //     let unitcode = $(this).val();
+            //     if (unitcode) {
+            //         $.ajax({
+            //             url: '/hris/database/unit/' + unitcode,
+            //             type: 'GET',
+            //             success: function(data) {
+            //                 $('#line').empty();
+            //                 $('#line').append('<option value="">Select Line</option>');
+            //                 $.each(data, function(key, value) {
+            //                     $('#line').append('<option value="' + key + '">' +
+            //                         value + '</option>');
+            //                 });
+            //             }
+            //         });
+            //     }
+            // });
+
+            let isEmployeeClick = false;
+
+            $('#org_id').on('change', function() {
+                if (isEmployeeClick) {
+                    return;
+                }
+                let orgid = $(this).val();
+                if (orgid) {
+                    getUnitLine(orgid);
                 }
             });
 
@@ -465,6 +486,47 @@
                 }
             });
 
+            function getUnitLine(empid) {
+                if (empid) {
+                    $.ajax({
+                        url: '/hris/database/unitline/' + empid,
+                        type: 'GET',
+                        success: function(data) {
+                            // Unit Dropdown
+                            if (data.unitlists && Object.keys(data.unitlists).length > 0) {
+                                $('#unit').empty();
+                                $('#unit').append('<option value="">Select Unit</option>');
+
+                                $.each(data.unitlists, function(key, value) {
+                                    $('#unit').append(
+                                        `<option value="${value}">${key}</option>`
+                                    );
+                                });
+                            }else{
+                                $('#unit').empty();
+                            }
+
+                            // Line Dropdown
+                            if (data.linelists && Object.keys(data.linelists).length > 0) {
+                                $('#line').empty();
+                                $('#line').append('<option value="">Select Line</option>');
+
+                                $.each(data.linelists, function(key, value) {
+                                    $('#line').append(
+                                        `<option value="${value}">${key}</option>`
+                                    );
+                                });
+                            }else{
+                                $('#line').empty();
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            }
+
             $(document).ready(function() {
                 $('#joining_date').trigger('change');
                 $('#pdistrict_id').trigger('change');
@@ -475,11 +537,14 @@
 
 
             $('.employee-link').on('click', function() {
+                isEmployeeClick = true;
+
                 const id = $(this).data('id');
                 const applicantId = $(this).data('applicant_id');
                 const departmentId = $(this).data('department_id');
                 const orgId = $(this).data('org_id') ?? 1;
                 const line = $(this).data('line');
+                const unit = $(this).data('unit');
                 const finalDesignationId = $(this).data('final_designation_id');
                 const districtId = $(this).data('district_id');
                 const thanaId = $(this).data('thana_id');
@@ -503,17 +568,22 @@
                 confirmDatePicker.setDate(confirm_date);
                 referenceDatePicker.setDate(joining_date);
 
+                $('#org_id').val(orgId).change();
+                isEmployeeClick = false;
+
+
                 $('#employee_id').val(id);
                 $('#applicant_id').val(applicantId);
                 $('#department_id').val(departmentId).change();
-                $('#org_id').val(orgId).change();
-                $('#line').val(line).change();
                 $('#designation_id').val(finalDesignationId).change();
                 $('#pdistrict_id').val(districtId).change();
                 $('#mdistrict_id').val(districtId).change();
                 $('#pthana_id').val(thanaId).change();
                 $('#joining_date').val(joiningDate).trigger('change');
                 $("#name").val(name);
+
+                $('#line').val(line).change();
+                $('#unit').val(unit).change();
             });
         });
     </script>

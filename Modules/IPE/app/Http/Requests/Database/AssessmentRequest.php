@@ -19,8 +19,8 @@ class AssessmentRequest extends FormRequest
             'mobile' => 'required|string|max:11',
             'line' => 'required|integer|between:1,10',
             'designation_id' => 'required|integer|exists:hris_setup_designations,id',
-            'exp_year' => 'nullable|integer|between:1,20',
-            'exp_month' => 'nullable|integer|between:1,12',
+            'exp_year' => 'nullable|integer|between:0,20',
+            'exp_month' => 'nullable|integer|between:0,12',
         ];
     }
 

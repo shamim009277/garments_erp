@@ -142,9 +142,11 @@ class AssessmentController extends Controller
         $packgen_questionds = $pacquestionds->get(1, collect());
         $packpractical_questionds = $pacquestionds->get(2, collect());
 
-        dd($pacquestionds, $packgen_questionds, $packpractical_questionds);
+        //dd($pacquestionds, $packgen_questionds, $packpractical_questionds);
 
-        return view('ipe::database.assessment.helpergeneral', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions', 'processlist'));
+        //return view('ipe::database.assessment.helpergeneral', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions', 'processlist'));
+
+        return view('ipe::database.assessment.packing', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions', 'processlist','packgen_questionds','packpractical_questionds'));
     }
 
     /**

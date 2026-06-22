@@ -29,6 +29,7 @@ use Modules\HRIS\Models\Database\EmployeeSalary;
 use Modules\HRIS\Models\Database\EmployeeService;
 use Modules\HRIS\Models\Database\EmployeeTraining;
 use Modules\HRIS\Models\Setting;
+use Modules\HRIS\Models\Setup\CompanyUnit;
 use Modules\HRIS\Models\Setup\Degree;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
@@ -352,6 +353,17 @@ class EmployeeController extends Controller
         } else {
             return response()->json(null);
         }
+    }
+
+    public function getUnitLine($orgid){
+        $datas = CompanyUnit::where('org_id', $orgid)->get();
+        $unitcode = collect($datas)->unique('code')->pluck('code');
+        $unitlists = Unit::whereIn('code', $unitcode)->pluck('code','unit');
+
+        $linecode = collect($datas)->unique('line_id')->pluck('line_id');
+        $linelists = Line::whereIn('code', array_merge(...$linecode))->pluck('code','line');
+
+        return response()->json(['unitlists' => $unitlists, 'linelists' => $linelists]);
     }
 
     public function getSearch(Request $request)
