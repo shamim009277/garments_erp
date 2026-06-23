@@ -199,6 +199,10 @@
                                         </tr>
                                     </table>
 
+                                    @php
+                                        $otrate = ($emp->ot_payable = 'Y') ? $emp->ot_rate : 0;
+                                    @endphp
+
                                     <table width="100%"
                                         style="border-collapse: collapse; font-size: 10px; text-align: left;  ">
                                         <tr>
@@ -233,7 +237,7 @@
                                         <tr>
                                             <td width="60%" class="border" style="padding: 2px;">মোট বেতন</td>
                                             <td width="5%" class="border" style="text-align: center;">:</td>
-                                            <td width="35%" class="border" style="padding: 2px; text-align: right;">
+                                            <td width="30%" class="border" style="padding: 2px; text-align: right;">
                                                 {{ bnNumber(number_format($emp->basic + $emp->home_allowance + $emp->medical_allowance + $emp->conveyance + $emp->food_allowance)) }}
                                                 টাকা</td>
                                         </tr>
@@ -261,7 +265,7 @@
                                             <td class="border" style="padding: 2px;">প্রতি ঘণ্টার হার</td>
                                             <td class="border" style="text-align: center;">:</td>
                                             <td class="border" style="padding: 2px; text-align: right;">
-                                                {{ bnNumber(number_format($emp->ot_rate ?? 0)) }} টাকা
+                                                {{ bnNumber(number_format($otrate ?? 0)) }} টাকা
                                             </td>
                                         </tr>
                                     </table>
@@ -272,7 +276,7 @@
                                             <td class="border" width="60%" style="padding: 2px;">মোট অতিঃ
                                                 কাজের মজুরী</td>
                                             <td class="border" width="5%" style="text-align: center;">:</td>
-                                            <td class="border" style="padding: 2px; text-align: right;">
+                                            <td class="border" width="30%" style="padding: 2px; text-align: right;">
                                                 {{ bnNumber(number_format($emp->total_ot_amount ?? 0)) }} টাকা</td>
                                         </tr>
                                         <tr>

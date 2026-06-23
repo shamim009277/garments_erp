@@ -210,6 +210,5 @@
                 $('#unit').trigger('change');
             }
         });
-
     </script>
 @endpush

@@ -211,8 +211,9 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                                             <tr>
-                                                <th colspan="2" style="border: none;"><span
-                                                        class="text-primary">Present Address</span> </th>
+                                                <th colspan="2" style="border: none;">
+                                                    <span class="text-primary">Present Address</span>
+                                                </th>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
@@ -246,8 +247,14 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <tr>
-                                                <th colspan="2" style="border: none;"><span
-                                                        class="text-primary">Mailing Address</span> </th>
+                                                <th colspan="2" style="border: none;">
+                                                    <span class="text-primary">Mailing Address &ensp;&ensp;</span>
+                                                    <input class="form-check-input" type="checkbox"
+                                                        style="display: inline-block;" name="same_as_present"
+                                                        id="same_as_present">
+                                                    <label class="form-check-label" for="same_as_present">Same As
+                                                        Present</label>
+                                                </th>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">District </th>
@@ -502,7 +509,7 @@
                                         `<option value="${value}">${key}</option>`
                                     );
                                 });
-                            }else{
+                            } else {
                                 $('#unit').empty();
                             }
 
@@ -516,7 +523,7 @@
                                         `<option value="${value}">${key}</option>`
                                     );
                                 });
-                            }else{
+                            } else {
                                 $('#line').empty();
                             }
                         },
@@ -584,6 +591,38 @@
 
                 $('#line').val(line).change();
                 $('#unit').val(unit).change();
+            });
+        });
+
+        $(document).ready(function() {
+            $('#same_as_present').on('change', function() {
+                if ($(this).is(':checked')) {
+                    // District
+                    $('#mdistrict_id')
+                        .val($('#pdistrict_id').val())
+                        .trigger('change');
+
+                    // Thana (District change হওয়ার পর একটু delay)
+                    setTimeout(function() {
+                        $('#mthana_id')
+                            .val($('#pthana_id').val())
+                            .trigger('change');
+                    }, 500);
+
+                    // Post Office
+                    $('#mpost_office').val($('#ppost_office').val());
+
+                    // Address
+                    $('#mvillage').val($('#pvillage').val());
+
+                } else {
+
+                    // Uncheck করলে clear
+                    $('#mdistrict_id').val('').trigger('change');
+                    $('#mthana_id').empty().trigger('change');
+                    $('#mpost_office').val('');
+                    $('#mvillage').val('');
+                }
             });
         });
     </script>

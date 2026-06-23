@@ -146,9 +146,7 @@ class ApplicantController extends Controller
                 $data['final_designation_id'] = $applicant->designation_id;
             }
             $data['birth_date'] = Carbon::parse($data['birth_date'])->format('Y-m-d');
-            if(!isset($data['ipe_assessment_required'])){
-                 $data['ipe_assessment_required'] = 0;
-            }
+            $data['ipe_assessment_required'] = $request->ipe_assessment_required == 'on' ? 1 : 0;
 
             $applicant->update($data);
             return redirect()->back()->with('success', 'Applicant updated successfully');
