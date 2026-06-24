@@ -72,7 +72,8 @@ class EmployeeController extends Controller
         $organizations = Organization::active()->pluck('short_name', 'id');
         $applicants = Applicant::with(['department:id,department', 'designation:id,designation'])->active()->fileEntry()->where('entry_date', '>=', $lst_30_days)->where('file_entry', '!=', 'C')->where('final_status', 1)->get();
         $unique_department = $applicants->unique('department_id');
-        return view('hris::database.employee.index', compact('designations', 'departments', 'districts', 'applicants', 'unique_department', 'shifts', 'organizations', 'units'));
+        $comunitlines = CompanyUnit::active()->get();
+        return view('hris::database.employee.index', compact('designations', 'departments', 'districts', 'applicants', 'unique_department', 'shifts', 'organizations', 'units','comunitlines'));
     }
 
     /**

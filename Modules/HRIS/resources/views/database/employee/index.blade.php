@@ -347,7 +347,7 @@
                                         <th width="30%" style="border: none;">Father Name </th>
                                         <td width="70%" style="border: none;"><x-text-input name="father_name"
                                                 class="form-control-sm" id="father_name" placeholder="Father Name"
-                                                value="{{ old('father_name') }}" required /></td>
+                                                value="{{ old('father_name') }}" /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Mother Name </th>
@@ -377,6 +377,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            let comUnitLines = @json($comunitlines);
             // Date restriction
             let today = new Date().toISOString().split('T')[0];
             $('#joining_date,#refrerence_date').attr('min', today);
@@ -558,6 +559,12 @@
                 const joiningDate = $(this).data('joining_date');
                 const name = $(this).data('name');
 
+                // set unit and line
+                const filteredData = comUnitLines.filter(item => item.org_id == orgId);
+                const code = filteredData.find(item =>
+                    item.line_id.includes(String(line))
+                )?.code;
+
                 const joiningDatePicker = flatpickr("#joining_date", {
                     dateFormat: "Y-m-d",
                 });
@@ -590,7 +597,7 @@
                 $("#name").val(name);
 
                 $('#line').val(line).change();
-                $('#unit').val(unit).change();
+                $('#unit').val(code).change();
             });
         });
 

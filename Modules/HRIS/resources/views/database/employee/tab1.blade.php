@@ -157,7 +157,7 @@
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Father Name </th>
-                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" value="{{ old('father_name',$employee->father_name) }}" required /></td>
+                        <td width="70%" style="border: none;"><x-text-input name="father_name" class="form-control-sm" id="father_name" placeholder="Father Name" value="{{ old('father_name',$employee->father_name) }}" /></td>
                     </tr>
                     <tr>
                         <th width="30%" style="border: none;">Mother Name </th>
@@ -179,36 +179,197 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function () {
-            let line = $('#line_id').val();
-            let unit = $('#unit').val();
+        // $(document).ready(function () {
+        //     let line = $('#line_id').val();
+        //     let unit = $('#unit').val();
 
-            $('#unit').on('change', function () {
-                let unitcode = $(this).val();
+        //     $('#unit').on('change', function () {
+        //         let unitcode = $(this).val();
 
-                if (unitcode) {
+        //         if (unitcode) {
+        //             $.ajax({
+        //                 url: '/hris/database/unit/' + unitcode,
+        //                 type: 'GET',
+        //                 success: function (data) {
+        //                     $('#line').html('<option value="">Select Line</option>');
+        //                     $.each(data, function (key, value) {
+        //                         $('#line').append('<option value="' + key + '">' + value + '</option>');
+        //                     });
+        //                     if (line) {
+        //                         $('#line').val(line).trigger('change');
+        //                     }
+        //                 }
+        //             });
+        //         } else {
+        //             $('#line').html('<option value="">Select Line</option>');
+        //         }
+        //     });
+        //     if (unit) {
+        //         $('#unit').val(unit).trigger('change');
+        //     } else {
+        //         $('#unit').trigger('change');
+        //     }
+        // });
+
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: "Select an option",
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#pdistrict_id').on('change', function() {
+                $('#pthana_id').empty();
+                let districtId = $(this).val();
+                if (districtId) {
                     $.ajax({
-                        url: '/hris/database/unit/' + unitcode,
+                        url: '/hris/database/district/' + districtId,
                         type: 'GET',
-                        success: function (data) {
-                            $('#line').html('<option value="">Select Line</option>');
-                            $.each(data, function (key, value) {
-                                $('#line').append('<option value="' + key + '">' + value + '</option>');
+                        success: function(data) {
+                            $('#pthana_id').empty();
+                            $('#pthana_id').append('<option value="">Select Thana</option>');
+                            $.each(data, function(key, value) {
+                                $('#pthana_id').append('<option value="' + key + '">' +
+                                    value + '</option>');
                             });
-                            if (line) {
-                                $('#line').val(line).trigger('change');
-                            }
                         }
                     });
-                } else {
-                    $('#line').html('<option value="">Select Line</option>');
                 }
             });
-            if (unit) {
-                $('#unit').val(unit).trigger('change');
-            } else {
-                $('#unit').trigger('change');
+
+            $('#designation_id').on('change', function() {
+                let designationId = $(this).val();
+                if (designationId) {
+                    $.ajax({
+                        url: '/hris/database/designation/' + designationId,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#grade').val(data.grade);
+                        }
+                    });
+                }
+            });
+
+            $('#mdistrict_id').on('change', function() {
+                $('#mthana_id').empty();
+                let districtId = $(this).val();
+                if (districtId) {
+                    $.ajax({
+                        url: '/hris/database/district/' + districtId,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#mthana_id').empty();
+                            $('#mthana_id').append('<option value="">Select Thana</option>');
+                            $.each(data, function(key, value) {
+                                $('#mthana_id').append('<option value="' + key + '">' +
+                                    value + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
+            let orgid = $('#org_id').val();
+            if (orgid) {
+                getUnitLine(orgid);
             }
+
+            // $('#unit').on('change', function() {
+            //     $('#line').empty();
+            //     let unitcode = $(this).val();
+            //     if (unitcode) {
+            //         $.ajax({
+            //             url: '/hris/database/unit/' + unitcode,
+            //             type: 'GET',
+            //             success: function(data) {
+            //                 $('#line').empty();
+            //                 $('#line').append('<option value="">Select Line</option>');
+            //                 $.each(data, function(key, value) {
+            //                     $('#line').append('<option value="' + key + '">' +
+            //                         value + '</option>');
+            //                 });
+            //             }
+            //         });
+            //     }
+            // });
+
+            let isEmployeeClick = false;
+
+            $('#org_id').on('change', function() {
+                if (isEmployeeClick) {
+                    return;
+                }
+                let orgid = $(this).val();
+                if (orgid) {
+                    getUnitLine(orgid);
+                }
+            });
+
+
+            // $('#joining_date').on('change', function() {
+            //     const joiningDateVal = $(this).val();
+            //     const joiningDate = new Date(joiningDateVal);
+
+            //     $('#refrerence_date').val(joiningDateVal);
+
+            //     if (!isNaN(joiningDate.getTime())) {
+            //         joiningDate.setMonth(joiningDate.getMonth() + 3);
+            //         const year = joiningDate.getFullYear();
+            //         const month = String(joiningDate.getMonth() + 1).padStart(2, '0');
+            //         const day = String(joiningDate.getDate()).padStart(2, '0');
+            //         const formattedDate = `${year}-${month}-${day}`;
+
+            //         $('#confirmation_date').val(formattedDate);
+            //     }
+            // });
+
+            function getUnitLine(empid) {
+                if (empid) {
+                    $.ajax({
+                        url: '/hris/database/unitline/' + empid,
+                        type: 'GET',
+                        success: function(data) {
+                            // Unit Dropdown
+                            if (data.unitlists && Object.keys(data.unitlists).length > 0) {
+                                $('#unit').empty();
+                                $('#unit').append('<option value="">Select Unit</option>');
+
+                                $.each(data.unitlists, function(key, value) {
+                                    $('#unit').append(
+                                        `<option value="${value}">${key}</option>`
+                                    );
+                                });
+                            } else {
+                                $('#unit').empty();
+                            }
+
+                            // Line Dropdown
+                            if (data.linelists && Object.keys(data.linelists).length > 0) {
+                                $('#line').empty();
+                                $('#line').append('<option value="">Select Line</option>');
+
+                                $.each(data.linelists, function(key, value) {
+                                    $('#line').append(
+                                        `<option value="${value}">${key}</option>`
+                                    );
+                                });
+                            } else {
+                                $('#line').empty();
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            }
+
+            $(document).ready(function() {
+                $('#pdistrict_id').trigger('change');
+                $('#mdistrict_id').trigger('change');
+                $('#designation_id').trigger('change');
+                $('#unit').trigger('change');
+            });
         });
     </script>
 @endpush
