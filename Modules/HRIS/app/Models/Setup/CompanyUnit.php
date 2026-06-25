@@ -2,20 +2,25 @@
 
 namespace Modules\HRIS\Models\Setup;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+// use Modules\HRIS\Database\Factories\CompanyUnitFactory;
 
-class Unit extends Model
+class CompanyUnit extends Model
 {
     use HasFactory;
-
-    protected $table = 'hris_setup_units';
 
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['unit', 'code', 'is_active', 'created_by', 'updated_by'];
+    protected $table = 'hris_setup_company_units';
+    protected $fillable = ['org_id', 'unit',    'code', 'line_id', 'line', 'is_active'];
+
+    protected $casts = [
+        'line_id' => 'array',
+        'line' => 'array',
+    ];
 
     public function scopeActive($query)
     {
@@ -32,5 +37,10 @@ class Unit extends Model
         static::updating(function ($unit) {
             $unit->updated_by = Auth::user()->id;
         });
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Organization::class, 'org_id', 'id');
     }
 }

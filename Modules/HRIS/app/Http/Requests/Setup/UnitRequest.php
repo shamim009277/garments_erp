@@ -16,7 +16,6 @@ class UnitRequest extends FormRequest
         return [
             'unit' => ['required', 'string', Rule::unique('hris_setup_units', 'unit')->ignore($unitId)],
             'code' => ['required', 'string', Rule::unique('hris_setup_units', 'code')->ignore($unitId)],
-            'line_id' => ['required', 'array', 'exists:hris_setup_lines,id'],
         ];
     }
 

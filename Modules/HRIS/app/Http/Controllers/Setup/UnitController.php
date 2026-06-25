@@ -28,10 +28,10 @@ class UnitController extends Controller
     public function index()
     {
         $units = Unit::latest()->get();
-        $existLines = collect($units)->pluck('line_id')->toArray();
-        $decoded = array_map(fn($v) => json_decode($v, true), $existLines);
-        $merged = array_merge(...$decoded);
-        $lines = Line::whereNotIn('code', $merged)->active()->pluck('line', 'code')->toArray();
+        // $existLines = collect($units)->pluck('line_id')->toArray();
+        // $decoded = array_map(fn($v) => json_decode($v, true), $existLines);
+        // $merged = array_merge(...$decoded);
+        $lines = Line::active()->pluck('line', 'code')->toArray();
         return view('hris::setup.unit.index', compact('lines', 'units'));
     }
 
@@ -39,11 +39,8 @@ class UnitController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(UnitRequest $request) {
-        $lines = Line::whereIn('code', $request->line_id)->pluck('line')->toArray();
         try {
             $data = $request->validated();
-            $data['line_id'] = json_encode($request->line_id);
-            $data['line'] = json_encode($lines);
             $data['created_by'] = Auth::user()->id;
             $data['updated_by'] = Auth::user()->id;
             Unit::create($data);

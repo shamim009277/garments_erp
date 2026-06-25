@@ -204,210 +204,26 @@
                     </div>
                 </div>
 
-                {{-- General Section --}}
+                {{-- General Question Section --}}
+                {{-- <x-ipe::question
+                    :title="'General Questions'"
+                    :helperQuestions="$packgen_questionds"
+                    :uniqueApplicant="$unique_applicant"
+                    :perMark="3"
+                    :disabled="false"
+                /> --}}
+
+                {{-- Practical Question Section --}}
                 <x-ipe::question
-                    :title="'Basic Questions'"
-                    :helperQuestions="$helper_questions"
+                    :title="'Practical Questions'"
+                    :helperQuestions="$packpractical_questionds"
                     :uniqueApplicant="$unique_applicant"
                     :perMark="3"
                     :disabled="false"
                 />
 
-
-                {{-- Efficiency Section --}}
-                <div class="card-body" style="min-height: 200px; overflow-y: auto;">
-                    <form id="processQuestion">
-                        @csrf
-                        <input type="hidden" name="assessment_id" value="{{ $unique_applicant->id }}">
-                        <div class="card" style="padding:0px !importent;">
-                            <div class="card-header bg-primary d-flex justify-content-between align-items-center flex-wrap"
-                                style="padding: 10px 10px">
-                                <h6 class="my-0 text-white d-flex align-items-center gap-1">
-                                    Efficiency Test || <span>Marks: 50</span>
-                                </h6>
-
-                                <div class="d-flex gap-2 mt-2 mt-md-0">
-                                    <span class="p-1 text-white">Obtain Marks: 0</span>
-                                </div>
-                            </div>
-
-
-                            <div class="card-body" style="padding: 0px;">
-                                <div class="row">
-                                    {{-- LEFT COLUMN --}}
-                                    <div class="col-md-12">
-                                        <table class="table table-bordered table-hover table-striped mb-0">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th style="width: 20%;">Process Code</th>
-                                                    <th style="width: 12%;">Self Declare</th>
-                                                    <th style="width: 12%;">1st Cycle</th>
-                                                    <th style="width: 12%;">2nd Cycle</th>
-                                                    <th style="width: 12%;">3rd Cycle</th>
-                                                    <th style="width: 12%;">4th Cycle</th>
-                                                    <th style="width: 12%;">5th Cycle</th>
-                                                    <th style="width: 8%; text-align: right;">Action</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <x-select-input name="process_id" class="mb-0 question-select"
-                                                            :options="$processlist" required />
-                                                        @error('process_id')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="declare"
-                                                            class="form-control @error('declare') is-invalid @enderror"
-                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                            placeholder="i.e. declare" required>
-                                                        @error('declare')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="cycle_one"
-                                                            class="form-control @error('cycle_one') is-invalid @enderror"
-                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                            placeholder="i.e. 1st cycle" required>
-                                                        @error('cycle_one')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="cycle_two"
-                                                            class="form-control @error('cycle_two') is-invalid @enderror"
-                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                            placeholder="i.e. 2nd cycle" required>
-                                                        @error('cycle_two')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="cycle_three"
-                                                            class="form-control @error('cycle_three') is-invalid @enderror"
-                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                            placeholder="i.e. 3rd cycle" required>
-                                                        @error('cycle_three')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="cycle_four"
-                                                            class="form-control @error('cycle_four') is-invalid @enderror"
-                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                            placeholder="i.e. 4th cycle" required>
-                                                        @error('cycle_four')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="cycle_five"
-                                                            class="form-control @error('cycle_five') is-invalid @enderror"
-                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                            placeholder="i.e. 5th cycle" required>
-                                                        @error('cycle_five')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <x-primary-button class="float-start btn-sm" :disabled="$unique_applicant->is_done == 1">Save</x-primary-button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer" style="padding:14px 20px;">
-
-                </div>
             </div>
         </div>
-
-        @if ($unique_applicant->processes->count() > 0)
-            <div class="col-lg-12" id="efficiencyDetails">
-                <div class="card-body" style="min-height: 200px;">
-                    <form id="processQuestionDetails">
-                        @csrf
-                        <input type="hidden" name="assessment_id" value="{{ $unique_applicant->id }}">
-
-                        <div class="card" style="padding:0px !importent;">
-                            <div class="card-header bg-info d-flex justify-content-between align-items-center flex-wrap"
-                                style="padding: 10px 10px">
-                                <h6 class="my-0 text-white d-flex align-items-center gap-1">
-                                    Efficiency Assessment Details
-                                </h6>
-
-                                <div class="d-flex gap-2 mt-2 mt-md-0">
-                                    <span class="p-1 text-white">Efficiency:
-                                        {{ number_format($unique_applicant->processes->sum('efficiency') / $unique_applicant->processes->count(), 2) }}%</span>
-                                </div>
-                            </div>
-
-
-                            <div class="card-body" style="padding: 0px;">
-                                <div class="row">
-                                    {{-- LEFT COLUMN --}}
-                                    <div class="col-md-12">
-                                        <table class="table table-bordered table-hover table-striped mb-0">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Process</th>
-                                                    <th>Process Name</th>
-                                                    <th class="text-right">Self Declare</th>
-                                                    <th class="text-right">1st Cycle</th>
-                                                    <th class="text-right">2nd Cycle</th>
-                                                    <th class="text-right">3rd Cycle</th>
-                                                    <th class="text-right">4th Cycle</th>
-                                                    <th class="text-right">5th Cycle</th>
-                                                    <th class="text-right">Average</th>
-                                                    <th class="text-right">Capacity</th>
-                                                    <th class="text-right">SMV</th>
-                                                    <th class="text-right">Target</th>
-                                                    <th class="text-right">Efficiency</th>
-                                                    <th class="text-right">Action</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                @foreach ($unique_applicant->processes as $process)
-                                                    <tr id="row-{{ $process->id }}">
-                                                        <td>{{ $process->processName->process }}</td>
-                                                        <td>{{ $process->processName->process_name }}</td>
-                                                        <td class="text-right">{{ $process->declare }}</td>
-                                                        <td class="text-right">{{ $process->cycle_one }}</td>
-                                                        <td class="text-right">{{ $process->cycle_two }}</td>
-                                                        <td class="text-right">{{ $process->cycle_three }}</td>
-                                                        <td class="text-right">{{ $process->cycle_four }}</td>
-                                                        <td class="text-right">{{ $process->cycle_five }}</td>
-                                                        <td class="text-right">{{ $process->average }}</td>
-                                                        <td class="text-right">{{ $process->average }}</td>
-                                                        <td class="text-right">{{ $process->smv }}</td>
-                                                        <td class="text-right">{{ $process->target }}</td>
-                                                        <td class="text-right">{{ $process->efficiency }}</td>
-                                                        <td class="text-right">
-                                                            {{-- <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $process->id }}"><i class="fas fa-edit"></i></a> --}}
-                                                            <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-process" data-id="{{ $process->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        @endif
     </div>
 @endsection
 

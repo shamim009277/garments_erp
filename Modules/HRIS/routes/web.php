@@ -34,6 +34,7 @@ use Modules\HRIS\Http\Controllers\Report\ShiftingReportController;
 use Modules\HRIS\Http\Controllers\Report\SummaryReportController;
 use Modules\HRIS\Http\Controllers\Settings\ForwardApproveController;
 use Modules\HRIS\Http\Controllers\Settings\SettingController;
+use Modules\HRIS\Http\Controllers\Setup\CompanyUnitController;
 use Modules\HRIS\Http\Controllers\Setup\CompanyWiseRamadanShiftController;
 use Modules\HRIS\Http\Controllers\Setup\CompanyWiseShiftController;
 use Modules\HRIS\Http\Controllers\Setup\DegreeController;
@@ -222,6 +223,11 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/units/toggle', [UnitController::class, 'toggleStatus'])->name('units.toggle');
             Route::post('/units/delete', [UnitController::class, 'destroy'])->name('units.delete');
             Route::resource('units', UnitController::class)->names('units');
+
+             //Company Wise Unit
+            Route::post('/companyunits/toggle', [CompanyUnitController::class, 'toggleStatus'])->name('companyunits.toggle');
+            Route::post('/companyunits/delete', [CompanyUnitController::class, 'destroy'])->name('companyunits.delete');
+            Route::resource('companyunits', CompanyUnitController::class)->names('companyunits');
         });
 
         //Database
@@ -232,6 +238,7 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::resource('new-applicants', ApplicantController::class)->names('new-applicants');
             Route::resource('employee-idassign', EmployeeIDAssignController::class)->names('employee-idassign');
 
+            Route::get('/unitline/{id}', [EmployeeController::class, 'getUnitLine'])->name('employee.getUnitLine');
             Route::get('/unit/{id}', [EmployeeController::class, 'getUnit'])->name('employee.getUnit');
             Route::get('/designation/{id}', [EmployeeController::class, 'getGrade'])->name('employee.getGrade');
             Route::get('/district/{district_id}', [EmployeeController::class, 'getThana'])->name('employee.getThana');

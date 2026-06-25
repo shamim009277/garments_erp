@@ -44,6 +44,7 @@ class ProcessSalary extends Model
         'general_holiday_days',
         'rwh',
         'wrh',
+        'gross_salary',
         'basic',
         'home_allowance',
         'medical_allowance',

@@ -78,7 +78,6 @@
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
 
@@ -92,7 +91,6 @@
                     Save Data
                 </button>
             </div>
-
         </div>
     </form>
 </div>

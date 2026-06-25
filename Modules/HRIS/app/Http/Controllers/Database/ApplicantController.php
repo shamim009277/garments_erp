@@ -18,7 +18,7 @@ class ApplicantController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:hris.new-applicants.view')->only('index','show','getSearch');
+        $this->middleware('permission:hris.new-applicants.view')->only('index', 'show', 'getSearch');
         $this->middleware('permission:hris.new-applicants.add')->only('store');
         $this->middleware('permission:hris.new-applicants.edit')->only(['edit', 'update']);
         $this->middleware('permission:hris.new-applicants.delete')->only('destroy');
@@ -34,11 +34,11 @@ class ApplicantController extends Controller
         $departments = Department::active()->pluck('department', 'id');
         $designations = Designation::active()->pluck('designation', 'id');
         $districts = District::active()->pluck('name', 'id');
-        $lines = Line::active()->orderBy('code','asc')->pluck('line', 'code');
+        $lines = Line::active()->orderBy('code', 'asc')->pluck('line', 'code');
 
         $organizations = Organization::active()->pluck('short_name', 'id');
         //\DB::enableQueryLog();
-        $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation','organization:id,short_name'])
+        $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation', 'organization:id,short_name'])
             ->active()
             ->noFileEntry()
             ->where('entry_date', '>=', $lst_30_days)
@@ -48,7 +48,7 @@ class ApplicantController extends Controller
         $unique_applicant = NULL;
         //dd(\DB::getQueryLog());
         $unique_department = $pending_applicants->unique('department_id');
-        return view('hris::database.newapplicant.index', compact('departments', 'designations', 'districts', 'pending_applicants','unique_applicant','unique_department','today','organizations','maxDate','lines'));
+        return view('hris::database.newapplicant.index', compact('departments', 'designations', 'districts', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ApplicantController extends Controller
         $today = Carbon::now()->format('d-m-Y');
         $maxDate = Carbon::now()->subYears(18)->addDays(1)->format('d-m-Y');
         $lst_30_days = Carbon::now()->subDays(30)->format('Y-m-d');
-        $lines = Line::active()->orderBy('code','asc')->pluck('line', 'code');
+        $lines = Line::active()->orderBy('code', 'asc')->pluck('line', 'code');
 
         $pending_applicants = Applicant::with(['department:id,department', 'designation:id,designation'])
             ->active()
@@ -116,7 +116,7 @@ class ApplicantController extends Controller
         $unique_applicant = Applicant::with(['department:id,department', 'designation:id,designation'])->where('id', $id)->first();
         $unique_department = $pending_applicants->unique('department_id');
 
-        return view('hris::database.newapplicant.index', compact('applicant', 'departments', 'designations', 'districts', 'pending_applicants', 'unique_applicant', 'unique_department','today','organizations','maxDate','lines'));
+        return view('hris::database.newapplicant.index', compact('applicant', 'departments', 'designations', 'districts', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines'));
     }
 
     /**
@@ -127,21 +127,27 @@ class ApplicantController extends Controller
         try {
             $data = $request->validated();
             $applicant = Applicant::findOrFail($id);
-            if($data['interview_status'] == 'Selected'){
-                $data['final_status'] = 1;
-            }else if($data['interview_status'] == 'Disqualify'){
-                $data['final_status'] = 2;
-            }else if($data['interview_status'] == 'Not Recruit'){
-                $data['final_status'] = 3;
-            }else if($data['interview_status'] == 'Pending'){
-                $data['final_status'] = 0;
-            }
 
-            if(!isset($data['final_designation_id']) || $data['final_designation_id'] == null){
+            if (isset($data['interview_status'])) {
+                if ($data['interview_status'] == 'Selected') {
+                    $data['final_status'] = 1;
+                } else if ($data['interview_status'] == 'Disqualify') {
+                    $data['final_status'] = 2;
+                } else if ($data['interview_status'] == 'Not Recruit') {
+                    $data['final_status'] = 3;
+                } else if ($data['interview_status'] == 'Pending') {
+                    $data['final_status'] = 0;
+                }
+            }
+            if (isset($data['joining_date'])) {
+                 $data['joining_date'] = Carbon::parse($data['joining_date'])->format('Y-m-d');
+            }
+            if (!isset($data['final_designation_id']) || $data['final_designation_id'] == null) {
                 $data['final_designation_id'] = $applicant->designation_id;
             }
             $data['birth_date'] = Carbon::parse($data['birth_date'])->format('Y-m-d');
-            $data['joining_date'] = Carbon::parse($data['joining_date'])->format('Y-m-d');
+            $data['ipe_assessment_required'] = $request->ipe_assessment_required == 'on' ? 1 : 0;
+
             $applicant->update($data);
             return redirect()->back()->with('success', 'Applicant updated successfully');
         } catch (\Exception $e) {
@@ -152,16 +158,17 @@ class ApplicantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request) {
+    public function destroy(Request $request)
+    {
         try {
             $applicant = Applicant::findOrFail($request->id);
-            if($applicant->file_entry != 'N'){
+            if ($applicant->file_entry != 'N') {
                 return response()->json(['success' => false, 'message' => 'Applicant deletion failed: Applicant has file entry']);
             }
-            if($applicant->interview_status == 'Selected' || $applicant->interview_status == 'Disqualify' || $applicant->interview_status == 'Not Recruit'){
+            if ($applicant->interview_status == 'Selected' || $applicant->interview_status == 'Disqualify' || $applicant->interview_status == 'Not Recruit') {
                 return response()->json(['success' => false, 'message' => 'Applicant deletion failed: Applicant is selected, disqualified or not recruit']);
             }
-            if($applicant->file_entry == 'N'){
+            if ($applicant->file_entry == 'N') {
                 $applicant->delete();
                 return response()->json(['success' => true, 'message' => 'Applicant deleted successfully']);
             }
@@ -171,13 +178,14 @@ class ApplicantController extends Controller
         }
     }
 
-    public function getSearch(Request $request){
+    public function getSearch(Request $request)
+    {
         $search = trim($request->search);
         try {
             $applicant = Applicant::findOrFail($search);
-            if($applicant){
+            if ($applicant) {
                 return redirect()->route('hris.database.new-applicants.show', $applicant->id)->with('success', 'Applicant found successfully');
-            }else{
+            } else {
                 return redirect()->back()->with('error', 'Applicant not found');
             }
         } catch (\Exception $e) {

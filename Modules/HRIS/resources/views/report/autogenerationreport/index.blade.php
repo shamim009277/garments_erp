@@ -165,19 +165,19 @@
                                     <div class="card-body" style="max-height:460px;min-height:460px; overflow-y: auto;">
                                         <table class="table table-sm" width="100%">
                                             <tbody>
-                                                {{-- <tr>
-                                                    <th>
-                                                        <input type="checkbox" name="all_category" id="all_category" checked>
-                                                        <label class="m-0" for="all_category">All Purpose</label>
-                                                    </th>
-                                                    <td id="all_category_section">
-                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$gatepass_purposes" placeholder="Category ID" disabled />
-                                                    </td>
-                                                </tr> --}}
                                                 <tr>
                                                     <th width="40%"> Employee ID</th>
                                                     <td width="60%">
                                                         <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <input type="checkbox" name="all_category" id="all_category" checked>
+                                                        <label class="m-0" for="all_category">All Categories</label>
+                                                    </th>
+                                                    <td id="all_category_section">
+                                                        <x-select-input name="category_id" id="category_id" class="select2" :options="$employeeCategories" placeholder="Category ID" disabled />
                                                     </td>
                                                 </tr>
                                                 {{-- <tr>
@@ -221,6 +221,18 @@
                                                             class="form-control-sm"
                                                             value="{{ old('end_date', $endDate) }}"
                                                         />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">Month</th>
+                                                    <td width="60%">
+                                                        <x-select-input name="month" id="month" class="select2" :options="$months" selected="{{ old('month', 1) }}" placeholder="Month" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">Year</th>
+                                                    <td width="60%">
+                                                        <x-text-input name="year" type="text" id="year" class="form-control-sm" value="{{ old('year', $year) }}" placeholder="Year" disabled />
                                                     </td>
                                                 </tr>
 
@@ -319,6 +331,12 @@
             handleToggle('#end_date_lock', '#end_date', '#end_date_lock_section');
         });
 
+        handleToggle('#all_category', '#category_id', '#all_category_section');
+
+        $('#all_category').on('change', function () {
+            handleToggle('#all_category', '#category_id', '#all_category_section');
+        });
+
         function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
             const isChecked = $(checkboxSelector).is(':checked');
 
@@ -364,51 +382,60 @@
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
+            $('#year').prop('disabled',true);
         } else if (selectedValue == '2') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#year').prop('disabled',true);
         } else if (selectedValue == '3') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
+            $('#year').prop('disabled',true);
         } else if (selectedValue == '4') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', false);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#year').prop('disabled',true);
         } else if (selectedValue == '5') {
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', false);
             $('#end_date').prop('disabled', false);
+
         } else if( selectedValue == '6' ){
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#year').prop('disabled',false);
         }else if( selectedValue == '7' ){
             $('.departmentID').prop('disabled', false);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#year').prop('disabled',true);
         }else if( selectedValue == '8' || selectedValue == '9' ){
             $('.departmentID').prop('disabled', true);
             $('.designationID').prop('disabled', true);
             $('.blood_group').prop('disabled', true);
             $('#start_date').prop('disabled', true);
             $('#end_date').prop('disabled', true);
+            $('#year').prop('disabled',true);
         } else {
             $('.designationID').prop('disabled', false);
             $('.departmentID').prop('disabled', false);
+            $('#year').prop('disabled',true);
         }
     }
 </script>
