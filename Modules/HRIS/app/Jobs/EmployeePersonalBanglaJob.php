@@ -37,7 +37,6 @@ class EmployeePersonalBanglaJob implements ShouldQueue
     {
         $this->employee = $employee;
         $this->userId     = $userId;
-
     }
 
     /**
@@ -159,17 +158,17 @@ class EmployeePersonalBanglaJob implements ShouldQueue
                 /**
                  * Present Address
                  */
-                // 'mpost_office_bangla' => $this->translateField(
-                //     english: $employee->mpost_office,
-                //     existing: $existing->mpost_office_bangla ?? null,
-                //     translator: $translator
-                // ),
+                'npost_office_bangla' => $this->translateField(
+                    english: $this->employee->npost_office,
+                    existing: $existing->npost_office_bangla ?? null,
+                    translator: $translator
+                ),
 
-                // 'mvillage_bangla' => $this->translateField(
-                //     english: $employee->mvillage,
-                //     existing: $existing->mvillage_bangla ?? null,
-                //     translator: $translator
-                // ),
+                'nvillage_bangla' => $this->translateField(
+                    english: $this->employee->nvillage,
+                    existing: $existing->nvillage_bangla ?? null,
+                    translator: $translator
+                ),
 
                 /**
                  * Audit
@@ -197,7 +196,6 @@ class EmployeePersonalBanglaJob implements ShouldQueue
             Log::info('Employee Personal Bangla Translation Completed', [
                 'employee_id' => $this->employee->employee_id,
             ]);
-
         } catch (\Throwable $e) {
 
             Log::error('EmployeePersonalBanglaJob Failed', [
@@ -240,33 +238,28 @@ class EmployeePersonalBanglaJob implements ShouldQueue
          */
         $english = trim($english);
 
-        /**
-         * Cache Key
-         */
-        $cacheKey = 'employee_translation:' . md5($english);
+        if ($english === '') {
+            return null;
+        }
 
         /**
-         * Cache Translation
+         * Direct Translation (NO CACHE)
          */
-        // return Cache::remember($cacheKey, now()->addDays(30), function () use (
-        //     $translator,
-        //     $english
-        // ) {
+        try {
+            $result = $translator->translate($english);
 
-        //     try {
+            if (is_string($result) && $result !== '') {
+                return $result;
+            }
+        } catch (\Throwable $e) {
 
-        //         return $translator->translate($english);
+            Log::warning('Translation API Failed', [
+                'text'  => $english,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
-        //     } catch (\Throwable $e) {
-
-        //         Log::warning('Translation API Failed', [
-        //             'text'  => $english,
-        //             'error' => $e->getMessage(),
-        //         ]);
-
-        //         return null;
-        //     }
-        // });
+        return null;
     }
 
     /**
