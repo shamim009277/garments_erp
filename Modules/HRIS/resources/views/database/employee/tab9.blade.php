@@ -70,7 +70,7 @@
                                     <th width="35%" style="border: none;">Highest Degree</th>
                                     <td width="65%" style="border: none;"><x-select-input name="degree_id"
                                             id="degree_id" label="Highest Degree" class="select2" :options="$degrees"
-                                            :selected="$employee_personal->degree_id ?? 'M'" required /></td>
+                                            :selected="$employee_personal->degree_id ?? 'M'" /></td>
                                 </tr>
                                 <tr>
                                     <th width="35%" style="border: none;">Religion</th>
@@ -97,29 +97,34 @@
                             <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                 <tr>
                                     <th width="35%" style="border: none;">Mobile Number</th>
-                                    <td width="65%" style="border: none;"><x-text-input type="text"
-                                            name="mobile" id="mobile" pattern="(01)[0-9]{9}" maxlength="11"
-                                            class="form-control-sm" min="11" max="12"
+                                    <td width="65%" style="border: none;">
+                                        <x-text-input type="text"
+                                            name="mobile" id="mobile"
+                                            class="form-control-sm"
                                             oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                            value="{{ $employee_personal->mobile ?? old('mobile') }}"
-                                            placeholder="Mobile Number" /></td>
+                                            value="{{ $employee_personal->mobile ?? '' }}"
+                                            placeholder="Mobile Number" />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th width="35%" style="border: none;">National ID</th>
-                                    <td width="65%" style="border: none;"><x-text-input type="text"
-                                            name="national_id" id="national_id" pattern="[0-9]{10,17}"
-                                            minlength="10" maxlength="17"
+                                    <td width="65%" style="border: none;">
+                                        <x-text-input type="text"
+                                            name="national_id" id="national_id"
                                             oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                            value="{{ $employee_personal->national_id ?? old('national_id') }}"
-                                            class="form-control-sm" placeholder="National ID" /></td>
+                                            value="{{ ($employee_personal->national_id ?? null) === 'null' ? '' : ($employee_personal->national_id ?? '') }}"
+                                            class="form-control-sm" placeholder="National ID" />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th width="35%" style="border: none;">Birth Certificate</th>
-                                    <td width="65%" style="border: none;"><x-text-input type="text"
+                                    <td width="65%" style="border: none;">
+                                        <x-text-input type="text"
                                             name="birth_certificate" id="birth_certificate" class="form-control-sm"
-                                            value="{{ $employee_personal->birth_certificate ?? old('birth_certificate') }}"
+                                            value="{{ $employee_personal->birth_certificate ?? '' }}"
                                             oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                            placeholder="Birth Certificate" /></td>
+                                            placeholder="Birth Certificate" />
+                                        </td>
                                 </tr>
                                 <tr>
                                     <th width="35%" style="border: none;">No. of Son</th>

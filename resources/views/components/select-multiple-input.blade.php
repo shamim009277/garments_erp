@@ -1,3 +1,4 @@
+
 @props([
     'name',
     'id' => null,
@@ -9,11 +10,11 @@
 ])
 
 @php
-    $selectName = $multiple
-        ? (str_ends_with($name, '[]') ? $name : $name . '[]')
-        : $name;
+$selectName = $multiple
+    ? (str_ends_with($name, '[]') ? $name : $name . '[]')
+    : $name;
 
-    $selectedValues = is_array($selected) ? $selected : [$selected];
+$selectedValues = is_array($selected) ? $selected : [$selected];
 @endphp
 
 <select
@@ -21,15 +22,17 @@
     id="{{ $id }}"
     @if($multiple) multiple @endif
     @if($required) required @endif
-    {{ $attributes->merge(['class' => 'form-select' . ($errors->has($name) ? ' is-invalid' : '')]) }}
+    {{ $attributes->merge(['class' => 'form-select select2']) }}
 >
-    @if(!$multiple)
-        <option value="">{{ $placeholder }}</option>
-    @endif
 
-    @foreach ($options as $value => $label)
-        <option value="{{ $value }}" {{ in_array((string)$value, $selectedValues) ? 'selected' : '' }}>
-            {{ $label }}
-        </option>
-    @endforeach
+@if(!$multiple)
+    <option value="">{{ $placeholder }}</option>
+@endif
+
+@foreach ($options as $value => $label)
+    <option value="{{ $value }}"
+        {{ in_array((string)$value, $selectedValues) ? 'selected' : '' }}>
+        {{ $label }}
+    </option>
+@endforeach
 </select>
