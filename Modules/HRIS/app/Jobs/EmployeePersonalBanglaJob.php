@@ -92,6 +92,12 @@ class EmployeePersonalBanglaJob implements ShouldQueue
                     translator: $translator
                 ),
 
+                'nominee_relation' => $this->translateField(
+                    english: $this->employee->relation,
+                    existing: $existing->nominee_relation ?? null,
+                    translator: $translator
+                ),
+
                 'ppost_office_bangla' => $this->translateField(
                     english: $this->employee->npost_office,
                     existing: $existing->ppost_office_bangla ?? null,

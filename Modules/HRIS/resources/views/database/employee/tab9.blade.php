@@ -88,7 +88,7 @@
                                     <th width="35%" style="border: none;">Marital Status</th>
                                     <td width="65%" style="border: none;"><x-select-input name="marital_status"
                                             id="marital_status" label="Marital Status" class="select2"
-                                            :options="$marital_status" :selected="$employee_personal->marital_status ?? '2'" required /></td>
+                                            :options="$marital_status" :selected="$employee_personal->marital_status ?? '2'" /></td>
                                 </tr>
                             </table>
                         </div>

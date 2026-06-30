@@ -28,6 +28,7 @@ class EmployeeBangla extends Model
         'nname_bangla',
         'nmobile_number',
         'nominee_relation',
+        'relation_bangla',
         'national_id_bangla',
         'mdistrict_id_bangla',
         'mthana_id_bangla',
