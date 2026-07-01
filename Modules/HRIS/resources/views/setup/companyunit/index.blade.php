@@ -121,8 +121,7 @@
                             :selected="1" required />
                         <x-select-input-group name="code" class="mb-2" label="Unit List" :options="$unitlist" required />
                         <label for="line_id">Line <span class="text-danger">*</span></label>
-                        <x-select-multiple-input name="line_id[]" id="classification_id_add"
-                            class="select2 multiselect mb-2" :options="$lines" :selected="old('classification_id', [])" multiple required />
+                        <x-select-multiple-input name="line_id[]" id="line_id_add" :options="$lines" :selected="old('line_id', [])" multiple/>
                         <br><br>
                         <x-select-input-group name="is_active" class="mb-2" label="Is Active?" :options="['1' => 'Active', '0' => 'Inactive']"
                             :selected="old('is_active', '1')" required />
@@ -136,19 +135,14 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('#line_id_add').select2({
-                placeholder: 'Select Line',
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: 'Select option',
                 allowClear: true,
-                multiple: true,
+                width: '100%'
             });
-
-            $('.select2.multiselect').each(function() {
-                if (!$(this).hasClass('select2-hidden-accessible')) {
-                    $(this).select2();
-                }
-            });
-
+        });
+        $(document).ready(function() {
             $('.unit-toggle').on('change', function() {
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;

@@ -214,7 +214,12 @@
 
                         <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
                             <table class="table table-striped mb-0" id="employeeTable" width="100%">
-                                <h5 class="text-primary font-weight-bold">নমিনির ঠিকানা</h5>
+                                <h5 class="text-primary font-weight-bold">
+                                    নমিনির ঠিকানা &ensp;&ensp;
+                                    <input class="form-check-input" type="checkbox" style="display: inline-block;"
+                                        name="same_as_nominee" id="same_as_nominee">
+                                    <label class="form-check-label" for="same_as_nominee">একই রকম</label>
+                                </h5>
                                 <tr>
                                     <th width="30%" style="border: none;">জেলা </th>
                                     <td width="70%" style="border: none;"><x-select-input
@@ -267,51 +272,31 @@
 
 @push('scripts')
     <script>
-        // $(document).ready(function() {
+         $(document).ready(function() {
+            function cleanText(text) {
+                if (!text) return '';
+                text = text.trim().replace(/\s+/g, ' ');
+                if (text === 'Select an option') return '';
+                return text;
+            }
+            function generateAddress() {
+                let district = cleanText($('#ndistrict_id_bangla option:selected').text());
+                let thana = cleanText($('#nthana_id_bangla option:selected').text());
+                let postOffice = cleanText($('#npost_office_bangla').val());
+                let village = cleanText($('#nvillage_bangla').val());
 
-        //     function cleanText(text) {
-        //         if (!text) return '';
-        //         text = text.trim().replace(/\s+/g, ' ');
-        //         if (text === 'Select an option') return '';
-        //         return text;
-        //     }
+                let parts = [village, postOffice, thana, district].filter(Boolean);
+                let address = parts.join(', ');
+                $('#emergency_address').val(address);
+            }
 
-        //     function generateAddress() {
-        //         let district = cleanText($('#ndistrict_id_bangla option:selected').text());
-        //         let thana = cleanText($('#nthana_id_bangla option:selected').text());
-        //         let postOffice = cleanText($('#npost_office_bangla').val());
-        //         let village = cleanText($('#nvillage_bangla').val());
-
-        //         let parts = [village, postOffice, thana, district].filter(Boolean);
-        //         let address = parts.join(', ');
-
-        //         $('#emergency_address').val(address);
-        //     }
-
-        //     /**
-        //      * Debounce helper
-        //      */
-        //     function debounce(fn, delay = 500) {
-        //         let timer;
-        //         return function() {
-        //             clearTimeout(timer);
-        //             timer = setTimeout(() => fn.apply(this, arguments), delay);
-        //         };
-        //     }
-
-        //     const delayedGenerate = debounce(generateAddress, 500);
-
-        //     // initial run
-        //     generateAddress();
-
-        //     // select change
-        //     $('#ndistrict_id_bangla, #nthana_id_bangla')
-        //         .on('change change.select2', delayedGenerate);
-
-        //     // input typing (debounced)
-        //     $('#npost_office_bangla, #nvillage_bangla')
-        //         .on('keyup input', delayedGenerate);
-
-        // });
+            $('#same_as_nominee').on('change', function() {
+                if ($(this).is(':checked')) {
+                    generateAddress();
+                } else {
+                    $('#emergency_address').val('');
+                }
+            });
+        });
     </script>
 @endpush

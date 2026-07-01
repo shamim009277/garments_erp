@@ -38,7 +38,7 @@
                     <th>SL</th>
                     <th>Employee ID</th>
                     <th>Employee Name</th>
-                    <th>Department</th>
+                    {{-- <th>Department</th> --}}
                     <th>Designation</th>
                     <th>Category</th>
                     @if($title == 4)
@@ -127,7 +127,7 @@
                                 <td>{{ $sl1 }}</td>
                                 <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
                                 <td>{{ $employee->name }}</td>
-                                <td>{{ $employee->department->department }}</td>
+                                <td>{{ $employee?->department?->department ?? '' }}</td>
                                 <td>{{ $employee->designation->designation }}</td>
                                 <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
                                 <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
@@ -156,7 +156,7 @@
                 </tr>
             </thead>
             <tbody>
-                @if($employees->count() > 0)   
+                @if($employees->count() > 0)
                     @foreach ($uniqueSection as $section)
                         @php
                             $uniqueDepartment = $employees
@@ -173,7 +173,7 @@
                                 })
                                 ->values();
                             $depTotal = 0;
-                        @endphp 
+                        @endphp
 
                         @foreach ($uniqueDepartment as $department)
                             @php
@@ -185,7 +185,7 @@
                                     ->values();
                             @endphp
                             <tr>
-                                <td colspan="8" style="background-color: #a5abf5;"> 
+                                <td colspan="8" style="background-color: #a5abf5;">
                                     <span style="font-weight: bold;">Department</span> : {{ $section['parent_department_name']  }} &nbsp;&nbsp;
                                     <span style="font-weight: bold;">Section</span> : {{ $department['name'] }}
                                 </td>
@@ -204,19 +204,19 @@
                                 <?php $depTotal++; ?>
                             @endforeach
                             <tr>
-                                <td colspan="8" style="background-color: #f3ba1c;"> 
+                                <td colspan="8" style="background-color: #f3ba1c;">
                                     <span style="font-weight: bold;">Section Wise Summary => Section {{ $department['name'] }} : Total Employees</span> : {{ $datas->count() }}
                                 </td>
                             </tr>
                         @endforeach
                         <tr>
-                            <td colspan="8" style="background-color: #f7b1f7;"> 
+                            <td colspan="8" style="background-color: #f7b1f7;">
                                 <span style="font-weight: bold;">Department Wise Summary => Department {{ $section['parent_department_name'] }} : Total Employees</span> : {{ $depTotal }}
                             </td>
                         </tr>
                         <tr class="page-break">
                             <td colspan="8"></td>
-                        </tr>   
+                        </tr>
                     @endforeach
                 @else
                     <tr>
