@@ -490,7 +490,7 @@
                     const day = String(joiningDate.getDate()).padStart(2, '0');
                     const formattedDate = `${year}-${month}-${day}`;
 
-                    $('#confirmation_date').val(formattedDate);
+                    $('#confirmation_date').val(joiningDateVal);
                 }
             });
 
