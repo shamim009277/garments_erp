@@ -219,27 +219,27 @@
                                                 <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><x-select-input
                                                         name="pdistrict_id" id="pdistrict_id" class="select2"
-                                                        :options="$districts" required /></td>
+                                                        :options="$districts" /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Thana </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-select-input name="pthana_id" id="pthana_id" class="select2"
-                                                        :options="[]" required />
+                                                        :options="[]" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Post Office </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="ppost_office" id="ppost_office"
-                                                        class="form-control-sm" placeholder="Post Office" required />
+                                                        class="form-control-sm" placeholder="Post Office" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Address </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="pvillage" id="pvillage" class="form-control-sm"
-                                                        placeholder="House No/Road No/Village ..." required />
+                                                        placeholder="House No/Road No/Village ..." />
                                                 </td>
                                             </tr>
                                         </table>
@@ -260,27 +260,27 @@
                                                 <th width="30%" style="border: none;">District </th>
                                                 <td width="70%" style="border: none;"><x-select-input
                                                         name="mdistrict_id" id="mdistrict_id" class="select2"
-                                                        :options="$districts" required /></td>
+                                                        :options="$districts" /></td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Thana </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-select-input name="mthana_id" id="mthana_id" class="select2"
-                                                        :options="[]" required />
+                                                        :options="[]" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Post Office </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="mpost_office" id="mpost_office"
-                                                        class="form-control-sm" placeholder="Post Office" required />
+                                                        class="form-control-sm" placeholder="Post Office" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="30%" style="border: none;">Address </th>
                                                 <td width="70%" style="border: none;">
                                                     <x-text-input name="mvillage" id="mvillage" class="form-control-sm"
-                                                        placeholder="House No/Road No/Village ..." required />
+                                                        placeholder="House No/Road No/Village ..." />
                                                 </td>
                                             </tr>
                                         </table>
@@ -353,7 +353,7 @@
                                         <th width="30%" style="border: none;">Mother Name </th>
                                         <td width="70%" style="border: none;"><x-text-input name="mother_name"
                                                 class="form-control-sm" id="mother_name" placeholder="Mother Name"
-                                                value="{{ old('mother_name') }}" required /></td>
+                                                value="{{ old('mother_name') }}" /></td>
                                     </tr>
                                     <tr>
                                         <th width="30%" style="border: none;">Spouse Name </th>

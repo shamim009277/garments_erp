@@ -23,15 +23,15 @@ class EmployeeRequest extends FormRequest
             'grade' => 'nullable|integer|min:0',
             'shifting_duty' => 'nullable|in:Y,N',
 
-            'mdistrict_id' => 'required|exists:hris_setup_districts,id',
-            'mthana_id' => 'required|exists:hris_setup_thanas,id',
-            'mpost_office' => 'required|string|max:255',
-            'mvillage' => 'required|string|max:255',
+            'mdistrict_id' => 'nullable|exists:hris_setup_districts,id',
+            'mthana_id' => 'nullable|exists:hris_setup_thanas,id',
+            'mpost_office' => 'nullable|string|max:255',
+            'mvillage' => 'nullable|string|max:255',
 
-            'pdistrict_id' => 'required|exists:hris_setup_districts,id',
-            'pthana_id' => 'required|exists:hris_setup_thanas,id',
-            'ppost_office' => 'required|string|max:255',
-            'pvillage' => 'required|string|max:255',
+            'pdistrict_id' => 'nullable|exists:hris_setup_districts,id',
+            'pthana_id' => 'nullable|exists:hris_setup_thanas,id',
+            'ppost_office' => 'nullable|string|max:255',
+            'pvillage' => 'nullable|string|max:255',
 
             'joining_date' => 'required|date',
             'confirmation_date' => 'required|date|after_or_equal:joining_date',

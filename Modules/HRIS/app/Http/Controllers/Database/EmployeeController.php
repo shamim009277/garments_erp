@@ -266,31 +266,31 @@ class EmployeeController extends Controller
             $employee->fill($employeeData);
 
             $hasEmployeeChanges = $employee->isDirty();
-            // $employeeBangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
+            $employeeBangla = EmployeeBangla::where('employee_id', $employee->employee_id)->first();
 
-            // $banglaData = [
-            //     'org_id'                => $employee->org_id,
-            //     'name_bangla'           => $employee->name,
-            //     'fname_bangla'          => $employee->father_name,
-            //     'mname_bangla'          => $employee->mother_name,
-            //     'pdistrict_id_bangla'   => $employee->pdistrict_id,
-            //     'pthana_id_bangla'      => $employee->pthana_id,
-            //     'ppost_office_bangla'   => $employee->ppost_office,
-            //     'pvillage_bangla'       => $employee->pvillage,
-            //     'mdistrict_id_bangla'   => $employee->mdistrict_id,
-            //     'mthana_id_bangla'      => $employee->mthana_id,
-            //     'mpost_office_bangla'   => $employee->mpost_office,
-            //     'mvillage_bangla'       => $employee->mvillage,
-            // ];
+            $banglaData = [
+                'org_id'                => $employee->org_id,
+                //'name_bangla'           => $employee->name,
+                //'fname_bangla'          => $employee->father_name,
+                //'mname_bangla'          => $employee->mother_name,
+                'pdistrict_id_bangla'   => $employee->pdistrict_id,
+                'pthana_id_bangla'      => $employee->pthana_id,
+                //'ppost_office_bangla'   => $employee->ppost_office,
+                //'pvillage_bangla'       => $employee->pvillage,
+                'mdistrict_id_bangla'   => $employee->mdistrict_id,
+                'mthana_id_bangla'      => $employee->mthana_id,
+                //'mpost_office_bangla'   => $employee->mpost_office,
+                //'mvillage_bangla'       => $employee->mvillage,
+            ];
 
-            // $hasBanglaChanges = false;
+            $hasBanglaChanges = false;
 
-            // if ($employeeBangla) {
-            //     $employeeBangla->fill($banglaData);
-            //     $hasBanglaChanges = $employeeBangla->isDirty();
-            // } else {
-            //     $hasBanglaChanges = true;
-            // }
+            if ($employeeBangla) {
+                $employeeBangla->fill($banglaData);
+                $hasBanglaChanges = $employeeBangla->isDirty();
+            } else {
+                $hasBanglaChanges = true;
+            }
 
             if (!$hasEmployeeChanges) {
                 DB::rollBack();
@@ -303,17 +303,17 @@ class EmployeeController extends Controller
                 $employee->save();
             }
 
-            // if ($employeeBangla) {
-            //     if ($hasBanglaChanges) {
-            //         $employeeBangla->updated_by = Auth::id();
-            //         $employeeBangla->save();
-            //     }
-            // } else {
-            //     $banglaData['employee_id'] = $employee->employee_id;
-            //     $banglaData['created_by'] = Auth::id();
-            //     $banglaData['updated_by'] = Auth::id();
-            //     EmployeeBangla::create($banglaData);
-            // }
+            if ($employeeBangla) {
+                if ($hasBanglaChanges) {
+                    $employeeBangla->updated_by = Auth::id();
+                    $employeeBangla->save();
+                }
+            } else {
+                $banglaData['employee_id'] = $employee->employee_id;
+                $banglaData['created_by'] = Auth::id();
+                $banglaData['updated_by'] = Auth::id();
+                EmployeeBangla::create($banglaData);
+            }
 
             DB::commit();
             return redirect()->route('hris.database.employee.show', ['employee' => $employee->id, 'tab' => 1])->with('success', 'Employee updated successfully');
