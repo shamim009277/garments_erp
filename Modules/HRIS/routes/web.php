@@ -77,6 +77,7 @@ use Modules\HRIS\Http\Controllers\Tools\ShiftingListController;
 
 
 Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(function () {
+    Route::get('/hris/dashboard-data', [HRISController::class, 'getDashboardAjax'])->name('hris.dashboard-data');
     Route::resource('hris', HRISController::class)->names('hris');
     //Route::get('/hris', [HRISController::class, 'index'])->name('hris.index');
 
