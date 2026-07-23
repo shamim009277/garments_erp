@@ -22,6 +22,7 @@ class HRISController extends Controller
         $currentMonthEnd   = Carbon::now()->endOfMonth();
         $lastMonthStart = Carbon::now()->subMonth()->startOfMonth();
         $lastMonthEnd   = Carbon::now()->subMonth()->endOfMonth();
+        $todayDate = now()->toDateString();
 
         // Build organization query
         $orgQuery = Organization::active();
@@ -29,15 +30,16 @@ class HRISController extends Controller
             $orgQuery->where('id', $orgId);
         }
         $organizations = $orgQuery->get();
+        $orgIds = $organizations->pluck('id')->toArray(); // Get org IDs to filter queries
 
         // 1. Get all employee data aggregated by org_id in one query
         $employeeAggData = Employee::active()->selectRaw('
                 org_id,
                 COUNT(*) as total_employees,
-                SUM(CASE WHEN joining_date BETWEEN ? AND ? THEN 1 ELSE 0 END) as current_month_joining,
-                SUM(CASE WHEN joining_date BETWEEN ? AND ? THEN 1 ELSE 0 END) as last_month_joining,
-                SUM(CASE WHEN leaving_date BETWEEN ? AND ? THEN 1 ELSE 0 END) as current_month_resigned,
-                SUM(CASE WHEN leaving_date BETWEEN ? AND ? THEN 1 ELSE 0 END) as last_month_resigned
+                COUNT(CASE WHEN joining_date BETWEEN ? AND ? THEN 1 END) as current_month_joining,
+                COUNT(CASE WHEN joining_date BETWEEN ? AND ? THEN 1 END) as last_month_joining,
+                COUNT(CASE WHEN leaving_date BETWEEN ? AND ? THEN 1 END) as current_month_resigned,
+                COUNT(CASE WHEN leaving_date BETWEEN ? AND ? THEN 1 END) as last_month_resigned
             ', [
                 $currentMonthStart,
                 $currentMonthEnd,
@@ -48,9 +50,7 @@ class HRISController extends Controller
                 $lastMonthStart,
                 $lastMonthEnd,
             ])
-            ->when($orgId, function ($q) use ($orgId) {
-                $q->where('org_id', $orgId);
-            })
+            ->whereIn('org_id', $orgIds)
             ->groupBy('org_id')
             ->get()
             ->keyBy('org_id');
@@ -64,12 +64,10 @@ class HRISController extends Controller
                 COUNT(DISTINCT CASE WHEN payroll_tools_process_attendence.attn_type IN (\'CL\', \'EL\', \'SL\') THEN payroll_tools_process_attendence.employee_id END) as leave_count
             ')
             ->join('hris_database_employee_basic as emp', 'payroll_tools_process_attendence.employee_id', '=', 'emp.employee_id')
-            ->whereDate('payroll_tools_process_attendence.work_date', now()->toDateString())
+            ->whereDate('payroll_tools_process_attendence.work_date', $todayDate)
             ->where('emp.is_active', true)
             ->where('emp.reason', 'N')
-            ->when($orgId, function ($q) use ($orgId) {
-                $q->where('emp.org_id', $orgId);
-            })
+            ->whereIn('emp.org_id', $orgIds)
             ->groupBy('emp.org_id')
             ->get()
             ->keyBy('org_id');
@@ -79,9 +77,8 @@ class HRISController extends Controller
                 org_id,
                 COUNT(*) as total_applicants,
                 COUNT(CASE WHEN entry_date BETWEEN ? AND ? THEN 1 END) as new_applicants_this_month,
-                COUNT(*) as apply_count,
-                SUM(CASE WHEN interview_status = ? AND entry_date BETWEEN ? AND ? THEN 1 ELSE 0 END) as selected_count,
-                SUM(CASE WHEN interview_status != ? AND interview_status != ? AND entry_date BETWEEN ? AND ? THEN 1 ELSE 0 END) as rejected_count
+                COUNT(CASE WHEN interview_status = ? AND entry_date BETWEEN ? AND ? THEN 1 END) as selected_count,
+                COUNT(CASE WHEN interview_status NOT IN (?, ?) AND entry_date BETWEEN ? AND ? THEN 1 END) as rejected_count
             ', [
                 $currentMonthStart,
                 $currentMonthEnd,
@@ -94,9 +91,7 @@ class HRISController extends Controller
                 $currentMonthEnd
             ])
             ->where('is_active', true)
-            ->when($orgId, function ($q) use ($orgId) {
-                $q->where('org_id', $orgId);
-            })
+            ->whereIn('org_id', $orgIds)
             ->groupBy('org_id')
             ->get()
             ->keyBy('org_id');
@@ -113,7 +108,6 @@ class HRISController extends Controller
         $newJoiners = 0;
         $resignedThisMonth = 0;
         $newApplicantsThisMonth = 0;
-        $applyCount = 0;
         $selectedCount = 0;
         $rejectedCount = 0;
         $totalCompanies = count($organizations);
@@ -131,7 +125,6 @@ class HRISController extends Controller
             $absentCount = $attData ? $attData->absent_count : 0;
             $leaveCount = $attData ? $attData->leave_count : 0;
             $newAppThisMonthCount = $appData ? $appData->new_applicants_this_month : 0;
-            $applyOrgCount = $appData ? $appData->apply_count : 0;
             $selectedOrgCount = $appData ? $appData->selected_count : 0;
             $rejectedOrgCount = $appData ? $appData->rejected_count : 0;
 
@@ -170,7 +163,6 @@ class HRISController extends Controller
             $newJoiners += $empData ? $empData->current_month_joining : 0;
             $resignedThisMonth += $empData ? $empData->current_month_resigned : 0;
             $newApplicantsThisMonth += $newAppThisMonthCount;
-            $applyCount += $applyOrgCount;
             $selectedCount += $selectedOrgCount;
             $rejectedCount += $rejectedOrgCount;
         }
@@ -191,7 +183,6 @@ class HRISController extends Controller
             'newJoiners' => $newJoiners,
             'resignedThisMonth' => $resignedThisMonth,
             'newApplicantsThisMonth' => $newApplicantsThisMonth,
-            'applyCount' => $applyCount,
             'selectedCount' => $selectedCount,
             'rejectedCount' => $rejectedCount,
             'totalCompanies' => $totalCompanies,
