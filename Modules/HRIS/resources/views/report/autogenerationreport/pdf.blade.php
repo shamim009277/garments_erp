@@ -171,7 +171,7 @@
 @endphp
 
 <body>
-    @if ($title !== 6 && $title != 8 && $title != 9)
+    @if ($title !== 6 && $title != 8 && $title != 9 && $title != 10)
         <div class="header">
             <div class="header">
                 <table width="100%">
@@ -1986,6 +1986,351 @@
                         </div>
                     </div>
                 </div>
+                              @elseif($title == 10)
+    <style>
+        .employee-grid-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        .employee-grid-table > tr > td {
+            width: 50%;
+            padding: 4mm;
+            vertical-align: top;
+        }
+        .front-back-table {
+            table-layout: fixed;
+            border-collapse: collapse;
+            width: 128mm; /* front + gap + back er total fixed width */
+        }
+        .front-back-table > tr > td {
+            width: 64mm;
+            vertical-align: top;
+            padding: 0 2mm;
+        }
+        /*.id-card-front, .id-card-back {
+            width: 62mm;
+            border: 1px dashed #999;
+            box-sizing: border-box;
+            padding: 3px;
+        }*/
+        .id-card-front, .id-card-back {
+            width: 62mm;
+            height: 95mm;      /* fixed — dutoi card-er jonno same, ekhon theke ar change hobe na */
+            border: 1px dashed #999;
+            box-sizing: border-box;
+            padding: 3px;
+            overflow: hidden;   /* extra content thakle crop hobe, card baire barbe na */
+        }
+        .id-card-header {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .id-card-logo {
+            width: 42px;
+            height: 42px;
+            margin-bottom: 1px;
+        }
+        .id-card-company {
+            font-size: 13px;
+            font-weight: bold;
+            color: #0047ba;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .id-card-subtitle {
+            font-size: 11px;
+            color: #000;
+            margin: 0;
+        }
+        .id-card-info-table {
+            width: 100%;
+            font-size: 12px;
+            border-collapse: collapse;
+            margin-top: 4px;
+        }
+        .id-card-info-table td {
+            padding: 2px 0;
+            vertical-align: top;
+            line-height: 1.3;
+            white-space: nowrap;
+            text-align: left;
+        }
+        .id-card-label {
+            width: 24px;
+            white-space: nowrap;
+        }
+        .id-card-signatures-table {
+            width: 100%;
+            margin-top: 6px;
+            font-size: 9px;
+            border-collapse: collapse;
+        }
+        .id-card-signatures-table td {
+            text-align: center;
+            width: 50%;
+            vertical-align: top;
+            padding: 0 3px;
+        }
+        .id-card-sign-img {
+            width: 45px;
+            height: 14px;
+            margin-bottom: 1px;
+        }
+    </style>
+
+    <table class="employee-grid-table">
+        @foreach(array_chunk($employees, 2) as $row)
+            <tr>
+                @foreach($row as $employee)
+                    <td>
+                        <!-- FRONT | BACK side by side -->
+                        <table class="front-back-table">
+                            <tr>
+                                <!-- FRONT -->
+                                <td>
+                                    <table class="id-card-front" width="100%">
+                                        <tr>
+                                            <td>
+                                                <table width="100%" style="border-collapse: collapse;">
+                                                    <tr>
+                                                        <td align="center" style="padding: 0;">
+                                                            <img src="{{ $logo }}" width="42" height="42" alt="Logo">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" style="padding: 0; font-size: 13px; color: #0047ba; line-height: 1; white-space: nowrap;">
+                                                            {{ $employee->org_name }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" style="padding: 0; font-size: 11px; color: #000;">
+                                                            পরিচয়পত্র (আইডি কার্ড)
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <table width="100%" style="border-collapse: collapse;">
+                                                    <tr>
+                                                        <td align="center" style="padding: 4px 0;">
+                                                            @if(!empty($employee->photoBase64))
+                                                                <img src="{{ $employee->photoBase64 }}" width="65" height="65" style="object-fit:cover; border:1px solid #000;" alt="Employee Photo">
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <table class="id-card-info-table">
+                                                    <tr>
+                                                        <td class="id-card-label">আইডি নং :</td>
+                                                        <td>{{ bnNumber($employee->employee_id) ?? '---' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="id-card-label">নাম :</td>
+                                                        <td>{{ $employee->name_bangla ?? '' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="id-card-label">পদবি :</td>
+                                                        <td>{{ $employee->designation_name ?? '' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="id-card-label">বিভাগ :</td>
+                                                        <td>{{ $employee->department_name ?? '' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="id-card-label">লাইন :</td>
+                                                        <td>{{ bnNumber($employee->line) ?? '' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="id-card-label">যোগ দাণের তারিখ :</td>
+                                                        <td>{{ $employee->joining_date ? bnNumber(date('d/m/Y', strtotime($employee->joining_date))) : '--' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="id-card-label">ইস্যু তারিখ :</td>
+                                                        <td>{{ $employee->joining_date ? bnNumber(date('d/m/Y', strtotime($employee->joining_date))) : '--' }}</td>
+                                                    </tr>
+                                                </table>
+
+                                                <table class="id-card-signatures-table">
+                                                    {{-- <tr>
+                                                        <td>
+                                                            @if(!empty($employee->photoBaseSin64))
+                                                                <img src="{{ $employee->photoBaseSin64 }}" class="id-card-sign-img" alt="">
+                                                            @else
+                                                                <div style="border-top: 1px solid #000; width: 40px; height: 12px; margin: 0 auto;"></div>
+                                                            @endif
+                                                            <div>Holder Sign</div>
+                                                        </td>
+                                                        <td>
+                                                            <img src="{{ Storage::url($organization->auth_signature) }}" alt="" width="60px">
+                                                            <div>Authorized Sign</div>
+                                                        </td>
+                                                    </tr> --}}
+                                                    <tr>
+                                                        <td>
+                                                            @if(!empty($employee->photoBaseSin64))
+                                                                <img src="{{ $employee->photoBaseSin64 }}" width="60" height="18" style="object-fit:cover;" alt="Employee Photo">
+                                                            @endif
+                                                            <div>Holder Sign</div>
+                                                        </td>
+                                                        <td>
+                                                            @if(!empty($employee->photoBaseSinAuth64))
+                                                                <img src="{{ $employee->photoBaseSinAuth64 }}" width="60" height="18" style="object-fit:cover;" alt="Employee Photo">
+                                                            @endif
+                                                            <div>Authorized Sign</div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                                <!-- BACK -->
+                                <td>
+                                    <table class="id-card-back" width="100%">
+                                        <tr>
+                                            <td>
+                                                <table width="100%" style="border-collapse: collapse;">
+                                                    <tr>
+                                                        <td align="center" style="font-size: 11px; padding: 0 0 4px 0; line-height: 1.4;">
+                                                            মেয়াদ: অব্যহতির আগ পর্যন্ত
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!--<td style="font-size: 12px; line-height: 1.5; padding: 0 0 6px 0; text-align: left;">
+                                                            কারখানা প্রতিষ্ঠানের ঠিকানা :<br>
+                                                           {{ $employee->address_bangla ?? 'N/A' }}
+                                                        </td>-->
+                                                        <!--<td style="font-size: 11px; line-height: 1.5; padding: 0 0 6px 0; text-align: left;">
+                                                            কারখানা প্রতিষ্ঠানের ঠিকানা :<br>
+                                                            <div style="height: 50px; overflow: hidden; line-height: 1.5;">
+                                                                {{ $employee->address_bangla ?? 'N/A' }}
+                                                            </div>
+                                                        </td>-->
+                                                         <!--<td style="padding: 0 0 6px 0; text-align: left;">
+                                                            @php
+                                                                $address = $employee->address_bangla ?? 'N/A';
+                                                                $addressLength = mb_strlen($address, 'UTF-8');
+                                                                
+                                                                if ($addressLength <= 35) {
+                                                                    $addrFontSize = "18px";
+                                                                    $addrLineHeight = "22pt";
+                                                                    $addrHeight = "40pt"; // ~2 line
+                                                                } else {
+                                                                    $addrFontSize = "9px";
+                                                                    $addrLineHeight = "1.4";
+                                                                    $addrHeight = "48px"; // ~3-4 line, chhoto font
+                                                                }
+                                                            @endphp
+                                                            <div style="font-size: 11px; line-height: 1.5;">কারখানা প্রতিষ্ঠানের ঠিকানা :</div>
+                                                            <div style="font-size: {{ $addrFontSize }}; line-height: {{ $addrLineHeight }}; height: {{ $addrHeight }}; overflow: hidden;">
+                                                                {{ $address }}
+                                                            </div>
+                                                        </td>-->
+                                                         <!--  @php
+                                                                $address = $employee->address_bangla ?? 'N/A';
+                                                                $addressLength = mb_strlen($address, 'UTF-8');
+                                                            @endphp
+                                                        @if($addressLength <= 35)
+                                                       <td style="font-size: 16px; line-height: 2; padding: 0 0 6px 0; text-align: left;">
+                                                            কারখানা প্রতিষ্ঠানের ঠিকানা :<br><br>
+                                                            
+                                                         
+                                                        
+                                                           
+                                                              
+                                                                <div>
+                                                                    {{ $address }}
+                                                                </div>
+                                                                
+                                                        </td>
+                                                        @else
+                                                       <td style="font-size: 12px; line-height: 1; padding: 0 0 6px 0; text-align: left;">
+                                                            কারখানা প্রতিষ্ঠানের ঠিকানা :<br>
+                                                            
+                                                         
+                                                               
+                                                                <div>
+                                                                    {{ $address }}
+                                                                </div>
+                                                            
+                                                        </td>
+                                                        @endif-->
+                                                        @php
+                                                            $address = $employee->address_bangla ?? 'N/A';
+                                                            $addressLength = mb_strlen($address, 'UTF-8');
+                                                        @endphp
+                                                        @if($addressLength <= 35)
+                                                            <td style="padding: 0 0 6px 0; text-align: left;">
+                                                                <div style="font-size: 16px; line-height: 22px;">
+                                                                    কারখানা প্রতিষ্ঠানের ঠিকানা :<br><br>
+                                                                </div>
+                                                                <!-- ঠিকানা ছোট হলে বড় ফন্ট -->
+                                                                <div style="font-size: 16px; line-height: 22px;">
+                                                                    {{ $address }}
+                                                                </div>
+                                                            </td>
+                                                        @else
+                                                            <td style="padding: 0 0 6px 0; text-align: left;">
+                                                                <div style="font-size: 12px; line-height: 15px;">
+                                                                    কারখানা প্রতিষ্ঠানের ঠিকানা :<br>
+                                                                </div>
+                                                                <!-- ঠিকানা বড় হলে ছোট ফন্ট -->
+                                                                <div style="font-size: 12px; line-height: 15px;">
+                                                                    {{ $address }}
+                                                                </div>
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 11.5px; line-height: 1.5; padding: 0 0 6px 0; text-align: left;">
+                                                            টেলিফোন নং :<br>
+                                                           {{ bnNumber($employee->phone ?? 'N/A') }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" style="font-size: 11px; line-height: 1.4; padding: 0 0 4px 0;">
+                                                            উক্ত পরিচয়পত্র হারিয়ে গেলে তাৎক্ষনিকভাবে <br>
+                                                            ব্যবস্থাপনা কর্তৃপক্ষকে জানাতে হবে।
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" style="font-size: 14px; color: #ff0000; padding: 0 0 6px 0;">
+                                                            রক্তের গ্রুপ : {{ $employee->blood_group ?? 'N/A' }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 11px; line-height: 1.5; text-align: left;">
+                                                            <span style="font-size: 10px;">স্থায়ী ঠিকানা :</span><br>
+                                                            গ্রাম : {{ $employee->mvillage_bangla ?? 'N/A' }}<br>
+                                                            ডাকঘর : {{ $employee->mpost_office_bangla ?? 'N/A' }}<br>
+                                                            থানা : {{ $employee->thana_name ?? 'N/A' }}<br>
+                                                            জেলা : {{ $employee->district_name ?? 'N/A' }}<br>
+
+                                                            জরুরী যোগাযোগের ফোন নং :<br>
+                                                            {{ $employee->emergency_mobile ?? 'N/A' }}<br><br>
+
+                                                            জাতীয় পরিচয়পত্র নং :<br>
+                                                            {{ $employee->national_id ?? 'N/A' }}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                @endforeach
+                @if(count($row) < 2)
+                    <td></td>
+                @endif
+            </tr>
+        @endforeach
+    </table>
     @endif
 </body>
 

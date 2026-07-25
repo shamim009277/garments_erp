@@ -281,7 +281,7 @@ class AutoGenerationReportController extends Controller
                 $mpdf->WriteHTML($html);
                 return $mpdf->Output('joining_letter.pdf', 'I'); */
             foreach ($employees as $index => $emp) {
-                $html = view('hris::report.payslip.pdf', ['employee' => $emp, 'orgid' => $orgid, 'title' => $request->title, 'todayBn' => $todayBn])->render();
+                $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp, 'orgid' => $orgid, 'title' => $request->title, 'todayBn' => $todayBn])->render();
                 $mpdf->WriteHTML($html);
 
                 if ($index != count($employees) - 1) {
@@ -603,6 +603,162 @@ class AutoGenerationReportController extends Controller
             }
 
             return $mpdf->Output('joining_letter.pdf', 'I');
-        }
+        }else if($request->title == 10){
+                set_time_limit(300);
+                ini_set('memory_limit', '512M');
+
+                $employees = DB::table('hris_database_employee_basic as e')
+                    ->leftJoin('hris_database_employee_salary as s', 'e.employee_id', '=', 's.employee_id')
+                    ->leftJoin('hris_database_employee_bangla as b', 'e.employee_id', '=', 'b.employee_id')
+                    ->leftJoin('hris_database_employee_personal as p', 'e.employee_id', '=', 'p.employee_id')
+                    ->leftJoin('hris_setup_departments as d', 'e.department_id', '=', 'd.id')
+                    ->leftJoin('hris_setup_designations as des', 'e.designation_id', '=', 'des.id')
+                    ->leftJoin('hris_setup_thanas as t', 'b.mthana_id_bangla', '=', 't.id')
+                    ->leftJoin('hris_setup_districts as dis', 'b.mdistrict_id_bangla', '=', 'dis.id')
+                    ->leftJoin('hris_setup_organizations as org', 'e.org_id', '=', 'org.id')
+                    ->when($request->filled('organization_id'), function ($q) use ($orgid) {
+                        $q->where('e.org_id', $orgid);
+                    })
+                    ->when($request->filled('department_id'), function ($q) use ($request) {
+                                $q->whereIn('department_id', $request->department_id);
+                            })
+                    ->select(
+                        'e.org_id',
+                        'e.employee_id',
+                        'b.name_bangla',
+                        'b.fname_bangla',
+                        'b.mvillage_bangla',
+                        'b.mpost_office_bangla',
+                        't.bn_name as thana_name',
+                        'dis.bn_name as district_name',
+                        'd.department_bn as department_name',
+                        'des.designation_bn as designation_name',
+                        's.gross_salary as basic_salary',
+                        'e.joining_date',
+                        'e.updated_at',
+                        'e.line',
+                        'org.bn_name as org_name',
+                        'org.signature as auth_signature',
+                        'org.address_bangla',
+                        'org.phone',
+                        'e.name',
+                        'p.blood_group',
+                        'p.national_id',
+                        'p.emergency_mobile',
+                        DB::raw("COALESCE(NULLIF(TRIM(e.photo), ''), '') as photo"),
+                        DB::raw("COALESCE(NULLIF(TRIM(e.signature), ''), '') as signature")
+                    )
+                    ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
+                        $q->whereBetween('e.updated_at', [$start_date, $end_date]);
+                    })
+                    ->when($request->filled('employee_id'), function ($q) use ($request) {
+                        $ids = is_array($request->employee_id) ? $request->employee_id : [$request->employee_id];
+                        $q->whereIn('e.employee_id', $ids);
+                    })
+                    ->orderBy('e.updated_at', 'desc')
+                    ->limit(900)
+                    ->get();
+                if ($employees->isEmpty()) {
+                    return view('hris::report.autogenerationreport.notfound', [
+                        'message' => 'No employee found!'
+                    ]);
+                }
+
+                $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+                $fontDirs = $defaultConfig['fontDir'];
+                $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+                $fontData = $defaultFontConfig['fontdata'];
+
+                // Landscape A4 — 4 jon front+back stacked, full 49x76mm size-e fit hobe
+                $mpdf = new \Mpdf\Mpdf([
+                    'mode' => 'utf-8',
+                    'format' => 'A4-L', // Landscape A4
+                    'margin_top' => 8,
+                    'margin_bottom' => 8,
+                    'margin_left' => 8,
+                    'margin_right' => 8,
+                    'fontDir' => array_merge($fontDirs, [public_path('fonts')]),
+                    'fontdata' => $fontData + [
+                        'solaimanlipi' => [
+                            'R' => 'SolaimanLipi.ttf',
+                            'B' => 'SolaimanLipi.ttf',
+                        ],
+                    ],
+                    'default_font' => 'solaimanlipi',
+                    'tempDir' => storage_path('app/mpdf-temp'),
+                    'autoScriptToLang' => true,
+                    'autoLangToFont' => true,
+                    'useOTL' => true,
+                ]);
+
+                $toBase64 = function(string $path): string {
+                    if (!is_file($path) || !is_readable($path)) return '';
+                    try {
+                        $ext  = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                        $mime = match($ext) {
+                            'jpg','jpeg' => 'image/jpeg',
+                            'webp'       => 'image/webp',
+                            'gif'        => 'image/gif',
+                            default      => 'image/png',
+                        };
+                        return 'data:'.$mime.';base64,'.base64_encode(file_get_contents($path));
+                    } catch (\Exception $e) { return ''; }
+                };
+
+                $preparedEmployees = [];
+                foreach ($employees as $emp) {
+                    $photoName = trim((string)($emp->photo ?? ''));
+                    $photoBase64 = '';
+                    if (!empty($photoName)) {
+                        $p = str_contains($photoName, 'storage/')
+                            ? public_path($photoName)
+                            : public_path('storage/'.$photoName);
+                        $photoBase64 = $toBase64($p);
+                    }
+
+                    $signatureName = trim((string)($emp->signature ?? ''));
+                    $photoBaseSin64 = '';
+                    if (!empty($signatureName)) {
+                        $s = str_contains($signatureName, 'storage/')
+                            ? public_path($signatureName)
+                            : public_path('storage/'.$signatureName);
+                        $photoBaseSin64 = $toBase64($s);
+                    }
+                    
+                    $authSignature = trim((string)($emp->auth_signature ?? ''));
+                    $photoBaseSinAuth64 = '';
+                    if (!empty($authSignature)) {
+                        $s = str_contains($authSignature, 'storage/')
+                            ? public_path($authSignature)
+                            : public_path('storage/'.$authSignature);
+                        $photoBaseSinAuth64 = $toBase64($s);
+                    }
+
+                    $emp->photoBase64    = $photoBase64;
+                    $emp->photoBaseSin64 = $photoBaseSin64;
+                    $emp->photoBaseSinAuth64 = $photoBaseSinAuth64;
+                    $preparedEmployees[] = $emp;
+                }
+
+                // 4 jon kore batch — protita batch = ekta landscape A4 page (4 column, front+back stacked)
+                $chunks = array_chunk($preparedEmployees, 4);
+                $lastIndex = count($chunks) - 1;
+
+                foreach ($chunks as $index => $chunk) {
+                    $html = view('hris::report.autogenerationreport.pdf', [
+                        'employees'   => $chunk,
+                        'orgid'       => $orgid,
+                        'title'       => $request->title,
+                    ])->render();
+
+                    $mpdf->WriteHTML($html);
+
+                    if ($index != $lastIndex) {
+                        $mpdf->AddPage();
+                    }
+                }
+
+                return $mpdf->Output('id_cards.pdf', 'I');
+            }
     }
 }
