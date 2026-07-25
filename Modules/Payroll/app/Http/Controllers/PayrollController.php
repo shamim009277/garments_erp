@@ -118,10 +118,42 @@ class PayrollController extends Controller
             return round((($now - $old) / abs($old)) * 100, 1);
         };
 
+        $companyWisePayroll = [];
+        foreach ($organizations as $org) {
+            $c = $curAgg->get($org->id);
+            $p = $prevAgg->get($org->id);
+            $companyWisePayroll[] = [
+                'name'              => $org->name,
+                'short_name'        => $org->short_name ?: $org->name,
+                'employee_count'    => (int)($c ? $c->employee_count : 0),
+                'employee_count_prev' => (int)($p ? $p->employee_count : 0),
+                'net_payable'       => (float)($c ? $c->net_payable : 0),
+                'net_payable_prev'  => (float)($p ? $p->net_payable : 0),
+                'gross_payable'     => (float)($c ? $c->gross_payable : 0),
+                'total_ot_amount'   => (float)($c ? $c->total_ot_amount : 0),
+            ];
+        }
+        $companyWisePayroll = array_values(array_filter($companyWisePayroll, function ($row) {
+            return $row['employee_count'] > 0
+                || $row['employee_count_prev'] > 0
+                || $row['net_payable'] > 0
+                || $row['net_payable_prev'] > 0;
+        }));
+        usort($companyWisePayroll, fn($a, $b) => $b['net_payable'] <=> $a['net_payable']);
+
+        $totalChartEmployees   = array_sum(array_column($companyWisePayroll, 'employee_count'));
+        $totalChartNetPayable  = array_sum(array_column($companyWisePayroll, 'net_payable'));
+        $totalChartCompanies   = count($companyWisePayroll);
+
         return [
             'currentMonthName' => $currentMonth->format('F Y'),
             'prevMonthName'    => $prevMonthObj->format('F Y'),
             'totalCompanies'   => count($organizations),
+
+            'companyWisePayroll'    => collect($companyWisePayroll)->values(),
+            'totalChartEmployees'   => $totalChartEmployees,
+            'totalChartNetPayable'  => $totalChartNetPayable,
+            'totalChartCompanies'   => $totalChartCompanies,
 
             'netPayable'       => $cur->net_payable,
             'netPayablePrev'   => $prev->net_payable,
