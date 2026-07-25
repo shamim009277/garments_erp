@@ -36,10 +36,10 @@ class HRISController extends Controller
     {
         $orgId = $this->resolveAccessibleOrgId($orgId);
 
-        $currentMonthStart = Carbon::now()->startOfMonth();
-        $currentMonthEnd   = Carbon::now()->endOfMonth();
-        $lastMonthStart = Carbon::now()->subMonth()->startOfMonth();
-        $lastMonthEnd   = Carbon::now()->subMonth()->endOfMonth();
+        $currentMonthStart = Carbon::now()->startOfMonth()->toDateString();
+        $currentMonthEnd   = Carbon::now()->endOfMonth()->toDateString();
+        $lastMonthStart = Carbon::now()->subMonth()->startOfMonth()->toDateString();
+        $lastMonthEnd   = Carbon::now()->subMonth()->endOfMonth()->toDateString();
         $todayDate = now()->toDateString();
 
         // Build organization query
@@ -74,19 +74,31 @@ class HRISController extends Controller
             ->keyBy('org_id');
 
         // 2. Get process attendance aggregated data in one query
+        // Optimization: attendance table already has org_id column (no JOIN needed for org),
+        // work_date is DATE type (direct equality), deduplicate (employee_id,org_id) then
+        // use SUM(CASE) instead of COUNT(DISTINCT CASE) for speed.
+        // Keep active-employee filter via EXISTS instead of JOIN to keep the result small.
         $attendanceAggData = ProcessAttendence::selectRaw('
-                emp.org_id,
-                COUNT(DISTINCT payroll_tools_process_attendence.employee_id) as total_punched,
-                COUNT(DISTINCT CASE WHEN payroll_tools_process_attendence.attn_type = \'PR\' THEN payroll_tools_process_attendence.employee_id END) as present_count,
-                COUNT(DISTINCT CASE WHEN payroll_tools_process_attendence.attn_type = \'AB\' THEN payroll_tools_process_attendence.employee_id END) as absent_count,
-                COUNT(DISTINCT CASE WHEN payroll_tools_process_attendence.attn_type IN (\'CL\', \'EL\', \'SL\') THEN payroll_tools_process_attendence.employee_id END) as leave_count
-            ')
-            ->join('hris_database_employee_basic as emp', 'payroll_tools_process_attendence.employee_id', '=', 'emp.employee_id')
-            ->whereDate('payroll_tools_process_attendence.work_date', $todayDate)
-            ->where('emp.is_active', true)
-            ->where('emp.reason', 'N')
-            ->whereIn('emp.org_id', $orgIds)
-            ->groupBy('emp.org_id')
+                src.org_id,
+                COUNT(*) as total_punched,
+                SUM(CASE WHEN src.attn_type = ? THEN 1 ELSE 0 END) as present_count,
+                SUM(CASE WHEN src.attn_type = ? THEN 1 ELSE 0 END) as absent_count,
+                SUM(CASE WHEN src.attn_type IN (?, ?, ?) THEN 1 ELSE 0 END) as leave_count
+            ', ['PR', 'AB', 'CL', 'EL', 'SL'])
+            ->fromSub(function ($q) use ($orgIds, $todayDate) {
+                $q->selectRaw('DISTINCT pa.org_id, pa.employee_id, pa.attn_type')
+                  ->from('payroll_tools_process_attendence as pa')
+                  ->where('pa.work_date', $todayDate)
+                  ->whereIn('pa.org_id', $orgIds)
+                  ->whereExists(function ($ex) {
+                      $ex->selectRaw('1')
+                         ->from('hris_database_employee_basic as emp')
+                         ->whereColumn('emp.employee_id', 'pa.employee_id')
+                         ->where('emp.is_active', true)
+                         ->where('emp.reason', 'N');
+                  });
+            }, 'src')
+            ->groupBy('src.org_id')
             ->get()
             ->keyBy('org_id');
 
