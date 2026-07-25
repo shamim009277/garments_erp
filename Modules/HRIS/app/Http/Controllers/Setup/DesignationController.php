@@ -16,10 +16,10 @@ class DesignationController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:hris.designation.view')->only('index');
-        $this->middleware('permission:hris.designation.add')->only('store');
-        $this->middleware('permission:hris.designation.edit')->only(['edit', 'update','toggleStatus']);
-        $this->middleware('permission:hris.designation.delete')->only('destroy');
+        $this->middleware('permission:hris.designations.view')->only('index');
+        $this->middleware('permission:hris.designations.add')->only('store');
+        $this->middleware('permission:hris.designations.edit')->only(['edit', 'update','toggleStatus']);
+        $this->middleware('permission:hris.designations.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

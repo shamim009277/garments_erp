@@ -94,31 +94,29 @@
                         <div class="col-lg-6 col-md-6 pe-lg-0">
                             <table class="table table-striped mb-0" id="employeeTable" width="100%">
                                 <tr>
-                                    <th colspan="2" style="border: none;"><span class="text-primary">Present
-                                            Address</span> </th>
+                                    <th colspan="2" style="border: none;"><span class="text-primary">Present Address</span> </th>
                                 </tr>
                                 <tr>
                                     <th width="30%" style="border: none;">District </th>
                                     <td width="70%" style="border: none;"><x-select-input name="pdistrict_id"
                                             id="pdistrict_id" class="select2" :options="$districts"
-                                            selected="{{ $employee->pdistrict_id }}"
-                                            value="{{ old('pdistrict_id', $employee->pdistrict_id) }}" required />
+                                            selected="{{ $employee->pdistrict_id ?? '' }}"
+                                            value="{{ old('pdistrict_id', $employee->pdistrict_id ?? '') }}" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="30%" style="border: none;">Thana </th>
                                     <td width="70%" style="border: none;">
                                         <x-select-input name="pthana_id" id="pthana_id" class="select2"
-                                            :options="$thanas" :selected="$employee->pthana_id" required />
+                                            :options="$thanas" :selected="$employee->pthana_id ?? ''" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="30%" style="border: none;">Post Office </th>
                                     <td width="70%" style="border: none;">
                                         <x-text-input name="ppost_office" id="ppost_office" class="form-control-sm"
-                                            value="{{ old('ppost_office', $employee->ppost_office) }}"
-                                            placeholder="Post Office"
-                                            value="{{ old('ppost_office', $employee->ppost_office) }}" required />
+                                            value="{{ old('ppost_office', $employee->ppost_office ?? '') }}"
+                                            placeholder="Post Office" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -127,7 +125,7 @@
                                         <x-text-input name="pvillage" id="pvillage" class="form-control-sm"
                                             value="{{ old('pvillage', $employee->pvillage) }}"
                                             placeholder="House No/Road No/Village ..."
-                                            value="{{ old('pvillage', $employee->pvillage) }}" required />
+                                            value="{{ old('pvillage', $employee->pvillage ?: '') }}" />
                                     </td>
                                 </tr>
                             </table>
@@ -135,39 +133,38 @@
                         <div class="col-lg-6 col-md-6 pe-lg-0">
                             <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                 <tr>
-                                    <th colspan="2" style="border: none;"><span class="text-primary">Mailing
-                                            Address</span> </th>
+                                    <th colspan="2" style="border: none;"><span class="text-primary">Mailing Address</span></th>
                                 </tr>
                                 <tr>
                                     <th width="30%" style="border: none;">District </th>
                                     <td width="70%" style="border: none;"><x-select-input name="mdistrict_id"
                                             id="mdistrict_id" class="select2" :options="$districts"
-                                            selected="{{ $employee->mdistrict_id }}"
-                                            value="{{ old('mdistrict_id', $employee->mdistrict_id) }}" required />
+                                            selected="{{ $employee->mdistrict_id ?? '' }}"
+                                            value="{{ old('mdistrict_id', $employee->mdistrict_id ?? '') }}" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="30%" style="border: none;">Thana </th>
                                     <td width="70%" style="border: none;">
                                         <x-select-input name="mthana_id" id="mthana_id" class="select2"
-                                            :options="$thanas" selected="{{ $employee->mthana_id }}"
-                                            value="{{ old('mthana_id', $employee->mthana_id) }}" required />
+                                            :options="$thanas" selected="{{ $employee->mthana_id ?? '' }}"
+                                            value="{{ old('mthana_id', $employee->mthana_id ?? '') }}" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="30%" style="border: none;">Post Office </th>
                                     <td width="70%" style="border: none;">
                                         <x-text-input name="mpost_office" id="mpost_office" class="form-control-sm"
-                                            value="{{ old('mpost_office', $employee->mpost_office) }}"
-                                            placeholder="Post Office" required />
+                                            value="{{ old('mpost_office', $employee->mpost_office ?? '') }}"
+                                            placeholder="Post Office"  />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="30%" style="border: none;">Address </th>
                                     <td width="70%" style="border: none;">
                                         <x-text-input name="mvillage" id="mvillage" class="form-control-sm"
-                                            value="{{ old('mvillage', $employee->mvillage) }}"
-                                            placeholder="House No/Road No/Village ..." required />
+                                            value="{{ old('mvillage', $employee->mvillage ?? '') }}"
+                                            placeholder="House No/Road No/Village ..." />
                                     </td>
                                 </tr>
                             </table>
@@ -237,19 +234,19 @@
                             <th width="30%" style="border: none;">Father Name </th>
                             <td width="70%" style="border: none;"><x-text-input name="father_name"
                                     class="form-control-sm" id="father_name" placeholder="Father Name"
-                                    value="{{ old('father_name', $employee->father_name) }}" /></td>
+                                    value="{{ old('father_name', $employee->father_name ?? '') }}" /></td>
                         </tr>
                         <tr>
                             <th width="30%" style="border: none;">Mother Name </th>
                             <td width="70%" style="border: none;"><x-text-input name="mother_name"
                                     class="form-control-sm" id="mother_name" placeholder="Mother Name"
-                                    value="{{ old('mother_name', $employee->mother_name) }}" required /></td>
+                                    value="{{ old('mother_name', $employee->mother_name ?? '') }}" /></td>
                         </tr>
                         <tr>
                             <th width="30%" style="border: none;">Spouse Name</th>
                             <td width="70%" style="border: none;"><x-text-input name="spouse_name"
                                     class="form-control-sm" id="spouse_name" placeholder="Spouse Name"
-                                    value="{{ old('spouse_name', $employee->spouse_name) }}" /></td>
+                                    value="{{ old('spouse_name', $employee->spouse_name ?? '') }}" /></td>
                         </tr>
                     </table>
                 </div>
