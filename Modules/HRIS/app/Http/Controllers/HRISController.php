@@ -14,10 +14,28 @@ use Modules\Payroll\Models\Tools\ProcessAttendence;
 class HRISController extends Controller
 {
     /**
+     * Resolve accessible org_id based on user's access_id
+     * access_id == 0 → all organizations (returns requested orgId or null)
+     * access_id != 0 → only that specific org (ignores requested orgId)
+     */
+    private function resolveAccessibleOrgId($requestedOrgId = null)
+    {
+        $userAccessId = Auth::user()->access_id;
+
+        if ($userAccessId == 0) {
+            return $requestedOrgId;
+        }
+
+        return $userAccessId;
+    }
+
+    /**
      * Get dashboard data for a specific organization (or all if null)
      */
     private function getDashboardData($orgId = null)
     {
+        $orgId = $this->resolveAccessibleOrgId($orgId);
+
         $currentMonthStart = Carbon::now()->startOfMonth();
         $currentMonthEnd   = Carbon::now()->endOfMonth();
         $lastMonthStart = Carbon::now()->subMonth()->startOfMonth();
@@ -194,13 +212,16 @@ class HRISController extends Controller
      */
     public function index(Request $request)
     {
-        $organizations = (Auth::user()->access_id == 0) ? Organization::active()->pluck('short_name', 'id') : Organization::active()->where('id', Auth::user()->access_id)->pluck('short_name', 'id');
+        $userAccessId = Auth::user()->access_id;
+        $organizations = ($userAccessId == 0)
+            ? Organization::active()->pluck('short_name', 'id')
+            : Organization::active()->where('id', $userAccessId)->pluck('short_name', 'id');
 
-        // Get default org_id: use request org_id, else user's access_id if not 0, else null (all orgs)
-        $orgId = $request->input('org_id');
-        if (empty($orgId)) {
-            $orgId = Auth::user()->access_id == 0 ? null : Auth::user()->access_id;
+        $requestedOrgId = $request->input('org_id');
+        if (empty($requestedOrgId)) {
+            $requestedOrgId = $userAccessId == 0 ? null : $userAccessId;
         }
+        $orgId = $this->resolveAccessibleOrgId($requestedOrgId);
 
         $dashboardData = $this->getDashboardData($orgId);
 
@@ -212,7 +233,7 @@ class HRISController extends Controller
      */
     public function getDashboardAjax(Request $request)
     {
-        $orgId = $request->org_id;
+        $orgId = $this->resolveAccessibleOrgId($request->org_id);
         $dashboardData = $this->getDashboardData($orgId);
         return response()->json($dashboardData);
     }

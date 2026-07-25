@@ -102,7 +102,7 @@
 
                     <div class="filter-select" style="max-width: 400px;">
                         <x-select-input style="max-width: 400px !important;" name="org_id" id="org_id"
-                            class="select2 w-100" :options="$organizations" :value="$orgId" required />
+                            class="select2 w-100" :options="$organizations" :selected="$orgId" required />
                     </div>
                 </div>
 
