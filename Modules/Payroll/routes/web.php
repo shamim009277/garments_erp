@@ -26,6 +26,7 @@ use Modules\Payroll\Http\Controllers\Tools\ReadMachineDataController;
 
 
 Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(function () {
+    Route::get('/payroll/dashboard-data', [PayrollController::class, 'getDashboardAjax'])->name('payroll.dashboard-data');
     Route::resource('payroll', PayrollController::class)->names('payroll');
 
     Route::prefix('payroll')->name('payroll.')->group(function () {
