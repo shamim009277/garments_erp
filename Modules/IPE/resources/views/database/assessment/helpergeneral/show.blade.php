@@ -25,7 +25,7 @@
     </style>
 @endpush
 @php
-    $disabled = ($unique_applicant && $unique_applicant->is_done == 1) ? 'disabled' : '';
+    $disabled = $unique_applicant && $unique_applicant->is_done == 1 ? 'disabled' : '';
 @endphp
 @section('content')
     <div class="row">
@@ -51,12 +51,16 @@
                 <form action="{{ route('ipe.database.assessments.search') }}" method="POST"
                     class="d-flex order-0 order-md-1 mb-2 mb-md-0 me-md-2" style="max-width: 400px;" role="search">
                     @csrf
-                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Applicant Card No ..." aria-label="Search">
-                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search" width="14" height="14" class="me-1"></i> Search</button>
+                    <input class="form-control form-control-sm me-2" type="search" name="search"
+                        placeholder="Applicant Card No ..." aria-label="Search">
+                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"><i data-feather="search"
+                            width="14" height="14" class="me-1"></i> Search</button>
                 </form>
                 @if ($unique_applicant)
                     <!-- Back Button -->
-                    <a href="{{ route('ipe.database.assessments.index') }}" class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2"><i data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back </a>
+                    <a href="{{ route('ipe.database.assessments.index') }}"
+                        class="btn btn-sm btn-info d-flex align-items-center order-2 order-md-2"><i
+                            data-feather="arrow-left" width="14" height="14" class="me-1"></i> Back </a>
                 @endif
             </div>
         </div>
@@ -66,15 +70,21 @@
 
         <div class="col-lg-9">
             <div class="card alert-info alert-top-border">
-                <div class="card-header d-flex justify-content-between align-items-center flex-wrap px-10 py-12" style="padding: 16px 20px">
-                    <h6 class="my-0 text-primary d-flex align-items-center gap-1"><i data-feather="list" width="18" height="18"></i>
-                        {!! $unique_applicant ? 'New Assessment For: ' . $unique_applicant->designation->designation : 'Input Parameters For New Applicant ...' !!}
-                        <a href="#" class="btn btn-soft-success btn-xs waves-effect waves-light {{ $unique_applicant->is_done ? 'disabled' : '' }}"
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap px-10 py-12"
+                    style="padding: 16px 20px">
+                    <h6 class="my-0 text-primary d-flex align-items-center gap-1"><i data-feather="list" width="18"
+                            height="18"></i>
+                        {!! $unique_applicant
+                            ? 'New Assessment For: ' . $unique_applicant->designation->designation
+                            : 'Input Parameters For New Applicant ...' !!}
+                        <a href="#"
+                            class="btn btn-soft-success btn-xs waves-effect waves-light {{ $unique_applicant->is_done ? 'disabled' : '' }}"
                             style="padding: 4px 6px; {{ $unique_applicant->is_done ? 'pointer-events: none; opacity: 0.5;' : '' }}"
                             data-bs-toggle="modal" data-bs-target="#editModal{{ $unique_applicant->id }}">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <a href="#" class="btn btn-soft-info btn-xs waves-effect waves-light {{ $unique_applicant->is_done ? '' : 'disabled' }}"
+                        <a href="#"
+                            class="btn btn-soft-info btn-xs waves-effect waves-light {{ $unique_applicant->is_done ? '' : 'disabled' }}"
                             style="padding: 4px 6px; {{ $unique_applicant->is_done ? '' : 'pointer-events: none; opacity: 0.5;' }}"
                             data-bs-toggle="modal" data-bs-target="#statusModal{{ $unique_applicant->id }}">
                             <i class="fas fa-rocket"></i> Status
@@ -83,13 +93,19 @@
 
                     <div class="d-flex gap-2 mt-2 mt-md-0">
                         @if ($unique_applicant)
-                            <a href="{{ route('ipe.database.assessments.pdf', $unique_applicant->id) }}" target="_blank" class="btn btn-primary btn-sm d-flex align-items-center {{ $unique_applicant->is_done ? '' : 'disabled' }}"><i data-feather="file-text" width="16" height="16" class="me-1"></i> PDF</a>
-                            <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}" class="btn btn-danger btn-sm d-flex align-items-center delete-assessment"><i data-feather="trash-2" width="16" height="16" class="me-1"></i> Delete</a>
+                            <a href="{{ route('ipe.database.assessments.pdf', $unique_applicant->id) }}" target="_blank"
+                                class="btn btn-primary btn-sm d-flex align-items-center {{ $unique_applicant->is_done ? '' : 'disabled' }}"><i
+                                    data-feather="file-text" width="16" height="16" class="me-1"></i> PDF</a>
+                            <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}"
+                                class="btn btn-danger btn-sm d-flex align-items-center delete-assessment"><i
+                                    data-feather="trash-2" width="16" height="16" class="me-1"></i> Delete</a>
 
-                            <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}" data-status="{{ $unique_applicant->is_done }}"
+                            <a href="javascript:void(0);" data-id="{{ $unique_applicant->id }}"
+                                data-status="{{ $unique_applicant->is_done }}"
                                 class="btn btn-sm d-flex align-items-center toggle-assessment text-white {{ $unique_applicant->is_done ? 'btn-danger' : 'btn-primary' }}">
-                                    <i data-feather="{{ $unique_applicant->is_done ? 'corner-up-left' : 'key' }}" width="16" height="16" class="me-1"></i>
-                                    {{ $unique_applicant->is_done ? 'Revert' : 'Complete' }}
+                                <i data-feather="{{ $unique_applicant->is_done ? 'corner-up-left' : 'key' }}"
+                                    width="16" height="16" class="me-1"></i>
+                                {{ $unique_applicant->is_done ? 'Revert' : 'Complete' }}
                             </a>
                         @else
                             <a href="javascript:void(0);" id="resetForm"
@@ -106,10 +122,13 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h6 class="modal-title" id="myModalLabel">Edit Assessment</h6>
-                                <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
 
-                            <form id="editForm{{ $unique_applicant->id }}" action="{{ route('ipe.database.assessments.update', $unique_applicant->id) }}" method="POST">
+                            <form id="editForm{{ $unique_applicant->id }}"
+                                action="{{ route('ipe.database.assessments.update', $unique_applicant->id) }}"
+                                method="POST">
                                 <div class="modal-body">
                                     @csrf
                                     @method('PUT')
@@ -119,8 +138,8 @@
                                             $unique_applicant ? $unique_applicant->degree_id : null,
                                         )" required />
 
-                                    <x-input-group name="exp_year" label="Experience Year" type="text" pattern="[0-9]"
-                                        placeholder="Enter experience year" :value="old(
+                                    <x-input-group name="exp_year" label="Experience Year" type="text"
+                                        pattern="[0-9]" placeholder="Enter experience year" :value="old(
                                             'exp_year',
                                             $unique_applicant ? $unique_applicant->exp_year : null,
                                         )" />
@@ -138,8 +157,8 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary waves-effect btn-sm"
                                         data-bs-dismiss="modal">Close</button>
-                                    <x-primary-button id="submitBtn" class="float-start btn-sm submitBtn"
-                                        :disabled="$disabled">Save changes</x-primary-button>
+                                    <x-primary-button id="submitBtn" class="float-start btn-sm submitBtn">Save
+                                        changes</x-primary-button>
                                 </div>
                             </form>
                         </div>
@@ -152,13 +171,17 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h6 class="modal-title" id="myModalLabel">Update Applicant Status</h6>
-                                <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
 
-                            <form id="editForm{{ $unique_applicant->id }}" action="{{ route('ipe.database.assessments.update', $unique_applicant->id) }}" method="POST">
+                            <form id="editForm{{ $unique_applicant->id }}"
+                                action="{{ route('ipe.database.assessments.update', $unique_applicant->id) }}"
+                                method="POST">
                                 <div class="modal-body">
                                     @csrf
                                     @method('PUT')
+                                    <input type="hidden" name="status" value="status">
                                     <x-select-search-input name="final_designation_id" id="final_designation_id"
                                         label="Final Designation" :options="$designations" :selected="old(
                                             'final_designation_id',
@@ -173,10 +196,11 @@
                                             'Not Recruit' => 'Not Recruit',
                                         ]" :selected="old(
                                             'interview_status',
-                                            $unique_applicant ? $unique_applicant->applicant->interview_status : 'Pending',
-                                        )"/>
+                                            $unique_applicant?->applicant?->interview_status ?? 'Pending',
+                                        )" />
 
-                                    <x-input-group name="determined_salary" label="Determined Salary"
+                                    <x-input-group name="determined_salary"
+                                        label="Determined Salary (Grade: {{ $assessment->designation->grade ?? 'N/A' }})"
                                         id="determined_salary" type="number" pattern="[0-9]{10,30}"
                                         placeholder="Enter determined salary" :value="old(
                                             'determined_salary',
@@ -184,20 +208,22 @@
                                         )" />
 
                                     <x-input-group name="joining_date" label="Joining Date" id="joining_date"
-                                        class="holiday-date" type="text" placeholder="Enter joining date"
+                                        class="holiday-date" type="date" placeholder="Enter joining date"
                                         :value="old(
                                             'joining_date',
-                                            $unique_applicant
-                                                ? \Carbon\Carbon::parse($unique_applicant->applicant->joining_date)->format(
-                                                    'd-m-Y',
-                                                )
-                                                : null,
+                                            $unique_applicant && $unique_applicant->applicant->joining_date
+                                                ? \Carbon\Carbon::parse(
+                                                    $unique_applicant->applicant->joining_date,
+                                                )->format('Y-m-d')
+                                                : now()->format('Y-m-d'),
                                         )" />
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
-                                    <x-primary-button id="submitBtn" class="float-start btn-sm submitBtn" :disabled="!$disabled">Save changes</x-primary-button>
+                                    <button type="button" class="btn btn-secondary waves-effect btn-sm"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <x-primary-button id="submitBtn" class="float-start btn-sm submitBtn"
+                                        :disabled="!$disabled">Save changes</x-primary-button>
                                 </div>
                             </form>
                         </div>
@@ -205,13 +231,7 @@
                 </div>
 
                 {{-- General Section --}}
-                <x-ipe::question
-                    :title="'Basic Questions'"
-                    :helperQuestions="$helper_questions"
-                    :uniqueApplicant="$unique_applicant"
-                    :perMark="3"
-                    :disabled="false"
-                />
+                <x-ipe::question :title="'Basic Questions'" :helperQuestions="$helper_questions" :uniqueApplicant="$unique_applicant" :perMark="10" :disabled="$disabled" />
             </div>
         </div>
     </div>
@@ -313,14 +333,33 @@
         $(document).on('click', '.toggle-assessment', function(e) {
             e.preventDefault();
             let processId = $(this).data('id');
+            let status = $(this).data('status');
+
+            const swalConfig = {
+                0: {
+                    title: 'Complete this assessment?',
+                    text: "Once completed, you won't be able to modify this assessment.",
+                    icon: 'warning',
+                    confirmButtonText: 'Yes, complete it!'
+                },
+
+                1: {
+                    title: 'Revert this assessment?',
+                    text: 'This assessment will be reverted to pending and can be edited again.',
+                    icon: 'question',
+                    confirmButtonText: 'Yes, revert it!'
+                }
+            };
+            const config = swalConfig[status];
+
             Swal.fire({
-                title: 'Complete this assessment ?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
+                title: config.title,
+                text: config.text,
+                icon: config.icon,
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, complete it!'
+                confirmButtonText: config.confirmButtonText
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -391,7 +430,8 @@
                                 'Assessment has been deleted.',
                                 'success'
                             );
-                            window.location.href = "{{ route('ipe.database.assessments.index') }}";
+                            window.location.href =
+                                "{{ route('ipe.database.assessments.index') }}";
                         },
                         error: function() {
                             Swal.fire(

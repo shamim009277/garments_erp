@@ -232,7 +232,6 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
         });
 
         //Database
-
         Route::prefix('database')->name('database.')->group(function () {
             Route::post('/new-applicants/search', [ApplicantController::class, 'getSearch'])->name('new-applicants.search');
             Route::post('/new-applicants/delete', [ApplicantController::class, 'destroy'])->name('new-applicants.delete');
@@ -251,7 +250,6 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/employee/document', [EmployeeController::class, 'storeEmployeeDocument'])->name('employee.document');
             Route::post('/employee-info', [EmployeeController::class, 'getEmployeeInfo'])->name('employee.info');
             Route::resource('employee', EmployeeController::class)->names('employee');
-
 
             Route::post('/employee-education/delete', [EmployeeEducationController::class, 'destroy'])->name('employee-education.delete');
             Route::resource('employee-education', EmployeeEducationController::class)->names('employee-education');
@@ -329,7 +327,6 @@ Route::middleware(['auth', 'verified', ModuleActive::class . ':hris'])->group(fu
             Route::post('/applicant-report/preview', [ApplicantReportController::class, 'preview'])->name('applicant-report.report.preview');
             Route::resource('applicant-report', ApplicantReportController::class)->names('applicant-report');
             Route::get('/test-bangla-pdf', [ApplicantReportController::class, 'generateBanglaPDF']);
-
 
             //Increment Report
             Route::get('/increment-report/preview', [IncrementReportController::class, 'previewData'])->name('increment-report.form.preview');

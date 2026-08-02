@@ -51,22 +51,22 @@ class ProcessAttendanceJob implements ShouldQueue
         try {
             ini_set('memory_limit', '2048M');
             ini_set('max_execution_time', 7200);
-            
+
             $month = $this->month;
             $year = $this->year;
             $today = Carbon::now()->format('Y-m-d');
             $org_id = $this->org_id;
-            
+
             $startdt = Carbon::parse($year . '-' . $month)->startOfMonth()->format('Y-m-d');
             $enddt   = Carbon::parse($startdt)->endOfMonth()->format('Y-m-d');
-            
+
             $startTime = microtime(true);
             $totalEmployees = 0;
 
             $this->updateStatus('processing', 0, 'Initializing Attendance Process (v1.2)...');
             Log::info("Job ProcessAttendanceJob v1.2 started.");
 
-            //$ramadandate = ['rm_seart_date' => '2026-01-01','rm_end_date' => '2026-01-15'];
+            //Ramadan Schedule and Shift Data
             $ramadandate = RamadanSchedule::active()->first();
             $baseshift = Shift::active()->select('shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
             $companyshift = CompanyWiseShift::active()->where('org_id', $org_id)->select('org_id', 'shift', 'shift_start', 'shift_end', 'break_start', 'break_end', 'break_duration', 'break_duration_type', 'late_after_minutes')->get();
@@ -98,7 +98,7 @@ class ProcessAttendanceJob implements ShouldQueue
                 ->toArray();
 
             $totalDepartments = count($departmentIds);
-            
+
             if ($totalDepartments === 0) {
                  $this->updateStatus('failed', 0, "No departments with employees to process.");
                  return;
@@ -107,11 +107,11 @@ class ProcessAttendanceJob implements ShouldQueue
             $processedDepartments = 0;
             $totalInserted = 0;
 
-            Log::info("Processing {$totalDepartments} departments for Attendance.");
+            //Log::info("Processing {$totalDepartments} departments for Attendance.");
 
             foreach ($departmentIds as $departmentId) {
                 $departmentName = Department::where('id', $departmentId)->value('department') ?? "ID: {$departmentId}";
-                
+
                 // Fetch employees for this department
                 $employees = Employee::where('org_id', $org_id)
                     ->where('department_id', $departmentId)
@@ -120,13 +120,15 @@ class ProcessAttendanceJob implements ShouldQueue
                             ->orWhere('leaving_date', '>=', $startdt);
                     })
                     ->whereNotNull('refrerence_shift')
-                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift', 'ot_payable', 'mtreturn_date', 'joining_date', 'punch_category')
+                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift', 'ot_payable', 'mtreturn_date', 'joining_date', 'punch_category', 'leaving_date', 'reason', 'department_id')
                     ->orderBy('employee_id')
                     ->get();
-                
+
+                //Log::info("Department {$departmentName} (ID: {$departmentId}): Retrieved " . $employees->count() . " employees for processing.");
+
                 $employeeCount = $employees->count();
                 $totalEmployees += $employeeCount;
-                Log::info("Department {$departmentName} (ID: {$departmentId}): Found {$employeeCount} employees.");
+                //Log::info("Department {$departmentName} (ID: {$departmentId}): Found {$employeeCount} employees.");
 
                 $progress = round(($processedDepartments / $totalDepartments) * 100);
                 $this->updateStatus('processing', $progress, "Processing: {$departmentName} ({$employeeCount} employees)");
@@ -152,7 +154,7 @@ class ProcessAttendanceJob implements ShouldQueue
                     $shiftempids = $splitemp->where('shifting_duty', 'Y')->pluck('employee_id')->toArray();
 
                     $assignshift = ShiftingList::whereIn('employee_id', $allempid)->whereMonth('date', $month)->whereYear('date', $year)->whereBetween('date', [$startdt, $enddt])->get();
-                    
+
                     if ($assignshift->isEmpty()) {
                         Log::warning("No Shifting List found for chunk of " . count($allempid) . " employees. Month: $month, Year: $year");
                     } else {
@@ -163,7 +165,7 @@ class ProcessAttendanceJob implements ShouldQueue
                     $leavedatas = DB::table('hris_database_leave_confirmation')->orderBy('employee_id', 'ASC')->orderBy('start_date', 'ASC')->whereIn('employee_id', $allempid)->where(function($q) use($startdt, $enddt){
                         $q->whereBetween('start_date', [$startdt, $enddt])->orWhereBetween('end_date', [$startdt, $enddt]);
                     })->select('employee_id', 'start_date', 'end_date', 'leave_type_id')->get();
-                    
+
                     $allpunchrecords = PunchData::whereIn('employee_id', $allempid)->whereMonth('work_date', $month)->whereYear('work_date', $year)->whereBetween('work_date', [$startdt, $enddt])->get();
 
                     $excepholiday = ExceptionalHoliday::whereIn('employee_id', $shiftempids)
@@ -184,7 +186,7 @@ class ProcessAttendanceJob implements ShouldQueue
                         $empPunches = $allPunchGrouped->get($empid, collect());
                         $empShifts = $allShiftGrouped->get($empid, collect());
                         $empExcepholiday = $allExcepholidayGrouped->get($empid, collect());
-                        
+
                         // start date
                         if ($employee->joining_date >= $startdt) {
                             $start_date = $employee->joining_date;
@@ -194,7 +196,7 @@ class ProcessAttendanceJob implements ShouldQueue
                                 : null;
 
                             if ($startdt == $mtreturndate) {
-                                $start_date = Carbon::parse($mtreturndate)->addDays(1)->format('Y-m-d');
+                                $start_date = Carbon::parse($employee->mtreturn_date)->format('Y-m-d');
                             } else {
                                 $start_date = $startdt;
                             }
@@ -213,7 +215,9 @@ class ProcessAttendanceJob implements ShouldQueue
                         }
                         $end_date = $end_date >= $today ? $today : $end_date;
                         $period = CarbonPeriod::create($start_date, $end_date);
-                        
+
+                        //Log::info("Processing Employee ID Date Range: Range {$period}");
+
                         foreach ($period as $date) {
                             $comdate = $date->format('Y-m-d');
                             try {
@@ -221,7 +225,7 @@ class ProcessAttendanceJob implements ShouldQueue
                                     return substr($item->date, 0, 10) === $comdate;
                                 });
                                 $shift = $shiftEntry?->shift ?? $employee->refrerence_shift;
-                                
+
                                 $shiftinfo = collect($companyshift)->where('shift', $shift)->first() ?? collect($baseshift)->where('shift', $shift)->first();
                                 $calendardata = $caldatas->first(function ($item) use ($comdate) {
                                     return substr($item->date, 0, 10) === $comdate;
@@ -241,7 +245,7 @@ class ProcessAttendanceJob implements ShouldQueue
                                 }
                                 if (!$calendardata) {
                                     Log::warning("No calendar data found for {$comdate}");
-                                    continue; 
+                                    continue;
                                 };
 
                                 $startDtObj = $date->copy()->setTimeFromTimeString($shiftinfo->shift_start);
@@ -272,7 +276,7 @@ class ProcessAttendanceJob implements ShouldQueue
                                 $break_end = $breakEndObj->format('Y-m-d H:i:s');
                                 $date = $formattedDate;
 
-                                $wwhvalue = in_array($employee->shift, ['M', 'N']) ? 11 : 8;
+                                $wwhvalue = in_array($shift, ['M', 'N']) ? 11 : 8;
 
                                 if ($leavedata) {
                                     $wwh = $leavedata->leave_type_id == "ML" || $leavedata->leave_type_id == "LWOP" ? 0 : $wwhvalue;
@@ -330,7 +334,7 @@ class ProcessAttendanceJob implements ShouldQueue
                                         }
                                     }
                                 } else if ($employee->punch_category == 2 && ($punchdata?->start_punch != null || $punchdata?->end_punch != null)) {
-                                    // check shifting duty 
+                                    // check shifting duty
                                     $excepholiday = $empExcepholiday->where('holiday_date',$date)->first();
                                     if ($employee && $employee->shifting_duty == 'Y' && ($excepholiday && Carbon::parse($excepholiday->holiday_date)->format('Y-m-d') == $date)) {
                                         $wwh = $wwhvalue;
@@ -386,7 +390,7 @@ class ProcessAttendanceJob implements ShouldQueue
                                             $othour = 0;
                                             $otminutes = 0;
                                         }
-                                        
+
                                         $results[] = ['org_id' => $employee->org_id, 'employee_id' => $empid, 'shift' => $shift, 'work_date' => $date, 'start_punch' => $start_punch, 'end_punch' => $end_punch, 'rwh' => $rwh, 'wwh' => $wwh, 'ot_hours' => $othour, 'ot_minutes' => $otminutes, 'total_hours' => $totalhour, 'attn_type' => 'PR', 'is_late' => $islate, 'is_early_leave' => $isEarlyLeave, 'late_minutes' => $lateMinutes, 'early_minutes' => $earlyMinutes, 'short_minutes' => $shortMinutes, 'created_by' => $this->user_id, 'updated_by' => $this->user_id];
                                     }
                                 }  else {

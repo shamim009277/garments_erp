@@ -115,7 +115,7 @@
                                     placeholder="Enter name bangla" :value="old(
                                         'name_bangla',
                                         $unique_applicant ? $unique_applicant->name_bangla : null,
-                                    )" required readonly />
+                                    )" readonly />
                             </div>
 
                             <div class="col-lg-4 col-md-6 pr-0">
