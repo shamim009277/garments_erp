@@ -10,6 +10,7 @@ use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\IPE\Models\Database\AssessmentDetailsHelper;
 use Modules\IPE\Models\Database\AssessmentDetailsQuality;
+use Modules\IPE\Models\Database\AssessmentMachineProcess;
 use Modules\IPE\Models\Database\AssessmentProcess;
 // use Modules\IPE\Database\Factories\Database/AssessmentFactory;
 
@@ -55,6 +56,10 @@ class Assessment extends Model
 
     public function processes(){
         return $this->hasMany(AssessmentProcess::class,'assessment_id','id');
+    }
+
+    public function machineProcesses(){
+        return $this->hasMany(AssessmentMachineProcess::class,'assessment_id','id');
     }
 
     public function designation(){

@@ -14,13 +14,17 @@ use Modules\HRIS\Models\Setup\Designation;
 use Modules\HRIS\Models\Setup\Line;
 use Modules\HRIS\Models\Setup\Organization;
 use Modules\IPE\Http\Requests\Database\AssessmentRequest;
+use Modules\IPE\Http\Requests\Database\MachineProcessStoreRequest;
 use Modules\IPE\Http\Requests\Database\ProcessStoreRequest;
 use Modules\IPE\Models\Database\Assessment;
 use Modules\IPE\Models\Database\AssessmentDetailsHelper;
 use Modules\IPE\Models\Database\AssessmentDetailsQuality;
+use Modules\IPE\Models\Database\AssessmentMachineProcess;
 use Modules\IPE\Models\Database\AssessmentProcess;
 use Modules\IPE\Models\Setup\AssessmentGroup;
 use Modules\IPE\Models\Setup\HelperQuestion;
+use Modules\IPE\Models\Setup\MachineProcess;
+use Modules\IPE\Models\Setup\MachineType;
 use Modules\IPE\Models\Setup\PackingQuestion;
 use Modules\IPE\Models\Setup\Process;
 use Modules\IPE\Models\Setup\QualityQuestion;
@@ -126,7 +130,6 @@ class AssessmentController extends Controller
         $assessment = Assessment::find($id);
         $helper_questions = HelperQuestion::active()->whereIn('sl', $existhelpersl)->select('id', 'sl', 'question', 'question_bn', 'answer', 'answer_bn')->orderBy('sl')->orderBy('id')->get()->groupBy('sl');
         $assessments = AssessmentDetailsHelper::where('assessment_id', $id)->get();
-
     
         $groups = AssessmentGroup::active()->where('designation_id', $unique_applicant->designation_id)->first();
 
@@ -134,7 +137,6 @@ class AssessmentController extends Controller
 
             return view('ipe::database.assessment.helpergeneral.show', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions'));
         } else if ($groups->code == 'HWP - 234') {
-
             $existid = $unique_applicant->processes->pluck('process_id')->toArray();
             $processlist = Process::active()->whereNotIn('id', $existid)->pluck('process_name', 'id');
             $getmarks = round(($unique_applicant->processes->avg('efficiency') ?? 0) * 0.70, 2);
@@ -143,7 +145,19 @@ class AssessmentController extends Controller
         }else if($groups->code == 'QC - 932'){
             $existqualityl = $unique_applicant->detailsQuality()->pluck('sl')->toArray();
             $quality_questions = QualityQuestion::active()->whereIn('sl', $existqualityl)->select('id', 'sl', 'question', 'question_bn', 'answer', 'answer_bn')->orderBy('sl')->orderBy('id')->get()->groupBy('sl');
+
             return view('ipe::database.assessment.quality.show', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions', 'quality_questions'));
+        }else if($groups->code == 'H - 834'){
+            $machine = MachineType::active()
+                ->get()
+                ->mapWithKeys(function ($item) {
+                    return [
+                        $item->id => "{$item->name}"
+                    ];
+                });
+            $getmarks = round(($unique_applicant->processes->avg('efficiency') ?? 0) * 0.70, 2);
+
+            return view('ipe::database.assessment.operator.show', compact('assessment', 'departments', 'designations', 'degrees', 'pending_applicants', 'unique_applicant', 'unique_department', 'today', 'organizations', 'maxDate', 'lines', 'helper_questions','getmarks','machine'));
         }
 
         // if (!$groups) {
@@ -222,6 +236,7 @@ class AssessmentController extends Controller
 
             $assessment->details()->delete();
             $assessment->processes()->delete();
+            $assessment->machineProcesses()->delete();
 
             $assessment->delete();
 
@@ -235,6 +250,20 @@ class AssessmentController extends Controller
     {
         try {
             $process = AssessmentProcess::findOrFail($request->id);
+            if ($process->assessment->is_done) {
+                return response()->json(['success' => false, 'message' => 'Cannot delete process from a completed assessment']);
+            }
+            $process->delete();
+            return response()->json(['success' => true, 'message' => 'Assessment Process deleted successfully']);
+        } catch (\Throwable $e) {
+            return response()->json(['success' => false, 'message' => 'Assessment Process deletion failed: ' . $e->getMessage()]);
+        }
+    }
+
+    public function destroyMachineProcess(Request $request)
+    {
+        try {
+            $process = AssessmentMachineProcess::findOrFail($request->id);
             if ($process->assessment->is_done) {
                 return response()->json(['success' => false, 'message' => 'Cannot delete process from a completed assessment']);
             }
@@ -305,6 +334,22 @@ class AssessmentController extends Controller
                     'total_marks' => $total_marks,
                     'get_marks' => $get_marks,
                     'efficiency' => $efficiency,
+                    'is_done' => !$assessment->is_done,
+                ]);
+            }else if($groups->code == 'H - 834'){
+                $existhelpersl = $assessment->details->pluck('sl')->toArray();
+                $helper_questions = HelperQuestion::active()->whereIn('sl', $existhelpersl)->select('id', 'sl', 'question', 'question_bn', 'answer', 'answer_bn')->orderBy('sl')->orderBy('id')->get()->groupBy('sl');
+                $total_marks = $helper_questions->count() * 3 + 70;
+                $genmarks = $assessment->details->where('status', 1)->count() * 3;
+                $efficiencyen = round($genmarks / ($helper_questions->count() * 3) * 100, 2);
+
+                $pracmarks = round(($assessment->MachineProcesses->avg('efficiency') ?? 0) * 0.70, 2);
+                $pracefficiency = $assessment->MachineProcesses->avg('efficiency');
+
+                $assessment->update([
+                    'total_marks' => $total_marks,
+                    'get_marks' => $genmarks+$pracmarks,
+                    'efficiency' => round(($efficiencyen+$pracefficiency)/2,2),
                     'is_done' => !$assessment->is_done,
                 ]);
             }
@@ -378,8 +423,6 @@ class AssessmentController extends Controller
         }
     }
 
-
-
     public function storeProcess(ProcessStoreRequest $request)
     {
         $request->validated();
@@ -395,6 +438,30 @@ class AssessmentController extends Controller
             $data['is_active'] = 1;
 
             AssessmentProcess::create($data);
+
+            return response()->json(['success' => true, 'message' => 'Assessment Process created successfully']);
+        } catch (\Throwable $e) {
+            return response()->json(['success' => false, 'message' => 'Assessment Process creation failed: ' . $e->getMessage()]);
+        }
+    }
+
+    public function storeMachineProcess(MachineProcessStoreRequest $request)
+    {
+        $request->validated();
+
+        try {
+            $capacity = MachineProcess::find($request->process_id)->capacity ?? 0;
+            $machineId = MachineProcess::find($request->process_id)->type_id ?? 0;
+
+            $data = $request->validated();
+            $data['average'] = round(($data['cycle_one'] + $data['cycle_two'] + $data['cycle_three'] + $data['cycle_four'] + $data['cycle_five']) / 5);
+            $data['smv'] = round(60 / ($data['average']), 3);
+            $data['target'] = $capacity;
+            $data['machine_id'] = $machineId;
+            $data['efficiency'] = $data['smv'] > 0 ? round($data['average'] / $capacity * 100, 3) : 0;
+            $data['is_active'] = 1;
+
+            AssessmentMachineProcess::create($data);
 
             return response()->json(['success' => true, 'message' => 'Assessment Process created successfully']);
         } catch (\Throwable $e) {
@@ -418,11 +485,40 @@ class AssessmentController extends Controller
                 $pdf = Pdf::loadView('ipe::database.assessment.helperprocess.pdf', compact('assessment'))->setPaper('a4', 'portrait');
             } else if($groups->code == 'QC - 932'){
                 $pdf = Pdf::loadView('ipe::database.assessment.quality.pdf', compact('assessment'))->setPaper('a4', 'portrait');
+            } else if($groups->code == 'H - 834'){
+                $pdf = Pdf::loadView('ipe::database.assessment.operator.pdf', compact('assessment'))->setPaper('a4', 'portrait');
             }
 
             return $pdf->stream('assessment.pdf');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Failed to generate PDF: ' . $e->getMessage());
+        }
+    }
+
+    public function getMachineProcess($machineId)
+    {
+        try {
+            //$processes = MachineProcess::where('type_id', $machineId)->get()->pluck('process_name', 'id')->toArray();
+
+            $processType = [
+                1 => 'Basic',
+                2 => 'Semi Critical',
+                3 => 'Critical',
+            ];
+
+            $processes = MachineProcess::active()
+                ->where('type_id', $machineId)
+                ->get()
+                ->mapWithKeys(function ($process) use ($processType) {
+                    return [
+                        $process->id => ($processType[$process->process_type] ?? 'Unknown')
+                            . ' - '
+                            . $process->process_name
+                    ];
+                });
+            return response()->json(['success' => true, 'message' => 'Assessment Process found successfully', 'data' => $processes]);
+        } catch (\Throwable $e) {
+            return response()->json(['success' => false, 'message' => 'Assessment Process not found: ' . $e->getMessage()]);
         }
     }
 }

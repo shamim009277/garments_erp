@@ -58,8 +58,11 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(functi
             Route::post('/assessment/question/store', [AssessmentController::class, 'storeQuestion'])->name('assessment.question.store');
             Route::post('/assessment/qualityquestion/store', [AssessmentController::class, 'storeQualityQuestion'])->name('assessment.qualityquestion.store');
             Route::post('/assessment/process/store', [AssessmentController::class, 'storeProcess'])->name('assessment.process.store');
+            Route::post('/assessment/machineprocesses/store', [AssessmentController::class, 'storeMachineProcess'])->name('assessment.machineprocesses.store');
             Route::post('/assessment/process/delete', [AssessmentController::class, 'destroyProcess'])->name('assessment.process.delete');
+            Route::post('/assessment/machineprocesses/delete', [AssessmentController::class, 'destroyMachineProcess'])->name('assessment.machineprocesses.delete');
             Route::post('/assessment/delete', [AssessmentController::class, 'destroy'])->name('assessment.delete');
+            Route::get('/assessment/machine-wise-process/{machine_id}', [AssessmentController::class, 'getMachineProcess'])->name('assessment.machine-wise-process.search');
             Route::resource('assessments', AssessmentController::class)->names('assessments');
         });
 
