@@ -25,6 +25,44 @@ class IPEController extends Controller
         return $userAccessId;
     }
 
+    private function getMonthlyAgg($orgIds, $year, $month)
+    {
+        $subQuery = DB::table('hris_database_new_applicant as a')
+            ->leftJoin('ipe_database_new_assessment as ass', function ($join) {
+                $join->on('ass.applicant_id', '=', 'a.id');
+            })
+            ->select(
+                'a.id',
+                'a.org_id',
+                DB::raw("CASE WHEN a.interview_status = 'Selected' THEN 1 ELSE 0 END as is_selected"),
+                DB::raw("CASE WHEN a.interview_status IN ('Disqualify','Not Recruit') THEN 1 ELSE 0 END as is_rejected"),
+                DB::raw('MAX(CASE WHEN ass.is_done = 1 THEN 1 ELSE 0 END) as has_done_assessment')
+            )
+            ->where('a.ipe_assessment_required', true)
+            ->whereYear('a.entry_date', $year)
+            ->whereMonth('a.entry_date', $month)
+            ->whereIn('a.org_id', $orgIds)
+            ->groupBy([
+                'a.id',
+                'a.org_id',
+                DB::raw("CASE WHEN a.interview_status = 'Selected' THEN 1 ELSE 0 END"),
+                DB::raw("CASE WHEN a.interview_status IN ('Disqualify','Not Recruit') THEN 1 ELSE 0 END")
+            ]);
+
+        $aggQuery = DB::query()->fromSub($subQuery, 'sub')
+            ->select(
+                'sub.org_id',
+                DB::raw('COUNT(*) as total_applicants'),
+                DB::raw('SUM(CASE WHEN sub.has_done_assessment = 1 THEN 1 ELSE 0 END) as completed_assessments'),
+                DB::raw('SUM(CASE WHEN sub.has_done_assessment = 0 THEN 1 ELSE 0 END) as pending_assessments'),
+                DB::raw('SUM(CASE WHEN sub.has_done_assessment = 1 AND sub.is_selected = 1 THEN 1 ELSE 0 END) as selected_applicants'),
+                DB::raw('SUM(CASE WHEN sub.has_done_assessment = 1 AND sub.is_rejected = 1 THEN 1 ELSE 0 END) as rejected_applicants')
+            )
+            ->groupBy('sub.org_id');
+
+        return $aggQuery->get()->keyBy('org_id');
+    }
+
     private function getDashboardData($orgId = null)
     {
         $orgId = $this->resolveAccessibleOrgId($orgId);
@@ -43,56 +81,8 @@ class IPEController extends Controller
         $prevYear  = $prevMonthObj->year;
         $prevMonth = $prevMonthObj->month;
 
-        $applicantSelectRaw = '
-            org_id,
-            COUNT(*) as total_applicants,
-            SUM(CASE WHEN final_status = 1 THEN 1 ELSE 0 END) as selected_applicants,
-            SUM(CASE WHEN final_status IN (2, 3) THEN 1 ELSE 0 END) as rejected_applicants
-        ';
-
-        $curApplicantAgg = Applicant::withoutGlobalScopes()
-            ->selectRaw($applicantSelectRaw)
-            ->whereIn('org_id', $orgIds)
-            ->where('ipe_assessment_required', true)
-            ->whereYear('entry_date', $curYear)
-            ->whereMonth('entry_date', $curMonth)
-            ->groupBy('org_id')
-            ->get()
-            ->keyBy('org_id');
-
-        $prevApplicantAgg = Applicant::withoutGlobalScopes()
-            ->selectRaw($applicantSelectRaw)
-            ->whereIn('org_id', $orgIds)
-            ->where('ipe_assessment_required', true)
-            ->whereYear('entry_date', $prevYear)
-            ->whereMonth('entry_date', $prevMonth)
-            ->groupBy('org_id')
-            ->get()
-            ->keyBy('org_id');
-
-        $assessmentSelectRaw = '
-            org_id,
-            COUNT(*) as total_assessments,
-            SUM(CASE WHEN is_done = 1 THEN 1 ELSE 0 END) as completed_assessments
-        ';
-
-        $curAssessmentAgg = Assessment::withoutGlobalScopes()
-            ->selectRaw($assessmentSelectRaw)
-            ->whereIn('org_id', $orgIds)
-            ->whereYear('assessment_date', $curYear)
-            ->whereMonth('assessment_date', $curMonth)
-            ->groupBy('org_id')
-            ->get()
-            ->keyBy('org_id');
-
-        $prevAssessmentAgg = Assessment::withoutGlobalScopes()
-            ->selectRaw($assessmentSelectRaw)
-            ->whereIn('org_id', $orgIds)
-            ->whereYear('assessment_date', $prevYear)
-            ->whereMonth('assessment_date', $prevMonth)
-            ->groupBy('org_id')
-            ->get()
-            ->keyBy('org_id');
+        $curAgg = $this->getMonthlyAgg($orgIds, $curYear, $curMonth);
+        $prevAgg = $this->getMonthlyAgg($orgIds, $prevYear, $prevMonth);
 
         $cur = (object)[
             'total_applicants'        => 0,
@@ -100,38 +90,25 @@ class IPEController extends Controller
             'rejected_applicants'     => 0,
             'completed_assessments'   => 0,
             'pending_assessments'     => 0,
-            'total_assessments'       => 0,
         ];
 
         $prev = clone $cur;
 
         foreach ($organizations as $org) {
-            $ca = $curApplicantAgg->get($org->id);
-            $pa = $prevApplicantAgg->get($org->id);
-            $cs = $curAssessmentAgg->get($org->id);
-            $ps = $prevAssessmentAgg->get($org->id);
+            $c = $curAgg->get($org->id);
+            $p = $prevAgg->get($org->id);
 
-            $curTotalApp = $ca ? (int)$ca->total_applicants : 0;
-            $curCompleted = $cs ? (int)$cs->completed_assessments : 0;
-            $curTotalAss = $cs ? (int)$cs->total_assessments : 0;
+            $cur->total_applicants      += $c ? (int)$c->total_applicants : 0;
+            $cur->completed_assessments += $c ? (int)$c->completed_assessments : 0;
+            $cur->pending_assessments   += $c ? (int)$c->pending_assessments : 0;
+            $cur->selected_applicants   += $c ? (int)$c->selected_applicants : 0;
+            $cur->rejected_applicants   += $c ? (int)$c->rejected_applicants : 0;
 
-            $prevTotalApp = $pa ? (int)$pa->total_applicants : 0;
-            $prevCompleted = $ps ? (int)$ps->completed_assessments : 0;
-            $prevTotalAss = $ps ? (int)$ps->total_assessments : 0;
-
-            $cur->total_applicants      += $curTotalApp;
-            $cur->selected_applicants   += $ca ? (int)$ca->selected_applicants : 0;
-            $cur->rejected_applicants   += $ca ? (int)$ca->rejected_applicants : 0;
-            $cur->total_assessments     += $curTotalAss;
-            $cur->completed_assessments += $curCompleted;
-            $cur->pending_assessments   += max(0, $curTotalApp - $curCompleted);
-
-            $prev->total_applicants      += $prevTotalApp;
-            $prev->selected_applicants   += $pa ? (int)$pa->selected_applicants : 0;
-            $prev->rejected_applicants   += $pa ? (int)$pa->rejected_applicants : 0;
-            $prev->total_assessments     += $prevTotalAss;
-            $prev->completed_assessments += $prevCompleted;
-            $prev->pending_assessments   += max(0, $prevTotalApp - $prevCompleted);
+            $prev->total_applicants      += $p ? (int)$p->total_applicants : 0;
+            $prev->completed_assessments += $p ? (int)$p->completed_assessments : 0;
+            $prev->pending_assessments   += $p ? (int)$p->pending_assessments : 0;
+            $prev->selected_applicants   += $p ? (int)$p->selected_applicants : 0;
+            $prev->rejected_applicants   += $p ? (int)$p->rejected_applicants : 0;
         }
 
         $pct = function ($now, $old) {
@@ -142,31 +119,22 @@ class IPEController extends Controller
 
         $companyWiseIPE = [];
         foreach ($organizations as $org) {
-            $ca = $curApplicantAgg->get($org->id);
-            $pa = $prevApplicantAgg->get($org->id);
-            $cs = $curAssessmentAgg->get($org->id);
-            $ps = $prevAssessmentAgg->get($org->id);
-
-            $curTotalApp    = $ca ? (int)$ca->total_applicants : 0;
-            $curCompleted   = $cs ? (int)$cs->completed_assessments : 0;
-            $curSelected    = $ca ? (int)$ca->selected_applicants : 0;
-            $prevTotalApp   = $pa ? (int)$pa->total_applicants : 0;
-            $prevCompleted  = $ps ? (int)$ps->completed_assessments : 0;
-            $prevSelected   = $pa ? (int)$pa->selected_applicants : 0;
+            $c = $curAgg->get($org->id);
+            $p = $prevAgg->get($org->id);
 
             $companyWiseIPE[] = [
                 'name'                  => $org->name,
                 'short_name'            => $org->short_name ?: $org->name,
-                'total_applicants'      => $curTotalApp,
-                'total_applicants_prev' => $prevTotalApp,
-                'completed_assessments' => $curCompleted,
-                'completed_assessments_prev' => $prevCompleted,
-                'pending_assessments'   => max(0, $curTotalApp - $curCompleted),
-                'pending_assessments_prev' => max(0, $prevTotalApp - $prevCompleted),
-                'selected_applicants'   => $curSelected,
-                'selected_applicants_prev' => $prevSelected,
-                'rejected_applicants'   => $ca ? (int)$ca->rejected_applicants : 0,
-                'rejected_applicants_prev' => $pa ? (int)$pa->rejected_applicants : 0,
+                'total_applicants'      => $c ? (int)$c->total_applicants : 0,
+                'total_applicants_prev' => $p ? (int)$p->total_applicants : 0,
+                'completed_assessments' => $c ? (int)$c->completed_assessments : 0,
+                'completed_assessments_prev' => $p ? (int)$p->completed_assessments : 0,
+                'pending_assessments'   => $c ? (int)$c->pending_assessments : 0,
+                'pending_assessments_prev' => $p ? (int)$p->pending_assessments : 0,
+                'selected_applicants'   => $c ? (int)$c->selected_applicants : 0,
+                'selected_applicants_prev' => $p ? (int)$p->selected_applicants : 0,
+                'rejected_applicants'   => $c ? (int)$c->rejected_applicants : 0,
+                'rejected_applicants_prev' => $p ? (int)$p->rejected_applicants : 0,
             ];
         }
         $companyWiseIPE = array_values(array_filter($companyWiseIPE, function ($row) {
