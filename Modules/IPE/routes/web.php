@@ -16,6 +16,7 @@ use Modules\IPE\Http\Controllers\Setup\QualityQuestionsController;
 
 
 Route::middleware(['auth', 'verified',ModuleActive::class.':ipe'])->group(function () {
+    Route::get('/ipe/dashboard-data', [IPEController::class, 'getDashboardAjax'])->name('ipe.dashboard-data');
     Route::resource('ipe', IPEController::class)->names('ipe');
 
     Route::prefix('ipe')->name('ipe.')->group(function () {
