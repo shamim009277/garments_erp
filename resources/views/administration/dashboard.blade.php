@@ -136,7 +136,7 @@
 
                         <!-- 1. Total Modules -->
                         <div class="col">
-                            <div class="card border-0 shadow-sm text-white h-100" style="background:linear-gradient(135deg,#7b1fa2,#9c27b0);">
+                            <div class="card border-0 shadow-sm text-white h-100" style="background:linear-gradient(135deg,#8f07c9,#55f77e);">
                                 <div class="card-body stat-card-body">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="flex-grow-1">
@@ -163,7 +163,7 @@
 
                         <!-- 2. Total Menus -->
                         <div class="col">
-                            <div class="card border-0 shadow-sm bg-primary bg-gradient text-white h-100">
+                            <div class="card border-0 shadow-sm text-white h-100" style="background:linear-gradient(135deg,#ec792b,#5f5902);">
                                 <div class="card-body stat-card-body">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="flex-grow-1">
