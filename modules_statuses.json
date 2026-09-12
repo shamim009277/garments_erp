@@ -3,5 +3,6 @@
     "Inventory": true,
     "HRM": true,
     "HRIS": true,
-    "IPE": true
+    "IPE": true,
+    "Commercial": true
 }
