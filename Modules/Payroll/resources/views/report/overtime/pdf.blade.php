@@ -34,15 +34,46 @@
     .page-break {
         page-break-before: always;
     }
+    .subtotal td {
+        background-color: #cbdefa !important;
+        font-weight: bold;
+    }
+
+    .subtotal2 td {
+        background-color: #d1fae6 !important;
+        font-weight: bold;
+    }
+
+    .grand-total td {
+        background-color: #fac6b3 !important;
+        font-weight: bold;
+    }
+
+    .friday-column {
+        background-color: #f8d7da !important;
+        color: #842029 !important;
+    }
+
+    .table-header {
+        background-color: #4549A2 !important;
+        color: #fff !important;
+    }
+
+    .table-header th {
+        background-color: #4549A2 !important;
+        color: #fff !important;
+    }
 </style>
 @php
     $reportTitle = match ($title) {
         '1' => 'Department-wise Daily Basis Monthly Overtime',
         '2' => 'Department-wise Daily Overtime',
+        '3' => 'Department-wise Monthly Total Overtime',
+        '4' => 'Section Wise Monthly Overtime Summary',
         default => '',
     };
 
-    $reportSubTitle = in_array($title, [1])
+    $reportSubTitle = in_array($title, [1, 3, 4])
         ? 'Month: ' . ($monthName . ' ' . $year ?? '')
         : (in_array($title, [2])
             ? 'Date: ' . \Carbon\Carbon::parse($date)->format('d-m-Y')
@@ -356,6 +387,316 @@
                 No data available
             </div>
         @endif
+    @elseif ($title == 4)
+        @if ($datas->count() > 0)
+            <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th width="12%">Date</th>
+                        @foreach($dates as $date)
+                            @php
+                                $isFriday = date('N', strtotime($date)) == 5;
+                            @endphp
+                            <th class="text-center {{ $isFriday ? 'friday-column' : '' }}">{{ date('d', strtotime($date)) }}</th>
+                        @endforeach
+                        <th class="text-center">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $grandTotals = collect($dates)->mapWithKeys(fn ($date) => [$date => 0]);
+                        $grandTotal = 0;
+                    @endphp
 
+                    @foreach($groupedData as $parentdep)
+                        @foreach($parentdep['departments'] as $department)
+
+                            @php
+                                $departmentTotals = collect($dates)->mapWithKeys(fn ($date) => [$date => 0]);
+                                $departmentTotal = 0;
+                            @endphp
+
+                            @if(isset($department['units']))
+                                @foreach($department['units'] as $unit)
+
+                                    @php
+                                        $unitTotals = collect($dates)->mapWithKeys(fn ($date) => [$date => 0]);
+                                        $unitTotal = 0;
+                                    @endphp
+
+                                    @if(isset($unit['lines']))
+
+                                        @foreach($unit['lines'] as $line)
+
+                                            <tr>
+                                                <td>Line-{{ $line['line_name'] }}
+                                                </td>
+
+                                                @foreach($dates as $date)
+
+                                                    @php
+                                                        $value = $line['dates']->get($date, 0);
+
+                                                        $unitTotals[$date] += $value;
+                                                        $departmentTotals[$date] += $value;
+                                                        $grandTotals[$date] += $value;
+
+                                                        $unitTotal += $value;
+                                                        $departmentTotal += $value;
+                                                        $grandTotal += $value;
+
+                                                        $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                                    @endphp
+
+                                                    <td class="text-center {{ $isFriday ? 'friday-column' : '' }}">
+                                                        {{ $value }}
+                                                    </td>
+
+                                                @endforeach
+
+                                                <td class="text-center">
+                                                    {{ $line['dates']->sum() }}
+                                                </td>
+                                            </tr>
+
+                                        @endforeach
+
+                                        <tr class="fw-bold subtotal2">
+                                            <td>
+                                                Unit-{{ $unit['unit_name'] }} Sub Total
+                                            </td>
+
+                                            @foreach($dates as $date)
+
+                                                @php
+                                                    $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                                @endphp
+
+                                                <td class="text-center {{ $isFriday ? 'friday-column' : '' }}">
+                                                    {{ $unitTotals[$date] }}
+                                                </td>
+
+                                            @endforeach
+
+                                            <td class="text-center">
+                                                {{ $unitTotal }}
+                                            </td>
+                                        </tr>
+
+                                    @else
+
+                                        <tr>
+                                            <td>
+                                                {{ $department['department_name'] }}::Unit-{{ $unit['unit_name'] }}
+                                            </td>
+
+                                            @foreach($dates as $date)
+
+                                                @php
+                                                    $value = $unit['dates']->get($date, 0);
+
+                                                    $unitTotals[$date] += $value;
+                                                    $departmentTotals[$date] += $value;
+                                                    $grandTotals[$date] += $value;
+
+                                                    $unitTotal += $value;
+                                                    $departmentTotal += $value;
+                                                    $grandTotal += $value;
+
+                                                    $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                                @endphp
+
+                                                <td class="text-center {{ $isFriday ? 'friday-column' : '' }}">
+                                                    {{ $value }}
+                                                </td>
+
+                                            @endforeach
+
+                                            <td class="text-center">
+                                                {{ $unit['dates']->sum() }}
+                                            </td>
+                                        </tr>
+
+                                        <tr class="fw-bold subtotal2">
+                                            <td>
+                                                Unit-{{ $unit['unit_name'] }} Sub Total
+                                            </td>
+
+                                            @foreach($dates as $date)
+
+                                                @php
+                                                    $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                                @endphp
+
+                                                <td class="text-center {{ $isFriday ? 'friday-column' : '' }}">
+                                                    {{ $unitTotals[$date] }}
+                                                </td>
+
+                                            @endforeach
+
+                                            <td class="text-center">
+                                                {{ $unitTotal }}
+                                            </td>
+                                        </tr>
+
+                                    @endif
+
+                                @endforeach
+
+                                @if(isset($department['lines']))
+
+                                    @foreach($department['lines'] as $line)
+
+                                        <tr>
+                                            <td>
+                                                {{ $department['department_name'] }} :: Line - {{ $line['line_name'] }}
+                                            </td>
+
+                                            @foreach($dates as $date)
+
+                                                @php
+                                                    $value = $line['dates']->get($date, 0);
+
+                                                    $departmentTotals[$date] += $value;
+                                                    $grandTotals[$date] += $value;
+
+                                                    $departmentTotal += $value;
+                                                    $grandTotal += $value;
+
+                                                    $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                                @endphp
+
+                                                <td class="text-center {{ $isFriday ? 'friday-column' : '' }}"> {{ $value }}</td>
+
+                                            @endforeach
+
+                                            <td class="text-center"> {{ $line['dates']->sum() }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+
+                                <tr class="fw-bold subtotal">
+                                    <td> {{ $department['department_name'] }} Sub Total </td>
+
+                                    @foreach($dates as $date)
+                                        @php
+                                            $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                        @endphp
+
+                                        <td class="text-center {{ $isFriday ? 'friday-column' : '' }}"> {{ $departmentTotals[$date] }}</td>
+                                    @endforeach
+
+                                    <td class="text-center">
+                                        {{ $departmentTotal }}
+                                    </td>
+                                </tr>
+
+                            @elseif(isset($department['lines']))
+
+                                @foreach($department['lines'] as $line)
+
+                                    <tr>
+                                        <td>
+                                            {{ $department['department_name'] }} :: Line - {{ $line['line_name'] }}
+                                        </td>
+
+                                        @foreach($dates as $date)
+
+                                            @php
+                                                $value = $line['dates']->get($date, 0);
+
+                                                $departmentTotals[$date] += $value;
+                                                $grandTotals[$date] += $value;
+
+                                                $departmentTotal += $value;
+                                                $grandTotal += $value;
+
+                                                $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                            @endphp
+
+                                            <td class="text-center {{ $isFriday ? 'friday-column' : '' }}"> {{ $value }}</td>
+
+                                        @endforeach
+
+                                        <td class="text-center"> {{ $line['dates']->sum() }}</td>
+                                    </tr>
+
+                                @endforeach
+
+                                <tr class="fw-bold subtotal">
+                                    <td> {{ $department['department_name'] }} Sub Total </td>
+                                    @foreach($dates as $date)
+                                        @php
+                                            $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                        @endphp
+                                        <td class="text-center {{ $isFriday ? 'friday-column' : '' }}"> {{ $departmentTotals[$date] }}</td>
+                                    @endforeach
+                                    <td class="text-center">
+                                        {{ $departmentTotal }}
+                                    </td>
+                                </tr>
+
+                            @else
+
+                                <tr>
+                                    <td>
+                                        {{ $department['department_name'] }}
+                                    </td>
+
+                                    @foreach($dates as $date)
+
+                                        @php
+                                            $value = $department['dates']->get($date, 0);
+
+                                            $grandTotals[$date] += $value;
+
+                                            $departmentTotal += $value;
+                                            $grandTotal += $value;
+
+                                            $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                        @endphp
+
+                                        <td class="text-center {{ $isFriday ? 'friday-column' : '' }}"> {{ $value }}</td>
+
+                                    @endforeach
+                                    <td class="text-center"> {{ $departmentTotal }}</td>
+                                </tr>
+
+                                <tr class="fw-bold subtotal">
+                                    <td> {{ $department['department_name'] }} Sub Total </td>
+                                    @foreach($dates as $date)
+                                        @php
+                                            $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                                        @endphp
+                                        <td class="text-center {{ $isFriday ? 'friday-column' : '' }}"> {{ $department['dates']->get($date, 0) }}</td>
+                                    @endforeach
+                                    <td class="text-center"> {{ $departmentTotal }}</td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    @endforeach
+
+                    <tr class="fw-bold grand-total">
+                        <td> Grand Total </td>
+
+                        @foreach($dates as $date)
+
+                            @php
+                                $isFriday = \Carbon\Carbon::parse($date)->isFriday();
+                            @endphp
+
+                            <td class="text-center {{ $isFriday ? 'friday-column' : '' }}"> {{ $grandTotals[$date] }}</td>
+                        @endforeach
+
+                        <td class="text-center"> {{ $grandTotal }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        @else
+            <div class="text-center mt-5 text-danger">
+                No data available
+            </div>
+        @endif
     @endif
 @endsection

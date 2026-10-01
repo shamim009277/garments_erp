@@ -139,9 +139,7 @@
                                     class="btn btn-danger btn-sm d-flex align-items-center delete-applicant"
                                     data-id="{{ $unique_applicant->id }}"><i data-feather="trash-2" width="16"
                                         height="16" class="me-1"></i> Delete</a>
-                                <button class="btn btn-warning btn-sm d-flex align-items-center text-white"><i
-                                        data-feather="star" width="16" height="16" class="me-1"></i>
-                                    Sticker</button>
+                                <a href="{{ route('hris.database.new-applicants.sticker', $unique_applicant->id) }}" target="_blank" class="btn btn-warning btn-sm d-flex align-items-center text-white"><i data-feather="star" width="16" height="16" class="me-1"></i>Sticker</a>
                             @else
                                 <a href="javascript:void(0);" id="resetForm" class="btn btn-secondary btn-sm d-flex align-items-center"><i data-feather="rotate-ccw" width="16" height="16" class="me-1"></i> Reset</a>
                             @endif
@@ -307,8 +305,7 @@
                                     <div class="col-lg-4 col-md-6 pr-0" id="proposed_salary_section">
                                         <x-input-group name="proposed_salary" label="Proposed Salary" id="proposed_salary"
                                             type="number" pattern="[0-9]{10,30}" min="0" placeholder="Enter proposed salary"
-                                            :value="old(
-                                                'proposed_salary',
+                                            :value="old('proposed_salary',
                                                 $unique_applicant ? $unique_applicant->proposed_salary : null,
                                             )" />
                                     </div>

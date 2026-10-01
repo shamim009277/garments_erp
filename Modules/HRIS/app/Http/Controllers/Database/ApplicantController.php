@@ -192,4 +192,15 @@ class ApplicantController extends Controller
             return redirect()->back()->with('error', 'Failed to search applicant: Applicant not found');
         }
     }
+
+    public function sticker($id)
+    {
+        $applicant = Applicant::with(['department:id,department', 'designation:id,designation', 'organization:id,name,address'])->findOrFail($id);
+        if($applicant->interview_status == 'Pending'){
+            return view('hris::database.newapplicant.interview', compact('applicant'));
+        }else if($applicant->interview_status == 'Selected'){
+           return view('hris::database.newapplicant.sticker', compact('applicant'));
+        }
+        
+    }
 }

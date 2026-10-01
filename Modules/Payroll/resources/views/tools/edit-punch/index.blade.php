@@ -59,12 +59,12 @@
                                     <tbody>
                                         <tr>
                                             <td style="border: none;">
-                                                <x-text-input name="start_date" id="start_date" class="form-control-sm" type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                <x-text-input name="start_date" id="start_date" class="form-control-sm" type="date" value="{{ old('start_date', \Carbon\Carbon::parse($startDate)->format('Y-m-d')) }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="border: none;">
-                                                <x-text-input name="end_date" id="end_date" class="form-control-sm" type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                <x-text-input name="end_date" id="end_date" class="form-control-sm" type="date" value="{{ old('end_date', \Carbon\Carbon::parse($endDate)->format('Y-m-d')) }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>

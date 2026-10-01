@@ -30,6 +30,25 @@
             background-color: #b7bbf5 !important;
             border: 1px solid #b7bbf5 !important;
         }
+
+        .select2-checkbox-item {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .select2-results__option {
+            padding: 8px 12px;
+        }
+
+        #employee_id .select2-selection__choice {
+            display: inline-block !important;
+            margin: 2px !important;
+        }
+
+        #employee_id .select2-selection__rendered {
+            display: inline-block !important;
+            white-space: normal !important;
+        }
     </style>
 @endpush
     <div class="row">
@@ -118,9 +137,18 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th width="40%"> Employee ID</th>
+                                                    <th width="40%"> Employee List</th>
                                                     <td width="60%">
-                                                        <x-text-input name="employee_id" id="employee_id" label="" class="form-control-sm" placeholder="Employee ID" />
+                                                        <select name="employee_id[]" id="employee_id" class="select2-checkbox form-select">
+                                                            <option value="">Select Employee</option>
+                                                            @if(isset($employees))
+                                                                @foreach ($employees as $employee)
+                                                                    <option value="{{ $employee->employee_id }}" {{ old('employee_id') == $employee->employee_id ? 'selected' : '' }}>
+                                                                        {{ $employee->employee_id }} - {{ $employee->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -147,7 +175,7 @@
                                                 <tr>
                                                     <th width="40%">Amount (Hour)</th>
                                                     <td width="60%">
-                                                        <x-text-input name="amount_hour" id="amount_hour" class="form-control-sm" placeholder="Amount (Hour)" required/>
+                                                        <x-text-input name="amount_hour" type="number" min="0" id="amount_hour" step="1" class="form-control-sm" placeholder="Amount (Hour)" required/>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -169,6 +197,185 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+        // Initialize employee select based on title
+        function initEmployeeSelect() {
+            var selectedTitle = $('input[name="title"]:checked').val();
+
+            // Destroy existing select2 if initialized
+            if ($('#employee_id').hasClass('select2-hidden-accessible')) {
+                $('#employee_id').select2('destroy');
+            }
+
+            if (selectedTitle == '1') {
+                // Multiselect for title 1
+                $('#employee_id').attr('multiple', 'multiple');
+                $('#employee_id').empty().append('<option value="all">Select All</option>');
+                loadEmployees();
+
+                $('#employee_id').select2({
+                    placeholder: 'Select Employees',
+                    allowClear: true,
+                    width: '100%',
+                    closeOnSelect: false,
+                    templateResult: formatEmployeeOption,
+                    templateSelection: formatEmployeeSelection
+                });
+
+                // Add multiselect event handlers
+                addMultiselectHandlers();
+            } else if (selectedTitle == '2') {
+                // Single select for title 2
+                $('#employee_id').removeAttr('multiple');
+                $('#employee_id').empty().append('<option value="">Select Employee</option>');
+                loadEmployees();
+
+                $('#employee_id').select2({
+                    placeholder: 'Select Employee',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+        }
+
+        function formatEmployeeOption(option) {
+            if (!option.id) {
+                return option.text;
+            }
+            var $option = $(option.element);
+            var $checkbox = $('<input type="checkbox" class="select2-checkbox-item"/>');
+            if ($option.prop('selected')) {
+                $checkbox.prop('checked', true);
+            }
+            $checkbox.on('click', function(e) {
+                e.stopPropagation();
+                if ($(this).prop('checked')) {
+                    $option.prop('selected', true);
+                } else {
+                    $option.prop('selected', false);
+                }
+                $('#employee_id').trigger('change');
+            });
+            var $span = $('<span>').append($checkbox).append(' ' + option.text);
+            $span.on('click', function(e) {
+                if (e.target !== $checkbox[0]) {
+                    e.stopPropagation();
+                    $checkbox.prop('checked', !$checkbox.prop('checked'));
+                    if ($checkbox.prop('checked')) {
+                        $option.prop('selected', true);
+                    } else {
+                        $option.prop('selected', false);
+                    }
+                    $('#employee_id').trigger('change');
+                }
+            });
+            return $span;
+        }
+
+        function formatEmployeeSelection(selection) {
+            return selection.text;
+        }
+
+        function addMultiselectHandlers() {
+            // Sync checkboxes with selection
+            $('#employee_id').off('select2:opening').on('select2:opening', function() {
+                var $select = $(this);
+                var allSelected = true;
+                var anySelected = false;
+
+                $select.find('option:not([value="all"])').each(function() {
+                    var $option = $(this);
+                    var $checkbox = $('.select2-results__option[aria-selected="' + $option.prop('selected') + '"]').find('.select2-checkbox-item');
+                    if ($option.prop('selected')) {
+                        $checkbox.prop('checked', true);
+                        anySelected = true;
+                    } else {
+                        $checkbox.prop('checked', false);
+                        allSelected = false;
+                    }
+                });
+
+                // Update Select All checkbox based on employee selection
+                var $selectAllCheckbox = $('.select2-results__option:contains("Select All")').find('.select2-checkbox-item');
+                if (allSelected && anySelected) {
+                    $selectAllCheckbox.prop('checked', true);
+                } else {
+                    $selectAllCheckbox.prop('checked', false);
+                }
+            });
+
+            // Handle Select All option
+            $('#employee_id').off('select2:select').on('select2:select', function(e) {
+                if (e.params.data.id === 'all') {
+                    // Select all employee options
+                    $('#employee_id option:not([value="all"])').prop('selected', true);
+                    $('#employee_id').trigger('change');
+
+                    // Update all employee checkboxes immediately
+                    $('.select2-results__option:not(:contains("Select All")) .select2-checkbox-item').prop('checked', true);
+                }
+            });
+
+            $('#employee_id').off('select2:unselect').on('select2:unselect', function(e) {
+                if (e.params.data.id === 'all') {
+                    // Deselect all employee options
+                    $('#employee_id option:not([value="all"])').prop('selected', false);
+                    $('#employee_id').trigger('change');
+
+                    // Update all employee checkboxes immediately
+                    $('.select2-results__option:not(:contains("Select All")) .select2-checkbox-item').prop('checked', false);
+                }
+            });
+        }
+
+        // Load employees based on organization and line
+        function loadEmployees() {
+            var orgId = $('#organization_id').val();
+            var line = $('#all_line').is(':checked') ? '' : $('#line').val();
+            var selectedTitle = $('input[name="title"]:checked').val();
+
+            $.ajax({
+                url: '{{ route('payroll.tools.ot-adjustment.employees') }}',
+                type: 'GET',
+                data: {
+                    organization_id: orgId,
+                    line: line
+                },
+                success: function(response) {
+                    var selectAllOption = selectedTitle == '1' ? '<option value="all">Select All</option>' : '<option value="">Select Employee</option>';
+                    $('#employee_id').empty().append(selectAllOption);
+                    $.each(response.employees, function(index, employee) {
+                        $('#employee_id').append('<option value="' + employee.employee_id + '">' + employee.employee_id + ' - ' + employee.name + '</option>');
+                    });
+                    $('#employee_id').trigger('change');
+                }
+            });
+        }
+
+        // Load employees on organization change
+        $('#organization_id').on('change', function() {
+            loadEmployees();
+        });
+
+        // Load employees on line change
+        $('#line').on('change', function() {
+            if (!$('#all_line').is(':checked')) {
+                loadEmployees();
+            }
+        });
+
+        // Load employees on all_line checkbox change
+        $('#all_line').on('change', function() {
+            loadEmployees();
+        });
+
+        // Reinitialize employee select on title change
+        $('input[name="title"]').on('change', function() {
+            initEmployeeSelect();
+        });
+
+        // Initialize on page load
+        initEmployeeSelect();
+
         $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
 
         $('.titles').prop('checked', false);

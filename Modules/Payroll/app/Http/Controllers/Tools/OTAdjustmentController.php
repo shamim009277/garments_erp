@@ -34,9 +34,54 @@ class OTAdjustmentController extends Controller
             ->orderBy('department', 'asc')
             ->get();
         $employeeCategories = EmployeeCategory::pluck('category', 'category_code')->toArray();
-        $types = ['1' => 'Increase OT', '2' => 'Decrease OT'];
+        $types = ['1' => 'Increase OT', '2' => 'Decrease OT', '3' => 'Reset OT'];
+        $defaultOrgId = 1;
+        $employees = Employee::active()->where('org_id', $defaultOrgId)->where('ot_payable', 'Y')->orderBy('employee_id', 'asc')->get(['id', 'employee_id', 'name']);
 
-        return view('payroll::tools.otadjustment.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'employeeCategories', 'types'));
+        return view('payroll::tools.otadjustment.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'employeeCategories', 'types', 'employees'));
+    }
+
+    public function getEmployees(Request $request)
+    {
+        $orgId = (int) $request->get('organization_id', 1);
+        $line = $request->get('line', '');
+        $search = trim((string) $request->get('q', ''));
+
+        $query = Employee::active()
+            ->where('org_id', $orgId)
+            ->where('ot_payable', 'Y')
+            ->when(!empty($line), function ($q) use ($line) {
+                $q->where('line', $line);
+            })
+            ->when($search !== '', function ($q) use ($search) {
+                $q->where(function ($sub) use ($search) {
+                    $sub->where('employee_id', 'like', '%' . $search . '%')
+                        ->orWhere('name', 'like', '%' . $search . '%');
+                });
+            })
+            ->orderBy('employee_id', 'asc');
+
+        // If it's an AJAX request for Select2 search
+        if ($request->has('q')) {
+            $employees = $query->limit(500)->get(['employee_id', 'name'])->map(function ($e) {
+                return [
+                    'id' => $e->employee_id,
+                    'text' => $e->employee_id . ' - ' . $e->name,
+                ];
+            })->values()->toArray();
+
+            return response()->json([
+                'results' => $employees,
+                'pagination' => ['more' => false],
+            ]);
+        }
+
+        // For loading all employees
+        $employees = $query->get(['employee_id', 'name']);
+
+        return response()->json([
+            'employees' => $employees,
+        ]);
     }
 
     /**
@@ -217,7 +262,7 @@ class OTAdjustmentController extends Controller
             'title' => 'required',
             'organization_id' => 'required|integer|min:1',
             'adjust_type' => 'required|integer|min:1',
-            'amount_hour' => 'required|numeric|min:1',
+            'amount_hour' => 'required|numeric|min:0',
             'date' => 'required|date',
         ]);
 
@@ -232,11 +277,14 @@ class OTAdjustmentController extends Controller
                     'department_id' => 'required|array|min:1',
                 ]);
 
+                $selectedEmpIds = $request->filled('employee_id') ? array_map('intval', array_filter($request->employee_id)) : [];
+
                 $employeeIds = Employee::active()
                     ->where('org_id', $request->organization_id)
                     ->where('ot_payable', 'Y')
                     ->whereIn('department_id', $request->department_id)
                     ->when($request->filled('line'), fn ($q) => $q->where('line', $request->line))
+                    ->when(!empty($selectedEmpIds), fn ($q) => $q->whereIn('employee_id', $selectedEmpIds))
                     ->pluck('employee_id')
                     ->toArray();
 
@@ -258,6 +306,7 @@ class OTAdjustmentController extends Controller
                     ->where('work_date', $date)
                     ->when($request->adjust_type == 1, fn ($q) => $q->where('attn_type', 'PR'))
                     ->when($request->adjust_type == 2, fn ($q) => $q->where('ot_hours', '>=', $hour))
+                    ->when($request->adjust_type == 3, fn ($q) => $q->where('attn_type', 'PR'))
                     ->get();
 
                 if ($attendences->isEmpty()) {
@@ -266,7 +315,6 @@ class OTAdjustmentController extends Controller
 
                 /* 🔹 ADD OT */
                 if ($request->adjust_type == 1) {
-
                     foreach ($attendences->chunk(100) as $chunk) {
                         foreach ($chunk as $attendence) {
 
@@ -274,9 +322,7 @@ class OTAdjustmentController extends Controller
                                 continue;
                             }
 
-                            $shift = $companyShifts[$attendence->shift]
-                                ?? $baseShifts[$attendence->shift]
-                                ?? null;
+                            $shift = $companyShifts[$attendence->shift] ?? $baseShifts[$attendence->shift] ?? null;
 
                             if (!$shift || !$shift->shift_start || !$shift->shift_end) {
                                 throw new \Exception(
@@ -290,9 +336,7 @@ class OTAdjustmentController extends Controller
                             if ($empEndShift->greaterThan($shiftEnd)) {
                                 $attendence->end_punch = $empEndShift->addHours($hour);
                             } else {
-                                $attendence->end_punch = $shiftEnd->copy()
-                                    ->addHours($hour)
-                                    ->addMinutes(random_int(1, 10));
+                                $attendence->end_punch = $shiftEnd->copy()->addHours($hour)->addMinutes(random_int(1, 10));
                             }
 
                             $attendence->ot_hours += $hour;
@@ -311,56 +355,118 @@ class OTAdjustmentController extends Controller
                         }
                     }
                 }
+
+                /* 🔹 FLAT OT */
+                if ($request->adjust_type == 3) {
+                    foreach ($attendences->chunk(100) as $chunk) {
+                        foreach ($chunk as $attendence) {
+                            $newOt = (float) $hour;
+                            if ($newOt < 0 || $newOt > 12) {
+                                continue;
+                            }
+                            $shift = $companyShifts[$attendence->shift] ?? $baseShifts[$attendence->shift] ?? null;
+                            if (!$shift || !$shift->shift_start || !$shift->shift_end) {
+                                throw new \Exception(
+                                    "Shift timing not found for employee ID: {$attendence->employee_id}"
+                                );
+                            }
+                            $shiftEnd = Carbon::parse( $date . ' ' . $shift->shift_end );
+                            if ($newOt == 0) {
+                                $attendence->end_punch = $shiftEnd->copy();
+                            } else {
+                                $attendence->end_punch = $shiftEnd->copy()->addHours($newOt)->addMinutes(random_int(1, 10));
+                            }
+                            $attendence->ot_hours = $newOt;
+                            $attendence->save();
+                        }
+                    }
+                }
             }elseif ($request->title == 2) {
                 $request->validate([
                     'employee_id' => 'required',
                 ]);
-                $attendence = ProcessAttendence::where('employee_id', (int) $request->employee_id)->where('work_date', $date)->where('attn_type', 'PR')->first();
 
-                if (!$attendence) {
-                    throw new \Exception('Attendance not found for this employee');
-                }
+                $employeeIds = is_array($request->employee_id) ? array_map('intval', $request->employee_id) : [(int)$request->employee_id];
+                /* 🔹 Shift Cache */
+                $companyShifts = CompanyWiseShift::active()->where('org_id', $request->organization_id)->get()->keyBy('shift');
+                $baseShifts = Shift::active()->get()->keyBy('shift');
 
-                $companyShift = CompanyWiseShift::active()->where('org_id', $request->organization_id)->where('shift', $attendence->shift)->first();
-                $baseShift = Shift::active()->where('shift', $attendence->shift)->first();
-                $shift = $companyShift ?? $baseShift;
+                $attendences = ProcessAttendence::whereIn('employee_id', $employeeIds)
+                    ->where('work_date', $date)
+                    ->when($request->adjust_type == 1, fn ($q) => $q->where('attn_type', 'PR'))
+                    ->when($request->adjust_type == 2, fn ($q) => $q->where('ot_hours', '>=', $hour))
+                    ->when($request->adjust_type == 3, fn ($q) => $q->where('attn_type', 'PR'))
+                    ->get();
 
-                if (!$shift || !$shift->shift_start || !$shift->shift_end) {
-                    throw new \Exception('Shift timing not found');
+                if ($attendences->isEmpty()) {
+                    throw new \Exception('Attendance not found for selected employees');
                 }
 
                 /* 🔹 ADD OT */
                 if ($request->adjust_type == 1) {
-                    if (($attendence->ot_hours + $hour) > 12) {
-                        throw new \Exception('Total OT Hours cannot exceed 12');
+                    foreach ($attendences as $attendence) {
+                        if (($attendence->ot_hours + $hour) > 12) {
+                            continue;
+                        }
+
+                        $shift = $companyShifts[$attendence->shift] ?? $baseShifts[$attendence->shift] ?? null;
+                        if (!$shift || !$shift->shift_start || !$shift->shift_end) {
+                            throw new \Exception(
+                                "Shift timing not found for employee ID: {$attendence->employee_id}"
+                            );
+                        }
+                        $shiftEnd = Carbon::parse($date . ' ' . $shift->shift_end);
+                        $empEndShift = Carbon::parse($attendence->end_punch);
+
+                        if ($empEndShift->greaterThan($shiftEnd)) {
+                            $attendence->end_punch = $empEndShift->addHours($hour);
+                        } else {
+                            $attendence->end_punch = $shiftEnd->copy()->addHours($hour)->addMinutes(random_int(1, 10));
+                        }
+
+                        $attendence->ot_hours += $hour;
+                        $attendence->save();
                     }
-
-                    $shiftEnd = Carbon::parse($date . ' ' . $shift->shift_end);
-                    $empEndShift = Carbon::parse($attendence->end_punch);
-
-                    if ($empEndShift->greaterThan($shiftEnd)) {
-                        $attendence->end_punch = $empEndShift->addHours($hour);
-                    } else {
-                        $attendence->end_punch = $shiftEnd->copy()
-                            ->addHours($hour)
-                            ->addMinutes(random_int(1, 10));
-                    }
-
-                    $attendence->ot_hours += $hour;
-                    $attendence->save();
                 }
 
                 /* 🔹 SUBTRACT OT */
                 if ($request->adjust_type == 2) {
-                    if ($attendence->ot_hours < $hour) {
-                        throw new \Exception('OT Hours is less than adjustment');
+                    foreach ($attendences as $attendence) {
+                        if ($attendence->ot_hours < $hour) {
+                            continue;
+                        }
+                        $attendence->end_punch = Carbon::parse($attendence->end_punch)->subHours($hour);
+                        $attendence->ot_hours -= $hour;
+                        $attendence->save();
                     }
-                    $attendence->end_punch = Carbon::parse($attendence->end_punch)->subHours($hour);
-                    $attendence->ot_hours -= $hour;
-                    $attendence->save();
+                }
+
+                /* 🔹 SET OT */
+                if ($request->adjust_type == 3) {
+                    foreach ($attendences->chunk(100) as $chunk) {
+                        foreach ($chunk as $attendence) {
+                            $newOt = (float) $hour;
+                            if ($newOt < 0 || $newOt > 12) {
+                                continue;
+                            }
+                            $shift = $companyShifts[$attendence->shift] ?? $baseShifts[$attendence->shift] ?? null;
+                            if (!$shift || !$shift->shift_start || !$shift->shift_end) {
+                                throw new \Exception(
+                                    "Shift timing not found for employee ID: {$attendence->employee_id}"
+                                );
+                            }
+                            $shiftEnd = Carbon::parse( $date . ' ' . $shift->shift_end );
+                            if ($newOt == 0) {
+                                $attendence->end_punch = $shiftEnd->copy();
+                            } else {
+                                $attendence->end_punch = $shiftEnd->copy()->addHours($newOt)->addMinutes(random_int(1, 10));
+                            }
+                            $attendence->ot_hours = $newOt;
+                            $attendence->save();
+                        }
+                    }
                 }
             }
-
             DB::commit();
             return redirect()->back()->with('success', 'OT Adjustment done successfully');
         } catch (\Throwable $e) {

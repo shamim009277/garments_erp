@@ -22,7 +22,9 @@ class EditPunchDataController extends Controller
     public function index()
     {
         $organizations = Organization::pluck('short_name', 'id')->toArray();
-        return view('payroll::tools.edit-punch.index', compact('organizations'));
+        $startDate = Carbon::now()->startOfMonth()->format('d-m-Y');
+        $endDate = Carbon::now()->endOfMonth()->format('d-m-Y');
+        return view('payroll::tools.edit-punch.index', compact('organizations', 'startDate', 'endDate'));
     }
 
     /**
@@ -74,8 +76,7 @@ class EditPunchDataController extends Controller
             $calender = Calender::whereBetween('date', [
                 $startDate->toDateString(),
                 $endDate->toDateString()
-            ])
-                ->get()
+            ])->get()
                 ->keyBy(function ($item) {
                     return Carbon::parse($item->date)->format('Y-m-d');
                 });
@@ -120,12 +121,22 @@ class EditPunchDataController extends Controller
                 $shift = $shiftingList[$workDate]->shift ?? $defaultShift;
                 $shiftData = $shiftingData[$shift] ?? null;
 
-                if ($shiftData) {
-                    $startPunch = $workDate . ' ' . $shiftData->shift_start;
-                    $endPunch   = $workDate . ' ' . $shiftData->shift_end;
-                } else {
-                    $startPunch = $workDate . ' 00:00:00';
-                    $endPunch   = $workDate . ' 00:00:00';
+                // if ($shiftData) {
+                //     $startPunch = $workDate . ' ' . $shiftData->shift_start;
+                //     $endPunch   = $workDate . ' ' . $shiftData->shift_end;
+                // } else {
+                //     $startPunch = $workDate . ' 00:00:00';
+                //     $endPunch   = $workDate . ' 00:00:00';
+                // }
+                if ($shiftData) { 
+                    $shiftStart = Carbon::parse( $workDate . ' ' . $shiftData->shift_start );  
+                    $shiftEnd = Carbon::parse( $workDate . ' ' . $shiftData->shift_end ); 
+                    /* |-------------------------------------------------------------------------- | Random Start Punch |-------------------------------------------------------------------------- | Shift start time থেকে random 1-5 minutes + random seconds minus | | Example: | Shift Start = 08:30:00 | Random = 4 minutes 23 seconds | Result = 08:25:37 |-------------------------------------------------------------------------- */ 
+                    $startRandomSeconds = rand(60, 300); $startPunch = $shiftStart ->copy() ->subSeconds($startRandomSeconds) ->format('Y-m-d H:i:s'); /* |-------------------------------------------------------------------------- | Random End Punch |-------------------------------------------------------------------------- | Shift end time থেকে random 1-5 minutes + random seconds plus | | Example: | Shift End = 17:30:00 | Random = 4 minutes 18 seconds | Result = 17:34:18 |-------------------------------------------------------------------------- */ 
+                    $endRandomSeconds = rand(60, 300); $endPunch = $shiftEnd ->copy() ->addSeconds($endRandomSeconds) ->format('Y-m-d H:i:s'); 
+                } else { 
+                    $startPunch = $workDate . ' 00:00:00'; 
+                    $endPunch = $workDate . ' 00:00:00'; 
                 }
 
                 $isHoliday = $cal?->holiday == 'Y';

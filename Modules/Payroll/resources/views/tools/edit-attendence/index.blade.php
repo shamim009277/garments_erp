@@ -68,24 +68,22 @@
                                         <tr>
                                             <td style="border: none;">
                                                 <x-text-input name="start_date" id="start_date" class="form-control-sm"
-                                                    type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                    type="date" value="{{ old('start_date', \Carbon\Carbon::parse($startDate)->format('Y-m-d')) }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="border: none;">
                                                 <x-text-input name="end_date" id="end_date" class="form-control-sm"
-                                                    type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                    type="date" value="{{ old('end_date', \Carbon\Carbon::parse($endDate)->format('Y-m-d')) }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <th class="flex justify-end items-center gap-2" style="border: none;">
-                                                <x-primary-button id="displayBtn" class="btn-sm submitBtn display-date"
-                                                    type="button" style="margin-left: 8px;">
+                                                <x-primary-button id="displayBtn" class="btn-sm submitBtn display-date" type="button" style="margin-left: 8px;">
                                                     Display
                                                 </x-primary-button>
 
-                                                <x-primary-button id="addManuallyBtn" class="btn-sm submitBtn display-date"
-                                                    type="button" style="margin-left: 8px;">
+                                                <x-primary-button id="addManuallyBtn" class="btn-sm submitBtn display-date" type="button" style="margin-left: 8px;">
                                                     Add Manually
                                                 </x-primary-button>
                                             </th>
@@ -103,8 +101,7 @@
         <div class="col-lg-8 ps-lg-0" style="margin:0px auto;">
             <div class="card alert-primary alert-top-border" style="min-height: 400px;max-height: 400px;overflow-y: auto;">
                 <div class="card-header" style="padding: 15px 16px;">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Display
-                        Employee Attendence</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Display Employee Attendence</h6>
                 </div>
                 <div class="card-body" style="overflow-y: auto;">
                     <div style="overflow-x: auto;">
@@ -282,56 +279,56 @@
                                 let empCode = String(emp.employee_id).padStart(8, '0');
 
                                 row += `
-                            <tr id="row-${emp.id}">
-                                <td>${empCode}</td>
+                                    <tr id="row-${emp.id}">
+                                        <td>${empCode}</td>
 
-                                <td>
-                                    ${emp.work_date}
-                                    <input type="hidden" name="rows[${index}][employee_id]" value="${emp.employee_id}">
-                                    <input type="hidden" name="rows[${index}][organization_id]" value="${emp.organization_id}">
-                                    <input type="hidden" name="rows[${index}][work_date]" value="${emp.work_date}">
-                                </td>
+                                        <td>
+                                            ${emp.work_date}
+                                            <input type="hidden" name="rows[${index}][employee_id]" value="${emp.employee_id}">
+                                            <input type="hidden" name="rows[${index}][organization_id]" value="${emp.organization_id}">
+                                            <input type="hidden" name="rows[${index}][work_date]" value="${emp.work_date}">
+                                        </td>
 
-                                <td>
-                                    <input type="text" id="shift_${emp.id}" name="rows[${index}][shift]" class="form-control form-control-sm" value="${emp.shift}">
-                                </td>
+                                        <td>
+                                            <input type="text" id="shift_${emp.id}" name="rows[${index}][shift]" class="form-control form-control-sm" value="${emp.shift}">
+                                        </td>
 
-                                <td>
-                                    <input type="text" id="start_punch_${emp.id}" name="rows[${index}][start_punch]" class="form-control form-control-sm" value="${startPunch}">
-                                </td>
+                                        <td>
+                                            <input type="text" id="start_punch_${emp.id}" name="rows[${index}][start_punch]" class="form-control form-control-sm" value="${startPunch}">
+                                        </td>
 
-                                <td>
-                                    <input type="text" id="end_punch_${emp.id}" name="rows[${index}][end_punch]" class="form-control form-control-sm" value="${endPunch}">
-                                </td>
+                                        <td>
+                                            <input type="text" id="end_punch_${emp.id}" name="rows[${index}][end_punch]" class="form-control form-control-sm" value="${endPunch}">
+                                        </td>
 
-                                <td>
-                                    <input type="text" id="rwh_${emp.id}" name="rows[${index}][rwh]" class="form-control form-control-sm" value="${emp.rwh}">
-                                </td>
+                                        <td>
+                                            <input type="text" id="rwh_${emp.id}" name="rows[${index}][rwh]" class="form-control form-control-sm" value="${emp.rwh}">
+                                        </td>
 
-                                <td>
-                                    <input type="text" id="ot_hours_${emp.id}" name="rows[${index}][ot_hours]" class="form-control form-control-sm" value="${emp.ot_hours}">
-                                </td>
+                                        <td>
+                                            <input type="text" id="ot_hours_${emp.id}" name="rows[${index}][ot_hours]" class="form-control form-control-sm" value="${emp.ot_hours}">
+                                        </td>
 
-                                <td>
-                                    <input type="text" id="is_late_${emp.id}" name="rows[${index}][is_late]" class="form-control form-control-sm" value="${emp.is_late || ''}">
-                                </td>
+                                        <td>
+                                            <input type="text" id="is_late_${emp.id}" name="rows[${index}][is_late]" class="form-control form-control-sm" value="${emp.is_late || ''}">
+                                        </td>
 
-                                <td>
-                                    <select id="attn_type_${emp.id}"
-                                        name="rows[${index}][attn_type]"
-                                        class="form-control form-control-sm">
+                                        <td>
+                                            <select id="attn_type_${emp.id}"
+                                                name="rows[${index}][attn_type]"
+                                                class="form-control form-control-sm">
 
-                                        <option value="">Select</option>
-                                        <option value="PR" ${emp.attn_type === 'PR' ? 'selected' : ''}>PR</option>
-                                        <option value="HD" ${emp.attn_type === 'HD' ? 'selected' : ''}>HD</option>
-                                        <option value="AB" ${emp.attn_type === 'AB' ? 'selected' : ''}>AB</option>
-                                        <option value="CL" ${emp.attn_type === 'CL' ? 'selected' : ''}>CL</option>
-                                        <option value="SL" ${emp.attn_type === 'SL' ? 'selected' : ''}>SL</option>
-                                        <option value="EL" ${emp.attn_type === 'EL' ? 'selected' : ''}>EL</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        `;
+                                                <option value="">Select</option>
+                                                <option value="PR" ${emp.attn_type === 'PR' ? 'selected' : ''}>PR</option>
+                                                <option value="HD" ${emp.attn_type === 'HD' ? 'selected' : ''}>HD</option>
+                                                <option value="AB" ${emp.attn_type === 'AB' ? 'selected' : ''}>AB</option>
+                                                <option value="CL" ${emp.attn_type === 'CL' ? 'selected' : ''}>CL</option>
+                                                <option value="SL" ${emp.attn_type === 'SL' ? 'selected' : ''}>SL</option>
+                                                <option value="EL" ${emp.attn_type === 'EL' ? 'selected' : ''}>EL</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                `;
                             });
 
                             $('#employeedata').html(row);
