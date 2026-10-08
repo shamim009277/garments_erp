@@ -19,12 +19,9 @@ class PaymentTermRequest extends FormRequest
                 'required',
                 'string',
                 'max:100',
-                Rule::unique('commercial_setup_payment_terms', 'name')
-                    ->ignore($id),
+                Rule::unique('commercial_setup_payment_terms', 'name')->ignore($id),
             ],
-
-            'description' => 'required|string|max:255',
-
+            'description' => 'nullable|string|max:255',
             'is_active' => 'required|boolean',
         ];
     }

@@ -16,8 +16,8 @@ class PaymentMethodController extends Controller
      */
     public function index()
     {
-        $payment_methods = PaymentMethod::query()->get();
-        return view('commercial::setup.paymentmethod.index', compact('payment_methods'));
+        $paymentmethods = PaymentMethod::query()->get();
+        return view('commercial::setup.paymentmethod.index', compact('paymentmethods'));
     }
 
     /**
@@ -85,7 +85,7 @@ class PaymentMethodController extends Controller
     /**
      * Toggle the status of the specified resource.
      */
-    public function toggleStatus(PaymentMethodRequest $request) {
+    public function toggleStatus(Request $request) {
         return $this->ToggleStatusTrait($request, PaymentMethod::class);
     }
 }

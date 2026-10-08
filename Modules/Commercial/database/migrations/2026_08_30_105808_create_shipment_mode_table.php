@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commercial_setup_shipment_mode', function (Blueprint $table) {
+        Schema::create('commercial_setup_shipment_modes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('created_by');
             $table->string('updated_by');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commercial_setup_shipment_mode');
+        Schema::dropIfExists('commercial_setup_shipment_modes');
     }
 };

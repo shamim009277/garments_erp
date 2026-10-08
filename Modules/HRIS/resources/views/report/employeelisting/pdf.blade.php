@@ -1,4 +1,3 @@
-
 @extends('hris::components.layouts.pdf')
 @section('title', 'Movement Pass Report')
 @php
@@ -13,9 +12,9 @@
         default => 'Employee Listing Report',
     };
 
-    $reportSubTitle = in_array($title, [1,2])
+    $reportSubTitle = in_array($title, [1, 2])
         ? null
-        : (in_array($title, [3,5,6,7])
+        : (in_array($title, [3, 5, 6, 7])
             ? "Date Range: {$start_date} To {$end_date}"
             : null);
 @endphp
@@ -31,7 +30,7 @@
     }
 </style>
 @section('content')
-    @if($title == 1 || $title == 3 || $title == 4)
+    @if ($title == 1 || $title == 3 || $title == 4)
         <table style="width: 100%;">
             <thead>
                 <tr>
@@ -41,8 +40,8 @@
                     {{-- <th>Department</th> --}}
                     <th>Designation</th>
                     <th>Category</th>
-                    @if($title == 4)
-                    <th>Blood Group</th>
+                    @if ($title == 4)
+                        <th>Blood Group</th>
                     @endif
                     <th>Joining Date</th>
                     <th>District</th>
@@ -51,54 +50,134 @@
                 </tr>
             </thead>
             <tbody>
-                    {{--  <tbody>
-                            @foreach ($employees as $employee)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                                    <td>{{ $employee->name }}</td>
-                                    <td>{{ $employee->department->department }}</td>
-                                    <td>{{ $employee->designation->designation }}</td>
-                                    <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                    <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                    <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody> --}}
-                @foreach($uniqueDepartments as $departmentId => $department)
+                @foreach ($uniqueDepartments as $departmentId => $department)
                     <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
-                        <td></td>
-                        <td style="text-align: center; color: #5156be;">{!! $department->department !!}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="9" style="text-align: left; color: #5156be;">
+                            {!! $department->department !!}
+                        </td>
                     </tr>
+
                     <?php $sl1 = 1; ?>
+
                     @foreach ($employees as $employee)
-                    @if($employee->department_id == $department->id)
-                        <tr>
-                            <td>{{ $sl1 }}</td>
-                            <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                            <td>{{ $employee->name }}</td>
-                            {{-- <td>{{ $employee->department->department }}</td> --}}
-                            <td>{{ $employee->designation->designation }}</td>
-                            <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                            @if($title == 4)
-                            <td>{{ $employee->employeePersonal->blood_group ?? 'N/A' }}</td>
-                            @endif
-                            <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                            <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
-                            <td>{{ $employee->employeeSalary->gross_salary ?? 'N/A' }}</td>
-                            <td>{{ $employee->employeeSalary->basic ?? 'N/A' }}</td>
-                        </tr>
-                        <?php $sl1++; ?>
-                    @endif
+                        @if ($employee->department_id == $department->id)
+                            <tr>
+                                <td>{{ $sl1 }}</td>
+
+                                <td>
+                                    {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}
+                                </td>
+
+                                <td>
+                                    {{ $employee->name }}
+                                </td>
+
+                                {{-- <td>{{ $employee->department->department }}</td> --}}
+
+                                <td>
+                                    {{ $employee->designation->designation }}
+                                </td>
+
+                                <td>
+                                    @if ($employee->designation->category_code == 'O')
+                                        Officer
+                                    @elseif($employee->designation->category_code == 'M')
+                                        Manager
+                                    @elseif($employee->designation->category_code == 'S')
+                                        Staff
+                                    @elseif($employee->designation->category_code == 'W')
+                                        Worker
+                                    @endif
+                                </td>
+
+                                @if ($title == 4)
+                                    <td>
+                                        {{ $employee->employeePersonal->blood_group ?? 'N/A' }}
+                                    </td>
+                                @endif
+
+                                <td>
+                                    {{ date('d-m-Y', strtotime($employee->joining_date)) }}
+                                </td>
+
+                                <td>
+                                    {{ $employee->mdistrict->name ?? 'N/A' }}
+                                </td>
+
+                                <td style="text-align: right;">
+                                    {{ number_format($employee->employeeSalary->gross_salary ?? 0, 2) }}
+                                </td>
+
+                                <td style="text-align: right;">
+                                    {{ number_format($employee->employeeSalary->basic ?? 0, 2) }}
+                                </td>
+                            </tr>
+                            <?php $sl1++; ?>
+                        @endif
                     @endforeach
+                    {{-- Department Summary --}}
+                    <tr style="font-weight: bold; background-color: #b8d3f7;">
+
+                        <td colspan="{{ $title == 4 ? 7 : 6 }}" style="text-align: left;">
+                            Summary of {{ $department->department }} :
+                            Total {{ $employees->where('department_id', $department->id)->count() }} Employees
+                        </td>
+
+                        <td style="text-align: left;"></td>
+
+                        {{-- Department Gross Salary --}}
+                        <td style="text-align: right;">
+                            {{ number_format(
+                                $employees->where('department_id', $department->id)->sum(function ($employee) {
+                                    return $employee->employeeSalary->gross_salary ?? 0;
+                                }),
+                                2,
+                            ) }}
+                        </td>
+
+                        {{-- Department Basic Salary --}}
+                        <td style="text-align: right;">
+                            {{ number_format(
+                                $employees->where('department_id', $department->id)->sum(function ($employee) {
+                                    return $employee->employeeSalary->basic ?? 0;
+                                }),
+                                2,
+                            ) }}
+                        </td>
+
+                    </tr>
                 @endforeach
+                {{-- Overall Summary --}}
+                <tr style="font-weight: bold; background-color: #f8ab6c;">
+
+                    <td colspan="{{ $title == 4 ? 7 : 6 }}" style="text-align: left;">
+                        Overall Summary : Total {{ $employees->count() }} Employees
+                    </td>
+
+                    <td style="text-align: left;"></td>
+
+                    {{-- Overall Gross Salary --}}
+                    <td style="text-align: right;">
+                        {{ number_format(
+                            $employees->sum(function ($employee) {
+                                return $employee->employeeSalary->gross_salary ?? 0;
+                            }),
+                            2,
+                        ) }}
+                    </td>
+
+                    {{-- Overall Basic Salary --}}
+                    <td style="text-align: right;">
+                        {{ number_format(
+                            $employees->sum(function ($employee) {
+                                return $employee->employeeSalary->basic ?? 0;
+                            }),
+                            2,
+                        ) }}
+                    </td>
+
+                </tr>
+
             </tbody>
         </table>
     @elseif($title == 2)
@@ -106,37 +185,127 @@
             <thead>
                 <tr>
                     <th>SL</th>
-                    <th>Employee ID</th>
+                    <th style="width: 50px;">Emp ID</th>
                     <th>Employee Name</th>
                     <th>Department</th>
                     <th>Designation</th>
                     <th>Category</th>
                     <th>Joining Date</th>
                     <th>District</th>
+                    <th style="text-align: right;">Gross Salary</th>
+                    <th style="text-align: right;">Basic Salary</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($uniqueDesignations as $designation)
+                @foreach ($uniqueDesignations as $designation)
                     <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
-                        <td colspan="8" style="text-align: center; color: #5156be;">{!! $designation->designation !!}</td>
+                        <td colspan="10" style="text-align: left; color: #5156be;">
+                            {!! $designation->designation !!}
+                        </td>
                     </tr>
+
                     <?php $sl1 = 1; ?>
+
                     @foreach ($employees as $employee)
-                        @if($employee->designation_id == $designation->id)
+                        @if ($employee->designation_id == $designation->id)
                             <tr>
                                 <td>{{ $sl1 }}</td>
-                                <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                                <td>{{ $employee->name }}</td>
-                                <td>{{ $employee?->department?->department ?? '' }}</td>
-                                <td>{{ $employee->designation->designation }}</td>
-                                <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
+                                <td>
+                                    {{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}
+                                </td>
+                                <td>
+                                    {{ $employee->name }}
+                                </td>
+                                <td>
+                                    {{ $employee?->department?->department ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $employee->designation->designation }}
+                                </td>
+                                <td>
+                                    @if ($employee->designation->category_code == 'O')
+                                        Officer
+                                    @elseif($employee->designation->category_code == 'M')
+                                        Manager
+                                    @elseif($employee->designation->category_code == 'S')
+                                        Staff
+                                    @elseif($employee->designation->category_code == 'W')
+                                        Worker
+                                    @endif
+                                </td>
+
+                                <td>
+                                    {{ date('d-m-Y', strtotime($employee->joining_date)) }}
+                                </td>
+
+                                <td>
+                                    {{ $employee->mdistrict->name ?? 'N/A' }}
+                                </td>
+
+                                <td style="text-align: right;">
+                                    {{ number_format($employee->employeeSalary->gross_salary ?? 0, 2) }}
+                                </td>
+
+                                <td style="text-align: right;">
+                                    {{ number_format($employee->employeeSalary->basic ?? 0, 2) }}
+                                </td>
                             </tr>
+
                             <?php $sl1++; ?>
                         @endif
                     @endforeach
+                    {{-- Designation Summary --}}
+                    <tr style="font-weight: bold; background-color: #b8d3f7;">
+                        <td colspan="{{ $title == 4 ? 7 : 6 }}" style="text-align: left;">
+                            Summary of {{ $designation->designation }} :
+                            Total {{ $employees->where('designation_id', $designation->id)->count() }} Employees
+                        </td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;"></td>
+                        <td style="text-align: right;">
+                            {{ number_format(
+                                $employees->where('designation_id', $designation->id)->sum(function ($employee) {
+                                    return $employee->employeeSalary->gross_salary ?? 0;
+                                }),
+                                2,
+                            ) }}
+                        </td>
+                        <td style="text-align: right;">
+                            {{ number_format(
+                                $employees->where('designation_id', $designation->id)->sum(function ($employee) {
+                                    return $employee->employeeSalary->basic ?? 0;
+                                }),
+                                2,
+                            ) }}
+                        </td>
+
+                    </tr>
                 @endforeach
+                {{-- Overall Summary --}}
+                <tr style="font-weight: bold; background-color: #f8ab6c;">
+                    <td colspan="{{ $title == 4 ? 7 : 6 }}" style="text-align: left;">
+                        Overall Summary : Total {{ $employees->count() }} Employees
+                    </td>
+                    <td style="text-align: right;"></td>
+                    <td style="text-align: right;"></td>
+
+                    <td style="text-align: right;">
+                        {{ number_format(
+                            $employees->sum(function ($employee) {
+                                return $employee->employeeSalary->gross_salary ?? 0;
+                            }),
+                            2,
+                        ) }}
+                    </td>
+                    <td style="text-align: right;">
+                        {{ number_format(
+                            $employees->sum(function ($employee) {
+                                return $employee->employeeSalary->basic ?? 0;
+                            }),
+                            2,
+                        ) }}
+                    </td>
+                </tr>
             </tbody>
         </table>
     @elseif($title == 5 || $title == 6 || $title == 7)
@@ -150,13 +319,13 @@
                     <th>Category</th>
                     <th>Joining Date</th>
                     <th>
-                        {{ $title == 5 ? "Birth Date" : "Leaving Date" }}
+                        {{ $title == 5 ? 'Birth Date' : 'Leaving Date' }}
                     </th>
                     <th>Gross Salary</th>
                 </tr>
             </thead>
             <tbody>
-                @if($employees->count() > 0)
+                @if ($employees->count() > 0)
                     @foreach ($uniqueSection as $section)
                         @php
                             $uniqueDepartment = $employees
@@ -178,15 +347,18 @@
                         @foreach ($uniqueDepartment as $department)
                             @php
                                 $datas = $employees
-                                    ->filter(fn($emp) =>
-                                        $parentId = optional(optional($emp->department)->parentDepartment)->id == $section['parent_department_id'] &&
-                                        $emp->department_id == $department['id']
+                                    ->filter(
+                                        fn($emp) => ($parentId =
+                                            optional(optional($emp->department)->parentDepartment)->id ==
+                                                $section['parent_department_id'] &&
+                                            $emp->department_id == $department['id']),
                                     )
                                     ->values();
                             @endphp
                             <tr>
                                 <td colspan="8" style="background-color: #a5abf5;">
-                                    <span style="font-weight: bold;">Department</span> : {{ $section['parent_department_name']  }} &nbsp;&nbsp;
+                                    <span style="font-weight: bold;">Department</span> :
+                                    {{ $section['parent_department_name'] }} &nbsp;&nbsp;
                                     <span style="font-weight: bold;">Section</span> : {{ $department['name'] }}
                                 </td>
                             </tr>
@@ -196,7 +368,17 @@
                                     <td>{{ str_pad($data->employee_id, 8, '0', STR_PAD_LEFT) }}</td>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->designation->designation }}</td>
-                                    <td>@if($data->designation->category_code == 'O') Officer @elseif($data->designation->category_code == 'M') Manager @elseif($data->designation->category_code == 'S') Staff @elseif($data->designation->category_code == 'W') Worker @endif</td>
+                                    <td>
+                                        @if ($data->designation->category_code == 'O')
+                                            Officer
+                                        @elseif($data->designation->category_code == 'M')
+                                            Manager
+                                        @elseif($data->designation->category_code == 'S')
+                                            Staff
+                                        @elseif($data->designation->category_code == 'W')
+                                            Worker
+                                        @endif
+                                    </td>
                                     <td>{{ date('d-m-Y', strtotime($data->joining_date)) }}</td>
                                     <td>{{ $title == 5 ? '' : date('d-m-Y', strtotime($data->leaving_date)) }}</td>
                                     <td>{{ $data->employeeSalary->gross_salary }}</td>
@@ -205,13 +387,16 @@
                             @endforeach
                             <tr>
                                 <td colspan="8" style="background-color: #f3ba1c;">
-                                    <span style="font-weight: bold;">Section Wise Summary => Section {{ $department['name'] }} : Total Employees</span> : {{ $datas->count() }}
+                                    <span style="font-weight: bold;">Section Wise Summary => Section
+                                        {{ $department['name'] }} : Total Employees</span> : {{ $datas->count() }}
                                 </td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="8" style="background-color: #f7b1f7;">
-                                <span style="font-weight: bold;">Department Wise Summary => Department {{ $section['parent_department_name'] }} : Total Employees</span> : {{ $depTotal }}
+                                <span style="font-weight: bold;">Department Wise Summary => Department
+                                    {{ $section['parent_department_name'] }} : Total Employees</span> :
+                                {{ $depTotal }}
                             </td>
                         </tr>
                         <tr class="page-break">
@@ -220,13 +405,17 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="8" style="text-align: center; vertical-align: middle;color:#FF6C37">No Data Found <br> <small>Try to change the date range or filter</small></td>
+                        <td colspan="8" style="text-align: center; vertical-align: middle;color:#FF6C37">No Data Found
+                            <br> <small>Try to change the date range or filter</small>
+                        </td>
                     </tr>
                 @endif
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="8" style="text-align: left;  vertical-align: middle;color:#FFFFFF; background-color: #090c3f;">Overall Summary Total Employees : {{ $employees->count() }}</td>
+                    <td colspan="8"
+                        style="text-align: left;  vertical-align: middle;color:#FFFFFF; background-color: #090c3f;">Overall
+                        Summary Total Employees : {{ $employees->count() }}</td>
                 </tr>
             </tfoot>
         </table>

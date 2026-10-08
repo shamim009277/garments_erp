@@ -9,7 +9,7 @@
                 'breadcrumbs' => [
                     ['label' => 'Commercial', 'url' => route('commercial.index')],
                     ['label' => 'Setup', 'url' => route('commercial.index')],
-                    ['label' => 'Payment Term', 'url' => route('commercial.setup.payment_terms.index')],
+                    ['label' => 'Payment Term', 'url' => route('commercial.setup.payment-terms.index')],
                 ],
             ])
         </div>
@@ -53,7 +53,7 @@
                                                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <form id="editForm{{ $term->id }}" action="{{ route('commercial.setup.payment_terms.update', $term->id) }}" method="POST">
+                                                <form id="editForm{{ $term->id }}" action="{{ route('commercial.setup.payment-terms.update', $term->id) }}" method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
@@ -83,7 +83,7 @@
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Payment Term ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('commercial.setup.payment_terms.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('commercial.setup.payment-terms.store') }}" method="POST">
                         @csrf
                         <x-input-group name="name" label="Payment Term" type="text" placeholder="Enter payment term" :value="old('name')" required />
                         <x-input-group name="description" label="Description" type="text" placeholder="Enter description" :value="old('description')" />
@@ -109,7 +109,7 @@
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('commercial.setup.payment_terms.toggle') }}',
+                    url: '{{ route('commercial.setup.payment-terms.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -144,7 +144,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('commercial.setup.payment_terms.delete') }}',
+                        url: '{{ route('commercial.setup.payment-terms.delete') }}',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',

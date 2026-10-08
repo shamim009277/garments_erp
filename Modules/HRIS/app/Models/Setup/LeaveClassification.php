@@ -15,6 +15,7 @@ class LeaveClassification extends Model
      * The attributes that are mass assignable.
      */
     protected $table = 'hris_setup_leaveclassifications';
+
     protected $fillable = [
         'code',
         'signification',
@@ -26,6 +27,7 @@ class LeaveClassification extends Model
         'created_by',
         'updated_by',
     ];
+    
     protected $casts = [
         'is_active' => 'boolean',
     ];

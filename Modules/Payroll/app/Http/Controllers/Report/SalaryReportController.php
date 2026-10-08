@@ -47,9 +47,9 @@ class SalaryReportController extends Controller
 
         $date = Carbon::parse($request->date)->format('Y-m-d');
         $title = $request->title;
+        $orgid = $request->organization_id;
 
         if($request->title == 1){
-
             $datas = DB::table('payroll_tools_process_salary as salary')
                 ->select(
                     'salary.*',
@@ -97,9 +97,9 @@ class SalaryReportController extends Controller
             $year = $request->year;
 
             if ($request->view_mode == 1) {
-                return view('payroll::report.salary.preview', compact('datas', 'title', 'uniqueDepartments', 'monthName', 'year'));
+                return view('payroll::report.salary.preview', compact('datas', 'title', 'uniqueDepartments', 'monthName', 'year', 'orgid'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.salary.pdf', compact('datas', 'title', 'uniqueDepartments', 'monthName', 'year'))
+                $pdf = Pdf::loadView('payroll::report.salary.pdf', compact('datas', 'title', 'uniqueDepartments', 'monthName', 'year', 'orgid'))
                     ->setPaper('Legal', 'landscape');
 
                 return $pdf->stream('salary.pdf');

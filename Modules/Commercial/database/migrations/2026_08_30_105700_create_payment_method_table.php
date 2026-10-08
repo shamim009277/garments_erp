@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('commercial_setup_payment_method', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('created_by');
             $table->string('updated_by');

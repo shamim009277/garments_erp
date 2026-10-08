@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Modules\HRIS\Models\Database\Employee;
 use Modules\HRIS\Models\Database\LeaveApplication;
 use Modules\HRIS\Models\Database\LeaveConfirmation;
+use Modules\HRIS\Models\Setup\LeaveClassification;
 
 trait LeaveBalance
 {
@@ -17,6 +18,9 @@ trait LeaveBalance
 
         $employee = Employee::where('employee_id', $employeeId)->select('id','joining_date')->first();
         $joining  = Carbon::parse($employee->joining_date);
+
+        // leave classification data
+        $leaveclassdata = LeaveClassification::query()->active()->get();
 
         // ১ বছরের চাকরি পূর্ণ কি না
         $oneYearBeforeYearStart = $yearStart->copy()->subYear();
@@ -41,8 +45,11 @@ trait LeaveBalance
 
         $effectiveAttendance = max(0, $totalMarkedDays - $absentDays);
 
-        $CL_DAYS_PER_CREDIT = 26;
-        $CL_CAP_PER_YEAR    = 14;
+        // CL Calculation
+        $cldata = $leaveclassdata->firstWhere('code', 'CL');
+
+        $CL_DAYS_PER_CREDIT = $cldata ? (int)$cldata->pay_ratio : 36;
+        $CL_CAP_PER_YEAR    = $cldata ? (int)$cldata->yearly_limit : 10;
 
         $clEarned = intdiv($effectiveAttendance, $CL_DAYS_PER_CREDIT);
         //$clEarned = min($clEarned, $CL_CAP_PER_YEAR);
@@ -61,7 +68,12 @@ trait LeaveBalance
         $clActualRemaining = max(0, $clEarned - $clActualUsed);
 
         // ===== SL Calculation =====
-        $SL_ANNUAL_QUOTA = 10;
+        //$SL_ANNUAL_QUOTA = 10;
+
+        $slData = $leaveclassdata->firstWhere('code', 'SL');
+
+        $SL_DAYS_PER_CREDIT = $slData ? (int)$slData->pay_ratio : 26;
+        $SL_ANNUAL_QUOTA    = $slData ? (int)$slData->yearly_limit : 14;
 
         $eligibleMonths = $this->diffInMonthsInclusive($windowStart, $windowEnd);
         $slEarned = (int) floor(($eligibleMonths / 12) * $SL_ANNUAL_QUOTA);
@@ -79,6 +91,43 @@ trait LeaveBalance
         $slRemaining = max(0, $slEarned - $slUsed);
         $slActualRemaining = max(0, $slEarned - $slActualUsed);
 
+        // ===== EL Calculation =====
+        // $totalMarkedDays = Attendance::where('employee_id', $employeeId)
+        //     ->whereBetween('date', [$windowStart, $windowEnd])
+        //     ->count();
+
+        // $absentDays = Attendance::where('employee_id', $employeeId)
+        //     ->whereBetween('date', [$windowStart, $windowEnd])
+        //     ->where('status', 'absent')
+        //     ->count();
+
+        $totalMarkedDays = 0;
+        $absentDays = 0;
+
+        $effectiveAttendance = max(0, $totalMarkedDays - $absentDays);
+
+        // EL Calculation
+        $elData = $leaveclassdata->firstWhere('code', 'EL');
+
+        $EL_DAYS_PER_CREDIT = $elData ? (int)$elData->pay_ratio : 18;
+        $EL_CAP_PER_YEAR    = $elData ? (int)$elData->yearly_limit : 18;
+
+        $elEarned = intdiv($effectiveAttendance, $EL_DAYS_PER_CREDIT);
+        //$elEarned = min($elEarned, $EL_CAP_PER_YEAR);
+
+        $elUsed = LeaveApplication::where('employee_id', $employeeId)
+            ->whereBetween('start_date', [$windowStart, $windowEnd])
+            ->whereHas('leaveType', fn($q) => $q->where('code', 'EL'))
+            ->sum('days');
+
+        $elActualUsed = LeaveConfirmation::where('employee_id', $employeeId)
+            ->whereBetween('start_date', [$windowStart, $windowEnd])
+            ->whereHas('leaveType', fn($q) => $q->where('code', 'EL'))
+            ->sum('days');
+
+        $elRemaining = max(0, $elEarned - $elUsed);
+        $elActualRemaining = max(0, $elEarned - $elActualUsed);
+
         return [
             'window' => [
                 'start' => $windowStart->toDateString(),
@@ -86,7 +135,7 @@ trait LeaveBalance
             ],
             'CL' => [
                 'earned' => $clEarned,
-                'earned_yearly' => 14,
+                'earned_yearly' => $CL_CAP_PER_YEAR,
                 'used' => (int) $clUsed,
                 'actual_used' => (int) $clActualUsed,
                 'remaining' => $clRemaining,
@@ -94,11 +143,19 @@ trait LeaveBalance
             ],
             'SL' => [
                 'earned' => $slEarned,
-                'earned_yearly' => 10,
+                'earned_yearly' => $SL_ANNUAL_QUOTA,
                 'used' => (int) $slUsed,
                 'actual_used' => (int) $slActualUsed,
                 'remaining' => $slRemaining,
                 'actual_remaining' => $slActualRemaining,
+            ],
+            'EL' => [
+                'earned' => $elEarned,
+                'earned_yearly' => $EL_CAP_PER_YEAR,
+                'used' => (int) $elUsed,
+                'actual_used' => (int) $elActualUsed,
+                'remaining' => $elRemaining,
+                'actual_remaining' => $elActualRemaining,
             ],
         ];
     }

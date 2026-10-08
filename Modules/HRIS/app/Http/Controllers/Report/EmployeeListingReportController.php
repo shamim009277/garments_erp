@@ -2,19 +2,20 @@
 
 namespace Modules\HRIS\Http\Controllers\Report;
 
+use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Modules\HRIS\Models\Setup\District;
-use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Database\Employee;
-use Modules\HRIS\Models\Setup\Designation;
-use Modules\HRIS\Models\Setup\Organization;
-use Modules\HRIS\Models\Setup\EmployeeCategory;
-use Modules\HRIS\Models\Setup\ParentDepartment;
 use Modules\HRIS\Models\Database\EmployeePersonal;
+use Modules\HRIS\Models\Setup\Department;
+use Modules\HRIS\Models\Setup\Designation;
+use Modules\HRIS\Models\Setup\District;
+use Modules\HRIS\Models\Setup\EmployeeCategory;
+use Modules\HRIS\Models\Setup\Organization;
+use Modules\HRIS\Models\Setup\ParentDepartment;
+use Modules\HRIS\Models\Setup\Religion;
 
 class EmployeeListingReportController extends Controller
 {
@@ -33,9 +34,10 @@ class EmployeeListingReportController extends Controller
         $parentDepartments = ParentDepartment::with('departments')->whereHas('departments')->orderBy('department', 'asc')->get();
         $designations = Designation::orderBy('designation', 'asc')->get();
         $districts = District::pluck('name', 'id')->toArray();
+        $religion = Religion::active()->pluck('religion', 'religion_code')->toArray();
         $bloodGroups = ['O+' => 'O+', 'O-' => 'O-', 'A+' => 'A+', 'A-' => 'A-', 'B+' => 'B+', 'B-' => 'B-', 'AB+' => 'AB+', 'AB-' => 'AB-', 'N/A' => 'N/A'];
         $employeeCategories = EmployeeCategory::pluck('category', 'category_code')->toArray();
-        return view('hris::report.employeelisting.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'districts', 'employeeCategories', 'bloodGroups'));
+        return view('hris::report.employeelisting.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'districts', 'employeeCategories', 'bloodGroups', 'religion'));
     }
 
     public function previewData()
@@ -62,7 +64,7 @@ class EmployeeListingReportController extends Controller
             } elseif ($line == false) {
                 $line = $request->line;
             }
-            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name'])
+            $employees = Employee::with(['department:id,department', 'designation:id,designation,category_code', 'organization:id,short_name', 'mdistrict:id,name','employeePersonal:id,religion_code'])
                 ->whereHas('designation')
                 ->whereIn('department_id', $request->department_id)
                 ->when($line == true, fn($q) =>
@@ -74,6 +76,11 @@ class EmployeeListingReportController extends Controller
                         $q2->where('category_code', $request->category_id);
                     });
                 })
+                ->when($request->filled('religion_id'), function ($q) use ($request) {
+                    $q->whereHas('employeePersonal', function ($q2) use ($request) {
+                        $q2->where('religion_code', $request->religion_id);
+                    });
+                })
                 ->when($request->filled('organization_id'), fn($q) =>
                 $q->where('org_id', $request->organization_id))
                 ->when($request->filled('designation_id'), fn($q) =>
@@ -83,6 +90,8 @@ class EmployeeListingReportController extends Controller
                 ->orderBy('department_id', 'asc')
                 ->orderBy('employee_id', 'asc')
                 ->get();
+
+            //dd($employees);
 
             $uniqueDepartments = $employees->unique('department_id')->pluck('department', 'department_id');
             $title = $request->title;

@@ -16,8 +16,8 @@ class DeliveryTermController extends Controller
      */
     public function index()
     {
-        $delivery_terms = DeliveryTerm::query()->get();
-        return view('commercial::setup.deliveryterm.index', compact('delivery_terms'));
+        $terms = DeliveryTerm::query()->get();
+        return view('commercial::setup.deliveryterm.index', compact('terms'));
     }
 
     /**

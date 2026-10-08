@@ -84,7 +84,7 @@ class MovementPassReportController extends Controller
                 ->whereHas('employee', function ($q) use ($orgid) {
                     $q->where('org_id', $orgid);
                 })
-                ->orderBy('department_id', 'asc')
+                //->orderBy('department_id', 'asc')
                 ->orderBy('employee_id', 'asc')
                 ->get();
 
@@ -125,7 +125,7 @@ class MovementPassReportController extends Controller
                 ->whereHas('employee', function ($q) use ($orgid) {
                     $q->where('org_id', $orgid);
                 })
-                ->orderBy('department_id', 'asc')
+                //->orderBy('department_id', 'asc')
                 ->orderBy('employee_id', 'asc')
                 ->get();
 
@@ -170,7 +170,7 @@ class MovementPassReportController extends Controller
                 ->whereHas('employee', function ($q) use ($orgid) {
                     $q->where('org_id', $orgid);
                 })
-                ->orderBy('department_id', 'asc')
+                //->orderBy('department_id', 'asc')
                 ->orderBy('employee_id', 'asc')
                 ->get();
 
@@ -212,7 +212,7 @@ class MovementPassReportController extends Controller
                 ->whereHas('employee', function ($q) use ($orgid) {
                     $q->where('org_id', $orgid);
                 })
-                ->orderBy('department_id', 'asc')
+                //->orderBy('department_id', 'asc')
                 ->orderBy('employee_id', 'asc')
                 ->get();
 

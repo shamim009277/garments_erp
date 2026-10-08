@@ -4,6 +4,12 @@ namespace Modules\Commercial\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Commercial\Models\Setup\DeliveryTerm;
+use Modules\Commercial\Models\Setup\PaymentMethod;
+use Modules\Commercial\Models\Setup\PaymentTerm;
+use Modules\Commercial\Models\Setup\ShipmentMode;
+use Modules\HRIS\Models\Setup\Organization;
+use Modules\Inventory\Models\Setup\Buyer;
 
 class SalesContactController extends Controller
 {
@@ -12,7 +18,15 @@ class SalesContactController extends Controller
      */
     public function index()
     {
-        return view('commercial::database.salescontact.index');
+        $buyerlist = Buyer::query()->pluck('buyer_name', 'id');
+        $orglist = Organization::query()->active()->pluck('short_name', 'id');
+
+        $ptarms = PaymentTerm::query()->active()->pluck('name','id');
+        $pmethod = PaymentMethod::query()->active()->pluck('name','id');
+        $shipmode = ShipmentMode::query()->active()->pluck('name','id');
+        $deliveryterm = DeliveryTerm::query()->active()->pluck('name','id');
+        
+        return view('commercial::database.salescontact.index', compact('buyerlist', 'orglist','ptarms','pmethod','shipmode','deliveryterm'));
     }
 
     /**

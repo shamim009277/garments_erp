@@ -9,7 +9,7 @@
                 'breadcrumbs' => [
                     ['label' => 'Commercial', 'url' => route('commercial.index')],
                     ['label' => 'Setup', 'url' => route('commercial.index')],
-                    ['label' => 'Delivery Term', 'url' => route('commercial.setup.delivery_terms.index')],
+                    ['label' => 'Delivery Term', 'url' => route('commercial.setup.shipment-modes.index')],
                 ],
             ])
         </div>
@@ -30,22 +30,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($delivery_terms as $key => $term)
-                                <tr id="row-{{ $term->id }}">
+                            @foreach ($shipment_modes as $key => $mode)
+                                <tr id="row-{{ $mode->id }}">
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $term->name }}</td>
-                                    <td>{{ $term->description }}</td>
+                                    <td>{{ $mode->name }}</td>
+                                    <td>{{ $mode->description }}</td>
                                     <td>
                                         <div class="square-switch">
-                                            <input type="checkbox" id="square-switch3{{ $term->id }}" class="delivery-term-toggle" data-id="{{ $term->id }}" switch="bool" {{ $term->is_active ? 'checked' : '' }} />
-                                            <label for="square-switch3{{ $term->id }}" data-on-label="Yes" data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
+                                            <input type="checkbox" id="square-switch3{{ $mode->id }}" class="shipment-mode-toggle" data-id="{{ $mode->id }}" switch="bool" {{ $mode->is_active ? 'checked' : '' }} />
+                                            <label for="square-switch3{{ $mode->id }}" data-on-label="Yes" data-off-label="No" style="margin: 0px; vertical-align: middle;"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $term->id }}"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-del-term" data-id="{{ $term->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
+                                        <a href="#" class="btn btn-soft-success waves-effect waves-light" style="padding: 4px 6px;" data-bs-toggle="modal" data-bs-target="#editModal{{ $mode->id }}"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn btn-soft-danger waves-effect waves-light delete-del-term" data-id="{{ $mode->id }}" style="padding: 4px 6px;"><i class="fas fa-trash"></i></a>
                                     </td>
-                                    <div id="editModal{{ $term->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+                                    <div id="editModal{{ $mode->id }}" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -53,13 +53,13 @@
                                                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <form id="editForm{{ $term->id }}" action="{{ route('commercial.setup.delivery_terms.update', $term->id) }}" method="POST">
+                                                <form id="editForm{{ $mode->id }}" action="{{ route('commercial.setup.shipment-modes.update', $mode->id) }}" method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
-                                                        <x-input-group name="name" label="Delivery Term" type="text" placeholder="Enter delivery term" :value="$term->name" required />
-                                                        <x-input-group name="description" label="Description" type="text" placeholder="Enter description" :value="$term->description" />
-                                                        <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$term->is_active" required />
+                                                        <x-input-group name="name" label="Delivery Term" type="text" placeholder="Enter delivery term" :value="$mode->name" required />
+                                                        <x-input-group name="description" label="Description" type="text" placeholder="Enter description" :value="$mode->description" />
+                                                        <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$mode->is_active" required />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
@@ -83,7 +83,7 @@
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Delivery Term ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('commercial.setup.delivery_terms.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('commercial.setup.shipment-modes.store') }}" method="POST">
                         @csrf
                         <x-input-group name="name" label="Delivery Term" type="text" placeholder="Enter delivery term" :value="old('name')" required />
                         <x-input-group name="description" label="Description" type="text" placeholder="Enter description" :value="old('description')" />
@@ -109,7 +109,7 @@
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('commercial.setup.delivery_terms.toggle') }}',
+                    url: '{{ route('commercial.setup.shipment-modes.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -144,7 +144,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('commercial.setup.delivery_terms.delete') }}',
+                        url: '{{ route('commercial.setup.shipment-modes.delete') }}',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',

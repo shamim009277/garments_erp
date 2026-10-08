@@ -312,7 +312,10 @@
                                 $("#SLA").val(response.leaveBalance.SL.earned_yearly);
                                 $("#SLT").val(response.leaveBalance.SL.used);
                                 $("#SLB").val(response.leaveBalance.SL.earned_yearly - response.leaveBalance.SL.used);
+                                
                                 $("#ELA").val(response.leaveBalance.EL.earned_yearly);
+                                $("#ELT").val(response.leaveBalance.EL.used);
+                                $("#ELB").val(response.leaveBalance.EL.earned_yearly - response.leaveBalance.EL.used);
                             }
                         },
                         error: function () {
@@ -342,7 +345,10 @@
                     $("#SLA").val(0);
                     $("#SLT").val(0);
                     $("#SLB").val(0);
+                    
                     $("#ELA").val(0);
+                    $("#ELT").val(0);
+                    $("#ELB").val(0);
 
                     $("#message").text('Employee ID must be exactly 8 digits');
                 }

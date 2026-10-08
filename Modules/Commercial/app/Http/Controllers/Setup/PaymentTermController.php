@@ -35,7 +35,7 @@ class PaymentTermController extends Controller
     public function store(PaymentTermRequest $request) {
         try {
             $request->validated();
-            PaymentMethod::query()->create($request->validated());
+            PaymentTerm::query()->create($request->validated());
             return redirect()->back()->withSuccess('Payment term created successfully');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
@@ -64,7 +64,7 @@ class PaymentTermController extends Controller
     public function update(PaymentTermRequest $request, $id) {
         try {
             $request->validated();
-            PaymentMethod::query()->find($id)->update($request->validated());
+            PaymentTerm::query()->find($id)->update($request->validated());
             return redirect()->back()->withSuccess('Payment term updated successfully');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
@@ -76,7 +76,7 @@ class PaymentTermController extends Controller
      */
     public function destroy($id) {
         try {
-            PaymentMethod::query()->find($id)->delete();
+            PaymentTerm::query()->find($id)->delete();
             return redirect()->back()->withSuccess('Payment term deleted successfully');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
@@ -87,6 +87,6 @@ class PaymentTermController extends Controller
      * Toggle the status of the specified resource.
      */
     public function toggleStatus(Request $request) {
-        return $this->ToggleStatusTrait($request, PaymentMethod::class);
+        return $this->ToggleStatusTrait($request, PaymentTerm::class);
     }
 }

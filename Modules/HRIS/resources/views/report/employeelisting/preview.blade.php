@@ -65,20 +65,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               {{--  <tbody>
-                                    @foreach ($employees as $employee)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ str_pad($employee->employee_id, 6, '0', STR_PAD_LEFT) }}</td>
-                                            <td>{{ $employee->name }}</td>
-                                            <td>{{ $employee->department->department }}</td>
-                                            <td>{{ $employee->designation->designation }}</td>
-                                            <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
-                                            <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
-                                            <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody> --}}
                                  @foreach($uniqueDepartments as $departmentId => $department)
                                     <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
                                         <td></td>
@@ -128,6 +114,8 @@
                                     <th>Category</th>
                                     <th>Joining Date</th>
                                     <th>District</th>
+                                    <th>Gross Salary</th>
+                                    <th>Basic Salary</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -135,6 +123,8 @@
                                     <tr style="height: 40px; font-weight: bold; --bs-table-bg:#babcd8 !important;">
                                         <td></td>
                                         <td style="text-align: center; color: #5156be;">{!! $designation->designation !!}</td>
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -154,6 +144,8 @@
                                             <td>@if($employee->designation->category_code == 'O') Officer @elseif($employee->designation->category_code == 'M') Manager @elseif($employee->designation->category_code == 'S') Staff @elseif($employee->designation->category_code == 'W') Worker @endif</td>
                                             <td>{{ date('d-m-Y', strtotime($employee->joining_date)) }}</td>
                                             <td>{{ $employee->mdistrict->name ?? 'N/A' }}</td>
+                                            <td>{{ $employee->employeeSalary->gross_salary ?? 'N/A' }}</td>
+                                            <td>{{ $employee->employeeSalary->basic ?? 'N/A' }}</td>
                                         </tr>
                                         <?php $sl1++; ?>
                                     @endif

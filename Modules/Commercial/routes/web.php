@@ -19,27 +19,27 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':commercial'])->group
     Route::prefix('commercial')->name('commercial.')->group(function () {
         //Setup
         Route::prefix('setup')->name('setup.')->group(function () {
-            Route::post('/payment_terms/toggle', [PaymentTermController::class, 'toggleStatus'])->name('payment_terms.toggle');
-            Route::post('/payment_terms/delete', [PaymentTermController::class, 'destroy'])->name('payment_terms.delete');
-            Route::resource('payment_terms', PaymentTermController::class)->names('payment_terms');
+            Route::post('/payment-terms/toggle', [PaymentTermController::class, 'toggleStatus'])->name('payment-terms.toggle');
+            Route::post('/payment-terms/delete', [PaymentTermController::class, 'destroy'])->name('payment-terms.delete');
+            Route::resource('payment-terms', PaymentTermController::class)->names('payment-terms');
 
-            Route::post('/shipment_modes/toggle', [ShipmentModeController::class, 'toggleStatus'])->name('shipment_modes.toggle');
-            Route::post('/shipment_modes/delete', [ShipmentModeController::class, 'destroy'])->name('shipment_modes.delete');
-            Route::resource('shipment_modes', ShipmentModeController::class)->names('shipment_modes');
+            Route::post('/shipment-modes/toggle', [ShipmentModeController::class, 'toggleStatus'])->name('shipment-modes.toggle');
+            Route::post('/shipment-modes/delete', [ShipmentModeController::class, 'destroy'])->name('shipment-modes.delete');
+            Route::resource('shipment-modes', ShipmentModeController::class)->names('shipment-modes');
 
-            Route::post('/payment_methods/toggle', [PaymentMethodController::class, 'toggleStatus'])->name('payment_methods.toggle');
-            Route::post('/payment_methods/delete', [PaymentMethodController::class, 'destroy'])->name('payment_methods.delete');
-            Route::resource('payment_methods', PaymentMethodController::class)->names('payment_methods');
+            Route::post('/payment-methods/toggle', [PaymentMethodController::class, 'toggleStatus'])->name('payment-methods.toggle');
+            Route::post('/payment-methods/delete', [PaymentMethodController::class, 'destroy'])->name('payment-methods.delete');
+            Route::resource('payment-methods', PaymentMethodController::class)->names('payment-methods');
 
-            Route::post('/delivery_terms/toggle', [DeliveryTermController::class, 'toggleStatus'])->name('delivery_terms.toggle');
-            Route::post('/delivery_terms/delete', [DeliveryTermController::class, 'destroy'])->name('delivery_terms.delete');
-            Route::resource('delivery_terms', DeliveryTermController::class)->names('delivery_terms');
+            Route::post('/delivery-terms/toggle', [DeliveryTermController::class, 'toggleStatus'])->name('delivery-terms.toggle');
+            Route::post('/delivery-terms/delete', [DeliveryTermController::class, 'destroy'])->name('delivery-terms.delete');
+            Route::resource('delivery-terms', DeliveryTermController::class)->names('delivery-terms');
         });
 
         //Database
         Route::prefix('database')->name('database.')->group(function () {
-            Route::post('/sales-contacts/search', [SalesContactController::class, 'getSearch'])->name('sales-contacts.search');
-            Route::resource('sales-contacts', SalesContactController::class)->names('sales-contacts');
+            Route::post('/sales-contact/search', [SalesContactController::class, 'getSearch'])->name('sales-contact.search');
+            Route::resource('sales-contact', SalesContactController::class)->names('sales-contact');
         });
 
     });

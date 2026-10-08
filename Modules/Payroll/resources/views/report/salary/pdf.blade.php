@@ -9,7 +9,6 @@
     <meta name="author" content="ERP Team" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
-
         body {
             font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 10px;
@@ -18,15 +17,12 @@
             margin: 0;
             padding: 0;
         }
-
         @page {
             margin: 100px 10px 30px 10px;
         }
-
         .page::after {
             content: counter(page);
         }
-
         header {
             position: fixed;
             top: -100px;
@@ -37,7 +33,6 @@
             font-weight: 500;
             padding-bottom: 1px;
         }
-
         footer {
             position: fixed;
             bottom: -30px;
@@ -49,33 +44,27 @@
             border-top: 1px solid #ccc;
             padding-top: 5px;
         }
-
         footer .printed-by {
             float: left;
             text-align: left;
             width: 50%;
         }
-
         footer .page-count {
             float: right;
             text-align: right;
             width: 50%;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
         thead {
             display: table-header-group;
             background-color: #f2f2f2;
         }
-
         tfoot {
             display: table-footer-group;
         }
-
         th,
         td {
             padding: 2px 1px;
@@ -83,18 +72,15 @@
             font-size: 10px;
             text-align: center;
         }
-
         tr:nth-child(even) {
             background-color: #f7f7f7;
         }
-
         table table th,
         table table td {
             padding: 1px 2px;
             font-size: 10px;
             border: none;
         }
-
         .title {
             font-size: 12px;
             font-weight: bold;
@@ -102,23 +88,19 @@
             text-align: center;
             margin-top: 0px;
         }
-
         .sub-title {
             font-size: 10px;
             color: #666;
             text-align: center;
             margin-bottom: 5px;
         }
-
         p {
             margin: 0;
         }
-
         .no-border td,
         .no-border th {
             border: none !important;
         }
-
         .company-info {
             display: flex;
             flex-direction: column;
@@ -126,7 +108,6 @@
             justify-content: center;
             line-height: 1.2;
         }
-
         .watermark {
             position: fixed;
             top: 50%;
@@ -139,7 +120,6 @@
             z-index: 0;
             white-space: nowrap;
         }
-
         .watermark-image {
             position: fixed;
             top: 50%;
@@ -152,30 +132,43 @@
             z-index: 0;
         }
     </style>
-
 </head>
+
+@php
+    $orgdata = $ornizations_data->where('id', $orgid)->first();
+    $orgname = $orgdata->name ?? ($general->full_name ?? 'Ayasha & Galeya Fashions Ltd');
+    $address = $orgdata->address ?? ('01, Hariken Road, Dawlotpur, National University, Gazipur' ?? '01, Hariken Road, Dawlotpur, National University, Gazipur');
+    $email = $orgdata->email ?? ('info@company.com' ?? 'info@company.com');
+    $phone = $orgdata->phone ?? ('+880123456789' ?? '+880123456789');
+
+    if (!empty($orgdata?->path)) {
+        $logo = public_path('storage/' . $orgdata->path);
+    } elseif (!empty($general?->full_name)) {
+        $logo = public_path('storage/' . $general->logo_path);
+    } else {
+        $logo = public_path('backend/assets/images/logo-sm.svg');
+    }
+@endphp
 
 <body>
     <!-- Watermark -->
     <div class="watermark">
         {{ $general->full_name }} - {{ now()->format('Y') }}
     </div>
-    <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" class="watermark-image" alt="watermark">
+    <img src="{{ $logo }}" class="watermark-image" alt="watermark">
     <!-- Header -->
     <header>
         <div style="display: flex; align-items: center;">
             <!-- Logo -->
             <div>
-                <img src="{{ public_path('backend/assets/images/logo-sm.svg') }}" alt="Logo"
+                <img src="{{ $logo }}" alt="Logo"
                     style="width: 40px; height: 40px;">
             </div>
-
             <!-- Company Info -->
             <div class="company-info">
-                <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $general->full_name }}</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Address, City, Country</div>
-                <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: info@company.com | Phone:
-                    +880123456789</div>
+                <div style="font-weight: bold; font-size: 14px; font-family: italic">{{ $orgname }}</div>
+                <div style="font-size: 12px;font-weight: normal; font-family: italic">{{ $address }}</div>
+                <div style="font-size: 12px;font-weight: normal; font-family: italic">Email: {{ $email }} | Phone: {{ $phone }}</div>
             </div>
         </div>
         <hr style="border: 1px solid #ccc;">
@@ -496,5 +489,4 @@
         </table>
     @endif
 </body>
-
 </html>

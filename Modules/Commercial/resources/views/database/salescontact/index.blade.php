@@ -20,7 +20,7 @@
                 'breadcrumbs' => [
                     ['label' => 'Commercial', 'url' => route('hris.index')],
                     ['label' => 'Database', 'url' => route('commercial.index')],
-                    ['label' => 'Sales Contact', 'url' => route('commercial.database.sales-contacts.index')],
+                    ['label' => 'Sales Contact', 'url' => route('commercial.database.sales-contact.index')],
                 ],
             ])
         </div>
@@ -148,16 +148,19 @@
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Buyer </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="buyer_id" id="buyer_id" class="select2" :options="[]" required /></td>
+                                                <td width="65%" style="border: none;"><x-select-input name="buyer_id" id="buyer_id" class="select2" :options="$buyerlist" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Supplier </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="supplier_id" id="supplier_id" class="select2" :options="[]" required /></td>
+                                                <td width="65%" style="border: none;">
+                                                    <x-select-input name="supplier_id" id="supplier_id" class="select2" :options="$orglist" :selected="selected_org($orglist)" required />
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Supplier Address </th>
                                                 <td width="65%" style="border: none;">
-                                                     <textarea name="supplier_address" id="supplier_address" class="form-control form-control-sm" placeholder="Supplier Address"></textarea>
+                                                     <textarea name="supplier_address" id="supplier_address" class="form-control form-control-sm" placeholder="Supplier Address">01, Haricane Road, Dowlatpur, National University, Gazipur
+                                                     </textarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -172,25 +175,25 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <tr>
-                                                <th width="35%" style="border: none;">Tolerance </th>
-                                                <td width="65%" style="border: none;"><x-text-input name="tolerance" id="tolerance" type="number" min="0" max="40" step="any" class="form-control-sm"  placeholder="Tolerance" required /></td>
+                                                <th width="35%" style="border: none;">Tolerance (%)</th>
+                                                <td width="65%" style="border: none;"><x-text-input name="tolerance" id="tolerance" type="number" min="0" max="40" step="any" class="form-control-sm" value="0"  placeholder="Tolerance" required /></td>
                                             </tr>
 
                                             <tr>
                                                 <th width="35%" style="border: none;">Agent Commission </th>
-                                                <td width="65%" style="border: none;"><x-text-input name="agent_commission" id="agent_commission" type="number" min="0" max="40" step="any" class="form-control-sm"  placeholder="Agent Commission" required /></td>
+                                                <td width="65%" style="border: none;"><x-text-input name="agent_commission" id="agent_commission" type="number" min="0" max="40" step="any" value="0" class="form-control-sm"  placeholder="Agent Commission" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Shipment Mode </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="shipment_mode_id" id="shipment_mode_id" class="select2" :options="[]" required /></td>
+                                                <td width="65%" style="border: none;"><x-select-input name="shipment_mode_id" id="shipment_mode_id" class="select2" :options="$shipmode" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Payment Terms </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="payment_terms_id" id="payment_terms_id" class="select2" :options="[]" required /></td>
+                                                <td width="65%" style="border: none;"><x-select-input name="payment_terms_id" id="payment_terms_id" class="select2" :options="$ptarms" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Delivery Terms </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="delivery_terms_id" id="delivery_terms_id" class="select2" :options="[]" required /></td>
+                                                <td width="65%" style="border: none;"><x-select-input name="delivery_terms_id" id="delivery_terms_id" class="select2" :options="$deliveryterm" required /></td>
                                             </tr>
                                             
                                             <tr>
@@ -219,7 +222,7 @@
                                     <tr>
                                         <th width="35%" style="border: none;">Payment Method </th>
                                         <td width="65%" style="border: none;"><x-select-input name="payment_method_id"
-                                                id="payment_method_id" class="select2" :options="[]" required /></td>
+                                                id="payment_method_id" class="select2" :options="$pmethod" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="35%" style="border: none;">Additional Terms </th>

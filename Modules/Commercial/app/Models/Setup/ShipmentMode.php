@@ -25,6 +25,7 @@ class ShipmentMode extends Model
     {
         static::creating(function ($shipmentMode) {
             $shipmentMode->created_by = Auth::id();
+            $shipmentMode->updated_by = Auth::id();
         });
 
         static::updating(function ($shipmentMode) {

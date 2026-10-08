@@ -9,7 +9,7 @@
                 'breadcrumbs' => [
                     ['label' => 'Commercial', 'url' => route('commercial.index')],
                     ['label' => 'Setup', 'url' => route('commercial.index')],
-                    ['label' => 'Delivery Term', 'url' => route('commercial.setup.delivery_terms.index')],
+                    ['label' => 'Delivery Term', 'url' => route('commercial.setup.delivery-terms.index')],
                 ],
             ])
         </div>
@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($delivery_terms as $key => $term)
+                            @foreach ($terms as $key => $term)
                                 <tr id="row-{{ $term->id }}">
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $term->name }}</td>
@@ -53,7 +53,7 @@
                                                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <form id="editForm{{ $term->id }}" action="{{ route('commercial.setup.delivery_terms.update', $term->id) }}" method="POST">
+                                                <form id="editForm{{ $term->id }}" action="{{ route('commercial.setup.delivery-terms.update', $term->id) }}" method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
@@ -83,7 +83,7 @@
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Delivery Term ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('commercial.setup.delivery_terms.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('commercial.setup.delivery-terms.store') }}" method="POST">
                         @csrf
                         <x-input-group name="name" label="Delivery Term" type="text" placeholder="Enter delivery term" :value="old('name')" required />
                         <x-input-group name="description" label="Description" type="text" placeholder="Enter description" :value="old('description')" />
@@ -109,7 +109,7 @@
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('commercial.setup.delivery_terms.toggle') }}',
+                    url: '{{ route('commercial.setup.delivery-terms.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -144,7 +144,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('commercial.setup.delivery_terms.delete') }}',
+                        url: '{{ route('commercial.setup.delivery-terms.delete') }}',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',

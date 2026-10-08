@@ -9,7 +9,7 @@
                 'breadcrumbs' => [
                     ['label' => 'Commercial', 'url' => route('commercial.index')],
                     ['label' => 'Setup', 'url' => route('commercial.index')],
-                    ['label' => 'Payment Method', 'url' => route('commercial.setup.payment_methods.index')],
+                    ['label' => 'Payment Method', 'url' => route('commercial.setup.payment-methods.index')],
                 ],
             ])
         </div>
@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($payment_methods as $key => $payment_method)
+                            @foreach ($paymentmethods as $key => $payment_method)
                                 <tr id="row-{{ $payment_method->id }}">
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $payment_method->name }}</td>
@@ -53,13 +53,13 @@
                                                     <button type="button" class="btn-close btn btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <form id="editForm{{ $payment_method->id }}" action="{{ route('commercial.setup.payment_methods.update', $payment_method->id) }}" method="POST">
+                                                <form id="editForm{{ $payment_method->id }}" action="{{ route('commercial.setup.payment-methods.update', $payment_method->id) }}" method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         @method('PUT')
                                                         <x-input-group name="name" label="Payment Method" type="text" placeholder="Enter payment method" :value="$payment_method->name" required />
                                                         <x-input-group name="description" label="Description" type="text" placeholder="Enter description" :value="$payment_method->description" />
-                                                        <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$term->is_active" required />
+                                                        <x-select-input-group name="is_active" label="Is Active" :options="['1' => 'Active', '0' => 'Inactive']" :selected="$payment_method->is_active" required />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary waves-effect btn-sm" data-bs-dismiss="modal">Close</button>
@@ -83,7 +83,7 @@
                     <h6 class="my-0 text-primary"> <i class="mdi mdi-list"></i> Input Parameters For New Payment Method ...</h6>
                 </div>
                 <div class="card-body">
-                    <form id="moduleForm" action="{{ route('commercial.setup.payment_methods.store') }}" method="POST">
+                    <form id="moduleForm" action="{{ route('commercial.setup.payment-methods.store') }}" method="POST">
                         @csrf
                         <x-input-group name="name" label="Payment Method" type="text" placeholder="Enter payment method" :value="old('name')" required />
                         <x-input-group name="description" label="Description" type="text" placeholder="Enter description" :value="old('description')" />
@@ -109,7 +109,7 @@
                 let id = $(this).data('id');
                 let status = $(this).is(':checked') ? 1 : 0;
                 $.ajax({
-                    url: '{{ route('commercial.setup.payment_methods.toggle') }}',
+                    url: '{{ route('commercial.setup.payment-methods.toggle') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -144,7 +144,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('commercial.setup.payment_methods.delete') }}',
+                        url: '{{ route('commercial.setup.payment-methods.delete') }}',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',

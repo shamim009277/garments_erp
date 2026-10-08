@@ -24,10 +24,10 @@
                         <p class="ms-auto text-center">Month: {{ $months[$month] }}</p>
                     @elseif($title == 3)
                         <h6 class="my-0 text-primary text-center">Department-wise Daily Movement Pass</h6>
-                        <p class="ms-auto text-center">Date Range: {{ $start_date }} To {{ $end_date }}</p>
+                        <p class="ms-auto text-center">Date Range: {{ date('d-m-Y',strtotime($start_date)) }} To {{ date('d-m-Y',strtotime($end_date)) }}</p>
                     @elseif($title == 4)
                         <h6 class="my-0 text-primary text-center">Designation-wise Daily Movement Pass</h6>
-                        <p class="ms-auto text-center">Date Range: {{ $start_date }} To {{ $end_date }}</p>
+                        <p class="ms-auto text-center">Date Range: {{ date('d-m-Y',strtotime($start_date)) }} To {{ date('d-m-Y',strtotime($end_date)) }}</p>
                     @endif
                 </div>
 
@@ -43,8 +43,8 @@
                                         <th>Department</th>
                                         <th>Designation</th>
                                         <th>Date</th>
-                                        <th>In Time</th>
-                                        <th>Out Time</th>
+                                        <th>Out Time | Actual</th>
+                                        <th>In Time | Actual</th>
                                         <th>Duration</th>
                                         <th>Purpose</th>
                                         <th>Reason</th>
@@ -59,9 +59,22 @@
                                             <td>{{ $data->employee->name }}</td>
                                             <td>{{ $data->department->department }}</td>
                                             <td>{{ $data->designation->designation }}</td>
-                                            <td>{{ $data->date }}</td>
-                                            <td>{{ date('h:i A', strtotime($data->start_time)) }}</td>
-                                            <td>{{ date('h:i A', strtotime($data->end_time)) }}</td>
+                                            <td>{{ date('d-m-Y',strtotime($data->date)) }}</td>
+                                            <td style="padding: 3px 5px; vertical-align: middle; white-space: nowrap;">
+                                                {{ $data->start_time ? date('h:i A', strtotime($data->start_time)) : '-' }}
+                                                |
+                                                <span style="{{ $data->start_time && $data->actual_out && strtotime($data->actual_out) < strtotime($data->start_time) ? 'color:#ff0000; font-weight:bold;' : '' }}">
+                                                    {{ $data->actual_out ? date('h:i A', strtotime($data->actual_out)) : '' }}
+                                                </span>
+                                            </td>
+                                            
+                                            <td style="padding: 3px 5px; vertical-align: middle; white-space: nowrap;">
+                                                {{ $data->end_time ? date('h:i A', strtotime($data->end_time)) : '-' }}
+                                                |
+                                                <span style="{{ $data->end_time && $data->actual_in && strtotime($data->actual_in) > strtotime($data->end_time) ? 'color:#ff0000; font-weight:bold;' : '' }}">
+                                                    {{ $data->actual_in ? date('h:i A', strtotime($data->actual_in)) : '-' }}
+                                                </span>
+                                            </td>
 
                                             <td>
                                                 @if($data->start_time && $data->end_time)

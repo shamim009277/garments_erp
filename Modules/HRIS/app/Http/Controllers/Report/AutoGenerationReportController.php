@@ -35,7 +35,15 @@ class AutoGenerationReportController extends Controller
         $months = ['1' => 'January', '2' => 'February', '3' => 'March', '4' => 'April', '5' => 'May', '6' => 'June', '7' => 'July', '8' => 'August', '9' => 'September', '10' => 'October', '11' => 'November', '12' => 'December'];
         $year = Carbon::now()->year;
         $employeeCategories = EmployeeCategory::pluck('category', 'category_code')->toArray();
-        return view('hris::report.autogenerationreport.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'gatepass_purposes', 'months', 'year', 'employeeCategories'));
+        
+        $defaultOrgId = 1;
+        $employees = DB::table('hris_database_employee_basic as e')
+            ->leftJoin('hris_setup_departments as d', 'e.department_id', '=', 'd.id')
+            ->select('e.employee_id', 'e.name', 'd.department')
+            ->where('e.org_id', $defaultOrgId)
+            ->orderBy('e.employee_id')
+            ->get();
+        return view('hris::report.autogenerationreport.index', compact('startDate', 'endDate', 'organizations', 'parentDepartments', 'designations', 'gatepass_purposes', 'months', 'year', 'employeeCategories', 'employees'));
     }
 
     public function previewData()
@@ -48,7 +56,7 @@ class AutoGenerationReportController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'employee_id' => 'nullable|numeric|exists:hris_database_employee_basic,employee_id',
+            'employee_id_manual' => 'nullable|numeric|exists:hris_database_employee_basic,employee_id',
             'view_mode' => 'required|in:1,2',
             'organization_id' => 'required|integer|exists:hris_setup_organizations,id',
         ]);
@@ -83,14 +91,18 @@ class AutoGenerationReportController extends Controller
                     's.gross_salary as basic_salary',
                     'e.joining_date',
                     'org.bn_name as org_name',
+                    'org.address_bangla as org_address',
+                    'org.signature as auth_signature',
+                    DB::raw("COALESCE(NULLIF(TRIM(e.photo), ''), '') as photo"),
+                    DB::raw("COALESCE(NULLIF(TRIM(e.signature), ''), '') as signature")
                 )
                 ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                     $q->whereBetween('e.joining_date', [$start_date, $end_date]);
                 })
-                ->when($request->filled('employee_id'), function ($q) use ($request) {
-                    $ids = is_array($request->employee_id)
-                        ? $request->employee_id
-                        : [$request->employee_id];
+                ->when($request->filled('employee_id_manual'), function ($q) use ($request) {
+                    $ids = is_array($request->employee_id_manual)
+                        ? $request->employee_id_manual
+                        : [$request->employee_id_manual];
 
                     $q->whereIn('e.employee_id', $ids);
                 })
@@ -130,6 +142,57 @@ class AutoGenerationReportController extends Controller
                 'autoLangToFont' => true,
                 'useOTL' => true, // এখানে দিও, property নয়!
             ]);
+            //
+             $toBase64 = function(string $path): string {
+                    if (!is_file($path) || !is_readable($path)) return '';
+                    try {
+                        $ext  = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                        $mime = match($ext) {
+                            'jpg','jpeg' => 'image/jpeg',
+                            'webp'       => 'image/webp',
+                            'gif'        => 'image/gif',
+                            default      => 'image/png',
+                        };
+                        return 'data:'.$mime.';base64,'.base64_encode(file_get_contents($path));
+                    } catch (\Exception $e) { return ''; }
+                };
+
+                $preparedEmployees = [];
+                foreach ($employees as $emp) {
+                    $photoName = trim((string)($emp->photo ?? ''));
+                    $photoBase64 = '';
+                    if (!empty($photoName)) {
+                        $p = str_contains($photoName, 'storage/')
+                            ? public_path($photoName)
+                            : public_path('storage/'.$photoName);
+                        $photoBase64 = $toBase64($p);
+                    }
+
+                    $signatureName = trim((string)($emp->signature ?? ''));
+                    $photoBaseSin64 = '';
+                    if (!empty($signatureName)) {
+                        $s = str_contains($signatureName, 'storage/')
+                            ? public_path($signatureName)
+                            : public_path('storage/'.$signatureName);
+                        $photoBaseSin64 = $toBase64($s);
+                    }
+                    
+                    $authSignature = trim((string)($emp->auth_signature ?? ''));
+                    $photoBaseSinAuth64 = '';
+                    if (!empty($authSignature)) {
+                        $s = str_contains($authSignature, 'storage/')
+                            ? public_path($authSignature)
+                            : public_path('storage/'.$authSignature);
+                        $photoBaseSinAuth64 = $toBase64($s);
+                    }
+
+                    $emp->photoBase64    = $photoBase64;
+                    $emp->photoBaseSin64 = $photoBaseSin64;
+                    $emp->photoBaseSinAuth64 = $photoBaseSinAuth64;
+                    $preparedEmployees[] = $emp;
+                }
+            
+            //
 
             foreach ($employees as $index => $emp) {
                 $html = view('hris::report.autogenerationreport.pdf', ['employee' => $emp, 'orgid' => $orgid, 'title' => $request->title])->render();
@@ -176,15 +239,19 @@ class AutoGenerationReportController extends Controller
                     'b.relation_bangla',
                     'b.identification',
                     'b.nname_bangla',
+                    'b.nfname_bangla',
                     'b.nmobile_number',
                     'b.nvillage_bangla',
                     'b.npost_office_bangla',
                     'b.nominee_relation',
+                    'b.spouse_name_bangla',
                     'p.mobile',
                     'p.national_id',
+                    'p.nominee_nid',
                     'p.birth_certificate',
                     'p.birth_date',
                     'p.sex_code',
+                    'p.nbirth_date',
                     't.bn_name as thana_name',
                     't_p.bn_name as thana_name_p',
                     't_n.bn_name as thana_name_n',
@@ -193,6 +260,7 @@ class AutoGenerationReportController extends Controller
                     'dis_n.bn_name as district_name_n',
                     'd.department_bn as department_name',
                     'des.designation_bn as designation_name',
+                    'des.category_code as designation_code',
                     's.gross_salary as basic_salary',
                     's.basic',
                     's.home_allowance',
@@ -200,14 +268,17 @@ class AutoGenerationReportController extends Controller
                     's.conveyance',
                     's.food_allowance',
                     'e.leaving_date',
+                    'org.signature as auth_signature',
+                    DB::raw("COALESCE(NULLIF(TRIM(e.photo), ''), '') as photo"),
+                    DB::raw("COALESCE(NULLIF(TRIM(e.signature), ''), '') as signature")
                 )
                 ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                     $q->whereBetween('e.joining_date', [$start_date, $end_date]);
                 })
-                ->when($request->filled('employee_id'), function ($q) use ($request) {
-                    $ids = is_array($request->employee_id)
-                        ? $request->employee_id
-                        : [$request->employee_id];
+                ->when($request->filled('employee_id_manual'), function ($q) use ($request) {
+                    $ids = is_array($request->employee_id_manual)
+                        ? $request->employee_id_manual
+                        : [$request->employee_id_manual];
 
                     $q->whereIn('e.employee_id', $ids);
                 })
@@ -275,6 +346,56 @@ class AutoGenerationReportController extends Controller
 
                 return $mpdf->Output('payslip.pdf', 'I');
             }
+            //
+            $toBase64 = function(string $path): string {
+                    if (!is_file($path) || !is_readable($path)) return '';
+                    try {
+                        $ext  = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                        $mime = match($ext) {
+                            'jpg','jpeg' => 'image/jpeg',
+                            'webp'       => 'image/webp',
+                            'gif'        => 'image/gif',
+                            default      => 'image/png',
+                        };
+                        return 'data:'.$mime.';base64,'.base64_encode(file_get_contents($path));
+                    } catch (\Exception $e) { return ''; }
+                };
+
+                $preparedEmployees = [];
+                foreach ($employees as $emp) {
+                    $photoName = trim((string)($emp->photo ?? ''));
+                    $photoBase64 = '';
+                    if (!empty($photoName)) {
+                        $p = str_contains($photoName, 'storage/')
+                            ? public_path($photoName)
+                            : public_path('storage/'.$photoName);
+                        $photoBase64 = $toBase64($p);
+                    }
+
+                    $signatureName = trim((string)($emp->signature ?? ''));
+                    $photoBaseSin64 = '';
+                    if (!empty($signatureName)) {
+                        $s = str_contains($signatureName, 'storage/')
+                            ? public_path($signatureName)
+                            : public_path('storage/'.$signatureName);
+                        $photoBaseSin64 = $toBase64($s);
+                    }
+                    
+                    $authSignature = trim((string)($emp->auth_signature ?? ''));
+                    $photoBaseSinAuth64 = '';
+                    if (!empty($authSignature)) {
+                        $s = str_contains($authSignature, 'storage/')
+                            ? public_path($authSignature)
+                            : public_path('storage/'.$authSignature);
+                        $photoBaseSinAuth64 = $toBase64($s);
+                    }
+
+                    $emp->photoBase64    = $photoBase64;
+                    $emp->photoBaseSin64 = $photoBaseSin64;
+                    $emp->photoBaseSinAuth64 = $photoBaseSinAuth64;
+                    $preparedEmployees[] = $emp;
+                }
+            //
 
 
             /* $html = view('hris::report.autogenerationreport.pdf', compact('employees'))->render();
@@ -373,10 +494,10 @@ class AutoGenerationReportController extends Controller
                     'salary.total_net_payable',
                     'basic.leaving_date',
                 )
-                ->when($request->filled('employee_id'), function ($q) use ($request) {
-                    $ids = is_array($request->employee_id)
-                        ? $request->employee_id
-                        : [$request->employee_id];
+                ->when($request->filled('employee_id_manual'), function ($q) use ($request) {
+                    $ids = is_array($request->employee_id_manual)
+                        ? $request->employee_id_manual
+                        : [$request->employee_id_manual];
 
                     $q->whereIn('salary.employee_id', $ids);
                 })
@@ -497,10 +618,10 @@ class AutoGenerationReportController extends Controller
                 ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                     $q->whereBetween('e.joining_date', [$start_date, $end_date]);
                 })
-                ->when($request->filled('employee_id'), function ($q) use ($request) {
-                    $ids = is_array($request->employee_id)
-                        ? $request->employee_id
-                        : [$request->employee_id];
+                ->when($request->filled('employee_id_manual'), function ($q) use ($request) {
+                    $ids = is_array($request->employee_id_manual)
+                        ? $request->employee_id_manual
+                        : [$request->employee_id_manual];
 
                     $q->whereIn('e.employee_id', $ids);
                 })
@@ -616,6 +737,7 @@ class AutoGenerationReportController extends Controller
                     ->leftJoin('hris_setup_thanas as t', 'b.mthana_id_bangla', '=', 't.id')
                     ->leftJoin('hris_setup_districts as dis', 'b.mdistrict_id_bangla', '=', 'dis.id')
                     ->leftJoin('hris_setup_organizations as org', 'e.org_id', '=', 'org.id')
+                    ->leftJoin('hris_setup_lines as ln', 'e.line', '=', 'ln.code')
                     ->when($request->filled('organization_id'), function ($q) use ($orgid) {
                         $q->where('e.org_id', $orgid);
                     })
@@ -636,7 +758,7 @@ class AutoGenerationReportController extends Controller
                         's.gross_salary as basic_salary',
                         'e.joining_date',
                         'e.updated_at',
-                        'e.line',
+                        'ln.line',
                         'org.bn_name as org_name',
                         'org.signature as auth_signature',
                         'org.address_bangla',
@@ -651,6 +773,10 @@ class AutoGenerationReportController extends Controller
                     ->when($request->filled('start_date') && $request->filled('end_date'), function ($q) use ($start_date, $end_date) {
                         $q->whereBetween('e.updated_at', [$start_date, $end_date]);
                     })
+                   /* ->when($request->filled('employee_id'), function ($q) use ($request) {
+                        $ids = is_array($request->employee_id) ? $request->employee_id : [$request->employee_id];
+                        $q->whereIn('e.employee_id', $ids);
+                    })*/
                     ->when($request->filled('employee_id'), function ($q) use ($request) {
                         $ids = is_array($request->employee_id) ? $request->employee_id : [$request->employee_id];
                         $q->whereIn('e.employee_id', $ids);
@@ -760,5 +886,21 @@ class AutoGenerationReportController extends Controller
 
                 return $mpdf->Output('id_cards.pdf', 'I');
             }
+    }
+    
+    public function getEmployeesByOrg(Request $request)
+    {
+        $orgId = $request->query('organization_id');
+
+        $employees = DB::table('hris_database_employee_basic as e')
+            ->leftJoin('hris_setup_departments as d', 'e.department_id', '=', 'd.id')
+            ->select('e.employee_id', 'e.name', 'd.department')
+            ->when($orgId, function ($q) use ($orgId) {
+                $q->where('e.org_id', $orgId);
+            })
+            ->orderBy('e.employee_id')
+            ->get();
+
+        return response()->json($employees);
     }
 }

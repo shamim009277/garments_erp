@@ -71,11 +71,11 @@
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" id="title3" name="title" value="3"class="form-check-input titles">
-                                            <label class="form-check-label" for="title3">Department-wise Dates Movement Pass</label>
+                                            <label class="form-check-label" for="title3">Department-wise Movement Pass (Date)</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
-                                            <label class="form-check-label" for="title4">Designation-wise Dates Movement Pass</label>
+                                            <label class="form-check-label" for="title4">Designation-wise Movement Pass (Date)</label>
                                         </div>
                                     </div>
                                 </div>
@@ -203,129 +203,384 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+
         $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
         $('.designationID').prop('checked', true);
 
         $('.titles').prop('checked', false);
         $('#title1').prop('checked', true);
 
+
+        // ==============================
+        // Toggle Button
+        // ==============================
         $('.toggle-btn').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
 
             const target = $('#' + $(this).data('target'));
             const isOpen = target.is(':visible');
+
             target.toggle();
             $(this).text(isOpen ? '[+]' : '[-]');
         });
 
+
+        // ==============================
+        // Parent → Child Checkbox
+        // ==============================
         $('.parent-checkbox').on('change', function () {
+
             const id = $(this).data('id');
+
             $(`.child-of-${id}`).prop('checked', this.checked);
         });
 
+
+        // ==============================
+        // Child → Parent Checkbox
+        // ==============================
         $('.form-check-input').on('change', function () {
-            const classList = $(this).attr('class').split(/\s+/);
-            const childClass = classList.find(cls => cls.startsWith('child-of-'));
+
+            const classAttr = $(this).attr('class');
+
+            if (!classAttr) {
+                return;
+            }
+
+            const classList = classAttr.split(/\s+/);
+
+            const childClass = classList.find(function (cls) {
+                return cls.startsWith('child-of-');
+            });
+
+            if (!childClass) {
+                return;
+            }
+
             const parentId = childClass.split('-').pop();
 
             const children = $(`.child-of-${parentId}`);
+
             const parent = $(`.parent-checkbox[data-id="${parentId}"]`);
+
             const anyChecked = children.is(':checked');
 
             parent.prop('checked', anyChecked);
         });
 
+
+        // ==============================
+        // Check / Uncheck All
+        // ==============================
         $('#check_all').on('click', function () {
-            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', true);
+
+            $('.parent-checkbox.departmentID, .form-check-input.departmentID')
+                .prop('checked', true);
         });
+
         $('#uncheck_all').on('click', function () {
-            $('.parent-checkbox.departmentID, .form-check-input.departmentID').prop('checked', false);
+
+            $('.parent-checkbox.departmentID, .form-check-input.departmentID')
+                .prop('checked', false);
         });
+
         $('#check_all2').on('click', function () {
+
             $('.designationID').prop('checked', true);
         });
+
         $('#uncheck_all2').on('click', function () {
+
             $('.designationID').prop('checked', false);
         });
 
-        // Handle All Category and Line
 
-        handleToggle('#all_category', '#purpose_id', '#all_category_section');
+        // ==============================
+        // Category / Purpose Toggle
+        // ==============================
+        handleToggle(
+            '#all_category',
+            '#purpose_id',
+            '#all_category_section'
+        );
+
         $('#all_category').on('change', function () {
-            handleToggle('#all_category', '#purpose_id', '#all_category_section');
+
+            handleToggle(
+                '#all_category',
+                '#purpose_id',
+                '#all_category_section'
+            );
         });
 
-        function handleToggle(checkboxSelector, selectSelector, sectionSelector) {
+
+        function handleToggle(
+            checkboxSelector,
+            selectSelector,
+            sectionSelector
+        ) {
+
             const isChecked = $(checkboxSelector).is(':checked');
+
             $(selectSelector)
                 .prop('disabled', isChecked)
-                .val(null).trigger('change');
+                .val(null)
+                .trigger('change');
 
-            $(selectSelector).toggleClass('disabled-select', isChecked);
-            $(sectionSelector).toggleClass('disabled-select', isChecked);
+            $(selectSelector)
+                .toggleClass('disabled-select', isChecked);
+
+            $(sectionSelector)
+                .toggleClass('disabled-select', isChecked);
         }
-    });
 
-    $('#start_date').on('change', function () {
-        let startDate = $(this).val();
-        if (startDate) {
-            $('#end_date').attr('min', startDate);
-        } else {
-            $('#end_date').removeAttr('min');
-        }
-    });
 
-    $('#end_date').on('change', function () {
-        let endDate = $(this).val();
-        if (endDate) {
-            $('#start_date').attr('max', endDate);
-        } else {
-            $('#start_date').removeAttr('max');
-        }
-    });
+        // ==============================
+        // Flatpickr
+        // ==============================
 
-    handleTitleSelection();
+        const startPicker = flatpickr('#start_date', {
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd-m-Y',
+            allowInput: true,
 
-    // On title radio change
-    $('input[name="title"]').on('change', function() {
+            onChange: function (selectedDates, dateStr) {
+
+                endPicker.set('minDate', dateStr);
+            }
+        });
+
+
+        const endPicker = flatpickr('#end_date', {
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd-m-Y',
+            allowInput: true,
+
+            onChange: function (selectedDates, dateStr) {
+
+                startPicker.set('maxDate', dateStr);
+            }
+        });
+
+
+        // ==============================
+        // Initial Title Selection
+        // ==============================
         handleTitleSelection();
-    });
 
-    function handleTitleSelection() {
-        let selectedValue = $('input[name="title"]:checked').val();
-        if (selectedValue == '1') {
-            $('.departmentID').prop('disabled', false);
-            $('.designationID').prop('disabled', true);
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-            $('#month').prop('disabled', false);
-        } else if (selectedValue == '2') {
-            $('.departmentID').prop('disabled', true);
-            $('.designationID').prop('disabled', false);
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', true);
-            $('#end_date').prop('disabled', true);
-            $('#month').prop('disabled', false);
-        } else if (selectedValue == '3') {
-            $('.departmentID').prop('disabled', false);
-            $('.designationID').prop('disabled', true);
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
-            $('#month').prop('disabled', true);
-        } else if (selectedValue == '4') {
-            $('.departmentID').prop('disabled', true);
-            $('.designationID').prop('disabled', false);
-            $('.blood_group').prop('disabled', true);
-            $('#start_date').prop('disabled', false);
-            $('#end_date').prop('disabled', false);
-            $('#month').prop('disabled', true);
-        } else {
-            $('.designationID').prop('disabled', false);
-            $('.departmentID').prop('disabled', false);
+
+        // ==============================
+        // Title Change
+        // ==============================
+        $('input[name="title"]').on('change', function () {
+
+            handleTitleSelection();
+        });
+
+
+        // ==============================
+        // Title Based Control
+        // ==============================
+        function handleTitleSelection() {
+
+            const selectedValue = $('input[name="title"]:checked').val();
+
+            const $departments = $('.departmentID');
+            const $designations = $('.designationID');
+            const $bloodGroup = $('.blood_group');
+            const $month = $('#month');
+            const $dates = $('#start_date, #end_date');
+
+
+            // =================================
+            // Reset Everything First
+            // =================================
+
+            $departments.prop('disabled', false);
+            $designations.prop('disabled', false);
+            $bloodGroup.prop('disabled', false);
+
+            $month.prop('disabled', false);
+
+            $dates
+                .prop('disabled', false)
+                .prop('readonly', false)
+                .removeClass('disabled-select');
+
+
+            // Enable Flatpickr
+            enableDates();
+
+
+            // =================================
+            // Title 1
+            // =================================
+            if (selectedValue == '1') {
+
+                $designations.prop('disabled', true);
+
+                $bloodGroup.prop('disabled', true);
+
+                $month.prop('disabled', false);
+
+                disableDates();
+            }
+
+
+            // =================================
+            // Title 2
+            // =================================
+            else if (selectedValue == '2') {
+
+                $departments.prop('disabled', true);
+
+                $bloodGroup.prop('disabled', true);
+
+                $month.prop('disabled', false);
+
+                disableDates();
+            }
+
+
+            // =================================
+            // Title 3
+            // =================================
+            else if (selectedValue == '3') {
+
+                $designations.prop('disabled', true);
+
+                $bloodGroup.prop('disabled', true);
+
+                $month.prop('disabled', true);
+
+                enableDates();
+            }
+
+
+            // =================================
+            // Title 4
+            // =================================
+            else if (selectedValue == '4') {
+
+                $departments.prop('disabled', true);
+
+                $designations.prop('disabled', false);
+
+                $bloodGroup.prop('disabled', true);
+
+                $month.prop('disabled', true);
+
+                enableDates();
+            }
+
+
+            // Re-apply category toggle
+            handleToggle(
+                '#all_category',
+                '#purpose_id',
+                '#all_category_section'
+            );
         }
-    }
+
+
+        // ==============================
+        // Disable Dates
+        // ==============================
+        function disableDates() {
+
+            $('#start_date, #end_date')
+                .prop('disabled', true)
+                .prop('readonly', true)
+                .addClass('disabled-select');
+
+
+            if (startPicker) {
+
+                startPicker.set('clickOpens', false);
+
+                $(startPicker.altInput)
+                    .prop('disabled', true)
+                    .prop('readonly', true)
+                    .addClass('disabled-select');
+            }
+
+
+            if (endPicker) {
+
+                endPicker.set('clickOpens', false);
+
+                $(endPicker.altInput)
+                    .prop('disabled', true)
+                    .prop('readonly', true)
+                    .addClass('disabled-select');
+            }
+        }
+
+
+        // ==============================
+        // Enable Dates
+        // ==============================
+        function enableDates() {
+
+            $('#start_date, #end_date')
+                .prop('disabled', false)
+                .prop('readonly', false)
+                .removeClass('disabled-select');
+
+
+            if (startPicker) {
+
+                startPicker.set('clickOpens', true);
+
+                $(startPicker.altInput)
+                    .prop('disabled', false)
+                    .prop('readonly', false)
+                    .removeClass('disabled-select');
+            }
+
+
+            if (endPicker) {
+
+                endPicker.set('clickOpens', true);
+
+                $(endPicker.altInput)
+                    .prop('disabled', false)
+                    .prop('readonly', false)
+                    .removeClass('disabled-select');
+            }
+        }
+
+
+        // ==============================
+        // Normal HTML Date Validation
+        // ==============================
+
+        $('#start_date').on('change', function () {
+
+            const startDate = $(this).val();
+
+            if (startDate) {
+                $('#end_date').attr('min', startDate);
+            } else {
+                $('#end_date').removeAttr('min');
+            }
+        });
+
+
+        $('#end_date').on('change', function () {
+
+            const endDate = $(this).val();
+
+            if (endDate) {
+                $('#start_date').attr('max', endDate);
+            } else {
+                $('#start_date').removeAttr('max');
+            }
+        });
+
+    });
 </script>
 @endpush

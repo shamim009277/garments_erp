@@ -91,6 +91,7 @@
                                             <input type="radio" id="title7" name="title" value="7"class="form-check-input titles">
                                             <label class="form-check-label" for="title7">Employee Long Absence (Date Range)</label>
                                         </div>
+                                        <br>
                                     </div>
                                 </div>
                             </div>
@@ -202,6 +203,15 @@
                                                     </th>
                                                     <td width="60%" id="all_reason_section">
                                                         <x-select-input name="reason_id" id="reason_id" class="select2" :options="$employeeCategories" placeholder="Reason ID" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="40%">
+                                                        <input type="checkbox" id="all_religion" checked>
+                                                        <label class="m-0 font-bold" for="all_religion">All Religion</label>
+                                                    </th>
+                                                    <td width="60%" id="all_religion_section">
+                                                        <x-select-input name="religion_id" id="religion_id" class="select2" :options="$religion" placeholder="Religion" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -319,6 +329,7 @@ $(document).ready(function () {
         ['#all_district', '#district_id', '#all_district_section'],
         ['#all_blood_group', '#blood_group', '#all_blood_group_section'],
         ['#all_reason', '#reason_id', '#all_reason_section'],
+        ['#all_religion', '#religion_id', '#all_religion_section'],
     ];
 
     toggleConfigs.forEach(([checkbox, select, section]) => {
