@@ -39,7 +39,7 @@ class AttendenceReportController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'view_mode' => 'required|string|min:1|max:1',
+            'view_mode' => 'required|string|min:1',
         ]);
 
         if ($request->title == '1') {

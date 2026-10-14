@@ -43,7 +43,7 @@ class AbsentReportController extends Controller
             'title' => 'required',
             'employee_id' => 'nullable|numeric',
             'view_mode' => 'required|string|min:1|max:1',
-            'organization_id' => 'required|integer|min:1|max:1',
+            'organization_id' => 'required|integer|min:1',
             'department_id' => 'required|array',
             'designation_id' => 'required|array',
         ]);

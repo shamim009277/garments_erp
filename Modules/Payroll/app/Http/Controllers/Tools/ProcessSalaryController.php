@@ -64,17 +64,20 @@ class ProcessSalaryController extends Controller
                 ->leftJoin('hris_setup_departments as department', 'department.id', '=', 'basic.department_id')
                 ->leftJoin('hris_database_employee_salary as salary', 'salary.employee_id', '=', 'basic.employee_id')
                 ->where('basic.org_id', $request->org_id)
-                ->where('basic.reason', 'N')
+                //->where('basic.reason', 'N')
                 ->where('basic.salaried', 'Y')
-                ->where(function ($q) use ($end_date, $start_date) {
-                    $q->where('basic.joining_date', '<=', $end_date)
-                        ->orWhere(function ($q2) use ($start_date) {
-                            $q2->where('basic.leaving_date', '>', $start_date)
+                ->where(function ($q) use ($start_date, $end_date) {
+                    $q->where('basic.reason', 'N')
+                        ->orWhere(function ($q2) use ($start_date, $end_date) {
+                            $q2->where('basic.reason', 'R')
+                                //->whereBetween('basic.leaving_date', [$start_date, $end_date]);
+                                ->where('basic.leaving_date', '>', $start_date)
                                 ->where('basic.salaried', 'Y');
                         });
                 })
-                ->select('basic.employee_id','basic.shifting_duty','basic.refrerence_shift', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
+                ->select('basic.employee_id', 'basic.shifting_duty', 'basic.refrerence_shift', 'basic.designation_id', 'basic.department_id', 'basic.line', 'basic.unit', 'basic.grade', 'basic.leaving_date', 'basic.joining_date', 'basic.reason', 'basic.salaried', 'basic.ot_payable', 'designation.category_code', 'salary.*')
                 ->get();
+
 
             $incrementdata = EmployeeIncrement::query()
                 ->where('org_id', $request->org_id)
@@ -239,7 +242,8 @@ class ProcessSalaryController extends Controller
                     }
 
                     $deduction = $advrefund + $employee->tax + $bpayforlong;
-                    $totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct);
+                    //$totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $abdeduct + $hrdeduct + $punishdeduct);
+                    $totaldeduction = round($advrefund + $employee->tax + $bpayforlong + $wpabdeduct + $hrdeduct + $punishdeduct);
                     $netpayable = ($grpay + $otamount + $arear) - $deduction;
                     $totalnetpayable = ($grpay + $totalotamount + $arear) - $deduction;
 
@@ -273,11 +277,11 @@ class ProcessSalaryController extends Controller
                     $salarydata->employee_id = $empid;
                     $salarydata->department_id = $employee->department_id;
                     $salarydata->designation_id = $employee->designation_id;
-                    $salarydata->line = $employee->line??0;
-                    $salarydata->unit = $employee->unit??0;
+                    $salarydata->line = $employee->line ?? 0;
+                    $salarydata->unit = $employee->unit ?? 0;
                     $salarydata->category = $employee->category_code;
                     $salarydata->reason = $employee->reason;
-                    $salarydata->grade = $employee->grade??0;
+                    $salarydata->grade = $employee->grade ?? 0;
                     $salarydata->leaving_date = $leavingDate = ($employee->leaving_date == "0000-00-00") ? null : $employee->leaving_date;
                     $salarydata->ot_payable = $employee->ot_payable;
                     $salarydata->salary_from_bank = $employee->salary_from_bank;

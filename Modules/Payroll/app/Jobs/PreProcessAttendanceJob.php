@@ -49,7 +49,7 @@ class PreProcessAttendanceJob implements ShouldQueue
         try {
             ini_set('memory_limit', '2048M');
             ini_set('max_execution_time', 7200);
-            
+
             $startTime = microtime(true);
             $pre_date = Carbon::parse($this->date)->format('Y-m-d');
             $month = Carbon::parse($pre_date)->format('m');
@@ -70,7 +70,7 @@ class PreProcessAttendanceJob implements ShouldQueue
             $start = $start_date;
             $end = $start <= $pre_date && $pre_date <= $end_date ? $pre_date : $end_date;
             $ramadandate = RamadanSchedule::active()->first();
-            
+
             // Optimization: Key by shift for O(1) lookup
             $baseshift = Shift::active()
                 ->select('shift', 'shift_start', 'shift_end', 'break_duration', 'break_duration_type', 'late_after_minutes')
@@ -101,7 +101,7 @@ class PreProcessAttendanceJob implements ShouldQueue
                 ->distinct()
                 ->pluck('department_id')
                 ->toArray();
-            
+
             $totalDepartments = count($departmentIds);
             if ($totalDepartments === 0) {
                  $this->updateStatus('failed', 0, "No departments with employees to process.");
@@ -114,7 +114,7 @@ class PreProcessAttendanceJob implements ShouldQueue
             $processedDepartments = 0;
             $totalInserted = 0;
             $totalEmployees = 0;
-            
+
             $now = now(); // Optimization: Cache current time
 
             foreach ($departmentIds as $departmentId) {
@@ -128,13 +128,13 @@ class PreProcessAttendanceJob implements ShouldQueue
                             ->orWhere('leaving_date', '>=', $start);
                     })
                     ->whereNotNull('refrerence_shift')
-                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift','leaving_date','reason')
+                    ->select('id', 'org_id', 'employee_id', 'shifting_duty', 'refrerence_shift','joining_date','leaving_date','reason')
                     ->orderBy('employee_id')
                     ->get();
 
                 $employeeCount = $employees->count();
                 $totalEmployees += $employeeCount;
-                
+
                 $progress = round(($processedDepartments / $totalDepartments) * 100);
                 $this->updateStatus('processing', $progress, "Processing: {$departmentName} ({$employeeCount} employees)");
                 Log::info("PreProcess Department {$departmentName} (ID: {$departmentId}): Found {$employeeCount} employees.");
@@ -179,7 +179,7 @@ class PreProcessAttendanceJob implements ShouldQueue
 
                     // Group data
                     $allPunchGrouped = $allpunchdata->groupBy('employee_id');
-                    
+
                     // Optimization: Group by employee_id, then key by date (Y-m-d) for O(1) lookup
                     $allShiftGrouped = $assignshift->groupBy('employee_id')->map(function($items) {
                         return $items->keyBy(function($item) {
@@ -213,7 +213,7 @@ class PreProcessAttendanceJob implements ShouldQueue
                             $comdate = $date->format('Y-m-d');
                             $startpunch = null;
                             $endpunch = null;
-                            
+
                             // Optimization: O(1) Lookup
                             $shiftEntry = $empShifts[$comdate] ?? null;
                             $shift = $shiftEntry?->shift ?? $employee->refrerence_shift;
@@ -222,7 +222,7 @@ class PreProcessAttendanceJob implements ShouldQueue
 
                             $shiftTime = $companyshift[$shift] ?? $baseshift[$shift] ?? null;
 
-                            if ($ramadandate && 
+                            if ($ramadandate &&
                                 $date->between(
                                     $ramadandate['start_date'],
                                     $ramadandate['end_date']
@@ -244,7 +244,7 @@ class PreProcessAttendanceJob implements ShouldQueue
                             $endlimitObj = $endhrObj->copy()->addHour(
                                 $employee->shifting_duty == 'Y' && in_array($shift, ['M','N']) ? 10 : 12
                             );
-                            
+
                             $startlimitStr = $startlimitObj->format('Y-m-d H:i:s');
                             $endlimitStr = $endlimitObj->format('Y-m-d H:i:s');
 
@@ -252,7 +252,7 @@ class PreProcessAttendanceJob implements ShouldQueue
                             $punchesBeforeStart = [];
                             $punchesBetweenShift = [];
                             $punchesAfterEnd = [];
-                            
+
                             foreach ($empPunches as $p) {
                                 $pDate = $p->attendance_date;
                                 if ($pDate > $startlimitStr && $pDate <= $starthrStr) {
@@ -307,7 +307,7 @@ class PreProcessAttendanceJob implements ShouldQueue
                         $totalInserted += count($results);
                     }
                 }
-                
+
                 $processedDepartments++;
             }
 

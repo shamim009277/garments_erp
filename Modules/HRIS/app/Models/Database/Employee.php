@@ -3,20 +3,23 @@
 namespace Modules\HRIS\Models\Database;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Modules\HRIS\Models\Setup\Thana;
-use Illuminate\Database\Eloquent\Model;
-use Modules\HRIS\Models\Setup\District;
-use Modules\HRIS\Models\Setup\Department;
-use Modules\HRIS\Models\Setup\Designation;
-use Modules\HRIS\Models\Setup\Organization;
-use Modules\HRIS\Models\Database\EmployeePersonal;
-use Modules\HRIS\Models\Setup\Sex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Modules\HRIS\Models\Database\Applicant;
-// use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
 use Modules\HRIS\Models\Database\EmpGatePass;
 use Modules\HRIS\Models\Database\EmployeeIncrement;
+use Modules\HRIS\Models\Database\EmployeePersonal;
+use Modules\HRIS\Models\Database\EmployeeSalary;
+use Modules\HRIS\Models\Setup\Department;
+use Modules\HRIS\Models\Setup\Designation;
+use Modules\HRIS\Models\Setup\District;
+// use Modules\HRIS\Database\Factories\Database\EmployeeFactory;
+use Modules\HRIS\Models\Setup\Line;
+use Modules\HRIS\Models\Setup\Organization;
+use Modules\HRIS\Models\Setup\Sex;
+use Modules\HRIS\Models\Setup\Thana;
+use Modules\HRIS\Models\Setup\Unit;
 
 class Employee extends Model
 {
@@ -192,6 +195,16 @@ class Employee extends Model
     }
     public function employeeIncrement() {
         return $this->hasMany(EmployeeIncrement::class, 'employee_id', 'employee_id');
+    }
+
+    public function lineData()
+    {
+        return $this->belongsTo(Line::class, 'line','code');
+    }
+
+    public function unitData()
+    {
+        return $this->belongsTo(Unit::class, 'unit','code');
     }
 }
 

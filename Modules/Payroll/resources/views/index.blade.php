@@ -113,7 +113,7 @@
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2 py-3"
                     style="padding:16px 20px">
                     <div>
-                        <h2 style="padding:0px; margin:0px; font-size:18px;"><i data-feather="dollar-sign" width="16" height="16"></i> Payroll Overview</h2>
+                        <h2 style="padding:0px; margin:0px; font-size:18px;">৳ Payroll Overview</h2>
                         <p class="mb-0 mt-1 text-muted font-size-12" id="period-label">
                             For {{ $currentMonthName }} • vs {{ $prevMonthName }}
                         </p>

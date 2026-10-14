@@ -9,6 +9,8 @@ use Modules\HRIS\Models\Database\Applicant;
 use Modules\HRIS\Models\Setup\Department;
 use Modules\HRIS\Models\Setup\Designation;
 use Modules\IPE\Models\Database\AssessmentDetailsHelper;
+use Modules\IPE\Models\Database\AssessmentDetailsQuality;
+use Modules\IPE\Models\Database\AssessmentMachineProcess;
 use Modules\IPE\Models\Database\AssessmentProcess;
 // use Modules\IPE\Database\Factories\Database/AssessmentFactory;
 
@@ -20,7 +22,7 @@ class Assessment extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['org_id','applicant_id','assessment_date','name','name_bangla','mobile','department_id','designation_id','entry_date','degree_id','exp_year','exp_month','line','is_done','is_active'];
+    protected $fillable = ['org_id','applicant_id','assessment_date','name','name_bangla','mobile','department_id','designation_id','entry_date','degree_id','exp_year','exp_month','line','total_marks','get_marks','efficiency','is_done','is_active'];
 
     public static function booted()
     {
@@ -48,8 +50,16 @@ class Assessment extends Model
         return $this->hasMany(AssessmentDetailsHelper::class,'assessment_id','id');
     }
 
+    public function detailsQuality(){
+        return $this->hasMany(AssessmentDetailsQuality::class,'assessment_id','id');
+    }
+
     public function processes(){
         return $this->hasMany(AssessmentProcess::class,'assessment_id','id');
+    }
+
+    public function machineProcesses(){
+        return $this->hasMany(AssessmentMachineProcess::class,'assessment_id','id');
     }
 
     public function designation(){

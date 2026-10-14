@@ -44,7 +44,7 @@ class PayrollController extends Controller
             org_id,
             COUNT(*) as processed_count,
             COUNT(DISTINCT employee_id) as employee_count,
-            COALESCE(SUM(net_payable), 0) as net_payable,
+            COALESCE(SUM(total_net_payable), 0) as net_payable,
             COALESCE(SUM(gross_payable), 0) as gross_payable,
             COALESCE(SUM(basic_payable), 0) as basic_payable,
             COALESCE(SUM(oa_payable), 0) as oa_payable,

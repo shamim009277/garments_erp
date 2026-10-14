@@ -45,7 +45,7 @@ class OvertimeReportController extends Controller
             'title' => 'required',
             'employee_id' => 'nullable|numeric',
             'view_mode' => 'required|string|min:1|max:1',
-            'organization_id' => 'required|integer|min:1|max:1',
+            'organization_id' => 'required|integer|min:1',
             'department_id' => 'required|array',
             'designation_id' => 'required|array',
         ]);
@@ -127,15 +127,16 @@ class OvertimeReportController extends Controller
             $title = $request->title;
             $monthName = Carbon::parse($start_date)->format('F');
             $orgid = $request->organization_id;
-        if ($request->view_mode == 1) {
-            return view('payroll::report.overtime.preview', compact('datas','uniqueSection','title','grouped','start_date','end_date','dates','organization','monthName','year','orgid'));
-        } elseif ($request->view_mode == 2) {
-            ini_set('memory_limit', '4048M');
-            ini_set('max_execution_time', '700');
-            $pdf = Pdf::loadView('payroll::report.overtime.pdf', compact('datas','uniqueSection','title','grouped','start_date','end_date','dates','organization','monthName','year','orgid'))->setPaper('a4', 'landscape');
-            return $pdf->stream('overtime.pdf');
-        }
-    } else if ($request->title == 2) {
+
+            if ($request->view_mode == 1) {
+                return view('payroll::report.overtime.preview', compact('datas','uniqueSection','title','grouped','start_date','end_date','dates','organization','monthName','year','orgid'));
+            } elseif ($request->view_mode == 2) {
+                ini_set('memory_limit', '4048M');
+                ini_set('max_execution_time', '700');
+                $pdf = Pdf::loadView('payroll::report.overtime.pdf', compact('datas','uniqueSection','title','grouped','start_date','end_date','dates','organization','monthName','year','orgid'))->setPaper('a4', 'landscape');
+                return $pdf->stream('overtime.pdf');
+            }
+        } else if ($request->title == 2) {
             $date = Carbon::parse($request->date)->format('Y-m-d');
             $datas = ProcessAttendence::select('id', 'org_id', 'employee_id', 'work_date', 'ot_hours','start_punch','end_punch')
                 ->with([
@@ -263,6 +264,456 @@ class OvertimeReportController extends Controller
                 $pdf = Pdf::loadView('payroll::report.overtime.pdf', compact('datas', 'title', 'sectionGrouped', 'year','monthName','orgid','organization'))
                     ->setPaper('a4', 'portrait');
 
+                return $pdf->stream('overtime.pdf');
+            }
+        }else if($request->title == 4){
+            $month = $request->month;
+            $year = $request->year;
+            $start_date = Carbon::createFromDate($year, $month, 1)->startOfMonth()->format('Y-m-d');
+            $end_date = Carbon::createFromDate($year, $month, 1)->endOfMonth()->format('Y-m-d');
+
+            // $datas = ProcessAttendence::select('employee_id','work_date','ot_hours','org_id')
+            //         ->with([
+            //             'employee:id,name,employee_id,department_id,designation_id,org_id,unit,line',
+            //             'employee.department:id,department,parent_department_id',
+            //             'employee.department.parentDepartment:id,department',
+            //             'employee.designation:id,designation,category_code',
+            //             'employee.lineData:id,line,code',
+            //             'employee.unitData:id,unit,code',
+            //             'organization:id,short_name',
+            //         ])
+            //         ->where('org_id', $request->organization_id)
+            //         ->whereBetween('work_date', [$start_date, $end_date])
+            //         ->where('ot_hours', '>', 0)
+            //         ->when($request->filled('employee_id'), function ($query) use ($request) {
+            //             $query->where('employee_id', $request->employee_id);
+            //         }, function ($query) use ($request) {
+            //             $query->whereHas('employee', function ($subQuery) use ($request) {
+            //                 $subQuery
+            //                     ->when(!empty($request->department_id), function ($q) use ($request) {
+            //                         $q->whereIn('department_id', $request->department_id);
+            //                     })
+            //                     ->when(!empty($request->designation_id), function ($q) use ($request) {
+            //                         $q->whereIn('designation_id', $request->designation_id);
+            //                     });
+            //             });
+            //         })
+            //         ->when($request->filled('category_id'), function ($q) use ($request) {
+            //             $q->whereHas('employee.designation', function ($q2) use ($request) {
+            //                 $q2->where('category_code', $request->category_id);
+            //             });
+            //         })
+            //         ->get();
+
+            // $groupedData = collect($datas)
+            //     ->groupBy(function ($item) {
+            //         return $item->employee->department->parentDepartment->id ?? 0;
+            //     })
+            //     ->map(function ($parent) {
+            //         $parentDepartment = $parent->first()
+            //             ->employee
+            //             ->department
+            //             ->parentDepartment;
+
+            //         return [
+            //             'parent_department_id'   => $parentDepartment->id ?? 0,
+            //             'parent_department_name' => $parentDepartment->department ?? 'N/A',
+
+            //             'departments' => $parent
+            //                 ->groupBy(function ($item) {
+            //                     return $item->employee->department->id ?? 0;
+            //                 })
+            //                 ->map(function ($department) {
+            //                     $dept = $department->first()->employee->department;
+
+            //                     $lines = $department
+            //                         ->filter(function ($item) {
+            //                             return filled($item->employee->line)
+            //                                 && $item->employee->lineData;
+            //                         })
+            //                         ->groupBy(function ($item) {
+            //                             return $item->employee->lineData->code;
+            //                         });
+
+            //                     if ($lines->isNotEmpty()) {
+            //                         return [
+            //                             'department_id'   => $dept->id ?? 0,
+            //                             'department_name' => $dept->department ?? 'N/A',
+
+            //                             'lines' => $lines
+            //                                 ->map(function ($line) {
+            //                                     $lineData = $line->first()->employee->lineData;
+
+            //                                     return [
+            //                                         'line_id'   => $lineData->id,
+            //                                         'line_code' => $lineData->code,
+            //                                         'line_name' => $lineData->line,
+
+            //                                         'dates' => $line
+            //                                             ->groupBy('work_date')
+            //                                             ->map(function ($date) {
+            //                                                 return $date->sum('ot_hours');
+            //                                             })
+            //                                             ->sortKeys(),
+            //                                     ];
+            //                                 })
+            //                                 ->values(),
+            //                         ];
+            //                     }
+
+            //                     return [
+            //                         'department_id'   => $dept->id ?? 0,
+            //                         'department_name' => $dept->department ?? 'N/A',
+
+            //                         'dates' => $department
+            //                             ->groupBy('work_date')
+            //                             ->map(function ($date) {
+            //                                 return $date->sum('ot_hours');
+            //                             })
+            //                             ->sortKeys(),
+            //                     ];
+            //                 })
+            //                 ->values(),
+            //         ];
+            //     })
+            //     ->values();
+
+
+            $datas = ProcessAttendence::select('employee_id','work_date','ot_hours','org_id'
+            )
+            ->with([
+                'employee:id,name,employee_id,department_id,designation_id,org_id,unit,line',
+                'employee.department:id,department,parent_department_id',
+                'employee.department.parentDepartment:id,department',
+                'employee.designation:id,designation,category_code',
+                'employee.lineData:id,line,code',
+                'employee.unitData:id,unit,code',
+                'organization:id,short_name',
+            ])
+            ->where('org_id', $request->organization_id)
+            ->whereBetween('work_date',[$start_date, $end_date])
+            ->where('ot_hours', '>', 0)
+            ->when(
+                $request->filled('employee_id'),
+                function ($query) use ($request) {
+                    $query->where(
+                        'employee_id',
+                        $request->employee_id
+                    );
+
+                },
+                function ($query) use ($request) {
+                    $query->whereHas(
+                        'employee',
+                        function ($subQuery) use ($request) {
+
+                            $subQuery
+
+                                ->when(
+                                    !empty($request->department_id),
+                                    function ($q) use ($request) {
+
+                                        $q->whereIn(
+                                            'department_id',
+                                            $request->department_id
+                                        );
+                                    }
+                                )
+
+                                ->when(
+                                    !empty($request->designation_id),
+                                    function ($q) use ($request) {
+
+                                        $q->whereIn(
+                                            'designation_id',
+                                            $request->designation_id
+                                        );
+                                    }
+                                );
+                        }
+                    );
+                }
+            )
+            ->when(
+                $request->filled('category_id'),
+                function ($q) use ($request) {
+
+                    $q->whereHas(
+                        'employee.designation',
+                        function ($q2) use ($request) {
+
+                            $q2->where(
+                                'category_code',
+                                $request->category_id
+                            );
+                        }
+                    );
+                }
+            )
+            ->get();
+
+            $groupedData = collect($datas)
+                ->groupBy(function ($item) {
+                    return $item->employee
+                        ->department
+                        ->parentDepartment
+                        ->id ?? 0;
+                })
+                ->map(function ($parent) {
+                    $parentDepartment = $parent
+                        ->first()
+                        ->employee
+                        ->department
+                        ->parentDepartment;
+                    return [
+                        'parent_department_id' =>$parentDepartment->id ?? 0,
+                        'parent_department_name' =>$parentDepartment->department ?? 'N/A',
+                        'departments' => $parent
+                            // Department
+                            ->groupBy(function ($item) {
+                                return $item->employee
+                                    ->department
+                                    ->id ?? 0;
+                            })
+                            ->map(function ($department) {
+                                $dept = $department
+                                    ->first()
+                                    ->employee
+                                    ->department;
+                                /*
+                                |--------------------------------------------------------------------------
+                                | UNIT CHECK
+                                |
+                                | Employee.unit -> Unit.code
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $units = $department
+                                    ->filter(function ($item) {
+                                        return filled(
+                                            $item->employee->unit
+                                        )
+                                        && $item->employee->unitData;
+                                    })
+                                    ->groupBy(function ($item) {
+                                        return $item
+                                            ->employee
+                                            ->unitData
+                                            ->id;
+                                    })->sortBy(function ($unit) {
+                                        return $unit->first()->employee->unitData->unit;
+                                    });
+                                /*
+                                |--------------------------------------------------------------------------
+                                | UNIT EXISTS
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if ($units->isNotEmpty()) {
+                                    return [
+                                        'department_id' =>$dept->id ?? 0,
+                                        'department_name' =>$dept->department ?? 'N/A',
+                                        'units' => $units
+                                            ->map(function ($unit) {
+                                                $unitData = $unit
+                                                    ->first()
+                                                    ->employee
+                                                    ->unitData;
+
+                                                /*
+                                                |--------------------------------------------------------------------------
+                                                | LINE CHECK INSIDE UNIT
+                                                |
+                                                | Employee.line -> Line.code
+                                                |--------------------------------------------------------------------------
+                                                */
+
+                                                $lines = $unit
+                                                    ->filter(function ($item) {
+                                                        return filled(
+                                                            $item->employee->line
+                                                        )
+                                                        && $item->employee->lineData;
+                                                    })
+
+                                                    ->groupBy(function ($item) {
+                                                        return $item
+                                                            ->employee
+                                                            ->lineData
+                                                            ->id;
+                                                    })->sortBy(function ($line) {
+                                                        return $line->first()->employee->lineData->line;
+                                                    });
+
+                                                /*
+                                                |--------------------------------------------------------------------------
+                                                | UNIT + LINE
+                                                |--------------------------------------------------------------------------
+                                                */
+
+                                                if ($lines->isNotEmpty()) {
+
+                                                    return [
+                                                        'unit_id' =>$unitData->id,
+                                                        'unit_code' =>$unitData->code,
+                                                        'unit_name' =>$unitData->unit,
+
+                                                        'lines' => $lines
+                                                            ->map(function ($line) {
+                                                                $lineData = $line
+                                                                    ->first()
+                                                                    ->employee
+                                                                    ->lineData;
+
+
+                                                                return [
+                                                                    'line_id' =>$lineData->id,
+                                                                    'line_code' =>$lineData->code,
+                                                                    'line_name' =>$lineData->line,
+                                                                    'dates' => $line
+                                                                        ->groupBy(
+                                                                            'work_date'
+                                                                        )
+                                                                        ->map(function ($date) {
+                                                                            return $date->sum( 'ot_hours');
+                                                                        })
+                                                                        ->sortKeys(),
+                                                                ];
+                                                            })
+                                                            ->values(),
+                                                    ];
+                                                }
+
+
+                                                /*
+                                                |--------------------------------------------------------------------------
+                                                | UNIT EXISTS BUT NO LINE
+                                                |--------------------------------------------------------------------------
+                                                */
+
+                                                return [
+                                                    'unit_id' =>$unitData->id,
+                                                    'unit_code' =>$unitData->code,
+                                                    'unit_name' =>$unitData->unit,
+                                                    'dates' => $unit
+                                                        ->groupBy( 'work_date' )
+                                                        ->map(function ($date) {
+                                                            return $date->sum( 'ot_hours');
+                                                        })
+
+                                                        ->sortKeys(),
+                                                ];
+                                            })
+
+                                            ->values(),
+                                    ];
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | NO UNIT
+                                |
+                                | Department -> Line
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $lines = $department
+                                    ->filter(function ($item) {
+                                        return filled(
+                                            $item->employee->line
+                                        )
+                                        && $item->employee->lineData;
+                                    })
+
+                                    ->groupBy(function ($item) {
+                                        return $item
+                                            ->employee
+                                            ->lineData
+                                            ->id;
+                                    });
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | NO UNIT + LINE EXISTS
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if ($lines->isNotEmpty()) {
+
+                                    return [
+
+                                        'department_id' =>$dept->id ?? 0,
+                                        'department_name' =>$dept->department ?? 'N/A',
+                                        'lines' => $lines
+
+                                            ->map(function ($line) {
+                                                $lineData = $line
+                                                    ->first()
+                                                    ->employee
+                                                    ->lineData;
+
+
+                                                return [
+                                                    'line_id' =>$lineData->id,
+                                                    'line_code' =>$lineData->code,
+                                                    'line_name' =>$lineData->line,
+                                                    'dates' => $line
+                                                        ->groupBy( 'work_date' )
+                                                        ->map(function ($date) {
+                                                            return $date->sum( 'ot_hours');
+                                                        })
+                                                        ->sortKeys(),
+                                                ];
+                                            })
+
+                                            ->values(),
+                                    ];
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | NO UNIT + NO LINE
+                                |--------------------------------------------------------------------------
+                                */
+
+                                return [
+                                    'department_id' =>$dept->id ?? 0,
+                                    'department_name' =>$dept->department ?? 'N/A',
+                                    'dates' => $department
+                                        ->groupBy( 'work_date' )
+                                        ->map(function ($date) {
+                                            return $date->sum( 'ot_hours');
+                                        })
+                                        ->sortKeys(),
+                                ];
+                            })
+                            ->values(),
+                    ];
+                })
+
+                ->values();
+
+            //dd($groupedData);
+
+            $grouped = $datas->groupBy('employee_id');
+            $dates = [];
+            foreach (CarbonPeriod::create($start_date, $end_date) as $date) {
+                $dates[] = $date->format('Y-m-d');
+            }
+            $organization = Organization::active()->where('id', $request->organization_id)->first()->name;
+            $title = $request->title;
+            $monthName = Carbon::parse($start_date)->format('F');
+            $orgid = $request->organization_id;
+
+            if ($request->view_mode == 1) {
+                return view('payroll::report.overtime.preview', compact('datas','groupedData','title','grouped','start_date','end_date','dates','organization','monthName','year','orgid'));
+            } elseif ($request->view_mode == 2) {
+                ini_set('memory_limit', '4048M');
+                ini_set('max_execution_time', '700');
+                $pdf = Pdf::loadView('payroll::report.overtime.pdf', compact('datas','groupedData','title','grouped','start_date','end_date','dates','organization','monthName','year','orgid'))->setPaper('a4', 'landscape');
                 return $pdf->stream('overtime.pdf');
             }
         }

@@ -36,15 +36,10 @@
                                             value="{{ old('spouse_name_bangla', $employee_bangla->spouse_name_bangla ?? '') }}" />
                                     </td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <th style="border: none;">&nbsp; &nbsp;</th>
                                     <td style="border: none;">&nbsp; &nbsp;</td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
-                            <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
+                                </tr> --}}
                                 <tr>
                                     <th width="30%" style="border: none;">সনাক্ত করণ চিহ্ন</th>
                                     <td width="70%" style="border: none;"><x-text-input name="identification"
@@ -52,6 +47,18 @@
                                             value="{{ old('identification', $employee_bangla->identification ?? '') }}" />
                                     </td>
                                 </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
+                            <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
+                                {{-- <tr>
+                                    <th width="30%" style="border: none;">সনাক্ত করণ চিহ্ন</th>
+                                    <td width="70%" style="border: none;"><x-text-input name="identification"
+                                            id="identification" class="form-control-sm" placeholder="সনাক্ত করণ চিহ্ন"
+                                            value="{{ old('identification', $employee_bangla->identification ?? '') }}" />
+                                    </td>
+                                </tr> --}}
                                 <tr>
                                     <th width="30%" style="border: none;">আচরণ</th>
                                     <td width="70%" style="border: none;"><x-text-input name="conduct" id="conduct"
@@ -64,6 +71,13 @@
                                     <td width="70%" style="border: none;"><x-text-input name="nname_bangla"
                                             id="nname_bangla" class="form-control-sm" placeholder="নমিনির নাম"
                                             value="{{ old('nname_bangla', $employee_bangla->nname_bangla ?? '') }}"
+                                            required /></td>
+                                </tr>
+                                <tr>
+                                    <th width="30%" style="border: none;">নমিনির পিতার নাম </th>
+                                    <td width="70%" style="border: none;"><x-text-input name="nfname_bangla"
+                                            id="nfname_bangla" class="form-control-sm" placeholder="নমিনির পিতার নাম"
+                                            value="{{ old('nfname_bangla', $employee_bangla->nfname_bangla ?? '') }}"
                                             required /></td>
                                 </tr>
                                 <tr>

@@ -15,7 +15,7 @@ class AssessmentRequest extends FormRequest
             'applicant_id' => 'required|integer|exists:hris_database_new_applicant,id',
             'degree_id' => 'required|integer|exists:hris_setup_degrees,id',
             'name' => 'required|string|max:255',
-            'name_bangla' => 'required|string|max:255',
+            'name_bangla' => 'nullable|string|max:255',
             'mobile' => 'required|string|max:11',
             'line' => 'required|integer|between:1,10',
             'designation_id' => 'required|integer|exists:hris_setup_designations,id',

@@ -17,7 +17,11 @@ class QualityQuestionRequest extends FormRequest
         return [
             'sl' => ['required', 'integer'],
             'type' => ['required', 'integer'],
-            'department_id' => ['required', 'integer'],
+            'department_id' => [
+                'nullable',
+                'integer',
+                'exists:hris_setup_departments,id',
+            ],
             'question' => [
                 'required',
                 'string',
@@ -36,14 +40,14 @@ class QualityQuestionRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('ipe_setup_quality_questions', 'answer')->ignore($id),
+                // Rule::unique('ipe_setup_quality_questions', 'answer')->ignore($id),
             ],
 
             'answer_bn' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('ipe_setup_quality_questions', 'answer_bn')->ignore($id),
+                // Rule::unique('ipe_setup_quality_questions', 'answer_bn')->ignore($id),
             ],
 
             'is_active' => ['required', 'boolean'],

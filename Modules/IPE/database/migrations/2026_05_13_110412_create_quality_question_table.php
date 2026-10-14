@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('sl');
             $table->integer('type')->index();
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->string('question')->unique();
             $table->string('question_bn')->index()->unique();
             $table->string('answer')->unique();

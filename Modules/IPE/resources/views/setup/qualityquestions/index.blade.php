@@ -48,7 +48,7 @@
                                     <td>
                                         <select name="type" id="type" class="form-control form-control-sm">
                                             <option value="1">General</option>
-                                            <option value="2">Practical</option>
+                                            <option value="2" selected>Practical</option>
                                         </select>
                                         @error('type')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -56,6 +56,7 @@
                                     </td>
                                     <td>
                                         <select name="department_id" id="department_id" class="form-control form-control-sm">
+                                            <option value="">All</option>
                                             @foreach ($departmnetlist as $department)
                                                 <option value="{{ $department->id }}">{{ $department->department }}</option>
                                             @endforeach
@@ -107,7 +108,7 @@
                                         <td class="text-center">
                                             <span class="badge {{ $packingQuestion->type == 1 ? 'bg-primary' : 'bg-success' }}">{{ $packingQuestion->type == 1 ? 'General' : 'Practical' }}</span>
                                         </td>
-                                        <td>{{ $packingQuestion->department->department }}</td>
+                                        <td>{{ $packingQuestion?->department?->department ?? 'All' }}</td>
                                         <td>{{ $packingQuestion->question }}</td>
                                         <td>{{ $packingQuestion->question_bn }}</td>
                                         <td>{{ $packingQuestion->answer }}</td>
@@ -137,7 +138,7 @@
                                                             @method('PUT')
                                                             <x-input-group name="sl" label="Group" type="text" placeholder="Enter SL" :value="$packingQuestion->sl" required />
                                                             <x-select-input-group name="type" label="Type" :options="['1' => 'General', '2' => 'Practical']" :selected="$packingQuestion->type" required />
-                                                            <x-select-input-group name="department_id" label="Department" :options="$lists" :selected="$packingQuestion->department_id" required />
+                                                            <x-select-input-group name="department_id" label="Department" :options="$lists" :selected="$packingQuestion->department_id" />
                                                             <x-input-group name="question" label="Question" placeholder="Enter question" :value="$packingQuestion->question" required />
                                                             <x-input-group name="question_bn" label="Question Bangla" placeholder="Enter question bangla" :value="$packingQuestion->question_bn" required />
                                                             <x-input-group name="answer" label="Answer" placeholder="Enter answer" :value="$packingQuestion->answer" required />
