@@ -173,7 +173,7 @@
                             response.data.forEach(emp => {
                                 let startPunch = emp.start_punch || '0000-00-00 00:00';
                                 let endPunch = emp.end_punch || '0000-00-00 00:00';
-                                let empId = String(emp.employee_id).padStart(6, '0');
+                                let empId = String(emp.employee_id).padStart(8, '0');
 
                                 const date = new Date(emp.work_date);
 
@@ -259,7 +259,7 @@
 
                                 let startPunch = emp.start_punch || '';
                                 let endPunch = emp.end_punch || '';
-                                let empId = String(emp.employee_id).padStart(6, '0');
+                                let empId = String(emp.employee_id).padStart(8, '0');
 
                                 const date = new Date(emp.work_date);
 
