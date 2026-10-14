@@ -30,8 +30,10 @@
                 <h4 class="text-center flex-grow-1 order-1 order-md-0 mb-2 mb-md-0">Sales Contact</h4>
                 <form action="#" method="POST" class="d-flex order-0 order-md-1" style="max-width: 400px;" role="search">
                     @csrf
-                    <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Sales Contact No ..." aria-label="Search">
-                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"> <i data-feather="search" width="14" height="14" class="me-1"></i> Search </button>
+                    <input class="form-control form-control-sm me-2" type="search" name="search"
+                        placeholder="Sales Contact No ..." aria-label="Search">
+                    <button class="btn btn-sm btn-primary d-flex align-items-center" type="submit"> <i
+                            data-feather="search" width="14" height="14" class="me-1"></i> Search </button>
                 </form>
             </div>
         </div>
@@ -39,7 +41,8 @@
         <div class="col-lg-3 pe-lg-0">
             <div class="card alert-primary alert-top-border padding-card">
                 <div class="card-header">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Sales Contact List</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="18" height="18"></i> Sales Contact
+                        List</h6>
                 </div>
                 <div class="card-body" style="min-height: 477px;max-height: 477px; overflow-y: auto;">
                     {{-- @php
@@ -121,7 +124,7 @@
         </div>
 
         <div class="col-lg-9">
-            <form action="#" id="salesContactForm" method="POST">
+            <form action="{{ route('commercial.database.sales-contact.store') }}" id="salesContactForm" method="POST">
                 @csrf
                 <div class="card alert-info alert-top-border">
                     <div class="card-header d-flex justify-content-between align-items-center px-10 py-12">
@@ -135,38 +138,60 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0 pe-md-0">
                                         <table class="table table-striped mb-0" id="employeeTable" width="100%">
                                             <tr>
-                                                <th width="35%" style="border: none;">Contact No</th>
-                                                <td width="65%" style="border: none;"><x-text-input name="contact_no" id="contact_no" class="form-control-sm" placeholder="Contact No" required  /></td>
+                                                <th width="40%" style="border: none;">Contact No</th>
+                                                <td colspan="2" width="60%" style="border: none;">
+                                                    <x-text-input name="contact_no" id="contact_no" class="form-control-sm" placeholder="Contact No" required /></td>
                                             </tr>
                                             <tr>
-                                                <th width="35%" style="border: none;">Date</th>
-                                                <td width="65%" style="border: none;"><x-text-input name="date" type="date" id="date" class="form-control-sm" placeholder="Date" required  /></td>
+                                                <th width="40%" style="border: none;">Date</th>
+                                                <td colspan="2" width="60%" style="border: none;">
+                                                    <x-text-input name="date" type="date" id="date" class="form-control-sm" placeholder="Date" required /></td>
                                             </tr>
                                             <tr>
-                                                <th width="35%" style="border: none;">Revised Date </th>
-                                                <td width="65%" style="border: none;"><x-text-input name="revised_date" id="revised_date" type="date" class="form-control-sm" placeholder="Revised Date"  /></td>
+                                                <th width="40%" style="border: none;">Revised Date </th>
+                                                <td colspan="2" width="60%" style="border: none;">
+                                                    <x-text-input name="revised_date" id="revised_date" type="date" class="form-control-sm" placeholder="Revised Date" />
+                                                </td>
                                             </tr>
+                                            
                                             <tr>
-                                                <th width="35%" style="border: none;">Buyer </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="buyer_id" id="buyer_id" class="select2" :options="$buyerlist" required /></td>
-                                            </tr>
-                                            <tr>
-                                                <th width="35%" style="border: none;">Supplier </th>
-                                                <td width="65%" style="border: none;">
+                                                <th width="40%" style="border: none;">Supplier </th>
+                                                <td colspan="2" width="60%" style="border: none;">
                                                     <x-select-input name="supplier_id" id="supplier_id" class="select2" :options="$orglist" :selected="selected_org($orglist)" required />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th width="35%" style="border: none;">Supplier Address </th>
-                                                <td width="65%" style="border: none;">
-                                                     <textarea name="supplier_address" id="supplier_address" class="form-control form-control-sm" placeholder="Supplier Address">01, Haricane Road, Dowlatpur, National University, Gazipur
+                                                <th width="40%" style="border: none;">Supplier Address </th>
+                                                <td colspan="2" width="60%" style="border: none;">
+                                                    <textarea name="supplier_address" id="supplier_address" class="form-control form-control-sm"
+                                                        placeholder="Supplier Address">01, Haricane Road, Dowlatpur, National University, Gazipur
                                                      </textarea>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th width="35%" style="border: none;">Supplier Bank </th>
-                                                <td width="65%" style="border: none;">
-                                                     <textarea name="supplier_address" id="supplier_address" class="form-control form-control-sm" placeholder="Supplier Address"></textarea>
+                                                <th width="40%" style="border: none;">Supplier Bank </th>
+                                                <td colspan="2" width="60%" style="border: none;">
+                                                    <textarea name="supplier_address" id="supplier_address" class="form-control form-control-sm" placeholder="Supplier Address"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th width="40%" style="border: none;">Contact Quantity</th>
+                                                <td width="40%" style="border: none;">
+                                                    <x-text-input name="quantity_tolerance" id="quantity_tolerance" type="number" min="0" max="40" step="any" class="form-control-sm" value="0" placeholder="Quantity Tolerance (%)" required />
+                                                </td>
+                                                <td width="20%" style="border: none;">
+                                                    <x-select-input name="unit_id" id="unit_id" class="select2" :options="$unit" :selected="22" required />
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th width="40%" style="border: none;">Contact Value</th>
+                                                <td width="40%" style="border: none;">
+                                                    <x-text-input name="value_tolerance" id="value_tolerance" type="number" min="0" max="40" step="any" class="form-control-sm" value="0" placeholder="Value Tolerance (%)" required />
+                                                </td>
+                                                
+                                                <td width="20%" style="border: none;">
+                                                    <x-select-input name="currency_id_id" class="select2" :options="$currency" :selected="1" required />
                                                 </td>
                                             </tr>
                                         </table>
@@ -175,37 +200,50 @@
                                     <div class="col-lg-6 col-md-6 pe-lg-0">
                                         <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                             <tr>
+                                                <th width="35%" style="border: none;">Buyer </th>
+                                                <td colspan="2" width="65%" style="border: none;">
+                                                    <x-select-input name="buyer_id" id="buyer_id" class="select2" :options="$buyerlist" required />
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <th width="35%" style="border: none;">Tolerance (%)</th>
-                                                <td width="65%" style="border: none;"><x-text-input name="tolerance" id="tolerance" type="number" min="0" max="40" step="any" class="form-control-sm" value="0"  placeholder="Tolerance" required /></td>
+                                                <td width="65%" style="border: none;">
+                                                    <x-text-input name="tolerance" id="tolerance" type="number" min="0" max="40" step="any" class="form-control-sm" value="0" placeholder="Tolerance" required />
+                                                </td>
                                             </tr>
 
                                             <tr>
                                                 <th width="35%" style="border: none;">Agent Commission </th>
-                                                <td width="65%" style="border: none;"><x-text-input name="agent_commission" id="agent_commission" type="number" min="0" max="40" step="any" value="0" class="form-control-sm"  placeholder="Agent Commission" required /></td>
+                                                <td width="65%" style="border: none;">
+                                                    <x-text-input name="agent_commission" id="agent_commission" type="number" min="0" max="40" step="any" value="0" class="form-control-sm" placeholder="Agent Commission" required />
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Shipment Mode </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="shipment_mode_id" id="shipment_mode_id" class="select2" :options="$shipmode" required /></td>
+                                                <td width="65%" style="border: none;">
+                                                    <x-select-input name="shipment_mode_id" id="shipment_mode_id" class="select2" :options="$shipmode" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Payment Terms </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="payment_terms_id" id="payment_terms_id" class="select2" :options="$ptarms" required /></td>
+                                                <td width="65%" style="border: none;">
+                                                    <x-select-input name="payment_terms_id" id="payment_terms_id" class="select2" :options="$ptarms" required /></td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Delivery Terms </th>
-                                                <td width="65%" style="border: none;"><x-select-input name="delivery_terms_id" id="delivery_terms_id" class="select2" :options="$deliveryterm" required /></td>
+                                                <td width="65%" style="border: none;">
+                                                    <x-select-input name="delivery_terms_id" id="delivery_terms_id" class="select2" :options="$deliveryterm" required /></td>
                                             </tr>
-                                            
+
                                             <tr>
                                                 <th width="35%" style="border: none;">Buyer Address </th>
                                                 <td width="65%" style="border: none;">
-                                                     <textarea name="buyer_address" id="buyer_address" class="form-control form-control-sm" placeholder="Buyer Address"></textarea>
+                                                    <textarea name="buyer_address" id="buyer_address" class="form-control form-control-sm" placeholder="Buyer Address"></textarea>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th width="35%" style="border: none;">Buyer Bank </th>
                                                 <td width="65%" style="border: none;">
-                                                     <textarea name="buyer_bank" id="buyer_bank" class="form-control form-control-sm" placeholder="Buyer Bank"></textarea>
+                                                    <textarea name="buyer_bank" id="buyer_bank" class="form-control form-control-sm" placeholder="Buyer Bank"></textarea>
                                                 </td>
                                             </tr>
                                         </table>
@@ -217,37 +255,42 @@
                                 <table class="table table-striped" id="employeeTable" width="100%">
                                     <tr>
                                         <th width="35%" style="border: none;">Consignee </th>
-                                        <td width="65%" style="border: none;"><x-select-input name="consignee_id" id="consignee_id" class="select2" :options="[]" /></td>
+                                        <td width="65%" style="border: none;">
+                                            <x-select-input name="consignee_id" id="consignee_id" class="select2" :options="[]" /></td>
                                     </tr>
                                     <tr>
                                         <th width="35%" style="border: none;">Payment Method </th>
-                                        <td width="65%" style="border: none;"><x-select-input name="payment_method_id"
-                                                id="payment_method_id" class="select2" :options="$pmethod" required /></td>
+                                        <td width="65%" style="border: none;">
+                                            <x-select-input name="payment_method_id" id="payment_method_id" class="select2" :options="$pmethod" required /></td>
                                     </tr>
                                     <tr>
                                         <th width="35%" style="border: none;">Additional Terms </th>
-                                        <td width="65%" style="border: none;"><x-text-input name="additional_terms" id="additional_terms" type="text" class="form-control-sm"  placeholder="Additional Terms" /></td>
+                                        <td width="65%" style="border: none;">
+                                            <x-text-input name="additional_terms" id="additional_terms" type="text" class="form-control-sm" placeholder="Additional Terms" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th width="35%" style="border: none;">Expiry Date </th>
-                                        <td width="65%" style="border: none;"><x-text-input name="expiry_date" id="expiry_date" type="date" class="form-control-sm" placeholder="Expiry Date"  /></td>
+                                        <td width="65%" style="border: none;">
+                                            <x-text-input name="expiry_date" id="expiry_date" type="date" class="form-control-sm" placeholder="Expiry Date" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th width="35%" style="border: none;">Consignee Address </th>
                                         <td width="65%" style="border: none;">
-                                                <textarea name="consignee_address" id="consignee_address" class="form-control form-control-sm" placeholder="Consignee Address"></textarea>
+                                            <textarea name="consignee_address" id="consignee_address" class="form-control form-control-sm" placeholder="Consignee Address"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th width="35%" style="border: none;">Consignee Bank </th>
                                         <td width="65%" style="border: none;">
-                                                <textarea name="consignee_bank" id="consignee_bank" class="form-control form-control-sm" placeholder="Consignee Bank"></textarea>
+                                            <textarea name="consignee_bank" id="consignee_bank" class="form-control form-control-sm" placeholder="Consignee Bank"></textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th width="35%" style="border: none;">Remarks</th>
                                         <td width="65%" style="border: none;">
-                                                <textarea name="remarks" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></textarea>
+                                            <textarea name="remarks" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></textarea>
                                         </td>
                                     </tr>
                                 </table>

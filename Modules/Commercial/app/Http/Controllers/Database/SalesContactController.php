@@ -3,6 +3,7 @@
 namespace Modules\Commercial\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
+use App\Models\Master\Setup\Unit;
 use Illuminate\Http\Request;
 use Modules\Commercial\Models\Setup\DeliveryTerm;
 use Modules\Commercial\Models\Setup\PaymentMethod;
@@ -25,8 +26,16 @@ class SalesContactController extends Controller
         $pmethod = PaymentMethod::query()->active()->pluck('name','id');
         $shipmode = ShipmentMode::query()->active()->pluck('name','id');
         $deliveryterm = DeliveryTerm::query()->active()->pluck('name','id');
+        $unit = Unit::query()->active()->pluck('name','id');
+        $currency = [
+            '1'=>'BDT (৳)',
+            '2'=>'USD ($)',
+            '3'=>'EUR (€)',
+            '4'=>'GBP (£)',
+            '5'=>'CNY (¥)',
+        ];
         
-        return view('commercial::database.salescontact.index', compact('buyerlist', 'orglist','ptarms','pmethod','shipmode','deliveryterm'));
+        return view('commercial::database.salescontact.index', compact('buyerlist', 'orglist','ptarms','pmethod','shipmode','deliveryterm','unit','currency'));
     }
 
     /**
@@ -40,7 +49,9 @@ class SalesContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(Request $request) {
+        dd($request->all());
+    }
 
     /**
      * Show the specified resource.

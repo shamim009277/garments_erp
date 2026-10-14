@@ -99,9 +99,7 @@ class SalaryReportController extends Controller
             if ($request->view_mode == 1) {
                 return view('payroll::report.salary.preview', compact('datas', 'title', 'uniqueDepartments', 'monthName', 'year', 'orgid'));
             } elseif ($request->view_mode == 2) {
-                $pdf = Pdf::loadView('payroll::report.salary.pdf', compact('datas', 'title', 'uniqueDepartments', 'monthName', 'year', 'orgid'))
-                    ->setPaper('Legal', 'landscape');
-
+                $pdf = Pdf::loadView('payroll::report.salary.pdf', compact('datas', 'title', 'uniqueDepartments', 'monthName', 'year', 'orgid'))->setPaper('Legal', 'landscape');
                 return $pdf->stream('salary.pdf');
             }
         }

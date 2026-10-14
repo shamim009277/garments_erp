@@ -36,8 +36,7 @@
         <div class="col-lg-8 ps-lg-0" style="margin:0px auto;">
             <div class="card alert-primary alert-top-border">
                 <div class="card-header" style="padding: 15px 16px;">
-                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Display For
-                        Employee ID</h6>
+                    <h6 class="my-0 text-primary"> <i data-feather="list" width="16" height="16"></i> Display For Employee ID</h6>
                 </div>
                 <div class="card-body" style="overflow-y: auto;">
                     <div class="col">
@@ -68,13 +67,13 @@
                                         <tr>
                                             <td style="border: none;">
                                                 <x-text-input name="start_date" id="start_date" class="form-control-sm"
-                                                    type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                    type="date" value="{{ $startDate }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="border: none;">
                                                 <x-text-input name="end_date" id="end_date" class="form-control-sm"
-                                                    type="date" value="{{ date('d-m-Y') }}" required readonly />
+                                                    type="date" value="{{ $endDate }}" required readonly />
                                             </td>
                                         </tr>
                                         <tr>

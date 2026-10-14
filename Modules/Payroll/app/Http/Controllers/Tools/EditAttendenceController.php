@@ -23,7 +23,9 @@ class EditAttendenceController extends Controller
     public function index()
     {
         $organizations = Organization::pluck('short_name', 'id')->toArray();
-        return view('payroll::tools.edit-attendence.index', compact('organizations'));
+        $startDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endDate = Carbon::now()->endOfMonth()->format('Y-m-d');
+        return view('payroll::tools.edit-attendence.index', compact('organizations', 'startDate', 'endDate'));
     }
 
     /**
