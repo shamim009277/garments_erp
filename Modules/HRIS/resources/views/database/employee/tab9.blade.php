@@ -203,6 +203,14 @@
                                             required /></td>
                                 </tr>
                                 <tr>
+                                    <th width="35%" style="border: none;">Father Name</th>
+                                    <td width="65%" style="border: none;"><x-text-input type="text"
+                                            name="nominee_fname" id="nominee_fname" class="form-control-sm"
+                                            placeholder="Father Name"
+                                            value="{{ $employee_personal->nominee_fname ?? old('nominee_fname') }}"
+                                            required /></td>
+                                </tr>
+                                <tr>
                                     <th width="35%" style="border: none;">Relation</th>
                                     <td width="65%" style="border: none;"><x-text-input type="text"
                                             name="relation" id="relation" class="form-control-sm"
@@ -234,6 +242,13 @@
                             <table class="table table-striped mb-0" id="presentAddressTable" width="100%">
                                 <h6 class="text-primary">Nominee Information</h6>
                                 <tr>
+                                    <th width="35%" style="border: none;">Date of Birth</th>
+                                    <td width="65%" style="border: none;"><x-text-input type="date"
+                                            name="nbirth_date" id="nbirth_date" class="form-control-sm"
+                                            value="{{ $employee_personal->nbirth_date }}"
+                                            placeholder="Birth Date" /></td>
+                                </tr>
+                                <tr>
                                     <th width="35%" style="border: none;">District</th>
                                     <td width="65%" style="border: none;"><x-select-input name="ndistrict_id"
                                             id="ndistrict_id" label="District" class="select2" :options="$districts"
@@ -259,6 +274,7 @@
                                             value="{{ $employee_personal->nvillage ?? old('nvillage') }}"
                                             placeholder="Address" /></td>
                                 </tr>
+
                             </table>
                         </div>
                         <div class="col-lg-4 col-md-6 pe-lg-0 pe-md-0">
@@ -275,6 +291,13 @@
                                             name="emergency_name" id="emergency_name" class="form-control-sm"
                                             value="{{ $employee_personal->emergency_name ?? old('emergency_name') }}"
                                             placeholder="Name" /></td>
+                                </tr>
+                                <tr>
+                                    <th width="35%" style="border: none;">Father Name</th>
+                                    <td width="65%" style="border: none;"><x-text-input type="text"
+                                            name="emergency_fname" id="emergency_fname" class="form-control-sm"
+                                            value="{{ $employee_personal->emergency_fname ?? old('emergency_fname') }}"
+                                            placeholder="Father Name" /></td>
                                 </tr>
                                 <tr>
                                     <th width="35%" style="border: none;">Mobile Number</th>
@@ -335,7 +358,6 @@
                     });
                 }
             });
-
             //$('#ndistrict_id').trigger('change');
         });
 
@@ -362,11 +384,12 @@
                     $('#emergency_name').val($('#nominee_name').val());
                     $('#emergency_mobile').val($('#nominee_mobile').val());
                     $('#emergency_relation').val($('#relation').val());
-
+                    $('#emergency_fname').val($('#nominee_fname').val());
                     generateAddress();
                 } else {
                     // Uncheck করলে clear
                     $('#emergency_name').val('');
+                    $('#emergency_fname').val('');
                     $('#emergency_mobile').val('');
                     $('#emergency_relation').val('');
                     $('#emergency_address').val('');

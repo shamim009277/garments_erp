@@ -59,10 +59,10 @@ Route::middleware(['auth', 'verified',ModuleActive::class.':payroll'])->group(fu
              Route::post('/edit-attendence/manual-store', [EditAttendenceController::class, 'manualStore'])->name('edit-attendence.manual-store');
              Route::resource('edit-attendence', EditAttendenceController::class)->names('edit-attendence');
 
-
              Route::post('/edit-punchdata/manual-store', [EditPunchDataController::class, 'manualStore'])->name('edit-punchdata.manual-store');
              Route::resource('edit-punchdata', EditPunchDataController::class)->names('edit-punchdata');
 
+             Route::get('/ot-adjustment/employees', [OTAdjustmentController::class, 'getEmployees'])->name('ot-adjustment.employees');
              Route::resource('ot-adjustment', OTAdjustmentController::class)->names('ot-adjustment');
              Route::resource('attendence-adjustment', AttendenceAdjustmentController::class)->names('attendence-adjustment');
         });

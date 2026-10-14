@@ -43,26 +43,30 @@ class EmpGatePassController extends Controller
             return redirect()->back()->with('error', 'You are not authorized to approve this employee gate pass.');
         }
         //check if employee gate pass already exists
-        $overlapExists = DB::table('hris_database_employee_gatepass')
-            ->where('employee_id', $request->employee_id)
-            ->where('date', $request->date)
-            ->where(function($query) use ($request) {
-                $query->whereBetween('start_time', [$request->start_time, $request->end_time])
-                      ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
-                      ->orWhere(function($q) use ($request) {
-                          $q->where('start_time', '<=', $request->start_time)
-                            ->where('end_time', '>=', $request->start_time);
-                      })
-                      ->orWhere(function($q) use ($request) {
-                          $q->where('start_time', '<=', $request->end_time)
-                            ->where('end_time', '>=', $request->end_time);
-                      });
-            })
-            ->exists();
-
-        if ($overlapExists) {
-            return redirect()->back()->with('error', 'This time slot overlaps with an existing gatepass.');
+        if ($request->type_id == 1){
+            $overlapExists = DB::table('hris_database_employee_gatepass')
+                ->where('employee_id', $request->employee_id)
+                ->where('date', $request->date)
+                ->where(function($query) use ($request) {
+                    $query->whereBetween('start_time', [$request->start_time, $request->end_time])
+                          ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
+                          ->orWhere(function($q) use ($request) {
+                              $q->where('start_time', '<=', $request->start_time)
+                                ->where('end_time', '>=', $request->start_time);
+                          })
+                          ->orWhere(function($q) use ($request) {
+                              $q->where('start_time', '<=', $request->end_time)
+                                ->where('end_time', '>=', $request->end_time);
+                          });
+                })
+                ->exists();
+                
+            if ($overlapExists) {
+                return redirect()->back()->with('error', 'This time slot overlaps with an existing gatepass.');
+            }
         }
+
+        
 
         //check every day max 3 gatepass
         if ($request->type_id == 1) {

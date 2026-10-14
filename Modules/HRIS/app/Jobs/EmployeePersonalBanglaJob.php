@@ -86,6 +86,12 @@ class EmployeePersonalBanglaJob implements ShouldQueue
                     translator: $translator
                 ),
 
+                'nfname_bangla' => $this->translateField(
+                    english: $this->employee->nominee_fname,
+                    existing: $existing->nfname_bangla ?? null,
+                    translator: $translator
+                ),
+
                 'relation_bangla' => $this->translateField(
                     english: $this->employee->relation,
                     existing: $existing->relation_bangla ?? null,
@@ -113,6 +119,12 @@ class EmployeePersonalBanglaJob implements ShouldQueue
                 'emergency_name' => $this->translateField(
                     english: $this->employee->emergency_name,
                     existing: $existing->emergency_name ?? null,
+                    translator: $translator
+                ),
+
+                'emergency_fname' => $this->translateField(
+                    english: $this->employee->emergency_fname,
+                    existing: $existing->emergency_fname ?? null,
                     translator: $translator
                 ),
 

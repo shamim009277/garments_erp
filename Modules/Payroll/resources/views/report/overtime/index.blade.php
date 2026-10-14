@@ -75,6 +75,10 @@
                                             <label class="form-check-label" for="title3">Department-wise Monthly Total Overtime</label>
                                         </div>
                                        </br>
+                                       <div class="form-check">
+                                            <input type="radio" id="title4" name="title" value="4"class="form-check-input titles">
+                                            <label class="form-check-label" for="title4">Section Wise Monthly Overtime Summary</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +362,7 @@ $(document).ready(function () {
         // Enable Flatpickr
         enablePicker(datePicker);
 
-        if (selectedValue == '1') {
+        if (selectedValue == '1' || selectedValue == '4') {
             // Joining (Range)
             $month.prop('disabled', false);
             $year.prop('disabled', false);
